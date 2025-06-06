@@ -4,21 +4,117 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UeMKUFMnWNbhRbEj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "hCBIDqLoaomtVumJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) within their entire bound yard",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xNumFo6zFMddKGAf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Master of the Yard",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The dvorovoi helps or causes trouble in the yard, milking or scaring cows, protecting or scattering tools, and so forth. By commanding their home to attack, the dvorovoi can @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], @UUID[Compendium.pf2e.actionspf2e.Item.Trip], and @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] with their enraged home Strike.</p>\n<p>The dvorovoi uses their Household Lore instead of Athletics skill for these checks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D4ExwJPbq9vP2fZU",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shy",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A dvorovoi is naturally @UUID[Compendium.pf2e.conditionitems.Item.Invisible] while within sight of their bound home. The dvorovoi can become visible, or even selectively visible-allowing some people to see them.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cKc30rN0MdOPS48L",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rile Augdunars",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> or <span class=\"action-glyph\">2</span></p>\n<hr />\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Algerschmick goads the animals and incites their anger. She attempts a @Check[flat|dc:11] (@Check[flat|dc:6] if she used two actions). If she succeeds, she negates one successful check the PCs have made to disable the hazard. This action makes enough noise that attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] Algerschmick can detect her, even if she isn't in the area that a PC is searching.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
                     "value": 1
                 },
                 "publication": {
@@ -27,20 +123,86 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "eMLzHgxK6gQ67wx6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Household Lore",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "k1fBI6krs8NLi3AR",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hoof Knife",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "PT2KDcRdXC4aga1g",
@@ -49,7 +211,7 @@
             },
             "img": "icons/magic/nature/root-vines-grow-brown.webp",
             "name": "Entangle",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "details": "all squares in a 20-foot-radius burst that contain plants",
@@ -119,7 +281,7 @@
             },
             "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
             "name": "Speak with Animals (At Will)",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -179,7 +341,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm (Animals Only)",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -259,7 +421,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command (Animals Only)",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -340,7 +502,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -421,7 +583,7 @@
             },
             "img": "systems/pf2e/icons/spells/mending.webp",
             "name": "Mending",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -499,7 +661,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -556,195 +718,22 @@
             "type": "spell"
         },
         {
-            "_id": "k1fBI6krs8NLi3AR",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hoof Knife",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+6",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "hCBIDqLoaomtVumJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (Imprecise) within their entire bound yard",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xNumFo6zFMddKGAf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Master of the Yard",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The dvorovoi helps or causes trouble in the yard, milking or scaring cows, protecting or scattering tools, and so forth. By commanding their home to attack, the dvorovoi can @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], @UUID[Compendium.pf2e.actionspf2e.Item.Trip], and @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] with their enraged home Strike.</p>\n<p>The dvorovoi uses their Household Lore instead of Athletics skill for these checks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "D4ExwJPbq9vP2fZU",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shy",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A dvorovoi is naturally @UUID[Compendium.pf2e.conditionitems.Item.Invisible] while within sight of their bound home. The dvorovoi can become visible, or even selectively visible-allowing some people to see them.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cKc30rN0MdOPS48L",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Rile Augdunars",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> or <span class=\"action-glyph\">2</span></p>\n<hr />\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Algerschmick goads the animals and incites their anger. She attempts a @Check[flat|dc:11] (@Check[flat|dc:6] if she used two actions). If she succeeds, she negates one successful check the PCs have made to disable the hazard. This action makes enough noise that attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] Algerschmick can detect her, even if she isn't in the area that a PC is searching.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "fear"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eMLzHgxK6gQ67wx6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Household Lore",
+            "_id": "UeMKUFMnWNbhRbEj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1400000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 11
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -752,9 +741,20 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "primal"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Algerschmick",

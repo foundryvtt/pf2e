@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "OExj5bVPy0ABfKjW",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "7Tej26wp3GwzSdpy",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coven",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Iron Taviah adds @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Magic Passage], and @UUID[Compendium.pf2e.spells-srd.Item.Spellwrack] to her coven's spells.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,39 +25,72 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "mod": 0,
-                    "value": 13
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "aMJUziFriyOV9ggf",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Scattered Coven Spells",
+            "_id": "r835KgCvkRk0ttPH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZTdFKmaD7Imp3Vkr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magaambya Scar",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Taviah has an old injury that sometimes causes her pain. A physical attack on Taviah that scores a critical hit exacerbates the injury in her wounded leg; in addition to the other effects of the critical hit, Taviah is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -67,21 +98,336 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "mod": 0,
-                    "value": 13
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "ICF4eC8QzWpKC81e",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Bonds of Iron",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Iron Taviah can cause a cage built of cold iron fingernails to spring from nothingness around a target at a range of up to 30 feet, attempting an Athletics check to [[/act grapple]] against the target's Fortitude DC; if the target has a weakness to cold iron, Taviah gains a +2 circumstance bonus to this check. Unlike a normal Grapple, Taviah doesn't need to be within reach and can move as she pleases, and a successful attempt lasts until the creature [[/act escape dc=24]]{Escapes} (DC 24), causing the cage to crumble into rust. Any creature can attempt to destroy the cage by attacking it; the cage has an AC of 19, Hardness 10, and 40 Hit Points.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "bonds-of-iron",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:grapple",
+                            "bonds-of-iron"
+                        ],
+                        "selector": "athletics",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ETaugj7PvAqfMfFY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Iron Taviah can take on the appearance of any Medium female humanoid. This doesn't change her Speed, or her attack and damage bonuses with her Strikes, but might change the damage type her Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hQDFn0Tk685TCycZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rend",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Claw</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "rend",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aPjHCeJ7PdtCACQB",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ritual Specialist",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Iron Taviah has a +2 circumstance bonus to the primary checks to perform a ritual. In addition, she can reduce the number of secondary casters for a ritual by 1. When she does, she must fulfill any requirements for the secondary caster, and she attempts the secondary check normally performed by that secondary caster. She can't replace a secondary caster who is the target of the spell (as in the @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E6CK2SNJqqGlCXkQ",
+            "_stats": {
+                "compendiumSource": "Item.9M8OwxWRA1oUkRMA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scattered Coven",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the characters meet Iron Taviah, the Graveclaw is at the height of its power. As a scattered coven, the Graveclaw grants Taviah the ability to cast the following spells as 3rd-rank occult spells, once per day each, without requiring help from her fellow coven members:@UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow], @UUID[Compendium.pf2e.spells-srd.Item.Curse of Lost Time], @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Harm], @UUID[Compendium.pf2e.spells-srd.Item.Mimic Undead], @UUID[Compendium.pf2e.spells-srd.Item.Summon Construct], and @UUID[Compendium.pf2e.spells-srd.Item.Water Walk].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZOPyMr0me2g4Llk5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wWgjKSC4mzFRMvch",
+            "img": "icons/containers/bags/sack-simple-leather-brown.webp",
+            "name": "Leather Bag Containing Finger Bones",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "H7FWPNStHF3mO4Cj",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Iron Claws",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "owss3ph95kgibpg38n55": {
+                        "damage": "2d8 + 6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "cold-iron",
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "V5YPobWXB1CtnrZ2",
@@ -90,7 +436,7 @@
             },
             "img": "systems/pf2e/icons/spells/curse-of-lost-time.webp",
             "name": "Curse of Lost Time",
-            "sort": 300000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -177,7 +523,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 400000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -243,7 +589,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 500000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -315,7 +661,7 @@
             },
             "img": "icons/environment/settlement/wagon.webp",
             "name": "Mystic Carriage",
-            "sort": 600000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -378,7 +724,7 @@
             },
             "img": "systems/pf2e/icons/spells/unseen-custodians.webp",
             "name": "Unseen Custodians",
-            "sort": 700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -441,7 +787,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 800000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -522,7 +868,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-undead.webp",
             "name": "Create Undead (Zombie)",
-            "sort": 900000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -587,7 +933,7 @@
             },
             "img": "systems/pf2e/icons/spells/false-life.webp",
             "name": "False Life",
-            "sort": 1000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -648,7 +994,7 @@
             },
             "img": "icons/skills/social/diplomacy-handshake.webp",
             "name": "Heartbond",
-            "sort": 1100000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -711,7 +1057,7 @@
             },
             "img": "systems/pf2e/icons/spells/inveigle.webp",
             "name": "Inveigle",
-            "sort": 1200000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -776,7 +1122,7 @@
             },
             "img": "icons/magic/death/undead-skeleton-rags-fire-green.webp",
             "name": "Mimic Undead",
-            "sort": 1300000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -837,7 +1183,7 @@
             },
             "img": "icons/magic/water/wave-water-blue.webp",
             "name": "Water Walk",
-            "sort": 1400000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -912,7 +1258,7 @@
             },
             "img": "icons/magic/earth/construct-stone-long-arms.webp",
             "name": "Elemental Sentinel",
-            "sort": 1500000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -975,7 +1321,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1600000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1170,7 +1516,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-construct.webp",
             "name": "Summon Construct",
-            "sort": 1700000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1224,383 +1570,22 @@
             "type": "spell"
         },
         {
-            "_id": "wWgjKSC4mzFRMvch",
-            "img": "icons/containers/bags/sack-simple-leather-brown.webp",
-            "name": "Leather Bag Containing Finger Bones",
-            "sort": 1800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "H7FWPNStHF3mO4Cj",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Iron Claws",
-            "sort": 1900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "owss3ph95kgibpg38n55": {
-                        "damage": "2d8 + 6",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "cold-iron",
-                        "magical",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "7Tej26wp3GwzSdpy",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coven",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Iron Taviah adds @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Magic Passage], and @UUID[Compendium.pf2e.spells-srd.Item.Spellwrack] to her coven's spells.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "r835KgCvkRk0ttPH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZTdFKmaD7Imp3Vkr",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Magaambya Scar",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Taviah has an old injury that sometimes causes her pain. A physical attack on Taviah that scores a critical hit exacerbates the injury in her wounded leg; in addition to the other effects of the critical hit, Taviah is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ICF4eC8QzWpKC81e",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Bonds of Iron",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Iron Taviah can cause a cage built of cold iron fingernails to spring from nothingness around a target at a range of up to 30 feet, attempting an Athletics check to [[/act grapple]] against the target's Fortitude DC; if the target has a weakness to cold iron, Taviah gains a +2 circumstance bonus to this check. Unlike a normal Grapple, Taviah doesn't need to be within reach and can move as she pleases, and a successful attempt lasts until the creature [[/act escape dc=24]]{Escapes} (DC 24), causing the cage to crumble into rust. Any creature can attempt to destroy the cage by attacking it; the cage has an AC of 19, Hardness 10, and 40 Hit Points.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "skill-check",
-                        "key": "RollOption",
-                        "option": "bonds-of-iron",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:grapple",
-                            "bonds-of-iron"
-                        ],
-                        "selector": "athletics",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "attack",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ETaugj7PvAqfMfFY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Iron Taviah can take on the appearance of any Medium female humanoid. This doesn't change her Speed, or her attack and damage bonuses with her Strikes, but might change the damage type her Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hQDFn0Tk685TCycZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Rend",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Claw</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "rend",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aPjHCeJ7PdtCACQB",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ritual Specialist",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Iron Taviah has a +2 circumstance bonus to the primary checks to perform a ritual. In addition, she can reduce the number of secondary casters for a ritual by 1. When she does, she must fulfill any requirements for the secondary caster, and she attempts the secondary check normally performed by that secondary caster. She can't replace a secondary caster who is the target of the spell (as in the @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "E6CK2SNJqqGlCXkQ",
-            "_stats": {
-                "compendiumSource": "Item.9M8OwxWRA1oUkRMA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scattered Coven",
+            "_id": "OExj5bVPy0ABfKjW",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 2700000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>When the characters meet Iron Taviah, the Graveclaw is at the height of its power. As a scattered coven, the Graveclaw grants Taviah the ability to cast the following spells as 3rd-rank occult spells, once per day each, without requiring help from her fellow coven members:@UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow], @UUID[Compendium.pf2e.spells-srd.Item.Curse of Lost Time], @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Harm], @UUID[Compendium.pf2e.spells-srd.Item.Mimic Undead], @UUID[Compendium.pf2e.spells-srd.Item.Summon Construct], and @UUID[Compendium.pf2e.spells-srd.Item.Water Walk].</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1608,46 +1593,61 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 21,
+                    "mod": 0,
+                    "value": 13
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "ZOPyMr0me2g4Llk5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
+            "_id": "aMJUziFriyOV9ggf",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Scattered Coven Spells",
             "sort": 2800000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 21,
+                    "mod": 0,
+                    "value": 13
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Iron Taviah",

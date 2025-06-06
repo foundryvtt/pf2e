@@ -4,22 +4,129 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lo2KKbR5IflsV6d7",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "E4q1Lkitzct4Semm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W1zpCYD3gyDbVnin",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.flankable",
+                        "value": false
+                    }
+                ],
+                "slug": "all-around-vision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bWKEdOVceKJFvyCs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Urx0uw6qD0HUbRc1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Reweave Fate",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-suvarden creature within 30 feet of the suvarden attempts an attack roll, skill check, or saving throw</p>\n<hr />\n<p><strong>Effect</strong> The suvarden interferes with the triggering creature's action, pushing it toward a specific outcome. The suvarden decides on a favorable or an unfavorable outcome. With a favorable outcome, the creature rolls the triggering check a second time and takes the higher result; this is a fortune effect. With an unfavorable outcome, the creature rolls the triggering check a second time and takes the lower result; this is a misfortune effect. Regardless of the outcome, the triggering creature becomes immune to Reweave Fate for 1 day.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,20 +134,152 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "primal"
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "6E2eP6upQld3ZTFv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Web of Fate",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The suvarden creates a web spun from the threads of fate in a @Template[burst|distance:10] within 30 feet. The squares filled with the web are difficult terrain. Each square can be cleared of the web by a single attack or effect that deals at least 5 slashing damage or 1 fire damage. A square has AC 5, and it automatically fails its saving throws. Each time a creature in the web begins to use a move action or enters the web during a move action, it must attempt a @Check[will|dc:42] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and doesn't need to attempt further saving throws against the web.</p>\n<p><strong>Success</strong> The creature is momentarily baffled by glimpses of possible futures and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Failure</strong> Possibilities spun throughout the web overwhelm the creature. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 minute and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} while it's confused.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gVWYIcYDPnHRD2f5",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Norn Lore",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 36
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "e9XgGCnP2pY4bltZ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Antler",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "UHszFk11AQct4iSK": {
+                        "damage": "4d12+16",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "",
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "09fuF5S9HfMVGNdQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hoof",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "TyKhGf6A63Y0EDZN": {
+                        "damage": "4d10+16",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "2THwmET54jXPV1jF",
@@ -49,7 +288,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift (Self Only)",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -113,7 +352,7 @@
             },
             "img": "systems/pf2e/icons/spells/teleport.webp",
             "name": "Teleport",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -175,7 +414,7 @@
             },
             "img": "icons/magic/light/orb-lightbulb-gray.webp",
             "name": "Hypercognition",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -234,7 +473,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -300,7 +539,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -361,7 +600,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know Direction",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -424,7 +663,7 @@
             },
             "img": "systems/pf2e/icons/spells/mindlink.webp",
             "name": "Mindlink (At Will)",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -485,7 +724,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -544,272 +783,22 @@
             "type": "spell"
         },
         {
-            "_id": "e9XgGCnP2pY4bltZ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Antler",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "UHszFk11AQct4iSK": {
-                        "damage": "4d12+16",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "09fuF5S9HfMVGNdQ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hoof",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "TyKhGf6A63Y0EDZN": {
-                        "damage": "4d10+16",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "E4q1Lkitzct4Semm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "W1zpCYD3gyDbVnin",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "All-Around Vision",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.flankable",
-                        "value": false
-                    }
-                ],
-                "slug": "all-around-vision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bWKEdOVceKJFvyCs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Urx0uw6qD0HUbRc1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Reweave Fate",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A non-suvarden creature within 30 feet of the suvarden attempts an attack roll, skill check, or saving throw</p>\n<hr />\n<p><strong>Effect</strong> The suvarden interferes with the triggering creature's action, pushing it toward a specific outcome. The suvarden decides on a favorable or an unfavorable outcome. With a favorable outcome, the creature rolls the triggering check a second time and takes the higher result; this is a fortune effect. With an unfavorable outcome, the creature rolls the triggering check a second time and takes the lower result; this is a misfortune effect. Regardless of the outcome, the triggering creature becomes immune to Reweave Fate for 1 day.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6E2eP6upQld3ZTFv",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Web of Fate",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The suvarden creates a web spun from the threads of fate in a @Template[burst|distance:10] within 30 feet. The squares filled with the web are difficult terrain. Each square can be cleared of the web by a single attack or effect that deals at least 5 slashing damage or 1 fire damage. A square has AC 5, and it automatically fails its saving throws. Each time a creature in the web begins to use a move action or enters the web during a move action, it must attempt a @Check[will|dc:42] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and doesn't need to attempt further saving throws against the web.</p>\n<p><strong>Success</strong> The creature is momentarily baffled by glimpses of possible futures and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Failure</strong> Possibilities spun throughout the web overwhelm the creature. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 minute and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} while it's confused.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gVWYIcYDPnHRD2f5",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Norn Lore",
+            "_id": "lo2KKbR5IflsV6d7",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1700000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 36
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -817,9 +806,20 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "primal"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Ildamir",

@@ -3,22 +3,371 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ioRiyfYOVSBwJU1I",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
+            "_id": "AO74QAV2vwk6JW3g",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "piqtoxtcbhe4b1a1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Great Despair",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. Living creatures are @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} while in an mummy prophet's great despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave it. When a creature first enters the area, it must succeed at a @Check[will|dc:31] save (after taking the penalty from being frightened) or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for [[/r 1d4 #rounds]]{1d4 rounds}. The creature is then temporarily immune for 24 hours.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Despair]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:mode:living"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Despair"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "great-despair",
+                        "traits": [
+                            "divine",
+                            "emotion",
+                            "fear",
+                            "incapacitation",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "msrjzpke2pxhz0yk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sand Vision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The prophet ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from particles of sand and dust in the air.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rfeIYZBHpVkv6qJZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8dmnhjn5baw0ic6c",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath of Sand",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The prophet's Sandstorm is active</p>\n<hr />\n<p><strong>Effect</strong> The prophet inhales its Sandstorm, suppressing the effect until the end of the prophet's next turn. It then exhales a @Template[cone|distance:120] of negatively charged sand that deals @Damage[7d6[void],7d6[slashing]]{7d6 void and 7d6 slashing damage} (@Check[reflex|dc:33|basic]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "earth",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "da71u2jzo19jfmuf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Channel Rot",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mummy prophet of Set can deliver devastating rot through melee weapons they wield.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e7v5oimcd7h2wmj8",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Sand Form",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The prophet loses their coherent from and becomes an animated pile of sand. While in this form, the prophet gains resistance 10 to physical damage and is immune to precision damage. They can't cast spells, activate items, or use actions that have the attack or manipulate trait. They gain a fly Speed of 40 feet and can slip through tiny cracks. This lasts for 5 minutes, and the prophet can Dismiss the effect.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "sand-form",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "sand-form"
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "sand-form"
+                        ],
+                        "type": "precision"
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "sand-form"
+                        ],
+                        "selector": "fly-speed",
+                        "value": 40
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "earth",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2h8eb5k9fufiveqm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sand Rot",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This affliction can't be reduced below stage 1, nor can damage from it be healed, until successfully treated with @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] or a similar effect; the affliction can then be removed as normal for a disease. A creature killed by sand rot turns to sand and can't be resurrected except by a 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Resurrect] ritual or similar magic</p>\n<p><strong>Saving Throw</strong>@Check[fortitude|dc:31]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[12d6[void]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "sand-rot",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "disease",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8q0pqsiwe57oc0lw",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Sandstorm",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The mummy creates a temporary sandstorm in a @Template[emanation|distance:30] that lasts for 1 minute. Creatures within the emanation take a -4 circumstance penalty to Perception checks and must succeed at a @Check[fortitude|dc:33] save or be forced to hold their breath or start suffocating. A creature within the sandstorm at the end of its turn takes @Damage[2d6[void],1d6[slashing]]{2d6 void and 1d6 slashing damage}.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
                     "value": 1
                 },
                 "publication": {
@@ -27,155 +376,225 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "cDyEOYxdTrUwsvXF"
-                            },
-                            {
-                                "id": "EVOhUy7td15mTQNV"
-                            },
-                            {
-                                "id": "P8HnRhG6Iuax8kTD"
-                            },
-                            {
-                                "id": "g2aDFvlA72tCuVqY"
-                            },
-                            {
-                                "id": "TD963s7TwePkfZb4"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "yNnzTL4AgWojQeum"
-                            },
-                            {
-                                "id": "iA0z0dRDddm60bsP"
-                            },
-                            {
-                                "id": "7Z4tghrtnv8CEIoZ"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "g53JN7dW1ZBwMuHD"
-                            },
-                            {
-                                "id": "g53JN7dW1ZBwMuHD"
-                            },
-                            {
-                                "id": "gbsDc9NWAIX91lVn"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "RPHx56LU5ltWkCwg"
-                            },
-                            {
-                                "id": "1u5BMu139BlFsHes"
-                            },
-                            {
-                                "id": "SrPpFnH3I8Qr9T57"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "5VYOZt3ZkZGYim1Z"
-                            },
-                            {
-                                "id": "dRWCuUFheEtvLigW"
-                            },
-                            {
-                                "id": "EhrsolOnQB0b71J0"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "ImdKBYhMs0wJvLJC"
-                            },
-                            {
-                                "id": "0yVMKByyzQ2wW3Ak"
-                            },
-                            {
-                                "id": "YMMKdNDKwTMcX4Fv"
-                            }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "sQrxdyu7UWh9THdL"
-                            },
-                            {
-                                "id": "sQrxdyu7UWh9THdL"
-                            },
-                            {
-                                "id": "9lLo1VC6KrHUiU2n"
-                            }
-                        ]
-                    },
-                    "slot7": {
-                        "max": 9,
-                        "prepared": [
-                            {
-                                "id": "FSy3z1roIe6WmX9j"
-                            },
-                            {
-                                "id": "FSy3z1roIe6WmX9j"
-                            },
-                            {
-                                "id": "YJ59kxIWDXZaPQLn"
-                            },
-                            {
-                                "id": "YJ59kxIWDXZaPQLn"
-                            },
-                            {
-                                "id": "YJ59kxIWDXZaPQLn"
-                            },
-                            {
-                                "id": "YJ59kxIWDXZaPQLn"
-                            },
-                            {
-                                "id": "YJ59kxIWDXZaPQLn"
-                            },
-                            {
-                                "id": "YJ59kxIWDXZaPQLn"
-                            },
-                            {
-                                "id": "YJ59kxIWDXZaPQLn"
-                            }
-                        ]
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "mod": 0,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "earth"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "kDcWkpiVlvQCKNaQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol of Set",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "vd5bzz1j83bmas2b",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "WI4DJQA8o5zmepx3"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "sand-rot"
+                    ]
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "tl9l0TrJ39ukxYwX": {
+                        "damage": "3d6+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wq8dsdznit8qtxcv",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "sand-rot"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "Q5AmDpEvhaY97BME": {
+                        "damage": "3d4+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hma3kv808zk32z1k",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "WI4DJQA8o5zmepx3"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "sand-rot"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "UK0oBimWZxUrEhLb": {
+                        "damage": "3d6+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "FSy3z1roIe6WmX9j",
@@ -184,7 +603,7 @@
             },
             "img": "systems/pf2e/icons/spells/eclipse-burst.webp",
             "name": "Eclipse Burst",
-            "sort": 200000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -285,7 +704,7 @@
             },
             "img": "systems/pf2e/icons/spells/disintegrate.webp",
             "name": "Disintegrate",
-            "sort": 300000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -367,7 +786,7 @@
             },
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
-            "sort": 400000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -445,7 +864,7 @@
             },
             "img": "icons/skills/wounds/injury-stitched-flesh-red.webp",
             "name": "Wall of Flesh",
-            "sort": 500000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -505,7 +924,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk",
-            "sort": 600000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -566,7 +985,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 700000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -654,7 +1073,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement",
-            "sort": 800000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -715,7 +1134,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 900000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -783,7 +1202,7 @@
             },
             "img": "systems/pf2e/icons/spells/chilling-darkness.webp",
             "name": "Chilling Darkness",
-            "sort": 1000000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -863,7 +1282,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 1100000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -945,7 +1364,7 @@
             },
             "img": "icons/skills/toxins/cup-glass-poisoned-held.webp",
             "name": "Cup of Dust",
-            "sort": 1200000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1012,7 +1431,7 @@
             },
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell",
-            "sort": 1300000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1078,7 +1497,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 1400000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1140,7 +1559,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 1500000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1202,7 +1621,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1600000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1288,7 +1707,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1700000,
+            "sort": 2900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1355,7 +1774,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1800000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1436,7 +1855,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1900000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1506,7 +1925,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 2000000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1567,7 +1986,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2100000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1761,7 +2180,7 @@
             },
             "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
             "name": "Penumbral Shroud",
-            "sort": 2200000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1827,7 +2246,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 2300000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1894,7 +2313,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2400000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1950,13 +2369,188 @@
             "type": "spell"
         },
         {
+            "_id": "ioRiyfYOVSBwJU1I",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
+            "sort": 3700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "cDyEOYxdTrUwsvXF"
+                            },
+                            {
+                                "id": "EVOhUy7td15mTQNV"
+                            },
+                            {
+                                "id": "P8HnRhG6Iuax8kTD"
+                            },
+                            {
+                                "id": "g2aDFvlA72tCuVqY"
+                            },
+                            {
+                                "id": "TD963s7TwePkfZb4"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "yNnzTL4AgWojQeum"
+                            },
+                            {
+                                "id": "iA0z0dRDddm60bsP"
+                            },
+                            {
+                                "id": "7Z4tghrtnv8CEIoZ"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "g53JN7dW1ZBwMuHD"
+                            },
+                            {
+                                "id": "g53JN7dW1ZBwMuHD"
+                            },
+                            {
+                                "id": "gbsDc9NWAIX91lVn"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "RPHx56LU5ltWkCwg"
+                            },
+                            {
+                                "id": "1u5BMu139BlFsHes"
+                            },
+                            {
+                                "id": "SrPpFnH3I8Qr9T57"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "5VYOZt3ZkZGYim1Z"
+                            },
+                            {
+                                "id": "dRWCuUFheEtvLigW"
+                            },
+                            {
+                                "id": "EhrsolOnQB0b71J0"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "ImdKBYhMs0wJvLJC"
+                            },
+                            {
+                                "id": "0yVMKByyzQ2wW3Ak"
+                            },
+                            {
+                                "id": "YMMKdNDKwTMcX4Fv"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "sQrxdyu7UWh9THdL"
+                            },
+                            {
+                                "id": "sQrxdyu7UWh9THdL"
+                            },
+                            {
+                                "id": "9lLo1VC6KrHUiU2n"
+                            }
+                        ]
+                    },
+                    "slot7": {
+                        "max": 9,
+                        "prepared": [
+                            {
+                                "id": "FSy3z1roIe6WmX9j"
+                            },
+                            {
+                                "id": "FSy3z1roIe6WmX9j"
+                            },
+                            {
+                                "id": "YJ59kxIWDXZaPQLn"
+                            },
+                            {
+                                "id": "YJ59kxIWDXZaPQLn"
+                            },
+                            {
+                                "id": "YJ59kxIWDXZaPQLn"
+                            },
+                            {
+                                "id": "YJ59kxIWDXZaPQLn"
+                            },
+                            {
+                                "id": "YJ59kxIWDXZaPQLn"
+                            },
+                            {
+                                "id": "YJ59kxIWDXZaPQLn"
+                            },
+                            {
+                                "id": "YJ59kxIWDXZaPQLn"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 33,
+                    "mod": 0,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "WI4DJQA8o5zmepx3",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
             },
             "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
             "name": "Spear",
-            "sort": 2500000,
+            "sort": 3800000,
             "system": {
                 "baseItem": "spear",
                 "bonus": {
@@ -2033,600 +2627,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "kDcWkpiVlvQCKNaQ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol of Set",
-            "sort": 2600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "vd5bzz1j83bmas2b",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "WI4DJQA8o5zmepx3"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 2700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "sand-rot"
-                    ]
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "tl9l0TrJ39ukxYwX": {
-                        "damage": "3d6+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "wq8dsdznit8qtxcv",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 2800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "sand-rot"
-                    ]
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "Q5AmDpEvhaY97BME": {
-                        "damage": "3d4+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "hma3kv808zk32z1k",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "WI4DJQA8o5zmepx3"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 2900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "sand-rot"
-                    ]
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "UK0oBimWZxUrEhLb": {
-                        "damage": "3d6+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "AO74QAV2vwk6JW3g",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "piqtoxtcbhe4b1a1",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Great Despair",
-            "sort": 3100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. Living creatures are @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} while in an mummy prophet's great despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave it. When a creature first enters the area, it must succeed at a @Check[will|dc:31] save (after taking the penalty from being frightened) or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for [[/r 1d4 #rounds]]{1d4 rounds}. The creature is then temporarily immune for 24 hours.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Despair]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "all",
-                                "events": [
-                                    "enter"
-                                ],
-                                "includesSelf": false,
-                                "predicate": [
-                                    "target:mode:living"
-                                ],
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Despair"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "great-despair",
-                        "traits": [
-                            "divine",
-                            "emotion",
-                            "fear",
-                            "incapacitation",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "emotion",
-                        "fear",
-                        "incapacitation",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "msrjzpke2pxhz0yk",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sand Vision",
-            "sort": 3200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The prophet ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from particles of sand and dust in the air.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rfeIYZBHpVkv6qJZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 3300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8dmnhjn5baw0ic6c",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath of Sand",
-            "sort": 3400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The prophet's Sandstorm is active</p>\n<hr />\n<p><strong>Effect</strong> The prophet inhales its Sandstorm, suppressing the effect until the end of the prophet's next turn. It then exhales a @Template[cone|distance:120] of negatively charged sand that deals @Damage[7d6[void],7d6[slashing]]{7d6 void and 7d6 slashing damage} (@Check[reflex|dc:33|basic]).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "earth",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "da71u2jzo19jfmuf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Channel Rot",
-            "sort": 3500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mummy prophet of Set can deliver devastating rot through melee weapons they wield.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "e7v5oimcd7h2wmj8",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Sand Form",
-            "sort": 3600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The prophet loses their coherent from and becomes an animated pile of sand. While in this form, the prophet gains resistance 10 to physical damage and is immune to precision damage. They can't cast spells, activate items, or use actions that have the attack or manipulate trait. They gain a fly Speed of 40 feet and can slip through tiny cracks. This lasts for 5 minutes, and the prophet can Dismiss the effect.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "sand-form",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "sand-form"
-                        ],
-                        "type": "physical",
-                        "value": 10
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            "sand-form"
-                        ],
-                        "type": "precision"
-                    },
-                    {
-                        "key": "BaseSpeed",
-                        "predicate": [
-                            "sand-form"
-                        ],
-                        "selector": "fly-speed",
-                        "value": 40
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "earth",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2h8eb5k9fufiveqm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sand Rot",
-            "sort": 3700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>This affliction can't be reduced below stage 1, nor can damage from it be healed, until successfully treated with @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] or a similar effect; the affliction can then be removed as normal for a disease. A creature killed by sand rot turns to sand and can't be resurrected except by a 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Resurrect] ritual or similar magic</p>\n<p><strong>Saving Throw</strong>@Check[fortitude|dc:31]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[12d6[void]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 day)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "sand-rot",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "disease",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8q0pqsiwe57oc0lw",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Sandstorm",
-            "sort": 3800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The mummy creates a temporary sandstorm in a @Template[emanation|distance:30] that lasts for 1 minute. Creatures within the emanation take a -4 circumstance penalty to Perception checks and must succeed at a @Check[fortitude|dc:33] save or be forced to hold their breath or start suffocating. A creature within the sandstorm at the end of its turn takes @Damage[2d6[void],1d6[slashing]]{2d6 void and 1d6 slashing damage}.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "earth"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Mummy Prophet Of Set",

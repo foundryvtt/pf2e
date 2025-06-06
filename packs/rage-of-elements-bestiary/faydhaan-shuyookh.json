@@ -3,22 +3,262 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "IJA2uWllA9JMgBOG",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
+            "_id": "RNVKOfijgLjbbu99",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Bonus on Perception to Sense motive",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:sense-motive"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vZmgRe7m07KQatZn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.Yb0C1uLzeHrVLl7a"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Detect Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>You cast detect magic at regular intervals. You move at half your travel speed or slower. You have no chance of accidentally overlooking a magic aura at a travel speed up to 300 feet per minute, but must be traveling no more than 150 feet per minute to detect magic auras before the party moves into them.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "detect-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "exploration"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vvuafBYQdckpocEu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FBzTBRTIea1DZ0f4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Hospitality",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. The faydhaan shuyookh dissuades those around them from hostility. Willing creatures in the emanation gain a +2 status bonus to Society and Diplomacy checks. The shuyookh can suppress or resume the aura as a free action. If the shuyookh acts hostile, the aura deactivates and can't be reactivated for 1 hour. When any other creature in the aura acts hostile, it must attempt a @Check[will|dc:35] save. On a success, it's unaffected and doesn't need to save again for 1 hour; on a failure, its current action is disrupted, as are any other hostile actions it attempts for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "aura-of-hospitality-active"
+                        ],
+                        "radius": 60,
+                        "slug": "aura-of-hospitality",
+                        "traits": [
+                            "emotion",
+                            "mental"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "aura-of-hospitality-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ya9P3f7O89dNO0sL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Turbulent Seas",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. Water in the aura that is also in the same body of water as the faydhaan is difficult terrain for Swimming creatures. Creatures with the water trait are immune.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "turbulent-seas",
+                        "traits": [
+                            "water"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "w9GQB6g7nsx4ZDGW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>\n<hr />\n<p>The faydhaan transforms into a Small or Medium water elemental, aquatic animal, or humanoid. This doesn't affect the faydhaan's statistics, but it could change the damage type of their Strikes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "concentrate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "v5z7UjE9C9n5CoZ5",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Diplomatic Wish",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> three times per year</p>\n<hr />\n<p><strong>Effect</strong> The shuyookh conducts a wish ritual for the benefit of a mortal, requiring no cost or secondary casters. The shuyookh's result is a success if they succeed at a @Check[flat|dc:5] or a failure if not. The shuyookh interprets the wish to please the most people possible.</p>"
+                },
+                "frequency": {
+                    "max": 3,
+                    "per": "P1Y"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,20 +266,208 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 34,
-                    "value": 26
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "value": [
+                        "downtime"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "FN1An5GYhLvX5vcU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "To the Hilt",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The faydhaan shuyookh makes a melee <em>jambiya</em> Strike and buries the blade deep, dealing an extra @Damage[3d6[persistent,bleed]] damage on a hit (6d6 on a critical hit).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "to-the-hilt",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:melee",
+                            "to-the-hilt"
+                        ],
+                        "selector": "jambiya-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "97WRvpQJrGDL24Xu",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "zumonG4wwkZ6Cbev"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jambiya",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "0SC84ZKKz2jsxor2": {
+                        "damage": "2d4+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "reach-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "uxBlr8MGkrHuUS3R",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "pl7GSNyQJgQHvgB9": {
+                        "damage": "3d8+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "nonlethal",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9e5NSMdmlvrntTKs",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "zumonG4wwkZ6Cbev"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jambiya",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "qHXqy0L1OgJu9c1L": {
+                        "damage": "2d4+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "thrown-20",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "okqMZot2zB3KRt1p",
@@ -48,7 +476,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Interplanar Teleport (At Will; To Astral Plane, Elemental Planes, or the Universe only)",
-            "sort": 200000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -112,7 +540,7 @@
             },
             "img": "systems/pf2e/icons/spells/magnificent-mansion.webp",
             "name": "Planar Palace",
-            "sort": 300000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -174,7 +602,7 @@
             },
             "img": "icons/magic/fire/explosion-flame-blue.webp",
             "name": "Control Water (At Will)",
-            "sort": 400000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -236,7 +664,7 @@
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Howling Blizzard (At Will)",
-            "sort": 500000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -350,7 +778,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (At Will)",
-            "sort": 600000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -412,7 +840,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 700000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -474,7 +902,7 @@
             },
             "img": "icons/magic/air/wind-tornado-funnel-damage-blue.webp",
             "name": "Hydraulic Torrent",
-            "sort": 800000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "line",
@@ -561,7 +989,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Mirage",
-            "sort": 900000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -627,7 +1055,7 @@
             },
             "img": "systems/pf2e/icons/spells/gaseous-form.webp",
             "name": "Vapor Form",
-            "sort": 1000000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -691,7 +1119,7 @@
             },
             "img": "icons/equipment/back/cloak-collared-red-gold.webp",
             "name": "Befitting Attire (At Will)",
-            "sort": 1100000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -769,7 +1197,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 1200000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -834,7 +1262,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will)",
-            "sort": 1300000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -895,7 +1323,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See the Unseen",
-            "sort": 1400000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -958,7 +1386,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-elemental.webp",
             "name": "Summon Elemental",
-            "sort": 1500000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1019,7 +1447,7 @@
             },
             "img": "icons/magic/water/elemental-water.webp",
             "name": "Water Breathing",
-            "sort": 1600000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1081,7 +1509,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-water.webp",
             "name": "Create Water (At Will)",
-            "sort": 1700000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1144,7 +1572,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1800000,
+            "sort": 2800000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1211,7 +1639,7 @@
             },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push (At Will)",
-            "sort": 1900000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1286,13 +1714,52 @@
             "type": "spell"
         },
         {
+            "_id": "IJA2uWllA9JMgBOG",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
+            "sort": 3000000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 34,
+                    "value": 26
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "zumonG4wwkZ6Cbev",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "+2 Striking Jambiya",
-            "sort": 2000000,
+            "sort": 3100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1373,473 +1840,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "97WRvpQJrGDL24Xu",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "zumonG4wwkZ6Cbev"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jambiya",
-            "sort": 2100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "0SC84ZKKz2jsxor2": {
-                        "damage": "2d4+13",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "reach-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "uxBlr8MGkrHuUS3R",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 2200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "pl7GSNyQJgQHvgB9": {
-                        "damage": "3d8+13",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "nonlethal",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "9e5NSMdmlvrntTKs",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "zumonG4wwkZ6Cbev"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jambiya",
-            "sort": 2300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "qHXqy0L1OgJu9c1L": {
-                        "damage": "2d4+13",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "thrown-20",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "RNVKOfijgLjbbu99",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Bonus on Perception to Sense motive",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:sense-motive"
-                        ],
-                        "selector": "perception",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vZmgRe7m07KQatZn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.Yb0C1uLzeHrVLl7a"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Detect Magic",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>You cast detect magic at regular intervals. You move at half your travel speed or slower. You have no chance of accidentally overlooking a magic aura at a travel speed up to 300 feet per minute, but must be traveling no more than 150 feet per minute to detect magic auras before the party moves into them.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "detect-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "exploration"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vvuafBYQdckpocEu",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FBzTBRTIea1DZ0f4",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aura of Hospitality",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. The faydhaan shuyookh dissuades those around them from hostility. Willing creatures in the emanation gain a +2 status bonus to Society and Diplomacy checks. The shuyookh can suppress or resume the aura as a free action. If the shuyookh acts hostile, the aura deactivates and can't be reactivated for 1 hour. When any other creature in the aura acts hostile, it must attempt a @Check[will|dc:35] save. On a success, it's unaffected and doesn't need to save again for 1 hour; on a failure, its current action is disrupted, as are any other hostile actions it attempts for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "aura-of-hospitality-active"
-                        ],
-                        "radius": 60,
-                        "slug": "aura-of-hospitality",
-                        "traits": [
-                            "emotion",
-                            "mental"
-                        ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "aura-of-hospitality-active",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ya9P3f7O89dNO0sL",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Turbulent Seas",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. Water in the aura that is also in the same body of water as the faydhaan is difficult terrain for Swimming creatures. Creatures with the water trait are immune.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "turbulent-seas",
-                        "traits": [
-                            "water"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "water"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "w9GQB6g7nsx4ZDGW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 2900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>\n<hr />\n<p>The faydhaan transforms into a Small or Medium water elemental, aquatic animal, or humanoid. This doesn't affect the faydhaan's statistics, but it could change the damage type of their Strikes.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "concentrate",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "v5z7UjE9C9n5CoZ5",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Diplomatic Wish",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> three times per year</p>\n<hr />\n<p><strong>Effect</strong> The shuyookh conducts a wish ritual for the benefit of a mortal, requiring no cost or secondary casters. The shuyookh's result is a success if they succeed at a @Check[flat|dc:5] or a failure if not. The shuyookh interprets the wish to please the most people possible.</p>"
-                },
-                "frequency": {
-                    "max": 3,
-                    "per": "P1Y"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "downtime"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FN1An5GYhLvX5vcU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "To the Hilt",
-            "sort": 3100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The faydhaan shuyookh makes a melee <em>jambiya</em> Strike and buries the blade deep, dealing an extra @Damage[3d6[persistent,bleed]] damage on a hit (6d6 on a critical hit).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "to-the-hilt",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "bleed",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "item:melee",
-                            "to-the-hilt"
-                        ],
-                        "selector": "jambiya-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Faydhaan Shuyookh",

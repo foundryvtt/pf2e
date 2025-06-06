@@ -3,21 +3,182 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "FHVxImDGF7MB4tzs",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "ks2bGQlMCszTgN6c",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bardic Lore",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>Sphinxes are naturally curious, and their love of puzzles and mysteries leads them to gather information on a broad range of topics. Sphinxes have the @UUID[Compendium.pf2e.feats-srd.Item.Bardic Lore] bard feat, allowing them to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] on any topic.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VHwtj3724SEQAAlz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TRPmSholsdyNcMiC",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Guardian Monolith",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The elder sphinx transforms their body into stone or back to flesh.</p>\n<p>In stone form, the sphinx is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] but has Hardness 14 and gains immunity to bleed, clumsy, disease, drained, enfeebled, fatigued, petrified, poison, sickened, void damage, and wounded. They don't age or require food, water, or sleep. They can perceive their surroundings and cast their innate spells.</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Stone to Flesh] turns the elder sphinx from stone form back to flesh, and @UUID[Compendium.pf2e.spells-srd.Item.Petrify] turns it from flesh form to stone form.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "guardian-monolith",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "predicate": [
+                            "guardian-monolith"
+                        ],
+                        "value": 14
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "guardian-monolith"
+                        ],
+                        "type": [
+                            "bleed",
+                            "clumsy",
+                            "disease",
+                            "drained",
+                            "enfeebled",
+                            "fatigued",
+                            "petrified",
+                            "poison",
+                            "sickened",
+                            "void",
+                            "wounded"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SCRF3318aESeiNRz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Idols of Stone",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the sphinx casts @UUID[Compendium.pf2e.spells-srd.Item.Shape Stone], they can shape the stone into a magical duplicate of themself.</p>\n<p>When they cast @UUID[Compendium.pf2e.spells-srd.Item.Clairaudience], @UUID[Compendium.pf2e.spells-srd.Item.Clairvoyance], @UUID[Compendium.pf2e.spells-srd.Item.Locate], or @UUID[Compendium.pf2e.spells-srd.Item.Ventriloquism], they can make the effect come from any duplicate, instead of themself.</p>\n<p>The elder sphinx can concentrate for 1 minute to transfer their consciousness to any duplicate; the sphinx is then in their stone form from Guardian Monolith in that statue.The sphinx can have no more than four duplicate statues at a time. Casting <em>shape stone</em> at that point causes the oldest duplicate to crumble to dust.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "b2yf3FTVhb4cL3mI",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Pose a Riddle",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<hr />\n<p>The sphinx recites a riddle and compels up to 10 creatures within @Template[emanation|distance:30]{30 feet} to answer (@Check[will|dc:37] save). The GM either runs the riddle out of character by timing the players' attempts, or picks an appropriate associated skill for the riddle, such as Religion for a riddle involving divine mysteries.</p>\n<p>The sphinx gains a +2 circumstance bonus to attack rolls and damage rolls against any creature that answers incorrectly even once. This bonus lasts for 1 day.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected, but it can choose to try to help solve the riddle.</p>\n<p><strong>Success</strong> The creature attempts to answer the riddle, each round spending at least one action attempting a @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] check with the chosen skill (or working on the answer, if using an out of game riddle). This lasts for 1 minute, until the creature successfully answers the riddle, or until an enemy takes a hostile action against the creature, whichever comes first.</p>\n<p><strong>Failure</strong> As success but the creature must spend at least two actions each round attempting to answer.</p>\n<p><strong>Critical Failure</strong> As failure, but up to 1 hour.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M",
                     "value": 1
                 },
                 "publication": {
@@ -26,20 +187,148 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "value": 29
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "linguistic",
+                        "mental",
+                        "occult"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "7GA62FWHgOMnOoir",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Pounce",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The elder sphinx Strides and makes a Strike at the end of that movement. If they began this action @UUID[Compendium.pf2e.conditionitems.Item.Hidden], they remain hidden until after the attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vYyLO2LUYvXaIzFj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Warding Glyph",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Once per day, an elder sphinx can create a magical symbol as though casting a heightened @UUID[Compendium.pf2e.spells-srd.Item.Rune Trap]. The sphinx usually shapes it to the form of a riddle and sets the password to the answer.</p>\n<p>A creature that doesn't speak the password must succeed at a @Check[will|dc:37] save or be affected by one of the following spells, chosen by the sphinx when creating the symbol:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Visions of Danger] (7th)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Blast] (6th)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Synaptic Pulse] (5th)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Charm] (4th)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Fear] (3rd)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Phantom Pain] (3rd)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Sleep] (3rd)</li>\n</ul>\n<p>The sphinx learns the identity of any creature that answers the riddle and tends to be friendly to them.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dJBsPpWCcZqoQuz1",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Bardic Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 32
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "MfS2aGB9sp6OgznC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "jyut2lsupynxju85e6lz": {
+                        "damage": "3d8+16",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "aOAT31hOGyxx1Z6J",
@@ -48,7 +337,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-runed-brown-purple.webp",
             "name": "Legend Lore",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -111,7 +400,7 @@
             },
             "img": "systems/pf2e/icons/spells/commune.webp",
             "name": "Commune",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -176,7 +465,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -240,7 +529,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -304,7 +593,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -366,7 +655,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance (At Will)",
-            "sort": 700000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -428,7 +717,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
             "name": "Hallucinatory Terrain",
-            "sort": 800000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -494,7 +783,7 @@
             },
             "img": "icons/sundries/gaming/playing-cards-black.webp",
             "name": "Read Omens (At Will)",
-            "sort": 900000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -556,7 +845,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-curse.webp",
             "name": "Remove Curse (At Will)",
-            "sort": 1000000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -618,7 +907,7 @@
             },
             "img": "systems/pf2e/icons/spells/shape-stone.webp",
             "name": "Shape Stone (See Idols of Stone)",
-            "sort": 1100000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -686,7 +975,7 @@
             },
             "img": "icons/magic/light/orb-hand-green.webp",
             "name": "Clairaudience (At Will)",
-            "sort": 1200000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -748,7 +1037,7 @@
             },
             "img": "systems/pf2e/icons/spells/locate.webp",
             "name": "Locate",
-            "sort": 1300000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -821,7 +1110,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1400000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -884,7 +1173,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1500000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -951,7 +1240,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 1600000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1030,7 +1319,7 @@
             },
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism (At Will)",
-            "sort": 1700000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1089,322 +1378,22 @@
             "type": "spell"
         },
         {
-            "_id": "MfS2aGB9sp6OgznC",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "jyut2lsupynxju85e6lz": {
-                        "damage": "3d8+16",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ks2bGQlMCszTgN6c",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bardic Lore",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Sphinxes are naturally curious, and their love of puzzles and mysteries leads them to gather information on a broad range of topics. Sphinxes have the @UUID[Compendium.pf2e.feats-srd.Item.Bardic Lore] bard feat, allowing them to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] on any topic.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VHwtj3724SEQAAlz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TRPmSholsdyNcMiC",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Guardian Monolith",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The elder sphinx transforms their body into stone or back to flesh.</p>\n<p>In stone form, the sphinx is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] but has Hardness 14 and gains immunity to bleed, clumsy, disease, drained, enfeebled, fatigued, petrified, poison, sickened, void damage, and wounded. They don't age or require food, water, or sleep. They can perceive their surroundings and cast their innate spells.</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Stone to Flesh] turns the elder sphinx from stone form back to flesh, and @UUID[Compendium.pf2e.spells-srd.Item.Petrify] turns it from flesh form to stone form.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "guardian-monolith",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hardness.value",
-                        "predicate": [
-                            "guardian-monolith"
-                        ],
-                        "value": 14
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            "guardian-monolith"
-                        ],
-                        "type": [
-                            "bleed",
-                            "clumsy",
-                            "disease",
-                            "drained",
-                            "enfeebled",
-                            "fatigued",
-                            "petrified",
-                            "poison",
-                            "sickened",
-                            "void",
-                            "wounded"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SCRF3318aESeiNRz",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Idols of Stone",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the sphinx casts @UUID[Compendium.pf2e.spells-srd.Item.Shape Stone], they can shape the stone into a magical duplicate of themself.</p>\n<p>When they cast @UUID[Compendium.pf2e.spells-srd.Item.Clairaudience], @UUID[Compendium.pf2e.spells-srd.Item.Clairvoyance], @UUID[Compendium.pf2e.spells-srd.Item.Locate], or @UUID[Compendium.pf2e.spells-srd.Item.Ventriloquism], they can make the effect come from any duplicate, instead of themself.</p>\n<p>The elder sphinx can concentrate for 1 minute to transfer their consciousness to any duplicate; the sphinx is then in their stone form from Guardian Monolith in that statue.The sphinx can have no more than four duplicate statues at a time. Casting <em>shape stone</em> at that point causes the oldest duplicate to crumble to dust.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "b2yf3FTVhb4cL3mI",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Pose a Riddle",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<hr />\n<p>The sphinx recites a riddle and compels up to 10 creatures within @Template[emanation|distance:30]{30 feet} to answer (@Check[will|dc:37] save). The GM either runs the riddle out of character by timing the players' attempts, or picks an appropriate associated skill for the riddle, such as Religion for a riddle involving divine mysteries.</p>\n<p>The sphinx gains a +2 circumstance bonus to attack rolls and damage rolls against any creature that answers incorrectly even once. This bonus lasts for 1 day.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected, but it can choose to try to help solve the riddle.</p>\n<p><strong>Success</strong> The creature attempts to answer the riddle, each round spending at least one action attempting a @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] check with the chosen skill (or working on the answer, if using an out of game riddle). This lasts for 1 minute, until the creature successfully answers the riddle, or until an enemy takes a hostile action against the creature, whichever comes first.</p>\n<p><strong>Failure</strong> As success but the creature must spend at least two actions each round attempting to answer.</p>\n<p><strong>Critical Failure</strong> As failure, but up to 1 hour.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT10M",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation",
-                        "linguistic",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7GA62FWHgOMnOoir",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Pounce",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The elder sphinx Strides and makes a Strike at the end of that movement. If they began this action @UUID[Compendium.pf2e.conditionitems.Item.Hidden], they remain hidden until after the attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vYyLO2LUYvXaIzFj",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Warding Glyph",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Once per day, an elder sphinx can create a magical symbol as though casting a heightened @UUID[Compendium.pf2e.spells-srd.Item.Rune Trap]. The sphinx usually shapes it to the form of a riddle and sets the password to the answer.</p>\n<p>A creature that doesn't speak the password must succeed at a @Check[will|dc:37] save or be affected by one of the following spells, chosen by the sphinx when creating the symbol:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Visions of Danger] (7th)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Blast] (6th)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Synaptic Pulse] (5th)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Charm] (4th)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Fear] (3rd)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Phantom Pain] (3rd)</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Sleep] (3rd)</li>\n</ul>\n<p>The sphinx learns the identity of any creature that answers the riddle and tends to be friendly to them.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dJBsPpWCcZqoQuz1",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Bardic Lore",
+            "_id": "FHVxImDGF7MB4tzs",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 2600000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 32
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1412,9 +1401,20 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 37,
+                    "value": 29
+                },
+                "tradition": {
+                    "value": "occult"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Elder Sphinx",

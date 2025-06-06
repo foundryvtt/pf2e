@@ -3,10 +3,76 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "6wmw4xZcc4sGgnNR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Carrion Fever",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sickened condition from carrion fever can't be reduced while the affliction remains</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<hr />\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>\n<p><strong>Stage 2</strong> sickened 1, @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, and fatigued (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "carrion-fever",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mx7M2JUGpqZUL4LJ",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Projectile Vomit",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The giant vulture vomits up its last meal on a creature within 10 feet. The creature takes @Damage[3d6[acid]] damage with a @Check[fortitude|dc:20|basic] save. On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "ohHcoAMXMCHN6Scv",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Beak",
-            "sort": 100000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -52,7 +118,7 @@
             "_id": "mjVHIWJqPBBMeBhy",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Talon",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -92,72 +158,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "6wmw4xZcc4sGgnNR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Carrion Fever",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sickened condition from carrion fever can't be reduced while the affliction remains</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<hr />\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>\n<p><strong>Stage 2</strong> sickened 1, @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, and fatigued (1 day)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "carrion-fever",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mx7M2JUGpqZUL4LJ",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Projectile Vomit",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The giant vulture vomits up its last meal on a creature within 10 feet. The creature takes @Damage[3d6[acid]] damage with a @Check[fortitude|dc:20|basic] save. On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Giant Vulture",

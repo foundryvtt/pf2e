@@ -4,23 +4,142 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "CGyzuG0hwimkA0im",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Champion Devotion Spells",
+            "_id": "3xbHIBb7QPCvgnrG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.N1kstYbHScxgUQtN"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ferocity",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": "ferocity",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qQEQfnKIP2H49DVH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8UV5F66KioAedVVP",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Challenge Foe",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Yagrekash challenges one creature she can see to single combat, attempting to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] that target. This target remains her foe until itʼs defeated, it flees, or the encounter ends. Yagrekash gains a circumstance bonus to damage equal to her number of weapon damage dice against her designated foe but takes an equivalent circumstance penalty to damage against any other creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "target:mark:challenge-foe"
+                        ],
+                        "selector": "damage",
+                        "slug": "challenge-foe-bonus",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:challenge-foe",
+                            {
+                                "not": "target:mark:challenge-foe"
+                            }
+                        ],
+                        "selector": "damage",
+                        "slug": "challenge-foe-penalty",
+                        "type": "circumstance",
+                        "value": -2
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Challenge Foe",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Challenge Foe"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xCaKjZ9moEsEKZgq",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mask of Pain",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Yagrekash succeeds at a @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] check</p><hr /><p><strong>Effect</strong> The creature Demoralized takes @Damage[4d6[mental]] damage and is then temporarily immune to additional damage from Mask of Pain for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,313 +147,45 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "mod": 0,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "cfVVDmv6qXlUfUMz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2jB9eyX7YekwoCvA"
-            },
-            "img": "icons/magic/movement/abstract-ribbons-red-orange.webp",
-            "name": "Word of Freedom",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You utter a liberating word of power that frees a creature. You suppress one of the following conditions of your choice: @UUID[Compendium.pf2e.conditionitems.Item.Confused], @UUID[Compendium.pf2e.conditionitems.Item.Frightened], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]. The target isn't affected by the chosen condition, and if you suppress the Grabbed condition, the target automatically breaks free from any grab affecting it when you Cast the Spell.</p>\n<p>If you don't remove the effect that provided the condition, the condition returns after the spell ends. For example, if a spell was making the target Confused for 1 minute, word of freedom would let the target act normally for a round, but the Confused condition would return afterward.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 round"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "CGyzuG0hwimkA0im"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "word-of-freedom",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "1"
-                },
                 "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
                     "value": [
-                        "cleric",
-                        "concentrate",
-                        "focus",
                         "mental"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "lPOhhyYSwHpN0LFT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.W37iBXLsY2trJ1rS"
-            },
-            "img": "systems/pf2e/icons/spells/weapon-surge.webp",
-            "name": "Weapon Surge",
-            "sort": 300000,
+            "_id": "1gUJ38Q6ypxvIaz2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Warmask of Power",
+            "sort": 500000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>Holding your weapon aloft, you fill it with divine energy.</p>\n<p>On your next Strike with that weapon before the start of your next turn, you gain a +1 status bonus to the attack roll and the weapon deals an additional die of damage.</p>\n<p>If the weapon has a striking rune, this instead increases the number of dice from the striking rune by 1 (to a maximum of 3 extra weapon dice).</p>\n<p>If the target weapon leaves your possession, weapon surge immediately ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Weapon Surge]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "CGyzuG0hwimkA0im"
+                    "value": "<p>Yagrekash's echo form retains her painted <em>divine warmask</em> dedicated to Zagresh, allowing her to cast @UUID[Compendium.pf2e.spells-srd.Item.Sure Strike] as an innate divine spell once per day.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "weapon-surge",
-                "target": {
-                    "value": "1 weapon you're wielding"
-                },
-                "time": {
-                    "value": "1"
-                },
+                "slug": null,
                 "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
                     "value": [
-                        "cleric",
-                        "focus",
-                        "manipulate"
+                        "divine"
                     ]
                 }
             },
-            "type": "spell"
-        },
-        {
-            "_id": "2oEe6HUrOA7CBvEG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.kdGqnqbrwPzQfTsm"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/greatclub.webp",
-            "name": "Greatclub",
-            "sort": 400000,
-            "system": {
-                "baseItem": "greatclub",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 2
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d10"
-                },
-                "description": {
-                    "value": "<p>While many greatclubs are intricately carved, others are little more than a sturdy tree branch. These massive clubs are too heavy to wield with only one hand.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "club",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 1
-                },
-                "size": "med",
-                "slug": "greatclub",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "backswing",
-                        "shove"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "weapon"
-        },
-        {
-            "_id": "U4PZe5KoCkinzjYG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
-            },
-            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
-            "name": "Dagger",
-            "sort": 500000,
-            "system": {
-                "baseItem": "dagger",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d4"
-                },
-                "description": {
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "knife",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [
-                        "returning"
-                    ],
-                    "striking": 1
-                },
-                "size": "med",
-                "slug": "dagger",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "usage": {
-                    "canBeAmmo": false,
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "weapon"
+            "type": "action"
         },
         {
             "_id": "6oI4Bj2P7mSMVDdC",
@@ -502,173 +353,140 @@
             "type": "melee"
         },
         {
-            "_id": "3xbHIBb7QPCvgnrG",
+            "_id": "cfVVDmv6qXlUfUMz",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.N1kstYbHScxgUQtN"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2jB9eyX7YekwoCvA"
             },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Ferocity",
+            "img": "icons/magic/movement/abstract-ribbons-red-orange.webp",
+            "name": "Word of Freedom",
             "sort": 1000000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
+                    "value": "<p>You utter a liberating word of power that frees a creature. You suppress one of the following conditions of your choice: @UUID[Compendium.pf2e.conditionitems.Item.Confused], @UUID[Compendium.pf2e.conditionitems.Item.Frightened], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]. The target isn't affected by the chosen condition, and if you suppress the Grabbed condition, the target automatically breaks free from any grab affecting it when you Cast the Spell.</p>\n<p>If you don't remove the effect that provided the condition, the condition returns after the spell ends. For example, if a spell was making the target Confused for 1 minute, word of freedom would let the target act normally for a round, but the Confused condition would return afterward.</p>"
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
                 },
-                "rules": [],
-                "slug": "ferocity",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qQEQfnKIP2H49DVH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Strike",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
+                "level": {
+                    "value": 4
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "reactive-strike",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8UV5F66KioAedVVP",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Challenge Foe",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Yagrekash challenges one creature she can see to single combat, attempting to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] that target. This target remains her foe until itʼs defeated, it flees, or the encounter ends. Yagrekash gains a circumstance bonus to damage equal to her number of weapon damage dice against her designated foe but takes an equivalent circumstance penalty to damage against any other creature.</p>"
+                "location": {
+                    "value": "CGyzuG0hwimkA0im"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "target:mark:challenge-foe"
-                        ],
-                        "selector": "damage",
-                        "slug": "challenge-foe-bonus",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:challenge-foe",
-                            {
-                                "not": "target:mark:challenge-foe"
-                            }
-                        ],
-                        "selector": "damage",
-                        "slug": "challenge-foe-penalty",
-                        "type": "circumstance",
-                        "value": -2
-                    }
-                ],
-                "selfEffect": {
-                    "name": "Effect: Challenge Foe",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Challenge Foe"
+                "range": {
+                    "value": "30 feet"
                 },
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xCaKjZ9moEsEKZgq",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Mask of Pain",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Yagrekash succeeds at a @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] check</p><hr /><p><strong>Effect</strong> The creature Demoralized takes @Damage[4d6[mental]] damage and is then temporarily immune to additional damage from Mask of Pain for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "word-of-freedom",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "1"
+                },
                 "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
                     "value": [
+                        "cleric",
+                        "concentrate",
+                        "focus",
                         "mental"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "1gUJ38Q6ypxvIaz2",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Warmask of Power",
-            "sort": 1400000,
+            "_id": "lPOhhyYSwHpN0LFT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.W37iBXLsY2trJ1rS"
+            },
+            "img": "systems/pf2e/icons/spells/weapon-surge.webp",
+            "name": "Weapon Surge",
+            "sort": 1100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Holding your weapon aloft, you fill it with divine energy.</p>\n<p>On your next Strike with that weapon before the start of your next turn, you gain a +1 status bonus to the attack roll and the weapon deals an additional die of damage.</p>\n<p>If the weapon has a striking rune, this instead increases the number of dice from the striking rune by 1 (to a maximum of 3 extra weapon dice).</p>\n<p>If the target weapon leaves your possession, weapon surge immediately ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Weapon Surge]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "CGyzuG0hwimkA0im"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "weapon-surge",
+                "target": {
+                    "value": "1 weapon you're wielding"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "cleric",
+                        "focus",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "CGyzuG0hwimkA0im",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Champion Devotion Spells",
+            "sort": 1200000,
+            "system": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Yagrekash's echo form retains her painted <em>divine warmask</em> dedicated to Zagresh, allowing her to cast @UUID[Compendium.pf2e.spells-srd.Item.Sure Strike] as an innate divine spell once per day.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -676,14 +494,196 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
+                "spelldc": {
+                    "dc": 29,
+                    "mod": 0,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "2oEe6HUrOA7CBvEG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.kdGqnqbrwPzQfTsm"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/greatclub.webp",
+            "name": "Greatclub",
+            "sort": 1300000,
+            "system": {
+                "baseItem": "greatclub",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 2
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d10"
+                },
+                "description": {
+                    "value": "<p>While many greatclubs are intricately carved, others are little more than a sturdy tree branch. These massive clubs are too heavy to wield with only one hand.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "club",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "greatclub",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
+                    "rarity": "common",
                     "value": [
-                        "divine"
+                        "backswing",
+                        "shove"
                     ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
                 }
             },
-            "type": "action"
+            "type": "weapon"
+        },
+        {
+            "_id": "U4PZe5KoCkinzjYG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
+            },
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
+            "name": "Dagger",
+            "sort": 1400000,
+            "system": {
+                "baseItem": "dagger",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [
+                        "returning"
+                    ],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "dagger",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         }
     ],
     "name": "Yagrekash",

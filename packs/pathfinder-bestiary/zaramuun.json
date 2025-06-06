@@ -3,23 +3,86 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "iXwmnPnBaxNyz50d",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "K2x7jUEcU74IIJ3D",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6MX0hGFGosdch5VS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XHFapZJB0eCngkyn",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Dune",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Until the next time it acts, the zaramuun appears to be a sand dune. It has an automatic result of 47 (50 in sandy terrain) on Deception and Stealth checks and DCs to pass as a sand dune. Any creature that walks onto the zaramuun moves into its body and is Engulfed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +90,226 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "mod": 0,
-                    "value": 31
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "4NNU4WrjaWJrngyL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.zU3Ovaet4xQ5Gmvy"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Engulf",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Check[reflex|dc:35|traits:damaging-effect], @Damage[4d12[bludgeoning]] damage and @UUID[Compendium.pf2e.spells-srd.Item.Planar Tether], Escape DC 32, Rupture 28</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "engulf",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wLRqThGwPUufb2HR",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Raking Sand",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The zaramuun hit with a melee Strike with its last action, or it has a creature Engulfed.</p>\n<hr />\n<p><strong>Effect</strong> The zaramuun attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] one primarily metal or stone object from the Struck or Engulfed creature and casts its innate @UUID[Compendium.pf2e.spells-srd.Item.Planar Tether] on the target creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "abrvwmCxto1mr7Xu",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sand Glide",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The zaramuun can @UUID[Compendium.pf2e.actionspf2e.Item.Burrow] through sand and dirt (but not stone) at its full burrow Speed, leaving no tunnel or sign of its passing. Any Engulfed creatures are left behind when it Burrows. Loose sand and scree are not difficult terrain for a zaramuun.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mB1mKRbvNa6edeUB",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Sandblast",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The zaramuun sprays a blast of sand that deals @Damage[11d10[slashing]] damage to all creatures in a @Template[line|distance:60] (@Check[reflex|dc:38|traits:damaging-effect]).</p>\n<p>It can't Sandblast again for [[/gmr 1d4 #Recharge Sandblast]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> Half damage.</p>\n<p><strong>Failure</strong> Full damage.</p>\n<p><strong>Critical Failure</strong> Full damage and @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "earth"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XgycaDcxnUeoby8d",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "hgp26c7c585qkoht088b": {
+                        "damage": "4d12+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "epscB9eQsqVToqtK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rock Or Metal Debris",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "nkxjapi0b3a8de2ajabd": {
+                        "damage": "4d8+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-120"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "iXTQ9MdmoNWDunDZ",
@@ -50,7 +318,7 @@
             },
             "img": "systems/pf2e/icons/spells/disintegrate.webp",
             "name": "Disintegrate",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -134,7 +402,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -219,7 +487,7 @@
             },
             "img": "systems/pf2e/icons/spells/planar-ally.webp",
             "name": "Planar Ally",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -282,7 +550,7 @@
             },
             "img": "icons/equipment/shield/heater-steel-segmented-purple.webp",
             "name": "Dimensional Anchor (At Will) (Constant)",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -349,7 +617,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion (At Will)",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -422,297 +690,23 @@
             "type": "spell"
         },
         {
-            "_id": "XgycaDcxnUeoby8d",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "hgp26c7c585qkoht088b": {
-                        "damage": "4d12+13",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "epscB9eQsqVToqtK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rock Or Metal Debris",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "nkxjapi0b3a8de2ajabd": {
-                        "damage": "4d8+13",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-120"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "K2x7jUEcU74IIJ3D",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (Imprecise) 60 feet",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6MX0hGFGosdch5VS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XHFapZJB0eCngkyn",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Dune",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Until the next time it acts, the zaramuun appears to be a sand dune. It has an automatic result of 47 (50 in sandy terrain) on Deception and Stealth checks and DCs to pass as a sand dune. Any creature that walks onto the zaramuun moves into its body and is Engulfed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4NNU4WrjaWJrngyL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.zU3Ovaet4xQ5Gmvy"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Engulf",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Check[reflex|dc:35|traits:damaging-effect], @Damage[4d12[bludgeoning]] damage and @UUID[Compendium.pf2e.spells-srd.Item.Planar Tether], Escape DC 32, Rupture 28</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "engulf",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wLRqThGwPUufb2HR",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Raking Sand",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The zaramuun hit with a melee Strike with its last action, or it has a creature Engulfed.</p>\n<hr />\n<p><strong>Effect</strong> The zaramuun attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] one primarily metal or stone object from the Struck or Engulfed creature and casts its innate @UUID[Compendium.pf2e.spells-srd.Item.Planar Tether] on the target creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "abrvwmCxto1mr7Xu",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sand Glide",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The zaramuun can @UUID[Compendium.pf2e.actionspf2e.Item.Burrow] through sand and dirt (but not stone) at its full burrow Speed, leaving no tunnel or sign of its passing. Any Engulfed creatures are left behind when it Burrows. Loose sand and scree are not difficult terrain for a zaramuun.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mB1mKRbvNa6edeUB",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Sandblast",
+            "_id": "iXwmnPnBaxNyz50d",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 1500000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The zaramuun sprays a blast of sand that deals @Damage[11d10[slashing]] damage to all creatures in a @Template[line|distance:60] (@Check[reflex|dc:38|traits:damaging-effect]).</p>\n<p>It can't Sandblast again for [[/gmr 1d4 #Recharge Sandblast]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> Half damage.</p>\n<p><strong>Failure</strong> Full damage.</p>\n<p><strong>Critical Failure</strong> Full damage and @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -720,15 +714,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "earth"
-                    ]
+                "spelldc": {
+                    "dc": 37,
+                    "mod": 0,
+                    "value": 31
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Zaramuun",

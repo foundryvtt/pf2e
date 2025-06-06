@@ -4,22 +4,133 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "FsxDCjiS8p8Nujnf",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "reiW3kNMCpOlzRzz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2H6L0yxfsrFZ5Rtb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eWCPZ0L4NU6UdoZN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The shinigami takes on the appearance of a specific Small or Medium humanoid creature. This doesn't change their statistics, other than to remove the reach trait from their Strikes. The shinigami's human shape is unique to the shinigami and can't be used to Impersonate a creature.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OP05loKNOdvZLWo1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pouch of Four Gems",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each shinigami carries a pouch containing four black sapphires for use with @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]. Each gem is capable of holding a soul of a maximum level equal to that of the shinigami. If the shinigami dies, the gems are destroyed as well, and any souls they contain are released harmlessly to travel to the Boneyard.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +138,220 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "value": 30
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "3TDlbJcSIPf4aWf8",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Release Soul",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> One of the gems in the shinigami's pouch contains a soul from bind soul</p>\n<hr />\n<p><strong>Effect</strong> The shinigami crushes the gem, sending the soul to the Boneyard while releasing a wave of necromantic energy. All creatures within a @Template[emanation|distance:30] take 18d6 damage (@Check[fortitude|dc:38|basic] save); the shinigami chooses whether this damage is @Damage[18d6[vitality]]{vitality} damage or @Damage[18d6[void]]{void} damage. A creature who takes damage from this effect and fails the saving throw is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PSrn4FuENTmrcC6U",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spirit Touch",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A shinigami's Strikes can affect incorporeal creatures with the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wAAzxHS2JeAzvRIH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.DujblC14ytJEZMaz"
+            },
+            "img": "icons/containers/bags/sack-simple-leather-brown.webp",
+            "name": "Pouch of Four Gems",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "capacity": 8,
+                    "heldOrStowed": 0.1,
+                    "ignored": 0,
+                    "value": 0.1
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "lg",
+                "slug": "sack",
+                "stowing": false,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "backpack"
+        },
+        {
+            "_id": "YvUrIqDo2YMCC6bC",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Boneyard Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 32
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Y7x96PkKD8Pfeh19",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "HavNvD3wT2KqvPXd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Naginata",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+16",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "deadly-d8",
+                        "magical",
+                        "reach-15",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "FUIuMwSsKnU7qxvS",
@@ -50,7 +360,7 @@
             },
             "img": "icons/magic/unholy/orb-glowing-purple.webp",
             "name": "Bind Soul",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -116,7 +426,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Finger of Death",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -201,7 +511,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -265,7 +575,7 @@
             },
             "img": "systems/pf2e/icons/spells/scrying.webp",
             "name": "Scrying",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -332,7 +642,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -396,7 +706,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 700000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -458,7 +768,7 @@
             },
             "img": "systems/pf2e/icons/spells/enervation.webp",
             "name": "Enervation",
-            "sort": 800000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "line",
@@ -532,7 +842,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (Constant)",
-            "sort": 900000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -591,13 +901,53 @@
             "type": "spell"
         },
         {
+            "_id": "FsxDCjiS8p8Nujnf",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 1800000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 38,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "HavNvD3wT2KqvPXd",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.NufKswitJjxDCX8f"
             },
             "img": "systems/pf2e/icons/equipment/weapons/naginata.webp",
             "name": "Naginata",
-            "sort": 1000000,
+            "sort": 1900000,
             "system": {
                 "baseItem": "naginata",
                 "bonus": {
@@ -676,356 +1026,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "wAAzxHS2JeAzvRIH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.DujblC14ytJEZMaz"
-            },
-            "img": "icons/containers/bags/sack-simple-leather-brown.webp",
-            "name": "Pouch of Four Gems",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "capacity": 8,
-                    "heldOrStowed": 0.1,
-                    "ignored": 0,
-                    "value": 0.1
-                },
-                "collapsed": false,
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "lg",
-                "slug": "sack",
-                "stowing": false,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "backpack"
-        },
-        {
-            "_id": "Y7x96PkKD8Pfeh19",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "HavNvD3wT2KqvPXd"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Naginata",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+16",
-                        "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "deadly-d8",
-                        "magical",
-                        "reach-15",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "reiW3kNMCpOlzRzz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2H6L0yxfsrFZ5Rtb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eWCPZ0L4NU6UdoZN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The shinigami takes on the appearance of a specific Small or Medium humanoid creature. This doesn't change their statistics, other than to remove the reach trait from their Strikes. The shinigami's human shape is unique to the shinigami and can't be used to Impersonate a creature.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OP05loKNOdvZLWo1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Pouch of Four Gems",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Each shinigami carries a pouch containing four black sapphires for use with @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]. Each gem is capable of holding a soul of a maximum level equal to that of the shinigami. If the shinigami dies, the gems are destroyed as well, and any souls they contain are released harmlessly to travel to the Boneyard.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3TDlbJcSIPf4aWf8",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Release Soul",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> One of the gems in the shinigami's pouch contains a soul from bind soul</p>\n<hr />\n<p><strong>Effect</strong> The shinigami crushes the gem, sending the soul to the Boneyard while releasing a wave of necromantic energy. All creatures within a @Template[emanation|distance:30] take 18d6 damage (@Check[fortitude|dc:38|basic] save); the shinigami chooses whether this damage is @Damage[18d6[vitality]]{vitality} damage or @Damage[18d6[void]]{void} damage. A creature who takes damage from this effect and fails the saving throw is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PSrn4FuENTmrcC6U",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spirit Touch",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A shinigami's Strikes can affect incorporeal creatures with the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "property-runes",
-                        "value": "ghost-touch"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YvUrIqDo2YMCC6bC",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Boneyard Lore",
-            "sort": 1900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 32
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Shinigami",

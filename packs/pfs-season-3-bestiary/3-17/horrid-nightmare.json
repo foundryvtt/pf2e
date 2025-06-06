@@ -4,23 +4,59 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jW0BtgVKN8XQhLKs",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "nbWXPfh7WyVCERN9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>15 feet. The nightmare continually exhales black smoke that creates @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} in an aura around it. Nightmares and their riders can see through this smoke. A creature that begins its turn in the area becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (@Check[fortitude|dc:25] negates) and is then temporarily immune sickness from the smoke for 1 minute. The nightmare, its rider, any creature currently holding its breath (or that does not need to breathe), and any creature immune to poison are immune to the aura's sickened effect but not the concealment.</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15,
+                        "slug": "smoke",
+                        "traits": []
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Huqh2NJEkx1xBpoO",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flaming Gallop",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The nightmare Strides or Flies up to triple its Speed. Its hooves burst with intense flame, dealing @Damage[4d6[fire]] damage (@Check[reflex|dc:26|basic] save) once to each creature other than the nightmare's rider that the nightmare moves adjacent to during its gallop.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,85 +64,15 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "mod": 0,
-                    "value": 16
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "aFTYkeNI6jd2TfGi",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
-            },
-            "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
-            "name": "Plane Shift (Self and Rider Only)",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Netherworld, or the Outer Rifts. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "heightenedLevel": 7,
-                    "value": "jW0BtgVKN8XQhLKs"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "plane-shift",
-                "target": {
-                    "value": "self and rider"
-                },
-                "time": {
-                    "value": "10 minutes"
-                },
                 "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
+                    "rarity": "common",
                     "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
+                        "fire"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
             "_id": "hvrW7fEOtezPrmRv",
@@ -215,59 +181,87 @@
             "type": "melee"
         },
         {
-            "_id": "nbWXPfh7WyVCERN9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke",
+            "_id": "aFTYkeNI6jd2TfGi",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
+            },
+            "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
+            "name": "Plane Shift (Self and Rider Only)",
             "sort": 500000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>15 feet. The nightmare continually exhales black smoke that creates @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} in an aura around it. Nightmares and their riders can see through this smoke. A creature that begins its turn in the area becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (@Check[fortitude|dc:25] negates) and is then temporarily immune sickness from the smoke for 1 minute. The nightmare, its rider, any creature currently holding its breath (or that does not need to breathe), and any creature immune to poison are immune to the aura's sickened effect but not the concealment.</p>"
+                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Netherworld, or the Outer Rifts. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "heightenedLevel": 7,
+                    "value": "jW0BtgVKN8XQhLKs"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 15,
-                        "slug": "smoke",
-                        "traits": []
-                    }
-                ],
-                "slug": null,
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "plane-shift",
+                "target": {
+                    "value": "self and rider"
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
                 "traits": {
-                    "rarity": "common",
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
                     "value": [
-                        "aura"
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "Huqh2NJEkx1xBpoO",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Flaming Gallop",
+            "_id": "jW0BtgVKN8XQhLKs",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 600000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The nightmare Strides or Flies up to triple its Speed. Its hooves burst with intense flame, dealing @Damage[4d6[fire]] damage (@Check[reflex|dc:26|basic] save) once to each creature other than the nightmare's rider that the nightmare moves adjacent to during its gallop.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -275,15 +269,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire"
-                    ]
+                "spelldc": {
+                    "dc": 24,
+                    "mod": 0,
+                    "value": 16
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Horrid Nightmare",

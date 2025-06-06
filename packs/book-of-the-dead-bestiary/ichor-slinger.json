@@ -3,124 +3,221 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "PUSMVu4rpxSMuAPR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4ftXXUCBHcf4b0MH"
-            },
-            "img": "icons/tools/laboratory/vials-blue-pink.webp",
-            "name": "Alchemist's Tools",
+            "_id": "y7o3rimaf8qdtr7r",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mystery Ingredients",
             "sort": 100000,
             "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
+                "actionType": {
+                    "value": "passive"
                 },
-                "containerId": null,
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
+                    "value": "<p>60 feet. Creatures in the aura take a -2 status penalty to checks to Identify Alchemy, Recall Knowledge about alchemical subjects, or examine snake oil effects. When a creature first enters the area, if it hears the ichor slinger talking, it must attempt a secret @Check[will|dc:23|traits:secret] save against the slinger's Deception DC. On a failure, it treats its next failed check to Identify Alchemy or Recall Knowledge about alchemical subjects in the next 24 hours as though it were a critical failure instead. This is an auditory misfortune effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "alchemists-tools",
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "mystery-ingredients",
+                        "traits": [
+                            "auditory",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
+                    "value": [
+                        "auditory",
+                        "aura",
+                        "occult"
+                    ]
                 }
             },
-            "type": "equipment"
+            "type": "action"
         },
         {
-            "_id": "0kqaL3kcsN1O2yiw",
+            "_id": "UTArnl71MY7BVLQc",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
             },
-            "img": "icons/containers/chest/chest-simple-box-red.webp",
-            "name": "Disguise Kit",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
             "sort": 200000,
             "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
+                "actionType": {
+                    "value": "passive"
                 },
-                "containerId": null,
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>This small wooden box contains cosmetics, false facial hair, spirit gum, and a few simple wigs. You usually need a disguise kit to set up a disguise in order to Impersonate someone using the Deception skill. If you've crafted a large number of disguises, you can replenish your cosmetics supply with replacement cosmetics suitable for the type of your disguise kit.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Bestiary 2"
                 },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "disguise-kit",
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "type": "equipment"
+            "type": "action"
+        },
+        {
+            "_id": "mgzsxl5d5chh9f17",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Brew Tomb Juice",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents</p>\n<hr />\n<p><strong>Effect</strong> The ichor slinger creates a vial of tomb juice, an alchemical tonic that has the infused trait and becomes inert after 24 hours. Tomb juice has the effects of @UUID[Compendium.pf2e.equipment-srd.Item.Snake Oil], and maybe more depending on the results of the ichor slinger's @Check[crafting|dc:20] check.</p>\n<hr />\n<p><strong>Critical Success</strong> The slinger chooses one of the following items and adds its effects to the tomb juice: @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Giant Scorpion Venom], or @UUID[Compendium.pf2e.equipment-srd.Item.Juggernaut Mutagen (Moderate)]. Poisons created in this way gain an onset of 1 round, gain the ingested trait, and lose any contact, inhaled, or injury traits.</p>\n<p><strong>Success</strong> As critical success, but the slinger chooses from @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Minor)], @UUID[Compendium.pf2e.equipment-srd.Item.Graveroot], or @UUID[Compendium.pf2e.equipment-srd.Item.Juggernaut Mutagen (Lesser)].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wln6jtro52i3xd9c",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Exhume",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The ichor slinger is adjacent to a dead creature that hasn't already been affected by Exhume</p>\n<hr />\n<p><strong>Effect</strong> The ichor slinger harvests portions of the corpse to gain 1 dose of infused reagents, or 2 infused reagents if the creature was undead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iqh47015p1pztflo",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Force Feed",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The ichor slinger has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] and is holding tomb juice, an alchemical elixir, or an alchemical poison</p>\n<hr />\n<p><strong>Effect</strong> The ichor slinger forces the target to consume the alchemical item.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WPhT2IXNFPoANk1z",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         },
         {
             "_id": "JKpaLr9UX648Hgix",
             "img": "icons/commodities/treasure/brooch-pink-orbs.webp",
             "name": "Infused Reagents",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -182,7 +279,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/snake-oil.webp",
             "name": "Snake Oil",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -243,10 +340,124 @@
             "type": "consumable"
         },
         {
+            "_id": "PUSMVu4rpxSMuAPR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4ftXXUCBHcf4b0MH"
+            },
+            "img": "icons/tools/laboratory/vials-blue-pink.webp",
+            "name": "Alchemist's Tools",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "alchemists-tools",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "0kqaL3kcsN1O2yiw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT"
+            },
+            "img": "icons/containers/chest/chest-simple-box-red.webp",
+            "name": "Disguise Kit",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This small wooden box contains cosmetics, false facial hair, spirit gum, and a few simple wigs. You usually need a disguise kit to set up a disguise in order to Impersonate someone using the Deception skill. If you've crafted a large number of disguises, you can replenish your cosmetics supply with replacement cosmetics suitable for the type of your disguise kit.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "disguise-kit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
             "_id": "7ko9o8gxy2rnu262",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -288,217 +499,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "y7o3rimaf8qdtr7r",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mystery Ingredients",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. Creatures in the aura take a -2 status penalty to checks to Identify Alchemy, Recall Knowledge about alchemical subjects, or examine snake oil effects. When a creature first enters the area, if it hears the ichor slinger talking, it must attempt a secret @Check[will|dc:23|traits:secret] save against the slinger's Deception DC. On a failure, it treats its next failed check to Identify Alchemy or Recall Knowledge about alchemical subjects in the next 24 hours as though it were a critical failure instead. This is an auditory misfortune effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "mystery-ingredients",
-                        "traits": [
-                            "auditory",
-                            "occult"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "aura",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UTArnl71MY7BVLQc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mgzsxl5d5chh9f17",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Brew Tomb Juice",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents</p>\n<hr />\n<p><strong>Effect</strong> The ichor slinger creates a vial of tomb juice, an alchemical tonic that has the infused trait and becomes inert after 24 hours. Tomb juice has the effects of @UUID[Compendium.pf2e.equipment-srd.Item.Snake Oil], and maybe more depending on the results of the ichor slinger's @Check[crafting|dc:20] check.</p>\n<hr />\n<p><strong>Critical Success</strong> The slinger chooses one of the following items and adds its effects to the tomb juice: @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Giant Scorpion Venom], or @UUID[Compendium.pf2e.equipment-srd.Item.Juggernaut Mutagen (Moderate)]. Poisons created in this way gain an onset of 1 round, gain the ingested trait, and lose any contact, inhaled, or injury traits.</p>\n<p><strong>Success</strong> As critical success, but the slinger chooses from @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Minor)], @UUID[Compendium.pf2e.equipment-srd.Item.Graveroot], or @UUID[Compendium.pf2e.equipment-srd.Item.Juggernaut Mutagen (Lesser)].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wln6jtro52i3xd9c",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Exhume",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The ichor slinger is adjacent to a dead creature that hasn't already been affected by Exhume</p>\n<hr />\n<p><strong>Effect</strong> The ichor slinger harvests portions of the corpse to gain 1 dose of infused reagents, or 2 infused reagents if the creature was undead.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iqh47015p1pztflo",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Force Feed",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The ichor slinger has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] and is holding tomb juice, an alchemical elixir, or an alchemical poison</p>\n<hr />\n<p><strong>Effect</strong> The ichor slinger forces the target to consume the alchemical item.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WPhT2IXNFPoANk1z",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Ichor Slinger",

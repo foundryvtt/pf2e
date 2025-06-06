@@ -3,62 +3,132 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "yYIw6I9l5DKwkiMJ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "4B53NxcnufuOkGSF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coven",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>A sweet hag adds @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Honeyed Words], and @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse] to their coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "slug": "coven",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "hzY5nJhjn5f6bWEL",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Coven Spells",
+            "_id": "SkfchuI2ZEZgnl6U",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pfqWq7ND3LIBUGTa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WuotNn100zUQUxvj",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Betraying Touch",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sweet hag touches a creature that doesn't realize the hag is an enemy. The betrayed creature is affected by soporific strike with a –4 circumstance penalty to their saving throw.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -66,21 +136,187 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 20,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bGfQxCimFAFe4AaV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sweet hag can take on the appearance of any Medium humanoid woman. This doesn't change their Speed or their attack and damage bonuses with their Strikes, but it might change the damage type their Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "hag",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hag",
+                                "value": "hag"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
+                                "value": "humanoid-medium"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "bludgeoning"
+                        },
+                        "predicate": [
+                            "change-shape:humanoid-medium"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kf8hPtLO45Y8n026",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Poisoned Candy",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sweet hag casts an innate spell that can normally target 1 creature on a piece of food, typically a sweet treat. The spell is stored in the food. The first creature that eats any of the food is affected by the spell and takes a –4 circumstance penalty to their saving throw against that effect.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BBK6VRtgLyiTZvrD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Soporific Touch",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature damaged by a sweet hag's claw must succeed at a @Check[fortitude|dc:20] save or be @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 day.</p>\n<p>If the creature critically fails or fails this save while already enfeebled by soporific strike, it falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and dreams of eating delicious sweets; this is a mental sleep effect. If not woken up before 1 minute passes, the creature wakes up automatically.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W6zB8L6mVcLC12mo",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Candy Cane Claw",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "soporific-touch"
+                    ]
+                },
+                "bonus": {
                     "value": 14
                 },
-                "tradition": {
-                    "value": "occult"
+                "damageRolls": {
+                    "7c24LQj9D0ihkR8F": {
+                        "damage": "1d10+5",
+                        "damageType": "piercing"
+                    }
                 },
-                "traits": {}
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
             "_id": "aHVkp12h1sv8RQU1",
@@ -89,7 +325,7 @@
             },
             "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
             "name": "Control Weather",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -152,7 +388,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Cursed Metamorphosis",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -222,7 +458,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -290,7 +526,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Scouting Eye",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -353,7 +589,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -414,7 +650,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
-            "sort": 800000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -476,7 +712,7 @@
             },
             "img": "systems/pf2e/icons/spells/glibness.webp",
             "name": "Honeyed Words",
-            "sort": 900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -537,7 +773,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-melting-green.webp",
             "name": "Outcast's Curse",
-            "sort": 1000000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -607,7 +843,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 1100000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -673,7 +909,7 @@
             },
             "img": "icons/magic/light/orb-hand-green.webp",
             "name": "Clairaudience",
-            "sort": 1200000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -735,7 +971,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 1300000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -797,7 +1033,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-food.webp",
             "name": "Create Food (Sweets Only)",
-            "sort": 1400000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -859,7 +1095,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will)",
-            "sort": 1500000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -921,7 +1157,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Laughing Fit",
-            "sort": 1600000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -989,7 +1225,7 @@
             },
             "img": "icons/magic/unholy/strike-body-life-soul-purple.webp",
             "name": "Shrink",
-            "sort": 1700000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1061,7 +1297,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1800000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1142,7 +1378,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm (At Will)",
-            "sort": 1900000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1222,7 +1458,7 @@
             },
             "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
             "name": "Cleanse Cuisine (At Will)",
-            "sort": 2000000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1282,7 +1518,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2100000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1369,7 +1605,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 2200000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1432,7 +1668,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 2300000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1495,7 +1731,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2400000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1559,7 +1795,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2500000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1635,7 +1871,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 2600000,
+            "sort": 3200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1707,7 +1943,7 @@
             },
             "img": "icons/creatures/invertebrates/tick-cross-glowing-purple.webp",
             "name": "Spider Sting",
-            "sort": 2700000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1778,304 +2014,22 @@
             "type": "spell"
         },
         {
-            "_id": "W6zB8L6mVcLC12mo",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Candy Cane Claw",
-            "sort": 2800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "soporific-touch"
-                    ]
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "7c24LQj9D0ihkR8F": {
-                        "damage": "1d10+5",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "4B53NxcnufuOkGSF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coven",
-            "sort": 2900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A sweet hag adds @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Honeyed Words], and @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse] to their coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "coven",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SkfchuI2ZEZgnl6U",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pfqWq7ND3LIBUGTa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 3100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WuotNn100zUQUxvj",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Betraying Touch",
-            "sort": 3200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sweet hag touches a creature that doesn't realize the hag is an enemy. The betrayed creature is affected by soporific strike with a –4 circumstance penalty to their saving throw.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bGfQxCimFAFe4AaV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 3300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sweet hag can take on the appearance of any Medium humanoid woman. This doesn't change their Speed or their attack and damage bonuses with their Strikes, but it might change the damage type their Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ChangeShape.Label",
-                        "option": "change-shape",
-                        "selection": "hag",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hag",
-                                "value": "hag"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
-                                "value": "humanoid-medium"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "bludgeoning"
-                        },
-                        "predicate": [
-                            "change-shape:humanoid-medium"
-                        ],
-                        "selector": "damage"
-                    }
-                ],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kf8hPtLO45Y8n026",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Poisoned Candy",
+            "_id": "yYIw6I9l5DKwkiMJ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 3400000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sweet hag casts an innate spell that can normally target 1 creature on a piece of food, typically a sweet treat. The spell is stored in the food. The first creature that eats any of the food is affected by the spell and takes a –4 circumstance penalty to their saving throw against that effect.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BBK6VRtgLyiTZvrD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Soporific Touch",
-            "sort": 3500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>A creature damaged by a sweet hag's claw must succeed at a @Check[fortitude|dc:20] save or be @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 day.</p>\n<p>If the creature critically fails or fails this save while already enfeebled by soporific strike, it falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and dreams of eating delicious sweets; this is a mental sleep effect. If not woken up before 1 minute passes, the creature wakes up automatically.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -2083,15 +2037,61 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "incapacitation",
-                        "occult"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 20,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "hzY5nJhjn5f6bWEL",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Coven Spells",
+            "sort": 3500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 20,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Sweet Hag",

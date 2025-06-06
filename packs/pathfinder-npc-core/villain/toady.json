@@ -4,13 +4,298 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "5wvmvk8TKAO4VVU6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Master Sends Their Regards",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A toady can deliver a message from their boss to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] using their boss's Intimidation modifier instead of their own.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8KFNO8NxM7NLScxG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Perception +9 to Eavesdrop",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "to-eavesdrop"
+                        ],
+                        "selector": "perception",
+                        "value": 6
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E0C08vSpFr1q5zb4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Human Shield",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The toady's boss takes damage from an attack, and the toady is adjacent to them</p><hr /><p><strong>Effect</strong> The toady takes the damage instead, along with any secondary effects of attack. This damage can't be reduced in any way.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UL26wLiEC5bMFJ9j",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scurry",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The toady Strides, then can [[/act hide]]. They can attempt to Hide from creatures without cover or being @UUID[Compendium.pf2e.conditionitems.Item.Concealed], but at a –2 circumstance penalty.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R6tTnGeB0AtI33Ow",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Throw Cargo",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A toady carries a heavy load of supplies at their boss's behest. They hurl a heavy item they're carrying, which explodes on impact to deal @Damage[1d10[bludgeoning]|options:area-damage] damage to all creatures in a @Template[type:burst|distance:5] with a @Check[reflex|dc:14|basic|options:area-effect] save.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uzK5FiWQVbfnyF3z",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "PyVWMUoP763fotYi"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sap",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "Acs4CSZCOQaKy6wR": {
+                        "damage": "1d6+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "sap",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LtNyDt3k62y0OtVV",
+            "_stats": {
+                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "iswR188zNNz1VJHP": {
+                        "damage": "1d4+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "lVSK66EhYYCynyKS",
+            "img": "icons/containers/bags/sack-open-grain-red-tan.webp",
+            "name": "Supplies for the boss",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
             "_id": "PyVWMUoP763fotYi",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.TLQErnOpM9Luy7rL"
             },
             "img": "systems/pf2e/icons/equipment/weapons/sap.webp",
             "name": "Sap",
-            "sort": 100000,
+            "sort": 900000,
             "system": {
                 "baseItem": "sap",
                 "bonus": {
@@ -88,291 +373,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "lVSK66EhYYCynyKS",
-            "img": "icons/containers/bags/sack-open-grain-red-tan.webp",
-            "name": "Supplies for the boss",
-            "sort": 200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
-            "_id": "uzK5FiWQVbfnyF3z",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "PyVWMUoP763fotYi"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sap",
-            "sort": 300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "Acs4CSZCOQaKy6wR": {
-                        "damage": "1d6+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "sap",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "LtNyDt3k62y0OtVV",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "iswR188zNNz1VJHP": {
-                        "damage": "1d4+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder NPC Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "5wvmvk8TKAO4VVU6",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Master Sends Their Regards",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A toady can deliver a message from their boss to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] using their boss's Intimidation modifier instead of their own.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8KFNO8NxM7NLScxG",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Perception +9 to Eavesdrop",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "to-eavesdrop"
-                        ],
-                        "selector": "perception",
-                        "value": 6
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "E0C08vSpFr1q5zb4",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Human Shield",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The toady's boss takes damage from an attack, and the toady is adjacent to them</p><hr /><p><strong>Effect</strong> The toady takes the damage instead, along with any secondary effects of attack. This damage can't be reduced in any way.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UL26wLiEC5bMFJ9j",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scurry",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The toady Strides, then can [[/act hide]]. They can attempt to Hide from creatures without cover or being @UUID[Compendium.pf2e.conditionitems.Item.Concealed], but at a –2 circumstance penalty.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "R6tTnGeB0AtI33Ow",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Throw Cargo",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A toady carries a heavy load of supplies at their boss's behest. They hurl a heavy item they're carrying, which explodes on impact to deal @Damage[1d10[bludgeoning]|options:area-damage] damage to all creatures in a @Template[type:burst|distance:5] with a @Check[reflex|dc:14|basic|options:area-effect] save.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Toady",

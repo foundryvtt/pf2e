@@ -3,23 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "56S5Txf301HVYhYM",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
+            "_id": "cZ5dTEuo59FxzHYb",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Whispering Retreat",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p><strong>Requirements</strong> Kerrdremak is adjacent to at least one enemy;</p>\n<p><strong>Effect</strong> Kerrdremak whispers under his breath, and one adjacent enemy must attempt a @Check[will|dc:17] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} as they hear a whispering voice just behind them that claims to know when the target will die; the target is then temporarily immune to Whispering Retreat for 1 hour. Kerrdremak then Strides, and this movement doesn't trigger reactions from frightened creatures. He must end this movement in a space that isn't adjacent to any enemy.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,73 +24,47 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "AiBtu2jRuEc3vCIV"
-                            },
-                            {
-                                "id": "1f9eayAH6jF55PUw"
-                            },
-                            {
-                                "id": "EL0j4N4U6kzjSrFm"
-                            },
-                            {
-                                "id": "gnMfmhX5lG3wVdZI"
-                            },
-                            {
-                                "id": "NRuGb6Oje6nUQuTD"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "RqHbebo52iwvVri4"
-                            },
-                            {
-                                "id": "cNt2Z6DBf6fVBwmQ"
-                            },
-                            {
-                                "id": "8Bau3KrgIQ2xtQNg"
-                            }
-                        ]
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "jSBHs65NPAudCPU4",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Hex Cantrips",
+            "_id": "sB6AZ7CPD7ayOULU",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "68fIjhqqEDIoV0bb"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "WCeAWVBmyohI8KZd": {
+                        "damage": "1d4-1",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -101,17 +72,20 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "value": 9
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
             "_id": "RqHbebo52iwvVri4",
@@ -742,13 +716,124 @@
             "type": "spell"
         },
         {
+            "_id": "56S5Txf301HVYhYM",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
+            "sort": 1200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "AiBtu2jRuEc3vCIV"
+                            },
+                            {
+                                "id": "1f9eayAH6jF55PUw"
+                            },
+                            {
+                                "id": "EL0j4N4U6kzjSrFm"
+                            },
+                            {
+                                "id": "gnMfmhX5lG3wVdZI"
+                            },
+                            {
+                                "id": "NRuGb6Oje6nUQuTD"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "RqHbebo52iwvVri4"
+                            },
+                            {
+                                "id": "cNt2Z6DBf6fVBwmQ"
+                            },
+                            {
+                                "id": "8Bau3KrgIQ2xtQNg"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 17,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "jSBHs65NPAudCPU4",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Hex Cantrips",
+            "sort": 1300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 17,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "68fIjhqqEDIoV0bb",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 1200000,
+            "sort": 1400000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -828,91 +913,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "sB6AZ7CPD7ayOULU",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "68fIjhqqEDIoV0bb"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "WCeAWVBmyohI8KZd": {
-                        "damage": "1d4-1",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "cZ5dTEuo59FxzHYb",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Whispering Retreat",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Kerrdremak is adjacent to at least one enemy;</p>\n<p><strong>Effect</strong> Kerrdremak whispers under his breath, and one adjacent enemy must attempt a @Check[will|dc:17] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} as they hear a whispering voice just behind them that claims to know when the target will die; the target is then temporarily immune to Whispering Retreat for 1 hour. Kerrdremak then Strides, and this movement doesn't trigger reactions from frightened creatures. He must end this movement in a space that isn't adjacent to any enemy.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Kerrdremak",

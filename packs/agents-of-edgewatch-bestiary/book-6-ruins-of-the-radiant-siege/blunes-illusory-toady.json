@@ -4,22 +4,54 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vYvC5Vb8SsSJOIxk",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Arcane Spells",
+            "_id": "ossSXTeiyXQFkTmA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 5
+                "actionType": {
+                    "value": "reaction"
                 },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2zo8BFj6mkav8MPT",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ferocious Devotion",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When an illusory toady is destroyed, it dissolves into a puddle of cerulean quintessence before reforming to quasi-life once more. One round after it is destroyed, the toady starts re-forming. One round after that, the toady is completely healed and begins to fight once more.</p>\n<p>If damaged while it is re-forming but before the process is complete, the toady is destroyed but splits into two cerulean puddles that begin re-forming into two identical toadies 1 round later, each with half the maximum HP of the original toady (this is similar to an @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Ochre Jelly]{Ochre Jelly's} Split ability); the toadies begin re-forming 1 round later.</p>\n<p>The toadies are permanently destroyed only by @UUID[Compendium.pf2e.spells-srd.Item.Disjunction] or if @UUID[Compendium.pf2e.agents-of-edgewatch-bestiary.Actor.Blune Bandersworth]{Blune} falls unconscious.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,31 +59,94 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "mod": 0,
-                    "value": 28
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "92BXBHbmRG68ifPd",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Amplify Spell",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The toady wills itself to become a conduit for Blune's next spell, empowering the spell.</p>\n<p>The toady becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until the beginning of its next turn.</p>\n<p>If Blune Bandersworth is within 30 feet and Casts a Spell before the toady's next turn, the spell travels through the toady before redirecting toward its intended target.</p>\n<p>The spell is heightened by 1 rank, to a maximum of 10th rank. The toady is then destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VL9GemmMcofwTOB1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Chaos Hand",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "total": 35,
+                    "value": 35
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+12",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "chaotic",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "see1Z9vvW3bS1pt9",
@@ -60,7 +155,7 @@
             },
             "img": "icons/magic/life/ankh-gold-blue.webp",
             "name": "Heroism",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -121,7 +216,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile (At Will)",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -192,7 +287,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield-other.webp",
             "name": "Shield Other",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -251,7 +346,7 @@
             },
             "img": "icons/magic/sonic/projectile-sound-rings-wave.webp",
             "name": "Telekinetic Haul",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -311,7 +406,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -366,133 +461,22 @@
             "type": "spell"
         },
         {
-            "_id": "VL9GemmMcofwTOB1",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Chaos Hand",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "total": 35,
-                    "value": 35
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+12",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "chaotic",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ossSXTeiyXQFkTmA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2zo8BFj6mkav8MPT",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ferocious Devotion",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When an illusory toady is destroyed, it dissolves into a puddle of cerulean quintessence before reforming to quasi-life once more. One round after it is destroyed, the toady starts re-forming. One round after that, the toady is completely healed and begins to fight once more.</p>\n<p>If damaged while it is re-forming but before the process is complete, the toady is destroyed but splits into two cerulean puddles that begin re-forming into two identical toadies 1 round later, each with half the maximum HP of the original toady (this is similar to an @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Ochre Jelly]{Ochre Jelly's} Split ability); the toadies begin re-forming 1 round later.</p>\n<p>The toadies are permanently destroyed only by @UUID[Compendium.pf2e.spells-srd.Item.Disjunction] or if @UUID[Compendium.pf2e.agents-of-edgewatch-bestiary.Actor.Blune Bandersworth]{Blune} falls unconscious.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "92BXBHbmRG68ifPd",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Amplify Spell",
+            "_id": "vYvC5Vb8SsSJOIxk",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Arcane Spells",
             "sort": 1000000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": 5
                 },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The toady wills itself to become a conduit for Blune's next spell, empowering the spell.</p>\n<p>The toady becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until the beginning of its next turn.</p>\n<p>If Blune Bandersworth is within 30 feet and Casts a Spell before the toady's next turn, the spell travels through the toady before redirecting toward its intended target.</p>\n<p>The spell is heightened by 1 rank, to a maximum of 10th rank. The toady is then destroyed.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -500,15 +484,31 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 1,
+                        "value": 1
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane"
-                    ]
+                "spelldc": {
+                    "dc": 36,
+                    "mod": 0,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Blune's Illusory Toady",

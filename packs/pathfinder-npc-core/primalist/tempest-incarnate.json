@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "R6ecvaaGseIKhuak",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Spontaneous Spells",
+            "_id": "71n7sbHjS4pBTgne",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wind Rider",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>A tempest incarnate ignores penalties and difficult terrain from strong winds. When flying, they don't need to @UUID[Compendium.pf2e.actionspf2e.Item.Fly] each round to avoid falling.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -27,59 +25,304 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot10": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot7": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot8": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot9": {
-                        "max": 4,
-                        "value": 4
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0lg7kGLlTsVwWOmm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Earthbound Vulnerability",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A tempest incarnate who is hit by or fails a saving throw against an effect that prevents them from flying (such as earthbind or Felling Strike) takes @Damage[20[mental]] damage in addition to the usual effects.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "earthbind"
+                        ],
+                        "key": "Weakness",
+                        "label": "Earthbound Vulnerability",
+                        "type": "custom",
+                        "value": 20
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FQgyTPeSS1DpQsYQ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hurricane Cloak",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. A creature that enters the area must succeed at a @Check[athletics|dc:38] check (if on the ground) or Acrobatics check to Maneuver in Flight (if flying) or end its movement. A creature that critically fails is also knocked back 5 feet and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]. Creatures making ranged projectile and thrown attacks that pass through the area must succeed on a @Check[flat|dc:5] or the attack fails. Massive projectiles, such as thrown boulders, are not affected. A tempest incarnate can activate or deactivate this ability with a single action that has the concentrate trait.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "air",
+                        "aura",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "atpJ2mtaJeJ9UzZC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Intimidating Storm",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature that fails a saving throw against a cataclysm or wrathful storm spell cast by the tempest incarnate becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). A creature can only be frightened once by each casting of wrathful storm.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4JRDvfNjP0gOVJf5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swiftness",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tempest incarnate's movement doesn't trigger reactions.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UV0ws0vPFW9jMQ3e",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push 10 Feet",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "push",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "k57L5IFkh10sKofG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
+            },
+            "img": "icons/equipment/chest/shirt-collared-pink.webp",
+            "name": "Explorer's Clothing",
+            "sort": 700000,
+            "system": {
+                "acBonus": 0,
+                "baseItem": "explorers-clothing",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "unarmored",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
+                },
+                "dexCap": 5,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "cloth",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 44,
-                    "value": 37
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "tradition": {
-                    "value": "primal"
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 2
                 },
-                "traits": {}
+                "size": "med",
+                "slug": "explorers-clothing",
+                "speedPenalty": 0,
+                "strength": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "armor"
+        },
+        {
+            "_id": "hwUNWppXP3Fi3VvH",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "CQzqPLpfOOTs3TdQ"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "push"
+                    ]
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "grrLMa6173hqa5HL": {
+                        "damage": "3d4+8",
+                        "damageType": "bludgeoning"
+                    },
+                    "uuaawnENMNhz1cyA": {
+                        "damage": "3d12",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "handwraps-of-mighty-blows",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "xMyNWVcAESW6oajT",
@@ -88,7 +331,7 @@
             },
             "img": "icons/magic/earth/lava-explosion-orange.webp",
             "name": "Cataclysm",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -225,7 +468,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Detonate Magic (items that grant flight only)",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -305,7 +548,7 @@
             },
             "img": "systems/pf2e/icons/spells/storm-lord.webp",
             "name": "Wrathful Storm",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -385,7 +628,7 @@
             },
             "img": "icons/magic/water/projectiles-ice-explosion.webp",
             "name": "Arctic Rift",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "line",
@@ -474,7 +717,7 @@
             },
             "img": "systems/pf2e/icons/spells/unfettered-pack.webp",
             "name": "Unfettered Pack",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -534,7 +777,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -619,7 +862,7 @@
             },
             "img": "icons/magic/life/heart-area-circle-red-green.webp",
             "name": "Field of Life",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -724,7 +967,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight",
-            "sort": 900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -788,7 +1031,7 @@
             },
             "img": "icons/magic/fire/explosion-flame-blue.webp",
             "name": "Control Water",
-            "sort": 1000000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -855,7 +1098,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 1100000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -918,7 +1161,7 @@
             },
             "img": "icons/magic/air/wind-tornado-funnel-damage-blue.webp",
             "name": "Hydraulic Torrent",
-            "sort": 1200000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1005,7 +1248,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement",
-            "sort": 1300000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1067,7 +1310,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 1400000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1139,7 +1382,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
             "name": "Wall of Wind",
-            "sort": 1500000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1201,7 +1444,7 @@
             },
             "img": "systems/pf2e/icons/spells/endure-elements.webp",
             "name": "Environmental Endurance",
-            "sort": 1600000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1263,7 +1506,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Mist",
-            "sort": 1700000,
+            "sort": 2400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1328,7 +1571,7 @@
             },
             "img": "icons/magic/water/elemental-water.webp",
             "name": "Water Breathing",
-            "sort": 1800000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1391,7 +1634,7 @@
             },
             "img": "systems/pf2e/icons/spells/air-bubble.webp",
             "name": "Air Bubble",
-            "sort": 1900000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1453,7 +1696,7 @@
             },
             "img": "icons/magic/acid/orb-bubble-smoke-drip.webp",
             "name": "Caustic Blast",
-            "sort": 2000000,
+            "sort": 2700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1541,7 +1784,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 2100000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1626,7 +1869,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Frostbite",
-            "sort": 2200000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1711,7 +1954,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind",
-            "sort": 2300000,
+            "sort": 3000000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1792,7 +2035,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know the Way",
-            "sort": 2400000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1855,7 +2098,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 2500000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1912,13 +2155,91 @@
             "type": "spell"
         },
         {
+            "_id": "R6ecvaaGseIKhuak",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Spontaneous Spells",
+            "sort": 3300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot10": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot7": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot8": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot9": {
+                        "max": 4,
+                        "value": 4
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 44,
+                    "value": 37
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "CQzqPLpfOOTs3TdQ",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "Handwraps of Mighty Blows",
-            "sort": 2600000,
+            "sort": 3400000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -1999,327 +2320,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "k57L5IFkh10sKofG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
-            },
-            "img": "icons/equipment/chest/shirt-collared-pink.webp",
-            "name": "Explorer's Clothing",
-            "sort": 2700000,
-            "system": {
-                "acBonus": 0,
-                "baseItem": "explorers-clothing",
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "unarmored",
-                "checkPenalty": 0,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
-                },
-                "dexCap": 5,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "cloth",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 2
-                },
-                "size": "med",
-                "slug": "explorers-clothing",
-                "speedPenalty": 0,
-                "strength": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "comfort"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "hwUNWppXP3Fi3VvH",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "CQzqPLpfOOTs3TdQ"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 2800000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "push"
-                    ]
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "grrLMa6173hqa5HL": {
-                        "damage": "3d4+8",
-                        "damageType": "bludgeoning"
-                    },
-                    "uuaawnENMNhz1cyA": {
-                        "damage": "3d12",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "handwraps-of-mighty-blows",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "71n7sbHjS4pBTgne",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wind Rider",
-            "sort": 2900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A tempest incarnate ignores penalties and difficult terrain from strong winds. When flying, they don't need to @UUID[Compendium.pf2e.actionspf2e.Item.Fly] each round to avoid falling.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0lg7kGLlTsVwWOmm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Earthbound Vulnerability",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A tempest incarnate who is hit by or fails a saving throw against an effect that prevents them from flying (such as earthbind or Felling Strike) takes @Damage[20[mental]] damage in addition to the usual effects.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            "earthbind"
-                        ],
-                        "key": "Weakness",
-                        "label": "Earthbound Vulnerability",
-                        "type": "custom",
-                        "value": 20
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FQgyTPeSS1DpQsYQ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Hurricane Cloak",
-            "sort": 3100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>10 feet. A creature that enters the area must succeed at a @Check[athletics|dc:38] check (if on the ground) or Acrobatics check to Maneuver in Flight (if flying) or end its movement. A creature that critically fails is also knocked back 5 feet and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]. Creatures making ranged projectile and thrown attacks that pass through the area must succeed on a @Check[flat|dc:5] or the attack fails. Massive projectiles, such as thrown boulders, are not affected. A tempest incarnate can activate or deactivate this ability with a single action that has the concentrate trait.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "air",
-                        "aura",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "atpJ2mtaJeJ9UzZC",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Intimidating Storm",
-            "sort": 3200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature that fails a saving throw against a cataclysm or wrathful storm spell cast by the tempest incarnate becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). A creature can only be frightened once by each casting of wrathful storm.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4JRDvfNjP0gOVJf5",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Swiftness",
-            "sort": 3300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The tempest incarnate's movement doesn't trigger reactions.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UV0ws0vPFW9jMQ3e",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Push 10 Feet",
-            "sort": 3400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "push",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Tempest Incarnate",

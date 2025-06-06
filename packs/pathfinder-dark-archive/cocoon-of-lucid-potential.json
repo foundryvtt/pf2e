@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "EC0YgI9NRxD1ISHc",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
+            "_id": "H5No3yLHugKzgNQr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Anchored in Silk",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>The cocoon is incapable of movement beyond slight wriggling in place. It has no Speed and can't move or be moved, even through means such as teleportation, as the Weaver's threads tether it in place physically and astrally. The cocoon casts any spells psychically, substituting verbal and somatic components for expressions of pure unbridled will and removing the manipulate trait from its Cast a Spell action.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,34 +24,153 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot7": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "mod": 0,
-                    "value": 27
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "HHFw3W3cOgIJv8xE",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Give of Oneself",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Weaver would be reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The cocoon's vitality is linked to the Weaver's. It loses [[/r 30]] Hit Points, restoring @Damage[15[healing]] Hit Points to the Weaver. It can use this ability even if it would otherwise be unable to act.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Hc9RMNJy8VQgbgt8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "In There Somewhere",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Killia's individuality still rests within the cocoon, yet trying to resist assimilation. If a PC succeeds at a @Check[diplomacy|dc:32] check on the cocoon, the cocoon takes @Damage[5d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as Killia's consciousness fights the Weaver. The cocoon can't be affected in this way more than once per turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pqQB2JJ1Z8S2K9ay",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Of Same Essence",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cocoon and the Weaver share the same essence. Its spells never affect the Weaver if they would harm him, and the Weaver can ignore the any of the cocoon's active spell effects if he desires (such as @UUID[Compendium.pf2e.spells-srd.Item.Sea of Thought]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jHHE5GG2biaCiVYC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Psychic Scream",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "FHZ35vpIbZkMuteZ": {
+                        "damage": "4d6",
+                        "damageType": "sonic"
+                    },
+                    "RDepNrjqbwTZyzkh": {
+                        "damage": "4d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult",
+                        "range-120",
+                        "sonic"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "6OupvA1OMSOws1ht",
@@ -62,7 +179,7 @@
             },
             "img": "icons/skills/trades/construction-mason-stonecutter-sculpture.webp",
             "name": "Telekinetic Bombardment",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -149,7 +266,7 @@
             },
             "img": "systems/pf2e/icons/spells/collective-transposition.webp",
             "name": "Collective Transposition",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -219,7 +336,7 @@
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Feeblemind",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -288,7 +405,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -373,7 +490,7 @@
             },
             "img": "systems/pf2e/icons/spells/etheric-shards.webp",
             "name": "Etheric Shards",
-            "sort": 600000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -492,7 +609,7 @@
             },
             "img": "icons/magic/fire/barrier-shield-explosion-yellow.webp",
             "name": "Synaptic Pulse",
-            "sort": 700000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -562,7 +679,7 @@
             },
             "img": "icons/creatures/webs/web-thin-pruple.webp",
             "name": "Invisibility Curtain",
-            "sort": 800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -624,7 +741,7 @@
             },
             "img": "icons/magic/water/pseudopod-swirl-blue.webp",
             "name": "Sea of Thought",
-            "sort": 900000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -693,7 +810,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 1000000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -760,7 +877,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -823,7 +940,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -910,7 +1027,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -991,7 +1108,7 @@
             },
             "img": "systems/pf2e/icons/spells/phase-bolt.webp",
             "name": "Phase Bolt",
-            "sort": 1400000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1071,7 +1188,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1500000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1133,7 +1250,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
             "name": "Soothe",
-            "sort": 1600000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1213,7 +1330,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1700000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1331,160 +1448,22 @@
             "type": "spell"
         },
         {
-            "_id": "jHHE5GG2biaCiVYC",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Psychic Scream",
-            "sort": 1800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "FHZ35vpIbZkMuteZ": {
-                        "damage": "4d6",
-                        "damageType": "sonic"
-                    },
-                    "RDepNrjqbwTZyzkh": {
-                        "damage": "4d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult",
-                        "range-120",
-                        "sonic"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "H5No3yLHugKzgNQr",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Anchored in Silk",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The cocoon is incapable of movement beyond slight wriggling in place. It has no Speed and can't move or be moved, even through means such as teleportation, as the Weaver's threads tether it in place physically and astrally. The cocoon casts any spells psychically, substituting verbal and somatic components for expressions of pure unbridled will and removing the manipulate trait from its Cast a Spell action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HHFw3W3cOgIJv8xE",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Give of Oneself",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The Weaver would be reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The cocoon's vitality is linked to the Weaver's. It loses [[/r 30]] Hit Points, restoring @Damage[15[healing]] Hit Points to the Weaver. It can use this ability even if it would otherwise be unable to act.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Hc9RMNJy8VQgbgt8",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "In There Somewhere",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Killia's individuality still rests within the cocoon, yet trying to resist assimilation. If a PC succeeds at a @Check[diplomacy|dc:32] check on the cocoon, the cocoon takes @Damage[5d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as Killia's consciousness fights the Weaver. The cocoon can't be affected in this way more than once per turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pqQB2JJ1Z8S2K9ay",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Of Same Essence",
+            "_id": "EC0YgI9NRxD1ISHc",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 2200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The cocoon and the Weaver share the same essence. Its spells never affect the Weaver if they would harm him, and the Weaver can ignore the any of the cocoon's active spell effects if he desires (such as @UUID[Compendium.pf2e.spells-srd.Item.Sea of Thought]).</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1492,13 +1471,34 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot7": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 33,
+                    "mod": 0,
+                    "value": 27
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Cocoon of Lucid Potential",

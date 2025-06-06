@@ -3,10 +3,172 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "T0vnmUhrqmtMKLQD",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hostile Duet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A hostile creature within 30 feet creates an effect with the auditory trait that provides bonuses to itself or its allies</p>\n<hr />\n<p><strong>Effect</strong> The melody on the wind recreates the auditory effect, gaining the bonuses for itself and its allies as long as the original effect persists.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rSpxgtewFq1FNp4L",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Retune",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The melody on the wind is targeted by a spell with the auditory trait</p>\n<hr />\n<p><strong>Effect</strong> The melody on the wind attempts to counteract the spell. If it succeeds, the spell effect is caught in a blast of wind that sweeps it back to its origin, affecting the caster. Targets of the triggering effect other than the melody on the wind are still affected normally.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RJUajmwcmdSx0tQb",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Mesmerizing Melody",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The melody on the wind sings in a sonorous chorus. Any creature in a @Template[emanation|distance:30] must attempt a @Check[will|dc:30] save to resist becoming fascinated by the melody on the wind. A creature that succeeds at its save is temporarily immune for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for 1 round.</p>\n<p><strong>Failure</strong> The creature is fascinated for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rOyG05jMYSlAcSS5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swiftness",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The melody on the wind's movement doesn't trigger reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B0ACGOBzm6iH5fdI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "push",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "QaWyk1afljYBga0c",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Wind Gust",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -52,7 +214,7 @@
             "_id": "HpLHoXbsdK98PiDh",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Solid Refrain",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -90,168 +252,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "T0vnmUhrqmtMKLQD",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Hostile Duet",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A hostile creature within 30 feet creates an effect with the auditory trait that provides bonuses to itself or its allies</p>\n<hr />\n<p><strong>Effect</strong> The melody on the wind recreates the auditory effect, gaining the bonuses for itself and its allies as long as the original effect persists.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rSpxgtewFq1FNp4L",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Retune",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The melody on the wind is targeted by a spell with the auditory trait</p>\n<hr />\n<p><strong>Effect</strong> The melody on the wind attempts to counteract the spell. If it succeeds, the spell effect is caught in a blast of wind that sweeps it back to its origin, affecting the caster. Targets of the triggering effect other than the melody on the wind are still affected normally.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RJUajmwcmdSx0tQb",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Mesmerizing Melody",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The melody on the wind sings in a sonorous chorus. Any creature in a @Template[emanation|distance:30] must attempt a @Check[will|dc:30] save to resist becoming fascinated by the melody on the wind. A creature that succeeds at its save is temporarily immune for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for 1 round.</p>\n<p><strong>Failure</strong> The creature is fascinated for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rOyG05jMYSlAcSS5",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Swiftness",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The melody on the wind's movement doesn't trigger reactions.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "B0ACGOBzm6iH5fdI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Push",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "push",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Melody On The Wind",

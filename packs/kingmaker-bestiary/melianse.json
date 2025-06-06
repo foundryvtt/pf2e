@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "qQY3snkHHYYEQDxW",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Spontaneous Spells",
+            "_id": "n1p0bJc7I91avM4S",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wild Empathy",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Melianse can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on aquatic or amphibious animals and make very simple Requests of them.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,50 +24,76 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "rdf4aOsP7jywGEIC",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "kJ9e1DXfbX04Qfoe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3ZL7oyw6PKNMzEhf",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Grant Desire",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Melianse can duplicate any 3rd-rank spell or produce any effect with a power level in line with a 3rd-rank spell, but only in response to the request or desire of a non-fey creature. The creature whose desire is granted can never again benefit from Melianse's Grant Desire ability.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
                     "value": 1
                 },
                 "publication": {
@@ -78,20 +102,60 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "BuBkGYAPCPnJ03go",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "ngCkhccBoMaTiEyI": {
+                        "damage": "2d6+5",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "uwHFewmdBIcphRfj",
@@ -100,7 +164,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -166,7 +230,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -238,7 +302,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
             "name": "Wall of Wind",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -300,7 +364,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -363,7 +427,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -432,7 +496,7 @@
             },
             "img": "systems/pf2e/icons/spells/inveigle.webp",
             "name": "Inveigle",
-            "sort": 800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -497,7 +561,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Obscuring Mist",
-            "sort": 900000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -562,7 +626,7 @@
             },
             "img": "icons/magic/water/elemental-water.webp",
             "name": "Water Breathing",
-            "sort": 1000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -624,7 +688,7 @@
             },
             "img": "icons/creatures/webs/web-spider-glowing-pink.webp",
             "name": "Web",
-            "sort": 1100000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -707,7 +771,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1200000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -791,7 +855,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 1300000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -854,7 +918,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 1400000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -932,7 +996,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Goblin Pox",
-            "sort": 1500000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -999,7 +1063,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 1600000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1065,7 +1129,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1700000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1262,7 +1326,7 @@
             },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push",
-            "sort": 1800000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1342,7 +1406,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 1900000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1423,7 +1487,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2000000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1485,7 +1549,7 @@
             },
             "img": "icons/creatures/invertebrates/tick-cross-glowing-purple.webp",
             "name": "Spider Sting",
-            "sort": 2100000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1563,7 +1627,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 2200000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1626,7 +1690,7 @@
             },
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism",
-            "sort": 2300000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1685,142 +1749,21 @@
             "type": "spell"
         },
         {
-            "_id": "BuBkGYAPCPnJ03go",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 2400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "ngCkhccBoMaTiEyI": {
-                        "damage": "2d6+5",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "n1p0bJc7I91avM4S",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wild Empathy",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Melianse can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on aquatic or amphibious animals and make very simple Requests of them.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kJ9e1DXfbX04Qfoe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
+            "_id": "qQY3snkHHYYEQDxW",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Spontaneous Spells",
             "sort": 2600000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3ZL7oyw6PKNMzEhf",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Grant Desire",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Melianse can duplicate any 3rd-rank spell or produce any effect with a power level in line with a 3rd-rank spell, but only in response to the request or desire of a non-fey creature. The creature whose desire is granted can never again benefit from Melianse's Grant Desire ability.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -1829,15 +1772,72 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
+                "spelldc": {
+                    "dc": 22,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "rdf4aOsP7jywGEIC",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 2700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 22,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Melianse",

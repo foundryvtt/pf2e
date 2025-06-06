@@ -3,13 +3,445 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "X1qtaRb6bkYt1N3s",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yS5bYDhKr2Koa3mm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No Time To Die",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>As long as Armag wields <em>Ovinrbaane</em> and is raging, the combination of the sword's magic and Armag's furious conviction that he is the true Armag protects him from death. His eyes and the sword's blade weep with blood and glow with red light at this time. As long as these conditions persist, he never increases beyond @UUID[Compendium.pf2e.conditionitems.Item.Dying]{Dying 3} and is not rendered @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. Instead, Armag becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] and continues to fight. If <em>Ovinrbaane</em> is taken from him (such as via a successful @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]), or if his rage ends while he is dying, he immediately dies regardless of his dying condition value. If he's healed to at least 1 Hit Point, the confusion effect immediately ends.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "damage:category:physical",
+                            {
+                                "or": [
+                                    "item:type:melee",
+                                    "item:type:weapon"
+                                ]
+                            },
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "label": "PF2E.IWR.Custom.PhysicalWeaponsOnly",
+                        "type": "custom",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xkPOrd9a16OIHTyl",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Second Wind",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Armag is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] and scores a critical hit with a melee strike or reduces a creature to 0 Hit Points with a melee Strike</p>\n<p><strong>Effect</strong> Armag draws upon inner reserves of furious energy. He is no longer fatigued.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZPVlL1UH75oMFTCB",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Armag's Rage",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Armag is not @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging.</p>\n<hr />\n<p><strong>Effect</strong> Armag flies into a rage that lasts 1 minute. While raging, he gains a +6 status bonus to damage rolls and suffers a -1 status penalty to AC. During his rage, Armag gains an additional reaction at the start of his turn, but he can only use this additional reaction for @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Attack of Opportunity]{Attacks of Opportunity}. After the rage ends, Armag is fatigued.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Rage]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.rageTempHP",
+                        "phase": "beforeDerived",
+                        "priority": 70,
+                        "value": 0
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "ac",
+                        "type": "status",
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "damage",
+                        "type": "status",
+                        "value": 6
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2c38HSvjdnaJgeI2",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Awesome Blow",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Armag's last action was a successful Strike.</p>\n<p><strong>Effect</strong> The weight of Armag's previous swing drives his foe back. He attempts an @Check[athletics|defense:fortitude] check against the target's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> Armag gains the critical success effects of a @UUID[Compendium.pf2e.actionspf2e.Item.Shove], then the critical success effect of a @UUID[Compendium.pf2e.actionspf2e.Item.Trip] against the target.</p>\n<p><strong>Success</strong> Armag gains the success effect of a Shove, then the success effect of a Trip against the target.</p>\n<p><strong>Failure</strong> Armag pushes the foe back 5 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "P143e4Kl2GktAt4b",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greatsword Critical Specialization",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On a critical hit from a greatsword Strike, the target is made off-balance and becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of Armag's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:base:greatsword"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MwxI4D0saKJpksvK",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Shoulder Slam",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Armag Strides forward and hunkers down to attempt a shoulder spike Strike against a target at the end of that movement. If he critically hits a creature with this Strike, that creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VwMYfCPLMmuJQ2GH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
+            },
+            "img": "icons/equipment/chest/breastplate-collared-steel.webp",
+            "name": "Breastplate",
+            "sort": 800000,
+            "system": {
+                "acBonus": 4,
+                "baseItem": "breastplate",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or @UUID[Compendium.pf2e.equipment-srd.Item.Half Plate] armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 8
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "breastplate",
+                "speedPenalty": -5,
+                "strength": 3,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "rkdBPs8QgQ9Tfvpj",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ap4RPRdJx6CtkxmL"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ovinrbaane",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "4wSkFwsDnLDBGjR4": {
+                        "damage": "2d12+13",
+                        "damageType": "slashing"
+                    },
+                    "Vv163Xnfs6rlAc72": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "artifact",
+                        "cursed",
+                        "intelligent",
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "OvqcWkhFk95fFEEX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shoulder Spikes",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "fcQzZcPD6UBraam6": {
+                        "damage": "3d6+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "ap4RPRdJx6CtkxmL",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tbc3dqTyibuGoCA6"
             },
             "img": "icons/weapons/swords/greatsword-crossguard-silver.webp",
             "name": "Ovinrbaane",
-            "sort": 100000,
+            "sort": 1100000,
             "system": {
                 "baseItem": "greatsword",
                 "bonus": {
@@ -108,438 +540,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "VwMYfCPLMmuJQ2GH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
-            },
-            "img": "icons/equipment/chest/breastplate-collared-steel.webp",
-            "name": "Breastplate",
-            "sort": 200000,
-            "system": {
-                "acBonus": 4,
-                "baseItem": "breastplate",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or @UUID[Compendium.pf2e.equipment-srd.Item.Half Plate] armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
-                },
-                "dexCap": 1,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 8
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "breastplate",
-                "speedPenalty": -5,
-                "strength": 3,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "rkdBPs8QgQ9Tfvpj",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ap4RPRdJx6CtkxmL"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Ovinrbaane",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "4wSkFwsDnLDBGjR4": {
-                        "damage": "2d12+13",
-                        "damageType": "slashing"
-                    },
-                    "Vv163Xnfs6rlAc72": {
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "artifact",
-                        "cursed",
-                        "intelligent",
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "OvqcWkhFk95fFEEX",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shoulder Spikes",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "fcQzZcPD6UBraam6": {
-                        "damage": "3d6+13",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "X1qtaRb6bkYt1N3s",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yS5bYDhKr2Koa3mm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "No Time To Die",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>As long as Armag wields <em>Ovinrbaane</em> and is raging, the combination of the sword's magic and Armag's furious conviction that he is the true Armag protects him from death. His eyes and the sword's blade weep with blood and glow with red light at this time. As long as these conditions persist, he never increases beyond @UUID[Compendium.pf2e.conditionitems.Item.Dying]{Dying 3} and is not rendered @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. Instead, Armag becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] and continues to fight. If <em>Ovinrbaane</em> is taken from him (such as via a successful @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]), or if his rage ends while he is dying, he immediately dies regardless of his dying condition value. If he's healed to at least 1 Hit Point, the confusion effect immediately ends.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            "damage:category:physical",
-                            {
-                                "or": [
-                                    "item:type:melee",
-                                    "item:type:weapon"
-                                ]
-                            },
-                            {
-                                "not": "item:category:unarmed"
-                            }
-                        ],
-                        "key": "Resistance",
-                        "label": "PF2E.IWR.Custom.PhysicalWeaponsOnly",
-                        "type": "custom",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xkPOrd9a16OIHTyl",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Second Wind",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Armag is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] and scores a critical hit with a melee strike or reduces a creature to 0 Hit Points with a melee Strike</p>\n<p><strong>Effect</strong> Armag draws upon inner reserves of furious energy. He is no longer fatigued.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZPVlL1UH75oMFTCB",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Armag's Rage",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Armag is not @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging.</p>\n<hr />\n<p><strong>Effect</strong> Armag flies into a rage that lasts 1 minute. While raging, he gains a +6 status bonus to damage rolls and suffers a -1 status penalty to AC. During his rage, Armag gains an additional reaction at the start of his turn, but he can only use this additional reaction for @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Attack of Opportunity]{Attacks of Opportunity}. After the rage ends, Armag is fatigued.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Rage]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.rageTempHP",
-                        "phase": "beforeDerived",
-                        "priority": 70,
-                        "value": 0
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "ac",
-                        "type": "status",
-                        "value": -1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "damage",
-                        "type": "status",
-                        "value": 6
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2c38HSvjdnaJgeI2",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Awesome Blow",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Armag's last action was a successful Strike.</p>\n<p><strong>Effect</strong> The weight of Armag's previous swing drives his foe back. He attempts an @Check[athletics|defense:fortitude] check against the target's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> Armag gains the critical success effects of a @UUID[Compendium.pf2e.actionspf2e.Item.Shove], then the critical success effect of a @UUID[Compendium.pf2e.actionspf2e.Item.Trip] against the target.</p>\n<p><strong>Success</strong> Armag gains the success effect of a Shove, then the success effect of a Trip against the target.</p>\n<p><strong>Failure</strong> Armag pushes the foe back 5 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "P143e4Kl2GktAt4b",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Greatsword Critical Specialization",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>On a critical hit from a greatsword Strike, the target is made off-balance and becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of Armag's next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "CriticalSpecialization",
-                        "predicate": [
-                            "item:base:greatsword"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MwxI4D0saKJpksvK",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Shoulder Slam",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Armag Strides forward and hunkers down to attempt a shoulder spike Strike against a target at the end of that movement. If he critically hits a creature with this Strike, that creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Armag Twice-Born",

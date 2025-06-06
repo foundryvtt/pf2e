@@ -3,28 +3,53 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "l6gDxpqDjpaOlxmL",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Primal Innate Spells",
+            "_id": "RmdaktfumPEM4R7q",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
-                "focus": {
-                    "points": 0,
-                    "pool": 0
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "prepared": {
-                    "label": "Spellcasting Type",
-                    "type": "String",
-                    "value": "innate"
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m8okrt5p2n41726w",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sinuous Initiative",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
                 },
-                "proficiency": {
-                    "value": 0
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A riekanoy's swaying motions propel it into the fray with grace. While a riekanoy can act and isn't @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], it can roll Performance for initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -32,52 +57,251 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot2": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot8": {
-                        "max": 3,
-                        "value": 2
-                    },
-                    "slot9": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "uDdmL37nuL23ybLZ"
-                            },
-                            {
-                                "id": "JO3eLqECaPW4mG9U"
-                            },
-                            {
-                                "id": "HEjVKx2234CjoP58"
-                            },
-                            {
-                                "id": "DetDp1eLwV1VPdTI"
-                            }
-                        ],
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 41,
-                    "item": 0,
-                    "label": "Class DC",
-                    "mod": 0,
-                    "type": "String",
-                    "value": 33
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "iolcGi2CFgzPxgyI",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Water Walk",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Riekanoy is under the effects of 9th-rank @UUID[Compendium.pf2e.spells-srd.Item.Water Walk] at all times.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "l1p4q2zyo6konsxf",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Beckoning Dance",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The riekanoy sways in a compelling fashion. Each non-fey creature within a @Template[emanation|distance:300] that can see the riekanoy must attempt a @Check[will|dc:38] save. The effect lasts for 1 round, but if the riekanoy uses Beckoning Dance again on subsequent rounds, the duration extends by 1 round for all affected creatures. Once a creature succeeds at any save against Beckoning Dance, that creature is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] and must spend each of its actions to move closer to the riekanoy, avoiding obvious dangers. If a beckoned creature is adjacent to the riekanoy, it stays still and doesn't act. If attacked by the riekanoy, the creature is freed from captivation at the end of the riekanoy's turn.</p>\n<p><strong>Critical Failure</strong> As failure, but if attacked by the riekanoy, the creature can attempt a new save only at the start of its next turn, rather than being freed at the end of the riekanoy's turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "mental",
+                        "primal",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hc1wuichiyplb2ks",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[(3d10+12)[bludgeoning]], @Check[fortitude|dc:41|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8zl0kvuswlu8s369",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Entangling Hair",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A riekanoy can have up to eight creatures @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] within their hair at a time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "46kj31h9euhnr25q",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Waving Hair",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The riekanoy attempts an Acrobatics check against each @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] creature's Reflex DC. The riekanoy moves each creature they succeed against up to 10 feet and each creature they critically succeed against up to 20 feet. This movement must all be within reach of its hair.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uzvjse6FjVHlNmbW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "szbyxffeheqcajmn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hair",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "huwuc40aUiTVC4zt": {
+                        "damage": "4d10+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "reach",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "JO3eLqECaPW4mG9U",
@@ -86,7 +310,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangle-foot-green.webp",
             "name": "Nature's Enmity",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -148,7 +372,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Baleful Polymorph (Aquatic Animals Only)",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -216,7 +440,7 @@
             },
             "img": "systems/pf2e/icons/spells/fire-seeds.webp",
             "name": "Fire Seeds",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -293,7 +517,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -357,7 +581,7 @@
             },
             "img": "icons/magic/fire/explosion-flame-blue.webp",
             "name": "Control Water (At Will)",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -419,7 +643,7 @@
             },
             "img": "icons/magic/air/wind-tornado-funnel-damage-blue.webp",
             "name": "Hydraulic Torrent",
-            "sort": 700000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "line",
@@ -506,7 +730,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will)",
-            "sort": 800000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -567,7 +791,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Obscuring Mist (At Will)",
-            "sort": 900000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -632,7 +856,7 @@
             },
             "img": "icons/magic/water/wave-water-blue.webp",
             "name": "Water Walk (Constant)",
-            "sort": 1000000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -694,7 +918,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm (At Will)",
-            "sort": 1100000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -758,305 +982,81 @@
             "type": "spell"
         },
         {
-            "_id": "szbyxffeheqcajmn",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hair",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "improved-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "huwuc40aUiTVC4zt": {
-                        "damage": "4d10+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "reach",
-                        "reach-15"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "RmdaktfumPEM4R7q",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "m8okrt5p2n41726w",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sinuous Initiative",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A riekanoy's swaying motions propel it into the fray with grace. While a riekanoy can act and isn't @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], it can roll Performance for initiative.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iolcGi2CFgzPxgyI",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Water Walk",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Riekanoy is under the effects of 9th-rank @UUID[Compendium.pf2e.spells-srd.Item.Water Walk] at all times.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "l1p4q2zyo6konsxf",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Beckoning Dance",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The riekanoy sways in a compelling fashion. Each non-fey creature within a @Template[emanation|distance:300] that can see the riekanoy must attempt a @Check[will|dc:38] save. The effect lasts for 1 round, but if the riekanoy uses Beckoning Dance again on subsequent rounds, the duration extends by 1 round for all affected creatures. Once a creature succeeds at any save against Beckoning Dance, that creature is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] and must spend each of its actions to move closer to the riekanoy, avoiding obvious dangers. If a beckoned creature is adjacent to the riekanoy, it stays still and doesn't act. If attacked by the riekanoy, the creature is freed from captivation at the end of the riekanoy's turn.</p>\n<p><strong>Critical Failure</strong> As failure, but if attacked by the riekanoy, the creature can attempt a new save only at the start of its next turn, rather than being freed at the end of the riekanoy's turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "incapacitation",
-                        "mental",
-                        "primal",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hc1wuichiyplb2ks",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Constrict",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Damage[(3d10+12)[bludgeoning]], @Check[fortitude|dc:41|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8zl0kvuswlu8s369",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Entangling Hair",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A riekanoy can have up to eight creatures @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] within their hair at a time.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "46kj31h9euhnr25q",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Waving Hair",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The riekanoy attempts an Acrobatics check against each @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] creature's Reflex DC. The riekanoy moves each creature they succeed against up to 10 feet and each creature they critically succeed against up to 20 feet. This movement must all be within reach of its hair.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uzvjse6FjVHlNmbW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
+            "_id": "l6gDxpqDjpaOlxmL",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Primal Innate Spells",
             "sort": 2000000,
             "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                    "value": ""
+                },
+                "focus": {
+                    "points": 0,
+                    "pool": 0
+                },
+                "prepared": {
+                    "label": "Spellcasting Type",
+                    "type": "String",
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "slots": {
+                    "slot2": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot8": {
+                        "max": 3,
+                        "value": 2
+                    },
+                    "slot9": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "uDdmL37nuL23ybLZ"
+                            },
+                            {
+                                "id": "JO3eLqECaPW4mG9U"
+                            },
+                            {
+                                "id": "HEjVKx2234CjoP58"
+                            },
+                            {
+                                "id": "DetDp1eLwV1VPdTI"
+                            }
+                        ],
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 41,
+                    "item": 0,
+                    "label": "Class DC",
+                    "mod": 0,
+                    "type": "String",
+                    "value": 33
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Riekanoy",

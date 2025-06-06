@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "C87slniCJsgBKjT2",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "iDo6QhZ2bapANymO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Soul Shred",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Creatures killed by a sojiruh are difficult to bring back to life or animate as undead. The sojiruh automatically attempts to counteract any attempt to resurrect or animate any creature that it has killed (counteract modifier [[/r 1d20+11 #Counteract]]{+11}, counteract rank 2). If the sojiruh who slew the creature is itself slain, the creature can be brought back from death or become undead normally.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,18 +25,177 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "value": 13
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "eB46fa1ziPNP7pP4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Manifest Armor",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sojiruh manifests a layer of armor on its body that appears to be made of interlocking bones and wicker weaves, increasing its AC to 21. The armor is permanent but collapses and vanishes if the sojiruh takes a critical hit from a Strike that inflicts bludgeoning, force, or slashing damage, reducing its AC back to 17.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "manifest-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "manifest-armor"
+                        ],
+                        "selector": "ac",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3mU3jco88GY5GjJy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ruin Wielder",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a sojiruh wields a broken non-magical weapon, they do not take any of the disadvantages of the weapon being broken. While the sojiruh wields it, the weapon becomes a +1 weapon that deals an additional 1d6 mental damage on a successful hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QdvzawYptGAzNQOJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Stolen Scream",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sojiruh targets a creature within 30 feet that it can see and then inhales, creating a sound identical to that of the target's scream. The targeted creature must attempt a @Check[fortitude|dc:21] save, after which they're temporarily immune to that sojiruh's Soul Scream for 24 hours. If the creature becomes frightened as a result of Stolen Scream and has had a past life, the sojiruh restores @Damage[(2d8+8)[healing]] Hit Points.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[mental]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kLR8CumR5Fjhf9Cb",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "z7ez8pdfy9PVHzxR"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Broken Shortsword",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "VDkbGCeNOn9egSYn": {
+                        "damage": "1d6+7",
+                        "damageType": "slashing"
+                    },
+                    "oC0Krjukglum7KAF": {
+                        "damage": "1d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unholy",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "cOXs4g9xTEWyGVHQ",
@@ -47,7 +204,7 @@
             },
             "img": "icons/skills/melee/shield-damaged-broken-gold.webp",
             "name": "Shatter",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -126,7 +283,7 @@
             },
             "img": "icons/magic/fire/orb-vortex.webp",
             "name": "Sound Burst",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -213,7 +370,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -294,7 +451,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -372,7 +529,7 @@
             },
             "img": "systems/pf2e/icons/spells/item-facade.webp",
             "name": "Item Facade",
-            "sort": 600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -435,7 +592,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -553,13 +710,50 @@
             "type": "spell"
         },
         {
+            "_id": "C87slniCJsgBKjT2",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 1200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 21,
+                    "value": 13
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "z7ez8pdfy9PVHzxR",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Broken Shortsword",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "shortsword",
                 "bonus": {
@@ -638,200 +832,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "kLR8CumR5Fjhf9Cb",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "z7ez8pdfy9PVHzxR"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Broken Shortsword",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "VDkbGCeNOn9egSYn": {
-                        "damage": "1d6+7",
-                        "damageType": "slashing"
-                    },
-                    "oC0Krjukglum7KAF": {
-                        "damage": "1d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unholy",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "iDo6QhZ2bapANymO",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Soul Shred",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Creatures killed by a sojiruh are difficult to bring back to life or animate as undead. The sojiruh automatically attempts to counteract any attempt to resurrect or animate any creature that it has killed (counteract modifier [[/r 1d20+11 #Counteract]]{+11}, counteract rank 2). If the sojiruh who slew the creature is itself slain, the creature can be brought back from death or become undead normally.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eB46fa1ziPNP7pP4",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Manifest Armor",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sojiruh manifests a layer of armor on its body that appears to be made of interlocking bones and wicker weaves, increasing its AC to 21. The armor is permanent but collapses and vanishes if the sojiruh takes a critical hit from a Strike that inflicts bludgeoning, force, or slashing damage, reducing its AC back to 17.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "manifest-armor",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "manifest-armor"
-                        ],
-                        "selector": "ac",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3mU3jco88GY5GjJy",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Ruin Wielder",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a sojiruh wields a broken non-magical weapon, they do not take any of the disadvantages of the weapon being broken. While the sojiruh wields it, the weapon becomes a +1 weapon that deals an additional 1d6 mental damage on a successful hit.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QdvzawYptGAzNQOJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Stolen Scream",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sojiruh targets a creature within 30 feet that it can see and then inhales, creating a sound identical to that of the target's scream. The targeted creature must attempt a @Check[fortitude|dc:21] save, after which they're temporarily immune to that sojiruh's Soul Scream for 24 hours. If the creature becomes frightened as a result of Stolen Scream and has had a past life, the sojiruh restores @Damage[(2d8+8)[healing]] Hit Points.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[mental]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Sojiruh",

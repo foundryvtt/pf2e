@@ -4,22 +4,231 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "LnqJSEHKMH6xbkRx",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "3QVgbicaKeJdgy6l",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (imprecise) 30 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dFflNs9ymwMB3ky8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stench",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A creature entering the aura must attempt a @Check[fortitude|dc:24] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, and on a critical failure, the creature also takes a -5-foot status penalty to its Speeds for 1 round. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to all xulgaths' stench for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Xulgath Stench]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "stench",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "938PC6CKpMMlv4b7",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Earthen Blow",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The stoneliege commands nearby earth to attack a foe. The stoneliege makes a claw Strike against a creature that is within 60 feet of the stoneliege and 10 feet of an earthen surface, such as dirt, mud, stone, or sand. The Strike originates from the surface's square and has a reach of 10 feet. On a critical hit, the target is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "earth"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8kQ7IgMQlvRAyicP",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Earthen Torrent",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Requirements</strong> The stoneliege is standing on or next to at least 10 cubic feet of dirt, stone, or other earthen material</p>\n<hr />\n<p><strong>Effect</strong> The stoneliege creates a violent wave of roiling earth. Creatures in a @Template[cone|distance:15] take @Damage[7d8[bludgeoning]] damage (@Check[reflex|dc:26|basic] save; on a critical failure, creatures are also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "earth"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9tVCotEnUfgqibXT",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Stone Throes",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The stoneliege turns their own body into solid stone like a statue and immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Petrified]. Any creature grappled or restrained by the stoneliege becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]; to get free, the creature must damage the statue enough to break it or succeed at a @Check[acrobatics|dc:28|name:Escape Stone Throes|traits:action:escape] check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "earth"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lGlw9snRuf39t1H3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TG7StlfXO7qcbaFy",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Cave Lore",
+            "sort": 700000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "mod": {
+                    "value": 15
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -28,21 +237,169 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "uTDwnPruhh463nll",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Geology Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
                 },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "mod": 0,
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "A4XBLOuiaS91sKg0",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Digging Bar",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
                     "value": 18
                 },
-                "tradition": {
-                    "value": "primal"
+                "damageRolls": {
+                    "sf5an2j7hu6o0k855krb": {
+                        "damage": "2d10+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fatal-d12",
+                        "forceful",
+                        "versatile-b"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "Bwk1au1bwoRPov0x",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "mn14lwzb71kmsarvil11": {
+                        "damage": "2d8+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "GJ3bbiF7rgm9jQY8",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "ttmhbs8b3febwnrlk3w9": {
+                        "damage": "2d6+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "4a9CzHBlA6bF9xkK",
@@ -51,7 +408,7 @@
             },
             "img": "systems/pf2e/icons/spells/shape-stone.webp",
             "name": "Shape Stone",
-            "sort": 200000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -116,391 +473,22 @@
             "type": "spell"
         },
         {
-            "_id": "A4XBLOuiaS91sKg0",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Digging Bar",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "sf5an2j7hu6o0k855krb": {
-                        "damage": "2d10+9",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fatal-d12",
-                        "forceful",
-                        "versatile-b"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Bwk1au1bwoRPov0x",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "mn14lwzb71kmsarvil11": {
-                        "damage": "2d8+9",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "GJ3bbiF7rgm9jQY8",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "ttmhbs8b3febwnrlk3w9": {
-                        "damage": "2d6+9",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "3QVgbicaKeJdgy6l",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (imprecise) 30 feet",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dFflNs9ymwMB3ky8",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A creature entering the aura must attempt a @Check[fortitude|dc:24] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, and on a critical failure, the creature also takes a -5-foot status penalty to its Speeds for 1 round. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to all xulgaths' stench for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Xulgath Stench]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "stench",
-                        "traits": [
-                            "olfactory"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "938PC6CKpMMlv4b7",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Earthen Blow",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The stoneliege commands nearby earth to attack a foe. The stoneliege makes a claw Strike against a creature that is within 60 feet of the stoneliege and 10 feet of an earthen surface, such as dirt, mud, stone, or sand. The Strike originates from the surface's square and has a reach of 10 feet. On a critical hit, the target is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "earth"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8kQ7IgMQlvRAyicP",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Earthen Torrent",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Requirements</strong> The stoneliege is standing on or next to at least 10 cubic feet of dirt, stone, or other earthen material</p>\n<hr />\n<p><strong>Effect</strong> The stoneliege creates a violent wave of roiling earth. Creatures in a @Template[cone|distance:15] take @Damage[7d8[bludgeoning]] damage (@Check[reflex|dc:26|basic] save; on a critical failure, creatures are also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]).</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1M"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "earth"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9tVCotEnUfgqibXT",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Stone Throes",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The stoneliege turns their own body into solid stone like a statue and immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Petrified]. Any creature grappled or restrained by the stoneliege becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]; to get free, the creature must damage the statue enough to break it or succeed at a @Check[acrobatics|dc:28|name:Escape Stone Throes|traits:action:escape] check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "earth"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lGlw9snRuf39t1H3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TG7StlfXO7qcbaFy",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Cave Lore",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "uTDwnPruhh463nll",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Geology Lore",
+            "_id": "LnqJSEHKMH6xbkRx",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1300000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 15
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -509,9 +497,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 26,
+                    "mod": 0,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "primal"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Xulgath Stoneliege",

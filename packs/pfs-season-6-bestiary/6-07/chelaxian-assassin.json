@@ -4,13 +4,544 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "JzPo3j8Ai0TyOMVO",
+            "_stats": {
+                "compendiumSource": "Actor.3d6bixaJDeFwliue.Item.JzPo3j8Ai0TyOMVO"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unnoticeable Guile",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The Chelaxian assassin is an expert at maintaining perfect stillness and blending into their surroundings. Each non-ally creature who has not been targeted by or subject to an attack or effect made by the Chelaxian assassin must, at the start of their turn, succeed at a @Check[will|dc:27] save (@Check[will|dc:28] in dungeon environments while the Chelaxian assassin is wearing their camouflage suit) or the Chelaxian assassin becomes @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them. This effect ends if the Chelaxian assassin moves without Sneaking or takes any hostile action against the non-ally creature. This does not prevent a creature from making Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek], making the assassin Observed as normal on a success.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EwnTH8rlknL4HtGv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 to Perception to Detect Snares and Hazards",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "origin:trait:hazard",
+                                    "item:trait:snare"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hrKTUcRzWZm5Qhmc",
+            "_stats": {
+                "compendiumSource": "Actor.UnViyhUqgZl0QPDi.Item.hrKTUcRzWZm5Qhmc"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Devilish Feint",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the Chelaxian assassin successfully Feints, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the Chelaxian assassin's weapon attacks until the end of the Chelaxian assassin's next turn. On a critical success, the target is off-guard against all weapon attacks for that time, not just the Chelaxian assassin's.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5htRdF1rfm6GJpZW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Chelaxian assassin deals an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7Ogm29t4rEPoNaQE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Strike of Terror",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The Chelaxian assassin is @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from the target of this ability</p><hr /><p><strong>Effect</strong> The Chelaxian assassin makes a Strike with a dagger. If they hit and deal damage, the damaged creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VgxbWr9I66Zv0R34",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.TZUskLT7yvP7N2co"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (Lesser)",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": {
+                    "formula": "3d6+6",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(3d6+6)[healing]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "elixir-of-life-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "EaZe3lAGkNkiVPQh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UXsHBUyx4b0dIPDf"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/camouflage-suit.webp",
+            "name": "Camouflage Suit",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This lightweight mesh fits easily over light armor. The suit is designed to incorporate local flora and ground clutter into the mesh to help you blend in seamlessly with the environment. Due to the abrasive nature of the materials used, this item is unsuitable for use by unarmored characters. You can prepare the suit for use within your current environment by using an exploration activity that takes at least 10 minutes, but sometimes longer if the materials are hard to find or the environment is unusual enough to warrant additional difficulty in preparing camouflage that can blend with it consistently.</p>\n<p>A suit prepared in this manner grants you a +1 item bonus to Stealth checks while you attempt to Hide or Sneak in the specific environment it has been prepared for. The suit remains usable in this manner until you rest for the night, though it doesn't grant the benefit whenever you aren't in the appropriate environment. The GM might rule that some environments are unusual enough that you can't create a camouflage suit appropriate for the environment.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Prepared Camouflage Suit]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "camouflage-suit",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": []
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "g8O97glEhtcBiELZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VUxPhU966hQaIq2C"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/bandolier.webp",
+            "name": "+1 Striking Thrower's Bandolier",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This bandolier is covered in straps and pouches capable of holding up to 2 Bulk of one-handed thrown weapons. A thrower's bandolier has a <em>+1 weapon potency rune</em> etched into it, and it can be etched with runes as though it were a one-handed thrown weapon. When you invest the thrower's bandolier, you can attune it to all the weapons sheathed in it (this ends any previous attunements made with the bandolier). Whenever you draw a weapon from the bandolier, the bandolier's runes are replicated onto that weapon. Any runes already on the weapon are suppressed, and any runes previously replicated to a different weapon in this way are removed, returning it to normal.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<hr />\n<p><strong>Effect</strong> All weapons attuned to the bandolier, not including any weapons you're currently wielding, return to the bandolier.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Treasure Vault"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "throwers-bandolier",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "ozpMPkAC8r1VTEZL",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Underworld Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "UDz1rWJDuGXxaMb0",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "mhYJqyyI1O6QaplU"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "qQ2ulNEryeYRLtal": {
+                        "damage": "2d4+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LbIVf4fnivTgUtU6",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "mhYJqyyI1O6QaplU"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "2YKo4XqwvIMWDhRo": {
+                        "damage": "2d4+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IABy4xwXYtMieG8O",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "1YspGzIdqGW0l7yP": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "mhYJqyyI1O6QaplU",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 100000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -91,537 +622,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "EaZe3lAGkNkiVPQh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UXsHBUyx4b0dIPDf"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/camouflage-suit.webp",
-            "name": "Camouflage Suit",
-            "sort": 200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This lightweight mesh fits easily over light armor. The suit is designed to incorporate local flora and ground clutter into the mesh to help you blend in seamlessly with the environment. Due to the abrasive nature of the materials used, this item is unsuitable for use by unarmored characters. You can prepare the suit for use within your current environment by using an exploration activity that takes at least 10 minutes, but sometimes longer if the materials are hard to find or the environment is unusual enough to warrant additional difficulty in preparing camouflage that can blend with it consistently.</p>\n<p>A suit prepared in this manner grants you a +1 item bonus to Stealth checks while you attempt to Hide or Sneak in the specific environment it has been prepared for. The suit remains usable in this manner until you rest for the night, though it doesn't grant the benefit whenever you aren't in the appropriate environment. The GM might rule that some environments are unusual enough that you can't create a camouflage suit appropriate for the environment.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Prepared Camouflage Suit]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 10
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "camouflage-suit",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": []
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "g8O97glEhtcBiELZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VUxPhU966hQaIq2C"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bandolier.webp",
-            "name": "+1 Striking Thrower's Bandolier",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This bandolier is covered in straps and pouches capable of holding up to 2 Bulk of one-handed thrown weapons. A thrower's bandolier has a <em>+1 weapon potency rune</em> etched into it, and it can be etched with runes as though it were a one-handed thrown weapon. When you invest the thrower's bandolier, you can attune it to all the weapons sheathed in it (this ends any previous attunements made with the bandolier). Whenever you draw a weapon from the bandolier, the bandolier's runes are replicated onto that weapon. Any runes already on the weapon are suppressed, and any runes previously replicated to a different weapon in this way are removed, returning it to normal.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<hr />\n<p><strong>Effect</strong> All weapons attuned to the bandolier, not including any weapons you're currently wielding, return to the bandolier.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Treasure Vault"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "throwers-bandolier",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "VgxbWr9I66Zv0R34",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.TZUskLT7yvP7N2co"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (Lesser)",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": null,
-                "damage": {
-                    "formula": "3d6+6",
-                    "kind": "healing",
-                    "type": "untyped"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(3d6+6)[healing]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 30
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "elixir-of-life-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "UDz1rWJDuGXxaMb0",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "mhYJqyyI1O6QaplU"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "qQ2ulNEryeYRLtal": {
-                        "damage": "2d4+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "LbIVf4fnivTgUtU6",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "mhYJqyyI1O6QaplU"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "2YKo4XqwvIMWDhRo": {
-                        "damage": "2d4+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "IABy4xwXYtMieG8O",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "1YspGzIdqGW0l7yP": {
-                        "damage": "1d4+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "JzPo3j8Ai0TyOMVO",
-            "_stats": {
-                "compendiumSource": "Actor.3d6bixaJDeFwliue.Item.JzPo3j8Ai0TyOMVO"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Unnoticeable Guile",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The Chelaxian assassin is an expert at maintaining perfect stillness and blending into their surroundings. Each non-ally creature who has not been targeted by or subject to an attack or effect made by the Chelaxian assassin must, at the start of their turn, succeed at a @Check[will|dc:27] save (@Check[will|dc:28] in dungeon environments while the Chelaxian assassin is wearing their camouflage suit) or the Chelaxian assassin becomes @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them. This effect ends if the Chelaxian assassin moves without Sneaking or takes any hostile action against the non-ally creature. This does not prevent a creature from making Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek], making the assassin Observed as normal on a success.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EwnTH8rlknL4HtGv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 to Perception to Detect Snares and Hazards",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "origin:trait:hazard",
-                                    "item:trait:snare"
-                                ]
-                            }
-                        ],
-                        "selector": "perception",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hrKTUcRzWZm5Qhmc",
-            "_stats": {
-                "compendiumSource": "Actor.UnViyhUqgZl0QPDi.Item.hrKTUcRzWZm5Qhmc"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Devilish Feint",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the Chelaxian assassin successfully Feints, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the Chelaxian assassin's weapon attacks until the end of the Chelaxian assassin's next turn. On a critical success, the target is off-guard against all weapon attacks for that time, not just the Chelaxian assassin's.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5htRdF1rfm6GJpZW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Chelaxian assassin deals an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7Ogm29t4rEPoNaQE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Strike of Terror",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The Chelaxian assassin is @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from the target of this ability</p><hr /><p><strong>Effect</strong> The Chelaxian assassin makes a Strike with a dagger. If they hit and deal damage, the damaged creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ozpMPkAC8r1VTEZL",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Underworld Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Chelaxian Assassin",

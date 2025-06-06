@@ -4,64 +4,63 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "LTLmbCKwBb1bK9gf",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
+            "_id": "fom3tH9ATguJfWY8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to Fortitude Saves vs. Poison",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 2,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "poison"
+                        ],
+                        "selector": "fortitude",
+                        "type": "status",
                         "value": 2
                     }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                ],
+                "slug": "1-status-to-fortitude-saves-vs-poison",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "BIEjxvP3by2QuDfj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Focus Spells",
+            "_id": "Q1uDxxraNnAXELis",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Psi Amps",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Tisbah can cast psi cantrips as amped cantrips by using one focus point and making the following alterations:</p>\n<p><em>Mage Hand</em>: Tisbah targets a creature of Medium size or smaller and attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] them with a spell attack roll against their Fortitude DC. The first time each round Tisbah Sustains this Spell, she can attempt to Shove the creature again. The target takes a –10-foot circumstance penalty to its Speeds until the spell ends.</p>\n<p><em>Telekinetic Projectile</em>: Tisbah increases the damage of this cantrip by [[/r 2d6]]. On a successful Strike, she pushes the target 5 feet away, or 10 feet away on a critical success.</p>\n<p><em>Telekinetic Rend</em>: Tisbah changes the cantrip's damage to 1d6 bludgeoning and 1d6 slashing. A creature that critically fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -69,18 +68,153 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "xcGTw6cnbLAaJb6P",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Psychic Practice",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Tisbah's range for @UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Projectile] increases to 60 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CmwiPb08oJWmU5NE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unleash Psyche",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Tisbah's starts her turn with half or less Hit Points remaining</p>\n<hr />\n<p><strong>Effect</strong> Tisbah is surrounded by a swirl of psychic energy that effortlessly moves small objects around her, gaining a +2 status bonus to damage when casting telekinetic projectile or telekinetic rend. This effect remains for 2 rounds or until Tisbah is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Unleash Psyche",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Unleash Psyche"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xWNN3lLOhz5HgaGR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Vishkanyan Venom",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d4[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d4[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[1d4[poison]] damage, off-guard, and a –5-foot penalty to Speed (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "injury",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NxDSIiGvS5kkOX1q",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Visap",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "vishkanyan-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "CL6UkWMuR2m507mH": {
+                        "damage": "1d4",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "visap",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "injection",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "uUJCqPl9eXfr8CXO",
@@ -89,7 +223,7 @@
             },
             "img": "icons/magic/control/buff-luck-fortune-rainbow.webp",
             "name": "Dizzying Colors",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -161,7 +295,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Force Barrage",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -235,7 +369,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -313,7 +447,7 @@
             },
             "img": "systems/pf2e/icons/spells/telekinetic-ram.webp",
             "name": "Kinetic Ram",
-            "sort": 600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -433,7 +567,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand (Amped)",
-            "sort": 700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -511,7 +645,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -587,7 +721,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -649,7 +783,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Telekinetic Hand",
-            "sort": 1000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -730,7 +864,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -854,7 +988,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile (Amped)",
-            "sort": 1200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -931,7 +1065,7 @@
             },
             "img": "systems/pf2e/icons/spells/telekinetic-rend.webp",
             "name": "Telekinetic Rend",
-            "sort": 1300000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1050,7 +1184,7 @@
             },
             "img": "systems/pf2e/icons/spells/telekinetic-rend.webp",
             "name": "Telekinetic Rend (Amped)",
-            "sort": 1400000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1160,168 +1294,22 @@
             "type": "spell"
         },
         {
-            "_id": "NxDSIiGvS5kkOX1q",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Visap",
-            "sort": 1500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "vishkanyan-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "CL6UkWMuR2m507mH": {
-                        "damage": "1d4",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "visap",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "injection",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "fom3tH9ATguJfWY8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to Fortitude Saves vs. Poison",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "poison"
-                        ],
-                        "selector": "fortitude",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-fortitude-saves-vs-poison",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Q1uDxxraNnAXELis",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Psi Amps",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Tisbah can cast psi cantrips as amped cantrips by using one focus point and making the following alterations:</p>\n<p><em>Mage Hand</em>: Tisbah targets a creature of Medium size or smaller and attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] them with a spell attack roll against their Fortitude DC. The first time each round Tisbah Sustains this Spell, she can attempt to Shove the creature again. The target takes a –10-foot circumstance penalty to its Speeds until the spell ends.</p>\n<p><em>Telekinetic Projectile</em>: Tisbah increases the damage of this cantrip by [[/r 2d6]]. On a successful Strike, she pushes the target 5 feet away, or 10 feet away on a critical success.</p>\n<p><em>Telekinetic Rend</em>: Tisbah changes the cantrip's damage to 1d6 bludgeoning and 1d6 slashing. A creature that critically fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xcGTw6cnbLAaJb6P",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Psychic Practice",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Tisbah's range for @UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Projectile] increases to 60 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CmwiPb08oJWmU5NE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Unleash Psyche",
+            "_id": "LTLmbCKwBb1bK9gf",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 1900000,
             "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Tisbah's starts her turn with half or less Hit Points remaining</p>\n<hr />\n<p><strong>Effect</strong> Tisbah is surrounded by a swirl of psychic energy that effortlessly moves small objects around her, gaining a +2 status bonus to damage when casting telekinetic projectile or telekinetic rend. This effect remains for 2 rounds or until Tisbah is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1329,32 +1317,41 @@
                     "title": ""
                 },
                 "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Unleash Psyche",
-                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Unleash Psyche"
+                "slots": {
+                    "slot1": {
+                        "max": 2,
+                        "value": 2
+                    }
                 },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "xWNN3lLOhz5HgaGR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Vishkanyan Venom",
+            "_id": "BIEjxvP3by2QuDfj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Focus Spells",
             "sort": 2000000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d4[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d4[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[1d4[poison]] damage, off-guard, and a –5-foot penalty to Speed (1 round)</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1362,15 +1359,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "injury",
-                        "poison"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Tisbah",

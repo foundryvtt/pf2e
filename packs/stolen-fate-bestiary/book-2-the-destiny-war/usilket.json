@@ -4,60 +4,57 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "eNPeULHxJKY1eong",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
+            "_id": "0IaVEttmxUnS8sgC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "arcane"
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "85EC1GjjlgzuoKNJ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Monk Focus Spells",
+            "_id": "VyHCvLDBuWt13clO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Absorb Force",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> A @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] is fired at Usilket, and they are aware of it and have a free hand</p>\n<hr />\n<p><strong>Effect</strong> Usilket \"catches\" the missile, absorbing it and causing that hand to glow while it holds this energy. A hand that's holding energy can only be used for @UUID[Compendium.pf2e.spells-srd.Item.Force Bolt]. The energy lasts for 6 rounds or until it is released.</p>"
                 },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
                     "value": 1
                 },
                 "publication": {
@@ -66,17 +63,447 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "force"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "xdNPmi2gJ0KvidxT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JUVSnmCmm0hW7DkD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flurry of Blows",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Usilket makes two Strikes with their fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "luhUhX2TaQH53tRo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Force Bolt",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p>Usilket fires two @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] per action spent, dealing @Damage[(1d4+1)[force]] damage each. They can't spend more actions on this ability than they have free hands. If they use a hand that has Absorbed Force, that hand hurls three missiles instead of two, expending the held energy.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sKUdQQRbKQvXoYun",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Meditative Therapy",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> One of Usilket's most unusual abilities is a technique they learned during a long visit to Jalmeray. Usilket enters a trancelike state for 10 minutes, during which they can attempt to remove a disease or one of the following conditions: @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]. To remove the disease or condition, Usilket must counteract the disease or condition with a Medicine check. Usilket can attempt to counteract a disease or condition present in another creature, as long as that creature remains adjacent to the witchwyrd during the entire meditation.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "healing"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JwKaANSzFE4wIKY4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Powerful Fists",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Usilket's fist Strikes are treated as cold iron and silver and don't take penalties when making lethal attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Hg1d1UPl1otrsTWw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ipa5U1CJ4o50SCjO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.enPo1dPzSQaybAfF"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/aluum-charm.webp",
+            "name": "Guardian Aluum Charm",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A <em>guardian aluum charm</em> grants control over powerful aluums—metal and stone constructs created by the Pactmasters to help maintain order in the city of Katapesh. As long as you wear a guardian aluum's linked <em>guardian aluum charm</em>, that aluum follows your verbal commands.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> command, envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The charm grants you control over an aluum you can see within 60 feet, as long as the target aluum is level 13 or less. This has the effect of @UUID[Compendium.pf2e.spells-srd.Item.Dominate] and allows a @Check[will|dc:28] save. If the aluum is currently under the control of someone wearing its linked charm, its saving throw is one degree higher than what is rolled. You can control only one aluum at a time with this activation, and controlling a new aluum ends the effect for one you had previously affected.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 13
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2800
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #191: The Destiny War"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornamulet"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "YBvMFNaAoRtkQx2S",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.WPSp5MLb0VOfmUqH"
+            },
+            "img": "icons/equipment/head/hat-belted-grey.webp",
+            "name": "Hat of Disguise (Greater)",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This ordinary-looking hat allows you to cloak yourself in illusions.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> any number of times per day</p>\n<hr />\n<p><strong>Effect</strong> The hat casts a 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise] spell on you. While setting up the disguise, you can magically alter the hat to appear as a comb, ribbon, helm, or other piece of headwear.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 340
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "hat-of-disguise-greater",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "illusion",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornheadwear"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "cR7CufBhXfJlvj0N",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Katapesh Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 26
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "MKaA8dFka66edmXO",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Mercantile Lore",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "RYnOLttcIfKDj4ny",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "etydoPZ8x8inZftg": {
+                        "damage": "3d10+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "fist",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "b9si3Rlfm3d4fpe8",
@@ -85,7 +512,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -147,7 +574,7 @@
             },
             "img": "systems/pf2e/icons/spells/wind-jump.webp",
             "name": "Wind Jump",
-            "sort": 400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -206,7 +633,7 @@
             },
             "img": "systems/pf2e/icons/spells/abundant-step.webp",
             "name": "Abundant Step",
-            "sort": 500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -265,7 +692,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 600000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -337,7 +764,7 @@
             },
             "img": "icons/magic/unholy/orb-beam-pink.webp",
             "name": "Resilient Sphere",
-            "sort": 700000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -399,7 +826,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -478,7 +905,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-blast.webp",
             "name": "Ki Blast",
-            "sort": 900000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -631,7 +1058,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1000000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -694,7 +1121,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 1100000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -757,7 +1184,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 1200000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -839,7 +1266,7 @@
             },
             "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
             "name": "Wholeness of Body",
-            "sort": 1300000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -916,7 +1343,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1400000,
+            "sort": 2500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -983,7 +1410,7 @@
             },
             "img": "icons/magic/light/circle-window-clock-blue.webp",
             "name": "Floating Disk (At Will)",
-            "sort": 1500000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1045,7 +1472,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-rush.webp",
             "name": "Ki Rush",
-            "sort": 1600000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1103,7 +1530,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-strike.webp",
             "name": "Ki Strike",
-            "sort": 1700000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1179,7 +1606,7 @@
             },
             "img": "icons/magic/air/wind-stream-blue-gray.webp",
             "name": "Unseen Servant (At Will)",
-            "sort": 1800000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1234,13 +1661,88 @@
             "type": "spell"
         },
         {
+            "_id": "eNPeULHxJKY1eong",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
+            "sort": 3000000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 33,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "85EC1GjjlgzuoKNJ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Monk Focus Spells",
+            "sort": 3100000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 32,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "mkGVSxN3hqxBeouz",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "+1 Striking Handwraps of Mighty Blows",
-            "sort": 1900000,
+            "sort": 3200000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -1323,508 +1825,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "Ipa5U1CJ4o50SCjO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.enPo1dPzSQaybAfF"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/aluum-charm.webp",
-            "name": "Guardian Aluum Charm",
-            "sort": 2000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A <em>guardian aluum charm</em> grants control over powerful aluums—metal and stone constructs created by the Pactmasters to help maintain order in the city of Katapesh. As long as you wear a guardian aluum's linked <em>guardian aluum charm</em>, that aluum follows your verbal commands.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> command, envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The charm grants you control over an aluum you can see within 60 feet, as long as the target aluum is level 13 or less. This has the effect of @UUID[Compendium.pf2e.spells-srd.Item.Dominate] and allows a @Check[will|dc:28] save. If the aluum is currently under the control of someone wearing its linked charm, its saving throw is one degree higher than what is rolled. You can control only one aluum at a time with this activation, and controlling a new aluum ends the effect for one you had previously affected.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 13
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2800
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #191: The Destiny War"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "rare",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornamulet"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "YBvMFNaAoRtkQx2S",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.WPSp5MLb0VOfmUqH"
-            },
-            "img": "icons/equipment/head/hat-belted-grey.webp",
-            "name": "Hat of Disguise (Greater)",
-            "sort": 2100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This ordinary-looking hat allows you to cloak yourself in illusions.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> any number of times per day</p>\n<hr />\n<p><strong>Effect</strong> The hat casts a 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise] spell on you. While setting up the disguise, you can magically alter the hat to appear as a comb, ribbon, helm, or other piece of headwear.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 340
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "hat-of-disguise-greater",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "illusion",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornheadwear"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "RYnOLttcIfKDj4ny",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 2200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "etydoPZ8x8inZftg": {
-                        "damage": "3d10+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "fist",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "0IaVEttmxUnS8sgC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VyHCvLDBuWt13clO",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Absorb Force",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> A @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] is fired at Usilket, and they are aware of it and have a free hand</p>\n<hr />\n<p><strong>Effect</strong> Usilket \"catches\" the missile, absorbing it and causing that hand to glow while it holds this energy. A hand that's holding energy can only be used for @UUID[Compendium.pf2e.spells-srd.Item.Force Bolt]. The energy lasts for 6 rounds or until it is released.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "force"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xdNPmi2gJ0KvidxT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JUVSnmCmm0hW7DkD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Flurry of Blows",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Usilket makes two Strikes with their fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "luhUhX2TaQH53tRo",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Force Bolt",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p>Usilket fires two @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] per action spent, dealing @Damage[(1d4+1)[force]] damage each. They can't spend more actions on this ability than they have free hands. If they use a hand that has Absorbed Force, that hand hurls three missiles instead of two, expending the held energy.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sKUdQQRbKQvXoYun",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Meditative Therapy",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> One of Usilket's most unusual abilities is a technique they learned during a long visit to Jalmeray. Usilket enters a trancelike state for 10 minutes, during which they can attempt to remove a disease or one of the following conditions: @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]. To remove the disease or condition, Usilket must counteract the disease or condition with a Medicine check. Usilket can attempt to counteract a disease or condition present in another creature, as long as that creature remains adjacent to the witchwyrd during the entire meditation.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "healing"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JwKaANSzFE4wIKY4",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Powerful Fists",
-            "sort": 2900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Usilket's fist Strikes are treated as cold iron and silver and don't take penalties when making lethal attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            "item:slug:fist"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "cold-iron"
-                    },
-                    {
-                        "definition": [
-                            "item:slug:fist"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "silver"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Hg1d1UPl1otrsTWw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cR7CufBhXfJlvj0N",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Katapesh Lore",
-            "sort": 3100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "MKaA8dFka66edmXO",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Mercantile Lore",
-            "sort": 3200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Usilket",

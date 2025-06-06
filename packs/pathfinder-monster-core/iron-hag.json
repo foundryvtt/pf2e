@@ -3,22 +3,222 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "WOtXGBdiDdwdPd7H",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Coven Spells",
+            "_id": "51uNm4VZXCCKduJt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coven",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>An iron hag adds @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Impaling Spike], and @UUID[Compendium.pf2e.spells-srd.Item.Spellwrack] to their coven's spells. Their spell DC when leading a coven is 24.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "coven",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "S4fkYk7Id7nDaDF3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MpWqSRwt012KZnGl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bonds of Iron",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The hag causes a cage built of cold iron fingernails to spring out of nothingness around one creature within 30 feet, attempting an Athletics check to [[/act grapple]] against the target's Fortitude DC; if the target has a weakness to cold iron, the iron hag gains a +2 circumstance bonus to this check.</p>\n<p>On a success, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the magical fingernails (or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] on a critical success). If the creature successfully [[/act escape dc=24]]{Escapes} (DC 24), the cage crumbles into rust.</p>\n<p>Any creature can attempt to destroy the cage by attacking it. It has an AC of 19, Hardness 10, and 40 Hit Points.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "bonds-of-iron",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:grapple",
+                            "bonds-of-iron"
+                        ],
+                        "selector": "athletics",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2xwKWCTraWTbO2QT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The iron hag can take on the appearance of any Medium female humanoid. This doesn't change their Speed or their attack and damage bonuses with their Strikes but might change the damage type their Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "hag",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hag",
+                                "value": "hag"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
+                                "value": "humanoid-medium"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "bludgeoning"
+                        },
+                        "predicate": [
+                            "change-shape:humanoid-medium"
+                        ],
+                        "selector": "damage"
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape:humanoid-medium"
+                        ],
+                        "value": "med"
+                    }
+                ],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y5dVpyMy5aFYReOk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Embrace of Iron",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the iron hag's claw</p>\n<hr />\n<p><strong>Effect</strong> The hag's nails tear into their captured victim, dealing @Damage[2d8[piercing]|traits:cold-iron] damage (the nails are cold iron). Then the hag can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Reposition] the creature. If the creature is adjacent to the hag, they can then attempt a jaws Strike against it.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -26,21 +226,137 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 24,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3ps9jwhU6IKTI1lp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RoXgi9s2uTlVyDiq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
                     "value": 16
                 },
-                "tradition": {
-                    "value": "occult"
+                "damageRolls": {
+                    "ZwpZOUsddMMran0l": {
+                        "damage": "2d8+6",
+                        "damageType": "slashing"
+                    }
                 },
-                "traits": {}
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "cold-iron",
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "r3be0JK93VuISORj",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "DjdYCAGC1uLgeCDE": {
+                        "damage": "2d6+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold-iron",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "H9q2t7NLgakrPwaV",
@@ -49,7 +365,7 @@
             },
             "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
             "name": "Control Weather",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -112,7 +428,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Cursed Metamorphosis",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -182,7 +498,7 @@
             },
             "img": "systems/pf2e/icons/spells/spellwrack.webp",
             "name": "Spellwrack",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -250,7 +566,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -318,7 +634,7 @@
             },
             "img": "systems/pf2e/icons/spells/impaling-spike.webp",
             "name": "Impaling Spike",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -405,7 +721,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Scouting Eye",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -468,7 +784,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -530,7 +846,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -596,7 +912,7 @@
             },
             "img": "icons/magic/light/orb-hand-green.webp",
             "name": "Clairaudience",
-            "sort": 1000000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -658,7 +974,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 1100000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -731,7 +1047,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 1200000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -798,7 +1114,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 1300000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -860,7 +1176,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1400000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -941,7 +1257,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 1500000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -998,360 +1314,44 @@
             "type": "spell"
         },
         {
-            "_id": "RoXgi9s2uTlVyDiq",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "ZwpZOUsddMMran0l": {
-                        "damage": "2d8+6",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "cold-iron",
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "r3be0JK93VuISORj",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "DjdYCAGC1uLgeCDE": {
-                        "damage": "2d6+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "cold-iron",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "51uNm4VZXCCKduJt",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coven",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>An iron hag adds @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Impaling Spike], and @UUID[Compendium.pf2e.spells-srd.Item.Spellwrack] to their coven's spells. Their spell DC when leading a coven is 24.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "coven",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "S4fkYk7Id7nDaDF3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MpWqSRwt012KZnGl",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bonds of Iron",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The hag causes a cage built of cold iron fingernails to spring out of nothingness around one creature within 30 feet, attempting an Athletics check to [[/act grapple]] against the target's Fortitude DC; if the target has a weakness to cold iron, the iron hag gains a +2 circumstance bonus to this check.</p>\n<p>On a success, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the magical fingernails (or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] on a critical success). If the creature successfully [[/act escape dc=24]]{Escapes} (DC 24), the cage crumbles into rust.</p>\n<p>Any creature can attempt to destroy the cage by attacking it. It has an AC of 19, Hardness 10, and 40 Hit Points.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "skill-check",
-                        "key": "RollOption",
-                        "option": "bonds-of-iron",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:grapple",
-                            "bonds-of-iron"
-                        ],
-                        "selector": "athletics",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "attack",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2xwKWCTraWTbO2QT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The iron hag can take on the appearance of any Medium female humanoid. This doesn't change their Speed or their attack and damage bonuses with their Strikes but might change the damage type their Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ChangeShape.Label",
-                        "option": "change-shape",
-                        "selection": "hag",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hag",
-                                "value": "hag"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
-                                "value": "humanoid-medium"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "bludgeoning"
-                        },
-                        "predicate": [
-                            "change-shape:humanoid-medium"
-                        ],
-                        "selector": "damage"
-                    },
-                    {
-                        "key": "CreatureSize",
-                        "predicate": [
-                            "change-shape:humanoid-medium"
-                        ],
-                        "value": "med"
-                    }
-                ],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "y5dVpyMy5aFYReOk",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Embrace of Iron",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> A creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the iron hag's claw</p>\n<hr />\n<p><strong>Effect</strong> The hag's nails tear into their captured victim, dealing @Damage[2d8[piercing]|traits:cold-iron] damage (the nails are cold iron). Then the hag can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Reposition] the creature. If the creature is adjacent to the hag, they can then attempt a jaws Strike against it.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3ps9jwhU6IKTI1lp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
+            "_id": "WOtXGBdiDdwdPd7H",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Coven Spells",
             "sort": 2300000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 24,
+                    "value": 16
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Iron Hag",

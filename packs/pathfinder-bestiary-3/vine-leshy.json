@@ -3,22 +3,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "HItnjZpl8JZa8gGc",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "NgeIHogL6m58BKDp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Verdant Burst",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>When a vine leshy dies, a burst of primal energy explodes from its body, restoring @Damage[1d4[healing]] Hit Points to each plant creature in a @Template[emanation|distance:30]. This area fills with tangling vines, becoming difficult terrain. If the terrain is not a viable environment for the vines, they wither after 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,166 +25,80 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 15,
-                    "value": 7
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "7Av2rvOupRF0hCqT",
+            "_id": "hUmX5vToV3dXSRRK",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qvwIwJ9QBihy8R0t"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
             },
-            "img": "icons/magic/nature/plant-poison-spit-green.webp",
-            "name": "Speak with Plants",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
             "sort": 200000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "action"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You can ask questions of and receive answers from plants, but the spell doesn't make them more friendly or intelligent than normal. Most normal plants have a distinctive view of the world around them, so they don't recognize details about creatures or know anything about the world beyond their immediate vicinity. Cunning plant monsters are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "HItnjZpl8JZa8gGc"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "speak-with-plants",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "plant"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "lAAUBHtT7Ikv5IDz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
-            "name": "Spear",
-            "sort": 300000,
-            "system": {
-                "baseItem": "spear",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
+                "actions": {
                     "value": 1
                 },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one-handed as a melee weapon and can be thrown.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "group": "spear",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
+                    "value": "<p>The vine leshy transforms into a Small plant with vines. This ability otherwise uses the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Plants].</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "spear",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": "change-shape",
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "thrown-20"
+                        "concentrate",
+                        "polymorph",
+                        "primal"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "1F2GCLISmzNTXa9u",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Extend Vines",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vine leshy Interacts to extend or shorten their arms. With limbs extended, the vine leshy has a 10-foot reach. The leshy can't use weapons that already have reach in this way, because they would be unable to keep their balance.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         },
         {
             "_id": "SfQfbmrgZ4vr3nFt",
@@ -284,88 +197,83 @@
             "type": "melee"
         },
         {
-            "_id": "NgeIHogL6m58BKDp",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Verdant Burst",
+            "_id": "7Av2rvOupRF0hCqT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qvwIwJ9QBihy8R0t"
+            },
+            "img": "icons/magic/nature/plant-poison-spit-green.webp",
+            "name": "Speak with Plants",
             "sort": 600000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>When a vine leshy dies, a burst of primal energy explodes from its body, restoring @Damage[1d4[healing]] Hit Points to each plant creature in a @Template[emanation|distance:30]. This area fills with tangling vines, becoming difficult terrain. If the terrain is not a viable environment for the vines, they wither after 24 hours.</p>"
+                    "value": "<p>You can ask questions of and receive answers from plants, but the spell doesn't make them more friendly or intelligent than normal. Most normal plants have a distinctive view of the world around them, so they don't recognize details about creatures or know anything about the world beyond their immediate vicinity. Cunning plant monsters are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "HItnjZpl8JZa8gGc"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "speak-with-plants",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hUmX5vToV3dXSRRK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The vine leshy transforms into a Small plant with vines. This ability otherwise uses the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Plants].</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ],
                     "value": [
                         "concentrate",
-                        "polymorph",
-                        "primal"
+                        "manipulate",
+                        "plant"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "1F2GCLISmzNTXa9u",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Extend Vines",
-            "sort": 800000,
+            "_id": "HItnjZpl8JZa8gGc",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 700000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The vine leshy Interacts to extend or shorten their arms. With limbs extended, the vine leshy has a 10-foot reach. The leshy can't use weapons that already have reach in this way, because they would be unable to keep their balance.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -373,13 +281,105 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 15,
+                    "value": 7
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "lAAUBHtT7Ikv5IDz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
+            "name": "Spear",
+            "sort": 800000,
+            "system": {
+                "baseItem": "spear",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one-handed as a melee weapon and can be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "spear",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "spear",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown-20"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         }
     ],
     "name": "Vine Leshy",

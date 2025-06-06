@@ -4,13 +4,119 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "8IohuRxIt43B6j3B",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Historical Specialist",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>In matters regarding history or court records, the court historian is a 5th-level challenge.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "F2PQUiFfdMdgHZgN",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Records Don't Lie",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The court historian has a Perception DC of 25 against Deception checks asserting false current or historical events.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "records-dont-lie",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "records-dont-lie"
+                        ],
+                        "selector": "perception-dc",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CJKAoBjH9Svql2g0",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Distracting Diatribe",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The court historian monotonously recites facts to distract a creature within 30 feet that can hear them. The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "x2nM7iPN2c3GgyIJ",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3yLu12TCwN8utY0u"
             },
             "img": "icons/tools/scribal/ink-quill-red.webp",
             "name": "Inkwell",
-            "sort": 100000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -68,7 +174,7 @@
             },
             "img": "icons/tools/scribal/ink-quill-red.webp",
             "name": "Writing Set",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -125,7 +231,7 @@
             },
             "img": "icons/equipment/chest/breastplate-purple.webp",
             "name": "Clothing (Fine)",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -182,7 +288,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-plain-tan.webp",
             "name": "Court Record",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -233,10 +339,114 @@
             "type": "equipment"
         },
         {
+            "_id": "klWqS8NzRkizJaKL",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Genealogy Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "bZ73Nwyam8F9oUF9",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Noble Court Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "xS9Rn0evZimLz76C",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Scribing Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "rWVk2koSOF0N2B2J",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Settlement Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
             "_id": "DdSQHHcgjOXJ1eG8",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -275,7 +485,7 @@
             "_id": "0tuLBGiaWLDuXT3D",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Inkwell",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -306,216 +516,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "8IohuRxIt43B6j3B",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Historical Specialist",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>In matters regarding history or court records, the court historian is a 5th-level challenge.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "F2PQUiFfdMdgHZgN",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Records Don't Lie",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The court historian has a Perception DC of 25 against Deception checks asserting false current or historical events.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "records-dont-lie",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "records-dont-lie"
-                        ],
-                        "selector": "perception-dc",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CJKAoBjH9Svql2g0",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Distracting Diatribe",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The court historian monotonously recites facts to distract a creature within 30 feet that can hear them. The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "linguistic",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "klWqS8NzRkizJaKL",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Genealogy Lore",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "bZ73Nwyam8F9oUF9",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Noble Court Lore",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "xS9Rn0evZimLz76C",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Scribing Lore",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "rWVk2koSOF0N2B2J",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Settlement Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Court Historian",

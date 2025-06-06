@@ -3,23 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8Aw8YNHiQ1odM8VY",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
+            "_id": "tQ1m9uzdwC96pkCY",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hydraulic Asphyxiation",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p><strong>Requirements</strong> The target is fully submerged in water, within 30 feet of the merfolk wavecaller, and holding its breath</p>\n<hr />\n<p><strong>Effect</strong> The merfolk wavecaller commands the tides to crush their foe's throat, rooting the target in place and forcing it to choke up precious air. The target must succeed at a @Check[fortitude|dc:18] save or become @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round and immediately lose [[/gmr 1d4 #rounds]]{1d4 rounds}' worth of air (or twice that on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -27,54 +24,117 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "ORRxqPmtl1tP0LJf"
-                            },
-                            {
-                                "id": "cUjBzv1hHh5skvmB"
-                            },
-                            {
-                                "id": "BIkyLk8AUQG5WHni"
-                            },
-                            {
-                                "id": "SsuzvE0j40fLMJ9O"
-                            },
-                            {
-                                "id": "NLWt99hvH9wpIUvc"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "E7HeF2XcygF8dG1a"
-                            },
-                            {
-                                "id": "vlWQ31p2scRdrR7w"
-                            },
-                            {
-                                "id": "m99u0kkO5pgAxMNq"
-                            }
-                        ]
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aCvMYE328wAIa1Kx",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "KDd6tOPGEnBWT2pa"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "stpp0iee7fltm4xmv25e": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
                     }
                 },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "mod": 0,
-                    "value": 10
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "versatile-s"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "oFnlUf41ozZQtvKs",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "KDd6tOPGEnBWT2pa"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "xio9tfpmvx8w4aryqg9z": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "E7HeF2XcygF8dG1a",
@@ -83,7 +143,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -163,7 +223,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -230,7 +290,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -315,7 +375,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Frostbite",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -400,7 +460,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -596,7 +656,7 @@
             },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -676,7 +736,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -740,7 +800,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 900000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -797,13 +857,87 @@
             "type": "spell"
         },
         {
+            "_id": "8Aw8YNHiQ1odM8VY",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
+            "sort": 1200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "ORRxqPmtl1tP0LJf"
+                            },
+                            {
+                                "id": "cUjBzv1hHh5skvmB"
+                            },
+                            {
+                                "id": "BIkyLk8AUQG5WHni"
+                            },
+                            {
+                                "id": "SsuzvE0j40fLMJ9O"
+                            },
+                            {
+                                "id": "NLWt99hvH9wpIUvc"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "E7HeF2XcygF8dG1a"
+                            },
+                            {
+                                "id": "vlWQ31p2scRdrR7w"
+                            },
+                            {
+                                "id": "m99u0kkO5pgAxMNq"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "mod": 0,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "KDd6tOPGEnBWT2pa",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 1000000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -884,140 +1018,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "aCvMYE328wAIa1Kx",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "KDd6tOPGEnBWT2pa"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "stpp0iee7fltm4xmv25e": {
-                        "damage": "1d4+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "oFnlUf41ozZQtvKs",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "KDd6tOPGEnBWT2pa"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "xio9tfpmvx8w4aryqg9z": {
-                        "damage": "1d4+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "tQ1m9uzdwC96pkCY",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hydraulic Asphyxiation",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The target is fully submerged in water, within 30 feet of the merfolk wavecaller, and holding its breath</p>\n<hr />\n<p><strong>Effect</strong> The merfolk wavecaller commands the tides to crush their foe's throat, rooting the target in place and forcing it to choke up precious air. The target must succeed at a @Check[fortitude|dc:18] save or become @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round and immediately lose [[/gmr 1d4 #rounds]]{1d4 rounds}' worth of air (or twice that on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "water"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Merfolk Wavecaller",

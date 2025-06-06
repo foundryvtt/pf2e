@@ -4,23 +4,102 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "NCoWkgKyY8nUdbrO",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "rU17t3NM7TJ3u03o",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 10 (Deactivated by Piercing)",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "piercing"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 10
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rGx3BT8mbRKRUpA2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Destabilizing Field",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>40 feet. A creature that begins its turn within the area feels its body begin to stretch and must succeed at a @Check[fortitude|dc:33] save or become destabilized.</p>\n<p>A destabilized creature emits a 10-foot destabilizing field aura and becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. The destabilization ends when the creature is no longer sickened.</p>\n<p>A creature that succeeds at its saving throw against the aura is temporarily immune to all destabilizing fields for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 40,
+                        "slug": "destabilizing-field",
+                        "traits": []
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bpvnWZi8sukcfy9H",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Displace",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The amalgamite is hit by a Strike.</p>\n<hr />\n<p><strong>Effect</strong> The amalgamite Repositions itself or Transposes itself with another creature. If the amalgamite successfully changes its location, it and any Transposed creature take half damage from the triggering Strike.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,22 +107,178 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "mod": 0,
-                    "value": 25
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dwH6nJY0Yb3I4jsA",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Reposition",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
                 },
-                "tradition": {
-                    "value": "occult"
+                "actions": {
+                    "value": 2
                 },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The amalgamite teleports into an unoccupied space it can see within 50 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XBz2toYQ5LlpBAkp",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Transpose",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The amalgamite chooses up to two destabilized creatures they can see within 50 feet and swaps their positions, or moves a single such creature to an unoccupied space they can see within range. If the amalgamite chooses two creatures, they can choose their self as one of these creatures, but both targets must be the same size.</p>\n<p>An unwilling creature can attempt a @Check[will|dc:33] save. If either target succeeds at this saving throw, both are unaffected.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xFzHJGL72aPpRLgB",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Lore (Any One Subcategory)",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 27
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "REbcJzGp6sT7jOuZ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Limb",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d10+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "6Jhrih75LDb7Tovl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Warping Ray",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+8",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "deadly-2d8",
+                        "magical",
+                        "range-100"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "rd4rVLSctoBhveNK",
@@ -52,7 +287,7 @@
             },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -121,7 +356,7 @@
             },
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Flicker",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -183,7 +418,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Vision of Death (Causes Those Who are Affected to Believe They're Being Turned Inside Out)",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -265,270 +500,23 @@
             "type": "spell"
         },
         {
-            "_id": "REbcJzGp6sT7jOuZ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Limb",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d10+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "6Jhrih75LDb7Tovl",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Warping Ray",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+8",
-                        "damageType": "force"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "deadly-2d8",
-                        "magical",
-                        "range-100"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "rU17t3NM7TJ3u03o",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 10 (Deactivated by Piercing)",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "piercing"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 10
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rGx3BT8mbRKRUpA2",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Destabilizing Field",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>40 feet. A creature that begins its turn within the area feels its body begin to stretch and must succeed at a @Check[fortitude|dc:33] save or become destabilized.</p>\n<p>A destabilized creature emits a 10-foot destabilizing field aura and becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. The destabilization ends when the creature is no longer sickened.</p>\n<p>A creature that succeeds at its saving throw against the aura is temporarily immune to all destabilizing fields for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 40,
-                        "slug": "destabilizing-field",
-                        "traits": []
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bpvnWZi8sukcfy9H",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Displace",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The amalgamite is hit by a Strike.</p>\n<hr />\n<p><strong>Effect</strong> The amalgamite Repositions itself or Transposes itself with another creature. If the amalgamite successfully changes its location, it and any Transposed creature take half damage from the triggering Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dwH6nJY0Yb3I4jsA",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Reposition",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The amalgamite teleports into an unoccupied space it can see within 50 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XBz2toYQ5LlpBAkp",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Transpose",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The amalgamite chooses up to two destabilized creatures they can see within 50 feet and swaps their positions, or moves a single such creature to an unoccupied space they can see within range. If the amalgamite chooses two creatures, they can choose their self as one of these creatures, but both targets must be the same size.</p>\n<p>An unwilling creature can attempt a @Check[will|dc:33] save. If either target succeeds at this saving throw, both are unaffected.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xFzHJGL72aPpRLgB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore (Any One Subcategory)",
+            "_id": "NCoWkgKyY8nUdbrO",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1200000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 27
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -536,10 +524,22 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
+                "spelldc": {
+                    "dc": 33,
+                    "mod": 0,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "occult"
+                },
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Fenton's Faithful",

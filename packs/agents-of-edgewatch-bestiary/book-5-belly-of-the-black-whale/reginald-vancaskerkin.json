@@ -4,10 +4,352 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "pJcNWcLAWBXtvefA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Clockwork Reconstruction",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Each time Reginald is reborn in his lair, his machines graft him with a new clockwork modification. He chooses one of his abilities with the clockwork trait. He gains access to this ability but can't use any of his other clockwork abilities. He can't choose the same ability twice in a row. He begins with Ink Blood active.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2zmTtiyeZNvKPOcI",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ink Blood",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Reginald's body is filled with toxic ink</p>\n<hr />\n<p><strong>Trigger</strong> An adjacent creature Strikes Reginald with a melee weapon or unarmed attack and deals damage</p>\n<p><strong>Effect</strong> The creature is exposed to Reginald's poison ink.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "clockwork",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3dd754R1VUxFyZiT",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Secret of Rebirth",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a creature with less than 5 Secret Knowledge points reduces Reginald to 0 HP (or dealt the last damage to him before he dies from using Overdrive Engine), Reginald's body dissipates into a puddle of ink and releases a black wave of psychic energy. Each creature within 30 feet is bathed in a torrent of forbidden secrets and gains 1 Secret Knowledge point. Reginald's body reforms [[/gmr 1d6 #rounds]]{1d6 rounds} later in his sanctum at full health at a location of his choosing (typically the Pool of Secrets, area <strong>L11</strong>). This ability activates automatically with no action necessary on Vancaskerkin's behalf.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rlZ9VxWPwn9XfGgL",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Reginald's lungs are equipped with ink canisters, allowing him to spew a @Template[line|distance:60] of ink that deals @Damage[9d6[poison]|options:area-damage] damage (@Check[reflex|dc:39|basic] save; on a failure, the creature is also subjected to Reginald's poison ink).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "clockwork",
+                        "magical",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zaQRIy856WuUiHBw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Overdrive Engine",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Reginald is equipped with clockwork organs to power his body</p>\n<hr />\n<p><strong>Requirements</strong> Reginald has 175 Hit Points or fewer</p>\n<p><strong>Effect</strong> Reginald gains 200 temporary Hit Points, a +15-foot status bonus to Speed, and a +2 status bonus to melee attack rolls. His body begins to overheat, spewing steam that deals @Damage[9d6[fire]] damage at the beginning of his turn to all creatures within @Template[emanation|distance:30]{30 feet} (@Check[reflex|dc:40|basic] save). After 2 rounds, Reginald explodes, dealing @Damage[19d6[fire]] damage to all creatures within @Template[emanation|distance:60]{60 feet} (@Check[reflex|dc:40|basic] save). Reginald dies. For the purposes of his Secret of Rebirth ability, the last creature to damage Reginald counts as killing him.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Overdrive Engine",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Overdrive Engine"
+                },
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "clockwork"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "V3S7DLZ4aWxgcg1R",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Poison Ink",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Reginald is immune to the toxic ink that flows through his veins</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:38]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[poison]] @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 round).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KOfo0zVfgBhhWGjT",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Quill Cannon",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Reginald is equipped with a cannon and hundreds of steel quills. He makes two steel quill attacks against every creature in a @Template[cone|distance:60], ignoring the multiple attack penalty until after all attacks are made. He can't use Quill Cannon again for [[/gmr 1d4 #Recharge Quill Cannon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "clockwork"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OF5xPm4it251t0zo",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Reflective Plating",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Reginald engages his defensive plating, which casts @UUID[Compendium.pf2e.spells-srd.Item.Spell Turning] on him (counteract modifier +32).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "clockwork",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5inXNyZGoLUMii53",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Slither",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>With his body composed of ink and gears, Reginald can move through tight spaces as if he were a Tiny creature, treating them as difficult terrain.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rm9LdZwyao3hq2RK",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Absalom Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 31
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "RZJPsQgzSjhqSzZx",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Engineering Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 31
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
             "_id": "hScPOOUe2XVGeyIa",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bronze Fist",
-            "sort": 100000,
+            "sort": 1200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -51,7 +393,7 @@
             "_id": "osA98Km4yrxpF38T",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Steel Quill",
-            "sort": 200000,
+            "sort": 1300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -92,348 +434,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "pJcNWcLAWBXtvefA",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Clockwork Reconstruction",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Each time Reginald is reborn in his lair, his machines graft him with a new clockwork modification. He chooses one of his abilities with the clockwork trait. He gains access to this ability but can't use any of his other clockwork abilities. He can't choose the same ability twice in a row. He begins with Ink Blood active.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2zmTtiyeZNvKPOcI",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Ink Blood",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Reginald's body is filled with toxic ink</p>\n<hr />\n<p><strong>Trigger</strong> An adjacent creature Strikes Reginald with a melee weapon or unarmed attack and deals damage</p>\n<p><strong>Effect</strong> The creature is exposed to Reginald's poison ink.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "clockwork",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3dd754R1VUxFyZiT",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Secret of Rebirth",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If a creature with less than 5 Secret Knowledge points reduces Reginald to 0 HP (or dealt the last damage to him before he dies from using Overdrive Engine), Reginald's body dissipates into a puddle of ink and releases a black wave of psychic energy. Each creature within 30 feet is bathed in a torrent of forbidden secrets and gains 1 Secret Knowledge point. Reginald's body reforms [[/gmr 1d6 #rounds]]{1d6 rounds} later in his sanctum at full health at a location of his choosing (typically the Pool of Secrets, area <strong>L11</strong>). This ability activates automatically with no action necessary on Vancaskerkin's behalf.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rlZ9VxWPwn9XfGgL",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Reginald's lungs are equipped with ink canisters, allowing him to spew a @Template[line|distance:60] of ink that deals @Damage[9d6[poison]|options:area-damage] damage (@Check[reflex|dc:39|basic] save; on a failure, the creature is also subjected to Reginald's poison ink).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "clockwork",
-                        "magical",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zaQRIy856WuUiHBw",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Overdrive Engine",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Reginald is equipped with clockwork organs to power his body</p>\n<hr />\n<p><strong>Requirements</strong> Reginald has 175 Hit Points or fewer</p>\n<p><strong>Effect</strong> Reginald gains 200 temporary Hit Points, a +15-foot status bonus to Speed, and a +2 status bonus to melee attack rolls. His body begins to overheat, spewing steam that deals @Damage[9d6[fire]] damage at the beginning of his turn to all creatures within @Template[emanation|distance:30]{30 feet} (@Check[reflex|dc:40|basic] save). After 2 rounds, Reginald explodes, dealing @Damage[19d6[fire]] damage to all creatures within @Template[emanation|distance:60]{60 feet} (@Check[reflex|dc:40|basic] save). Reginald dies. For the purposes of his Secret of Rebirth ability, the last creature to damage Reginald counts as killing him.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Overdrive Engine",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Overdrive Engine"
-                },
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "clockwork"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "V3S7DLZ4aWxgcg1R",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Poison Ink",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Reginald is immune to the toxic ink that flows through his veins</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:38]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[poison]] @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 round).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KOfo0zVfgBhhWGjT",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Quill Cannon",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Reginald is equipped with a cannon and hundreds of steel quills. He makes two steel quill attacks against every creature in a @Template[cone|distance:60], ignoring the multiple attack penalty until after all attacks are made. He can't use Quill Cannon again for [[/gmr 1d4 #Recharge Quill Cannon]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "clockwork"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OF5xPm4it251t0zo",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Reflective Plating",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Reginald engages his defensive plating, which casts @UUID[Compendium.pf2e.spells-srd.Item.Spell Turning] on him (counteract modifier +32).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "clockwork",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5inXNyZGoLUMii53",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Slither",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>With his body composed of ink and gears, Reginald can move through tight spaces as if he were a Tiny creature, treating them as difficult terrain.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rm9LdZwyao3hq2RK",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Absalom Lore",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 31
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "RZJPsQgzSjhqSzZx",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Engineering Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 31
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Reginald Vancaskerkin",

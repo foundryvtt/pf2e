@@ -3,10 +3,229 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "K6p90DP5TOgu1uHl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D6GffrGRbXblVQ49",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Transparent",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A slithering pit is so clear it's difficult to spot. A successful @Check[perception|dc:30] check is required to notice a stationary slithering pit, and a creature must be @UUID[Compendium.pf2e.actionspf2e.Item.Search]{Searching} to attempt this check.</p>\n<p>A creature that walks into the pit's space might fall into any pit currently in effect due to Dimensional Pit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u5VmraPdTduQVeUa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Breach Vulnerability",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Ingesting an extradimensional space like that found in a <em>bag of holding</em> deals @Damage[6d8[force]] damage to the slithering pit and its occupants. The slithering pit then immediately uses Out You Go.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eiuG3n39AiXSGDav",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dimensional Pit",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The slithering pit opens an extradimensional, 20-foot-deep pit that covers its own space and all adjacent squares unless they're walls or similar blocking terrain.</p>\n<p>Any other creature occupying or entering pit spaces must succeed at a @Check[reflex|dc:22] save or fall into the pit, taking damage from the fall (typically 10 bludgeoning damage). Any creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the ooze falls in and is no longer grabbed, even if it was outside the pit squares.</p>\n<p>While a dimensional pit is open, the slithering pit is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], can't be forced to move, and can make pseudopod Strikes originating from the walls of the pit. A creature that starts its turn at the bottom of the pit takes @Damage[2d6[acid]] damage. @UUID[Compendium.pf2e.actionspf2e.Item.Climb]{Climbing} the walls of the pit requires a @Check[athletics|dc:22|traits:action:climb] check.</p>\n<p>When the slithering pit dies, the dimensional pit closes and creatures inside are ejected, with the effects of Out You Go.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "extradimensional",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "foR7mgXEL0XMHJ6J",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flurry of Pods",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The slithering pit makes a single pseudopod Strike against each target within range it doesn't already have @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. These attacks count toward the slithering pit's multiple attack penalty, but the penalty doesn't increase until after all of these attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QE9gzkXJFMTGYg19",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Out You Go",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The slithering pit closes all pit spaces it created using Dimensional Pit, ejecting all its occupants onto the ground into random free spaces where the pit opened. Each occupant takes @Damage[4d6[bludgeoning]] damage (@Check[reflex|dc:22|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c85RY0nsV1xyDA3t",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "71vyIq4WtorjpuSI",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Pseudopod",
-            "sort": 100000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -48,225 +267,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "K6p90DP5TOgu1uHl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (Imprecise) 60 feet",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "D6GffrGRbXblVQ49",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Transparent",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A slithering pit is so clear it's difficult to spot. A successful @Check[perception|dc:30] check is required to notice a stationary slithering pit, and a creature must be @UUID[Compendium.pf2e.actionspf2e.Item.Search]{Searching} to attempt this check.</p>\n<p>A creature that walks into the pit's space might fall into any pit currently in effect due to Dimensional Pit.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "u5VmraPdTduQVeUa",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Breach Vulnerability",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Ingesting an extradimensional space like that found in a <em>bag of holding</em> deals @Damage[6d8[force]] damage to the slithering pit and its occupants. The slithering pit then immediately uses Out You Go.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eiuG3n39AiXSGDav",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dimensional Pit",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The slithering pit opens an extradimensional, 20-foot-deep pit that covers its own space and all adjacent squares unless they're walls or similar blocking terrain.</p>\n<p>Any other creature occupying or entering pit spaces must succeed at a @Check[reflex|dc:22] save or fall into the pit, taking damage from the fall (typically 10 bludgeoning damage). Any creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the ooze falls in and is no longer grabbed, even if it was outside the pit squares.</p>\n<p>While a dimensional pit is open, the slithering pit is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], can't be forced to move, and can make pseudopod Strikes originating from the walls of the pit. A creature that starts its turn at the bottom of the pit takes @Damage[2d6[acid]] damage. @UUID[Compendium.pf2e.actionspf2e.Item.Climb]{Climbing} the walls of the pit requires a @Check[athletics|dc:22|traits:action:climb] check.</p>\n<p>When the slithering pit dies, the dimensional pit closes and creatures inside are ejected, with the effects of Out You Go.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "extradimensional",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "foR7mgXEL0XMHJ6J",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Flurry of Pods",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The slithering pit makes a single pseudopod Strike against each target within range it doesn't already have @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. These attacks count toward the slithering pit's multiple attack penalty, but the penalty doesn't increase until after all of these attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QE9gzkXJFMTGYg19",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Out You Go",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The slithering pit closes all pit spaces it created using Dimensional Pit, ejecting all its occupants onto the ground into random free spaces where the pit opened. Each occupant takes @Damage[4d6[bludgeoning]] damage (@Check[reflex|dc:22|basic] save).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "c85RY0nsV1xyDA3t",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Slithering Pit",

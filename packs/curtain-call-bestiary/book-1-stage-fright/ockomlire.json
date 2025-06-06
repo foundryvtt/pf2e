@@ -4,22 +4,136 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "YPmkSzsHoFqTX4pi",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "ghXj9ykqg3VUqwYz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Emotion Vulnerability",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>If an ockomlire fails a saving throw against an emotion effect, they loses their resistance to mental damage and gains an equal amount of weakness to mental damage (weakness to mental 15 for the typical ockomlire) until the end of their next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Emotion Vulnerability]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "self:effect:emotion-vulnerability"
+                            }
+                        ],
+                        "type": "mental",
+                        "value": 15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ELDoByfabVU1lsAt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HkvXlf7bD4PoYd0U",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Emotion",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:emotion"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZHFSBsyse6MPanIe",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Devour Magic",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ockomlire attempts to devour a spell effect from a creature they've @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. To successfully do so, they must counteract that effect with an Occultism check. If the spell effect is an emotion effect, the ockomlire gains a +2 circumstance bonus to this check.</p><hr /><p><strong>Critical Success</strong> The spell is countered, the ockomlire gains temporary Hit Points equal to twice the spell's rank for 1 minute, and the grabbed creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>\n<p><strong>Success</strong> As success but @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}.</p>\n<p><strong>Critical Failure</strong> The attempt backfires, and the ockomlire becomes overwhelmed; their emotion vulnerability becomes active until the end of their turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +141,119 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "7nB9jNFpbTAuQ32T",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Haze of Despair",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The ockomlire has temporary hit points gained from Devour Magic</p><hr /><p><strong>Effect</strong> s The ockomlire digests the magic and releases mist that stings the eyes and heart alike. The ockomlire loses any temporary Hit Points they have and all non-ockomlire creatures in a @Template[emanation|distance:30] take @Damage[9d10[mental]] damage (@Check[will|dc:33|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jA4xJFPQdc9awGbo",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "j9DAuCxD3sHekm9E",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "viI6grvtKw7TwLYS": {
+                        "damage": "3d10+14",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "forceful",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "N4Kc5MHJHfMRkW0I",
@@ -50,7 +262,7 @@
             },
             "img": "icons/creatures/abilities/wolf-heads-swirl-purple.webp",
             "name": "Calm (At Will)",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -122,7 +334,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic (Constant)",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -183,256 +395,44 @@
             "type": "spell"
         },
         {
-            "_id": "j9DAuCxD3sHekm9E",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "improved-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "viI6grvtKw7TwLYS": {
-                        "damage": "3d10+14",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "forceful",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ghXj9ykqg3VUqwYz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Emotion Vulnerability",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>If an ockomlire fails a saving throw against an emotion effect, they loses their resistance to mental damage and gains an equal amount of weakness to mental damage (weakness to mental 15 for the typical ockomlire) until the end of their next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Emotion Vulnerability]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            {
-                                "not": "self:effect:emotion-vulnerability"
-                            }
-                        ],
-                        "type": "mental",
-                        "value": 15
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ELDoByfabVU1lsAt",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HkvXlf7bD4PoYd0U",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Emotion",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:emotion"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZHFSBsyse6MPanIe",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Devour Magic",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The ockomlire attempts to devour a spell effect from a creature they've @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. To successfully do so, they must counteract that effect with an Occultism check. If the spell effect is an emotion effect, the ockomlire gains a +2 circumstance bonus to this check.</p><hr /><p><strong>Critical Success</strong> The spell is countered, the ockomlire gains temporary Hit Points equal to twice the spell's rank for 1 minute, and the grabbed creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>\n<p><strong>Success</strong> As success but @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}.</p>\n<p><strong>Critical Failure</strong> The attempt backfires, and the ockomlire becomes overwhelmed; their emotion vulnerability becomes active until the end of their turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7nB9jNFpbTAuQ32T",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Haze of Despair",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The ockomlire has temporary hit points gained from Devour Magic</p><hr /><p><strong>Effect</strong> s The ockomlire digests the magic and releases mist that stings the eyes and heart alike. The ockomlire loses any temporary Hit Points they have and all non-ockomlire creatures in a @Template[emanation|distance:30] take @Damage[9d10[mental]] damage (@Check[will|dc:33|basic] save).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "emotion",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jA4xJFPQdc9awGbo",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
+            "_id": "YPmkSzsHoFqTX4pi",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1000000,
             "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 33,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Ockomlire",

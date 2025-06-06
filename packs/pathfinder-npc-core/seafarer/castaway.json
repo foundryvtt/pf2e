@@ -4,13 +4,332 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "Uw90ORYkncHQoIko",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Cockamamie Rant",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The castaway launches into a nonsensical verbal stream of consciousness. Creatures in a @Template[type:emanation|distance:30] must succeed at a @Check[will|dc:19] save or be @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. Once a creature has succeeded at a save against the castaway's Cockamamie Rant, they are immune to its effects for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SY7NSR2TRJp2YPXQ",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Snare Master",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> five times per day</p><hr /><p><strong>Effect</strong> By scrounging local materials, the castaway constructs a simple but effective deadfall without expending resources. Treat this as a snare with a @Check[perception|dc:19] check to spot, and a @Check[thievery|dc:23] check to disable. It occupies a single 5-foot square and lasts 24 hours before falling apart. The first creature that enters the space takes @Damage[6d6[bludgeoning]] damage (@Check[reflex|dc:22|basic] save).</p>"
+                },
+                "frequency": {
+                    "max": 5,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate",
+                        "trap"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iHLxm1peDk99GVaW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The castaways deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "peqcDQMpzV8KDVkb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.sqhr1crb184s3Vnd"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/ammunition/blowgun-darts.webp",
+            "name": "Blowgun Darts",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "blowgun-darts",
+                "stackGroup": "blowgunDarts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "QWn7bQWXZJT1HXvY",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7ZjTmVAoRm67Qw4p"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hatchet",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "u92BhVIydalFIv9w": {
+                        "damage": "1d6+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "hatchet",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "sweep"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "yRCRKbOSq133OTlP",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "eJCninzkalWvYzI9": {
+                        "damage": "1d4+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "pcW68lIyhPRzXAAB",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7WNmgYpderZZuviS"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Blowgun",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "N5qlRvD4E15jymHD": {
+                        "damage": "2d6",
+                        "damageType": "poison"
+                    },
+                    "jvK32t0QgpgKGpmP": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "poison"
+                    },
+                    "z0jx6PTUlqUnGGqd": {
+                        "damage": "1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "blowgun",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "range-increment-20",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "7WNmgYpderZZuviS",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FPwsiGqMCNPLHmjX"
             },
             "img": "systems/pf2e/icons/equipment/weapons/blowgun.webp",
             "name": "Blowgun",
-            "sort": 100000,
+            "sort": 800000,
             "system": {
                 "baseItem": "blowgun",
                 "bonus": {
@@ -96,7 +415,7 @@
             },
             "img": "icons/weapons/axes/axe-broad-black.webp",
             "name": "Hatchet",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "baseItem": "hatchet",
                 "bonus": {
@@ -176,325 +495,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "peqcDQMpzV8KDVkb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.sqhr1crb184s3Vnd"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/ammunition/blowgun-darts.webp",
-            "name": "Blowgun Darts",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "blowgun-darts",
-                "stackGroup": "blowgunDarts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "QWn7bQWXZJT1HXvY",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "7ZjTmVAoRm67Qw4p"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hatchet",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "u92BhVIydalFIv9w": {
-                        "damage": "1d6+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "hatchet",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "sweep"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "yRCRKbOSq133OTlP",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "eJCninzkalWvYzI9": {
-                        "damage": "1d4+7",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "pcW68lIyhPRzXAAB",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "7WNmgYpderZZuviS"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Blowgun",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "N5qlRvD4E15jymHD": {
-                        "damage": "2d6",
-                        "damageType": "poison"
-                    },
-                    "jvK32t0QgpgKGpmP": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "poison"
-                    },
-                    "z0jx6PTUlqUnGGqd": {
-                        "damage": "1",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "blowgun",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "range-increment-20",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Uw90ORYkncHQoIko",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Cockamamie Rant",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The castaway launches into a nonsensical verbal stream of consciousness. Creatures in a @Template[type:emanation|distance:30] must succeed at a @Check[will|dc:19] save or be @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. Once a creature has succeeded at a save against the castaway's Cockamamie Rant, they are immune to its effects for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "linguistic",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SY7NSR2TRJp2YPXQ",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Snare Master",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> five times per day</p><hr /><p><strong>Effect</strong> By scrounging local materials, the castaway constructs a simple but effective deadfall without expending resources. Treat this as a snare with a @Check[perception|dc:19] check to spot, and a @Check[thievery|dc:23] check to disable. It occupies a single 5-foot square and lasts 24 hours before falling apart. The first creature that enters the space takes @Damage[6d6[bludgeoning]] damage (@Check[reflex|dc:22|basic] save).</p>"
-                },
-                "frequency": {
-                    "max": 5,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate",
-                        "trap"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iHLxm1peDk99GVaW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The castaways deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Castaway",

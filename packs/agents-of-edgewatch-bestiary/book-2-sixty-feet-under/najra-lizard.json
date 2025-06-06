@@ -4,10 +4,117 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "Q10SWwitCSafoJ4L",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shared Diversion",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Another creature in the najra lizard's square succeeds at a Deception check to Create a Diversion</p>\n<hr />\n<p><strong>Effect</strong> The najra lizard automatically successfully @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion]{Creates a Diversion} against the same targets.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yut11i3oSOwRk5mZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Najra Lizard Venom",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The creature is extremely thirsty and can't quench its thirst while poisoned</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:21|traits:poison]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @Damage[1d4[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Fatigued], and [[/r {1d4}]]{1d4 damage} that can't be recovered until the creature quenches its thirst (1 round)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 hour)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "najra-lizard-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "126ppmFKAd49r2hi",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Najra Swarm Attack",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The najra lizard's melee Strikes deal 1d6 precision damage to creatures sharing a square with more than one najra lizard.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "najra-swarm-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "najra-swarm-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "3jd4JNaR2XiNoddM",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -54,7 +161,7 @@
             "_id": "wpS81V45xNq0wZpT",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Venomous Spit",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -98,113 +205,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "Q10SWwitCSafoJ4L",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Shared Diversion",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Another creature in the najra lizard's square succeeds at a Deception check to Create a Diversion</p>\n<hr />\n<p><strong>Effect</strong> The najra lizard automatically successfully @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion]{Creates a Diversion} against the same targets.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yut11i3oSOwRk5mZ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Najra Lizard Venom",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The creature is extremely thirsty and can't quench its thirst while poisoned</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:21|traits:poison]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @Damage[1d4[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Fatigued], and [[/r {1d4}]]{1d4 damage} that can't be recovered until the creature quenches its thirst (1 round)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 hour)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "najra-lizard-venom",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "126ppmFKAd49r2hi",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Najra Swarm Attack",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The najra lizard's melee Strikes deal 1d6 precision damage to creatures sharing a square with more than one najra lizard.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "najra-swarm-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "najra-swarm-attack"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Najra Lizard",

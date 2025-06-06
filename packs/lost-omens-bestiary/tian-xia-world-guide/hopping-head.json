@@ -4,10 +4,89 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "m2FEyBD2J8tnbsY5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JzTEt5sRabapeyla",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hopping Strike",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hopping head Leaps 15 feet and makes one spring Strike at any point during that movement, dealing an additional @Damage[1d6[bludgeoning]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "hopping"
+                        ],
+                        "selector": "spring-damage"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "hopping",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "FRCfXLJnF3Vn2xRI",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spring",
-            "sort": 100000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -49,7 +128,7 @@
             "_id": "iWS9YadXqt4xiyRH",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bite",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -84,85 +163,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "m2FEyBD2J8tnbsY5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JzTEt5sRabapeyla",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hopping Strike",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The hopping head Leaps 15 feet and makes one spring Strike at any point during that movement, dealing an additional @Damage[1d6[bludgeoning]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "damageType": "bludgeoning",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "hopping"
-                        ],
-                        "selector": "spring-damage"
-                    },
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "hopping",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Hopping Head",

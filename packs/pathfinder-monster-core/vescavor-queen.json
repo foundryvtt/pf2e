@@ -3,10 +3,175 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "G2FDPxda4rA9xn7Z",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Chaotic Spawning",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vescavor queen strengthens her swarms. All vescavor swarms within @Template[emanation|distance:100]{100 feet} become Huge and @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 minute. Vescavor swarms can only use the extra action each round for the Ravenous Bites action.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Chaotic Spawning]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "piNqHqiUolep42HJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Feeding Time",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vescavor queen causes any number of vescavor swarms within 100 feet to immediately use their reaction to perform the Ravenous Bites action.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gGJAk4g9F7sLT2Ao",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Opportune Snack",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vescavor queen pulls a creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] into a space adjacent to it and makes a jaws Strike with a +2 circumstance bonus.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "opportune-snack",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "opportune-snack"
+                        ],
+                        "selector": "jaws-attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "opportune-snack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EM7jdqQJ7YXBOusj",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rage Pheromones",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the vescavor queen's spit Strike damages a creature, it takes a –2 status penalty to all saving throws imposed by vescavor swarms for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HmSLefA5KczjuY77",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "nTcGAr6m0GXrcElG",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -54,7 +219,7 @@
             "_id": "vkOyX69Ibn95Y4xx",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -102,7 +267,7 @@
             "_id": "N0ROqLwLrRwarOmU",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Stinger",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -150,7 +315,7 @@
             "_id": "MaaMMe3VTQBUGJGD",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spit",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -191,171 +356,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "G2FDPxda4rA9xn7Z",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Chaotic Spawning",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The vescavor queen strengthens her swarms. All vescavor swarms within @Template[emanation|distance:100]{100 feet} become Huge and @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 minute. Vescavor swarms can only use the extra action each round for the Ravenous Bites action.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Chaotic Spawning]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "piNqHqiUolep42HJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Feeding Time",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The vescavor queen causes any number of vescavor swarms within 100 feet to immediately use their reaction to perform the Ravenous Bites action.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gGJAk4g9F7sLT2Ao",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Opportune Snack",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The vescavor queen pulls a creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] into a space adjacent to it and makes a jaws Strike with a +2 circumstance bonus.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "option": "opportune-snack",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "opportune-snack"
-                        ],
-                        "selector": "jaws-attack",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "opportune-snack",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EM7jdqQJ7YXBOusj",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Rage Pheromones",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If the vescavor queen's spit Strike damages a creature, it takes a –2 status penalty to all saving throws imposed by vescavor swarms for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HmSLefA5KczjuY77",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Vescavor Queen",

@@ -4,22 +4,96 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "pb3yDpk6Rl0BuY7j",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
+            "_id": "VlCgM24yW7fJGoEX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Magic",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 10
+                "actionType": {
+                    "value": "passive"
                 },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3s5bvgFh0mAe2sgw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity (Jaws only)",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Jaws only</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Fzwm2tFZ9TfeKZxu",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Contingency",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Mengkare fails a saving throw against a spell.</p>\n<hr />\n<p><strong>Effect</strong> @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (7th rank) attempts to counteract the triggering spell.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,18 +101,477 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 45,
-                    "mod": 0,
-                    "value": 42
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "N9ItpLBOPJW5l9DI",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Extra Reaction",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Mengkare gains 2 reactions at the start of his turn each round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NgedLFfO7OJlxvqT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>90 feet. @Check[will|dc:43]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m8X8IWzzFl0HzmIE",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Golden Luck",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Mengkare fails a saving throw.</p>\n<hr />\n<p><strong>Effect</strong> Mengkare improves his result by one degree of success, turning a failure into a success or a critical failure into a normal failure.</p>\n<p>Mengkare can't use this ability again for [[/gmr 1d4 #Recharge Golden Luck]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7P75nDnE4avWwiZu",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Mengkare breathes in one of two ways. He can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Flame</strong> (arcane,evocation,fire); Mengkare breathes a blast of flame in a @Template[cone|distance:80] that deals @Damage[24d6[fire]|options:area-damage] damage (@Check[reflex|dc:46|basic|name:Breath Weapon (Flame)] save).</li>\n<li><strong>Weakening Gas</strong> (arcane,necromancy); The dragon breathes a blast of weakening gas. Each creature within a @Template[cone|distance:30] must succeed at a @Check[fortitude|dc:46|name:Breath Weapon (Weakening Gas)] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} for 1 minute (or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 5} on a critical failure).</li>\n</ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "h7oremneSeWvOijy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.mEbrInCpag7YThH2"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Mengkare assumes a Medium humanoid form, posing as the human wizard Lamond Breachton.</p>\n<hr />\n<p>The dragon takes on the appearance of any Small or Medium humanoid. This doesn't change its Speed or attack and damage bonuses with its Strikes, but might change the damage type its Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "dragon-change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "concentrate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Dz4yG96ucUj1zePA",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draconic Frenzy",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Mengkare makes two claw Strikes and one horns Strike in any order</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gg05Cq52L76J5iG8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Draconic Momentum",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Mengkare scores a critical hit with a strike, he recharges his Breath Weapon.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xfV7KvKayKVA2xs0",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Explosive Breath",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Mengkare uses Breath Weapon, he can expel an explosive orb of flame instead of a cone. When he does, he fires the orb at the corner of a square within 60 feet. The orb immediately detonates and deals @Damage[24d6[fire]] damage (@Check[reflex|dc:48|basic|name:Explosive Orb|traits:fire] save) to all creatures within a @Template[burst|distance:30]. Creatures that critically fail their save catch on fire and take @Damage[4d6[persistent,fire]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XJmutb6gsFNsubD3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 42
+                },
+                "damageRolls": {
+                    "webtdi2mdf0cei7jfm33": {
+                        "damage": "6d12+11",
+                        "damageType": "piercing"
+                    },
+                    "k97m775vvwskfnrg56py": {
+                        "damage": "4d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "magical",
+                        "reach-20",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "pmGTuXbF38zbcznu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 42
+                },
+                "damageRolls": {
+                    "urcsyczkc2e1u5lbn62v": {
+                        "damage": "6d10+11",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8XwJYwcx1a2Md13M",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 40
+                },
+                "damageRolls": {
+                    "y6qj8cnse2a6coiu1tze": {
+                        "damage": "6d10+11",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-25"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KHiVxpvVx4edKn9M",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Horns",
+            "sort": 1500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 40
+                },
+                "damageRolls": {
+                    "u7ryfvdyrtrknvm12mgz": {
+                        "damage": "5d12+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "FyQVcI9NsbRt5zuT",
@@ -47,7 +580,7 @@
             },
             "img": "icons/magic/symbols/star-solid-gold.webp",
             "name": "Wish",
-            "sort": 200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -106,7 +639,7 @@
             },
             "img": "icons/magic/lightning/projectile-tendrils-teal.webp",
             "name": "Disjunction",
-            "sort": 300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -166,7 +699,7 @@
             },
             "img": "icons/magic/light/projectile-beams-salvo-yellow.webp",
             "name": "Meteor Swarm",
-            "sort": 400000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -265,7 +798,7 @@
             },
             "img": "systems/pf2e/icons/spells/telepathic-demand.webp",
             "name": "Telepathic Demand",
-            "sort": 500000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -334,7 +867,7 @@
             },
             "img": "icons/consumables/food/candy-pattie-pink-white.webp",
             "name": "Dream Council",
-            "sort": 600000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -397,7 +930,7 @@
             },
             "img": "systems/pf2e/icons/spells/maze.webp",
             "name": "Maze",
-            "sort": 700000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -459,7 +992,7 @@
             },
             "img": "systems/pf2e/icons/spells/power-word-stun.webp",
             "name": "Power Word Stun",
-            "sort": 800000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -519,7 +1052,7 @@
             },
             "img": "systems/pf2e/icons/spells/dimensional-lock.webp",
             "name": "Dimensional Lock",
-            "sort": 900000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -583,7 +1116,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift",
-            "sort": 1000000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -646,7 +1179,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 1100000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -713,7 +1246,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 1200000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -776,7 +1309,7 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-force.webp",
             "name": "Wall of Force",
-            "sort": 1300000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -837,7 +1370,7 @@
             },
             "img": "systems/pf2e/icons/spells/chromatic-wall.webp",
             "name": "Chromatic Wall",
-            "sort": 1400000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -897,7 +1430,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-probe.webp",
             "name": "Mind Probe",
-            "sort": 1500000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -964,7 +1497,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 1600000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1026,7 +1559,7 @@
             },
             "img": "icons/commodities/wood/log-cut-cherry-brown.webp",
             "name": "Creation",
-            "sort": 1700000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1086,7 +1619,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 1800000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1157,7 +1690,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 1900000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1235,7 +1768,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 2000000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1307,7 +1840,7 @@
             },
             "img": "systems/pf2e/icons/spells/locate.webp",
             "name": "Locate",
-            "sort": 2100000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1379,7 +1912,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 2200000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1455,7 +1988,7 @@
             },
             "img": "systems/pf2e/icons/spells/comprehend-language.webp",
             "name": "Comprehend Language",
-            "sort": 2300000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1526,7 +2059,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 2400000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1586,7 +2119,7 @@
             },
             "img": "icons/magic/water/elemental-water.webp",
             "name": "Water Breathing",
-            "sort": 2500000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1647,7 +2180,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 2600000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1726,7 +2259,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2700000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1813,7 +2346,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2800000,
+            "sort": 4200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1880,7 +2413,7 @@
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
-            "sort": 2900000,
+            "sort": 4300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1941,7 +2474,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 3000000,
+            "sort": 4400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2014,7 +2547,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 3100000,
+            "sort": 4500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2077,7 +2610,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 3200000,
+            "sort": 4600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2156,7 +2689,7 @@
             },
             "img": "icons/magic/air/wind-stream-blue-gray.webp",
             "name": "Unseen Servant",
-            "sort": 3300000,
+            "sort": 4700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2210,560 +2743,22 @@
             "type": "spell"
         },
         {
-            "_id": "XJmutb6gsFNsubD3",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 3400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 42
-                },
-                "damageRolls": {
-                    "webtdi2mdf0cei7jfm33": {
-                        "damage": "6d12+11",
-                        "damageType": "piercing"
-                    },
-                    "k97m775vvwskfnrg56py": {
-                        "damage": "4d6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "magical",
-                        "reach-20",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "pmGTuXbF38zbcznu",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 3500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 42
-                },
-                "damageRolls": {
-                    "urcsyczkc2e1u5lbn62v": {
-                        "damage": "6d10+11",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "8XwJYwcx1a2Md13M",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 3600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 40
-                },
-                "damageRolls": {
-                    "y6qj8cnse2a6coiu1tze": {
-                        "damage": "6d10+11",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-25"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "KHiVxpvVx4edKn9M",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Horns",
-            "sort": 3700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 40
-                },
-                "damageRolls": {
-                    "u7ryfvdyrtrknvm12mgz": {
-                        "damage": "5d12+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "VlCgM24yW7fJGoEX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Magic",
-            "sort": 3800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3s5bvgFh0mAe2sgw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity (Jaws only)",
-            "sort": 3900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Jaws only</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Fzwm2tFZ9TfeKZxu",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Contingency",
-            "sort": 4000000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Mengkare fails a saving throw against a spell.</p>\n<hr />\n<p><strong>Effect</strong> @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (7th rank) attempts to counteract the triggering spell.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "N9ItpLBOPJW5l9DI",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Extra Reaction",
-            "sort": 4100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Mengkare gains 2 reactions at the start of his turn each round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NgedLFfO7OJlxvqT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 4200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>90 feet. @Check[will|dc:43]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 90,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "m8X8IWzzFl0HzmIE",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Golden Luck",
-            "sort": 4300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Mengkare fails a saving throw.</p>\n<hr />\n<p><strong>Effect</strong> Mengkare improves his result by one degree of success, turning a failure into a success or a critical failure into a normal failure.</p>\n<p>Mengkare can't use this ability again for [[/gmr 1d4 #Recharge Golden Luck]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7P75nDnE4avWwiZu",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 4400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Mengkare breathes in one of two ways. He can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Flame</strong> (arcane,evocation,fire); Mengkare breathes a blast of flame in a @Template[cone|distance:80] that deals @Damage[24d6[fire]|options:area-damage] damage (@Check[reflex|dc:46|basic|name:Breath Weapon (Flame)] save).</li>\n<li><strong>Weakening Gas</strong> (arcane,necromancy); The dragon breathes a blast of weakening gas. Each creature within a @Template[cone|distance:30] must succeed at a @Check[fortitude|dc:46|name:Breath Weapon (Weakening Gas)] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} for 1 minute (or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 5} on a critical failure).</li>\n</ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "h7oremneSeWvOijy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.mEbrInCpag7YThH2"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 4500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Mengkare assumes a Medium humanoid form, posing as the human wizard Lamond Breachton.</p>\n<hr />\n<p>The dragon takes on the appearance of any Small or Medium humanoid. This doesn't change its Speed or attack and damage bonuses with its Strikes, but might change the damage type its Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "dragon-change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "concentrate",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Dz4yG96ucUj1zePA",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Draconic Frenzy",
-            "sort": 4600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Mengkare makes two claw Strikes and one horns Strike in any order</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gg05Cq52L76J5iG8",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Draconic Momentum",
-            "sort": 4700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Mengkare scores a critical hit with a strike, he recharges his Breath Weapon.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xfV7KvKayKVA2xs0",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Explosive Breath",
+            "_id": "pb3yDpk6Rl0BuY7j",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 4800000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "autoHeightenLevel": {
+                    "value": 10
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>When Mengkare uses Breath Weapon, he can expel an explosive orb of flame instead of a cone. When he does, he fires the orb at the corner of a square within 60 feet. The orb immediately detonates and deals @Damage[24d6[fire]] damage (@Check[reflex|dc:48|basic|name:Explosive Orb|traits:fire] save) to all creatures within a @Template[burst|distance:30]. Creatures that critically fail their save catch on fire and take @Damage[4d6[persistent,fire]] damage.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -2771,13 +2766,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 45,
+                    "mod": 0,
+                    "value": 42
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Mengkare",

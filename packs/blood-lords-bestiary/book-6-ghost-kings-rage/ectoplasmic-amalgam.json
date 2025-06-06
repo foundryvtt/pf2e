@@ -4,10 +4,149 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "yw7bRJOAMVdTnVkG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UIRxk8ZQIc88MUzh",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Overwhelming Ectoplasm",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An ectoplasmic amalgam's Strikes affect incorporeal creatures with the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune. A creature damaged by an ectoplasmic amalgam's Strikes is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} unless they succeed at a @Check[fortitude|dc:36] save, as the thoughts and emotions of the amalgam's constituent souls invade their mind.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6PugTFezx0IQVLSv",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Pummeling Barrage",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ectoplasmic amalgam attempts a melee Strike against each enemy within the amalgam's melee reach. Each attack counts toward the amalgam's multiple attack penalty but don't increase the amalgam's penalty until it has made all its attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KuQ5KZzju8qEC4Is",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Spew Ectoplasm",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ectoplasmic amalgam releases a burst of ectoplasm that deals @Damage[16d6[bludgeoning]] damage in a @Template[cone|distance:60] (@Check[reflex|dc:36|basic]). On a failed save, a creature is additionally @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} on a critical failure). Spew Ectoplasm functions as a force effect for the purposes of affecting incorporeal creatures. The ectoplasmic amalgam can't use Spew Ectoplasm again for [[/gmr 1d4 #Recharge Spew Ectoplasm]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "VgFVAQd9EqK00m8j",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 100000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -56,7 +195,7 @@
             "_id": "EML87DjTDnoNsaRk",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ectoplasm",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -97,145 +236,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "yw7bRJOAMVdTnVkG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UIRxk8ZQIc88MUzh",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Overwhelming Ectoplasm",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>An ectoplasmic amalgam's Strikes affect incorporeal creatures with the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune. A creature damaged by an ectoplasmic amalgam's Strikes is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} unless they succeed at a @Check[fortitude|dc:36] save, as the thoughts and emotions of the amalgam's constituent souls invade their mind.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "property-runes",
-                        "value": "ghost-touch"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6PugTFezx0IQVLSv",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Pummeling Barrage",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The ectoplasmic amalgam attempts a melee Strike against each enemy within the amalgam's melee reach. Each attack counts toward the amalgam's multiple attack penalty but don't increase the amalgam's penalty until it has made all its attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KuQ5KZzju8qEC4Is",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Spew Ectoplasm",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The ectoplasmic amalgam releases a burst of ectoplasm that deals @Damage[16d6[bludgeoning]] damage in a @Template[cone|distance:60] (@Check[reflex|dc:36|basic]). On a failed save, a creature is additionally @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} on a critical failure). Spew Ectoplasm functions as a force effect for the purposes of affecting incorporeal creatures. The ectoplasmic amalgam can't use Spew Ectoplasm again for [[/gmr 1d4 #Recharge Spew Ectoplasm]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Ectoplasmic Amalgam",

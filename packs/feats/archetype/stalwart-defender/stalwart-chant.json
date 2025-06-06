@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You know story after story of unyielding, valiant dwarven heroes whose minds were bulwarks against fear and confusion. You can use @UUID[Compendium.pf2e.feats-srd.Item.Stalwart Song] when attempting a saving throw against any mental effect, and if you fail the saving throw, you gain resistance to mental damage against any resulting effect equal to half your level.</p>"
+            "value": "<p>You know story after story of unyielding, valiant dwarven heroes whose minds were bulwarks against fear and confusion. You can use Stalwart Song when attempting a saving throw against any mental effect, and if you fail the saving throw, you gain resistance to mental damage against any resulting effect equal to half your level.</p>"
         },
         "level": {
             "value": 8
@@ -31,34 +31,13 @@
         },
         "rules": [
             {
-                "itemType": "feat",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:stalwart-song"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "{item|description}"
-                    }
-                ]
-            },
-            {
-                "disabledIf": [
-                    {
-                        "not": "stalwart-song"
-                    }
-                ],
-                "disabledValue": false,
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.StalwartDefender.StalwartChant.ToggleLabel",
                 "option": "stalwart-chant",
                 "predicate": [
                     "self:effect:tenacious-stance"
                 ],
-                "priority": 51,
-                "toggleable": true
+                "toggleable": true,
+                "value": true
             },
             {
                 "key": "Resistance",

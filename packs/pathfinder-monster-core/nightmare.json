@@ -3,23 +3,62 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jW0BtgVKN8XQhLKs",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "nbWXPfh7WyVCERN9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>15 feet.</p>\n<p>The nightmare continually exhales black smoke. Creatures within the aura are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] to those outside it, and creatures outside the aura are concealed to creatures within it. Nightmares and their riders can see through this smoke.</p>\n<p>A creature that begins its turn in the area must succeed at a @Check[fortitude|dc:23|traits:inhaled,poison] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. It's then temporarily immune to being sickened by the smoke for 1 minute. This is an inhaled poison, and the nightmare and its rider are immune to it.</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15,
+                        "slug": "smoke",
+                        "traits": [
+                            "inhaled",
+                            "poison"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Huqh2NJEkx1xBpoO",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flaming Gallop",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The nightmare Strides or Flies up to triple its Speed. Its hooves burst with intense flame, dealing @Damage[3d6[fire]] damage with a @Check[reflex|dc:24|basic] save to each creature other than the nightmare's rider that the nightmare moves adjacent to during its gallop. Each creature can be affected only once during a single use of Flaming Gallop.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -27,86 +66,17 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "mod": 0,
-                    "value": 16
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "aFTYkeNI6jd2TfGi",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
-            },
-            "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
-            "name": "Interplanar Teleport (Self and Rider Only)",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p><strong>Requirements</strong> You have a planar key for the destination plane, used as a locus</p>\n<hr />\n<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Netherworld, or the Outer Rifts. You must know the destination plane exists and use a magic planar key created from material from that plane as a locus for the spell. While the planar keys for most prominent planes are uncommon, just like the spell <em>interplanar teleport</em>, more obscure planes and demiplanes often have rare or possibly even unique planar keys.</p>\n<p>The spell is highly imprecise, and you appear 1d20×25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. <em>Interplanar teleport</em> doesn't provide a means of return travel, though casting <em>interplanar teleport</em> again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "heightenedLevel": 7,
-                    "value": "jW0BtgVKN8XQhLKs"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "5 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "interplanar-teleport",
-                "target": {
-                    "value": "up to 8 willing creatures"
-                },
-                "time": {
-                    "value": "10 minutes"
-                },
                 "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
+                    "rarity": "common",
                     "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
+                        "divine",
+                        "fire",
+                        "unholy"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
             "_id": "hvrW7fEOtezPrmRv",
@@ -206,62 +176,87 @@
             "type": "melee"
         },
         {
-            "_id": "nbWXPfh7WyVCERN9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke",
+            "_id": "aFTYkeNI6jd2TfGi",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
+            },
+            "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
+            "name": "Interplanar Teleport (Self and Rider Only)",
             "sort": 500000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>15 feet.</p>\n<p>The nightmare continually exhales black smoke. Creatures within the aura are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] to those outside it, and creatures outside the aura are concealed to creatures within it. Nightmares and their riders can see through this smoke.</p>\n<p>A creature that begins its turn in the area must succeed at a @Check[fortitude|dc:23|traits:inhaled,poison] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. It's then temporarily immune to being sickened by the smoke for 1 minute. This is an inhaled poison, and the nightmare and its rider are immune to it.</p>"
+                    "value": "<p><strong>Requirements</strong> You have a planar key for the destination plane, used as a locus</p>\n<hr />\n<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Netherworld, or the Outer Rifts. You must know the destination plane exists and use a magic planar key created from material from that plane as a locus for the spell. While the planar keys for most prominent planes are uncommon, just like the spell <em>interplanar teleport</em>, more obscure planes and demiplanes often have rare or possibly even unique planar keys.</p>\n<p>The spell is highly imprecise, and you appear 1d20×25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. <em>Interplanar teleport</em> doesn't provide a means of return travel, though casting <em>interplanar teleport</em> again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "heightenedLevel": 7,
+                    "value": "jW0BtgVKN8XQhLKs"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 15,
-                        "slug": "smoke",
-                        "traits": [
-                            "inhaled",
-                            "poison"
-                        ]
-                    }
-                ],
-                "slug": null,
+                "range": {
+                    "value": "5 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "interplanar-teleport",
+                "target": {
+                    "value": "up to 8 willing creatures"
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
                 "traits": {
-                    "rarity": "common",
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
                     "value": [
-                        "aura"
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "Huqh2NJEkx1xBpoO",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Flaming Gallop",
+            "_id": "jW0BtgVKN8XQhLKs",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 600000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The nightmare Strides or Flies up to triple its Speed. Its hooves burst with intense flame, dealing @Damage[3d6[fire]] damage with a @Check[reflex|dc:24|basic] save to each creature other than the nightmare's rider that the nightmare moves adjacent to during its gallop. Each creature can be affected only once during a single use of Flaming Gallop.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -269,17 +264,22 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "fire",
-                        "unholy"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 24,
+                    "mod": 0,
+                    "value": 16
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Nightmare",

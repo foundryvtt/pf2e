@@ -3,13 +3,122 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "MmC60npHVmzvUVuO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5RVQgrRnkm4C0Y2q",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drill Deeper",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Nils Kelveken hit a creature with a hand drill Strike with his previous action</p>\n<hr />\n<p><strong>Effect</strong> Nils grabs the drill and twists, drilling deeper into the victim. He automatically deals @Damage[1d8[piercing]] damage, and the creature being drilled into must succeed at a @Check[fortitude|dc:22] save to avoid taking an additional @Damage[1d6[bleed]] (@Damage[2d6[bleed]] on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "k5hfsPhHrFe43moo",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "I See What Ye Did!",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Nils Strides up to his speed toward a target within 30 feet, shrieking \"I seen what ye did!\" at them as he approaches. The target must attempt a @Check[will|dc:22|name:I Seen What Ye Did!] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes disturbed at what Nils might have seen and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> As success, but the target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target falls into a phantasmagoric nightmare state where time seems to slow down as they can think of nothing but running away, yet as fast as they try to flee, Nils can catch up with ease. The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} at the start of its next turn and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] until the end of its next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "linguistic",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "uvkdzaUjo0rU2j1H",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Carpenter's Apron",
-            "sort": 100000,
+            "sort": 400000,
             "system": {
                 "acBonus": 1,
                 "baseItem": "leather-armor",
@@ -76,7 +185,7 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/hammer.webp",
             "name": "Hammer",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -131,7 +240,7 @@
             "_id": "8OlcuXSogVDa374Y",
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
             "name": "Hand Drill",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -184,7 +293,7 @@
             "_id": "DTY8lCkw0ALXQYai",
             "img": "icons/sundries/misc/key-steel.webp",
             "name": "Keys to all non-secret doors on ground floor",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -237,7 +346,7 @@
             "_id": "JBPlK9wlt3BY2QhE",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hand Drill",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -277,115 +386,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "MmC60npHVmzvUVuO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5RVQgrRnkm4C0Y2q",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Drill Deeper",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Nils Kelveken hit a creature with a hand drill Strike with his previous action</p>\n<hr />\n<p><strong>Effect</strong> Nils grabs the drill and twists, drilling deeper into the victim. He automatically deals @Damage[1d8[piercing]] damage, and the creature being drilled into must succeed at a @Check[fortitude|dc:22] save to avoid taking an additional @Damage[1d6[bleed]] (@Damage[2d6[bleed]] on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "k5hfsPhHrFe43moo",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "I See What Ye Did!",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Nils Strides up to his speed toward a target within 30 feet, shrieking \"I seen what ye did!\" at them as he approaches. The target must attempt a @Check[will|dc:22|name:I Seen What Ye Did!] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes disturbed at what Nils might have seen and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> As success, but the target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target falls into a phantasmagoric nightmare state where time seems to slow down as they can think of nothing but running away, yet as fast as they try to flee, Nils can catch up with ease. The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} at the start of its next turn and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] until the end of its next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "fear",
-                        "linguistic",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Nils Kelveken",

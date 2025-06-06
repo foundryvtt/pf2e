@@ -4,22 +4,66 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "AFSBN6oTZmbCUL5e",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "wCVx7mAKnUXZy2Gw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Faction-Bound",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>A garrholdion is bound to a faction at its creation. It can't harm a known member of its faction, a symbol of its faction, or relics associated with its faction. It gains a +4 circumstance bonus to Perception checks to verify the identity of such creatures and objects. A garrholdion is also bound to a location associated with its faction, such as a fortress, an academy, or a secret hideout. It can't move more than 120 feet from its designated location. Finally, a garrholdion bears an obvious mark of its faction somewhere on its body. This mark can't be hidden.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "faction-bound"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 4
+                    },
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "spirit"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9QfTsUc215Xtdwfg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Quick Shield Block",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The garrholdion gains an additional reaction each round that can be used only for Shield Block.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +71,393 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 39,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DZJwTTyoOaFbCImk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.xjGwis0uaC2305pm"
+            },
+            "folder": "dfRpdU8Efsenms12",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Raise a Shield",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are wielding a shield.</p>\n<hr />\n<p>You position your shield to protect yourself. When you have Raised a Shield, you gain its listed circumstance bonus to AC. Your shield remains raised until the start of your next turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Raise a Shield",
+                    "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Raise a Shield"
+                },
+                "slug": "raise-a-shield",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BW1WKt0gyEjbomMx",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Defense",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within reach attacks the garrholdion's ally</p><hr /><p><strong>Effect</strong> The garrholdion positions its shield in front of the attack, granting its ally a +2 circumstance bonus to AC against the triggering attack. It then makes a melee Strike against the triggering creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JopIKEFbN9HuF51Z",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bRz80BdKKsRJ5CH7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shield Block",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SAMxVvF0Py6t17Gl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Belief Fortification",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>30 feet. Members of the garrholdion's faction gain a +1 status bonus to saving throws against emotion effects while within the aura.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Belief Fortification (Mark)]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "predicate": [
+                                    "target:effect:belief-fortification-mark"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Belief Fortification"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "emotion",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "clnAWeEfAZSaKVw8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Seed of Doubt",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature hit by the garrholdion's belief ray Strike doubts their actions, forcing them to hesitate. The target must succeed at a @Check[will|dc:39|options:inflicts:stunned] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). On a critical success, the target becomes temporarily immune to seed of doubt for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B56yqqqwpoi7FbQB",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Faction Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 41
+                },
+                "proficient": {
                     "value": 0
                 },
-                "tradition": {
-                    "value": "occult"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "M4dNdUKfVO2E7owb",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "MxrM22nPtgBhr0Ht"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Longsword",
+            "sort": 1000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "HcX9Z3ImId7x2uOG": {
+                        "damage": "4d8+18",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "longsword",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XkuHintU6BX8GXtK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Belief Ray",
+            "sort": 1100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "seed-of-doubt"
+                    ]
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "X86yzlCK5IoXVxrj": {
+                        "damage": "8d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "range-60",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LczyKY7vdmiePMTV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB"
+            },
+            "img": "systems/pf2e/icons/equipment/shields/steel-shield.webp",
+            "name": "Steel Shield",
+            "sort": 1200000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "steel-shield",
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p><table class=\"pf2e remaster\"><thead><tr><th>Hardness</th><th>HP</th><th>BT</th></tr></thead><tbody><tr><td>5</td><td>20</td><td>10</td></tr></tbody></table>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1
+                },
+                "hardness": 5,
+                "hp": {
+                    "max": 20,
+                    "value": 128
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "reinforcing": 6
+                },
+                "size": "huge",
+                "slug": "steel-shield",
+                "speedPenalty": 0,
+                "traits": {
+                    "integrated": null,
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "shield"
         },
         {
             "_id": "hKIppPasDaAyydIG",
@@ -50,7 +466,7 @@
             },
             "img": "icons/magic/holy/chalice-glowing-gold-water.webp",
             "name": "Consecrate",
-            "sort": 200000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -118,7 +534,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight (Constant)",
-            "sort": 300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -176,13 +592,53 @@
             "type": "spell"
         },
         {
+            "_id": "AFSBN6oTZmbCUL5e",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 1500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 39,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "MxrM22nPtgBhr0Ht",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.LJdbVTOZog39EEbi"
             },
             "img": "icons/weapons/swords/sword-guard-blue.webp",
             "name": "Longsword",
-            "sort": 400000,
+            "sort": 1600000,
             "system": {
                 "baseItem": "longsword",
                 "bonus": {
@@ -260,462 +716,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "LczyKY7vdmiePMTV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB"
-            },
-            "img": "systems/pf2e/icons/equipment/shields/steel-shield.webp",
-            "name": "Steel Shield",
-            "sort": 500000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "steel-shield",
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p><table class=\"pf2e remaster\"><thead><tr><th>Hardness</th><th>HP</th><th>BT</th></tr></thead><tbody><tr><td>5</td><td>20</td><td>10</td></tr></tbody></table>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 5,
-                "hp": {
-                    "max": 20,
-                    "value": 128
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "reinforcing": 6
-                },
-                "size": "huge",
-                "slug": "steel-shield",
-                "speedPenalty": 0,
-                "traits": {
-                    "integrated": null,
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "shield"
-        },
-        {
-            "_id": "M4dNdUKfVO2E7owb",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "MxrM22nPtgBhr0Ht"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Longsword",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "HcX9Z3ImId7x2uOG": {
-                        "damage": "4d8+18",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "longsword",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "versatile-p"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "XkuHintU6BX8GXtK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Belief Ray",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "seed-of-doubt"
-                    ]
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "X86yzlCK5IoXVxrj": {
-                        "damage": "8d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "range-60",
-                        "spirit"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "wCVx7mAKnUXZy2Gw",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Faction-Bound",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A garrholdion is bound to a faction at its creation. It can't harm a known member of its faction, a symbol of its faction, or relics associated with its faction. It gains a +4 circumstance bonus to Perception checks to verify the identity of such creatures and objects. A garrholdion is also bound to a location associated with its faction, such as a fortress, an academy, or a secret hideout. It can't move more than 120 feet from its designated location. Finally, a garrholdion bears an obvious mark of its faction somewhere on its body. This mark can't be hidden.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "faction-bound"
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 4
-                    },
-                    {
-                        "key": "Immunity",
-                        "mode": "remove",
-                        "type": [
-                            "spirit"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9QfTsUc215Xtdwfg",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Quick Shield Block",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The garrholdion gains an additional reaction each round that can be used only for Shield Block.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DZJwTTyoOaFbCImk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.xjGwis0uaC2305pm"
-            },
-            "folder": "dfRpdU8Efsenms12",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Raise a Shield",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> You are wielding a shield.</p>\n<hr />\n<p>You position your shield to protect yourself. When you have Raised a Shield, you gain its listed circumstance bonus to AC. Your shield remains raised until the start of your next turn.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Raise a Shield",
-                    "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Raise a Shield"
-                },
-                "slug": "raise-a-shield",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BW1WKt0gyEjbomMx",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Defense",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within reach attacks the garrholdion's ally</p><hr /><p><strong>Effect</strong> The garrholdion positions its shield in front of the attack, granting its ally a +2 circumstance bonus to AC against the triggering attack. It then makes a melee Strike against the triggering creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JopIKEFbN9HuF51Z",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Strike",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "reactive-strike",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bRz80BdKKsRJ5CH7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Shield Block",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "shield-block",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SAMxVvF0Py6t17Gl",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Belief Fortification",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>30 feet. Members of the garrholdion's faction gain a +1 status bonus to saving throws against emotion effects while within the aura.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Belief Fortification (Mark)]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "allies",
-                                "predicate": [
-                                    "target:effect:belief-fortification-mark"
-                                ],
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Belief Fortification"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "emotion",
-                            "occult"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "clnAWeEfAZSaKVw8",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Seed of Doubt",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature hit by the garrholdion's belief ray Strike doubts their actions, forcing them to hesitate. The target must succeed at a @Check[will|dc:39|options:inflicts:stunned] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). On a critical success, the target becomes temporarily immune to seed of doubt for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "B56yqqqwpoi7FbQB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Faction Lore",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 41
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Garrholdion",

@@ -3,10 +3,146 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "PwrDf49KhBAgWAGl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Alchemical Weakness",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The guardian's weakness to alchemical items not only applies to damage from alchemical items, but the guardian also takes 5 damage when splashed with non-damaging alchemical items or dosed with alchemical poisons, even if they're immune to their other effects.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "F11GjKJxm8bHuaf6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blighted Consumption",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet eats or drinks (including an alchemical item or potion)</p>\n<hr />\n<p><strong>Effect</strong> The food or drink burns like the caustic substances fed to the mummy before its death. If the creature fails a @Check[fortitude|dc:24] save, they become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} after they finish the consumption and can't reduce their sickened condition while within 30 feet of any mummy.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "divine",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "koQZhbeUGolCUc4q",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uvteCuJBp9CEBvPJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Choking Pain",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The mummy's last action was a successful fist Strike</p>\n<hr />\n<p><strong>Effect</strong> The mummy shares the pain of its dying moments with the target of that Strike. That creature takes @Damage[3d8[void]] damage with a @Check[will|dc:24|basic] save. If the creature critically fails the saving throw, it can't speak for 1 round, including to Cast a Spell.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "illusion",
+                        "mental",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "ontgzVU2z1qYMBe0",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 100000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -46,142 +182,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "PwrDf49KhBAgWAGl",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Alchemical Weakness",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The guardian's weakness to alchemical items not only applies to damage from alchemical items, but the guardian also takes 5 damage when splashed with non-damaging alchemical items or dosed with alchemical poisons, even if they're immune to their other effects.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "F11GjKJxm8bHuaf6",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Blighted Consumption",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet eats or drinks (including an alchemical item or potion)</p>\n<hr />\n<p><strong>Effect</strong> The food or drink burns like the caustic substances fed to the mummy before its death. If the creature fails a @Check[fortitude|dc:24] save, they become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} after they finish the consumption and can't reduce their sickened condition while within 30 feet of any mummy.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "divine",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "koQZhbeUGolCUc4q",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uvteCuJBp9CEBvPJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Choking Pain",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The mummy's last action was a successful fist Strike</p>\n<hr />\n<p><strong>Effect</strong> The mummy shares the pain of its dying moments with the target of that Strike. That creature takes @Damage[3d8[void]] damage with a @Check[will|dc:24|basic] save. If the creature critically fails the saving throw, it can't speak for 1 round, including to Cast a Spell.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "illusion",
-                        "mental",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Mummy Guardian",

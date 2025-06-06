@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "aVyixje5UBQb21sX",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "JCwAfoQqJDmPTVLF",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Crystal Sense (Imprecise) 30 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 7
+                "actionType": {
+                    "value": "passive"
                 },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>Ulressia automatically detects crystals or crystalline items within 30 feet.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,47 +25,340 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot2": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot5": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot7": {
-                        "max": 6,
-                        "value": 6
-                    },
-                    "slot8": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot9": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 39,
-                    "mod": 0,
-                    "value": 33
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "wTQI2GpK1QxS5tKd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "b2SP5cdUj5x7kBVf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gi71u7E3lwMd8bQT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E9Cr9P2L3cp3NzRD",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Aura of Angry Crystals",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. Any creature that ends its turn in the aura while in possession of any crystals, gemstones, or other precious stones must attempt a @Check[fortitude|dc:39|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is immune to the aura for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature's crystals reverberate with Ulressia's vengeful aura, sharpening at every corner and digging, as if powerfully magnetized, into the creature's flesh.</p>\n<p>The creature takes @Damage[4d6[piercing]] damage, plus @Damage[5[void]] damage for every 2,000 gp the crystals are cumulatively worth (maximum 40 damage).</p>\n<p>The creature can't discard the crystals until they leave the aura or roll a successful save against it.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[8d6[piercing]] damage, plus @Damage[10[void]] damage for every 2,000 gp of the crystals' value (maximum 80 damage).</p>\n<hr />\n<p>Ulressia can deactivate or activate this aura using a single action, which has the concentrate trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "aura-of-angry-crystals-active"
+                        ],
+                        "radius": 60,
+                        "slug": "aura-of-angry-crystals",
+                        "traits": [
+                            "divine",
+                            "visual"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "aura-of-angry-crystals-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ukjOJLhlz5hOZcuy",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Crystallize Blood",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ulressia channels her warped powers over crystals through her blade and into a creature's body, partially crystallizing its blood.</p>\n<p>Ulressia makes a melee dagger Strike. On a hit, the creature takes damage as normal and must also roll a @Check[fortitude|dc:41] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}, plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5B9QSKBjBa9tC0SG",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Stunning Strike",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Ulressia hit a foe earlier this turn with a weapon Strike</p>\n<hr />\n<p><strong>Effect</strong> Ulressia makes a weapon Strike against the foe. On a success, the foe must succeed at a @Check[fortitude|dc:41] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. On a critical failure, the foe is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "abpRv79lZLaukj8M",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "k1SvVANX3lFbXmgX"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Warhammer",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "total": 38,
+                    "value": 38
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+20",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Ng3bVzRpGnsUr9AL",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "4WUOiPGMPvWHJiET"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "total": 34,
+                    "value": 34
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+20",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "kgK0i8YRo84ckkw2",
@@ -76,7 +367,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangle-foot-green.webp",
             "name": "Nature's Enmity",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -138,7 +429,7 @@
             },
             "img": "icons/magic/lightning/barrier-shield-orb-pink.webp",
             "name": "Shattering Gem",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -221,7 +512,7 @@
             },
             "img": "icons/skills/melee/shield-damaged-broken-gold.webp",
             "name": "Shatter",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -303,7 +594,7 @@
             },
             "img": "icons/skills/melee/strike-dagger-white-orange.webp",
             "name": "Blade Barrier",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -385,7 +676,7 @@
             },
             "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Divine Decree",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -471,7 +762,7 @@
             },
             "img": "systems/pf2e/icons/spells/unfettered-pack.webp",
             "name": "Unfettered Pack",
-            "sort": 700000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -530,7 +821,7 @@
             },
             "img": "icons/magic/water/barrier-ice-crystal-wall-jagged-blue.webp",
             "name": "Wall of Ice",
-            "sort": 800000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -609,7 +900,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 900000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -670,7 +961,7 @@
             },
             "img": "systems/pf2e/icons/spells/discern-lies.webp",
             "name": "Discern Lies (At Will)",
-            "sort": 1000000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -733,7 +1024,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1100000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -822,7 +1113,7 @@
             },
             "img": "icons/magic/earth/strike-fist-stone-light.webp",
             "name": "Meld into Stone",
-            "sort": 1200000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -883,7 +1174,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will) (Self Only)",
-            "sort": 1300000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -943,7 +1234,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1400000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1138,7 +1429,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1500000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1196,13 +1487,79 @@
             "type": "spell"
         },
         {
+            "_id": "aVyixje5UBQb21sX",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 2400000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": 7
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot2": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot5": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot7": {
+                        "max": 6,
+                        "value": 6
+                    },
+                    "slot8": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot9": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 39,
+                    "mod": 0,
+                    "value": 33
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "k1SvVANX3lFbXmgX",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rXt4629QSg7KDTgJ"
             },
             "img": "systems/pf2e/icons/equipment/weapons/warhammer.webp",
             "name": "Warhammer",
-            "sort": 1600000,
+            "sort": 2500000,
             "system": {
                 "baseItem": "warhammer",
                 "bonus": {
@@ -1287,7 +1644,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 1700000,
+            "sort": 2600000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1369,363 +1726,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "abpRv79lZLaukj8M",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "k1SvVANX3lFbXmgX"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Warhammer",
-            "sort": 1800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "total": 38,
-                    "value": 38
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+20",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "shove"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Ng3bVzRpGnsUr9AL",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "4WUOiPGMPvWHJiET"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "total": 34,
-                    "value": 34
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+20",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "JCwAfoQqJDmPTVLF",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Crystal Sense (Imprecise) 30 feet",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Ulressia automatically detects crystals or crystalline items within 30 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wTQI2GpK1QxS5tKd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "b2SP5cdUj5x7kBVf",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gi71u7E3lwMd8bQT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "E9Cr9P2L3cp3NzRD",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Aura of Angry Crystals",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. Any creature that ends its turn in the aura while in possession of any crystals, gemstones, or other precious stones must attempt a @Check[fortitude|dc:39|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is immune to the aura for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature's crystals reverberate with Ulressia's vengeful aura, sharpening at every corner and digging, as if powerfully magnetized, into the creature's flesh.</p>\n<p>The creature takes @Damage[4d6[piercing]] damage, plus @Damage[5[void]] damage for every 2,000 gp the crystals are cumulatively worth (maximum 40 damage).</p>\n<p>The creature can't discard the crystals until they leave the aura or roll a successful save against it.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[8d6[piercing]] damage, plus @Damage[10[void]] damage for every 2,000 gp of the crystals' value (maximum 80 damage).</p>\n<hr />\n<p>Ulressia can deactivate or activate this aura using a single action, which has the concentrate trait.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "aura-of-angry-crystals-active"
-                        ],
-                        "radius": 60,
-                        "slug": "aura-of-angry-crystals",
-                        "traits": [
-                            "divine",
-                            "visual"
-                        ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "aura-of-angry-crystals-active",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ukjOJLhlz5hOZcuy",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Crystallize Blood",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ulressia channels her warped powers over crystals through her blade and into a creature's body, partially crystallizing its blood.</p>\n<p>Ulressia makes a melee dagger Strike. On a hit, the creature takes damage as normal and must also roll a @Check[fortitude|dc:41] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}, plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5B9QSKBjBa9tC0SG",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Stunning Strike",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Ulressia hit a foe earlier this turn with a weapon Strike</p>\n<hr />\n<p><strong>Effect</strong> Ulressia makes a weapon Strike against the foe. On a success, the foe must succeed at a @Check[fortitude|dc:41] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. On a critical failure, the foe is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} instead.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Ulressia The Blessed",

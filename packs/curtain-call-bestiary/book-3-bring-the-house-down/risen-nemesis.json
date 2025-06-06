@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vWhXrDJN3LLYXmxF",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "Hx1L4VMSiPUJNWbW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Backward Speakers",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>When a palinthanos vocalizes, the sounds it creates are reversed. For the egarhowl, this only results in unnerving backwards sounds of angry roars and bestial noises, but for those who can speak, it makes understanding them difficult. A palinthanos has no difficulty understanding any language it can speak, but when it speaks, listeners must succeed at a @Check[perception|dc:30] check made as a free action with the concentrate trait each round to quickly decipher the reversed conversation. This prevents a palinthanos from being able to easily utilize linguistic actions.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +25,285 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 42,
-                    "value": 34
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "HYtlE21oST6qU6J4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XF05mjBx5z4Z6FYL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Come Out, You Cowards!",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>In each round the Risen Nemesis does not have a PC to target, they go on a rampage, harming innocent bystanders and damaging the opera house structure. The Risen Nemesis Strides, then damages enough of their immediate surroundings at the end of this Stride to fill a @Template[type:emanation|distance:10] with rubble that functions as difficult terrain (or greater difficult terrain where difficult terrain from rubble already existed). The PCs lose 1d4 Opera Points from their accumulated total.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sR29kLYxvKZkQWE3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Distort Perception",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The risen nemesis targets a creature it can see within 30 feet and alters its perception of time. The target must attempt a @Check[will|dc:42] save. Regardless of success or failure, the creature then becomes temporarily immune to this ability for 24 hours.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature perceives time to flow backward briefly and becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> Time flows backward for the creature, leaving them unable to interact with the world around them. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}, after which it is slowed 1 for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature's mind becomes stuck in a time loop, and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] by the disorienting sight for 1 minute. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round or end it entirely on a critical success.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y72R1RbURKO0JsrR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Predestined Defeat",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The risen nemesis rolls initiative</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> At the start of combat, an inverted, reversed explosion of spiritual and void energy implodes in a @Template[type:emanation|distance:30] centered on the risen nemesis—a reversal of the creature's spiritually explosive death. All creatures in the area take @Damage[16d8[spirit]] damage (@Check[fortitude|dc:39|basic] save); creatures that fail this save are also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as time seems to distort around them.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MHNigTiEfg1SgrT0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Reaction Reversal",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Since an risen nemesis appears to move backwards in time and the results of its actions manifest slightly out of sync, its manipulate or move actions and Strikes don't trigger reactions normally. Whenever a reaction would be triggered by an risen nemesis in this way, the reacting creature must attempt a @Check[flat|dc:11]. On a failure, their reaction does not trigger.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zPQlfR1Hg26krjPd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Temporal Possession",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the echopsyvne casts possession on a creature, that creature experiences time backward. When the echopsyvne controls the target, they function normally, but when the target takes their own actions while the echopsyvne is in partial control or riding along in their body, they become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} and take a –10-foot status penalty to all of their Speeds. When the echopsyvne stops possessing the target, willingly or otherwise, the target must succeed at a @Check[will|dc:37] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as they readjust to a more familiar flow of time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fQu0yUD2r9nf6RCk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Undo Destruction",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Destruction is the beginning, not the end! The Risen Nemesis rewinds time on a pile of rubble that they can see within 120 feet, causing the rubble in a @Template[type:burst|distance:10] to restore itself to its pre-destroyed state and causing the area to no longer serve as difficult terrain. All creatures in the area must make a @Check[reflex|dc:42] save. The Risen Nemesis cannot use Undo Destruction again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature avoids being harmed by the violence of the repairs.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d10[bludgeoning],2d10[piercing],2d10[slashing]]{2d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage as pieces of rubble bash, slice, and pierce them while it swirls through the air to rebuild.</p>\n<p><strong>Failure</strong> As success but @Damage[4d10[bludgeoning],4d10[piercing],4d10[slashing]]{4d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage and the creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure but @Damage[8d10[bludgeoning],8d10[piercing],8d10[slashing]]{8d10 bludgeoning, 8d10 piercing, and 8d10 slashing} damage and the target is carried away with the rubble. They become @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the rebuilt structure (usually the wall or floor within the rubble pile or closest to it; @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 42). The restrained character might be so encased in rubble that they run the risk of suffocation.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YAYSeSimuytbWXUF",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "gEZOMTRe13OHQbHw": {
+                        "damage": "4d6+10",
+                        "damageType": "slashing"
+                    },
+                    "z6EZb6vlLhRy2ccB": {
+                        "damage": "4d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "42SChq5jZWt9pFAH",
@@ -50,7 +312,7 @@
             },
             "img": "systems/pf2e/icons/spells/weird.webp",
             "name": "Phantasmagoria",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -130,7 +392,7 @@
             },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -199,7 +461,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Vision of Death",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -287,7 +549,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -411,7 +673,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -491,306 +753,44 @@
             "type": "spell"
         },
         {
-            "_id": "YAYSeSimuytbWXUF",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 700000,
+            "_id": "vWhXrDJN3LLYXmxF",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 1500000,
             "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "gEZOMTRe13OHQbHw": {
-                        "damage": "4d6+10",
-                        "damageType": "slashing"
-                    },
-                    "z6EZb6vlLhRy2ccB": {
-                        "damage": "4d6",
-                        "damageType": "spirit"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Hx1L4VMSiPUJNWbW",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Backward Speakers",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When a palinthanos vocalizes, the sounds it creates are reversed. For the egarhowl, this only results in unnerving backwards sounds of angry roars and bestial noises, but for those who can speak, it makes understanding them difficult. A palinthanos has no difficulty understanding any language it can speak, but when it speaks, listeners must succeed at a @Check[perception|dc:30] check made as a free action with the concentrate trait each round to quickly decipher the reversed conversation. This prevents a palinthanos from being able to easily utilize linguistic actions.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HYtlE21oST6qU6J4",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XF05mjBx5z4Z6FYL",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Come Out, You Cowards!",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>In each round the Risen Nemesis does not have a PC to target, they go on a rampage, harming innocent bystanders and damaging the opera house structure. The Risen Nemesis Strides, then damages enough of their immediate surroundings at the end of this Stride to fill a @Template[type:emanation|distance:10] with rubble that functions as difficult terrain (or greater difficult terrain where difficult terrain from rubble already existed). The PCs lose 1d4 Opera Points from their accumulated total.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "move",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sR29kLYxvKZkQWE3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Distort Perception",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The risen nemesis targets a creature it can see within 30 feet and alters its perception of time. The target must attempt a @Check[will|dc:42] save. Regardless of success or failure, the creature then becomes temporarily immune to this ability for 24 hours.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature perceives time to flow backward briefly and becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> Time flows backward for the creature, leaving them unable to interact with the world around them. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}, after which it is slowed 1 for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature's mind becomes stuck in a time loop, and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] by the disorienting sight for 1 minute. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round or end it entirely on a critical success.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "incapacitation",
-                        "mental",
-                        "occult"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 42,
+                    "value": 34
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "Y72R1RbURKO0JsrR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Predestined Defeat",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The risen nemesis rolls initiative</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> At the start of combat, an inverted, reversed explosion of spiritual and void energy implodes in a @Template[type:emanation|distance:30] centered on the risen nemesis—a reversal of the creature's spiritually explosive death. All creatures in the area take @Damage[16d8[spirit]] damage (@Check[fortitude|dc:39|basic] save); creatures that fail this save are also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as time seems to distort around them.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "initiative",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MHNigTiEfg1SgrT0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Reaction Reversal",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Since an risen nemesis appears to move backwards in time and the results of its actions manifest slightly out of sync, its manipulate or move actions and Strikes don't trigger reactions normally. Whenever a reaction would be triggered by an risen nemesis in this way, the reacting creature must attempt a @Check[flat|dc:11]. On a failure, their reaction does not trigger.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zPQlfR1Hg26krjPd",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Temporal Possession",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the echopsyvne casts possession on a creature, that creature experiences time backward. When the echopsyvne controls the target, they function normally, but when the target takes their own actions while the echopsyvne is in partial control or riding along in their body, they become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} and take a –10-foot status penalty to all of their Speeds. When the echopsyvne stops possessing the target, willingly or otherwise, the target must succeed at a @Check[will|dc:37] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as they readjust to a more familiar flow of time.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fQu0yUD2r9nf6RCk",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Undo Destruction",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Destruction is the beginning, not the end! The Risen Nemesis rewinds time on a pile of rubble that they can see within 120 feet, causing the rubble in a @Template[type:burst|distance:10] to restore itself to its pre-destroyed state and causing the area to no longer serve as difficult terrain. All creatures in the area must make a @Check[reflex|dc:42] save. The Risen Nemesis cannot use Undo Destruction again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature avoids being harmed by the violence of the repairs.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d10[bludgeoning],2d10[piercing],2d10[slashing]]{2d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage as pieces of rubble bash, slice, and pierce them while it swirls through the air to rebuild.</p>\n<p><strong>Failure</strong> As success but @Damage[4d10[bludgeoning],4d10[piercing],4d10[slashing]]{4d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage and the creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure but @Damage[8d10[bludgeoning],8d10[piercing],8d10[slashing]]{8d10 bludgeoning, 8d10 piercing, and 8d10 slashing} damage and the target is carried away with the rubble. They become @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the rebuilt structure (usually the wall or floor within the rubble pile or closest to it; @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 42). The restrained character might be so encased in rubble that they run the risk of suffocation.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Risen Nemesis",

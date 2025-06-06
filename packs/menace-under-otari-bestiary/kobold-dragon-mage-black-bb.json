@@ -3,24 +3,75 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "tC9lSVhNyxDRwaml",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Wizard Spells",
+            "_id": "SMaOHeglwFS3CxB8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.menace-under-otari-bestiary.Actor.QaldZV2p9RpMXzzn.Item.Y5pZ1lg8o21ONX8u"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scamper",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the kobold is adjacent to at least one enemy, the kobold Strides up to 30 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. The kobold must end this movement in a space that's not adjacent to any enemy.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "scamper",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "scamper"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "scamper"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KYeYaMrxJZuncqJp",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Dragon Lore",
+            "sort": 200000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "mod": {
+                    "value": 10
                 },
-                "proficiency": {
-                    "value": 1
+                "proficient": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,19 +79,102 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "mod": 0,
-                    "value": 8
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "8LYUZymM9ZN8WDw9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "htq8qguyjhots13g6ppy": {
+                        "damage": "1d6+2",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "90eQFUneXcsHeKSK",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "cbm3StDtPSuLEauG"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "q6izqjpdmzc5p9l8n49x": {
+                        "damage": "1d8+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "ivSsbIrNze01Igzb",
@@ -49,7 +183,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -128,7 +262,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -195,7 +329,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -258,7 +392,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Force Barrage",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -331,7 +465,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Force Barrage",
-            "sort": 600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -404,7 +538,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Force Barrage",
-            "sort": 700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -477,7 +611,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -539,7 +673,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -657,13 +791,53 @@
             "type": "spell"
         },
         {
+            "_id": "tC9lSVhNyxDRwaml",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Wizard Spells",
+            "sort": 1300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "displayLevels": {},
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "mod": 0,
+                    "value": 8
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "cbm3StDtPSuLEauG",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 1000000,
+            "sort": 1400000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -736,180 +910,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "8LYUZymM9ZN8WDw9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "htq8qguyjhots13g6ppy": {
-                        "damage": "1d6+2",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "90eQFUneXcsHeKSK",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "cbm3StDtPSuLEauG"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "q6izqjpdmzc5p9l8n49x": {
-                        "damage": "1d8+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "SMaOHeglwFS3CxB8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.menace-under-otari-bestiary.Actor.QaldZV2p9RpMXzzn.Item.Y5pZ1lg8o21ONX8u"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scamper",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If the kobold is adjacent to at least one enemy, the kobold Strides up to 30 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. The kobold must end this movement in a space that's not adjacent to any enemy.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "scamper",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "scamper"
-                        ],
-                        "selector": "land-speed",
-                        "value": 5
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "scamper"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KYeYaMrxJZuncqJp",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Dragon Lore",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Kobold Dragon Mage (Black, BB)",

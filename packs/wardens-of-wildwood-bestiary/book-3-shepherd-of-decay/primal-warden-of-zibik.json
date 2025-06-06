@@ -4,22 +4,61 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ypbPjIXHDhCcPdb5",
-            "img": "icons/svg/item-bag.svg",
-            "name": "Primal Innate Spells",
+            "_id": "pU5KhCb5zqhsRgu8",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Decay",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>30 feet.</p>\n<p>Plant objects and creatures in the emanation can't regain Hit Points unless the effect that attempts to heal them counteracts the aura, which has a counteract rank of 6 and a counteract DC of 32.</p>\n<p>A primal warden of Zibik can spend 1 action to reverse this aura; it becomes an aura of renewal with the healing trait, instead doubling the number of Hit Points of any healing effect received by a plant creature in the emanation.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nnpb5MEIDBbuxDpI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Primal Destruction",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When the primal warden of Zibik is reduced to 0 Hit Points, it erupts with primal energy in a @Template[emanation|distance:30], dealing @Damage[12d6[void]] damage. Each creature in the area must attempt a @Check[will|dc:32] save with the following outcomes.</p><hr /><p><strong>Critical Success</strong> The creature takes half damage.</p>\n<p><strong>Success</strong> The creature takes full damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes temporarily cursed by Zibik to be @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 day; this is a curse effect with a counteract DC of 32.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +66,187 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "primal",
+                        "void"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "nt9YDLspQjPV0tOO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rotten Burst",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The primal warden of Zibik takes physical damage</p><hr /><p><strong>Effect</strong> A chunk of rotten bark bursts from the warden's body at its attacker. The warden makes a rotten bark Strike against an adjacent creature without triggering reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Jm2wNjT8c59GTo1g",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flourishing Growth",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The first time each round a creature takes damage from the warden's fists, the target must attempt a @Check[fortitude|dc:32] save. On a failure, tiny sprouts burst from the creature's flesh, and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "plant",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "riU62ATGnFZcIMWd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fractal Rot",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The first time each round a creature takes damage from the warden's rotten bark, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} as the flesh where it was struck momentarily twists and rots, causing considerable pain.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ljIZkTStAQsVv0QA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Flourishing Fist",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "flourishing-growth"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "HDnvsRX2UwbjzAAv": {
+                        "damage": "3d10+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UVDPnE2t1VSQhGKG",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rotten Bark",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "fractal-rot"
+                    ]
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "UuPZquITO82bYVG9": {
+                        "damage": "3d8+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "range-increment-30"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "IcJffy2EKRy3yLQh",
@@ -50,7 +255,7 @@
             },
             "img": "icons/magic/life/heart-area-circle-red-green.webp",
             "name": "Field of Life",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -154,7 +359,7 @@
             },
             "img": "icons/magic/nature/root-vine-hand-strike.webp",
             "name": "Tangling Creepers",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -220,7 +425,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Nature's Pathway (At Will)",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -283,7 +488,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Toxic Cloud",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -372,7 +577,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement (Constant)",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -434,7 +639,7 @@
             },
             "img": "systems/pf2e/icons/spells/vital-beacon.webp",
             "name": "Vital Beacon",
-            "sort": 700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -497,7 +702,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants (At Will)",
-            "sort": 800000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -561,7 +766,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -642,7 +847,7 @@
             },
             "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
             "name": "Speak with Animals (At Will)",
-            "sort": 1000000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -702,7 +907,7 @@
             },
             "img": "icons/magic/acid/orb-bubble-smoke-drip.webp",
             "name": "Caustic Blast",
-            "sort": 1100000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -790,7 +995,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 1200000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -848,233 +1053,22 @@
             "type": "spell"
         },
         {
-            "_id": "ljIZkTStAQsVv0QA",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Flourishing Fist",
-            "sort": 1300000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "flourishing-growth"
-                    ]
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "HDnvsRX2UwbjzAAv": {
-                        "damage": "3d10+13",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "UVDPnE2t1VSQhGKG",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rotten Bark",
-            "sort": 1400000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "fractal-rot"
-                    ]
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "UuPZquITO82bYVG9": {
-                        "damage": "3d8+13",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "range-increment-30"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "pU5KhCb5zqhsRgu8",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aura of Decay",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet.</p>\n<p>Plant objects and creatures in the emanation can't regain Hit Points unless the effect that attempts to heal them counteracts the aura, which has a counteract rank of 6 and a counteract DC of 32.</p>\n<p>A primal warden of Zibik can spend 1 action to reverse this aura; it becomes an aura of renewal with the healing trait, instead doubling the number of Hit Points of any healing effect received by a plant creature in the emanation.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "primal"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nnpb5MEIDBbuxDpI",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Primal Destruction",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When the primal warden of Zibik is reduced to 0 Hit Points, it erupts with primal energy in a @Template[emanation|distance:30], dealing @Damage[12d6[void]] damage. Each creature in the area must attempt a @Check[will|dc:32] save with the following outcomes.</p><hr /><p><strong>Critical Success</strong> The creature takes half damage.</p>\n<p><strong>Success</strong> The creature takes full damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes temporarily cursed by Zibik to be @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 day; this is a curse effect with a counteract DC of 32.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "primal",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nt9YDLspQjPV0tOO",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Rotten Burst",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The primal warden of Zibik takes physical damage</p><hr /><p><strong>Effect</strong> A chunk of rotten bark bursts from the warden's body at its attacker. The warden makes a rotten bark Strike against an adjacent creature without triggering reactions.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Jm2wNjT8c59GTo1g",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Flourishing Growth",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The first time each round a creature takes damage from the warden's fists, the target must attempt a @Check[fortitude|dc:32] save. On a failure, tiny sprouts burst from the creature's flesh, and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "plant",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "riU62ATGnFZcIMWd",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Fractal Rot",
+            "_id": "ypbPjIXHDhCcPdb5",
+            "img": "icons/svg/item-bag.svg",
+            "name": "Primal Innate Spells",
             "sort": 1900000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The first time each round a creature takes damage from the warden's rotten bark, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} as the flesh where it was struck momentarily twists and rots, causing considerable pain.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1082,15 +1076,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "disease",
-                        "primal"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Primal Warden of Zibik",

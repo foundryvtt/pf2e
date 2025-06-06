@@ -4,13 +4,762 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "60dg7ApdCjuElmiI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 30 feet (Munavris Only)",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Mve7jsWHaI7pMYjW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Infused Items",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Ashrin carries the following infused items, which last for 24 hours or until the next time he makes his daily preparations: @UUID[Compendium.pf2e.equipment-srd.Item.Alchemist's Fire (Moderate)] (6), @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Moderate)] (2), @UUID[Compendium.pf2e.equipment-srd.Item.Sulfur Bomb (Moderate)] (6)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FImQI6ZZQeQUe4zJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Demon Touched",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Ashrin is a puppet of the demon Kaivirris. He's harmed by spirit damage as if he were a fiend.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QNFeH8cfJm7oo6Qu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Blindness",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "light-blindness",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lFHwQgnVRAvluGo0",
+            "_stats": {
+                "compendiumSource": "Actor.jJbVPd1M6RlZP8kA.Item.i5ZvpW8aEneJO2Iz"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fiendish Infusion",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Ashrin has a free hand</p>\n<hr />\n<p><strong>Effect</strong> Ashrin Interacts to draw a bomb, then funnels abyssal energy from Kaivirris into that bomb. Until the end of Ashrin's turn, the bomb deals an extra @Damage[3d8[void]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "damageType": "void",
+                        "diceNumber": 3,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:trait:bomb",
+                            "fiendish-infusion"
+                        ],
+                        "selector": "damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "fiendish-infusion",
+                        "toggleable": true
+                    }
+                ],
+                "slug": "fiendish-infusion",
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dkj7wacM9spto5Te",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Intuit Object",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> By concentrating their psychic energy on a held object, the munavri intuits its use and understands how to effectively wield it. The munavri chooses one item they're holding. They gain the trained proficiency rank in one statistic required to use that item, but only for the purpose of using that specific item. For example, they could become trained in greatswords (to use a specific greatsword) or Acrobatics (to use a jade cat talisman). This benefit lasts for 1 hour.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hXMskppk6gmqW1TP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.c21stU5rhN4F2fZl"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (Moderate) (Infused)",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": {
+                    "formula": "5d6+12",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(5d6+12)[healing]] Hit Points and gain +2 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 9
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 150
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "elixir-of-life-moderate",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing",
+                        "infused"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "1Irwu6gwcpNxkX6P",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.uhka9LHEP3wDKytG"
+            },
+            "img": "icons/containers/chest/chest-simple-box-steel-brown.webp",
+            "name": "Alchemist's Lab (Expanded)",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 6
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You need an alchemist's lab to Craft alchemical items during downtime.</p>\n<p>An expanded alchemist's lab gives a +1 item bonus to Crafting checks to create alchemical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 55
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Alchemist's Lab, Expanded (craft alchemical items)",
+                        "predicate": [
+                            "alchemical",
+                            "action:craft"
+                        ],
+                        "selector": "crafting",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "alchemists-lab-expanded",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "39megAPQ95RX8Ssw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx"
+            },
+            "img": "icons/sundries/books/book-tooled-brass-brown.webp",
+            "name": "Formula Book",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; alchemists typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "formula-book-blank",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "SL7KsYF83RKa5Jjf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2TANKQXO6xntX5MT"
+            },
+            "folder": "jPjltVqSjcYSxvK6",
+            "img": "systems/pf2e/icons/equipment/treasure/gems/greater-precious-stones/large-ruby.webp",
+            "name": "Demon's Knot",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "gm": "<p><strong>Destruction</strong> A celestial creature must hold the necklace in their hands for at least an hour while meditating on the damage it has caused, then weep on the ruby. It must then be completely sealed within a cold iron container and cast into the heart of an active volcano, allowing the magma to melt the container and the necklace within.</p>",
+                    "value": "<p>The demon Kaivirris is housed in the magnificent ruby that serves as the centerpiece of this beautiful, goldplated, cold iron pendant necklace. Creatures within 30 feet of the <em>demon's knot</em> feel a subtle urge to acquire the necklace and take a –1 status penalty to Will saves.</p>\n<p>Upon donning the <em>demon's knot</em>, it fuses to you. You are subject to a @UUID[Compendium.pf2e.spells-srd.Item.Geas] that requires you to free Kaivirris from his prison. If you die without completing this task, you become a sulfur zombie that always remains within 100 feet of the demon's knot and is under the control of whoever is cursed by the <em>demon's knot</em>.</p>\n<p>The <em>demon's knot</em> sustains your physical form and protects your mind from mental control. You don't need to eat or drink. You become immune to the @UUID[Compendium.pf2e.conditionitems.Item.Confused] and @UUID[Compendium.pf2e.conditionitems.Item.Controlled] conditions.</p>\n<p>The <em>demon's knot</em> corrupts anyone wearing it. You gain weakness to cold iron 10 and holy 10. Whenever you're within 60 feet of a celestial, you're @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and can't reduce the value of the frightened condition below 2.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You allow Kaivirris's corrupting influence over you to outwardly manifest. For 1 minute, your features adopt a cruel cast, and you radiate a palpable aura of evil. During this time, you gain a +2 status bonus to Intimidation checks, and your Strikes deal an additional @Damage[1d6[spirit]] damage.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Demon's Knot]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The demon's knot casts @UUID[Compendium.pf2e.spells-srd.Item.Chilling Darkness].</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 15
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #195: Heavy is the Crown"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": true,
+                                "uuid": "Compendium.pf2e.equipment-effects.Item.Aura: Demon's Knot"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "demons-knot",
+                        "traits": [
+                            "artifact",
+                            "cursed",
+                            "magical",
+                            "unholy"
+                        ]
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": [
+                            "confused",
+                            "controlled"
+                        ]
+                    },
+                    {
+                        "key": "Weakness",
+                        "type": [
+                            "cold-iron",
+                            "holy"
+                        ],
+                        "value": 10
+                    }
+                ],
+                "size": "med",
+                "slug": "demons-knot",
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "artifact",
+                        "cursed",
+                        "evil",
+                        "invested",
+                        "magical",
+                        "unholy"
+                    ]
+                },
+                "usage": {
+                    "value": "wornnecklace"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "2ETZYSDjPSJhXKDl",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ssf4zEv0OHB90mch"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "4L2WIHKBsx5InpmP": {
+                        "damage": "2d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-b"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "O5NQHzMG7UlzR3hx",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ssf4zEv0OHB90mch"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "VDeAW1Lb9AmB7iTx": {
+                        "damage": "2d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "thrown-10",
+                        "versatile-b"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ujkuvUz5nDMKkThn",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "BUNeYPvFBX4AHdsj"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Moderate Alchemist's Fire",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "2",
+                        "damageType": "fire"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "2",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "bomb",
+                        "consumable",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UWHCrnq45sRSEw9g",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "lqtXfI7WZOd1dzza"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Moderate Sulfur Bomb",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d4",
+                        "damageType": "acid"
+                    },
+                    "1": {
+                        "category": "splash",
+                        "damage": "2",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.SulfurBomb.Moderate.success"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.SulfurBomb.Moderate.criticalSuccess"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "bomb",
+                        "consumable",
+                        "olfactory",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "BUNeYPvFBX4AHdsj",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.gWr4q4HiyGhETA8H"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
             "name": "Alchemist's Fire (Moderate) (Infused)",
-            "sort": 100000,
+            "sort": 1500000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -106,7 +855,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/sulfur-bomb.webp",
             "name": "Sulfur Bomb (Moderate) (Infused)",
-            "sort": 200000,
+            "sort": 1600000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -215,7 +964,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 300000,
+            "sort": 1700000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -296,755 +1045,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "1Irwu6gwcpNxkX6P",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.uhka9LHEP3wDKytG"
-            },
-            "img": "icons/containers/chest/chest-simple-box-steel-brown.webp",
-            "name": "Alchemist's Lab (Expanded)",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 6
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You need an alchemist's lab to Craft alchemical items during downtime.</p>\n<p>An expanded alchemist's lab gives a +1 item bonus to Crafting checks to create alchemical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 55
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Alchemist's Lab, Expanded (craft alchemical items)",
-                        "predicate": [
-                            "alchemical",
-                            "action:craft"
-                        ],
-                        "selector": "crafting",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "alchemists-lab-expanded",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "39megAPQ95RX8Ssw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx"
-            },
-            "img": "icons/sundries/books/book-tooled-brass-brown.webp",
-            "name": "Formula Book",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; alchemists typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "formula-book-blank",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "SL7KsYF83RKa5Jjf",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2TANKQXO6xntX5MT"
-            },
-            "folder": "jPjltVqSjcYSxvK6",
-            "img": "systems/pf2e/icons/equipment/treasure/gems/greater-precious-stones/large-ruby.webp",
-            "name": "Demon's Knot",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "gm": "<p><strong>Destruction</strong> A celestial creature must hold the necklace in their hands for at least an hour while meditating on the damage it has caused, then weep on the ruby. It must then be completely sealed within a cold iron container and cast into the heart of an active volcano, allowing the magma to melt the container and the necklace within.</p>",
-                    "value": "<p>The demon Kaivirris is housed in the magnificent ruby that serves as the centerpiece of this beautiful, goldplated, cold iron pendant necklace. Creatures within 30 feet of the <em>demon's knot</em> feel a subtle urge to acquire the necklace and take a –1 status penalty to Will saves.</p>\n<p>Upon donning the <em>demon's knot</em>, it fuses to you. You are subject to a @UUID[Compendium.pf2e.spells-srd.Item.Geas] that requires you to free Kaivirris from his prison. If you die without completing this task, you become a sulfur zombie that always remains within 100 feet of the demon's knot and is under the control of whoever is cursed by the <em>demon's knot</em>.</p>\n<p>The <em>demon's knot</em> sustains your physical form and protects your mind from mental control. You don't need to eat or drink. You become immune to the @UUID[Compendium.pf2e.conditionitems.Item.Confused] and @UUID[Compendium.pf2e.conditionitems.Item.Controlled] conditions.</p>\n<p>The <em>demon's knot</em> corrupts anyone wearing it. You gain weakness to cold iron 10 and holy 10. Whenever you're within 60 feet of a celestial, you're @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and can't reduce the value of the frightened condition below 2.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You allow Kaivirris's corrupting influence over you to outwardly manifest. For 1 minute, your features adopt a cruel cast, and you radiate a palpable aura of evil. During this time, you gain a +2 status bonus to Intimidation checks, and your Strikes deal an additional @Damage[1d6[spirit]] damage.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Demon's Knot]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The demon's knot casts @UUID[Compendium.pf2e.spells-srd.Item.Chilling Darkness].</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 15
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #195: Heavy is the Crown"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "all",
-                                "events": [
-                                    "enter"
-                                ],
-                                "includesSelf": true,
-                                "uuid": "Compendium.pf2e.equipment-effects.Item.Aura: Demon's Knot"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "demons-knot",
-                        "traits": [
-                            "artifact",
-                            "cursed",
-                            "magical",
-                            "unholy"
-                        ]
-                    },
-                    {
-                        "key": "Immunity",
-                        "type": [
-                            "confused",
-                            "controlled"
-                        ]
-                    },
-                    {
-                        "key": "Weakness",
-                        "type": [
-                            "cold-iron",
-                            "holy"
-                        ],
-                        "value": 10
-                    }
-                ],
-                "size": "med",
-                "slug": "demons-knot",
-                "traits": {
-                    "rarity": "unique",
-                    "value": [
-                        "artifact",
-                        "cursed",
-                        "evil",
-                        "invested",
-                        "magical",
-                        "unholy"
-                    ]
-                },
-                "usage": {
-                    "value": "wornnecklace"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "hXMskppk6gmqW1TP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.c21stU5rhN4F2fZl"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (Moderate) (Infused)",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": null,
-                "damage": {
-                    "formula": "5d6+12",
-                    "kind": "healing",
-                    "type": "untyped"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(5d6+12)[healing]] Hit Points and gain +2 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 9
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 150
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "elixir-of-life-moderate",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing",
-                        "infused"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "2ETZYSDjPSJhXKDl",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ssf4zEv0OHB90mch"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "4L2WIHKBsx5InpmP": {
-                        "damage": "2d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-b"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "O5NQHzMG7UlzR3hx",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ssf4zEv0OHB90mch"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "VDeAW1Lb9AmB7iTx": {
-                        "damage": "2d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "thrown-10",
-                        "versatile-b"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ujkuvUz5nDMKkThn",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "BUNeYPvFBX4AHdsj"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Moderate Alchemist's Fire",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d8",
-                        "damageType": "fire"
-                    },
-                    "1": {
-                        "category": "persistent",
-                        "damage": "2",
-                        "damageType": "fire"
-                    },
-                    "2": {
-                        "category": "splash",
-                        "damage": "2",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "bomb",
-                        "consumable",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "UWHCrnq45sRSEw9g",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "lqtXfI7WZOd1dzza"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Moderate Sulfur Bomb",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d4",
-                        "damageType": "acid"
-                    },
-                    "1": {
-                        "category": "splash",
-                        "damage": "2",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.SulfurBomb.Moderate.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.SulfurBomb.Moderate.criticalSuccess"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "bomb",
-                        "consumable",
-                        "olfactory",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "60dg7ApdCjuElmiI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 30 feet (Munavris Only)",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Mve7jsWHaI7pMYjW",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Infused Items",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Ashrin carries the following infused items, which last for 24 hours or until the next time he makes his daily preparations: @UUID[Compendium.pf2e.equipment-srd.Item.Alchemist's Fire (Moderate)] (6), @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Moderate)] (2), @UUID[Compendium.pf2e.equipment-srd.Item.Sulfur Bomb (Moderate)] (6)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FImQI6ZZQeQUe4zJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Demon Touched",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Ashrin is a puppet of the demon Kaivirris. He's harmed by spirit damage as if he were a fiend.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QNFeH8cfJm7oo6Qu",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Light Blindness",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "light-blindness",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lFHwQgnVRAvluGo0",
-            "_stats": {
-                "compendiumSource": "Actor.jJbVPd1M6RlZP8kA.Item.i5ZvpW8aEneJO2Iz"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Fiendish Infusion",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Ashrin has a free hand</p>\n<hr />\n<p><strong>Effect</strong> Ashrin Interacts to draw a bomb, then funnels abyssal energy from Kaivirris into that bomb. Until the end of Ashrin's turn, the bomb deals an extra @Damage[3d8[void]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "damageType": "void",
-                        "diceNumber": 3,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "item:trait:bomb",
-                            "fiendish-infusion"
-                        ],
-                        "selector": "damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "fiendish-infusion",
-                        "toggleable": true
-                    }
-                ],
-                "slug": "fiendish-infusion",
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dkj7wacM9spto5Te",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Intuit Object",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> By concentrating their psychic energy on a held object, the munavri intuits its use and understands how to effectively wield it. The munavri chooses one item they're holding. They gain the trained proficiency rank in one statistic required to use that item, but only for the purpose of using that specific item. For example, they could become trained in greatswords (to use a specific greatsword) or Acrobatics (to use a jade cat talisman). This benefit lasts for 1 hour.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Ashrin",

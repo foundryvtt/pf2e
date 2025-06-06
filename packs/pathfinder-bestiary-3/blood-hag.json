@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "oPdEp3kAGptn9Bkh",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "lp9zpRImtn8gAWuk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bloodsense (Imprecise) 90 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>A blood hag can sense the presence of blood and creatures with blood. She can tell the difference between spilled blood and the blood within a living creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,38 +24,29 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "if2CB9IchjxMbiab",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Coven Spells",
+            "_id": "fLCQ4ieE5VzQA9NP",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Borrowed Skin",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>A blood hag wears a covering of skin stolen from a humanoid creature she has killed, hiding her true form and granting her the effects of a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Disguise Magic], with herself as the primary target and the creature whose skin she is wearing as the secondary target.</p>\n<p>Spreading coarse salt inside the skin prevents the hag from putting it back on, forcing her to keep her fiery form until she kills another humanoid and spends 1 hour turning it into a new disguise.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -65,20 +54,297 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 23,
-                    "value": 15
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "gbGFrdjx00klWwUk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coven",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A blood hag adds @UUID[Compendium.pf2e.spells-srd.Item.Death Ward], @UUID[Compendium.pf2e.spells-srd.Item.Fiery Body], and @UUID[Compendium.pf2e.spells-srd.Item.Nightmare] to her coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "coven",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "s6UD93sTVBhNgF8P",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Assume Fiery Form",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The blood hag removes her borrowed skin and transforms into a brilliant ball of fire.</p>\n<p>She becomes amorphous, gains the fire trait and a fly Speed of 60 feet, becomes immune to fire, and emits light as a torch. She loses her melee Strikes and can't Drain Blood, but she deals @Damage[3d10[fire]] damage (@Check[reflex|dc:26|basic] save) to each creature that touches her, as well as to each creature that succeeds at a melee Strike against her with an unarmed attack or from an adjacent space.</p>\n<p>If her skin is intact, she can return to her normal form by spending a single action that has the manipulate trait while adjacent to the skin.</p>\n<p>The hag can instead Assume Fiery Form as a single action, bursting through her skin in a blast of flames. Doing so destroys her borrowed skin and deals @Damage[9d6[fire]|options:area-damage] damage (@Check[reflex|dc:26|basic|options:area-effect] save) in a @Template[emanation|distance:20].</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Fiery Form]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "self:effect:fiery-form"
+                            }
+                        ],
+                        "type": "fire",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "fire",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zmZ1L8pspuQQGh1m",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drain Blood",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the blood hag's reach</p><hr /><p><strong>Effect</strong> The hag sinks her fangs into the creature to drink its blood. This requires a successful @Check[athletics|defense:fortitude] check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions.</p>\n<p>The victim becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. The hag regains @Damage[15[healing]] Hit Points, gaining any excess HP as temporary Hit Points that last for 1 hour. Drinking blood from a creature that's already drained doesn't restore any Hit Points to the hag but increases the victim's drained value by 1, killing the victim when it reaches drained 5.</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a successful @Check[medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained condition by 1 after 10 minutes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VnUdpwyEF14owCWc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NunhObJDovYnRhq5",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "YJ4VNOPXDLADhc0v",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d12+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HPHMTMivSSxm6A9g",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Firebolt",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d10+8",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": "<p><em>Note: Bestiary 3 does not specify a range for this attack. A range of 30 feet has been chosen, in line with the Storm Hag's Wind Blast.</em></p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "fire",
+                        "range-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "lmvPTWMvePL5WUuY",
@@ -87,7 +353,7 @@
             },
             "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
             "name": "Control Weather",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -150,7 +416,7 @@
             },
             "img": "icons/magic/fire/elemental-fire-humanoid.webp",
             "name": "Fiery Body",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -224,7 +490,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Baleful Polymorph",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -292,7 +558,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
             "name": "Death Ward",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -354,7 +620,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -422,7 +688,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Prying Eye",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -485,7 +751,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
-            "sort": 900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -547,7 +813,7 @@
             },
             "img": "icons/magic/control/encase-creature-spider-hold.webp",
             "name": "Nightmare",
-            "sort": 1000000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -615,7 +881,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 1100000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -681,7 +947,7 @@
             },
             "img": "icons/magic/light/orb-hand-green.webp",
             "name": "Clairaudience",
-            "sort": 1200000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -743,7 +1009,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 1300000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -816,7 +1082,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 1400000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -878,7 +1144,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1500000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -958,7 +1224,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1600000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1038,7 +1304,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 1700000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1101,7 +1367,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 1800000,
+            "sort": 2500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1171,299 +1437,22 @@
             "type": "spell"
         },
         {
-            "_id": "NunhObJDovYnRhq5",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d8+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "YJ4VNOPXDLADhc0v",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 2000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d12+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "HPHMTMivSSxm6A9g",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Firebolt",
-            "sort": 2100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d10+8",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": "<p><em>Note: Bestiary 3 does not specify a range for this attack. A range of 30 feet has been chosen, in line with the Storm Hag's Wind Blast.</em></p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "fire",
-                        "range-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "lp9zpRImtn8gAWuk",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bloodsense (Imprecise) 90 feet",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A blood hag can sense the presence of blood and creatures with blood. She can tell the difference between spilled blood and the blood within a living creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fLCQ4ieE5VzQA9NP",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Borrowed Skin",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A blood hag wears a covering of skin stolen from a humanoid creature she has killed, hiding her true form and granting her the effects of a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Disguise Magic], with herself as the primary target and the creature whose skin she is wearing as the secondary target.</p>\n<p>Spreading coarse salt inside the skin prevents the hag from putting it back on, forcing her to keep her fiery form until she kills another humanoid and spends 1 hour turning it into a new disguise.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gbGFrdjx00klWwUk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coven",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A blood hag adds @UUID[Compendium.pf2e.spells-srd.Item.Death Ward], @UUID[Compendium.pf2e.spells-srd.Item.Fiery Body], and @UUID[Compendium.pf2e.spells-srd.Item.Nightmare] to her coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "coven",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "s6UD93sTVBhNgF8P",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Assume Fiery Form",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The blood hag removes her borrowed skin and transforms into a brilliant ball of fire.</p>\n<p>She becomes amorphous, gains the fire trait and a fly Speed of 60 feet, becomes immune to fire, and emits light as a torch. She loses her melee Strikes and can't Drain Blood, but she deals @Damage[3d10[fire]] damage (@Check[reflex|dc:26|basic] save) to each creature that touches her, as well as to each creature that succeeds at a melee Strike against her with an unarmed attack or from an adjacent space.</p>\n<p>If her skin is intact, she can return to her normal form by spending a single action that has the manipulate trait while adjacent to the skin.</p>\n<p>The hag can instead Assume Fiery Form as a single action, bursting through her skin in a blast of flames. Doing so destroys her borrowed skin and deals @Damage[9d6[fire]|options:area-damage] damage (@Check[reflex|dc:26|basic|options:area-effect] save) in a @Template[emanation|distance:20].</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Fiery Form]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            {
-                                "not": "self:effect:fiery-form"
-                            }
-                        ],
-                        "type": "fire",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "fire",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zmZ1L8pspuQQGh1m",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Drain Blood",
+            "_id": "oPdEp3kAGptn9Bkh",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 2600000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the blood hag's reach</p><hr /><p><strong>Effect</strong> The hag sinks her fangs into the creature to drink its blood. This requires a successful @Check[athletics|defense:fortitude] check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions.</p>\n<p>The victim becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. The hag regains @Damage[15[healing]] Hit Points, gaining any excess HP as temporary Hit Points that last for 1 hour. Drinking blood from a creature that's already drained doesn't restore any Hit Points to the hag but increases the victim's drained value by 1, killing the victim when it reaches drained 5.</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a successful @Check[medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained condition by 1 after 10 minutes.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1471,48 +1460,59 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
+                "spelldc": {
+                    "dc": 26,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "VnUdpwyEF14owCWc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
+            "_id": "if2CB9IchjxMbiab",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Coven Spells",
             "sort": 2700000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 23,
+                    "value": 15
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Blood Hag",

@@ -4,177 +4,75 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "hqMtsTwmOShdAdQW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hqMtsTwmOShdAdQW"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/flintlock-musket.webp",
-            "name": "Flintlock Musket",
+            "_id": "p9o2cnvbjqe15xf3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Firearms Critical Specialization",
             "sort": 100000,
             "system": {
-                "baseItem": "flintlock-musket",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>The most commonly available of firearms in Alkenstar, the flintlock musket includes an external firing mechanism and an efficient and relatively compact frame. Though lacking the range and firing power of the arquebus preferred by Alkenstar and Dongun Hold's military members, the flintlock musket is popular among civilians for its ease of use.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "firearm",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 7
-                    }
+                    "value": "<p>When the gunmarshal makes a critical hit with a firearm, the target must succeed at a @Check[fortitude|dc:18] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": 70,
-                "reload": {
-                    "value": "1"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "flintlock-musket",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "concussive",
-                        "fatal-d10"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "weapon"
-        },
-        {
-            "_id": "7tKkkF8eZ4iCLJtp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
-            },
-            "img": "icons/weapons/swords/sword-guard-purple.webp",
-            "name": "Shortsword",
-            "sort": 200000,
-            "system": {
-                "baseItem": "shortsword",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
-                "description": {
-                    "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "sword",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 9
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:firearm"
+                        ]
                     }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "shortsword",
-                "splashDamage": {
-                    "value": 0
-                },
+                ],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "0znth3woklrdqkpd",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Lawbringer",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gunmarshal marks a foe for judgment, granting the gunmarshal a +10-foot circumstance bonus to Speed when moving toward that creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Lawbringer",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Lawbringer"
+                },
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         },
         {
             "_id": "4tIVTg9wj56RrveA",
@@ -409,75 +307,177 @@
             "type": "melee"
         },
         {
-            "_id": "p9o2cnvbjqe15xf3",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Firearms Critical Specialization",
+            "_id": "hqMtsTwmOShdAdQW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hqMtsTwmOShdAdQW"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/flintlock-musket.webp",
+            "name": "Flintlock Musket",
             "sort": 700000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "flintlock-musket",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the gunmarshal makes a critical hit with a firearm, the target must succeed at a @Check[fortitude|dc:18] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "CriticalSpecialization",
-                        "predicate": [
-                            "item:group:firearm"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0znth3woklrdqkpd",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Lawbringer",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "bulk": {
                     "value": 1
                 },
-                "category": "offensive",
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p>The gunmarshal marks a foe for judgment, granting the gunmarshal a +10-foot circumstance bonus to Speed when moving toward that creature.</p>"
+                    "value": "<p>The most commonly available of firearms in Alkenstar, the flintlock musket includes an external firing mechanism and an efficient and relatively compact frame. Though lacking the range and firing power of the arquebus preferred by Alkenstar and Dongun Hold's military members, the flintlock musket is popular among civilians for its ease of use.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "firearm",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 7
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "range": 70,
+                "reload": {
+                    "value": "1"
                 },
                 "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Lawbringer",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Lawbringer"
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
                 },
-                "slug": null,
+                "size": "med",
+                "slug": "flintlock-musket",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "rarity": "uncommon",
+                    "value": [
+                        "concussive",
+                        "fatal-d10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
                 }
             },
-            "type": "action"
+            "type": "weapon"
+        },
+        {
+            "_id": "7tKkkF8eZ4iCLJtp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
+            },
+            "img": "icons/weapons/swords/sword-guard-purple.webp",
+            "name": "Shortsword",
+            "sort": 800000,
+            "system": {
+                "baseItem": "shortsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 9
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "shortsword",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         }
     ],
     "name": "Gunmarshal",

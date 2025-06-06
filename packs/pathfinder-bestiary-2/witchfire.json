@@ -3,64 +3,56 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "TzpdMinu4WoEyAY9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "pViUeTjTLhTubzOw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coven",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>The witchfire adds @UUID[Compendium.pf2e.spells-srd.Item.Nightmare], @UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer], @UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Calamity], and @UUID[Compendium.pf2e.spells-srd.Item.Summon Entity] to their coven's spells.</p>\n<p>A coven can contain one or more witchfires, but it must also include at least one living creature capable of forming a coven; three witchfires cannot form a coven.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "occult"
+                "slug": "coven",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "FN5QndPNQPuzc0V3",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Coven Spells",
+            "_id": "t9ReCb126y5KXuru",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Opportune Witchflame",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p><strong>Trigger</strong> A creature makes a melee Strike against or touches the witchfire</p>\n<hr />\n<p><strong>Effect</strong> The witchfire makes a witchflame caress Strike against the triggering creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -68,21 +60,227 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "PM9U1Ca1DQ2ZA7ZJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GCu6OFgRjem6F0sI",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Witchflame",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any creature that takes void damage from a witchfire's Strike must attempt a @Check[will|dc:26] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to witchflame for 1 hour.</p>\n<p><strong>Success</strong> The creature appears to catch fire with sickly green flames. These flames deal no damage on their own, but as long as the flames burn, the creature can't be @UUID[Compendium.pf2e.conditionitems.Item.Concealed] (@UUID[Compendium.pf2e.conditionitems.Item.Invisible] creatures are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] rather than being @UUID[Compendium.pf2e.conditionitems.Item.Undetected]) and gains weakness 5 to fire for 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect is permanent until removed.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature gains weakness 10 to fire.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Witchflame (Success)]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Witchflame (Failure)]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Witchflame (Critical Failure)]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "witchflame",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "fire",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tjQCRx8UN4LQPnwJ",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Witchflame Kindling",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A creature within 30 feet of the witchfire burns with witchflame</p>\n<hr />\n<p><strong>Effect</strong> The witchfire's eyes and mouth glow brightly, and the witchflame on the target creature momentarily burns much hotter, dealing @Damage[5d6[fire],5d6[void]]{5d6 fire damage and 5d6 void damage} to that creature (@Check[fortitude|dc:28|basic] save).</p>\n<p>The witchfire can't use Witchflame Kindling for [[/gmr 1d4 #Recharge Witchflame Kindling]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9eONvr5by0xfPFcf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Witchflame Caress",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "witchflame"
+                    ]
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "vn1gnur746gdsxuqrvul": {
+                        "damage": "3d6",
+                        "damageType": "fire"
+                    },
+                    "7g65xovdzod3zfx7imfg": {
+                        "damage": "3d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "evil",
+                        "finesse",
+                        "magical",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "eugKdHe7dmAkjXP0",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Witchflame Bolt",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "witchflame"
+                    ]
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "7j874svh0xg679p7o0cx": {
+                        "damage": "2d6",
+                        "damageType": "fire"
+                    },
+                    "9585ibfwu7nue6oxkceo": {
+                        "damage": "2d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evil",
+                        "magical",
+                        "range-100",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "m3D3SOB7MlSe810R",
@@ -91,7 +289,7 @@
             },
             "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
             "name": "Control Weather",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -154,7 +352,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Baleful Polymorph",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -222,7 +420,7 @@
             },
             "img": "icons/magic/earth/explosion-lava-stone-red.webp",
             "name": "Phantasmal Calamity",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -311,7 +509,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
             "name": "Crushing Despair",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -382,7 +580,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -450,7 +648,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Prying Eye",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -513,7 +711,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-entity.webp",
             "name": "Summon Entity",
-            "sort": 900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -573,7 +771,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-entity.webp",
             "name": "Summon Entity (Will-o'-Wisp Only)",
-            "sort": 1000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -633,7 +831,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
-            "sort": 1100000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -695,7 +893,7 @@
             },
             "img": "icons/magic/control/encase-creature-spider-hold.webp",
             "name": "Nightmare",
-            "sort": 1200000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -763,7 +961,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 1300000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -851,7 +1049,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 1400000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -940,7 +1138,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 1500000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1001,7 +1199,7 @@
             },
             "img": "icons/magic/light/orb-hand-green.webp",
             "name": "Clairaudience",
-            "sort": 1600000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1063,7 +1261,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 1700000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1126,7 +1324,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 1800000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1188,7 +1386,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 1900000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1249,7 +1447,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 2000000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1319,7 +1517,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 2100000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1382,7 +1580,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 2200000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1445,7 +1643,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 2300000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1508,7 +1706,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise (At Will)",
-            "sort": 2400000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1571,7 +1769,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 2500000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1651,233 +1849,23 @@
             "type": "spell"
         },
         {
-            "_id": "9eONvr5by0xfPFcf",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Witchflame Caress",
-            "sort": 2600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "witchflame"
-                    ]
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "vn1gnur746gdsxuqrvul": {
-                        "damage": "3d6",
-                        "damageType": "fire"
-                    },
-                    "7g65xovdzod3zfx7imfg": {
-                        "damage": "3d6",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "evil",
-                        "finesse",
-                        "magical",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "eugKdHe7dmAkjXP0",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Witchflame Bolt",
-            "sort": 2700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "witchflame"
-                    ]
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "7j874svh0xg679p7o0cx": {
-                        "damage": "2d6",
-                        "damageType": "fire"
-                    },
-                    "9585ibfwu7nue6oxkceo": {
-                        "damage": "2d6",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "evil",
-                        "magical",
-                        "range-100",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "pViUeTjTLhTubzOw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coven",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The witchfire adds @UUID[Compendium.pf2e.spells-srd.Item.Nightmare], @UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer], @UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Calamity], and @UUID[Compendium.pf2e.spells-srd.Item.Summon Entity] to their coven's spells.</p>\n<p>A coven can contain one or more witchfires, but it must also include at least one living creature capable of forming a coven; three witchfires cannot form a coven.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "coven",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "t9ReCb126y5KXuru",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Opportune Witchflame",
-            "sort": 2900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature makes a melee Strike against or touches the witchfire</p>\n<hr />\n<p><strong>Effect</strong> The witchfire makes a witchflame caress Strike against the triggering creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PM9U1Ca1DQ2ZA7ZJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GCu6OFgRjem6F0sI",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Witchflame",
+            "_id": "TzpdMinu4WoEyAY9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 3100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Any creature that takes void damage from a witchfire's Strike must attempt a @Check[will|dc:26] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to witchflame for 1 hour.</p>\n<p><strong>Success</strong> The creature appears to catch fire with sickly green flames. These flames deal no damage on their own, but as long as the flames burn, the creature can't be @UUID[Compendium.pf2e.conditionitems.Item.Concealed] (@UUID[Compendium.pf2e.conditionitems.Item.Invisible] creatures are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] rather than being @UUID[Compendium.pf2e.conditionitems.Item.Undetected]) and gains weakness 5 to fire for 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect is permanent until removed.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature gains weakness 10 to fire.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Witchflame (Success)]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Witchflame (Failure)]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Witchflame (Critical Failure)]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1885,33 +1873,40 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "witchflame",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "fire",
-                        "occult"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "tjQCRx8UN4LQPnwJ",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Witchflame Kindling",
+            "_id": "FN5QndPNQPuzc0V3",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Coven Spells",
             "sort": 3200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A creature within 30 feet of the witchfire burns with witchflame</p>\n<hr />\n<p><strong>Effect</strong> The witchfire's eyes and mouth glow brightly, and the witchflame on the target creature momentarily burns much hotter, dealing @Damage[5d6[fire],5d6[void]]{5d6 fire damage and 5d6 void damage} to that creature (@Check[fortitude|dc:28|basic] save).</p>\n<p>The witchfire can't use Witchflame Kindling for [[/gmr 1d4 #Recharge Witchflame Kindling]]{1d4 rounds}.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1919,16 +1914,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "occult"
-                    ]
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Witchfire",

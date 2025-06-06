@@ -3,23 +3,134 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "rNMUpQjQil41A67R",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
+            "_id": "HtPykjM3gCE3oQiR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Torpor",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Typically, a demilich is inert when encountered and doesn't take actions until its @UUID[Compendium.pf2e.spells-srd.Item.Contingency] reaction has been triggered.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "torpor",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2in6dEOh1ygunO7S",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YttgSizfr7L607th",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Vitality",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "vitality"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xHg8hrfrTg35erxf",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Contingency",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A demilich has one permanent 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Contingency] spell in effect with one of its arcane innate spells of 5th level or lower as the companion spell-typically @UUID[Compendium.pf2e.spells-srd.Item.Translocate].</p>\n<p><strong>Trigger</strong> While the lich is in torpor, a creature disturbs the demilich's remains, touches its treasure, or casts a spell that would affect the demilich.</p>\n<hr />\n<p><strong>Effect</strong> The demilich ends torpor, rolls initiative, and gains the effect of its contingency's companion spell. The contingency resets after 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,38 +138,235 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 40,
-                    "mod": 0,
-                    "value": 30
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "QOBOciGYNGMMzHab",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Demilich Eye Gems (Arcane)",
-            "sort": 200000,
+            "_id": "0RsLlXY365ytSohG",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Countermeasures",
+            "sort": 500000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> The demilich's turn begins.</p>\n<hr />\n<p><strong>Effect</strong> The demilich casts @UUID[Compendium.pf2e.spells-srd.Item.Flicker], @UUID[Compendium.pf2e.spells-srd.Item.Fly], @UUID[Compendium.pf2e.spells-srd.Item.Spell Turning], or @UUID[Compendium.pf2e.spells-srd.Item.Truesight] on itself. It usually chooses <em>spell turning</em> unless it already has that spell in effect.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "19cNQjbQEVxmiger",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telekinetic Whirlwind",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. Telekinetic whirlwind activates when the demilich ends torpor. Loose debris in the area whip up into a whirling storm. This obscures vision, making any creature in the area concealed, and causes creatures in its area (except the demilich) to treat all creatures as @UUID[Compendium.pf2e.conditionitems.Item.Concealed]. Any creature other than the demilich that enters or begins its turn in the aura takes @Damage[2d12[bludgeoning]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "torpor"
+                            }
+                        ],
+                        "radius": 20,
+                        "slug": "telekinetic-whirlwind",
+                        "traits": [
+                            "arcane"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "saqRnmZhtXKwqFed",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Demilich Eye Gems",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A demilich has gemstone eyes that glow when the demilich is active. Each eye contains an 8th-rank spell that targets one creature (usually one eye has @UUID[Compendium.pf2e.spells-srd.Item.Quandary] and the other @UUID[Compendium.pf2e.spells-srd.Item.Polar Ray]). The demilich can Activate an eye. This uses the number of spellcasting actions the spell requires, and also requires command and envision components. When the demilich casts a spell from a gemstone eye, that eye stops glowing for [[/gmr 1d4 #Recharge Demilich Eye Gem]]{1d4 rounds}, during which time that eye's spell can't be used. Occasionally, one or both of the two <em>@UUID[Compendium.pf2e.equipment-srd.Item.Demilich Eye Gem]{Demilich Eye Gems}</em> can be harvested from a destroyed demilich as magic items.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1qFhgFYCKIDaF8mk",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Devour Soul",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A soul has been trapped in one of the demilich's blight quartz gems for 24 hours.</p>\n<hr />\n<p><strong>Effect</strong> The demilich consumes the soul. The soul is utterly destroyed, and the demilich regains HP equal to double the creature's level.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y5Na5QhVKW187D0K",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mental Magic",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A demilich can replace all material and somatic components for casting spells with verbal components, and can replace all Interact components for activating magic items with envision components.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CLQtaRBZzEVhkEpc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Staff Gems",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A demilich long ago absorbed the spells from a staff into gemstone nodules embedded in its skull, with larger nodules representing higher-rank spells. It can cast any of the spells as though it were Activating the staff, and regains 1 charge per 4 hours spent in torpor, to a maximum of 8 charges. A typical demilich has the spells from a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Staff of the Dead (Greater)]{Greater Staff of the Dead}</em>, but it could have spells from another staff of 8th level or lower instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ymEZhbkIeDn7RKGI",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Trap Soul",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day per gem</p>\n<hr />\n<p><strong>Effect</strong> Ten blight quartz gemstones on the demilich's skull can trap the souls of the living. The Activated gem casts @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]. This bind soul can target and affect a dying creature instead of a corpse. The dying creature can attempt a @Check[fortitude|dc:38] save; if it succeeds, it doesn't die and its soul is not trapped but it's @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (or is unaffected entirely on a critical success). When the soul of a creature gets trapped, the creature's body swiftly turns to dust.</p>\n<p>The gemstones work like the black sapphires used in <em>bind soul</em>, except that they can hold creatures of up to 17th level and have a value of 200 gp apiece. The demilich can Devour a Soul it has trapped.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
                     "value": 1
                 },
                 "publication": {
@@ -67,21 +375,124 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 40,
-                    "value": 30
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "9KJN3UH8g2nbSWG5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Q4o8pEdxSY0bnJQZ"
+            },
+            "img": "icons/equipment/neck/amulet-geometric-purple.webp",
+            "name": "Demilich Eye Gem",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This glowing gem is harvested from a demilich and has an 8th-rank spell magically bonded to it. This item has the traits of the spell it contains.</p>\n<p><strong>Activate</strong> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The gem casts the 8th-rank spell it contains. This activation uses the same number of actions as Casting the Spell. Once the spell is cast, the gem's glow fades, but returns 24 hours later, when the spell can be used once again.</p>\n<hr />\n<p><strong>Craft Requirements</strong> <em>Demilich eye gems</em> can't be crafted.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 15
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "tiny",
+                "slug": "demilich-eye-gem",
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "arcane"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "0mC5JVblweUZ0WxU",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "hw7p9aa8mra13wy29nn6": {
+                        "damage": "1d4-3",
+                        "damageType": "piercing"
+                    },
+                    "vd26ie3n7abv3664nj10": {
+                        "damage": "6d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "magical",
+                        "reach-0",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "ioPnzskXdQNmr1OV",
@@ -90,7 +501,7 @@
             },
             "img": "systems/pf2e/icons/spells/wail-of-the-banshee.webp",
             "name": "Wail of the Banshee",
-            "sort": 300000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -172,7 +583,7 @@
             },
             "img": "icons/magic/lightning/fist-unarmed-strike-blue.webp",
             "name": "Polar Ray",
-            "sort": 400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -253,7 +664,7 @@
             },
             "img": "systems/pf2e/icons/spells/maze.webp",
             "name": "Quandary",
-            "sort": 500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -316,7 +727,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
             "name": "Spell Turning (At Will)",
-            "sort": 600000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -376,7 +787,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 700000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -440,7 +851,7 @@
             },
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Blink (At Will)",
-            "sort": 800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -502,7 +913,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 900000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -574,7 +985,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver (At Will)",
-            "sort": 1000000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -637,7 +1048,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1100000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -718,7 +1129,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1200000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -836,447 +1247,23 @@
             "type": "spell"
         },
         {
-            "_id": "9KJN3UH8g2nbSWG5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Q4o8pEdxSY0bnJQZ"
-            },
-            "img": "icons/equipment/neck/amulet-geometric-purple.webp",
-            "name": "Demilich Eye Gem",
-            "sort": 1300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This glowing gem is harvested from a demilich and has an 8th-rank spell magically bonded to it. This item has the traits of the spell it contains.</p>\n<p><strong>Activate</strong> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The gem casts the 8th-rank spell it contains. This activation uses the same number of actions as Casting the Spell. Once the spell is cast, the gem's glow fades, but returns 24 hours later, when the spell can be used once again.</p>\n<hr />\n<p><strong>Craft Requirements</strong> <em>Demilich eye gems</em> can't be crafted.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 15
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "tiny",
-                "slug": "demilich-eye-gem",
-                "traits": {
-                    "rarity": "rare",
-                    "value": [
-                        "arcane"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "0mC5JVblweUZ0WxU",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "hw7p9aa8mra13wy29nn6": {
-                        "damage": "1d4-3",
-                        "damageType": "piercing"
-                    },
-                    "vd26ie3n7abv3664nj10": {
-                        "damage": "6d6",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "magical",
-                        "reach-0",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "HtPykjM3gCE3oQiR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Torpor",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Typically, a demilich is inert when encountered and doesn't take actions until its @UUID[Compendium.pf2e.spells-srd.Item.Contingency] reaction has been triggered.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "torpor",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2in6dEOh1ygunO7S",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YttgSizfr7L607th",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Vitality",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "vitality"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xHg8hrfrTg35erxf",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Contingency",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A demilich has one permanent 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Contingency] spell in effect with one of its arcane innate spells of 5th level or lower as the companion spell-typically @UUID[Compendium.pf2e.spells-srd.Item.Translocate].</p>\n<p><strong>Trigger</strong> While the lich is in torpor, a creature disturbs the demilich's remains, touches its treasure, or casts a spell that would affect the demilich.</p>\n<hr />\n<p><strong>Effect</strong> The demilich ends torpor, rolls initiative, and gains the effect of its contingency's companion spell. The contingency resets after 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0RsLlXY365ytSohG",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Countermeasures",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The demilich's turn begins.</p>\n<hr />\n<p><strong>Effect</strong> The demilich casts @UUID[Compendium.pf2e.spells-srd.Item.Flicker], @UUID[Compendium.pf2e.spells-srd.Item.Fly], @UUID[Compendium.pf2e.spells-srd.Item.Spell Turning], or @UUID[Compendium.pf2e.spells-srd.Item.Truesight] on itself. It usually chooses <em>spell turning</em> unless it already has that spell in effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "19cNQjbQEVxmiger",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telekinetic Whirlwind",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. Telekinetic whirlwind activates when the demilich ends torpor. Loose debris in the area whip up into a whirling storm. This obscures vision, making any creature in the area concealed, and causes creatures in its area (except the demilich) to treat all creatures as @UUID[Compendium.pf2e.conditionitems.Item.Concealed]. Any creature other than the demilich that enters or begins its turn in the aura takes @Damage[2d12[bludgeoning]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            {
-                                "not": "torpor"
-                            }
-                        ],
-                        "radius": 20,
-                        "slug": "telekinetic-whirlwind",
-                        "traits": [
-                            "arcane"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "aura"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "saqRnmZhtXKwqFed",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Demilich Eye Gems",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A demilich has gemstone eyes that glow when the demilich is active. Each eye contains an 8th-rank spell that targets one creature (usually one eye has @UUID[Compendium.pf2e.spells-srd.Item.Quandary] and the other @UUID[Compendium.pf2e.spells-srd.Item.Polar Ray]). The demilich can Activate an eye. This uses the number of spellcasting actions the spell requires, and also requires command and envision components. When the demilich casts a spell from a gemstone eye, that eye stops glowing for [[/gmr 1d4 #Recharge Demilich Eye Gem]]{1d4 rounds}, during which time that eye's spell can't be used. Occasionally, one or both of the two <em>@UUID[Compendium.pf2e.equipment-srd.Item.Demilich Eye Gem]{Demilich Eye Gems}</em> can be harvested from a destroyed demilich as magic items.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1qFhgFYCKIDaF8mk",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Devour Soul",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> A soul has been trapped in one of the demilich's blight quartz gems for 24 hours.</p>\n<hr />\n<p><strong>Effect</strong> The demilich consumes the soul. The soul is utterly destroyed, and the demilich regains HP equal to double the creature's level.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "y5Na5QhVKW187D0K",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mental Magic",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A demilich can replace all material and somatic components for casting spells with verbal components, and can replace all Interact components for activating magic items with envision components.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CLQtaRBZzEVhkEpc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Staff Gems",
+            "_id": "rNMUpQjQil41A67R",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 2400000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>A demilich long ago absorbed the spells from a staff into gemstone nodules embedded in its skull, with larger nodules representing higher-rank spells. It can cast any of the spells as though it were Activating the staff, and regains 1 charge per 4 hours spent in torpor, to a maximum of 8 charges. A typical demilich has the spells from a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Staff of the Dead (Greater)]{Greater Staff of the Dead}</em>, but it could have spells from another staff of 8th level or lower instead.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -1284,33 +1271,38 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 40,
+                    "mod": 0,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "ymEZhbkIeDn7RKGI",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Trap Soul",
+            "_id": "QOBOciGYNGMMzHab",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Demilich Eye Gems (Arcane)",
             "sort": 2500000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day per gem</p>\n<hr />\n<p><strong>Effect</strong> Ten blight quartz gemstones on the demilich's skull can trap the souls of the living. The Activated gem casts @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]. This bind soul can target and affect a dying creature instead of a corpse. The dying creature can attempt a @Check[fortitude|dc:38] save; if it succeeds, it doesn't die and its soul is not trapped but it's @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (or is unaffected entirely on a critical success). When the soul of a creature gets trapped, the creature's body swiftly turns to dust.</p>\n<p>The gemstones work like the black sapphires used in <em>bind soul</em>, except that they can hold creatures of up to 17th level and have a value of 200 gp apiece. The demilich can Devour a Soul it has trapped.</p>"
+                    "value": ""
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -1319,13 +1311,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 40,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Demilich",

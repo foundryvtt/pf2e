@@ -4,13 +4,315 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "u3CMszU8CMc4atfm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "r9mk3iMPZnVsYyaH",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Reconstitution",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Until Geb's curse is broken, any stone sister who's destroyed gradually reforms in her original shape. A stone sister who's reduced to 0 Hit Points will reform after 24 hours, while one reduced to rubble or dust might take a year or more to reform. Stone sisters who are removed from the Field of Maidens always attempt to return to it when they reconstitute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e1fm0dEDzFsOAiME",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stone Flesh",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A stone sister is made of a bizarre stone that never stops bleeding from numerous cracks along her skin. She reacts to certain spells in unique ways, as listed below.</p>\n<ul>\n<li>Spells that alter earth, such as shape stone, either deal @Damage[3d10] points of damage or heal @Damage[3d10[healing]] Hit Points, as decided by the caster. If the spell is specifically harmful or beneficial to earth and stone, the GM might decide it can only harm the stone sister, or only heal her.</li>\n<li>Stone to flesh doesn't revert a stone sister to flesh and blood but instead weakens her. She loses her resistance to physical damage for 1 minute. If she's reduced to 0 Hit Points during this time, she's permanently destroyed and can't reform.</li>\n</ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AnEGInz7N3l1tbEq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D5B2HG8wJ5TtWu8c",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Curse of Stone",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The creature must succeed at a @Check[fortitude|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} on a critical failure) and gain a +1 status bonus to AC as their skin hardens to stone. The clumsy condition can be temporarily relieved for 24 hours by casting stone to flesh on the cursed creature but can't be removed or reduced by any other means short of removing the curse; during this time, the cursed creature also no longer receives the status bonus to AC.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Curse of Stone]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5qo8PwcNs0JaqVRw",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Statue",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Until the next time she acts, the stone sister appears to be a statue. She has an automatic result of 34 on Deception checks and DCs to pass as a statue. Since the Field of Maidens is filled with thousands of statues just like her, most of which aren't stone sisters, it's incredibly difficult to recognize her true nature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AMVEezVAREcQ80cq",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Y3CIa85S55WLoxTl"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Scimitar",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "curse-of-stone"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "F0oGBNFTZdrGyIE3": {
+                        "damage": "1d6",
+                        "damageType": "bludgeoning"
+                    },
+                    "kwBbUNTiV9pqqWh3": {
+                        "damage": "1d6+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "earth",
+                        "forceful",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Ikt60gtNubl8Dw5F",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "curse-of-stone"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "NST7FnEGNpsD7Qxr": {
+                        "damage": "2d6+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "earth",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "Y3CIa85S55WLoxTl",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.grmaV4GdoGD7sKbn"
             },
             "img": "systems/pf2e/icons/equipment/weapons/scimitar.webp",
             "name": "Scimitar",
-            "sort": 100000,
+            "sort": 900000,
             "system": {
                 "baseItem": "scimitar",
                 "bonus": {
@@ -88,308 +390,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "AMVEezVAREcQ80cq",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Y3CIa85S55WLoxTl"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Scimitar",
-            "sort": 200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "curse-of-stone"
-                    ]
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "F0oGBNFTZdrGyIE3": {
-                        "damage": "1d6",
-                        "damageType": "bludgeoning"
-                    },
-                    "kwBbUNTiV9pqqWh3": {
-                        "damage": "1d6+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "earth",
-                        "forceful",
-                        "sweep"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Ikt60gtNubl8Dw5F",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "curse-of-stone"
-                    ]
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "NST7FnEGNpsD7Qxr": {
-                        "damage": "2d6+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "earth",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "u3CMszU8CMc4atfm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "r9mk3iMPZnVsYyaH",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Reconstitution",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Until Geb's curse is broken, any stone sister who's destroyed gradually reforms in her original shape. A stone sister who's reduced to 0 Hit Points will reform after 24 hours, while one reduced to rubble or dust might take a year or more to reform. Stone sisters who are removed from the Field of Maidens always attempt to return to it when they reconstitute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "e1fm0dEDzFsOAiME",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stone Flesh",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A stone sister is made of a bizarre stone that never stops bleeding from numerous cracks along her skin. She reacts to certain spells in unique ways, as listed below.</p>\n<ul>\n<li>Spells that alter earth, such as shape stone, either deal @Damage[3d10] points of damage or heal @Damage[3d10[healing]] Hit Points, as decided by the caster. If the spell is specifically harmful or beneficial to earth and stone, the GM might decide it can only harm the stone sister, or only heal her.</li>\n<li>Stone to flesh doesn't revert a stone sister to flesh and blood but instead weakens her. She loses her resistance to physical damage for 1 minute. If she's reduced to 0 Hit Points during this time, she's permanently destroyed and can't reform.</li>\n</ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AnEGInz7N3l1tbEq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "D5B2HG8wJ5TtWu8c",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Curse of Stone",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The creature must succeed at a @Check[fortitude|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} on a critical failure) and gain a +1 status bonus to AC as their skin hardens to stone. The clumsy condition can be temporarily relieved for 24 hours by casting stone to flesh on the cursed creature but can't be removed or reduced by any other means short of removing the curse; during this time, the cursed creature also no longer receives the status bonus to AC.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Curse of Stone]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5qo8PwcNs0JaqVRw",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Statue",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Until the next time she acts, the stone sister appears to be a statue. She has an automatic result of 34 on Deception checks and DCs to pass as a statue. Since the Field of Maidens is filled with thousands of statues just like her, most of which aren't stone sisters, it's incredibly difficult to recognize her true nature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Stone Sister",

@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ESFFoOkUq4uVXXwP",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "Zz0njDLQMKevzDhM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Lithe",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>A riftweasel can fit through tight spaces as if it were a Tiny creature. When Squeezing, it moves at its full speed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +25,242 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "value": 30
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "NQEOGOck3oOKYaFH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tenacious Grip",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature Escapes from the riftweasel's grapple</p><hr /><p><strong>Effect</strong> The riftweasel twists its body to maintain its grasp, and attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target before they can actually escape. It takes a –5 circumstance penalty to this attempt.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gHMfyYQ51wKEJswf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Burst from the Dead",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The riftweasel is inside of a carcass</p><hr /><p><strong>Effect</strong> The riftweasel emerges in a gory burst from the carcass, appearing in any space adjacent to the remains. As it bursts out, it shrieks and splatters decay all about it; the riftweasel attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] an observed creature. The riftweasel doesn't take any penalty to this check for not speaking during the attempt, and if it critically succeeds, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by fragments of gore and putrescence splattered onto it by the unsettling display.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "syedfq26qNlMWVxH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Carrion Eater",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The riftweasel consumes flesh from an adjacent dead creature and regains @Damage[10d6[healing]] Hit Points. It can regain Hit Points from any given corpse only once.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uzIeaKOaqmN1sxfo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hide in Carcass",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The riftweasel Burrows into the carcass of a Large or larger adjacent creature, then @UUID[Compendium.pf2e.actionspf2e.Item.Hide]{Hides}. As long as it remains inside a carcass, it can sense the surrounding area via tremorsense, and gains greater cover. A riftweasel doesn't need to hold its breath while burrowed into a carcass.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZX90uifTHZMn67VD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Snap Neck",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The riftweasel wrenches at the head of a Medium or smaller creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]; the creature must attempt a @Check[fortitude|dc:41] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d10[bludgeoning]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d10[bludgeoning]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d10[bludgeoning]] damage and is permanently paralyzed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ngbFDsPmecnhHBcq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bbtjMDiUNft7iTmi",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "AWnVdXJj1nj8D7Mp": {
+                        "damage": "4d10+15",
+                        "damageType": "piercing"
+                    },
+                    "P25TqGyVPpMxlcXT": {
+                        "category": "persistent",
+                        "damage": "2d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "2LhfsygijtIyyfO2",
@@ -50,7 +269,7 @@
             },
             "img": "icons/magic/fire/barrier-shield-explosion-yellow.webp",
             "name": "Synaptic Pulse",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -120,7 +339,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly (Constant)",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -183,7 +402,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -249,7 +468,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Vision of Death",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -337,7 +556,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -415,7 +634,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -496,263 +715,44 @@
             "type": "spell"
         },
         {
-            "_id": "bbtjMDiUNft7iTmi",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 800000,
+            "_id": "ESFFoOkUq4uVXXwP",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 1500000,
             "system": {
-                "attackEffects": {
-                    "value": [
-                        "improved-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "AWnVdXJj1nj8D7Mp": {
-                        "damage": "4d10+15",
-                        "damageType": "piercing"
-                    },
-                    "P25TqGyVPpMxlcXT": {
-                        "category": "persistent",
-                        "damage": "2d6",
-                        "damageType": "bleed"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Zz0njDLQMKevzDhM",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Lithe",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A riftweasel can fit through tight spaces as if it were a Tiny creature. When Squeezing, it moves at its full speed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NQEOGOck3oOKYaFH",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Tenacious Grip",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature Escapes from the riftweasel's grapple</p><hr /><p><strong>Effect</strong> The riftweasel twists its body to maintain its grasp, and attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target before they can actually escape. It takes a –5 circumstance penalty to this attempt.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gHMfyYQ51wKEJswf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Burst from the Dead",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The riftweasel is inside of a carcass</p><hr /><p><strong>Effect</strong> The riftweasel emerges in a gory burst from the carcass, appearing in any space adjacent to the remains. As it bursts out, it shrieks and splatters decay all about it; the riftweasel attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] an observed creature. The riftweasel doesn't take any penalty to this check for not speaking during the attempt, and if it critically succeeds, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by fragments of gore and putrescence splattered onto it by the unsettling display.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "move"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 38,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "syedfq26qNlMWVxH",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Carrion Eater",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The riftweasel consumes flesh from an adjacent dead creature and regains @Damage[10d6[healing]] Hit Points. It can regain Hit Points from any given corpse only once.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uzIeaKOaqmN1sxfo",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hide in Carcass",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The riftweasel Burrows into the carcass of a Large or larger adjacent creature, then @UUID[Compendium.pf2e.actionspf2e.Item.Hide]{Hides}. As long as it remains inside a carcass, it can sense the surrounding area via tremorsense, and gains greater cover. A riftweasel doesn't need to hold its breath while burrowed into a carcass.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZX90uifTHZMn67VD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Snap Neck",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The riftweasel wrenches at the head of a Medium or smaller creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]; the creature must attempt a @Check[fortitude|dc:41] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d10[bludgeoning]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d10[bludgeoning]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d10[bludgeoning]] damage and is permanently paralyzed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "incapacitation",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ngbFDsPmecnhHBcq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Riftweasel",

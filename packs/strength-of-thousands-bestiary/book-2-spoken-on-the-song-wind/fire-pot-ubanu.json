@@ -4,23 +4,251 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ubEQtZxZVXv4mf3v",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Spontaneous Spells",
+            "_id": "rr1u9u1zlpq4x0ll",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Infused Items",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Ubanu carries these infused items: 8 moderate alchemist's fires, 2 lesser elixirs of life, and 2 moderate tanglefoot bags. These items last for 24 hours, or until the next time Ubanu makes his daily preparations.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "30wp87xp5ptpzrrg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Distracting Spells",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Creatures who fail a saving throw against one of Ubanu's spells are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to his attacks until the end of his turn or until the end of his next turn on a critical failure.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "70e6njctu0go1315",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Quick Bomber",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ubanu Interacts to draw a bomb, then Strikes with it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GBJL8RRccPjCYRNn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
+            "name": "Smock",
+            "sort": 400000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "padded-armor",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "light",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This smock acts as padded armor.</p>\n<hr />\n<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": null,
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "padded-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "p8OCzrYFkbXKvXtP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.TZUskLT7yvP7N2co"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (Lesser) (Infused)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "3d6+6",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(3d6+6)[healing]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 30
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "elixir-of-life-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing",
+                        "infused"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "0qp9fnekjbxs847m",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Weapons Lore",
+            "sort": 600000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "label": "Spellcasting Type",
-                    "type": "String",
-                    "value": "spontaneous"
+                "mod": {
+                    "value": 16
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -29,88 +257,168 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "rl2bWvSfDBfSc1C7"
-                            },
-                            {
-                                "id": "UpoP3HfDM908CfSl"
-                            },
-                            {
-                                "id": "hIwPGHeSQ30a8Xcd"
-                            },
-                            {
-                                "id": "oVzYmTuvOehtHlPW"
-                            },
-                            {
-                                "id": "BP6MpJrOq5CkvMni"
-                            }
-                        ],
-                        "value": 5
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "tkPH2p2FggBYVYMd"
-                            },
-                            {
-                                "id": "zqzHRzk7R7ph2cSS"
-                            }
-                        ],
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "JP9I0JTio4SYeHgw"
-                            },
-                            {
-                                "id": "oZ8s4vFXtN33Ftu5"
-                            }
-                        ],
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "mTICxgCplCEYzzLu"
-                            },
-                            {
-                                "id": "BBDTDxRHxDDy5PMH"
-                            }
-                        ],
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "BBonPJFWz0HYtcXR"
-                            }
-                        ],
-                        "value": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "item": 0,
-                    "label": "Class DC",
-                    "mod": 0,
-                    "type": "String",
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "divine"
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "codugi3tcnhtk6pa",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "0Rxi7dyFplPacTP9"
                 }
             },
-            "type": "spellcastingEntry"
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0kKxm2XpmoKIoo8b": {
+                        "damage": "2d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "pf4ox3pu6lr80fn4",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "aD1T7RL88XKUVwFB"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Alchemist's Fire",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+2",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "4",
+                        "damageType": "fire"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-20",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "jjmuit69nbjpbrc5",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "0Rxi7dyFplPacTP9"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "D2IHIKohcE8EuPat": {
+                        "damage": "2d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-increment-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "BBonPJFWz0HYtcXR",
@@ -119,7 +427,7 @@
             },
             "img": "systems/pf2e/icons/spells/fire-shield.webp",
             "name": "Fire Shield",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -197,7 +505,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -266,7 +574,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -352,7 +660,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -413,7 +721,7 @@
             },
             "img": "icons/magic/earth/orb-lava-ball-yellow.webp",
             "name": "Flaming Sphere",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -497,7 +805,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Obscuring Mist",
-            "sort": 700000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -561,7 +869,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 800000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -623,7 +931,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 900000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -784,7 +1092,7 @@
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands",
-            "sort": 1000000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -871,7 +1179,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1100000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -938,7 +1246,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 1200000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -999,7 +1307,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind",
-            "sort": 1300000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1069,7 +1377,7 @@
             },
             "img": "systems/pf2e/icons/spells/jump.webp",
             "name": "Jump",
-            "sort": 1400000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1129,7 +1437,7 @@
             },
             "img": "systems/pf2e/icons/spells/mending.webp",
             "name": "Mending",
-            "sort": 1500000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1191,7 +1499,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1600000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1254,7 +1562,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 1700000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1329,13 +1637,122 @@
             "type": "spell"
         },
         {
+            "_id": "ubEQtZxZVXv4mf3v",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Spontaneous Spells",
+            "sort": 2600000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Spellcasting Type",
+                    "type": "String",
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "rl2bWvSfDBfSc1C7"
+                            },
+                            {
+                                "id": "UpoP3HfDM908CfSl"
+                            },
+                            {
+                                "id": "hIwPGHeSQ30a8Xcd"
+                            },
+                            {
+                                "id": "oVzYmTuvOehtHlPW"
+                            },
+                            {
+                                "id": "BP6MpJrOq5CkvMni"
+                            }
+                        ],
+                        "value": 5
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "tkPH2p2FggBYVYMd"
+                            },
+                            {
+                                "id": "zqzHRzk7R7ph2cSS"
+                            }
+                        ],
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "JP9I0JTio4SYeHgw"
+                            },
+                            {
+                                "id": "oZ8s4vFXtN33Ftu5"
+                            }
+                        ],
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "mTICxgCplCEYzzLu"
+                            },
+                            {
+                                "id": "BBDTDxRHxDDy5PMH"
+                            }
+                        ],
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "BBonPJFWz0HYtcXR"
+                            }
+                        ],
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 26,
+                    "item": 0,
+                    "label": "Class DC",
+                    "mod": 0,
+                    "type": "String",
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "0Rxi7dyFplPacTP9",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.KQRrAVdcRqtd0Lq2"
             },
             "img": "systems/pf2e/icons/default-icons/weapon.svg",
             "name": "Fulminating Spear",
-            "sort": 1800000,
+            "sort": 2700000,
             "system": {
                 "baseItem": "spear",
                 "bonus": {
@@ -1437,7 +1854,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
             "name": "Alchemist's Fire (Moderate) (Infused)",
-            "sort": 1900000,
+            "sort": 2800000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -1532,7 +1949,7 @@
             },
             "img": "icons/containers/bags/sack-simple-leather-tan.webp",
             "name": "Tanglefoot Bag (Moderate) (Infused)",
-            "sort": 2000000,
+            "sort": 2900000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -1631,423 +2048,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "GBJL8RRccPjCYRNn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
-            "name": "Smock",
-            "sort": 2100000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "padded-armor",
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "light",
-                "checkPenalty": 0,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This smock acts as padded armor.</p>\n<hr />\n<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": null,
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "padded-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "comfort"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "p8OCzrYFkbXKvXtP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.TZUskLT7yvP7N2co"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (Lesser) (Infused)",
-            "sort": 2200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": {
-                    "formula": "3d6+6",
-                    "kind": "healing",
-                    "type": "untyped"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(3d6+6)[healing]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 30
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "elixir-of-life-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing",
-                        "infused"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "codugi3tcnhtk6pa",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "0Rxi7dyFplPacTP9"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 2300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "0kKxm2XpmoKIoo8b": {
-                        "damage": "2d6+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "pf4ox3pu6lr80fn4",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "aD1T7RL88XKUVwFB"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Alchemist's Fire",
-            "sort": 2400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d8+2",
-                        "damageType": "fire"
-                    },
-                    "1": {
-                        "category": "persistent",
-                        "damage": "4",
-                        "damageType": "fire"
-                    },
-                    "2": {
-                        "category": "splash",
-                        "damage": "6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-20",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "jjmuit69nbjpbrc5",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "0Rxi7dyFplPacTP9"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 2500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "D2IHIKohcE8EuPat": {
-                        "damage": "2d6+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-increment-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "rr1u9u1zlpq4x0ll",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Infused Items",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Ubanu carries these infused items: 8 moderate alchemist's fires, 2 lesser elixirs of life, and 2 moderate tanglefoot bags. These items last for 24 hours, or until the next time Ubanu makes his daily preparations.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "30wp87xp5ptpzrrg",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Distracting Spells",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Creatures who fail a saving throw against one of Ubanu's spells are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to his attacks until the end of his turn or until the end of his next turn on a critical failure.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "70e6njctu0go1315",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Quick Bomber",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ubanu Interacts to draw a bomb, then Strikes with it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0qp9fnekjbxs847m",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Weapons Lore",
-            "sort": 2900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Fire-pot Ubanu",

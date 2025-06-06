@@ -3,10 +3,89 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "GsQeeSV97T6FPvoY",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hellfire Breath",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hell hound breathes flames that deal @Damage[4d6[fire]|options:area-damage] damage to all creatures in a @Template[cone|distance:15] (@Check[reflex|dc:19|basic|options:area-effect] save).</p>\n<p>The hell hound can't use Hellfire Breath again for [[/gmr 1d4 #Recharge Hellfire Breath]]{1d4 rounds}. If the hell hound would take fire damage or be targeted by a fire effect, their Hellfire Breath recharges.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "fire",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "frHG44PbB1HwdeMl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pack Attack",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hell hound's Strikes deal 1d4 extra damage to creatures within the reach of at least two of the hell hounds' allies.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "pack-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "IvEp0FjtG1bxA4Xw",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -51,85 +130,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "GsQeeSV97T6FPvoY",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hellfire Breath",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The hell hound breathes flames that deal @Damage[4d6[fire]|options:area-damage] damage to all creatures in a @Template[cone|distance:15] (@Check[reflex|dc:19|basic|options:area-effect] save).</p>\n<p>The hell hound can't use Hellfire Breath again for [[/gmr 1d4 #Recharge Hellfire Breath]]{1d4 rounds}. If the hell hound would take fire damage or be targeted by a fire effect, their Hellfire Breath recharges.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "fire",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "frHG44PbB1HwdeMl",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Pack Attack",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The hell hound's Strikes deal 1d4 extra damage to creatures within the reach of at least two of the hell hounds' allies.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "pack-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "pack-attack"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Hell Hound",

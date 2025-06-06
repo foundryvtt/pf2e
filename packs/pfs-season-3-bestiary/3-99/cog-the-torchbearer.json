@@ -4,40 +4,96 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "1TU777v0mksSVEFL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
-            "name": "Dagger",
+            "_id": "sxOBqQVb05IjO5Lw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cheek Pouches",
             "sort": 100000,
             "system": {
-                "baseItem": "dagger",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Like all ratfolk, Cog has stretchy cheek pouches that can store up to 1 cubic foot of objects (though no more than 4 light items). Cog can remove or store an item using the Interact action. As long as Cog has at least one object in his cheek pouches, his speech is noticeably difficult to understand.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wvB94MgVNAExanUP",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Torch Combatant",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Cog is adept at attacking with torches and deals @Damage[1[persistent,fire]] damage when he critically hits with a torch.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "critical": true,
+                        "damageCategory": "persistent",
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "selector": "torch-damage",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "O0w9Sz9Mn0k3hlPi",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
+            "name": "Bolts",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "simple",
+                "category": "ammo",
                 "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d4"
-                },
+                "damage": null,
                 "description": {
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
+                    "carryType": "worn"
                 },
-                "group": "knife",
                 "hardness": 0,
                 "hp": {
                     "max": 0,
@@ -45,6 +101,71 @@
                 },
                 "level": {
                     "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "bolts",
+                "stackGroup": "bolts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "2bGSnMr30cjKfxmb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ylUdMTsfOQGJ3MN3"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/tindertwig.webp",
+            "name": "Tindertwig",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An alchemical substance applied to one end of this tiny wooden stick ignites when struck against a rough surface. Creating a flame with a tindertwig is much faster than creating a flame with flint and steel. You can ignite the tindertwig and touch it to a flammable object as part of the same Interact action.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
                 },
                 "material": {
                     "grade": null,
@@ -61,118 +182,27 @@
                     "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
-                },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
                 "size": "med",
-                "slug": "dagger",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": "tindertwig",
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
+                        "alchemical",
+                        "consumable",
+                        "fire"
                     ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
-            "type": "weapon"
-        },
-        {
-            "_id": "jlEeLz6Rv5fMop0J",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XyA6PKV46aNlLXOd"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/hand-crossbow.webp",
-            "name": "Hand Crossbow",
-            "sort": 200000,
-            "system": {
-                "baseItem": "hand-crossbow",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
-                "description": {
-                    "value": "<p>Sometimes referred to as an alley bow by rogues or ruffians, this small crossbow fires small bolts that are sometimes used to deliver poison to the target. It's small enough to be shot one-handed, but it still requires two hands to load.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "crossbow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": 60,
-                "reload": {
-                    "value": "1"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "hand-crossbow",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "weapon"
+            "type": "consumable"
         },
         {
             "_id": "tWGAoTmjcFLMuHMw",
@@ -181,7 +211,7 @@
             },
             "img": "icons/containers/bags/pouch-simple-leather-tan.webp",
             "name": "Climbing Kit",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -238,7 +268,7 @@
             },
             "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -369,142 +399,35 @@
             "type": "equipment"
         },
         {
-            "_id": "O0w9Sz9Mn0k3hlPi",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
-            "name": "Bolts",
-            "sort": 500000,
+            "_id": "xYo8xd2Pu1GZwIUd",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Architecture Lore",
+            "sort": 700000,
             "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
                 "description": {
-                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
+                    "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn"
+                "mod": {
+                    "value": 2
                 },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficient": {
                     "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 10,
                 "rules": [],
-                "size": "med",
-                "slug": "bolts",
-                "stackGroup": "bolts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
+                "slug": null
             },
-            "type": "consumable"
-        },
-        {
-            "_id": "2bGSnMr30cjKfxmb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ylUdMTsfOQGJ3MN3"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/tindertwig.webp",
-            "name": "Tindertwig",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An alchemical substance applied to one end of this tiny wooden stick ignites when struck against a rough surface. Creating a flame with a tindertwig is much faster than creating a flame with flint and steel. You can ignite the tindertwig and touch it to a flammable object as part of the same Interact action.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "tindertwig",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "fire"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
+            "type": "lore"
         },
         {
             "_id": "PGyv8g3waliGP6cW",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Torch",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -554,7 +477,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -603,7 +526,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hand Crossbow",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "attack": {
                     "value": ""
@@ -644,98 +567,175 @@
             "type": "melee"
         },
         {
-            "_id": "sxOBqQVb05IjO5Lw",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cheek Pouches",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Like all ratfolk, Cog has stretchy cheek pouches that can store up to 1 cubic foot of objects (though no more than 4 light items). Cog can remove or store an item using the Interact action. As long as Cog has at least one object in his cheek pouches, his speech is noticeably difficult to understand.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
+            "_id": "1TU777v0mksSVEFL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
-            "type": "action"
-        },
-        {
-            "_id": "wvB94MgVNAExanUP",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Torch Combatant",
+            "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
+            "name": "Dagger",
             "sort": 1100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "dagger",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
                 "description": {
-                    "value": "<p>Cog is adept at attacking with torches and deals @Damage[1[persistent,fire]] damage when he critically hits with a torch.</p>"
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "critical": true,
-                        "damageCategory": "persistent",
-                        "damageType": "fire",
-                        "key": "FlatModifier",
-                        "selector": "torch-damage",
-                        "value": 1
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "dagger",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "jlEeLz6Rv5fMop0J",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XyA6PKV46aNlLXOd"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/hand-crossbow.webp",
+            "name": "Hand Crossbow",
+            "sort": 1200000,
+            "system": {
+                "baseItem": "hand-crossbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>Sometimes referred to as an alley bow by rogues or ruffians, this small crossbow fires small bolts that are sometimes used to deliver poison to the target. It's small enough to be shot one-handed, but it still requires two hands to load.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "crossbow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
                     }
-                ],
-                "slug": null,
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": 60,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "hand-crossbow",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "xYo8xd2Pu1GZwIUd",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Architecture Lore",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 2
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
+            "type": "weapon"
         }
     ],
     "name": "Cog the Torchbearer",

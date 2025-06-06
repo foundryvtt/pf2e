@@ -4,23 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2Z0hZJgrY0gkkcoj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "omF3pyBq82HtDkAE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Thoughtsense (Imprecise) 60 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>The ioton senses all non-mindless creatures at the listed range.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,32 +25,176 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "zUBpn8MHCee7sNMx"
-                            },
-                            {
-                                "id": "0R8tuufqQP4N0bSP"
-                            }
-                        ],
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 14,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 4
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "MjldvRpasuQZnNAa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Absorbed Language",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>While a creature is taking persistent damage from the ioton, the ioton gains the ability to speak and understand one of that creature's languages, selected at random.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qhMGpfia6l2CmKf0",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Leech Thought",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>While a creature is taking persistent mental damage from the ioton, the ioton takes the shape of a creature familiar to the target, such as an acquaintance, pet, or common animal, though the appearance is imperfect and grants no benefit to Impersonate an individual.</p>\n<p>While transformed, the ioton loses its incorporeal trait, immunities, and resistances, but it gains an unarmed melee Strike with a +6 attack modifier that deals @Damage[(1d8+2)[bludgeoning]] damage. The ioton immediately returns to its original form once no creature is taking persistent mental damage from it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "healing",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dSno9j5y3rpHfIhU",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Seeking Alchemical Knowledge",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This ioton is seeking alchemical knowledge. The ioton gains a +1 circumstance bonus to attack rolls against any creature with the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] feat, and they prefer to attack those targets to the exclusion of others.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Target has the Alchemical Crafting Feat",
+                        "option": "alchemical-crafter",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "alchemical-crafter"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NvRpRxRlhF2Xz2bB",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Touch",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "leech-thought"
+                    ]
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "0": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "mental"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "zUBpn8MHCee7sNMx",
@@ -62,7 +203,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -149,7 +290,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -210,197 +351,56 @@
             "type": "spell"
         },
         {
-            "_id": "NvRpRxRlhF2Xz2bB",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Touch",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "leech-thought"
-                    ]
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "0": {
-                        "category": "persistent",
-                        "damage": "1d4",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "mental"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "omF3pyBq82HtDkAE",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Thoughtsense (Imprecise) 60 feet",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The ioton senses all non-mindless creatures at the listed range.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MjldvRpasuQZnNAa",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Absorbed Language",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>While a creature is taking persistent damage from the ioton, the ioton gains the ability to speak and understand one of that creature's languages, selected at random.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qhMGpfia6l2CmKf0",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Leech Thought",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>While a creature is taking persistent mental damage from the ioton, the ioton takes the shape of a creature familiar to the target, such as an acquaintance, pet, or common animal, though the appearance is imperfect and grants no benefit to Impersonate an individual.</p>\n<p>While transformed, the ioton loses its incorporeal trait, immunities, and resistances, but it gains an unarmed melee Strike with a +6 attack modifier that deals @Damage[(1d8+2)[bludgeoning]] damage. The ioton immediately returns to its original form once no creature is taking persistent mental damage from it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "healing",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dSno9j5y3rpHfIhU",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Seeking Alchemical Knowledge",
+            "_id": "2Z0hZJgrY0gkkcoj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 800000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>This ioton is seeking alchemical knowledge. The ioton gains a +1 circumstance bonus to attack rolls against any creature with the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] feat, and they prefer to attack those targets to the exclusion of others.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Target has the Alchemical Crafting Feat",
-                        "option": "alchemical-crafter",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "alchemical-crafter"
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "zUBpn8MHCee7sNMx"
+                            },
+                            {
+                                "id": "0R8tuufqQP4N0bSP"
+                            }
                         ],
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 1
+                        "value": 2
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 14,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 4
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Ioton (F6)",

@@ -1,0 +1,370 @@
+{
+    "_id": "JBqs1ubClFxHETSa",
+    "folder": "qY2Irz9JNcTK9OY0",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "sMHSKObxZxIA5ULe",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smeltable",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If an aurosrath takes 5 or more fire damage from a single attack, the precious metals within their body enter a molten state until the end of their next turn. While in this state, the aurosrath takes a –10-foot status penalty to their Speeds, and their strikes deal an extra @Damage[1d6[fire]] damage. They also lose their weakness to slashing damage and their resistance to electricity damage. Finally, any creature currently @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the aurosrath loses 1 round of air if it's holding its breath.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Smeltable]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "not": "self:effect:smeltable"
+                            }
+                        ],
+                        "type": "slashing",
+                        "value": 5
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "self:effect:smeltable"
+                            }
+                        ],
+                        "type": "electricity",
+                        "value": 5
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:damage:fire"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|description}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2ZWKMgr2HzFYrSQ3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oBcgiEJqI9NL8ZAD",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Fetters of Debt",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The aurosrath bellows a plea for gold, remarking that their foes are overladen. Creatures in a @Template[type:emanation|distance:15] must succeed at a @Check[will|dc:19] save or become encumbered for 1 minute. The creature is aware that it can immediately end the condition by giving the aurosrath items or treasure worth at least 20 gp. Handing a held item to the aurosrath is a single Interact action. If the aurosrath's hands are full, the item falls in their space, but the condition still ends.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "curse",
+                        "linguistic",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ovxSH54n6QT0sjKJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Suffocating Wealth",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>As the aurosrath holds their victim, the victim is smothered in a stream of phantom coins. A creature who begins its turn @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by an aurosrath can't speak and must hold its breath or it begins to suffocate. The coins produced are ephemeral and melt away to nothing when removed from the aurosrath's presence for more than 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eqczdjiiYln3M7EH",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Mercantile Lore",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "hOMUW97mhuQ235Ih",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "4psvoqr8e3gNmgc8": {
+                        "damage": "2d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Aurosrath",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 19
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 95,
+                "temp": 0,
+                "value": 95
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Greed can be a powerful force; the runelords of old even devised a school of magic based upon it. When an individual dies surrounded by masses of wealth, greed can even reanimate the dead—sufficient avarice can anchor the deceased's soul to their body. The result is an aurosrath, a being so consumed with greed that they're unwilling to donate their corpse to the natural cycle.</p>\n<p>Popular lore surrounding the creation of an aurosrath often depicts a miser ironically crushed under the weight of their own gold. While such poetic origins can happen, the truth is often grimmer. Paranoia about potential thieves and freeloaders leads to isolation, both mental and physical. A wealthy merchant succumbs to common illness because they were unwilling to pay the fee for a doctor or priest. Another starves, unable to escape the web of traps and barriers they've set up to defend their treasure from robbers.</p>\n<p>Heralded by the clinking of coins, an aurosrath appears as a bloated cadaver who's clad in faded finery, their bulk nearly bursting at the seams with tarnished coins. Their voices are typically a booming bass, their speech peppered with archaic upper-class turns of phrase. They are single-minded in their desire to accumulate wealth but can be reasoned with so long as they believe that goal will ultimately be satiated. An aurosrath can often be found haunting the estates they owned in life. As they brook no competition when it comes to accumulating wealth, they quickly turn to violence when encountering others of their kind. These monstrosities do, however, occasionally command the loyalty of lesser undead and even mercenary mortal servants.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens Shining Kingdoms"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 13
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 13
+            },
+            "intimidation": {
+                "base": 12
+            },
+            "stealth": {
+                "base": 10
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "metal",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

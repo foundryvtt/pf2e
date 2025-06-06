@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "DKsQM7WbtcPBTDCg",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
+            "_id": "JaJJTCW8WSMz6nFc",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Flurry of Blows",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>Brartork makes two Strikes with his fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,23 +25,411 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot7": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "mod": 0,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "h9ndHHINJMlDfWGF",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hurling Toss",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Brartork has a creature grabbed or restrained</p>\n<hr />\n<p><strong>Effect</strong> Brartork attempts an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> Brartork tosses the creature 25 feet, dealing @Damage[2d8[bludgeoning]] damage, and the creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Success</strong> As critical success, except the creature doesn't fall prone.</p>\n<p><strong>Failure</strong> Brartork fails to throw the creature.</p>\n<p><strong>Critical Failure</strong> Brartork fails to throw the creature, and the creature is no longer grabbed or restrained by Brartork.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WsYJheMbLRrldd9p",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Knocking Sweep",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Brartork swings their weapon with a sweeping spin. They attempt separate Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] any number of creatures within their reach. Each attempt counts toward the ki adept's multiple attack penalty, but the multiple attack penalty doesn't increase until after they makes all the attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R18obny87brojB7E",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Powerful Fists",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Brartork's fist Strikes are treated as cold iron and silver and don't take penalties when making lethal attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aQaobvM2ryEesCVX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Punch Down",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Brartork deals an extra 2d10 damage to @UUID[Compendium.pf2e.conditionitems.Item.Prone] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:prone"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZxPtq2Nl3SOEsWwX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SDc0i4HEPHX9vIGF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.02q8s6sSicMkhs1l"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
+            "name": "Bracers of Armor I",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These stiff leather armguards grant you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": false
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 8
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 450
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "ac",
+                        "type": "item",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "saving-throw",
+                        "type": "item",
+                        "value": 1
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "value": 5
+                    }
+                ],
+                "size": "med",
+                "slug": "bracers-of-armor-i",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornbracers"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "TwyDnVHbjPm7365q",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "tutlJRRTYAJq99k3"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bo Staff",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "j2dd7nrb3obyklo7v9ma": {
+                        "damage": "2d8+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "parry",
+                        "reach",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "xYgeYqc3OddCmnPf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "adivb8mn1i8r96b6n33i": {
+                        "damage": "2d6+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "cold-iron",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "silver",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XbUbNlmwW7qrp1Mh",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "JGzZGsu00o1zU8p2"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dart",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "his3f5atmjcoaxkmg242": {
+                        "damage": "2d6+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "rHmQ2zQRoBl2K9cB",
@@ -52,7 +438,7 @@
             },
             "img": "systems/pf2e/icons/spells/abundant-step.webp",
             "name": "Abundant Step",
-            "sort": 200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -111,7 +497,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-blast.webp",
             "name": "Ki Blast",
-            "sort": 300000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -193,7 +579,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-rush.webp",
             "name": "Ki Rush",
-            "sort": 400000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -251,7 +637,7 @@
             },
             "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
             "name": "Wholeness of Body",
-            "sort": 500000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -328,7 +714,7 @@
             },
             "img": "systems/pf2e/icons/spells/wind-jump.webp",
             "name": "Wind Jump",
-            "sort": 600000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -387,7 +773,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-strike.webp",
             "name": "Ki Strike",
-            "sort": 700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -457,13 +843,55 @@
             "type": "spell"
         },
         {
+            "_id": "DKsQM7WbtcPBTDCg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Focus Spells",
+            "sort": 1700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot7": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 32,
+                    "mod": 0,
+                    "value": 24
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "tutlJRRTYAJq99k3",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hMYdSFmMWzidzHih"
             },
             "img": "systems/pf2e/icons/equipment/weapons/bo-staff.webp",
             "name": "Bo Staff",
-            "sort": 800000,
+            "sort": 1800000,
             "system": {
                 "baseItem": "bo-staff",
                 "bonus": {
@@ -551,7 +979,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dart.webp",
             "name": "Dart",
-            "sort": 900000,
+            "sort": 1900000,
             "system": {
                 "baseItem": "dart",
                 "bonus": {
@@ -639,7 +1067,7 @@
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "+1 Striking Handwraps of Mighty Blows",
-            "sort": 1000000,
+            "sort": 2000000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -722,434 +1150,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "SDc0i4HEPHX9vIGF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.02q8s6sSicMkhs1l"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bracers of Armor I",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These stiff leather armguards grant you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": false
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 8
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 450
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "ac",
-                        "type": "item",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "selector": "saving-throw",
-                        "type": "item",
-                        "value": 1
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "value": 5
-                    }
-                ],
-                "size": "med",
-                "slug": "bracers-of-armor-i",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornbracers"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "TwyDnVHbjPm7365q",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "tutlJRRTYAJq99k3"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bo Staff",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "knockdown"
-                    ]
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "j2dd7nrb3obyklo7v9ma": {
-                        "damage": "2d8+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "parry",
-                        "reach",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "xYgeYqc3OddCmnPf",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "adivb8mn1i8r96b6n33i": {
-                        "damage": "2d6+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "cold-iron",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "silver",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "XbUbNlmwW7qrp1Mh",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "JGzZGsu00o1zU8p2"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dart",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "his3f5atmjcoaxkmg242": {
-                        "damage": "2d6+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "JaJJTCW8WSMz6nFc",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Flurry of Blows",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Brartork makes two Strikes with his fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "h9ndHHINJMlDfWGF",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hurling Toss",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Brartork has a creature grabbed or restrained</p>\n<hr />\n<p><strong>Effect</strong> Brartork attempts an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> Brartork tosses the creature 25 feet, dealing @Damage[2d8[bludgeoning]] damage, and the creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Success</strong> As critical success, except the creature doesn't fall prone.</p>\n<p><strong>Failure</strong> Brartork fails to throw the creature.</p>\n<p><strong>Critical Failure</strong> Brartork fails to throw the creature, and the creature is no longer grabbed or restrained by Brartork.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WsYJheMbLRrldd9p",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Knocking Sweep",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Brartork swings their weapon with a sweeping spin. They attempt separate Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] any number of creatures within their reach. Each attempt counts toward the ki adept's multiple attack penalty, but the multiple attack penalty doesn't increase until after they makes all the attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "R18obny87brojB7E",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Powerful Fists",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Brartork's fist Strikes are treated as cold iron and silver and don't take penalties when making lethal attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aQaobvM2ryEesCVX",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Punch Down",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Brartork deals an extra 2d10 damage to @UUID[Compendium.pf2e.conditionitems.Item.Prone] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "diceNumber": 2,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:prone"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZxPtq2Nl3SOEsWwX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Knockdown",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "knockdown",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Golarion's Finest (Brartork)",

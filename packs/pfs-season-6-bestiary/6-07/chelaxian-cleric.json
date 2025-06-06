@@ -4,23 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "wQQCVMt1qcMZb2Aw",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
+            "_id": "PLheo8kLE84kRJDr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unholy Rebuke",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p><strong>Trigger</strong> The Chelaxian cleric takes damage from a melee attack</p><hr /><p><strong>Effect</strong> The Chelaxian cleric promises unholy retribution upon the attacker and attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the triggering creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,113 +25,32 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "Jx28iSHtJps4m4jJ"
-                            },
-                            {
-                                "id": "qFy0AZPXIvG8srwh"
-                            },
-                            {
-                                "id": "DxYFn5g89bxYPGts"
-                            },
-                            {
-                                "id": "0M1MeMBkQuRLMrak"
-                            },
-                            {
-                                "id": "fqgIhAGRJXtHjFAk"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "72eLKl8Tac7eVTex"
-                            },
-                            {
-                                "id": "k8noXHwS9IhLT65D"
-                            },
-                            {
-                                "id": "cFyyv1Zm6cT6lW1P"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "4c5DtILcdX94UAHO"
-                            },
-                            {
-                                "id": "y2aqj0UkqVTdPtOM"
-                            },
-                            {
-                                "id": "k8noXHwS9IhLT65D"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 8,
-                        "prepared": [
-                            {
-                                "id": "QJrVq4nvg38Em0r4"
-                            },
-                            {
-                                "id": "b1LTnTRAb1TUIC7m"
-                            },
-                            {
-                                "id": "k8noXHwS9IhLT65D"
-                            },
-                            {
-                                "id": "pkf0ZavxCchhOsgG"
-                            },
-                            {
-                                "id": "pkf0ZavxCchhOsgG"
-                            },
-                            {
-                                "id": "pkf0ZavxCchhOsgG"
-                            },
-                            {
-                                "id": "pkf0ZavxCchhOsgG"
-                            },
-                            {
-                                "id": "pkf0ZavxCchhOsgG"
-                            }
-                        ]
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 23,
-                    "value": 15
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "fOrKBkyoagivYo56",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Focus Spells",
+            "_id": "nr8JopVzew1Inp8F",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Divine Weapon",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Trigger</strong> The Chelaxian cleric finishes Casting a Spell using one of their divine spell slots</p><hr /><p><strong>Effect</strong> Until the end of their turn, the Chelaxian cleric's Strikes gain the unholy trait and deal an additional 1d4 spirit damage; this damage increases to 2d4 against creatures with the holy trait.</p>"
                 },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
+                "frequency": {
+                    "max": 1,
+                    "per": "turn",
                     "value": 1
                 },
                 "publication": {
@@ -143,18 +59,268 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
+                "selfEffect": {
+                    "name": "Effect: Divine Weapon (Chelaxian Cleric)",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Divine Weapon (Chelaxian Cleric)"
+                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 23,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KLcTtxr6yCYAtZyk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
+            "name": "Bolts",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "bolts",
+                "stackGroup": "bolts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "SHYYuw22PKYwGCgE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol of Asmodeus",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "9VHP2FsJPw5X8aWT",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "GZiHtpnkdjc1y1Kk"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Mace",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
                     "value": 15
                 },
-                "tradition": {
-                    "value": "divine"
+                "damageRolls": {
+                    "8DnAZo9NzPOWmK5v": {
+                        "damage": "2d8+6",
+                        "damageType": "bludgeoning"
+                    }
                 },
-                "traits": {}
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "mace",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "shove"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "GFaraPJIZUlsD1EV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "yfD0GXcuWhyQp8t1": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wDB29DX3G6gWhCwu",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "PgGF6FH1KTtXz1Bz"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hand Crossbow",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "UrRap4dONZF8omK8": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "hand-crossbow",
+                "traits": {
+                    "value": [
+                        "range-increment-60",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "QJrVq4nvg38Em0r4",
@@ -163,7 +329,7 @@
             },
             "img": "icons/magic/light/beam-explosion-pink-purple.webp",
             "name": "Chilling Darkness",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -255,7 +421,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Clear Mind",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -318,7 +484,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See the Unseen",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -380,7 +546,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield-other.webp",
             "name": "Share Life",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -439,7 +605,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -518,7 +684,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -585,7 +751,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -667,7 +833,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -747,7 +913,7 @@
             },
             "img": "icons/magic/fire/blast-jet-stream-embers-red.webp",
             "name": "Fire Ray",
-            "sort": 1100000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -826,7 +992,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1200000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1020,7 +1186,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1300000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1216,7 +1382,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1400000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1280,7 +1446,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 1500000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1359,7 +1525,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 1600000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1439,13 +1605,166 @@
             "type": "spell"
         },
         {
+            "_id": "wQQCVMt1qcMZb2Aw",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
+            "sort": 2200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "Jx28iSHtJps4m4jJ"
+                            },
+                            {
+                                "id": "qFy0AZPXIvG8srwh"
+                            },
+                            {
+                                "id": "DxYFn5g89bxYPGts"
+                            },
+                            {
+                                "id": "0M1MeMBkQuRLMrak"
+                            },
+                            {
+                                "id": "fqgIhAGRJXtHjFAk"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "72eLKl8Tac7eVTex"
+                            },
+                            {
+                                "id": "k8noXHwS9IhLT65D"
+                            },
+                            {
+                                "id": "cFyyv1Zm6cT6lW1P"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "4c5DtILcdX94UAHO"
+                            },
+                            {
+                                "id": "y2aqj0UkqVTdPtOM"
+                            },
+                            {
+                                "id": "k8noXHwS9IhLT65D"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 8,
+                        "prepared": [
+                            {
+                                "id": "QJrVq4nvg38Em0r4"
+                            },
+                            {
+                                "id": "b1LTnTRAb1TUIC7m"
+                            },
+                            {
+                                "id": "k8noXHwS9IhLT65D"
+                            },
+                            {
+                                "id": "pkf0ZavxCchhOsgG"
+                            },
+                            {
+                                "id": "pkf0ZavxCchhOsgG"
+                            },
+                            {
+                                "id": "pkf0ZavxCchhOsgG"
+                            },
+                            {
+                                "id": "pkf0ZavxCchhOsgG"
+                            },
+                            {
+                                "id": "pkf0ZavxCchhOsgG"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 23,
+                    "value": 15
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "fOrKBkyoagivYo56",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Focus Spells",
+            "sort": 2300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 23,
+                    "value": 15
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "PgGF6FH1KTtXz1Bz",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XyA6PKV46aNlLXOd"
             },
             "img": "systems/pf2e/icons/equipment/weapons/hand-crossbow.webp",
             "name": "Hand Crossbow",
-            "sort": 1700000,
+            "sort": 2400000,
             "system": {
                 "baseItem": "hand-crossbow",
                 "bonus": {
@@ -1528,7 +1847,7 @@
             },
             "img": "icons/weapons/maces/mace-flanged-steel.webp",
             "name": "Mace",
-            "sort": 1800000,
+            "sort": 2500000,
             "system": {
                 "baseItem": "mace",
                 "bonus": {
@@ -1605,325 +1924,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "SHYYuw22PKYwGCgE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol of Asmodeus",
-            "sort": 1900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "KLcTtxr6yCYAtZyk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
-            "name": "Bolts",
-            "sort": 2000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "bolts",
-                "stackGroup": "bolts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "9VHP2FsJPw5X8aWT",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "GZiHtpnkdjc1y1Kk"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Mace",
-            "sort": 2100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "8DnAZo9NzPOWmK5v": {
-                        "damage": "2d8+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "mace",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "shove"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "GFaraPJIZUlsD1EV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 2200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "yfD0GXcuWhyQp8t1": {
-                        "damage": "1d4+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "wDB29DX3G6gWhCwu",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "PgGF6FH1KTtXz1Bz"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hand Crossbow",
-            "sort": 2300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "UrRap4dONZF8omK8": {
-                        "damage": "1d6+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "hand-crossbow",
-                "traits": {
-                    "value": [
-                        "range-increment-60",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "PLheo8kLE84kRJDr",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Unholy Rebuke",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The Chelaxian cleric takes damage from a melee attack</p><hr /><p><strong>Effect</strong> The Chelaxian cleric promises unholy retribution upon the attacker and attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the triggering creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nr8JopVzew1Inp8F",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Divine Weapon",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Trigger</strong> The Chelaxian cleric finishes Casting a Spell using one of their divine spell slots</p><hr /><p><strong>Effect</strong> Until the end of their turn, the Chelaxian cleric's Strikes gain the unholy trait and deal an additional 1d4 spirit damage; this damage increases to 2d4 against creatures with the holy trait.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "turn",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Divine Weapon (Chelaxian Cleric)",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Divine Weapon (Chelaxian Cleric)"
-                },
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Chelaxian Cleric",

@@ -4,22 +4,132 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "I07i3Rw3iXrxS2A9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "bd8O12QXeS6Usuz1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xSiITNruineLQZJU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "URt0ZSSRegSabF7O",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fgk2POmtgqx0rl7S",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Crystal Implant",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The wolf-head shaped crystal implanted in Mogaran's brow pulses with shadowy energy at the start of each of his turns. Any PC who's legendary in Arcana, Occultism, or Religion and sees this can attempt a DC 36 check using one of those skills (@Check[arcana|dc:36], @Check[occultism|dc:36], or @Check[religion|dc:36]); on a success, they realize the crystal is manipulating Mogaran's actions in some way. If the crystal is destroyed or deactivated, Mogaran regains control of his actions. The crystal functions as a 19th-level magic item for the purposes of dispel magic, but it can also be destroyed by specifically targeting it (AC 40; Hardness 20; HP 90). Alternately, a character can pry the crystal from Mogaran's brow with a successful @Check[athletics|dc:36] check, which takes an Interact action, but only if Mogaran is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,20 +137,421 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "value": 30
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "value": [
+                        "divine",
+                        "mental"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "Heyof9Emy1vFTnqq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. @Check[will|dc:35]</p>\n<p>This aura is suppressed as long as Mogaran's crystal implant is functioning.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dq6M4Jej5LRa8pai",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Restoration Vulnerability",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Mogaran is repulsed by the restoration of souls. He takes @Damage[(3d10+10)[mental]] damage the first time each round a creature within 100 feet of him is restored to life or loses the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] condition.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oe15nn62zh9y60Wn",
+            "_stats": {
+                "compendiumSource": "Actor.RLuLdBW6SSs9u2hL.Item.oe15nn62zh9y60Wn"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoking Wound",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature damaged by Mogaran's jaws is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the rank smell of vapors from the wound.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "smoking-wound",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GHc8hcw19z08DhNU",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Soulfire Breath",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Mogaran exhales ghostly green fire in a @Template[cone|distance:60]. Living creatures in the area take @Damage[18d6[void]|options:area-damage] damage (@Check[reflex|dc:38|basic|options:area-effect] save). A good creature that fails this save becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} on a critical failure). A creature slain by Soulfire Breath can't be resurrected except by powerful magic such as a wish spell. Mogaran can't use Soulfire Breath again for [[/gmr 1d4 #Recharge Soulfire Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FADVo5mG2frt3d8x",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Soulfire Inhalation",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Mogaran's last action was Soulfire Breath</p>\n<hr />\n<p><strong>Effect</strong> Mogaran inhales and regains @Damage[10[healing]] Hit Points for each creature damaged by his Soulfire Breath. Any excess healing is gained as temporary Hit Points, which remain for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "healing"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t3bOnN3uPrJ4Ornk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stunning Tail",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If Mogaran critically hits with his tail Strike, the target must succeed at a @Check[fortitude|dc:38] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round ([[/gmr 1d4 #Stunned Duration]] rounds on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "stunning-tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OukSsGFoINYIbHD9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Large or smaller, claw, @Check[reflex|dc:38|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "trample",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UK1kJIuJwvm59qRG",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "smoking-wound"
+                    ]
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "1UXzqHplM1W2lo06": {
+                        "category": "persistent",
+                        "damage": "2d8",
+                        "damageType": "bleed"
+                    },
+                    "Kwaujv05uKknn8qO": {
+                        "damage": "3d6+14",
+                        "damageType": "piercing"
+                    },
+                    "fz0xgpyn4qd7np7k2zl5": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-15",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "RhulgNsATpCM6nip",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "tchorYnIjmpKOk9c": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    },
+                    "qwavm5tbnv0q73pysauq": {
+                        "damage": "3d10+14",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-15",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "AwQS25ihKMRo7aXf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "stunning-tail"
+                    ]
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "u2lfCqG9ofYl6JZf": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    },
+                    "eye6u031kz7f265j46a3": {
+                        "damage": "3d12+14",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "backswing",
+                        "magical",
+                        "reach-20",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "7t0jFUX56bAUM8sF",
@@ -49,7 +560,7 @@
             },
             "img": "systems/pf2e/icons/spells/massacre.webp",
             "name": "Massacre",
-            "sort": 200000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "line",
@@ -148,7 +659,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-aura.webp",
             "name": "Divine Aura",
-            "sort": 300000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -212,7 +723,7 @@
             },
             "img": "systems/pf2e/icons/spells/earthquake.webp",
             "name": "Earthquake",
-            "sort": 400000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -308,7 +819,7 @@
             },
             "img": "systems/pf2e/icons/spells/power-word-stun.webp",
             "name": "Power Word Stun",
-            "sort": 500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -369,7 +880,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -433,7 +944,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -505,7 +1016,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 800000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -577,7 +1088,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath (At Will)",
-            "sort": 900000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -660,554 +1171,43 @@
             "type": "spell"
         },
         {
-            "_id": "UK1kJIuJwvm59qRG",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "smoking-wound"
-                    ]
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "1UXzqHplM1W2lo06": {
-                        "category": "persistent",
-                        "damage": "2d8",
-                        "damageType": "bleed"
-                    },
-                    "Kwaujv05uKknn8qO": {
-                        "damage": "3d6+14",
-                        "damageType": "piercing"
-                    },
-                    "fz0xgpyn4qd7np7k2zl5": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-15",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "RhulgNsATpCM6nip",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "tchorYnIjmpKOk9c": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
-                    "qwavm5tbnv0q73pysauq": {
-                        "damage": "3d10+14",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-15",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "AwQS25ihKMRo7aXf",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "stunning-tail"
-                    ]
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "u2lfCqG9ofYl6JZf": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
-                    "eye6u031kz7f265j46a3": {
-                        "damage": "3d12+14",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "backswing",
-                        "magical",
-                        "reach-20",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "bd8O12QXeS6Usuz1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xSiITNruineLQZJU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "URt0ZSSRegSabF7O",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fgk2POmtgqx0rl7S",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Crystal Implant",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The wolf-head shaped crystal implanted in Mogaran's brow pulses with shadowy energy at the start of each of his turns. Any PC who's legendary in Arcana, Occultism, or Religion and sees this can attempt a DC 36 check using one of those skills (@Check[arcana|dc:36], @Check[occultism|dc:36], or @Check[religion|dc:36]); on a success, they realize the crystal is manipulating Mogaran's actions in some way. If the crystal is destroyed or deactivated, Mogaran regains control of his actions. The crystal functions as a 19th-level magic item for the purposes of dispel magic, but it can also be destroyed by specifically targeting it (AC 40; Hardness 20; HP 90). Alternately, a character can pry the crystal from Mogaran's brow with a successful @Check[athletics|dc:36] check, which takes an Interact action, but only if Mogaran is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Heyof9Emy1vFTnqq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. @Check[will|dc:35]</p>\n<p>This aura is suppressed as long as Mogaran's crystal implant is functioning.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dq6M4Jej5LRa8pai",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Restoration Vulnerability",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Mogaran is repulsed by the restoration of souls. He takes @Damage[(3d10+10)[mental]] damage the first time each round a creature within 100 feet of him is restored to life or loses the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] condition.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oe15nn62zh9y60Wn",
-            "_stats": {
-                "compendiumSource": "Actor.RLuLdBW6SSs9u2hL.Item.oe15nn62zh9y60Wn"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoking Wound",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature damaged by Mogaran's jaws is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the rank smell of vapors from the wound.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "smoking-wound",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GHc8hcw19z08DhNU",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Soulfire Breath",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Mogaran exhales ghostly green fire in a @Template[cone|distance:60]. Living creatures in the area take @Damage[18d6[void]|options:area-damage] damage (@Check[reflex|dc:38|basic|options:area-effect] save). A good creature that fails this save becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} on a critical failure). A creature slain by Soulfire Breath can't be resurrected except by powerful magic such as a wish spell. Mogaran can't use Soulfire Breath again for [[/gmr 1d4 #Recharge Soulfire Breath]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "death",
-                        "divine",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FADVo5mG2frt3d8x",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Soulfire Inhalation",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Mogaran's last action was Soulfire Breath</p>\n<hr />\n<p><strong>Effect</strong> Mogaran inhales and regains @Damage[10[healing]] Hit Points for each creature damaged by his Soulfire Breath. Any excess healing is gained as temporary Hit Points, which remain for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "healing"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "t3bOnN3uPrJ4Ornk",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stunning Tail",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If Mogaran critically hits with his tail Strike, the target must succeed at a @Check[fortitude|dc:38] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round ([[/gmr 1d4 #Stunned Duration]] rounds on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "stunning-tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OukSsGFoINYIbHD9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Trample",
+            "_id": "I07i3Rw3iXrxS2A9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 2300000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Large or smaller, claw, @Check[reflex|dc:38|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "trample",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 38,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Mogaran",

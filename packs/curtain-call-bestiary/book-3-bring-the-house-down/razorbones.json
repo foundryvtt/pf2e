@@ -4,10 +4,232 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "qBfZKEJPVngf5Zs4",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ectoplasmic Filaments",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within the razorbones' reach uses a manipulate action or a move action or leaves a square during a move action it's using</p><hr /><p><strong>Effect</strong> A filament of black, oily ectoplasm lashes out at the triggering creature, dealing @Damage[(4d8+18)[slashing]] damage (@Check[reflex|dc:42|basic] save). If the filament deals damage, the razorbones gains 8d8 temporary Hit Points as blood flows back along its bones to sheathe them in glisten red fluid.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WarDVWwMegYTdbUM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Eerie Flexibility",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A razorbones can shift and adjust its mass to fit into smaller areas, allowing it to fit through tight spaces as if it were a Medium creature. While Squeezing, it can move at its full speed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iHIW94X3Fnp31s1a",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7GZSmH33lacIjGRG",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Gnaw",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The razorbones has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] a foe</p><hr /><p><strong>Effect</strong> The razorbones gnaws and chews on the grabbed target with its many skulls, dealing @Damage[(4d6+18)[piercing]] damage (@Check[fortitude|dc:42|basic] save). On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or increases an existing drained condition by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}) from the grievous gnawing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uWMjBNMf2i8vkJza",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Skeletal Storm",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The razorbones makes a single claw Strike against every creature in reach. These attacks count toward the razorbones' multiple attack penalty, but the multiple attack penalty doesn't increase until after the razorbones makes all its attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dvswlRsKg8EGBzsU",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Sprawled Bones",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Until the next time it acts, the razorbones appears as a sprawling mass of bones. It has an automatic result of 56 on Deception checks and DCs to pass as a grisly but seemingly harmless mess.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1gdfr5bjytbfGoP0",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "iB4FIdMc9Bnj1cOR",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 100000,
+            "sort": 800000,
             "system": {
                 "attackEffects": {
                     "value": [
@@ -52,7 +274,7 @@
             "_id": "WwHuWnYG7Z1eRfCv",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hurled Bone",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -84,228 +306,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "qBfZKEJPVngf5Zs4",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Ectoplasmic Filaments",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within the razorbones' reach uses a manipulate action or a move action or leaves a square during a move action it's using</p><hr /><p><strong>Effect</strong> A filament of black, oily ectoplasm lashes out at the triggering creature, dealing @Damage[(4d8+18)[slashing]] damage (@Check[reflex|dc:42|basic] save). If the filament deals damage, the razorbones gains 8d8 temporary Hit Points as blood flows back along its bones to sheathe them in glisten red fluid.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WarDVWwMegYTdbUM",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Eerie Flexibility",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A razorbones can shift and adjust its mass to fit into smaller areas, allowing it to fit through tight spaces as if it were a Medium creature. While Squeezing, it can move at its full speed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iHIW94X3Fnp31s1a",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7GZSmH33lacIjGRG",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Gnaw",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The razorbones has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] a foe</p><hr /><p><strong>Effect</strong> The razorbones gnaws and chews on the grabbed target with its many skulls, dealing @Damage[(4d6+18)[piercing]] damage (@Check[fortitude|dc:42|basic] save). On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or increases an existing drained condition by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}) from the grievous gnawing.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uWMjBNMf2i8vkJza",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Skeletal Storm",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The razorbones makes a single claw Strike against every creature in reach. These attacks count toward the razorbones' multiple attack penalty, but the multiple attack penalty doesn't increase until after the razorbones makes all its attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dvswlRsKg8EGBzsU",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Sprawled Bones",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Until the next time it acts, the razorbones appears as a sprawling mass of bones. It has an automatic result of 56 on Deception checks and DCs to pass as a grisly but seemingly harmless mess.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1gdfr5bjytbfGoP0",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Razorbones",

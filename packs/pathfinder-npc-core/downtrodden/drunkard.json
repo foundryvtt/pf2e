@@ -4,13 +4,99 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "UzdMoqfj4XsqRriz",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drunken Flailing",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The drunkard is raging</p><hr /><p><strong>Effect</strong> The drunkard attempts two fist Strikes, each against a different creature.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gHkZ5EkRCbXagaxl",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drunken Rage",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The drunkard is drunk, and isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging</p><hr /><p><strong>Effect</strong> The drunkard flies into a drunken rage. They gain 6 temporary Hit Points that last until the drunken rage ends. While raging, they deal 4 additional damage with melee attacks and take a –1 penalty to AC. The drunkard can't use concentrate actions except @UUID[Compendium.pf2e.actionspf2e.Item.Seek]. The rage lasts for 1 minute, until the drunkard falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or until the drunkard sobers up. The drunkard can't voluntarily stop raging. Once the rage ends, the drunkard can't gain temporary HP from this action for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "ac",
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage",
+                            {
+                                "not": "ranged"
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "value": 4
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Rage",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Rage"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "RKa2PsbkATet8Zb9",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh"
             },
             "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
             "name": "Drunkard's Outfit (Functions as Padded Armor)",
-            "sort": 100000,
+            "sort": 300000,
             "system": {
                 "acBonus": 1,
                 "baseItem": "padded-armor",
@@ -80,7 +166,7 @@
             },
             "img": "icons/containers/kitchenware/mug-steel-wood-brown.webp",
             "name": "Pewter Mug",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -132,10 +218,36 @@
             "type": "equipment"
         },
         {
+            "_id": "yqiy77WfCwOSI2ti",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Alcohol Lore",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 3
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
             "_id": "Bre79vI4roX7eGSB",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -173,7 +285,7 @@
             "_id": "VtGXx6gZ4Ezl8Mcp",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Pewter Mug",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -204,118 +316,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "UzdMoqfj4XsqRriz",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Drunken Flailing",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The drunkard is raging</p><hr /><p><strong>Effect</strong> The drunkard attempts two fist Strikes, each against a different creature.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gHkZ5EkRCbXagaxl",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Drunken Rage",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The drunkard is drunk, and isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging</p><hr /><p><strong>Effect</strong> The drunkard flies into a drunken rage. They gain 6 temporary Hit Points that last until the drunken rage ends. While raging, they deal 4 additional damage with melee attacks and take a –1 penalty to AC. The drunkard can't use concentrate actions except @UUID[Compendium.pf2e.actionspf2e.Item.Seek]. The rage lasts for 1 minute, until the drunkard falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or until the drunkard sobers up. The drunkard can't voluntarily stop raging. Once the rage ends, the drunkard can't gain temporary HP from this action for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "ac",
-                        "value": -1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:rage",
-                            {
-                                "not": "ranged"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "value": 4
-                    }
-                ],
-                "selfEffect": {
-                    "name": "Effect: Rage",
-                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Rage"
-                },
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yqiy77WfCwOSI2ti",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Alcohol Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 3
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Drunkard",

@@ -4,144 +4,306 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "XlV43s01uoL2vhaR",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Prepared Spells",
+            "_id": "MxwlTxikfGXnrlr3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Winter Wise",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>Chesjilawa can see normally through mist, fog, and all forms of precipitation. She ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition caused by such effects. She ignores difficult terrain and greater difficult terrain from snow and ice and doesn't risk falling when crossing such terrain.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "SVAWx5khnlWyQFtC"
-                            },
-                            {
-                                "id": "ENj4wTgHv9eTNP5P"
-                            },
-                            {
-                                "id": "2kOM6lkWF31CQwcl"
-                            },
-                            {
-                                "id": "AtQXQQd9S7hDJrB9"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "NKfe8pSYWp4AzWcN"
-                            },
-                            {
-                                "id": "iVHAnkLyIlb06sBL"
-                            },
-                            {
-                                "id": "2DKcCc1F7sUQmGZO"
-                            },
-                            {
-                                "id": "2DKcCc1F7sUQmGZO"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "BlSJVFCSyEIzH32O"
-                            },
-                            {
-                                "id": "BlSJVFCSyEIzH32O"
-                            },
-                            {
-                                "id": "WPXsRIH4LQYZlS1q"
-                            },
-                            {
-                                "id": "7JfnRFYCIDv7qCUK"
-                            },
-                            {
-                                "id": "eEqiLd9oPE50nkEd"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "6aniwxM8SiOu8BfG"
-                            },
-                            {
-                                "id": "wpm8UiBtJ5wLfZk2"
-                            },
-                            {
-                                "id": "2DKcCc1F7sUQmGZO"
-                            },
-                            {
-                                "id": "WST26S3DZaOTsVav"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "eaPNU4eIO6MHNA5b"
-                            },
-                            {
-                                "id": "UPkVXe7ahvzRCE22"
-                            },
-                            {
-                                "id": "YRnILukt7BVAkBW9"
-                            }
-                        ]
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "item:slug:fireball"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage"
+                        ],
+                        "value": "cold"
                     }
-                },
+                ],
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "qZnTGSwUzqfhGG4E",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Witch Hexes",
+            "_id": "koij4eDUd9fQa051",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frigid Aura",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>5 feet. @Damage[3d6[cold]] damage, @Check[fortitude|dc:22|basic] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "frigid-aura",
+                        "traits": [
+                            "cold",
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": "aura",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "cold",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SEeNrV1YVscRiAEM",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Mirrorshard Spell",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A mirror of ice forms around Chesjilawa's hand or wand as she focuses her magic into a more physical form, the better to damage creatures who can resist the cold. If her next action is to Cast a Spell that deals cold damage, the mirror shatters into a blitz of ice shards, changing half of the spell's damage from cold to slashing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "concentrate",
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2sPPytpDwbbGGzJk",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Snow Step",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Icy flowers bloom around Chesjilawa as she instantly transports herself in a flurry of snow to a space within 120 feet that she can see. The destination must contain ice or snow.</p>\n<p>She then can't Snow Step for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0QxEUJDERK7Lezr8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD"
+            },
+            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
+            "name": "Wand of Mirror Image (Level 2)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "wand",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Mirror Image]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 160
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "magic-wand-2nd-level-spell",
+                "spell": {
+                    "_id": "j8vIoIEWElvpwkcI",
+                    "flags": {
+                        "core": {
+                            "sourceId": "Compendium.pf2e.spells-srd.Item.j8vIoIEWElvpwkcI"
+                        }
+                    },
+                    "img": "systems/pf2e/icons/spells/mirror-image.webp",
+                    "name": "Mirror Image",
+                    "sort": 0,
+                    "system": {
+                        "area": null,
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": false,
+                        "damage": {},
+                        "defense": null,
+                        "description": {
+                            "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on 1d4). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on 1d6). With only one image, the chances are 1 in 2 (1-3 on 1d6).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": "1 minute"
+                        },
+                        "level": {
+                            "value": 2
+                        },
+                        "location": {
+                            "heightenedLevel": 2,
+                            "value": ""
+                        },
+                        "publication": {
+                            "license": "OGL",
+                            "remaster": false,
+                            "title": ""
+                        },
+                        "range": {
+                            "value": ""
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "mirror-image",
+                        "target": {
+                            "value": ""
+                        },
+                        "time": {
+                            "value": "2"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "arcane",
+                                "occult"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "illusion",
+                                "manipulate",
+                                "visual"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "magical",
+                        "occult",
+                        "wand"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": false,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "SLImW7netSyZbDhM",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Winter Witch Lore",
+            "sort": 600000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "focus"
+                "mod": {
+                    "value": 15
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -150,18 +312,59 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "arcane"
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "BQu1q0Qlo0eTduD4",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "z5E6Jyeu3594f4ac"
                 }
             },
-            "type": "spellcastingEntry"
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Stone Knife",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "k4m7g0enpmhxb8j61hs9": {
+                        "damage": "2d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "eaPNU4eIO6MHNA5b",
@@ -170,7 +373,7 @@
             },
             "img": "systems/pf2e/icons/spells/gaseous-form.webp",
             "name": "Gaseous Form",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -232,7 +435,7 @@
             },
             "img": "systems/pf2e/icons/spells/ice-storm.webp",
             "name": "Ice Storm",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -330,7 +533,7 @@
             },
             "img": "systems/pf2e/icons/spells/solid-fog.webp",
             "name": "Solid Fog",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -394,7 +597,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball (Deals Cold Damage)",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -481,7 +684,7 @@
             },
             "img": "icons/magic/water/snowflake-ice-blue-white.webp",
             "name": "Personal Blizzard",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -575,7 +778,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -641,7 +844,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
-            "sort": 900000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -709,7 +912,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image (Wand)",
-            "sort": 1000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -771,7 +974,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 1100000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -833,7 +1036,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1200000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -919,7 +1122,7 @@
             },
             "img": "systems/pf2e/icons/spells/chilling-spray.webp",
             "name": "Chilling Spray",
-            "sort": 1300000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1005,7 +1208,7 @@
             },
             "img": "icons/magic/water/barrier-ice-crystal-wall-faceted.webp",
             "name": "Clinging Ice",
-            "sort": 1400000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1088,7 +1291,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1500000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1158,7 +1361,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 1600000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1223,7 +1426,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1700000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1419,7 +1622,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know Direction",
-            "sort": 1800000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1482,7 +1685,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 1900000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1563,7 +1766,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 2000000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1624,7 +1827,7 @@
             },
             "img": "icons/weapons/ammunition/bullet-ice-blue.webp",
             "name": "Snowball",
-            "sort": 2100000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1698,13 +1901,173 @@
             "type": "spell"
         },
         {
+            "_id": "XlV43s01uoL2vhaR",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Prepared Spells",
+            "sort": 2700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "SVAWx5khnlWyQFtC"
+                            },
+                            {
+                                "id": "ENj4wTgHv9eTNP5P"
+                            },
+                            {
+                                "id": "2kOM6lkWF31CQwcl"
+                            },
+                            {
+                                "id": "AtQXQQd9S7hDJrB9"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "NKfe8pSYWp4AzWcN"
+                            },
+                            {
+                                "id": "iVHAnkLyIlb06sBL"
+                            },
+                            {
+                                "id": "2DKcCc1F7sUQmGZO"
+                            },
+                            {
+                                "id": "2DKcCc1F7sUQmGZO"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "BlSJVFCSyEIzH32O"
+                            },
+                            {
+                                "id": "BlSJVFCSyEIzH32O"
+                            },
+                            {
+                                "id": "WPXsRIH4LQYZlS1q"
+                            },
+                            {
+                                "id": "7JfnRFYCIDv7qCUK"
+                            },
+                            {
+                                "id": "eEqiLd9oPE50nkEd"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "6aniwxM8SiOu8BfG"
+                            },
+                            {
+                                "id": "wpm8UiBtJ5wLfZk2"
+                            },
+                            {
+                                "id": "2DKcCc1F7sUQmGZO"
+                            },
+                            {
+                                "id": "WST26S3DZaOTsVav"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "eaPNU4eIO6MHNA5b"
+                            },
+                            {
+                                "id": "UPkVXe7ahvzRCE22"
+                            },
+                            {
+                                "id": "YRnILukt7BVAkBW9"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "qZnTGSwUzqfhGG4E",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Witch Hexes",
+            "sort": 2800000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "z5E6Jyeu3594f4ac",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "+1 Striking Stone Knife",
-            "sort": 2200000,
+            "sort": 2900000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1784,369 +2147,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "0QxEUJDERK7Lezr8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD"
-            },
-            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
-            "name": "Wand of Mirror Image (Level 2)",
-            "sort": 2300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "wand",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Mirror Image]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 160
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "magic-wand-2nd-level-spell",
-                "spell": {
-                    "_id": "j8vIoIEWElvpwkcI",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.j8vIoIEWElvpwkcI"
-                        }
-                    },
-                    "img": "systems/pf2e/icons/spells/mirror-image.webp",
-                    "name": "Mirror Image",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {},
-                        "defense": null,
-                        "description": {
-                            "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on 1d4). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on 1d6). With only one image, the chances are 1 in 2 (1-3 on 1d6).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": "1 minute"
-                        },
-                        "level": {
-                            "value": 2
-                        },
-                        "location": {
-                            "heightenedLevel": 2,
-                            "value": ""
-                        },
-                        "publication": {
-                            "license": "OGL",
-                            "remaster": false,
-                            "title": ""
-                        },
-                        "range": {
-                            "value": ""
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "mirror-image",
-                        "target": {
-                            "value": ""
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "arcane",
-                                "occult"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "illusion",
-                                "manipulate",
-                                "visual"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "magical",
-                        "occult",
-                        "wand"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": false,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "BQu1q0Qlo0eTduD4",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "z5E6Jyeu3594f4ac"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Stone Knife",
-            "sort": 2400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "k4m7g0enpmhxb8j61hs9": {
-                        "damage": "2d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "MxwlTxikfGXnrlr3",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Winter Wise",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Chesjilawa can see normally through mist, fog, and all forms of precipitation. She ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition caused by such effects. She ignores difficult terrain and greater difficult terrain from snow and ice and doesn't risk falling when crossing such terrain.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "override",
-                        "predicate": [
-                            "item:slug:fireball"
-                        ],
-                        "property": "damage-type",
-                        "selectors": [
-                            "spell-damage"
-                        ],
-                        "value": "cold"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "koij4eDUd9fQa051",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frigid Aura",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>5 feet. @Damage[3d6[cold]] damage, @Check[fortitude|dc:22|basic] save.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 5,
-                        "slug": "frigid-aura",
-                        "traits": [
-                            "cold",
-                            "primal"
-                        ]
-                    }
-                ],
-                "slug": "aura",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "cold",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SEeNrV1YVscRiAEM",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Mirrorshard Spell",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A mirror of ice forms around Chesjilawa's hand or wand as she focuses her magic into a more physical form, the better to damage creatures who can resist the cold. If her next action is to Cast a Spell that deals cold damage, the mirror shatters into a blitz of ice shards, changing half of the spell's damage from cold to slashing.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cold",
-                        "concentrate",
-                        "spellshape"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2sPPytpDwbbGGzJk",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Snow Step",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Icy flowers bloom around Chesjilawa as she instantly transports herself in a flurry of snow to a space within 120 feet that she can see. The destination must contain ice or snow.</p>\n<p>She then can't Snow Step for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cold",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SLImW7netSyZbDhM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Winter Witch Lore",
-            "sort": 2900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Chesjilawa Jadwiga Karina (7-8)",

@@ -4,63 +4,216 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "a94bBMzEBVZqUzJA",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Spontaneous Spells",
+            "_id": "1EsMXmB9tTK4sElQ",
+            "_stats": {
+                "compendiumSource": "Actor.K9ClMcqPZ4BdZ7iU.Item.1EsMXmB9tTK4sElQ"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aldori Parry",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Rhenei gains a +2 circumstance bonus to AC until the start of their next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "aldori-parry",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "aldori-parry"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
                     }
-                },
+                ],
                 "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "WtiSdF5R1Wl6aVvQ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Sorcerer Bloodline Spells",
+            "_id": "pmyVvS86sq5wfQ90",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Elemental Bloodline",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "focus"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:breathe-fire",
+                                    "item:slug:burning-hands",
+                                    "item:slug:produce-flame"
+                                ]
+                            }
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage",
+                            "inline-damage"
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "remove",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:breathe-fire",
+                                    "item:slug:burning-hands",
+                                    "item:slug:produce-flame"
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "fire"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:breathe-fire",
+                                    "item:slug:burning-hands",
+                                    "item:slug:elemental-toss",
+                                    "item:slug:produce-flame"
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "water"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3CdAxy96XcdfChqF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 300000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
                     "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "sEJyuENEZD7l2b80",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Dueling Lore",
+            "sort": 400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -68,17 +221,57 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "primal"
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "S9rQhuhf6aYYqIPV",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ISP5Qbwl1pp0HINH"
                 }
             },
-            "type": "spellcastingEntry"
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Aldori Dueling Sword",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "1mzsX1yhUR76iEKz": {
+                        "damage": "1d8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "jjZWRbUo6cX3DC9j",
@@ -87,7 +280,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -248,7 +441,7 @@
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands (Bludgeoning, Water)",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -336,7 +529,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -403,7 +596,7 @@
             },
             "img": "systems/pf2e/icons/spells/elemental-toss.webp",
             "name": "Elemental Toss",
-            "sort": 600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -479,7 +672,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -676,7 +869,7 @@
             },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push",
-            "sort": 800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -756,7 +949,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame (Bludgeoning, Water)",
-            "sort": 900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -837,7 +1030,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 1000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -918,7 +1111,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 1100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -975,13 +1168,90 @@
             "type": "spell"
         },
         {
+            "_id": "a94bBMzEBVZqUzJA",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Spontaneous Spells",
+            "sort": 1500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 17,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "WtiSdF5R1Wl6aVvQ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Sorcerer Bloodline Spells",
+            "sort": 1600000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 17,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "ISP5Qbwl1pp0HINH",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.iSceAVMkVv1uKK7t"
             },
             "img": "icons/weapons/swords/sword-guard-bronze.webp",
             "name": "Aldori Dueling Sword",
-            "sort": 1200000,
+            "sort": 1700000,
             "system": {
                 "baseItem": "aldori-dueling-sword",
                 "bonus": {
@@ -1059,276 +1329,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "3CdAxy96XcdfChqF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 1300000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "S9rQhuhf6aYYqIPV",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ISP5Qbwl1pp0HINH"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Aldori Dueling Sword",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "1mzsX1yhUR76iEKz": {
-                        "damage": "1d8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "1EsMXmB9tTK4sElQ",
-            "_stats": {
-                "compendiumSource": "Actor.K9ClMcqPZ4BdZ7iU.Item.1EsMXmB9tTK4sElQ"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aldori Parry",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Rhenei gains a +2 circumstance bonus to AC until the start of their next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "aldori-parry",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "aldori-parry"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pmyVvS86sq5wfQ90",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Elemental Bloodline",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "override",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "item:slug:breathe-fire",
-                                    "item:slug:burning-hands",
-                                    "item:slug:produce-flame"
-                                ]
-                            }
-                        ],
-                        "property": "damage-type",
-                        "selectors": [
-                            "spell-damage",
-                            "inline-damage"
-                        ],
-                        "value": "bludgeoning"
-                    },
-                    {
-                        "itemType": "spell",
-                        "key": "ItemAlteration",
-                        "mode": "remove",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "item:slug:breathe-fire",
-                                    "item:slug:burning-hands",
-                                    "item:slug:produce-flame"
-                                ]
-                            }
-                        ],
-                        "property": "traits",
-                        "value": "fire"
-                    },
-                    {
-                        "itemType": "spell",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "item:slug:breathe-fire",
-                                    "item:slug:burning-hands",
-                                    "item:slug:elemental-toss",
-                                    "item:slug:produce-flame"
-                                ]
-                            }
-                        ],
-                        "property": "traits",
-                        "value": "water"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sEJyuENEZD7l2b80",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Dueling Lore",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Determined Rhenei (1-2)",

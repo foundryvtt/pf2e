@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "7mvlWWPZBYRQQC9W",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "drUPLGITwN5vJYI9",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scent Curse",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>The imprecasia can smell the presence of curses of a level equal to or lower than their own level within 30 feet; this is an imprecise sense.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,18 +25,152 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "DR7UE14ebq0R637D",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Drink Death",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of the imprecasia is @UUID[Compendium.pf2e.conditionitems.Item.Dying]</p>\n<hr />\n<p><strong>Effect</strong> The imprecasia inhales, drawing a thin blue streak of vapor out of the dying creature's body into their mouth. The dying creature's dying condition is reduced by 1, and the imprecasia regains @Damage[(2d10+9)[healing]] Hit Points.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PWIoQ2Dg31gCzBsC",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Devour Curse",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The imprecasia casts @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] against a curse afflicting a creature, but with a cast of two actions rather than 10 minutes. If they succeed in removing the curse, they also drains vitality from the creature, causing it to become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} unless it succeeds at a @Check[fortitude|dc:30] save (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure). If the curse is removed, the imprecasia doesn't expend that use of remove curse as a primal innate spell.</p>\n<h2>Targeting Items</h2>\n<p>An imprecasia can cast remove curse on a cursed item rather than on a creature, but they can't use Devour Curse on it. They can only do so on an item that's of a level equal to or less than their own level; on a success, the item is uncursed for 24 hours if it's of a level equal to or higher than the imprecasia's level –4, or uncursed permanently if it's lower level than that.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mrWBYGL7nE3RINbc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Homeland's Hostility",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature that takes damage from the imprecasia's claws must attempt a @Check[will|dc:30] save. On a failure, it treats all terrain within 60 feet of an imprecasia as difficult terrain.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KflYD9ZB2Gh2WXKD",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claws",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "homelands-hostility"
+                    ]
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "wr0EJDOh9eMATDmF": {
+                        "damage": "2d12+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "zecTCjYEVc1R9DTh",
@@ -47,7 +179,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Mirage",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -113,7 +245,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -182,7 +314,7 @@
             },
             "img": "icons/consumables/fruit/berry-clustered-white.webp",
             "name": "Cleanse Affliction (Curse Only)",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -245,7 +377,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-large-pink.webp",
             "name": "Deafness",
-            "sort": 500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -313,7 +445,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -371,157 +503,22 @@
             "type": "spell"
         },
         {
-            "_id": "KflYD9ZB2Gh2WXKD",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claws",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "homelands-hostility"
-                    ]
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "wr0EJDOh9eMATDmF": {
-                        "damage": "2d12+9",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "drUPLGITwN5vJYI9",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scent Curse",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The imprecasia can smell the presence of curses of a level equal to or lower than their own level within 30 feet; this is an imprecise sense.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DR7UE14ebq0R637D",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Drink Death",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of the imprecasia is @UUID[Compendium.pf2e.conditionitems.Item.Dying]</p>\n<hr />\n<p><strong>Effect</strong> The imprecasia inhales, drawing a thin blue streak of vapor out of the dying creature's body into their mouth. The dying creature's dying condition is reduced by 1, and the imprecasia regains @Damage[(2d10+9)[healing]] Hit Points.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PWIoQ2Dg31gCzBsC",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Devour Curse",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The imprecasia casts @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] against a curse afflicting a creature, but with a cast of two actions rather than 10 minutes. If they succeed in removing the curse, they also drains vitality from the creature, causing it to become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} unless it succeeds at a @Check[fortitude|dc:30] save (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure). If the curse is removed, the imprecasia doesn't expend that use of remove curse as a primal innate spell.</p>\n<h2>Targeting Items</h2>\n<p>An imprecasia can cast remove curse on a cursed item rather than on a creature, but they can't use Devour Curse on it. They can only do so on an item that's of a level equal to or less than their own level; on a success, the item is uncursed for 24 hours if it's of a level equal to or higher than the imprecasia's level –4, or uncursed permanently if it's lower level than that.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mrWBYGL7nE3RINbc",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Homeland's Hostility",
+            "_id": "7mvlWWPZBYRQQC9W",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>A creature that takes damage from the imprecasia's claws must attempt a @Check[will|dc:30] save. On a failure, it treats all terrain within 60 feet of an imprecasia as difficult terrain.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -529,15 +526,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "primal"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 32,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Imprecasia",

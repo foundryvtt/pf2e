@@ -4,23 +4,108 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "OioCLntTXjpxm388",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Prepared Spells",
+            "_id": "58GkDb9G1tluqMoo",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Disease and Mental",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "mental",
+                                    "disease"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fLTZ1aIN49QIs2BZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7iwtezAN9Z74j1kA",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Clockwork Necromancy",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Parsus winds their necromechanical innovation (see below) to infuse a corpse-riddled area with necromantic energy. The innovation casts @UUID[Compendium.pf2e.spells-srd.Item.Black Tentacles] on a point within 100 feet, causing the dead body parts in a @Template[burst|distance:10] to briefly animate and scrabble at creatures within the area for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,109 +113,467 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "ta0iRrWhSlOdh95L"
-                            },
-                            {
-                                "id": "KyaJb3DSv0BEeMPK"
-                            },
-                            {
-                                "id": "rDhb4fFBffGhxytI"
-                            },
-                            {
-                                "id": "jqOgWy0YOBZdi9HC"
-                            },
-                            {
-                                "id": "3jqdLiecF0yuvS5L"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "lY0xDDLlG6Ljtyc5"
-                            },
-                            {
-                                "id": "lY0xDDLlG6Ljtyc5"
-                            },
-                            {
-                                "id": "kJFr69S8ibITTAUb"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "W26RYoNjCzWJwQj5"
-                            },
-                            {
-                                "id": "NFHEJfulQ3XkF8qi"
-                            },
-                            {
-                                "id": "ZtAdCr2K63zVmauz"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "dHE1HSobldJKueLZ"
-                            },
-                            {
-                                "id": "JiSB61DwDm9byAIU"
-                            },
-                            {
-                                "id": "JiSB61DwDm9byAIU"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "hyLdWUWJe9ltJFN6"
-                            },
-                            {
-                                "id": "f8334sCGZZ8HjQ4t"
-                            },
-                            {
-                                "id": "NvNSq7TMABJ4luiM"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "XWYbsL7BiEx0iz2u"
-                            },
-                            {
-                                "id": "YzuxPjdcuUBdDAaY"
-                            },
-                            {
-                                "id": "YzuxPjdcuUBdDAaY"
-                            }
-                        ]
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 31,
-                    "mod": 0,
-                    "value": 23
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evil",
+                        "unstable"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "nkAAKcVO9AbkO8HH",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Explode",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Parsus pushes their necromechanical innovation beyond its normal limits, dealing @Damage[10d6[void]] damage in a @Template[emanation|distance:10] (@Check[reflex|dc:31|basic]). Parsus can choose to include themself in this effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate",
+                        "unstable"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nBfk71u0d9pJQJWr",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Necromantic Winding",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Parsus winds up their necromechanical innovation. They choose an active effect with the necromancy trait that originated from one of their spells or abilities (such as Clockwork Necromancy). The effect's duration extends to the end of Parsus's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A2Yt3lNxZvcWgoNq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Necromechanical Innovation",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Although a necromancer by training, Parsus recently developed a complex device called a necromechanical innovation. This device allows Parsus to use their Clockwork Necromancy, Explode, and Necromatic Winding abilities. It otherwise functions as an inventor weapon innovation with no modifications.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eVFG8uT7QBKAj0fC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0yLfPmzRtBd6Avac"
+            },
+            "img": "icons/tools/navigation/compass-worn-copper.webp",
+            "name": "Corpse Compass",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This bone compass, made of the bones of sapient creatures that died violent deaths, is eerily effective when it comes to locating corpses. If you know you're Tracking a creature that's dead, you can use the compass's idiosyncrasies to your advantage and gain a +2 item bonus to your Survival check to do so. Otherwise, it works as a normal compass.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 45
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #180: The Smoking Gun"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "EGlPSluywpUvUe8U",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.yaKQS5aG2i7IioyH"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/ammunition/dispersing-bullet.webp",
+            "name": "Corpsecaller Round",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p><strong>Ammunition</strong> round</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p>This bullet is crafted entirely from obsidian and engraved with hair-thin runes. When an activated corpsecaller round hits a target, the struck creature is called to the grave. It takes @Damage[4d10[void]] damage with a @Check[fortitude|dc:25] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The foe is unaffected.</p>\n<p><strong>Success</strong> The foe takes half damage.</p>\n<p><strong>Failure</strong> The foe takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. If the foe dies within the next 24 hours, its corpse is tethered to the Void, making it easier to raise as an undead. Creatures using the create undead ritual on the foe's corpse receive a +2 circumstance bonus to their primary and secondary skill checks for the ritual.</p>\n<p><strong>Critical Failure</strong> As failure, except the foe takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2}.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 9
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #180: The Smoking Gun"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "fAOmKE6iEXqMwa2N",
+            "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
+            "name": "Clockwork Key",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "gm": "<p>Key to clockwork bomb in area <strong>F8</strong></p>",
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "7AqSlx8KYnoLV4S7",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Geb Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "m86QssmqE3SgeVmr",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Undead Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "ZLkJUB37bOHZle59",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "84afliv06aqaj4ml377v": {
+                        "damage": "3d8+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "lmF6Fxvi5Bkh45IJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Necromechanical Innovation",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "pluhn6lsbu634aglta50": {
+                        "damage": "2d10+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "E9ebbfREOCNybGbT",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Yjv1si3v1ZA5C5nS"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Slide Pistol",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "0byw7x911rtsm1kgbmt0": {
+                        "damage": "2d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "capacity-5",
+                        "concussive",
+                        "fatal-d10",
+                        "magical",
+                        "range-increment-30",
+                        "reload-1"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "XWYbsL7BiEx0iz2u",
@@ -139,7 +582,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
-            "sort": 200000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -227,7 +670,7 @@
             },
             "img": "systems/pf2e/icons/spells/enervation.webp",
             "name": "Enervation",
-            "sort": 300000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "line",
@@ -300,7 +743,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -361,7 +804,7 @@
             },
             "img": "systems/pf2e/icons/spells/seal-fate.webp",
             "name": "Seal Fate",
-            "sort": 500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -429,7 +872,7 @@
             },
             "img": "icons/environment/settlement/sewer-entrance.webp",
             "name": "Vampiric Maiden",
-            "sort": 600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -525,7 +968,7 @@
             },
             "img": "systems/pf2e/icons/spells/bind-undead.webp",
             "name": "Bind Undead",
-            "sort": 700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -586,7 +1029,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 800000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -671,7 +1114,7 @@
             },
             "img": "systems/pf2e/icons/spells/false-life.webp",
             "name": "False Life",
-            "sort": 900000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -731,7 +1174,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 1000000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -793,7 +1236,7 @@
             },
             "img": "systems/pf2e/icons/spells/spectral-hand.webp",
             "name": "Spectral Hand",
-            "sort": 1100000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -853,7 +1296,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 1200000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1014,7 +1457,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1300000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1100,7 +1543,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1400000,
+            "sort": 2700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1167,7 +1610,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1500000,
+            "sort": 2800000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1254,7 +1697,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 1600000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1329,7 +1772,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 1700000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1410,7 +1853,7 @@
             },
             "img": "icons/magic/air/wind-stream-blue-gray.webp",
             "name": "Unseen Servant",
-            "sort": 1800000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1464,13 +1907,142 @@
             "type": "spell"
         },
         {
+            "_id": "OioCLntTXjpxm388",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Prepared Spells",
+            "sort": 3200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "ta0iRrWhSlOdh95L"
+                            },
+                            {
+                                "id": "KyaJb3DSv0BEeMPK"
+                            },
+                            {
+                                "id": "rDhb4fFBffGhxytI"
+                            },
+                            {
+                                "id": "jqOgWy0YOBZdi9HC"
+                            },
+                            {
+                                "id": "3jqdLiecF0yuvS5L"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "lY0xDDLlG6Ljtyc5"
+                            },
+                            {
+                                "id": "lY0xDDLlG6Ljtyc5"
+                            },
+                            {
+                                "id": "kJFr69S8ibITTAUb"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "W26RYoNjCzWJwQj5"
+                            },
+                            {
+                                "id": "NFHEJfulQ3XkF8qi"
+                            },
+                            {
+                                "id": "ZtAdCr2K63zVmauz"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "dHE1HSobldJKueLZ"
+                            },
+                            {
+                                "id": "JiSB61DwDm9byAIU"
+                            },
+                            {
+                                "id": "JiSB61DwDm9byAIU"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "hyLdWUWJe9ltJFN6"
+                            },
+                            {
+                                "id": "f8334sCGZZ8HjQ4t"
+                            },
+                            {
+                                "id": "NvNSq7TMABJ4luiM"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "XWYbsL7BiEx0iz2u"
+                            },
+                            {
+                                "id": "YzuxPjdcuUBdDAaY"
+                            },
+                            {
+                                "id": "YzuxPjdcuUBdDAaY"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 31,
+                    "mod": 0,
+                    "value": 23
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "Yjv1si3v1ZA5C5nS",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.gO5dOlPBk57bg2x5"
             },
             "img": "systems/pf2e/icons/equipment/weapons/slide-pistol.webp",
             "name": "Slide Pistol",
-            "sort": 1900000,
+            "sort": 3300000,
             "system": {
                 "baseItem": "slide-pistol",
                 "bonus": {
@@ -1549,578 +2121,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "eVFG8uT7QBKAj0fC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0yLfPmzRtBd6Avac"
-            },
-            "img": "icons/tools/navigation/compass-worn-copper.webp",
-            "name": "Corpse Compass",
-            "sort": 2000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This bone compass, made of the bones of sapient creatures that died violent deaths, is eerily effective when it comes to locating corpses. If you know you're Tracking a creature that's dead, you can use the compass's idiosyncrasies to your advantage and gain a +2 item bonus to your Survival check to do so. Otherwise, it works as a normal compass.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 45
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #180: The Smoking Gun"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "EGlPSluywpUvUe8U",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.yaKQS5aG2i7IioyH"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/ammunition/dispersing-bullet.webp",
-            "name": "Corpsecaller Round",
-            "sort": 2100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p><strong>Ammunition</strong> round</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p>This bullet is crafted entirely from obsidian and engraved with hair-thin runes. When an activated corpsecaller round hits a target, the struck creature is called to the grave. It takes @Damage[4d10[void]] damage with a @Check[fortitude|dc:25] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The foe is unaffected.</p>\n<p><strong>Success</strong> The foe takes half damage.</p>\n<p><strong>Failure</strong> The foe takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. If the foe dies within the next 24 hours, its corpse is tethered to the Void, making it easier to raise as an undead. Creatures using the create undead ritual on the foe's corpse receive a +2 circumstance bonus to their primary and secondary skill checks for the ritual.</p>\n<p><strong>Critical Failure</strong> As failure, except the foe takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2}.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 9
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #180: The Smoking Gun"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "fAOmKE6iEXqMwa2N",
-            "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
-            "name": "Clockwork Key",
-            "sort": 2200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "gm": "<p>Key to clockwork bomb in area <strong>F8</strong></p>",
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "ZLkJUB37bOHZle59",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 2300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "84afliv06aqaj4ml377v": {
-                        "damage": "3d8+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "lmF6Fxvi5Bkh45IJ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Necromechanical Innovation",
-            "sort": 2400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "pluhn6lsbu634aglta50": {
-                        "damage": "2d10+7",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "E9ebbfREOCNybGbT",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Yjv1si3v1ZA5C5nS"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Slide Pistol",
-            "sort": 2500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "0byw7x911rtsm1kgbmt0": {
-                        "damage": "2d6+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "capacity-5",
-                        "concussive",
-                        "fatal-d10",
-                        "magical",
-                        "range-increment-30",
-                        "reload-1"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "58GkDb9G1tluqMoo",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Disease and Mental",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "mental",
-                                    "disease"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fLTZ1aIN49QIs2BZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7iwtezAN9Z74j1kA",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Clockwork Necromancy",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Parsus winds their necromechanical innovation (see below) to infuse a corpse-riddled area with necromantic energy. The innovation casts @UUID[Compendium.pf2e.spells-srd.Item.Black Tentacles] on a point within 100 feet, causing the dead body parts in a @Template[burst|distance:10] to briefly animate and scrabble at creatures within the area for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "evil",
-                        "unstable"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nkAAKcVO9AbkO8HH",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Explode",
-            "sort": 2900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Parsus pushes their necromechanical innovation beyond its normal limits, dealing @Damage[10d6[void]] damage in a @Template[emanation|distance:10] (@Check[reflex|dc:31|basic]). Parsus can choose to include themself in this effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate",
-                        "unstable"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nBfk71u0d9pJQJWr",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Necromantic Winding",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Parsus winds up their necromechanical innovation. They choose an active effect with the necromancy trait that originated from one of their spells or abilities (such as Clockwork Necromancy). The effect's duration extends to the end of Parsus's next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "A2Yt3lNxZvcWgoNq",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Necromechanical Innovation",
-            "sort": 3100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Although a necromancer by training, Parsus recently developed a complex device called a necromechanical innovation. This device allows Parsus to use their Clockwork Necromancy, Explode, and Necromatic Winding abilities. It otherwise functions as an inventor weapon innovation with no modifications.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7AqSlx8KYnoLV4S7",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Geb Lore",
-            "sort": 3200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "m86QssmqE3SgeVmr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Undead Lore",
-            "sort": 3300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Parsus",

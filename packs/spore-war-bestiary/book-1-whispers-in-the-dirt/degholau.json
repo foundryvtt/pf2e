@@ -4,22 +4,101 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "kD6wiWdhqM1odvjp",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "0a4Fcomu6orfgxiA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.flankable",
+                        "value": false
+                    }
+                ],
+                "slug": "all-around-vision",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Nz2ODH5PHSf7C9yw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R6h555Ee4IhmZEOY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Exposure Vulnerability",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The first time each round that a creature critically succeeds at a save against a degholau's Veil of Lies or that a creature confronts the fiend on a falsehood immediately after the demon fails to @UUID[Compendium.pf2e.actionspf2e.Item.Lie], the degholau takes @Damage[3d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +106,243 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "untdFLKUpby8X9UZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Conspiratorial Thoughts",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[will|dc:33]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by the degholau (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "mental",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZO5bq9LBYC5p6e7l",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Twisted Loyalties",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[will|dc:33]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> +1 status bonus to attack rolls and damage rolls, must succeed at a @Check[flat|dc:10] to use the @UUID[Compendium.pf2e.actionspf2e.Item.Aid] reaction (3 days)</p>\n<p><strong>Stage 2</strong> as stage 1, and +1 status bonus to skill checks, plus must succeed at a @Check[flat|dc:10] to heal an ally (1 week)</p>\n<p><strong>Stage 3</strong> as stage 2, plus lose sanctification traits (1 week)</p>\n<p><strong>Stage 4</strong> anathemas are now edicts, and former edicts are now anathemas—acting upon these new edicts causes loss of abilities and sanctification granted by classes and deities who consider them anathema (1 week)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aBZdR5KU6uweR38c",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Veil of Lies",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>15 feet. A degholau exudes a faint scent of rotting wildflowers in its aura—an odor that dulls the mind. A creature that ends its turn in the aura must attempt a @Check[will|dc:30] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Veil of Lies for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} while it remains in the aura and for 10 minutes after leaving the aura.</p>\n<p><strong>Critical Failure</strong> As failure, except @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15,
+                        "traits": [
+                            "mental",
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "mental",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5v63fstxfbYiyG4p",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "Rj4Faaph2VZpPGhd": {
+                        "damage": "3d12+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tGV6qcSxDZi2tXNS",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "conspiratorial-thoughts"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "5XcUGUSCwnC4pV7t": {
+                        "damage": "2d6",
+                        "damageType": "mental"
+                    },
+                    "uOPTzSkSMUIaB5LV": {
+                        "damage": "3d6+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "magical",
+                        "reach-10",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fHyIsP6JVlIHyojS",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spit",
+            "sort": 900000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "twisted-loyalties"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "Kq0Ej932p4RJXKiO": {
+                        "damage": "3d8+6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "range-increment-30",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "7MAhoDmZETVd0Dy2",
@@ -50,7 +351,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -119,7 +420,7 @@
             },
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -229,7 +530,7 @@
             },
             "img": "icons/magic/symbols/runes-carved-stone-yellow.webp",
             "name": "Subconscious Suggestion",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -309,7 +610,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -371,7 +672,7 @@
             },
             "img": "systems/pf2e/icons/spells/glibness.webp",
             "name": "Honeyed Words",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -432,7 +733,7 @@
             },
             "img": "systems/pf2e/icons/spells/modify-memory.webp",
             "name": "Rewrite Memory",
-            "sort": 700000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -504,7 +805,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 800000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -576,7 +877,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate (At Will)",
-            "sort": 900000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -648,7 +949,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Demonic Pact",
-            "sort": 1000000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -707,345 +1008,44 @@
             "type": "spell"
         },
         {
-            "_id": "5v63fstxfbYiyG4p",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "Rj4Faaph2VZpPGhd": {
-                        "damage": "3d12+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "tGV6qcSxDZi2tXNS",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "conspiratorial-thoughts"
-                    ]
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "5XcUGUSCwnC4pV7t": {
-                        "damage": "2d6",
-                        "damageType": "mental"
-                    },
-                    "uOPTzSkSMUIaB5LV": {
-                        "damage": "3d6+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "magical",
-                        "reach-10",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "fHyIsP6JVlIHyojS",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spit",
-            "sort": 1300000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "twisted-loyalties"
-                    ]
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "Kq0Ej932p4RJXKiO": {
-                        "damage": "3d8+6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "range-increment-30",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "0a4Fcomu6orfgxiA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "All-Around Vision",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.flankable",
-                        "value": false
-                    }
-                ],
-                "slug": "all-around-vision",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Nz2ODH5PHSf7C9yw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "R6h555Ee4IhmZEOY",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Exposure Vulnerability",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The first time each round that a creature critically succeeds at a save against a degholau's Veil of Lies or that a creature confronts the fiend on a falsehood immediately after the demon fails to @UUID[Compendium.pf2e.actionspf2e.Item.Lie], the degholau takes @Damage[3d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "untdFLKUpby8X9UZ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Conspiratorial Thoughts",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[will|dc:33]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by the degholau (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "mental",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZO5bq9LBYC5p6e7l",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Twisted Loyalties",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[will|dc:33]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> +1 status bonus to attack rolls and damage rolls, must succeed at a @Check[flat|dc:10] to use the @UUID[Compendium.pf2e.actionspf2e.Item.Aid] reaction (3 days)</p>\n<p><strong>Stage 2</strong> as stage 1, and +1 status bonus to skill checks, plus must succeed at a @Check[flat|dc:10] to heal an ally (1 week)</p>\n<p><strong>Stage 3</strong> as stage 2, plus lose sanctification traits (1 week)</p>\n<p><strong>Stage 4</strong> anathemas are now edicts, and former edicts are now anathemas—acting upon these new edicts causes loss of abilities and sanctification granted by classes and deities who consider them anathema (1 week)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "curse"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aBZdR5KU6uweR38c",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Veil of Lies",
+            "_id": "kD6wiWdhqM1odvjp",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 1900000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>15 feet. A degholau exudes a faint scent of rotting wildflowers in its aura—an odor that dulls the mind. A creature that ends its turn in the aura must attempt a @Check[will|dc:30] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Veil of Lies for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} while it remains in the aura and for 10 minutes after leaving the aura.</p>\n<p><strong>Critical Failure</strong> As failure, except @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 15,
-                        "traits": [
-                            "mental",
-                            "olfactory"
-                        ]
-                    }
-                ],
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "mental",
-                        "olfactory"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 33,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Degholau",

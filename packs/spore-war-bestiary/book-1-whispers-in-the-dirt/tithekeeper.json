@@ -4,10 +4,250 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "2k7t0cZJVWfjCoCL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Eyes Behind the Mask",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A creature wearing the mask and garb of a priest of Razmir that outranks the tithekeeper's mask and ribbon rank can spend an hour Interacting with the tithekeeper's mask to connect with it. The creature's mask becomes an invested item that allows them to see and hear as though peering through the tithekeeper's mask. The creature must use a 3-action activity envisioning the tithekeeper to activate the scrying effect, and the effect can be Dismissed. Multiple creatures can create connections to the tithekeeper's mask simultaneously, and a creature can have connections to multiple tithekeepers with just one mask. Each connection ends after a week but can be renewed at any time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "scrying"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UfNYMzlG9vSoNKRd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Accept Tithe",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature drops or offers at least 750 gp in valuables within 15 feet of the tithekeeper</p><hr /><p><strong>Effect</strong> The tithekeeper quickly uses its feet to scoop the valuables into its vault and is now indifferent toward the triggering creature unless that creature uses hostile actions against it or its allies.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UwthgNFhzVYfkzkK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Capacity for Punishment",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tithekeeper can have up to six creatures impaled and @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] with its feet at once.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WseMJaoN35TNcgzl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Impale",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The tithekeeper has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] a creature</p><hr /><p><strong>Effect</strong> The tithekeeper stabs the target with a spike for @Damage[(2d8+13)[piercing]] damage (@Check[reflex|dc:29|basic] save). It no longer has to spend an action to extend the duration for the target it has grabbed. The target moves with the tithekeeper and takes @Damage[1d8[persistent,bleed]] damage until it Escapes (DC 29).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UEN6QlyeiPOycfoa",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Locked Vault",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tithekeeper's body is a locked vault containing any tithes given to it. The vault's @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Lock} DC is 29 and @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] DC is 33.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "S6muXnYVqd6xPoYs",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rip Off",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The tithekeeper has Impaled a creature</p><hr /><p><strong>Effect</strong> The tithekeeper tears the creature loose from its spiky feet, releasing it. The creature takes @Damage[4d10[slashing]] damage (@Check[fortitude|dc:29|basic] save) and is no longer @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. On a failed save, the creature also takes @Damage[2d8[persistent,bleed]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ix25RSVuLJJG7MxU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Medium or smaller, body, @Check[reflex|dc:29|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "trample",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qJSH834xZCZmdPUX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "o40aXWtqKTabe864",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Body",
-            "sort": 100000,
+            "sort": 900000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -41,7 +281,7 @@
             "_id": "P033wqv4auNm4uta",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Foot",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "attackEffects": {
                     "value": [
@@ -75,246 +315,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "2k7t0cZJVWfjCoCL",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Eyes Behind the Mask",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A creature wearing the mask and garb of a priest of Razmir that outranks the tithekeeper's mask and ribbon rank can spend an hour Interacting with the tithekeeper's mask to connect with it. The creature's mask becomes an invested item that allows them to see and hear as though peering through the tithekeeper's mask. The creature must use a 3-action activity envisioning the tithekeeper to activate the scrying effect, and the effect can be Dismissed. Multiple creatures can create connections to the tithekeeper's mask simultaneously, and a creature can have connections to multiple tithekeepers with just one mask. Each connection ends after a week but can be renewed at any time.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "scrying"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UfNYMzlG9vSoNKRd",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Accept Tithe",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature drops or offers at least 750 gp in valuables within 15 feet of the tithekeeper</p><hr /><p><strong>Effect</strong> The tithekeeper quickly uses its feet to scoop the valuables into its vault and is now indifferent toward the triggering creature unless that creature uses hostile actions against it or its allies.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UwthgNFhzVYfkzkK",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Capacity for Punishment",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The tithekeeper can have up to six creatures impaled and @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] with its feet at once.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WseMJaoN35TNcgzl",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Impale",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The tithekeeper has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] a creature</p><hr /><p><strong>Effect</strong> The tithekeeper stabs the target with a spike for @Damage[(2d8+13)[piercing]] damage (@Check[reflex|dc:29|basic] save). It no longer has to spend an action to extend the duration for the target it has grabbed. The target moves with the tithekeeper and takes @Damage[1d8[persistent,bleed]] damage until it Escapes (DC 29).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UEN6QlyeiPOycfoa",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Locked Vault",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The tithekeeper's body is a locked vault containing any tithes given to it. The vault's @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Lock} DC is 29 and @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] DC is 33.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "S6muXnYVqd6xPoYs",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Rip Off",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The tithekeeper has Impaled a creature</p><hr /><p><strong>Effect</strong> The tithekeeper tears the creature loose from its spiky feet, releasing it. The creature takes @Damage[4d10[slashing]] damage (@Check[fortitude|dc:29|basic] save) and is no longer @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. On a failed save, the creature also takes @Damage[2d8[persistent,bleed]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ix25RSVuLJJG7MxU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Trample",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Medium or smaller, body, @Check[reflex|dc:29|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "trample",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qJSH834xZCZmdPUX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Tithekeeper",

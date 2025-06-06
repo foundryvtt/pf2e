@@ -4,13 +4,120 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "o5oVycGSBlCtwNU9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Circumstance to Fortitude and Reflex vs. Shove or Trip",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ],
+                        "selector": "fortitude",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ],
+                        "selector": "reflex",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "q4Nwd5vpZrD2cK4B",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Haymaker",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Pruana makes a fist Strike against a target she has previously attacked this turn. If she hits, she gains a +3 circumstance bonus to the damage, and the creature must attempt a @Check[fortitude|dc:20] save to resist the staggering force of the blow.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 5}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "haymaker",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "haymaker"
+                        ],
+                        "selector": "strike-damage",
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "press"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "8YwRYUhGMq6FFebD",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Kf4eJEXnFPuAsseP"
             },
             "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
             "name": "Chain Mail",
-            "sort": 100000,
+            "sort": 300000,
             "system": {
                 "acBonus": 4,
                 "baseItem": "chain-mail",
@@ -75,10 +182,35 @@
             "type": "armor"
         },
         {
+            "_id": "GkznkrnInAnqtWGs",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Abberton Lore",
+            "sort": 400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
             "_id": "SAILABWdBSyuuEzf",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -119,138 +251,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "o5oVycGSBlCtwNU9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Circumstance to Fortitude and Reflex vs. Shove or Trip",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:shove",
-                                    "action:trip"
-                                ]
-                            }
-                        ],
-                        "selector": "fortitude",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:shove",
-                                    "action:trip"
-                                ]
-                            }
-                        ],
-                        "selector": "reflex",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "q4Nwd5vpZrD2cK4B",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Haymaker",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Pruana makes a fist Strike against a target she has previously attacked this turn. If she hits, she gains a +3 circumstance bonus to the damage, and the creature must attempt a @Check[fortitude|dc:20] save to resist the staggering force of the blow.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 5}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "haymaker",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "haymaker"
-                        ],
-                        "selector": "strike-damage",
-                        "type": "circumstance",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "press"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GkznkrnInAnqtWGs",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Abberton Lore",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Pruana Two-punch",

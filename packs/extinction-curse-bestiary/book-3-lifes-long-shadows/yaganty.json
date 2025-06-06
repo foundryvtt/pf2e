@@ -4,23 +4,160 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "kCl7ix3UfVgsJxQ8",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "ztjUvBPpUPyRPb5P",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [],
+                "slug": "greater-darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "n178y9YC0VdwlUrF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EVi2gsT6wLToy6mR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light in the Darkness",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. The flames from a yaganty's fingers shed bright light in a 10-foot radius and are visible even in areas affected by magical darkness, but they do not shed dim light beyond that radius. Any creature within 60 feet in an area of darkness or dim light that sees the yaganty's candle fingers must succeed at a @Check[will|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the yaganty for 1 minute or until the yaganty uses a hostile action against the creature, whichever comes first.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "light-in-the-darkness-active"
+                        ],
+                        "radius": 60,
+                        "slug": "light-in-the-darkness",
+                        "traits": [
+                            "light",
+                            "mental",
+                            "primal",
+                            "visual"
+                        ]
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "light-in-the-darkness-active"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 10,
+                            "color": "#9b7337",
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "light-in-the-darkness-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "light",
+                        "mental",
+                        "primal",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "C4dcn6EdPVp0Ec5y",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerability to Extinguishing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A yaganty who is doused with water or otherwise has their candle fingers extinguished takes @Damage[3d6[persistent,mental]], becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and screams in agony until they reignite their candles (typically by casting @UUID[Compendium.pf2e.spells-srd.Item.Ignition] and lighting their fingers with an Interact action).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,38 +165,172 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot3": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot4": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot5": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "mod": 0,
-                    "value": 23
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "AnbtNKsICChPCBHe",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Fling Wax",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The yaganty whips a stream of scalding wax in a @Template[line|distance:30]. Each glob deals @Damage[1d6[persistent,fire]] damage. An affected creature or adjacent ally can remove one glob of wax by spending an Interact action to scrape it off. The yaganty can't use Fling Wax again for [[/gmr 1d4 #Recharge Fling Wax]]{1d4 rounds}. Creatures in the area must attempt a @Check[reflex|dc:27|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is splattered with [[/r 1d2+1]]{1d2+1 globs of wax}.</p>\n<p><strong>Failure</strong> The creature is splattered with [[/r 1d4+2]]{1d4+2 globs of wax}.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until it removes the globs of wax.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7I2FYqAcQ3SORicy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7XUkm64tCN25G6VB",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Candle Fingers",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "ansk5s2rouvk9eg3jwjb": {
+                        "damage": "3d10+5",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "lhfpnOLNlbRjtgBB",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "ffyymcvjw36sdqi53fi0": {
+                        "damage": "2d8+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "jMXjNvH84Jg5Sk7O",
@@ -68,7 +339,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -140,7 +411,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -207,7 +478,7 @@
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -298,7 +569,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -373,333 +644,62 @@
             "type": "spell"
         },
         {
-            "_id": "7XUkm64tCN25G6VB",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Candle Fingers",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "ansk5s2rouvk9eg3jwjb": {
-                        "damage": "3d10+5",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "magical",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "lhfpnOLNlbRjtgBB",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "ffyymcvjw36sdqi53fi0": {
-                        "damage": "2d8+9",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ztjUvBPpUPyRPb5P",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Greater Darkvision",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "greater-darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "n178y9YC0VdwlUrF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EVi2gsT6wLToy6mR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Light in the Darkness",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. The flames from a yaganty's fingers shed bright light in a 10-foot radius and are visible even in areas affected by magical darkness, but they do not shed dim light beyond that radius. Any creature within 60 feet in an area of darkness or dim light that sees the yaganty's candle fingers must succeed at a @Check[will|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the yaganty for 1 minute or until the yaganty uses a hostile action against the creature, whichever comes first.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "light-in-the-darkness-active"
-                        ],
-                        "radius": 60,
-                        "slug": "light-in-the-darkness",
-                        "traits": [
-                            "light",
-                            "mental",
-                            "primal",
-                            "visual"
-                        ]
-                    },
-                    {
-                        "key": "TokenLight",
-                        "predicate": [
-                            "light-in-the-darkness-active"
-                        ],
-                        "value": {
-                            "animation": {
-                                "intensity": 4,
-                                "speed": 1,
-                                "type": "torch"
-                            },
-                            "bright": 10,
-                            "color": "#9b7337",
-                            "shadows": 0.2
-                        }
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "light-in-the-darkness-active",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "light",
-                        "mental",
-                        "primal",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "C4dcn6EdPVp0Ec5y",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerability to Extinguishing",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A yaganty who is doused with water or otherwise has their candle fingers extinguished takes @Damage[3d6[persistent,mental]], becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and screams in agony until they reignite their candles (typically by casting @UUID[Compendium.pf2e.spells-srd.Item.Ignition] and lighting their fingers with an Interact action).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AnbtNKsICChPCBHe",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Fling Wax",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The yaganty whips a stream of scalding wax in a @Template[line|distance:30]. Each glob deals @Damage[1d6[persistent,fire]] damage. An affected creature or adjacent ally can remove one glob of wax by spending an Interact action to scrape it off. The yaganty can't use Fling Wax again for [[/gmr 1d4 #Recharge Fling Wax]]{1d4 rounds}. Creatures in the area must attempt a @Check[reflex|dc:27|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is splattered with [[/r 1d2+1]]{1d2+1 globs of wax}.</p>\n<p><strong>Failure</strong> The creature is splattered with [[/r 1d4+2]]{1d4+2 globs of wax}.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until it removes the globs of wax.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7I2FYqAcQ3SORicy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
+            "_id": "kCl7ix3UfVgsJxQ8",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1300000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot3": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot4": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot5": {
+                        "max": 1,
+                        "value": 1
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 29,
+                    "mod": 0,
+                    "value": 23
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Yaganty",

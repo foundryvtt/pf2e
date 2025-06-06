@@ -4,23 +4,25 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "aKLMwsVsCRtz9ljn",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
+            "_id": "ejhaSX12S2Tkmnq1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shadow Crystal",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>While holding the shadow crystal, Aydrian Thrune receives the following benefits. She gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Darkvision] and can cast <em>shadow step</em> once per day. Additionally, if she dies, is dying, or someone else holds the shadow crystal, it shatters, dealing @Damage[4d6[void]] damage in a @Template[burst|distance:5] @Check[reflex|dc:19|basic] save</p>\n<hr />\n<p><strong>Shadow Step</strong></p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (conjuration, occult, shadow, teleportation)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Aydrian Thrune is in dim light or darkness</p>\n<hr />\n<p><strong>Effect</strong> Aydrian teleports up to 30 feet. The destination must be in dim light or darkness and must be within her line of sight and line of effect.</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,31 +30,191 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "mod": 0,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "RXxuC9Sijo4C8QGR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jaEEvuQ32GjAa8jy"
+            },
+            "img": "systems/pf2e/icons/equipment/held-items/bag-of-holding.webp",
+            "name": "Bag of Holding (Type I)",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "capacity": 25,
+                    "heldOrStowed": 1,
+                    "ignored": 25,
+                    "value": 1
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Though it appears to be a cloth sack decorated with panels of richly colored silk or stylish embroidery, a <em>bag of holding</em> opens into an extradimensional space larger than its outside dimensions. The Bulk held inside the bag doesn't change the Bulk of the <em>bag of holding</em> itself. The amount of Bulk the bag's extradimensional space can hold depends on its type.</p>\n<p>You can Interact with the <em>bag of holding</em> to put items in or remove them just like a mundane sack. Though the bag can hold a great amount of material, an object still needs to be able to fit through the opening of the sack to be stored inside.</p>\n<p>If the bag is overloaded or broken, it ruptures and is ruined, causing the items inside to be lost forever. If it's turned inside out, the items inside spill out unharmed, but the bag must be put right before it can be used again. A living creature placed inside the bag has enough air for 10 minutes before it begins to suffocate, and it can attempt to Escape against a DC of 13. An item inside the bag provides no benefits unless it's retrieved first. An item in the bag can't be detected by magic that detects only things on the same plane.</p>\n<p><strong>Capacity</strong> 25 Bulk</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 75
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Gamemastery Guide"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "bag-of-holding-type-i",
+                "stowing": true,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "extradimensional",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "backpack"
+        },
+        {
+            "_id": "SRIb8dAstPOzCfb5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.EkZVXMdtqTTgahiJ"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/ring-of-energy-resistance.webp",
+            "name": "Ring of Fire Resistance",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This ring grants you resistance 5 against one type of energy damage: acid, cold, electricity, fire, or sonic. Each ring is crafted to protect against a particular type of energy damage, and its design usually embodies the type of energy it protects the wearer from in some way. For instance, a <em>ring of fire resistance</em> might be capped with a ruby, whereas a <em>ring of cold resistance</em> features a sapphire instead.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": false
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 6
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 245
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "ring-of-energy-resistance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "p49kw715qaeptplz",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "yWdnu7nxURaVrgpY"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "u6UfUyFTt0qeY9Xv": {
+                        "damage": "1d4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "PCl5Hs80DlMbEU2x",
@@ -61,7 +223,7 @@
             },
             "img": "systems/pf2e/icons/spells/chilling-darkness.webp",
             "name": "Chilling Darkness",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -142,7 +304,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -230,7 +392,7 @@
             },
             "img": "icons/commodities/stone/paver-brick-blue.webp",
             "name": "Phantom Prison",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -300,7 +462,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -367,7 +529,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -430,7 +592,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-smoke-orange.webp",
             "name": "Scorching Ray",
-            "sort": 700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -561,7 +723,7 @@
             },
             "img": "systems/pf2e/icons/spells/umbral-extraction.webp",
             "name": "Umbral Extraction",
-            "sort": 800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -625,7 +787,7 @@
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands",
-            "sort": 900000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -712,7 +874,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -782,7 +944,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -868,7 +1030,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1200000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -935,7 +1097,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1300000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1023,7 +1185,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
-            "sort": 1400000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1089,7 +1251,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1153,7 +1315,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1214,7 +1376,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 1700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1279,7 +1441,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 1800000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1360,7 +1522,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1900000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1416,13 +1578,112 @@
             "type": "spell"
         },
         {
+            "_id": "aKLMwsVsCRtz9ljn",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
+            "sort": 2300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 22,
+                    "mod": 0,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "occult"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "nviwabc4sOIWOL8U",
+            "img": "systems/pf2e/icons/equipment/treasure/gems/lesser-semiprecious-stones/obsidian.webp",
+            "name": "Shadow Crystal",
+            "sort": 2400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
             "_id": "yWdnu7nxURaVrgpY",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 2000000,
+            "sort": 2500000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1502,267 +1763,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "SRIb8dAstPOzCfb5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.EkZVXMdtqTTgahiJ"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/ring-of-energy-resistance.webp",
-            "name": "Ring of Fire Resistance",
-            "sort": 2100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This ring grants you resistance 5 against one type of energy damage: acid, cold, electricity, fire, or sonic. Each ring is crafted to protect against a particular type of energy damage, and its design usually embodies the type of energy it protects the wearer from in some way. For instance, a <em>ring of fire resistance</em> might be capped with a ruby, whereas a <em>ring of cold resistance</em> features a sapphire instead.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": false
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 6
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 245
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "ring-of-energy-resistance",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "nviwabc4sOIWOL8U",
-            "img": "systems/pf2e/icons/equipment/treasure/gems/lesser-semiprecious-stones/obsidian.webp",
-            "name": "Shadow Crystal",
-            "sort": 2200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
-            "_id": "RXxuC9Sijo4C8QGR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jaEEvuQ32GjAa8jy"
-            },
-            "img": "systems/pf2e/icons/equipment/held-items/bag-of-holding.webp",
-            "name": "Bag of Holding (Type I)",
-            "sort": 2300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "capacity": 25,
-                    "heldOrStowed": 1,
-                    "ignored": 25,
-                    "value": 1
-                },
-                "collapsed": false,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Though it appears to be a cloth sack decorated with panels of richly colored silk or stylish embroidery, a <em>bag of holding</em> opens into an extradimensional space larger than its outside dimensions. The Bulk held inside the bag doesn't change the Bulk of the <em>bag of holding</em> itself. The amount of Bulk the bag's extradimensional space can hold depends on its type.</p>\n<p>You can Interact with the <em>bag of holding</em> to put items in or remove them just like a mundane sack. Though the bag can hold a great amount of material, an object still needs to be able to fit through the opening of the sack to be stored inside.</p>\n<p>If the bag is overloaded or broken, it ruptures and is ruined, causing the items inside to be lost forever. If it's turned inside out, the items inside spill out unharmed, but the bag must be put right before it can be used again. A living creature placed inside the bag has enough air for 10 minutes before it begins to suffocate, and it can attempt to Escape against a DC of 13. An item inside the bag provides no benefits unless it's retrieved first. An item in the bag can't be detected by magic that detects only things on the same plane.</p>\n<p><strong>Capacity</strong> 25 Bulk</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 4
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 75
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Gamemastery Guide"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "bag-of-holding-type-i",
-                "stowing": true,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "extradimensional",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "backpack"
-        },
-        {
-            "_id": "p49kw715qaeptplz",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "yWdnu7nxURaVrgpY"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 2400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "u6UfUyFTt0qeY9Xv": {
-                        "damage": "1d4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ejhaSX12S2Tkmnq1",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shadow Crystal",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>While holding the shadow crystal, Aydrian Thrune receives the following benefits. She gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Darkvision] and can cast <em>shadow step</em> once per day. Additionally, if she dies, is dying, or someone else holds the shadow crystal, it shatters, dealing @Damage[4d6[void]] damage in a @Template[burst|distance:5] @Check[reflex|dc:19|basic] save</p>\n<hr />\n<p><strong>Shadow Step</strong></p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (conjuration, occult, shadow, teleportation)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Aydrian Thrune is in dim light or darkness</p>\n<hr />\n<p><strong>Effect</strong> Aydrian teleports up to 30 feet. The destination must be in dim light or darkness and must be within her line of sight and line of effect.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Aydrian Thrune (5-6)",

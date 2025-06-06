@@ -4,22 +4,131 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lup461lEK9zazSYF",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
+            "_id": "HtPykjM3gCE3oQiR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Torpor",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Typically, a demilich is inert when encountered and doesn't take actions until its @UUID[Compendium.pf2e.spells-srd.Item.Contingency] reaction has been triggered.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "torpor",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yrnHfAodzInJxTRU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OLb44HyPmPQ1A0Sm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Vitality",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "vitality"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xHg8hrfrTg35erxf",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Contingency",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Teyam has one permanent 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Contingency] spell in effect with one of its arcane innate spells of 5th level or lower as the companion spell- typically @UUID[Compendium.pf2e.spells-srd.Item.Translocate].</p>\n<p><strong>Trigger</strong> While Teyam is in torpor, a creature disturbs Teyam's remains, touches her treasure, or casts a spell that would affect Teyam.</p>\n<hr />\n<p><strong>Effect</strong> Teyam ends torpor, rolls initiative, and gains the effect of her contingency's companion spell. The contingency resets after 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +136,402 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 43,
-                    "mod": 0,
-                    "value": 37
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "0RsLlXY365ytSohG",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Countermeasures",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Teyam's turn begins.</p>\n<hr />\n<p><strong>Effect</strong> Teyam casts @UUID[Compendium.pf2e.spells-srd.Item.Flicker], @UUID[Compendium.pf2e.spells-srd.Item.Fly], @UUID[Compendium.pf2e.spells-srd.Item.Spell Turning], or @UUID[Compendium.pf2e.spells-srd.Item.Truesight] on itself. It usually chooses spell turning unless it already has that spell in effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "19cNQjbQEVxmiger",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telekinetic Whirlwind",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. Telekinetic whirlwind activates when Teyam ends torpor. Loose debris in the area whip up into a whirling storm. This obscures vision, making any creature in the area concealed, and causes creatures in its area (except Teyam) to treat all creatures as concealed. Any creature other than Teyam that enters or begins its turn in the aura takes @Damage[2d12[bludgeoning]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "torpor"
+                            }
+                        ],
+                        "radius": 20,
+                        "slug": "telekinetic-whirlwind",
+                        "traits": [
+                            "arcane"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GQHHw4yF36Vczq0u",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "saqRnmZhtXKwqFed",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Demilich Eye Gems",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A demilich has gemstone eyes that glow when the demilich is active. Each eye contains an 8th-rank spell that targets one creature (usually one eye has @UUID[Compendium.pf2e.spells-srd.Item.Quandary] and the other @UUID[Compendium.pf2e.spells-srd.Item.Polar Ray]). The demilich can Activate an eye. This uses the number of spellcasting actions the spell requires, and also requires command and envision components.</p>\n<p>When the demilich casts a spell from a gemstone eye, that eye stops glowing for [[/gmr 1d4 #rounds]]{1d4 rounds}, during which time that eye's spell can't be used. Occasionally, one or both of the two <em>@UUID[Compendium.pf2e.equipment-srd.Item.Demilich Eye Gem]{Demilich Eye Gems}</em> can be harvested from a destroyed demilich as magic items.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1qFhgFYCKIDaF8mk",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Devour Soul",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A soul has been trapped in one of Teyam's blight quartz gems for 24 hours.</p>\n<hr />\n<p><strong>Effect</strong> Teyam consumes the soul. The soul is utterly destroyed, and Teyam regains HP equal to double the creature's level.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y5Na5QhVKW187D0K",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mental Magic",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Teyam can replace all material and somatic components for casting spells with verbal components, and can replace all Interact components for activating magic items with envision components.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CLQtaRBZzEVhkEpc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Staff Gems",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Teyam long ago absorbed the spells from a staff into gemstone nodules embedded in her skull, with larger nodules representing higher-rank spells. She can cast any of the spells as though it were Activating the staff, and regains 1 charge per 4 hours spent in torpor, to a maximum of 10 charges. Teyam has the spells from a @UUID[Compendium.pf2e.equipment-srd.Item.Staff of Power]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ymEZhbkIeDn7RKGI",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Trap Soul",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day per gem</p>\n<hr />\n<p><strong>Effect</strong> Ten blight quartz gemstones on Teyam's skull can trap the souls of the living. The Activated gem casts @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]. This bind soul can target and affect a dying creature instead of a corpse. The dying creature can attempt a @Check[fortitude|dc:43] save; if it succeeds, it doesn't die and its soul is not trapped but it's @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (or is unaffected entirely on a critical success). When the soul of a creature gets trapped, the creature's body swiftly turns to dust.</p>\n<p>The gemstones work like the black sapphires used in bind soul, except that they can hold creatures of up to 17th level and have a value of 200 gp apiece. Teyam can Devour a Soul it has trapped.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ei1Hg4itSuQopMVV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Q4o8pEdxSY0bnJQZ"
+            },
+            "img": "icons/equipment/neck/amulet-geometric-purple.webp",
+            "name": "Demilich Eye Gem",
+            "sort": 1300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This glowing gem is harvested from a demilich and has an 8th-rank spell magically bonded to it. This item has the traits of the spell it contains.</p>\n<p><strong>Activate</strong> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The gem casts the 8th-rank spell it contains. This activation uses the same number of actions as Casting the Spell. Once the spell is cast, the gem's glow fades, but returns 24 hours later, when the spell can be used once again.</p>\n<hr />\n<p><strong>Craft Requirements</strong> <em>Demilich eye gems</em> can't be crafted.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 15
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "demilich-eye-gem",
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "arcane"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "0mC5JVblweUZ0WxU",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "8d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "magical",
+                        "reach-0",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "WCo48u5xkEJam1VM",
@@ -50,7 +540,7 @@
             },
             "img": "systems/pf2e/icons/spells/wail-of-the-banshee.webp",
             "name": "Wail of the Banshee",
-            "sort": 200000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -132,7 +622,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
             "name": "Spell Turning (At Will)",
-            "sort": 300000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -192,7 +682,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -255,7 +745,7 @@
             },
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Blink (At Will)",
-            "sort": 500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -316,7 +806,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -387,7 +877,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver (At Will)",
-            "sort": 700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -450,7 +940,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 800000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -531,7 +1021,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 900000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -649,519 +1139,22 @@
             "type": "spell"
         },
         {
-            "_id": "ei1Hg4itSuQopMVV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Q4o8pEdxSY0bnJQZ"
-            },
-            "img": "icons/equipment/neck/amulet-geometric-purple.webp",
-            "name": "Demilich Eye Gem",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This glowing gem is harvested from a demilich and has an 8th-rank spell magically bonded to it. This item has the traits of the spell it contains.</p>\n<p><strong>Activate</strong> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The gem casts the 8th-rank spell it contains. This activation uses the same number of actions as Casting the Spell. Once the spell is cast, the gem's glow fades, but returns 24 hours later, when the spell can be used once again.</p>\n<hr />\n<p><strong>Craft Requirements</strong> <em>Demilich eye gems</em> can't be crafted.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 15
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "demilich-eye-gem",
-                "traits": {
-                    "rarity": "rare",
-                    "value": [
-                        "arcane"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "0mC5JVblweUZ0WxU",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+3",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "8d6",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "magical",
-                        "reach-0",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "HtPykjM3gCE3oQiR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Torpor",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Typically, a demilich is inert when encountered and doesn't take actions until its @UUID[Compendium.pf2e.spells-srd.Item.Contingency] reaction has been triggered.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "torpor",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yrnHfAodzInJxTRU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OLb44HyPmPQ1A0Sm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Vitality",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "vitality"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xHg8hrfrTg35erxf",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Contingency",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Teyam has one permanent 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Contingency] spell in effect with one of its arcane innate spells of 5th level or lower as the companion spell- typically @UUID[Compendium.pf2e.spells-srd.Item.Translocate].</p>\n<p><strong>Trigger</strong> While Teyam is in torpor, a creature disturbs Teyam's remains, touches her treasure, or casts a spell that would affect Teyam.</p>\n<hr />\n<p><strong>Effect</strong> Teyam ends torpor, rolls initiative, and gains the effect of her contingency's companion spell. The contingency resets after 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0RsLlXY365ytSohG",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Countermeasures",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Teyam's turn begins.</p>\n<hr />\n<p><strong>Effect</strong> Teyam casts @UUID[Compendium.pf2e.spells-srd.Item.Flicker], @UUID[Compendium.pf2e.spells-srd.Item.Fly], @UUID[Compendium.pf2e.spells-srd.Item.Spell Turning], or @UUID[Compendium.pf2e.spells-srd.Item.Truesight] on itself. It usually chooses spell turning unless it already has that spell in effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "19cNQjbQEVxmiger",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telekinetic Whirlwind",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. Telekinetic whirlwind activates when Teyam ends torpor. Loose debris in the area whip up into a whirling storm. This obscures vision, making any creature in the area concealed, and causes creatures in its area (except Teyam) to treat all creatures as concealed. Any creature other than Teyam that enters or begins its turn in the aura takes @Damage[2d12[bludgeoning]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            {
-                                "not": "torpor"
-                            }
-                        ],
-                        "radius": 20,
-                        "slug": "telekinetic-whirlwind",
-                        "traits": [
-                            "arcane"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "aura"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GQHHw4yF36Vczq0u",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "saqRnmZhtXKwqFed",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Demilich Eye Gems",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A demilich has gemstone eyes that glow when the demilich is active. Each eye contains an 8th-rank spell that targets one creature (usually one eye has @UUID[Compendium.pf2e.spells-srd.Item.Quandary] and the other @UUID[Compendium.pf2e.spells-srd.Item.Polar Ray]). The demilich can Activate an eye. This uses the number of spellcasting actions the spell requires, and also requires command and envision components.</p>\n<p>When the demilich casts a spell from a gemstone eye, that eye stops glowing for [[/gmr 1d4 #rounds]]{1d4 rounds}, during which time that eye's spell can't be used. Occasionally, one or both of the two <em>@UUID[Compendium.pf2e.equipment-srd.Item.Demilich Eye Gem]{Demilich Eye Gems}</em> can be harvested from a destroyed demilich as magic items.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1qFhgFYCKIDaF8mk",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Devour Soul",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> A soul has been trapped in one of Teyam's blight quartz gems for 24 hours.</p>\n<hr />\n<p><strong>Effect</strong> Teyam consumes the soul. The soul is utterly destroyed, and Teyam regains HP equal to double the creature's level.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "y5Na5QhVKW187D0K",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mental Magic",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Teyam can replace all material and somatic components for casting spells with verbal components, and can replace all Interact components for activating magic items with envision components.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CLQtaRBZzEVhkEpc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Staff Gems",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Teyam long ago absorbed the spells from a staff into gemstone nodules embedded in her skull, with larger nodules representing higher-rank spells. She can cast any of the spells as though it were Activating the staff, and regains 1 charge per 4 hours spent in torpor, to a maximum of 10 charges. Teyam has the spells from a @UUID[Compendium.pf2e.equipment-srd.Item.Staff of Power]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "selected": {},
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ymEZhbkIeDn7RKGI",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Trap Soul",
+            "_id": "lup461lEK9zazSYF",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 2300000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day per gem</p>\n<hr />\n<p><strong>Effect</strong> Ten blight quartz gemstones on Teyam's skull can trap the souls of the living. The Activated gem casts @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]. This bind soul can target and affect a dying creature instead of a corpse. The dying creature can attempt a @Check[fortitude|dc:43] save; if it succeeds, it doesn't die and its soul is not trapped but it's @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (or is unaffected entirely on a critical success). When the soul of a creature gets trapped, the creature's body swiftly turns to dust.</p>\n<p>The gemstones work like the black sapphires used in bind soul, except that they can hold creatures of up to 17th level and have a value of 200 gp apiece. Teyam can Devour a Soul it has trapped.</p>"
+                    "value": ""
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -1169,14 +1162,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "selected": {},
-                    "value": []
+                "spelldc": {
+                    "dc": 43,
+                    "mod": 0,
+                    "value": 37
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Teyam Ishtori",

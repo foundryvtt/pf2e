@@ -3,22 +3,92 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "FUdyjRGkgKWx4So9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Spontaneous Spells",
+            "_id": "ipGw6L7E6GUS565c",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Hypnosis",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The lunar naga twists the coils of their serpentine body, causing the starlike motes on their scales to shift and move as they glow brighter, creating a mesmerizing swirl of light and darkness. All creatures within a 30.foot emanation must succeed at a @Check[will|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] until the end of the naga's next turn (on a critical failure, fascinated creatures drop whatever items they are carrying as well). The lunar naga can Sustain a Spell on Hypnosis. If the naga moves, affected creatures are compelled to remain within 30 feet of the naga and must spend each of its actions moving closer to the naga as expediently as possible on its next turn. If a creature is unable to end its turn within 30 feet of the naga, the effect ends for that creature.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "mental",
+                        "primal",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OxPw5pr9S1edjy8S",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lunar Naga Venom",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong>@Check[fortitude|dc:24]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 round). Once a creature falls unconscious from lunar naga venom, they remain asleep for [[/r 1d8 #hours]]{1d8 hours} unless woken.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "lunar-naga-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison",
+                        "sleep"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bHdiDlV2uqMjzq0I",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Astronomy Lore",
+            "sort": 300000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
+                "mod": {
+                    "value": 11
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -27,31 +97,56 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": "4",
-                        "value": "4"
-                    },
-                    "slot2": {
-                        "max": "4",
-                        "value": "4"
-                    },
-                    "slot3": {
-                        "max": "4",
-                        "value": "4"
-                    }
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "2BHwzsnFNAsPoULp",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "mod": 0,
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "lunar-naga-venom"
+                    ]
+                },
+                "bonus": {
                     "value": 16
                 },
-                "tradition": {
-                    "value": "primal"
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
             "_id": "uwOuEKMTn3vp2BAf",
@@ -60,7 +155,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "line",
@@ -146,7 +241,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -212,7 +307,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -280,7 +375,7 @@
             },
             "img": "systems/pf2e/icons/spells/humanoid-form.webp",
             "name": "Humanoid Form",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -342,7 +437,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -402,7 +497,7 @@
             },
             "img": "icons/creatures/webs/web-spider-glowing-pink.webp",
             "name": "Web",
-            "sort": 700000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -470,7 +565,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -539,7 +634,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -602,7 +697,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -689,7 +784,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1100000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -756,7 +851,7 @@
             },
             "img": "icons/skills/movement/feet-winged-sandals-tan.webp",
             "name": "Fleet Step",
-            "sort": 1200000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -816,7 +911,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1300000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1013,7 +1108,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1209,7 +1304,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1270,7 +1365,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 1600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1334,7 +1429,7 @@
             },
             "img": "icons/creatures/invertebrates/tick-cross-glowing-purple.webp",
             "name": "Spider Sting",
-            "sort": 1700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1405,139 +1500,22 @@
             "type": "spell"
         },
         {
-            "_id": "2BHwzsnFNAsPoULp",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 1800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "lunar-naga-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d6+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ipGw6L7E6GUS565c",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Hypnosis",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The lunar naga twists the coils of their serpentine body, causing the starlike motes on their scales to shift and move as they glow brighter, creating a mesmerizing swirl of light and darkness. All creatures within a 30.foot emanation must succeed at a @Check[will|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] until the end of the naga's next turn (on a critical failure, fascinated creatures drop whatever items they are carrying as well). The lunar naga can Sustain a Spell on Hypnosis. If the naga moves, affected creatures are compelled to remain within 30 feet of the naga and must spend each of its actions moving closer to the naga as expediently as possible on its next turn. If a creature is unable to end its turn within 30 feet of the naga, the effect ends for that creature.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "incapacitation",
-                        "mental",
-                        "primal",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OxPw5pr9S1edjy8S",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lunar Naga Venom",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong>@Check[fortitude|dc:24]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 round). Once a creature falls unconscious from lunar naga venom, they remain asleep for [[/r 1d8 #hours]]{1d8 hours} unless woken.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "lunar-naga-venom",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison",
-                        "sleep"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bHdiDlV2uqMjzq0I",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Astronomy Lore",
+            "_id": "FUdyjRGkgKWx4So9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Spontaneous Spells",
             "sort": 2100000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 11
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -1546,9 +1524,31 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slots": {
+                    "slot1": {
+                        "max": "4",
+                        "value": "4"
+                    },
+                    "slot2": {
+                        "max": "4",
+                        "value": "4"
+                    },
+                    "slot3": {
+                        "max": "4",
+                        "value": "4"
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 24,
+                    "mod": 0,
+                    "value": 16
+                },
+                "tradition": {
+                    "value": "primal"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Lunar Naga",

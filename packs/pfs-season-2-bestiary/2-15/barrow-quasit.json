@@ -4,23 +4,56 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "tXsG0WYmch7MiZ0l",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "Gqe1PqCsNRu6oUKa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy (Touch)",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E6yHKgr49GpD3BXa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Abyssal Knowledge",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When a quasit offers Aid for an Arcana or Religion check, it gets the critical success result on any success and gets the critical failure result on any failure.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,19 +61,206 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "GdWAi69mvxSgSJOn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Virtue Aversion",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The quasit's link to a mortal soul gave it birth, but it presents a vulnerability. Once per round, a creature can present an object related to something virtuous or good in the life of the quasit's creator (such as a beloved daughter's doll) as an Interact action to automatically deal the quasit @Damage[2d6[mental]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9boiwlXx7yggBu6F",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Abyssal Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The quasit restores @Damage[1d6[healing]] Hit Points to itself.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "healing"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PJbq8TKDuFGf9n7l",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Barrow Quasit Venom",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:20|traits:damaging-effect]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6H24I1OnQd9t8zNU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<ul>\n<ul>\n<li><strong>Bat</strong>\n<ul>\n<li><strong>Senses</strong> Echolocation 40 feet</li>\n<li><strong>Speed</strong> 15 feet, fly 30 feet</li>\n<li><strong>Melee</strong> fangs [[/r 1d20+10 #Fangs]]{+10}/[[/r 1d20+6 #Fangs]]{+6}/[[/r 1d20+2 #Fangs]]{+2} (agile), <strong>Damage</strong> @Damage[1d8[piercing]] damage</li>\n<li><strong>Melee</strong> wing [[/r 1d20+10 #Wing]]{+10}/[[/r 1d20+6 #Wing]]{+6}/[[/r 1d20+2 #Wing]]{+2} (agile), <strong>Damage</strong> @Damage[1d6[bludgeoning]] damage</li>\n</ul>\n</li>\n<li><strong>Centipede</strong>\n<ul>\n<li><strong>Speed</strong> 10 feet, climb 10 feet</li>\n<li><strong>Melee</strong> mandibles [[/r 1d20+10 #Mandibles]]{+10}/[[/r 1d20+5 #Mandibles]]{+5}/[[/r 1d20 #Mandibles]]{+0} (poison), <strong>Damage</strong> @Damage[2[piercing],1d6[poison]]{2 piercing damage + 1d6 poison damage}</li>\n</ul>\n</li>\n<li><strong>Toad</strong>\n<ul>\n<li><strong>Senses</strong> @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Scent] (Imprecise) 30 feet</li>\n<li><strong>Speed</strong> 5 feet</li>\n<li><strong>Melee</strong> jaws [[/r 1d20+10 #Jaws]]{+10}/[[/r 1d20+5#Jaws]]{+5}/[[/r 1d20 #Jaws]]{+0}, <strong>Damage</strong> @Damage[2[bludgeoning]] damage</li>\n</ul>\n</li>\n<li><strong>Wolf</strong>\n<ul>\n<li><strong>Size</strong> Medium</li>\n<li><strong>Senses</strong> @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Scent] (Imprecise) 30 feet</li>\n<li><strong>Speed</strong> 40 feet, climb 10 feet</li>\n<li><strong>Melee</strong> jaws [[/r 1d20+10 #Jaws]]{+10}/[[/r 1d20+5 #Jaws]]{+5}/[[/r 1d20 #Jaws]]{+0}, <strong>Damage</strong> @Damage[2d6[piercing]] damage plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Knockdown]</li>\n</ul>\n</li>\n</ul>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5AI5EQLg7q4uodyq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "barrow-quasit-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "lsh65h8914j5drwcdc8r": {
+                        "damage": "1d8",
+                        "damageType": "slashing"
+                    },
+                    "0b3ul129vovt9z1kwgm4": {
+                        "damage": "2d4",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "poison",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "hrwCGOdNOWJDKIOT",
@@ -49,7 +269,7 @@
             },
             "img": "icons/sundries/gaming/playing-cards-black.webp",
             "name": "Read Omens",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -111,7 +331,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will) (Self Only)",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -172,7 +392,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (At Will) (Good Only)",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -237,7 +457,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -304,7 +524,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -379,263 +599,43 @@
             "type": "spell"
         },
         {
-            "_id": "5AI5EQLg7q4uodyq",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "barrow-quasit-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "lsh65h8914j5drwcdc8r": {
-                        "damage": "1d8",
-                        "damageType": "slashing"
-                    },
-                    "0b3ul129vovt9z1kwgm4": {
-                        "damage": "2d4",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "poison",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Gqe1PqCsNRu6oUKa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy (Touch)",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "E6yHKgr49GpD3BXa",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Abyssal Knowledge",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When a quasit offers Aid for an Arcana or Religion check, it gets the critical success result on any success and gets the critical failure result on any failure.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GdWAi69mvxSgSJOn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Virtue Aversion",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The quasit's link to a mortal soul gave it birth, but it presents a vulnerability. Once per round, a creature can present an object related to something virtuous or good in the life of the quasit's creator (such as a beloved daughter's doll) as an Interact action to automatically deal the quasit @Damage[2d6[mental]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9boiwlXx7yggBu6F",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Abyssal Healing",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The quasit restores @Damage[1d6[healing]] Hit Points to itself.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "healing"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PJbq8TKDuFGf9n7l",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Barrow Quasit Venom",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:20|traits:damaging-effect]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6H24I1OnQd9t8zNU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
+            "_id": "tXsG0WYmch7MiZ0l",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 1300000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<ul>\n<ul>\n<li><strong>Bat</strong>\n<ul>\n<li><strong>Senses</strong> Echolocation 40 feet</li>\n<li><strong>Speed</strong> 15 feet, fly 30 feet</li>\n<li><strong>Melee</strong> fangs [[/r 1d20+10 #Fangs]]{+10}/[[/r 1d20+6 #Fangs]]{+6}/[[/r 1d20+2 #Fangs]]{+2} (agile), <strong>Damage</strong> @Damage[1d8[piercing]] damage</li>\n<li><strong>Melee</strong> wing [[/r 1d20+10 #Wing]]{+10}/[[/r 1d20+6 #Wing]]{+6}/[[/r 1d20+2 #Wing]]{+2} (agile), <strong>Damage</strong> @Damage[1d6[bludgeoning]] damage</li>\n</ul>\n</li>\n<li><strong>Centipede</strong>\n<ul>\n<li><strong>Speed</strong> 10 feet, climb 10 feet</li>\n<li><strong>Melee</strong> mandibles [[/r 1d20+10 #Mandibles]]{+10}/[[/r 1d20+5 #Mandibles]]{+5}/[[/r 1d20 #Mandibles]]{+0} (poison), <strong>Damage</strong> @Damage[2[piercing],1d6[poison]]{2 piercing damage + 1d6 poison damage}</li>\n</ul>\n</li>\n<li><strong>Toad</strong>\n<ul>\n<li><strong>Senses</strong> @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Scent] (Imprecise) 30 feet</li>\n<li><strong>Speed</strong> 5 feet</li>\n<li><strong>Melee</strong> jaws [[/r 1d20+10 #Jaws]]{+10}/[[/r 1d20+5#Jaws]]{+5}/[[/r 1d20 #Jaws]]{+0}, <strong>Damage</strong> @Damage[2[bludgeoning]] damage</li>\n</ul>\n</li>\n<li><strong>Wolf</strong>\n<ul>\n<li><strong>Size</strong> Medium</li>\n<li><strong>Senses</strong> @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Scent] (Imprecise) 30 feet</li>\n<li><strong>Speed</strong> 40 feet, climb 10 feet</li>\n<li><strong>Melee</strong> jaws [[/r 1d20+10 #Jaws]]{+10}/[[/r 1d20+5 #Jaws]]{+5}/[[/r 1d20 #Jaws]]{+0}, <strong>Damage</strong> @Damage[2d6[piercing]] damage plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Knockdown]</li>\n</ul>\n</li>\n</ul>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "polymorph"
-                    ]
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 20,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Barrow Quasit",

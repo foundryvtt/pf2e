@@ -3,10 +3,116 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "2vb8hf7ikquLEd9z",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Aquatic Echolocation (Precise) 120 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A narwhal can use its hearing as a precise sense at the listed range, but only underwater.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ym03EsvdVPymdBSB",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Deep Breath",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A narwhal can hold its breath for 30 minutes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FodKNeEvBm6FqwvE",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Impaling Charge",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The narwhal Swims twice and makes a tusk Strike. If it moved at least 20 feet from its starting position, the narwhal deals an extra 1d10 damage on this Strike.</p>\n<p>A target damaged by Impaling Charge is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until the start of the narwhal's next turn unless it @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} before then (DC 20).</p>\n<p>The narwhal can't Grapple to extend the duration of this grab.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "strike-damage",
+                        "key": "RollOption",
+                        "option": "impaling-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "impaling-charge"
+                        ],
+                        "selector": "tusk-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "RcFq3iNSRnikQSug",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tusk",
-            "sort": 100000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -51,7 +157,7 @@
             "_id": "uLwnIHpENAqfjCwz",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -90,112 +196,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "2vb8hf7ikquLEd9z",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Aquatic Echolocation (Precise) 120 feet",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A narwhal can use its hearing as a precise sense at the listed range, but only underwater.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ym03EsvdVPymdBSB",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Deep Breath",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A narwhal can hold its breath for 30 minutes.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FodKNeEvBm6FqwvE",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Impaling Charge",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The narwhal Swims twice and makes a tusk Strike. If it moved at least 20 feet from its starting position, the narwhal deals an extra 1d10 damage on this Strike.</p>\n<p>A target damaged by Impaling Charge is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until the start of the narwhal's next turn unless it @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} before then (DC 20).</p>\n<p>The narwhal can't Grapple to extend the duration of this grab.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "strike-damage",
-                        "key": "RollOption",
-                        "option": "impaling-charge",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "impaling-charge"
-                        ],
-                        "selector": "tusk-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Narwhal",

@@ -4,22 +4,62 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "JP0OuGjnMiR3LCWH",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "IXlVRslfRZm87uS1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.vfFB2za4zaQnXYIa.Item.BpD2byfrbMItSgfy"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+14 to Sense Motive",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Sense Motive",
+                        "predicate": [
+                            "action:sense-motive"
+                        ],
+                        "selector": "perception",
+                        "value": 14
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2viuwWD0nooQXG1T",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Contract Specialist",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>For encounters involving matters of contracts and dealings with Hell, the infernal registrar is an 18th-level challenge.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -27,21 +67,360 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "value": 21
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aLx0kam6eK59AqGj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Death is a Promotion",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
                 },
-                "tradition": {
-                    "value": "divine"
+                "actions": {
+                    "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The infernal registrar does not fear death, as they have a signed infernal contract for immediate promotion to a mid-ranked devil upon their soul's arrival in Hell. They're immune to all Intimidation checks to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] involving threats of death.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "J3qyg1YxHyK4eyq7",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Friends in Low Places",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Though devils do not respect most mortals, they respect the office of infernal registrar. No creature with the devil trait of 18th level or lower will knowingly and willingly attack an infernal registrar.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1L5lEKER1bUFpi8t",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Technically Correct",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The infernal registrar uses their Legal Lore modifier on all Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Lie].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hMogOB62TfK2FASF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+2 circumstance to all saves vs fear",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "fear"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ahipj1K6rqVOLTlv",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "A Favor for a Favor",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The infernal registrar has the authority to make limited infernal contracts with other mortals. They summon a contract with the legal language they desire. Detecting @UUID[Compendium.pf2e.conditionitems.Item.Hidden] clauses in the contract requires a successful @Check[society|dc:43] or a @Check[Legal Lore|dc:38] check. Once signed, the contract vanishes into the infernal filing system in Hell. The infernal registrar cannot grant any boons beyond their own personal power (usually limited to information, advice, or access to elements of the infernal bureaucracy).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CHqQHA8YIr6uIaZe",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Request Document",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The infernal registrar makes a request to summon a copy of any infernal contract a specific creature has signed. They must know enough information to specifically identify the individual who signed. The infernal registrar attempts a Legal Lore check with a DC equal to a hard DC of the level of the creature in question. The infernal registrar will never promise a successful use of this ability in the agreements they make. Each agreement is typically for one attempt. Any copy summoned is simply a copy, has no impact on the original contract if destroyed or altered, and will vanish if taken more than 20 feet from the infernal registrar.</p><hr /><p><strong>Critical Success</strong> A copy of the contract appears before the infernal registrar after 10 minutes.</p>\n<p><strong>Success</strong> A copy of the contract appears before the infernal registrar after 1 hour.</p>\n<p><strong>Failure</strong> The attempt fails, but the infernal registrar can try again after 24 hours.</p>\n<p><strong>Critical Failure</strong> The attempt fails, and the infernal registrar can't try again for the named creature for 1 year.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fs1wgXz712nLibt8",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Legal Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 33
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "b9kl7oclIEjvdfQr",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Scribe Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "EpewCZdCy41wPsm1",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "FamXd7M1LJbJdMps"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 1100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "7jMk1svVDOJUSATI": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    },
+                    "81fQVVulTRu0LHrg": {
+                        "damage": "2d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
+                "slug": "staff",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "two-hand-d8"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "oEkSsSVmgszHEwAw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.HbYwSi428oXESdNh.Item.a6VT956imq0UeyhM"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "Y5eDdGg3UYxGBb81",
@@ -50,7 +429,7 @@
             },
             "img": "systems/pf2e/icons/spells/banishment.webp",
             "name": "Banishment",
-            "sort": 200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -129,7 +508,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Divine Immolation",
-            "sort": 300000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -218,7 +597,7 @@
             },
             "img": "icons/magic/perception/orb-crystal-ball-scrying-blue.webp",
             "name": "Detect Scrying",
-            "sort": 400000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -283,7 +662,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -363,7 +742,7 @@
             },
             "img": "icons/magic/light/beam-explosion-pink-purple.webp",
             "name": "Chilling Darkness",
-            "sort": 600000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -456,7 +835,7 @@
             },
             "img": "systems/pf2e/icons/spells/locate.webp",
             "name": "Locate",
-            "sort": 700000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -529,7 +908,7 @@
             },
             "img": "icons/magic/symbols/star-inverted-yellow.webp",
             "name": "Ring of Truth",
-            "sort": 800000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -600,7 +979,7 @@
             },
             "img": "systems/pf2e/icons/spells/comprehend-language.webp",
             "name": "Translate (At Will)",
-            "sort": 900000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -672,7 +1051,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1000000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -739,7 +1118,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1100000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -820,7 +1199,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
             "name": "Ignition",
-            "sort": 1200000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -930,7 +1309,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 1300000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1003,13 +1382,53 @@
             "type": "spell"
         },
         {
+            "_id": "JP0OuGjnMiR3LCWH",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 2500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "FamXd7M1LJbJdMps",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 1400000,
+            "sort": 2600000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -1087,425 +1506,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "EpewCZdCy41wPsm1",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "FamXd7M1LJbJdMps"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 1500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "7jMk1svVDOJUSATI": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "81fQVVulTRu0LHrg": {
-                        "damage": "2d4+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageDice",
-                        "label": "PF2E.TraitTwoHandD8",
-                        "override": {
-                            "dieSize": "d8"
-                        },
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
-                "slug": "staff",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "two-hand-d8"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "oEkSsSVmgszHEwAw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.HbYwSi428oXESdNh.Item.a6VT956imq0UeyhM"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "IXlVRslfRZm87uS1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.vfFB2za4zaQnXYIa.Item.BpD2byfrbMItSgfy"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+14 to Sense Motive",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Sense Motive",
-                        "predicate": [
-                            "action:sense-motive"
-                        ],
-                        "selector": "perception",
-                        "value": 14
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2viuwWD0nooQXG1T",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Contract Specialist",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>For encounters involving matters of contracts and dealings with Hell, the infernal registrar is an 18th-level challenge.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aLx0kam6eK59AqGj",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Death is a Promotion",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The infernal registrar does not fear death, as they have a signed infernal contract for immediate promotion to a mid-ranked devil upon their soul's arrival in Hell. They're immune to all Intimidation checks to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] involving threats of death.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "J3qyg1YxHyK4eyq7",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Friends in Low Places",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Though devils do not respect most mortals, they respect the office of infernal registrar. No creature with the devil trait of 18th level or lower will knowingly and willingly attack an infernal registrar.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1L5lEKER1bUFpi8t",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Technically Correct",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The infernal registrar uses their Legal Lore modifier on all Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Lie].</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hMogOB62TfK2FASF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "+2 circumstance to all saves vs fear",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "fear"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ahipj1K6rqVOLTlv",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "A Favor for a Favor",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The infernal registrar has the authority to make limited infernal contracts with other mortals. They summon a contract with the legal language they desire. Detecting @UUID[Compendium.pf2e.conditionitems.Item.Hidden] clauses in the contract requires a successful @Check[society|dc:43] or a @Check[Legal Lore|dc:38] check. Once signed, the contract vanishes into the infernal filing system in Hell. The infernal registrar cannot grant any boons beyond their own personal power (usually limited to information, advice, or access to elements of the infernal bureaucracy).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CHqQHA8YIr6uIaZe",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Request Document",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The infernal registrar makes a request to summon a copy of any infernal contract a specific creature has signed. They must know enough information to specifically identify the individual who signed. The infernal registrar attempts a Legal Lore check with a DC equal to a hard DC of the level of the creature in question. The infernal registrar will never promise a successful use of this ability in the agreements they make. Each agreement is typically for one attempt. Any copy summoned is simply a copy, has no impact on the original contract if destroyed or altered, and will vanish if taken more than 20 feet from the infernal registrar.</p><hr /><p><strong>Critical Success</strong> A copy of the contract appears before the infernal registrar after 10 minutes.</p>\n<p><strong>Success</strong> A copy of the contract appears before the infernal registrar after 1 hour.</p>\n<p><strong>Failure</strong> The attempt fails, but the infernal registrar can try again after 24 hours.</p>\n<p><strong>Critical Failure</strong> The attempt fails, and the infernal registrar can't try again for the named creature for 1 year.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fs1wgXz712nLibt8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Legal Lore",
-            "sort": 2500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 33
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "b9kl7oclIEjvdfQr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Scribe Lore",
-            "sort": 2600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 30
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Infernal Registrar",

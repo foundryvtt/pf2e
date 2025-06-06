@@ -3,13 +3,122 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "6TdllGeax8h6457M",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Naturally Invisible",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The phade is @UUID[Compendium.pf2e.conditionitems.Item.Invisible] at all times, though when it takes a hostile action of any kind, it is @UUID[Compendium.pf2e.conditionitems.Item.Hidden] instead of undetected until the start of its next turn, as the vague outline of its humanoid form is faintly visible for a short period of time.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ANyC8NZ6FUDU74w1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hush",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The phade calms the air in a @Template[emanation|distance:30] until the beginning of its next turn, reducing sounds in it to a whisper that can't be heard outside the emanation.</p>\n<p>This doesn't prevent casting spells, but a phade attempts to counteract any auditory or sonic effect originating in the area with a [[/r 1d20+17 #Counteract]]{+17} counteract modifier. If the counteract attempt fails, Hush ends early.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "air",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hh5R2THIk2h54UOV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sneak Attack",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The phade deals 2d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "tcPOTdWC8AOWOaP2",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML"
             },
             "img": "systems/pf2e/icons/conditions/invisible.webp",
             "name": "Invisible",
-            "sort": 100000,
+            "sort": 400000,
             "system": {
                 "active": false,
                 "description": {
@@ -52,7 +161,7 @@
             "_id": "zHzxiV7sS8c8LmWL",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -93,115 +202,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "6TdllGeax8h6457M",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Naturally Invisible",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The phade is @UUID[Compendium.pf2e.conditionitems.Item.Invisible] at all times, though when it takes a hostile action of any kind, it is @UUID[Compendium.pf2e.conditionitems.Item.Hidden] instead of undetected until the start of its next turn, as the vague outline of its humanoid form is faintly visible for a short period of time.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ANyC8NZ6FUDU74w1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hush",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The phade calms the air in a @Template[emanation|distance:30] until the beginning of its next turn, reducing sounds in it to a whisper that can't be heard outside the emanation.</p>\n<p>This doesn't prevent casting spells, but a phade attempts to counteract any auditory or sonic effect originating in the area with a [[/r 1d20+17 #Counteract]]{+17} counteract modifier. If the counteract attempt fails, Hush ends early.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "air",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hh5R2THIk2h54UOV",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sneak Attack",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The phade deals 2d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Phade",

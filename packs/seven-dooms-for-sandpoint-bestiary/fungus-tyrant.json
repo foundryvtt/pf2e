@@ -3,22 +3,176 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "N11WnXUJ0p9pheGn",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "lKgqki1FdxrUgsXV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lgB1MU6GHJHRtB1m",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fungaltongue",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A fungus tyrant can speak with all forms of fungus, be they fungal creatures or otherwise. Most normal fungi don't recognize details about creatures or know anything about the world beyond their immediate vicinity. A fungus tyrant gains a +3 circumstance bonus on all Deception, Diplomacy, or Intimidation checks made against fungus creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "target:trait:fungus"
+                        ],
+                        "selector": [
+                            "deception",
+                            "diplomacy",
+                            "intimidation"
+                        ],
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0FsvKpwHU0l0t09W",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zJCueH0fOZ2t2FMH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SIGvsx61oNnyWzLT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Create Spawn",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If a creature dies after being reduced to 0 HP by a fungus tyrant's Mind-Draining Kiss, the fungus tyrant can turn this victim into a spore thrall by donating some of their own fungal matter to the victim and leaving them to \"ripen\" within a patch of fungus for 24 hours. After this time, the creature is restored to life but gains the fungus trait and becomes a spore thrall. This prevents the creature's soul from continuing on to the afterlife in a similar manner to how undead are taken out of that cycle—as such, those who hold that cycle sacred (particularly worshipers of Pharasma) regard spore thralls as bad as the undead, despite them being living creatures. If the new spore thrall is a lower level than its creator, then it's under the creator's control. If a fungus tyrant controls too many spore thralls at once (as determined by the GM), strong-willed spore thralls can free themselves by succeeding at a @Check[will|dc:28] save. Typically, a fungus tyrant avoids creating spore thralls out of fallen foes who are too powerful to control, for they're only too aware of the compulsion for revenge such victims might harbor for those who wrenched them from the afterlife.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,21 +180,264 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "zTUk285orSz8VuBR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Grow Sporepod",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The fungus tyrant causes a human-sized pod of fungal material to burst out of the ground at any point they can see within 60 feet. Once created, a sporepod lasts for 1 minute, until the fungus tyrant moves more than 120 feet away from it, or until it's destroyed (AC 28, Hardness 10, 20 HP). The fungus tyrant cannot Grow a Sporepod again for [[/gmr 1d4 #Recharge Grow Sporepod]]{1d4 rounds}, but apart from this and a sporepod's 1 minute life, there is no hard limit to the number of sporepods a single fungus tyrant can have active at any one time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gaf17uTpbvO4KcPq",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mind-Draining Kiss",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The fungus tyrant engages a creature they have @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in an act of passion in an attempt to drain its will and personality. The kiss makes the creature @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} or increases its stupefied condition by 1, to a maximum of 4. The creature takes @Damage[4d6[poison]] damage and must then succeed at a @Check[will|dc:28] save or be affected by a @UUID[Compendium.pf2e.spells-srd.Item.Suggestion] to remain immobile rather than trying to @UUID[Compendium.pf2e.actionspf2e.Item.Escape].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mGQswZHQ8ZgVEJWy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sporestride",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The fungus tyrant Steps into an adjacent sporepod and instantly teleports to any other active sporepod they've created, bursting out of the target sporepod and destroying it in the process.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DE2HiFd3EjYr3JoX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sporewarp",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The fungus tyrant attempts a tentacle Strike but treats a sporepod of their choice within 120 feet that they can see as the point of origin of that tentacle Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "H0jCOnnhcKA0P999",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Gk1nMrx6NNO1AcKk",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "Q26GTtXdxhXcjTIm": {
+                        "damage": "2d10+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "SE3Kkb5f3EdsOZd7",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "zHrPX1OgCLWErdVJ": {
+                        "damage": "2d12+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "Sq4FHYcqcrIjrONz",
@@ -49,7 +446,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucination.webp",
             "name": "Hallucination",
-            "sort": 200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -133,7 +530,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-probe.webp",
             "name": "Mind Probe",
-            "sort": 300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -201,7 +598,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -262,7 +659,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Mirage",
-            "sort": 500000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -328,7 +725,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 600000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -408,7 +805,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 700000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -476,7 +873,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -553,7 +950,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 900000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -634,7 +1031,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1000000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -721,7 +1118,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1100000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -788,7 +1185,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 1200000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -845,441 +1242,44 @@
             "type": "spell"
         },
         {
-            "_id": "Gk1nMrx6NNO1AcKk",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tentacle",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "Q26GTtXdxhXcjTIm": {
-                        "damage": "2d10+7",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "SE3Kkb5f3EdsOZd7",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "zHrPX1OgCLWErdVJ": {
-                        "damage": "2d12+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "lKgqki1FdxrUgsXV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lgB1MU6GHJHRtB1m",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Fungaltongue",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A fungus tyrant can speak with all forms of fungus, be they fungal creatures or otherwise. Most normal fungi don't recognize details about creatures or know anything about the world beyond their immediate vicinity. A fungus tyrant gains a +3 circumstance bonus on all Deception, Diplomacy, or Intimidation checks made against fungus creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "target:trait:fungus"
-                        ],
-                        "selector": [
-                            "deception",
-                            "diplomacy",
-                            "intimidation"
-                        ],
-                        "type": "circumstance",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0FsvKpwHU0l0t09W",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zJCueH0fOZ2t2FMH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SIGvsx61oNnyWzLT",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Create Spawn",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If a creature dies after being reduced to 0 HP by a fungus tyrant's Mind-Draining Kiss, the fungus tyrant can turn this victim into a spore thrall by donating some of their own fungal matter to the victim and leaving them to \"ripen\" within a patch of fungus for 24 hours. After this time, the creature is restored to life but gains the fungus trait and becomes a spore thrall. This prevents the creature's soul from continuing on to the afterlife in a similar manner to how undead are taken out of that cycle—as such, those who hold that cycle sacred (particularly worshipers of Pharasma) regard spore thralls as bad as the undead, despite them being living creatures. If the new spore thrall is a lower level than its creator, then it's under the creator's control. If a fungus tyrant controls too many spore thralls at once (as determined by the GM), strong-willed spore thralls can free themselves by succeeding at a @Check[will|dc:28] save. Typically, a fungus tyrant avoids creating spore thralls out of fallen foes who are too powerful to control, for they're only too aware of the compulsion for revenge such victims might harbor for those who wrenched them from the afterlife.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zTUk285orSz8VuBR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Grow Sporepod",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The fungus tyrant causes a human-sized pod of fungal material to burst out of the ground at any point they can see within 60 feet. Once created, a sporepod lasts for 1 minute, until the fungus tyrant moves more than 120 feet away from it, or until it's destroyed (AC 28, Hardness 10, 20 HP). The fungus tyrant cannot Grow a Sporepod again for [[/gmr 1d4 #Recharge Grow Sporepod]]{1d4 rounds}, but apart from this and a sporepod's 1 minute life, there is no hard limit to the number of sporepods a single fungus tyrant can have active at any one time.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gaf17uTpbvO4KcPq",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Mind-Draining Kiss",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The fungus tyrant engages a creature they have @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in an act of passion in an attempt to drain its will and personality. The kiss makes the creature @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} or increases its stupefied condition by 1, to a maximum of 4. The creature takes @Damage[4d6[poison]] damage and must then succeed at a @Check[will|dc:28] save or be affected by a @UUID[Compendium.pf2e.spells-srd.Item.Suggestion] to remain immobile rather than trying to @UUID[Compendium.pf2e.actionspf2e.Item.Escape].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mGQswZHQ8ZgVEJWy",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sporestride",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The fungus tyrant Steps into an adjacent sporepod and instantly teleports to any other active sporepod they've created, bursting out of the target sporepod and destroying it in the process.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "move",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DE2HiFd3EjYr3JoX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sporewarp",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The fungus tyrant attempts a tentacle Strike but treats a sporepod of their choice within 120 feet that they can see as the point of origin of that tentacle Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "attack"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "H0jCOnnhcKA0P999",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
+            "_id": "N11WnXUJ0p9pheGn",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 2400000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Fungus Tyrant",

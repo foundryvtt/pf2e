@@ -3,21 +3,168 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "WWuCEMdh1f9UfjG5",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "vw7CqLS1fQ7CXlLL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 4
+                "actionType": {
+                    "value": "passive"
                 },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UGUWALd2VlYF2YHm",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hatred of Red",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Pairakas hate the color red. Zridi won't wear the color or willingly enter any place painted red. Given a choice, she'll attack a creature wearing red first. If barred from expressing her displeasure toward the color by force or some magical effect, she takes @Damage[2d6[mental]] damage at the end of her turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4NDYGQ0N2hZuDmLa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-bestiary-3.XgCQnswAedPcwLck.Item.OnmLcXNYU1Jxp5ji"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bubonic Plague",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature can't remove the fatigued condition while infected</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:24]</p>\n<hr />\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}, fatigued, and take @Damage[1d6[bleed]] every [[/br 1d20 #Persistent Damage Interval]]{1d20 minutes} (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "bubonic-plague",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4FWJV0JycabbbM9J",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Zridi can take the appearance of any Small or Medium humanoid or animal. This doesn't change her Speed or her attack and damage modifiers with the Strikes, but it might change the damage type her Strikes deal.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "osoaSGKfsC1ynbq1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Compelled Performance",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Zridi grants the target a +2 status bonus to Performance checks for one week. The target must attempt a @Check[will|dc:26] save.</p>\n<p><strong>Critical Success</strong> No further effect.</p>\n<p><strong>Success</strong> The target must @UUID[Compendium.pf2e.actionspf2e.Item.Perform] for 1 action on its next turn.</p>\n<p><strong>Failure</strong> The target must Perform for 3 actions on its next turn, undertaking a Performance task set by Zridi.</p>\n<p><strong>Critical Failure</strong> As failure, but Zridi can choose to delay the effect and trigger it at any point in the next week as a reaction.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Compelled Performance]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
                     "value": 1
                 },
                 "publication": {
@@ -26,20 +173,167 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "u6YxDEh3edTAjJSk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tormenting Dreams",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Zridi torments a sleeping creature within 100 feet with visions of betrayals by loved ones and friends. The target must attempt a @Check[will|dc:26] save, with the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Nightmare] spell.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "69Yqd9iU5oJfTHwA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hcGvN03ieNWlSQYa"
+            },
+            "img": "icons/commodities/bones/horn-curved-worn-brown.webp",
+            "name": "Horn of Fog",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This large ram's horn perpetually glistens with tiny droplets of water, much like condensation.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You activate the horn by blowing deeply into it, causing it to issue forth a low blast and cast a 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Mist] spell. You can Dismiss the mist at any time by blowing a second note on the horn using an Interact action.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 6
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 230
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "horn-of-fog",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "water"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "esW1tqtfAQ8q94YU",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "bubonic-plague"
+                    ]
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "HU40jhTuxiDh8gLJ": {
+                        "damage": "2d8+7",
+                        "damageType": "slashing"
+                    },
+                    "pNeQtsBBIQVMIRXQ": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "CNtl3K99Cg6GkOXR",
@@ -48,7 +342,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -120,7 +414,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-melting-green.webp",
             "name": "Outcast's Curse (At Will)",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -190,7 +484,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion (At Will)",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -269,7 +563,7 @@
             },
             "img": "systems/pf2e/icons/spells/missdirection.webp",
             "name": "Misdirection (At Will) (Self Only)",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -331,7 +625,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm (At Will)",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -411,7 +705,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -478,7 +772,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Div Pact",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -535,319 +829,21 @@
             "type": "spell"
         },
         {
-            "_id": "69Yqd9iU5oJfTHwA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hcGvN03ieNWlSQYa"
-            },
-            "img": "icons/commodities/bones/horn-curved-worn-brown.webp",
-            "name": "Horn of Fog",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This large ram's horn perpetually glistens with tiny droplets of water, much like condensation.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You activate the horn by blowing deeply into it, causing it to issue forth a low blast and cast a 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Mist] spell. You can Dismiss the mist at any time by blowing a second note on the horn using an Interact action.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 6
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 230
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "horn-of-fog",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "water"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "esW1tqtfAQ8q94YU",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "bubonic-plague"
-                    ]
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "HU40jhTuxiDh8gLJ": {
-                        "damage": "2d8+7",
-                        "damageType": "slashing"
-                    },
-                    "pNeQtsBBIQVMIRXQ": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "vw7CqLS1fQ7CXlLL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UGUWALd2VlYF2YHm",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hatred of Red",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Pairakas hate the color red. Zridi won't wear the color or willingly enter any place painted red. Given a choice, she'll attack a creature wearing red first. If barred from expressing her displeasure toward the color by force or some magical effect, she takes @Damage[2d6[mental]] damage at the end of her turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4NDYGQ0N2hZuDmLa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-bestiary-3.XgCQnswAedPcwLck.Item.OnmLcXNYU1Jxp5ji"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bubonic Plague",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature can't remove the fatigued condition while infected</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:24]</p>\n<hr />\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}, fatigued, and take @Damage[1d6[bleed]] every [[/br 1d20 #Persistent Damage Interval]]{1d20 minutes} (1 day)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "bubonic-plague",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4FWJV0JycabbbM9J",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Zridi can take the appearance of any Small or Medium humanoid or animal. This doesn't change her Speed or her attack and damage modifiers with the Strikes, but it might change the damage type her Strikes deal.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "osoaSGKfsC1ynbq1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Compelled Performance",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Zridi grants the target a +2 status bonus to Performance checks for one week. The target must attempt a @Check[will|dc:26] save.</p>\n<p><strong>Critical Success</strong> No further effect.</p>\n<p><strong>Success</strong> The target must @UUID[Compendium.pf2e.actionspf2e.Item.Perform] for 1 action on its next turn.</p>\n<p><strong>Failure</strong> The target must Perform for 3 actions on its next turn, undertaking a Performance task set by Zridi.</p>\n<p><strong>Critical Failure</strong> As failure, but Zridi can choose to delay the effect and trigger it at any point in the next week as a reaction.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Compelled Performance]</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "u6YxDEh3edTAjJSk",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Tormenting Dreams",
+            "_id": "WWuCEMdh1f9UfjG5",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 1600000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": 4
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Zridi torments a sleeping creature within 100 feet with visions of betrayals by loved ones and friends. The target must attempt a @Check[will|dc:26] save, with the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Nightmare] spell.</p>"
+                    "value": ""
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -856,16 +852,20 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "emotion",
-                        "mental"
-                    ]
+                "spelldc": {
+                    "dc": 26,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Zridi",

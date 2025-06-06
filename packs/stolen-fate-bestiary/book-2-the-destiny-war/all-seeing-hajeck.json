@@ -4,22 +4,251 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "LfvR6qODwUM0OxAB",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "aIqWT8KUlYwUY9x2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XIewc29gQLvLVshg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Harrowbound",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Hajeck can only exist in the Harrow Court. If she leaves the plane, either willingly or by succumbing to an effect that forces her into a different plane, she instead immediately reappears somewhere in Harrowheart and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RHsGeVOoFFoGYyZ1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>All-Seeing Hajeck can take on the appearance of a Varisian woman—her appearance from her previous life. This doesn't change her Speed or her attack and damage modifiers, but does prevent her from using Hajeck's Caress.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PycbJPVh46UXYc9R",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Hajeck's Caress",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Hajeck touches a creature, who must succeed at a @Check[will|dc:32] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure). If the target fails additional saves against this ability, the condition value increases by 2 (to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}). This condition value decreases by 1 every 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XHH1w9kvx4C5gWkH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Harrowing Vision",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Hajeck can use any harrow deck to perform a potent divination that taps into the surrounding magic provided by the Deck of Destiny's otherworldly creation. A Harrowing Vision takes an hour to perform, but most of that time consists of Hajeck and her chosen subject meditating and clearing their minds in a secluded area, culminating in an intense harrow reading that itself takes only a few minutes to complete. The target of a Harrowing Vision must remain adjacent to Hajeck for the entire hour, after which Hajeck shuffles her harrow deck and lays out seven cards, face down—one in the center (the future), two to either side (the present), and four more at the top, bottom, left, and right surrounding the central three (the past).</p>\n<p>When the harrowing takes place, the target flips over the four cards from the past, followed by the two present cards, and then finally the central card. This method of harrowing symbolizes how the choices a person made in their past often present them with an either/or decision in the now, and that their decision on that subject will lock in a future result. When All-Seeing Hajeck performs this reading for a PC, try to interpret the four cards from the past as representing events from that character's history—be it their background or references to events that took place during the Stolen Fate Adventure Path. For the two cards representing the present, try to interpret them as symbols of questions, events, or mysteries the PC is currently facing.</p>\n<p>Only the card representing the future has an actual game effect. When this central, final card is revealed, all of the PCs' potential futures suddenly flash in their mind in an overwhelming, chaotic vision. The PC must attempt a @Check[will|dc:32] save (note that as a PC grows more powerful and their Will save increases, they're more likely to achieve a better result from a Harrowing Vision, since they're that much closer to their ultimate destiny and are bolstered by the weight of their previous choices and decisions). If the suit of the card revealed for the PCs' future matches the PC's key ability from their class, they gain a +1 status bonus on this Will save. If the alignment of the card revealed matches the PC's alignment, they gain a +2 status bonus to this will save. If both match, these bonuses stack to a +3 status bonus, and the actual result of the save is improved by one degree of success. If neither the suit or alignment match the PC, they reduce the actual result of the save by one degree of success. Regardless of the result, that character cannot receive another Harrowing Vision until they gain a level, at which point any lingering effects from the Harrowing Vision end.</p>\n<hr />\n<p><strong>Critical Success</strong> The character experiences a vision of a specific future success, only to forget it an instant later. Once only as long as this effect persists when the character is affected by a critical failure for any roll they make or a critical success with any roll a foe makes, the character can change that roll into a Success or a Failure, as they see fit. In addition, the character gains the</p>\n<p><strong>Success</strong> benefit detailed below.</p>\n<p><strong>Success</strong> The character experiences several overlapping potential successes in their future. As long as this effect persists (typically until the character gains a level), the maximum size of their hand for investing cards from the Deck of Destiny increases by 1 to six cards.</p>\n<p><strong>Failure</strong> The vision is confusing and frightening, but has no lasting effect.</p>\n<p><strong>Critical Failure</strong> Not only is the vision confusing and frightening, but the character becomes obsessed with worst-case scenarios, becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}, and becomes cursed—they can no longer gain the benefit of their best possible futures. As long as this curse persists, the character treats all critical successes as regular successes. This is a misfortune effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "fortune",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SjCobQMqusBWpuHF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B3aJa0csNZOGXLXT"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/harrow-deck.webp",
+            "name": "Harrow Deck (Common)",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Used by gamblers and seers alike, this deck of cards comes in several varieties.</p>\n<hr />\n<p>Common harrow decks are made from higher-quality paper and feature illustrations-harrow readers typically use these decks.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #160: Assault on Hunting Lodge Seven"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "lg",
+                "slug": "harrow-deck-common",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "NxSTqPnkS3G7pmDi",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Fortune-Telling Lore",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -28,21 +257,52 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "sKPIi4w3wYeCvZ2t",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
-                "slots": {},
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "YSShTyy2A0Hom3LO": {
+                        "damage": "3d8+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
                 "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "mod": 0,
-                    "value": 24
+                "traits": {
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
             "_id": "JSjfWfiYBUsuL3Zv",
@@ -51,7 +311,7 @@
             },
             "img": "systems/pf2e/icons/spells/glibness.webp",
             "name": "Glibness",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -112,7 +372,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -195,7 +455,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -258,7 +518,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -342,7 +602,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise (At Will)",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -405,7 +665,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object (At Will)",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -471,7 +731,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -543,7 +803,7 @@
             },
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism (At Will)",
-            "sort": 900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -602,294 +862,22 @@
             "type": "spell"
         },
         {
-            "_id": "SjCobQMqusBWpuHF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B3aJa0csNZOGXLXT"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/harrow-deck.webp",
-            "name": "Harrow Deck (Common)",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Used by gamblers and seers alike, this deck of cards comes in several varieties.</p>\n<hr />\n<p>Common harrow decks are made from higher-quality paper and feature illustrations-harrow readers typically use these decks.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 10
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #160: Assault on Hunting Lodge Seven"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "lg",
-                "slug": "harrow-deck-common",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "sKPIi4w3wYeCvZ2t",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "YSShTyy2A0Hom3LO": {
-                        "damage": "3d8+10",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "aIqWT8KUlYwUY9x2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XIewc29gQLvLVshg",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Harrowbound",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Hajeck can only exist in the Harrow Court. If she leaves the plane, either willingly or by succumbing to an effect that forces her into a different plane, she instead immediately reappears somewhere in Harrowheart and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RHsGeVOoFFoGYyZ1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>All-Seeing Hajeck can take on the appearance of a Varisian woman—her appearance from her previous life. This doesn't change her Speed or her attack and damage modifiers, but does prevent her from using Hajeck's Caress.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PycbJPVh46UXYc9R",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Hajeck's Caress",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Hajeck touches a creature, who must succeed at a @Check[will|dc:32] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure). If the target fails additional saves against this ability, the condition value increases by 2 (to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}). This condition value decreases by 1 every 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XHH1w9kvx4C5gWkH",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Harrowing Vision",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Hajeck can use any harrow deck to perform a potent divination that taps into the surrounding magic provided by the Deck of Destiny's otherworldly creation. A Harrowing Vision takes an hour to perform, but most of that time consists of Hajeck and her chosen subject meditating and clearing their minds in a secluded area, culminating in an intense harrow reading that itself takes only a few minutes to complete. The target of a Harrowing Vision must remain adjacent to Hajeck for the entire hour, after which Hajeck shuffles her harrow deck and lays out seven cards, face down—one in the center (the future), two to either side (the present), and four more at the top, bottom, left, and right surrounding the central three (the past).</p>\n<p>When the harrowing takes place, the target flips over the four cards from the past, followed by the two present cards, and then finally the central card. This method of harrowing symbolizes how the choices a person made in their past often present them with an either/or decision in the now, and that their decision on that subject will lock in a future result. When All-Seeing Hajeck performs this reading for a PC, try to interpret the four cards from the past as representing events from that character's history—be it their background or references to events that took place during the Stolen Fate Adventure Path. For the two cards representing the present, try to interpret them as symbols of questions, events, or mysteries the PC is currently facing.</p>\n<p>Only the card representing the future has an actual game effect. When this central, final card is revealed, all of the PCs' potential futures suddenly flash in their mind in an overwhelming, chaotic vision. The PC must attempt a @Check[will|dc:32] save (note that as a PC grows more powerful and their Will save increases, they're more likely to achieve a better result from a Harrowing Vision, since they're that much closer to their ultimate destiny and are bolstered by the weight of their previous choices and decisions). If the suit of the card revealed for the PCs' future matches the PC's key ability from their class, they gain a +1 status bonus on this Will save. If the alignment of the card revealed matches the PC's alignment, they gain a +2 status bonus to this will save. If both match, these bonuses stack to a +3 status bonus, and the actual result of the save is improved by one degree of success. If neither the suit or alignment match the PC, they reduce the actual result of the save by one degree of success. Regardless of the result, that character cannot receive another Harrowing Vision until they gain a level, at which point any lingering effects from the Harrowing Vision end.</p>\n<hr />\n<p><strong>Critical Success</strong> The character experiences a vision of a specific future success, only to forget it an instant later. Once only as long as this effect persists when the character is affected by a critical failure for any roll they make or a critical success with any roll a foe makes, the character can change that roll into a Success or a Failure, as they see fit. In addition, the character gains the</p>\n<p><strong>Success</strong> benefit detailed below.</p>\n<p><strong>Success</strong> The character experiences several overlapping potential successes in their future. As long as this effect persists (typically until the character gains a level), the maximum size of their hand for investing cards from the Deck of Destiny increases by 1 to six cards.</p>\n<p><strong>Failure</strong> The vision is confusing and frightening, but has no lasting effect.</p>\n<p><strong>Critical Failure</strong> Not only is the vision confusing and frightening, but the character becomes obsessed with worst-case scenarios, becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}, and becomes cursed—they can no longer gain the benefit of their best possible futures. As long as this curse persists, the character treats all critical successes as regular successes. This is a misfortune effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "fortune",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NxSTqPnkS3G7pmDi",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Fortune-Telling Lore",
+            "_id": "LfvR6qODwUM0OxAB",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1700000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 25
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -898,9 +886,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 32,
+                    "mod": 0,
+                    "value": 24
+                },
+                "tradition": {
+                    "value": "occult"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "All-Seeing Hajeck",

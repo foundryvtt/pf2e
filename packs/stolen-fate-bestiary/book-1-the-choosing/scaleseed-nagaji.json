@@ -4,22 +4,24 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "OcDgiUmT4qUE8yef",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
+            "_id": "wycfQOBOlmzkFJ7X",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Slough Toxins",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The nagaji is afflicted with a poison</p>\n<hr />\n<p><strong>Effect</strong> The nagaji accelerates their metabolism. They roll a saving throw against the affliction with a +2 circumstance bonus. If they must attempt an ongoing save against the same poison at the end of their turn, they also get a +2 circumstance bonus to that save.</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
                     "value": 1
                 },
                 "publication": {
@@ -27,98 +29,149 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "I33WwzTQZZXjbs0r"
-                            },
-                            {
-                                "id": "aJuW6umoB71h75Js"
-                            },
-                            {
-                                "id": "HFNzIGjxSCU77QxT"
-                            },
-                            {
-                                "id": "6dzm6Z3hOeRxu4z3"
-                            },
-                            {
-                                "id": "tN6kA8NhQxeOaOGy"
-                            }
-                        ]
+                "rules": [
+                    {
+                        "domain": "saving-throw",
+                        "key": "RollOption",
+                        "option": "slough-toxins",
+                        "toggleable": true
                     },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "xT3jUuiJOYIWlfzz"
-                            },
-                            {
-                                "expended": true,
-                                "id": "pYaRipS0iZjXcRFH"
-                            },
-                            {
-                                "expended": true,
-                                "id": "Ga0Xb33qF4WN74kD"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "expended": true,
-                                "id": "PZygZPwEwjQNF6ca"
-                            },
-                            {
-                                "expended": true,
-                                "id": "Cc1p81Z3mSpBuEXU"
-                            },
-                            {
-                                "id": "PBI9fsuQVOUhWFiF"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "bvsYkkd79ywXJTsY"
-                            },
-                            {
-                                "id": "xT3jUuiJOYIWlfzz"
-                            },
-                            {
-                                "expended": true,
-                                "id": "vB6mAuEBLuJaOvIY"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "xT3jUuiJOYIWlfzz"
-                            },
-                            {
-                                "expended": true,
-                                "id": "BXG4CjguNAy1MdDB"
-                            }
-                        ]
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "slough-toxins",
+                            "poison"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
                     }
-                },
+                ],
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "x20hwfbtnMUxnBDG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 200000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "lxQcniwgNJLFzP6W",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "lyf0UjUqZb12KG3A"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sickle",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "EZVpjkOKvML6vW1B": {
+                        "damage": "1d4 + 4",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "eNaHYTlT8B9iuhgZ",
@@ -127,7 +180,7 @@
             },
             "img": "icons/environment/wilderness/tree-spruce.webp",
             "name": "Plant Growth",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -193,7 +246,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -253,7 +306,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "line",
@@ -340,7 +393,7 @@
             },
             "img": "systems/pf2e/icons/spells/reincarnate.webp",
             "name": "Reincarnate",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -403,7 +456,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -483,7 +536,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -545,7 +598,7 @@
             },
             "img": "icons/magic/nature/root-vines-grow-brown.webp",
             "name": "Entangle",
-            "sort": 800000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "details": "all squares in a 20-foot-radius burst that contain plants",
@@ -614,7 +667,7 @@
             },
             "img": "icons/magic/life/heart-cross-strong-green.webp",
             "name": "Restoration",
-            "sort": 900000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -676,7 +729,7 @@
             },
             "img": "icons/magic/death/undead-skeleton-fire-green.webp",
             "name": "Disrupt Undead",
-            "sort": 1000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -761,7 +814,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 1100000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -846,7 +899,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1200000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1042,7 +1095,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know Direction",
-            "sort": 1300000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1105,7 +1158,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1400000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1169,7 +1222,7 @@
             },
             "img": "systems/pf2e/icons/spells/longstrider.webp",
             "name": "Longstrider",
-            "sort": 1500000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1229,7 +1282,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 1600000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1308,7 +1361,7 @@
             },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Shocking Grasp",
-            "sort": 1700000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1382,13 +1435,130 @@
             "type": "spell"
         },
         {
+            "_id": "OcDgiUmT4qUE8yef",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
+            "sort": 2000000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "I33WwzTQZZXjbs0r"
+                            },
+                            {
+                                "id": "aJuW6umoB71h75Js"
+                            },
+                            {
+                                "id": "HFNzIGjxSCU77QxT"
+                            },
+                            {
+                                "id": "6dzm6Z3hOeRxu4z3"
+                            },
+                            {
+                                "id": "tN6kA8NhQxeOaOGy"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "xT3jUuiJOYIWlfzz"
+                            },
+                            {
+                                "expended": true,
+                                "id": "pYaRipS0iZjXcRFH"
+                            },
+                            {
+                                "expended": true,
+                                "id": "Ga0Xb33qF4WN74kD"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "expended": true,
+                                "id": "PZygZPwEwjQNF6ca"
+                            },
+                            {
+                                "expended": true,
+                                "id": "Cc1p81Z3mSpBuEXU"
+                            },
+                            {
+                                "id": "PBI9fsuQVOUhWFiF"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "bvsYkkd79ywXJTsY"
+                            },
+                            {
+                                "id": "xT3jUuiJOYIWlfzz"
+                            },
+                            {
+                                "expended": true,
+                                "id": "vB6mAuEBLuJaOvIY"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "xT3jUuiJOYIWlfzz"
+                            },
+                            {
+                                "expended": true,
+                                "id": "BXG4CjguNAy1MdDB"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "lyf0UjUqZb12KG3A",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ynnBwzkzsR6B73iO"
             },
             "img": "systems/pf2e/icons/equipment/weapons/sickle.webp",
             "name": "Sickle",
-            "sort": 1800000,
+            "sort": 2100000,
             "system": {
                 "baseItem": "sickle",
                 "bonus": {
@@ -1467,176 +1637,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "x20hwfbtnMUxnBDG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 1900000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "lxQcniwgNJLFzP6W",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "lyf0UjUqZb12KG3A"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sickle",
-            "sort": 2000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "EZVpjkOKvML6vW1B": {
-                        "damage": "1d4 + 4",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "wycfQOBOlmzkFJ7X",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Slough Toxins",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The nagaji is afflicted with a poison</p>\n<hr />\n<p><strong>Effect</strong> The nagaji accelerates their metabolism. They roll a saving throw against the affliction with a +2 circumstance bonus. If they must attempt an ongoing save against the same poison at the end of their turn, they also get a +2 circumstance bonus to that save.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "saving-throw",
-                        "key": "RollOption",
-                        "option": "slough-toxins",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "slough-toxins",
-                            "poison"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Scaleseed Nagaji",

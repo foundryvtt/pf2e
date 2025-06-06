@@ -4,13 +4,500 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "Y3whhsv9vyPbI3wo",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "I See You",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The peerless duelist's Perception checks and firearm Strikes ignore lesser cover and the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XMpS7xoeORwkV0Wd",
+            "_stats": {
+                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.Yzt7iAgbGNFAn1NW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+3 to Initiative with Perception",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "check:statistic:base:perception"
+                        ],
+                        "selector": "initiative",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lffwpqk8XZqiT4aO",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shoot First",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An attacker the duelist can see targets them with a Strike or spell</p>\n<p><strong>Requirements</strong> The duelist is holding a loaded firearm</p><hr /><p><strong>Effect</strong> The duelist makes a firearm Strike against the triggering creature. On a critical hit, they disrupt the triggering action.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rtaOZVpxv81GaK98",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Threatening Aura",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet, @Check[will|dc:30]. The duelist's presence makes foes hesitate. Any enemy that enters or starts its turn in the aura must succeed at the Will save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. Regardless of the result of its save, the creature is temporarily immune for 1 day.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "threatening-aura",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CRVCGzpdOmyM2hzt",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ace Shooter",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The peerless duelist deals an extra die of damage on any firearm Strike they attempt. This extra damage is already included in their <em>dueling pistol</em> Strike.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "selector": "firearm-weapon-group-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Rl8v4NwJmlJ0iUvx",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Disarming Shot",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The duelist fires a dueling pistol to attempt a @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] an enemy at range with the bullet. The duelist attempts an attack roll with the dueling pistol instead of an Athletics check, taking any penalty appropriate for the firearm's range increment. The duelist doesn't have to meet the requirements of the Disarm action.</p>\n<p>Instead of Disarming, the duelist can use Disarming Shot to attempt an @UUID[Compendium.pf2e.actionspf2e.Item.Escape] action for the benefit of themself or an ally within range.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8ixfYm3wRRShh4HO",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Double Reload",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The peerless duelist has an empty dueling pistol in each hand</p><hr /><p><strong>Effect</strong> The peerless duelist Interacts to reload both dueling pistols.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VHQZbGgpPv8qGRBd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FKPuzveKRNJhA1mi"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Dueling Pistol)",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 40,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-dueling-pistol",
+                "stackGroup": "rounds10",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "qVaxT8D42vxqnGUL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.K7VHhUamFz3kTnm5"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/goggles-of-night.webp",
+            "name": "Obsidian Goggles",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>The sleek, black lenses of these goggles somehow make everything seem more brightly lit. While wearing the goggles, you gain a +1 item bonus to Perception checks involving sight.</p>\n<hr />\n<p><strong>Activate—Darkvision</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Adjusting your goggles, you gain darkvision for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Obsidian Goggles]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 150
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "visual"
+                        ],
+                        "selector": "perception",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "obsidian-goggles",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worneyepiece"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "wEBpPU98oK8ZPLvY",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Dueling Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "79qCmMSMbk6P1Lq9",
+            "_stats": {
+                "compendiumSource": "Actor.g4Tp2o4D9Gwzqf5L.Item.CN4GwNgOryN6LNFo"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "6eoQ0NkJrVJgNkWO",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "3Qrg2yJeJ1rvNMQP"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dueling Pistol",
+            "sort": 1200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "SmNqr574P6lVP1AX": {
+                        "damage": "2d6+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dueling-pistol",
+                "traits": {
+                    "value": [
+                        "concealable",
+                        "concussive",
+                        "fatal-d10",
+                        "magical",
+                        "range-increment-60",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "3Qrg2yJeJ1rvNMQP",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ogv5nwwrc3sU8DnP"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dueling-pistol.webp",
             "name": "Dueling Pistol",
-            "sort": 100000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "dueling-pistol",
                 "bonus": {
@@ -89,493 +576,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "qVaxT8D42vxqnGUL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.K7VHhUamFz3kTnm5"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/goggles-of-night.webp",
-            "name": "Obsidian Goggles",
-            "sort": 200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>The sleek, black lenses of these goggles somehow make everything seem more brightly lit. While wearing the goggles, you gain a +1 item bonus to Perception checks involving sight.</p>\n<hr />\n<p><strong>Activate—Darkvision</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Adjusting your goggles, you gain darkvision for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Obsidian Goggles]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 150
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "visual"
-                        ],
-                        "selector": "perception",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "obsidian-goggles",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worneyepiece"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "VHQZbGgpPv8qGRBd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FKPuzveKRNJhA1mi"
-            },
-            "img": "icons/weapons/ammunition/shot-round-lead.webp",
-            "name": "Rounds (Dueling Pistol)",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 40,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-dueling-pistol",
-                "stackGroup": "rounds10",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "79qCmMSMbk6P1Lq9",
-            "_stats": {
-                "compendiumSource": "Actor.g4Tp2o4D9Gwzqf5L.Item.CN4GwNgOryN6LNFo"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "6eoQ0NkJrVJgNkWO",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "3Qrg2yJeJ1rvNMQP"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dueling Pistol",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "SmNqr574P6lVP1AX": {
-                        "damage": "2d6+13",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dueling-pistol",
-                "traits": {
-                    "value": [
-                        "concealable",
-                        "concussive",
-                        "fatal-d10",
-                        "magical",
-                        "range-increment-60",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Y3whhsv9vyPbI3wo",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "I See You",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The peerless duelist's Perception checks and firearm Strikes ignore lesser cover and the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XMpS7xoeORwkV0Wd",
-            "_stats": {
-                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.Yzt7iAgbGNFAn1NW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+3 to Initiative with Perception",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "check:statistic:base:perception"
-                        ],
-                        "selector": "initiative",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lffwpqk8XZqiT4aO",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Shoot First",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An attacker the duelist can see targets them with a Strike or spell</p>\n<p><strong>Requirements</strong> The duelist is holding a loaded firearm</p><hr /><p><strong>Effect</strong> The duelist makes a firearm Strike against the triggering creature. On a critical hit, they disrupt the triggering action.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rtaOZVpxv81GaK98",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Threatening Aura",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet, @Check[will|dc:30]. The duelist's presence makes foes hesitate. Any enemy that enters or starts its turn in the aura must succeed at the Will save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. Regardless of the result of its save, the creature is temporarily immune for 1 day.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "threatening-aura",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CRVCGzpdOmyM2hzt",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ace Shooter",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The peerless duelist deals an extra die of damage on any firearm Strike they attempt. This extra damage is already included in their <em>dueling pistol</em> Strike.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "diceNumber": 1,
-                        "key": "DamageDice",
-                        "selector": "firearm-weapon-group-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Rl8v4NwJmlJ0iUvx",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Disarming Shot",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The duelist fires a dueling pistol to attempt a @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] an enemy at range with the bullet. The duelist attempts an attack roll with the dueling pistol instead of an Athletics check, taking any penalty appropriate for the firearm's range increment. The duelist doesn't have to meet the requirements of the Disarm action.</p>\n<p>Instead of Disarming, the duelist can use Disarming Shot to attempt an @UUID[Compendium.pf2e.actionspf2e.Item.Escape] action for the benefit of themself or an ally within range.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8ixfYm3wRRShh4HO",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Double Reload",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The peerless duelist has an empty dueling pistol in each hand</p><hr /><p><strong>Effect</strong> The peerless duelist Interacts to reload both dueling pistols.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wEBpPU98oK8ZPLvY",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Dueling Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Peerless Duelist",

@@ -4,24 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "qq0kybhcKxJtHgiB",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Occult Innate Spells",
+            "_id": "LacGOd6744WQoep2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Poison Sense (precise) 30 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Spellcasting Type",
-                    "type": "String",
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>A karumzek senses any poisoned creature. It can spend an action with the concentrate trait to determine the poison's type and current stage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -29,40 +25,76 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot2": {
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "NMCBgsGW43a5xhY3"
-                            },
-                            {
-                                "id": "NMCBgsGW43a5xhY3"
-                            },
-                            {
-                                "id": "NMCBgsGW43a5xhY3"
-                            }
-                        ],
-                        "value": 4
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "item": 0,
-                    "label": "Class DC",
-                    "mod": 0,
-                    "type": "String",
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "Df5EF5Xp2UJLcuBf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Karumzek Venom",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[4d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[5d6[poison]], @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[6d6[poison]], @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, and enfeebled 2 (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison",
+                        "virulent"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wkx0zg9p09ltwahi",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swarming Bites",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the karumzek swarm's space takes @Damage[2d6[piercing]] damage (@Check[reflex|dc:27|basic] save) plus karumzek venom.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         },
         {
             "_id": "NMCBgsGW43a5xhY3",
@@ -71,7 +103,7 @@
             },
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -142,7 +174,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will) (self only)",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -203,7 +235,7 @@
             },
             "img": "icons/creatures/invertebrates/spider-beetle-runed-green.webp",
             "name": "Vomit Swarm",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -284,83 +316,24 @@
             "type": "spell"
         },
         {
-            "_id": "LacGOd6744WQoep2",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Poison Sense (precise) 30 feet",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A karumzek senses any poisoned creature. It can spend an action with the concentrate trait to determine the poison's type and current stage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Df5EF5Xp2UJLcuBf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Karumzek Venom",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[4d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[5d6[poison]], @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[6d6[poison]], @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, and enfeebled 2 (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison",
-                        "virulent"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wkx0zg9p09ltwahi",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swarming Bites",
+            "_id": "qq0kybhcKxJtHgiB",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Occult Innate Spells",
             "sort": 700000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Each enemy in the karumzek swarm's space takes @Damage[2d6[piercing]] damage (@Check[reflex|dc:27|basic] save) plus karumzek venom.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Spellcasting Type",
+                    "type": "String",
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -368,13 +341,40 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot2": {
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "NMCBgsGW43a5xhY3"
+                            },
+                            {
+                                "id": "NMCBgsGW43a5xhY3"
+                            },
+                            {
+                                "id": "NMCBgsGW43a5xhY3"
+                            }
+                        ],
+                        "value": 4
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 30,
+                    "item": 0,
+                    "label": "Class DC",
+                    "mod": 0,
+                    "type": "String",
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Karumzek Swarm",

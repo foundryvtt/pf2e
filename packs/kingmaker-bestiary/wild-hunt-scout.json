@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "kPaYMeS20gIcKi3E",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "6QtfXfEtO9Jk9Ceg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greensight",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>The wild hunt scout ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from leaves and other foliage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,20 +24,524 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 40,
-                    "value": 32
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "FEC49j9OjVBivyUX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Planar Acclimation",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The wild hunt scout treats the plane it is located on as its home plane.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "d8wBT2ExQFfDG2Mt",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wild Hunt Link",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>500 feet. A wild hunt scout grants other wild hunt creatures the scout's @UUID[Compendium.pf2e.classfeatures.Item.Deny Advantage].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XJXxOQSoroFvm4m9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MqUTUiuHEWGtwSkQ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Instinctive Cooperation",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The wild hunt scout automatically achieves a critical success on saving throws against effects created by other allied wild hunt creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalFailure",
+                            "failure",
+                            "success"
+                        ],
+                        "predicate": [
+                            "wild-hunt"
+                        ],
+                        "selector": "saving-throw",
+                        "text": "{item|system.description.value}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MgV9p8g40O0uwDjs",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wild Gaze",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. Those who meet the gaze of a wild hunt scout come face-to-face with the hunt's fearful power and find it difficult to act in the face of such a legendary legacy. When a creature ends its turn in the aura, it must succeed at a @Check[will|dc:37] save to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The wild hunt scout can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "wild-gaze-active"
+                        ],
+                        "radius": 30,
+                        "slug": "wild-gaze",
+                        "traits": [
+                            "fear",
+                            "incapacitation",
+                            "mental",
+                            "primal",
+                            "visual"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "wild-gaze-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "fear",
+                        "incapacitation",
+                        "mental",
+                        "primal",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "p3LP4p7cOQkgP2pl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Befuddle",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A wild hunt scout can emit a beam of emerald light from their crystal shard to attempt an emerald beam ranged Strike. If the beam hits, it inflicts no damage (nor does it inflict precision damage from a sneak attack), but it overstimulates the target's mind, causing them to become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JXtD0GzHXfGW7Aan",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Deny Advantage",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A wild hunt scout isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], or flanking creatures of your level or lower, or creatures of their level or lower using @UUID[Compendium.pf2e.classfeatures.Item.Surprise Attack]. However, they can still help their allies flank.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.offGuardable",
+                        "value": "@actor.level"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KNywleLC7uqltyig",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Focus Gaze",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The wild hunt scout fixes its glare at a creature it can see within 30 feet. The target must immediately attempt a Will save against the wild hunt hound's wild gaze. If the creature was already slowed by the wild gaze before attempting its save, a failed save causes it to be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. After attempting its save, the creature is temporarily immune to Focus Gaze from any wild hunt until the start of the wild hunt scout's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "fear",
+                        "incapacitation",
+                        "mental",
+                        "primal",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eHtfWWTVUSw5Zu4F",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Forceful Focus",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> The wild hunt scout cast magic missile the previous round.</p>\n<p><strong>Effect</strong> The wild hunt scout focuses on their mastery of force, standing still as they become swathed in pulsing emerald light. Any magic missile innate spells they have cast that day are restored, allowing them to be cast again. Until the end of their next turn, any creature that takes force damage from the wild hunt scout must succeed at a @Check[fortitude|dc:40] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). The wild hunt scout can't use forceful focus for 1 hour.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XhrxL6SNJhTojhys",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Manifest Crystals",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A wild hunt scout can manifest a <em>+2 greater striking scimitar</em> made of crystalized force or a fist-sized shard of the same in her hands. These objects vanish upon the wild hunt scout's death, or as soon as they no longer possess the items.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wyAVtZ4X5ErNqi3C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A wild hunt scout's Strikes deal 3d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7SmLN0kqsTk5kyLK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Crystal Scimitar",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "ak1SeA6VPuDOIfNl": {
+                        "damage": "3d6+17",
+                        "damageType": "slashing"
+                    },
+                    "cmNhnmaeTQA316A5": {
+                        "damage": "2d6",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "forceful",
+                        "magical",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Tzi4lR0Oigo4U8Wu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Emerald Beam",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "befuddle"
+                    ]
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-40"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "luam0eCX3xE5Ixq9",
@@ -48,7 +550,7 @@
             },
             "img": "systems/pf2e/icons/spells/disapperance.webp",
             "name": "Disappearance",
-            "sort": 200000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -109,7 +611,7 @@
             },
             "img": "systems/pf2e/icons/spells/wind-walk.webp",
             "name": "Wind Walk",
-            "sort": 300000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -170,7 +672,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift",
-            "sort": 400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -234,7 +736,7 @@
             },
             "img": "systems/pf2e/icons/spells/unfettered-pack.webp",
             "name": "Unfettered Pack",
-            "sort": 500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -294,7 +796,7 @@
             },
             "img": "icons/commodities/stone/stone-porous-blue.webp",
             "name": "Stone Tell",
-            "sort": 600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -356,7 +858,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -420,7 +922,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 800000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -496,7 +998,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants (Constant)",
-            "sort": 900000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -557,7 +1059,7 @@
             },
             "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
             "name": "Speak with Animals (Constant)",
-            "sort": 1000000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -617,7 +1119,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know Direction",
-            "sort": 1100000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -680,7 +1182,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 1200000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -754,7 +1256,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 1300000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -828,7 +1330,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 1400000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -902,7 +1404,7 @@
             },
             "img": "icons/magic/nature/stealth-hide-eyes-green.webp",
             "name": "Pass Without Trace (Constant)",
-            "sort": 1500000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -970,545 +1472,43 @@
             "type": "spell"
         },
         {
-            "_id": "7SmLN0kqsTk5kyLK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Crystal Scimitar",
-            "sort": 1600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "ak1SeA6VPuDOIfNl": {
-                        "damage": "3d6+17",
-                        "damageType": "slashing"
-                    },
-                    "cmNhnmaeTQA316A5": {
-                        "damage": "2d6",
-                        "damageType": "force"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "forceful",
-                        "magical",
-                        "sweep"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Tzi4lR0Oigo4U8Wu",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Emerald Beam",
-            "sort": 1700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "befuddle"
-                    ]
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {},
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-40"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "6QtfXfEtO9Jk9Ceg",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Greensight",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The wild hunt scout ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from leaves and other foliage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FEC49j9OjVBivyUX",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Planar Acclimation",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The wild hunt scout treats the plane it is located on as its home plane.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "d8wBT2ExQFfDG2Mt",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wild Hunt Link",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>500 feet. A wild hunt scout grants other wild hunt creatures the scout's @UUID[Compendium.pf2e.classfeatures.Item.Deny Advantage].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XJXxOQSoroFvm4m9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MqUTUiuHEWGtwSkQ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Instinctive Cooperation",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The wild hunt scout automatically achieves a critical success on saving throws against effects created by other allied wild hunt creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalFailure",
-                            "failure",
-                            "success"
-                        ],
-                        "predicate": [
-                            "wild-hunt"
-                        ],
-                        "selector": "saving-throw",
-                        "text": "{item|system.description.value}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MgV9p8g40O0uwDjs",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wild Gaze",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. Those who meet the gaze of a wild hunt scout come face-to-face with the hunt's fearful power and find it difficult to act in the face of such a legendary legacy. When a creature ends its turn in the aura, it must succeed at a @Check[will|dc:37] save to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The wild hunt scout can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "wild-gaze-active"
-                        ],
-                        "radius": 30,
-                        "slug": "wild-gaze",
-                        "traits": [
-                            "fear",
-                            "incapacitation",
-                            "mental",
-                            "primal",
-                            "visual"
-                        ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "wild-gaze-active",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "fear",
-                        "incapacitation",
-                        "mental",
-                        "primal",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "p3LP4p7cOQkgP2pl",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Befuddle",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A wild hunt scout can emit a beam of emerald light from their crystal shard to attempt an emerald beam ranged Strike. If the beam hits, it inflicts no damage (nor does it inflict precision damage from a sneak attack), but it overstimulates the target's mind, causing them to become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JXtD0GzHXfGW7Aan",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Deny Advantage",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A wild hunt scout isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], or flanking creatures of your level or lower, or creatures of their level or lower using @UUID[Compendium.pf2e.classfeatures.Item.Surprise Attack]. However, they can still help their allies flank.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.offGuardable",
-                        "value": "@actor.level"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KNywleLC7uqltyig",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Focus Gaze",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The wild hunt scout fixes its glare at a creature it can see within 30 feet. The target must immediately attempt a Will save against the wild hunt hound's wild gaze. If the creature was already slowed by the wild gaze before attempting its save, a failed save causes it to be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. After attempting its save, the creature is temporarily immune to Focus Gaze from any wild hunt until the start of the wild hunt scout's next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "fear",
-                        "incapacitation",
-                        "mental",
-                        "primal",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eHtfWWTVUSw5Zu4F",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Forceful Focus",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirement</strong> The wild hunt scout cast magic missile the previous round.</p>\n<p><strong>Effect</strong> The wild hunt scout focuses on their mastery of force, standing still as they become swathed in pulsing emerald light. Any magic missile innate spells they have cast that day are restored, allowing them to be cast again. Until the end of their next turn, any creature that takes force damage from the wild hunt scout must succeed at a @Check[fortitude|dc:40] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). The wild hunt scout can't use forceful focus for 1 hour.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XhrxL6SNJhTojhys",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Manifest Crystals",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A wild hunt scout can manifest a <em>+2 greater striking scimitar</em> made of crystalized force or a fist-sized shard of the same in her hands. These objects vanish upon the wild hunt scout's death, or as soon as they no longer possess the items.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wyAVtZ4X5ErNqi3C",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
+            "_id": "kPaYMeS20gIcKi3E",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 2900000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>A wild hunt scout's Strikes deal 3d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 40,
+                    "value": 32
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Wild Hunt Scout",

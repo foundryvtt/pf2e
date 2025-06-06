@@ -4,23 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "aRbpPF0TFfUG64dX",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "xDzg2v4rQ9wNAK3b",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Death's Grace",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>The Aspect of Immortality can choose whether or not it counts as undead for effects that affect undead differently. Even if it does not count as undead, the Aspect of Immortality still never counts as a living creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,21 +25,496 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 47,
-                    "mod": 0,
-                    "value": 37
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "SWo4EQT4exBUG1zV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Status Sight",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The Aspect of Immortality automatically knows the Hit Points, conditions, afflictions, and emotions of all creatures it can see.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "doHZQiWCurTpCiMw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dWgrFKYnx0FM8zl3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6aClhFTvO5NOf1iA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Aura of Misfortune",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. Living creatures in the aura must roll twice on all d20 rolls and use the lower result.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Misfortune]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:mode:living"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Misfortune"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "aura-of-misfortune",
+                        "traits": [
+                            "divine",
+                            "misfortune"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "misfortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "skqRE7JS8Ge3jlfR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Key Weakness",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Jatembe's history of vanquishing the King of Biting Ants survives in the halcyon legacy of the Magaambya. The Aspect of Immortality has a key weakness to both arcane spells and primal spells.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ei3nQVCq6MHIPrMy",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Lurking Death",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 100 feet makes a ranged attack or uses an action that has the concentrate, manipulate, or move trait.</p>\n<hr />\n<p><strong>Effect</strong> The Aspect of Immortality teleports to a square adjacent to the triggering creature and makes a melee Strike against it. If the Strike hits, the Aspect of Immortality disrupts the triggering action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YMwe0HIrPrtpRdsx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The Aspect of Immortality can choose whether or not it takes vitality damage.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TzBbRiqiSDZj6VdK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Death Strike",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature critically hit by any of the Aspect of Immortality's attacks or that critically fails against any of its spells must succeed at a @Check[fortitude|dc:47] save or die.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W3a4Bkc73B2bUZDE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Energy Drain",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the Aspect of Immortality hits and deals damage with its scythe, it regains @Damage[20[healing]] Hit Points, and the target must succeed at a @Check[fortitude|dc:43] save or become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. If the target is already doomed, the doomed value increases by 1 (to a maximum of doomed 3).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Zp7ozjV5uBLnBo41",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Final Death",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature killed by the Aspect of Immortality can't be brought back to life by any means short of divine intervention.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0qVGuAvlfZ7EplZ5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Infuse Weapon",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any scythe gains the agile trait, can't be disarmed, and becomes a <em>+3 Major Striking Keen scythe</em> while the Aspect of Immortality wields it. If the Aspect of Immortality Strikes a creature with a weakness to any specific type of damage, the scythe's damage counts as that type of damage, in addition to slashing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1nw27q1yzi9jiohx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl"
+            },
+            "img": "systems/pf2e/icons/conditions/quickened.webp",
+            "name": "Quickened",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": "<p>You gain 1 additional action at the start of your turn each round. Many effects that make you quickened specify the types of actions you can use with this additional action. If you become quickened from multiple sources, you can use the extra action you've been granted for any single action allowed by any of the effects that made you quickened. Because quickened has its effect at the start of your turn, you don't immediately gain actions if you become quickened during your turn.</p>"
+                },
+                "duration": {
+                    "value": 0
+                },
+                "group": null,
+                "overrides": [],
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "rules": [],
+                "slug": "quickened",
+                "value": {
+                    "isValued": false,
+                    "value": null
+                }
+            },
+            "type": "condition"
+        },
+        {
+            "_id": "qqpgMalbjoAykhjP",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "919DgSjhTwRqTQvC"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Keen Scythe",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "death-strike",
+                        "energy-drain",
+                        "infuse-weapon"
+                    ]
+                },
+                "bonus": {
+                    "value": 40
+                },
+                "damageRolls": {
+                    "zqvlwo2ulvaivgyw998v": {
+                        "damage": "4d10+23",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "deadly-3d10",
+                        "magical",
+                        "reach-10",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "4sLNRqssXF0vJIu2",
@@ -51,7 +523,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Finger of Death",
-            "sort": 200000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -140,7 +612,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift",
-            "sort": 300000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -204,7 +676,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -268,7 +740,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste (Constant)",
-            "sort": 500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -330,7 +802,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility (Constant)",
-            "sort": 600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -387,13 +859,54 @@
             "type": "spell"
         },
         {
+            "_id": "aRbpPF0TFfUG64dX",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 2000000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 47,
+                    "mod": 0,
+                    "value": 37
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "919DgSjhTwRqTQvC",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.H74vYwHJ8XT4qOPI"
             },
             "img": "systems/pf2e/icons/equipment/weapons/scythe.webp",
             "name": "Scythe",
-            "sort": 700000,
+            "sort": 2100000,
             "system": {
                 "baseItem": "scythe",
                 "bonus": {
@@ -471,519 +984,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "1nw27q1yzi9jiohx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl"
-            },
-            "img": "systems/pf2e/icons/conditions/quickened.webp",
-            "name": "Quickened",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": "<p>You gain 1 additional action at the start of your turn each round. Many effects that make you quickened specify the types of actions you can use with this additional action. If you become quickened from multiple sources, you can use the extra action you've been granted for any single action allowed by any of the effects that made you quickened. Because quickened has its effect at the start of your turn, you don't immediately gain actions if you become quickened during your turn.</p>"
-                },
-                "duration": {
-                    "value": 0
-                },
-                "group": null,
-                "overrides": [],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "references": {
-                    "children": [],
-                    "immunityFrom": [],
-                    "overriddenBy": [],
-                    "overrides": []
-                },
-                "rules": [],
-                "slug": "quickened",
-                "value": {
-                    "isValued": false,
-                    "value": null
-                }
-            },
-            "type": "condition"
-        },
-        {
-            "_id": "qqpgMalbjoAykhjP",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "919DgSjhTwRqTQvC"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Keen Scythe",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "death-strike",
-                        "energy-drain",
-                        "infuse-weapon"
-                    ]
-                },
-                "bonus": {
-                    "value": 40
-                },
-                "damageRolls": {
-                    "zqvlwo2ulvaivgyw998v": {
-                        "damage": "4d10+23",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "deadly-3d10",
-                        "magical",
-                        "reach-10",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "xDzg2v4rQ9wNAK3b",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Death's Grace",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The Aspect of Immortality can choose whether or not it counts as undead for effects that affect undead differently. Even if it does not count as undead, the Aspect of Immortality still never counts as a living creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SWo4EQT4exBUG1zV",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Status Sight",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The Aspect of Immortality automatically knows the Hit Points, conditions, afflictions, and emotions of all creatures it can see.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "doHZQiWCurTpCiMw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dWgrFKYnx0FM8zl3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6aClhFTvO5NOf1iA",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Aura of Misfortune",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. Living creatures in the aura must roll twice on all d20 rolls and use the lower result.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Misfortune]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "all",
-                                "events": [
-                                    "enter"
-                                ],
-                                "includesSelf": false,
-                                "predicate": [
-                                    "target:mode:living"
-                                ],
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Misfortune"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 20,
-                        "slug": "aura-of-misfortune",
-                        "traits": [
-                            "divine",
-                            "misfortune"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "misfortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "skqRE7JS8Ge3jlfR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Key Weakness",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Jatembe's history of vanquishing the King of Biting Ants survives in the halcyon legacy of the Magaambya. The Aspect of Immortality has a key weakness to both arcane spells and primal spells.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ei3nQVCq6MHIPrMy",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Lurking Death",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 100 feet makes a ranged attack or uses an action that has the concentrate, manipulate, or move trait.</p>\n<hr />\n<p><strong>Effect</strong> The Aspect of Immortality teleports to a square adjacent to the triggering creature and makes a melee Strike against it. If the Strike hits, the Aspect of Immortality disrupts the triggering action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YMwe0HIrPrtpRdsx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The Aspect of Immortality can choose whether or not it takes vitality damage.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TzBbRiqiSDZj6VdK",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Death Strike",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature critically hit by any of the Aspect of Immortality's attacks or that critically fails against any of its spells must succeed at a @Check[fortitude|dc:47] save or die.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "death"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "W3a4Bkc73B2bUZDE",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Energy Drain",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the Aspect of Immortality hits and deals damage with its scythe, it regains @Damage[20[healing]] Hit Points, and the target must succeed at a @Check[fortitude|dc:43] save or become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. If the target is already doomed, the doomed value increases by 1 (to a maximum of doomed 3).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Zp7ozjV5uBLnBo41",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Final Death",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature killed by the Aspect of Immortality can't be brought back to life by any means short of divine intervention.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0qVGuAvlfZ7EplZ5",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Infuse Weapon",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Any scythe gains the agile trait, can't be disarmed, and becomes a <em>+3 Major Striking Keen scythe</em> while the Aspect of Immortality wields it. If the Aspect of Immortality Strikes a creature with a weakness to any specific type of damage, the scythe's damage counts as that type of damage, in addition to slashing.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Aspect of Immortality",

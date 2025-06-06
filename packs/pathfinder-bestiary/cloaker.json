@@ -3,10 +3,107 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "JzE14vwBQYTNvg3Q",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shadow Shift",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Cloakers are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] in dim light even to creatures with @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Low-Light Vision] and @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Darkvision].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "P0Q4Hgs9e8hwRX5G",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Envelop",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cloaker makes an attack roll with a [[/r 1d20+14 #Envelop Attack]]{+14 bonus} against an adjacent creature's Reflex DC. If it succeeds, it envelops the target, who is @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. Attacks that hit an enveloping cloaker deal half their damage to the cloaker and half to the trapped victim. The cloaker can't Fly, and when it moves using its land Speed it moves the enveloped creature with it. The cloaker can make only jaws Strikes against the restrained creature but can make tail Strikes against other creatures.</p>\n<p>A creature that voluntarily puts on the cloaker becomes engulfed automatically. A cloaker can engulf only Large or smaller creatures, and no more than one creature at a time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7DB79rjng9ShAwNU",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Infrasonic Moan",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cloaker lets out an infrasonic moan that has one of the effects below. A creature that succeeds at a Will save is unaffected. Any creature that attempts this save becomes temporarily immune for 1 hour. Because the moan is infrasonic, most humanoids don't detect the source of their plight if they aren't already aware of the cloaker.</p>\n<ul>\n<li><strong>Fear</strong> (fear, incapacitation) @Check[will|dc:22|traits:fear,incapacitation] Each creature within a @Template[emanation|distance:30] becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or, on a critical failure, @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] until the end of its next turn).</li>\n<li><strong>Nausea</strong> @Check[will|dc:22] Each creature within a @Template[emanation|distance:30] falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</li>\n<li><strong>Stupor</strong> @Check[will|dc:22] The cloaker targets a single creature within 30 feet. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</li>\n</ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "Vpr4X9t4ia5n8MLO",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -50,7 +147,7 @@
             "_id": "la6YsHRtpkwWWHV7",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tail",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -90,103 +187,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "JzE14vwBQYTNvg3Q",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shadow Shift",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Cloakers are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] in dim light even to creatures with @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Low-Light Vision] and @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Darkvision].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "P0Q4Hgs9e8hwRX5G",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Envelop",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The cloaker makes an attack roll with a [[/r 1d20+14 #Envelop Attack]]{+14 bonus} against an adjacent creature's Reflex DC. If it succeeds, it envelops the target, who is @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. Attacks that hit an enveloping cloaker deal half their damage to the cloaker and half to the trapped victim. The cloaker can't Fly, and when it moves using its land Speed it moves the enveloped creature with it. The cloaker can make only jaws Strikes against the restrained creature but can make tail Strikes against other creatures.</p>\n<p>A creature that voluntarily puts on the cloaker becomes engulfed automatically. A cloaker can engulf only Large or smaller creatures, and no more than one creature at a time.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "attack",
-                        "incapacitation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7DB79rjng9ShAwNU",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Infrasonic Moan",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The cloaker lets out an infrasonic moan that has one of the effects below. A creature that succeeds at a Will save is unaffected. Any creature that attempts this save becomes temporarily immune for 1 hour. Because the moan is infrasonic, most humanoids don't detect the source of their plight if they aren't already aware of the cloaker.</p>\n<ul>\n<li><strong>Fear</strong> (fear, incapacitation) @Check[will|dc:22|traits:fear,incapacitation] Each creature within a @Template[emanation|distance:30] becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or, on a critical failure, @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] until the end of its next turn).</li>\n<li><strong>Nausea</strong> @Check[will|dc:22] Each creature within a @Template[emanation|distance:30] falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</li>\n<li><strong>Stupor</strong> @Check[will|dc:22] The cloaker targets a single creature within 30 feet. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</li>\n</ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Cloaker",

@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "n4uBILCtoQcDwVBY",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
+            "_id": "P5jo7Pf9aXvKHvel",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unseen Sight",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>The ritual Foras led his cultists on allowed them to turn aside time and halt aging, but it required more than the sacrifice of an individual's given name-it required the sacrifice of sight itself. The removal of the eyes symbolized a Thresholder's abandonment of all they had seen before, and with the ritual's completion they gain something greater than mere vision: they gain the Unseen Sight. This is a precise sense that mimics @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Darkvision] yet functions even if the eye sockets themselves are covered. More importantly, the unseen sight allows a Thresholder to see the truth of the world, granting them the ability to see things as they actually are as if they were under the effects of @UUID[Compendium.pf2e.spells-srd.Item.Truesight], provided they are located within a region under the influence of Yog- Sothoth. Currently in the Stolen Lands, this is limited to the island of Candlemere and the dungeons within it; beyond this area, the Thresholder cultists are @UUID[Compendium.pf2e.conditionitems.Item.Blinded]{Blind}. Of course, if their plan to draw Yog-Sothoth into the region succeeds, the region in which the unseen sight functions will increase dramatically.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,76 +24,29 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot10": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot7": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot8": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot9": {
-                        "max": 4,
-                        "value": 4
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 41,
-                    "value": 36
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "mGzWQjNPCtlz97Cn",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Sorcerer Bloodline Spells",
+            "_id": "TxKSVVgJ5OZw3cy0",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Outside of Time",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Foras exists outside of time; he doesn't age, doesn't need food or drink to survive, and can't be @UUID[Compendium.pf2e.conditionitems.Item.Quickened] or @UUID[Compendium.pf2e.conditionitems.Item.Slowed] unless he chooses to be.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -103,17 +54,404 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 41,
-                    "value": 36
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "DgApO6iOQpwx3KfR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Resolve",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When Foras rolls a success on a Will save, he gets a critical success instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "selector": "will",
+                        "text": "When Foras rolls a success on a Will save, he gets a critical success instead.",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "will",
+                        "type": "save"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aHuQg1Wi1gb8KAbH",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Time Siphon",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. A living creature that enters the aura or ends its turn within it has some of its temporal essence drained away to Yog-Sothoth. It must succeed at a @Check[will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). Worshipers of Yog-Sothoth are immune to Time Siphon.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "time-siphon",
+                        "traits": [
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "79pJPNMXOyazfHy6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Accelerated Existence",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Foras is @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and he can use this additional action to Step, Stride, or @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustain a Spell}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dGglOjtXAyHqoW5X",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Steady Spellcasting",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If a reaction would disrupt Foras's spellcasting action, he attempts a @Check[flat|dc:15].; on a success, the action isn't disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FEvGGdluzakeGdBF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
+            },
+            "img": "icons/equipment/chest/shirt-collared-pink.webp",
+            "name": "Explorer's Clothing",
+            "sort": 700000,
+            "system": {
+                "acBonus": 0,
+                "baseItem": "explorers-clothing",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "unarmored",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
+                },
+                "dexCap": 5,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "cloth",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 2
+                },
+                "size": "med",
+                "slug": "explorers-clothing",
+                "speedPenalty": 0,
+                "strength": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "RPpWgIBirvzAkhKv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl"
+            },
+            "img": "systems/pf2e/icons/conditions/quickened.webp",
+            "name": "Quickened",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": "<p>You gain 1 additional action at the start of your turn each round. Many effects that make you quickened specify the types of actions you can use with this additional action. If you become quickened from multiple sources, you can use the extra action you've been granted for any single action allowed by any of the effects that made you quickened. Because quickened has its effect at the start of your turn, you don't immediately gain actions if you become quickened during your turn.</p>"
+                },
+                "duration": {
+                    "value": 0
+                },
+                "group": null,
+                "overrides": [],
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "rules": [],
+                "slug": "quickened",
+                "value": {
+                    "isValued": false,
+                    "value": null
+                }
+            },
+            "type": "condition"
+        },
+        {
+            "_id": "N4FRJPLjGNaWpvxp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
+            "name": "Religious Symbol of Yog-Sothoth",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "religious-symbol-silver",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "U69KdW5yZ21jJT4a",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Yog-Sothoth Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 37
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "i8ykQ7pFedbfWxeV",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "9xLtvFQAoJh8tSOd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "CruAyZCPdx9Zhl5B": {
+                        "damage": "3d4+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "staff",
+                        "two-hand-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "3U5DhF2KyfP8LLfc",
@@ -122,7 +460,7 @@
             },
             "img": "systems/pf2e/icons/spells/time-stop.webp",
             "name": "Time Stop",
-            "sort": 300000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -183,7 +521,7 @@
             },
             "img": "icons/magic/control/control-influence-crown-gold.webp",
             "name": "Overwhelming Presence",
-            "sort": 400000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -256,7 +594,7 @@
             },
             "img": "systems/pf2e/icons/spells/telepathic-demand.webp",
             "name": "Telepathic Demand",
-            "sort": 500000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -326,7 +664,7 @@
             },
             "img": "systems/pf2e/icons/spells/unfathomable-song.webp",
             "name": "Unfathomable Song",
-            "sort": 600000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -396,7 +734,7 @@
             },
             "img": "systems/pf2e/icons/spells/maze.webp",
             "name": "Maze",
-            "sort": 700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -459,7 +797,7 @@
             },
             "img": "systems/pf2e/icons/spells/scintillating-pattern.webp",
             "name": "Scintillating Pattern",
-            "sort": 800000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -530,7 +868,7 @@
             },
             "img": "systems/pf2e/icons/spells/uncontrollable-dance.webp",
             "name": "Uncontrollable Dance",
-            "sort": 900000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -598,7 +936,7 @@
             },
             "img": "icons/commodities/treasure/mask-wood-tan.webp",
             "name": "Mask of Terror",
-            "sort": 1000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -670,7 +1008,7 @@
             },
             "img": "systems/pf2e/icons/spells/visions-of-danger.webp",
             "name": "Visions of Danger",
-            "sort": 1100000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -758,7 +1096,7 @@
             },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
-            "sort": 1200000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -827,7 +1165,7 @@
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Feeblemind",
-            "sort": 1300000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -896,7 +1234,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 1400000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -981,7 +1319,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 1500000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1045,7 +1383,7 @@
             },
             "img": "systems/pf2e/icons/spells/black-tentacles.webp",
             "name": "Black Tentacles",
-            "sort": 1600000,
+            "sort": 2500000,
             "system": {
                 "area": {
                     "details": "20-foot burst adjacent to a flat surface",
@@ -1127,7 +1465,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
             "name": "Crushing Despair",
-            "sort": 1700000,
+            "sort": 2600000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1209,7 +1547,7 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 1800000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1285,7 +1623,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues",
-            "sort": 1900000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1347,7 +1685,7 @@
             },
             "img": "icons/creatures/abilities/mouth-teeth-crooked-blue.webp",
             "name": "Unusual Anatomy",
-            "sort": 2000000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1423,7 +1761,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 2100000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1501,7 +1839,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 2200000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1579,7 +1917,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 2300000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1641,7 +1979,7 @@
             },
             "img": "icons/sundries/gaming/playing-cards-black.webp",
             "name": "Read Omens",
-            "sort": 2400000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1703,7 +2041,7 @@
             },
             "img": "systems/pf2e/icons/spells/telepathy.webp",
             "name": "Telepathy",
-            "sort": 2500000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1766,7 +2104,7 @@
             },
             "img": "icons/creatures/magical/spirit-fire-yellow.webp",
             "name": "Aberrant Whispers",
-            "sort": 2600000,
+            "sort": 3500000,
             "system": {
                 "area": {
                     "details": "5-foot emanation or more",
@@ -1883,7 +2221,7 @@
             },
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
-            "sort": 2700000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1951,7 +2289,7 @@
             },
             "img": "icons/magic/light/orb-lightbulb-gray.webp",
             "name": "Hypercognition",
-            "sort": 2800000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2010,7 +2348,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 2900000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2087,7 +2425,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 3000000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2164,7 +2502,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 3100000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2250,7 +2588,7 @@
             },
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell",
-            "sort": 3200000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2317,7 +2655,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter",
-            "sort": 3300000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2385,7 +2723,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 3400000,
+            "sort": 4300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2448,7 +2786,7 @@
             },
             "img": "systems/pf2e/icons/spells/touch-of-idiocy.webp",
             "name": "Touch of Idiocy",
-            "sort": 3500000,
+            "sort": 4400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2515,7 +2853,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 3600000,
+            "sort": 4500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2601,7 +2939,7 @@
             },
             "img": "icons/magic/control/buff-luck-fortune-rainbow.webp",
             "name": "Color Spray",
-            "sort": 3700000,
+            "sort": 4600000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -2673,7 +3011,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 3800000,
+            "sort": 4700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2736,7 +3074,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 3900000,
+            "sort": 4800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2823,7 +3161,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 4000000,
+            "sort": 4900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2897,7 +3235,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 4100000,
+            "sort": 5000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2971,7 +3309,7 @@
             },
             "img": "systems/pf2e/icons/spells/mending.webp",
             "name": "Mending",
-            "sort": 4200000,
+            "sort": 5100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3049,7 +3387,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 4300000,
+            "sort": 5200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3112,7 +3450,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 4400000,
+            "sort": 5300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3180,7 +3518,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 4500000,
+            "sort": 5400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3259,7 +3597,7 @@
             },
             "img": "icons/creatures/invertebrates/tick-cross-glowing-purple.webp",
             "name": "Spider Sting",
-            "sort": 4600000,
+            "sort": 5500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3337,7 +3675,7 @@
             },
             "img": "systems/pf2e/icons/spells/tentacular-limbs.webp",
             "name": "Tentacular Limbs",
-            "sort": 4700000,
+            "sort": 5600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3390,13 +3728,126 @@
             "type": "spell"
         },
         {
+            "_id": "n4uBILCtoQcDwVBY",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
+            "sort": 5700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot10": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot7": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot8": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot9": {
+                        "max": 4,
+                        "value": 4
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 41,
+                    "value": 36
+                },
+                "tradition": {
+                    "value": "occult"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "mGzWQjNPCtlz97Cn",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Sorcerer Bloodline Spells",
+            "sort": 5800000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 41,
+                    "value": 36
+                },
+                "tradition": {
+                    "value": "occult"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "9xLtvFQAoJh8tSOd",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6m9niDjhA6tBfp5x"
             },
             "img": "systems/pf2e/icons/equipment/staves/staff-of-power.webp",
             "name": "Staff of Power",
-            "sort": 4800000,
+            "sort": 5900000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -3486,457 +3937,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "FEvGGdluzakeGdBF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
-            },
-            "img": "icons/equipment/chest/shirt-collared-pink.webp",
-            "name": "Explorer's Clothing",
-            "sort": 4900000,
-            "system": {
-                "acBonus": 0,
-                "baseItem": "explorers-clothing",
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "unarmored",
-                "checkPenalty": 0,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
-                },
-                "dexCap": 5,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "cloth",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 2
-                },
-                "size": "med",
-                "slug": "explorers-clothing",
-                "speedPenalty": 0,
-                "strength": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "comfort"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "N4FRJPLjGNaWpvxp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
-            "name": "Religious Symbol of Yog-Sothoth",
-            "sort": 5000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "religious-symbol-silver",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "RPpWgIBirvzAkhKv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl"
-            },
-            "img": "systems/pf2e/icons/conditions/quickened.webp",
-            "name": "Quickened",
-            "sort": 5100000,
-            "system": {
-                "description": {
-                    "value": "<p>You gain 1 additional action at the start of your turn each round. Many effects that make you quickened specify the types of actions you can use with this additional action. If you become quickened from multiple sources, you can use the extra action you've been granted for any single action allowed by any of the effects that made you quickened. Because quickened has its effect at the start of your turn, you don't immediately gain actions if you become quickened during your turn.</p>"
-                },
-                "duration": {
-                    "value": 0
-                },
-                "group": null,
-                "overrides": [],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "references": {
-                    "children": [],
-                    "immunityFrom": [],
-                    "overriddenBy": [],
-                    "overrides": []
-                },
-                "rules": [],
-                "slug": "quickened",
-                "value": {
-                    "isValued": false,
-                    "value": null
-                }
-            },
-            "type": "condition"
-        },
-        {
-            "_id": "i8ykQ7pFedbfWxeV",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "9xLtvFQAoJh8tSOd"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 5200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "CruAyZCPdx9Zhl5B": {
-                        "damage": "3d4+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "staff",
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "P5jo7Pf9aXvKHvel",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unseen Sight",
-            "sort": 5300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The ritual Foras led his cultists on allowed them to turn aside time and halt aging, but it required more than the sacrifice of an individual's given name-it required the sacrifice of sight itself. The removal of the eyes symbolized a Thresholder's abandonment of all they had seen before, and with the ritual's completion they gain something greater than mere vision: they gain the Unseen Sight. This is a precise sense that mimics @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Darkvision] yet functions even if the eye sockets themselves are covered. More importantly, the unseen sight allows a Thresholder to see the truth of the world, granting them the ability to see things as they actually are as if they were under the effects of @UUID[Compendium.pf2e.spells-srd.Item.Truesight], provided they are located within a region under the influence of Yog- Sothoth. Currently in the Stolen Lands, this is limited to the island of Candlemere and the dungeons within it; beyond this area, the Thresholder cultists are @UUID[Compendium.pf2e.conditionitems.Item.Blinded]{Blind}. Of course, if their plan to draw Yog-Sothoth into the region succeeds, the region in which the unseen sight functions will increase dramatically.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TxKSVVgJ5OZw3cy0",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Outside of Time",
-            "sort": 5400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Foras exists outside of time; he doesn't age, doesn't need food or drink to survive, and can't be @UUID[Compendium.pf2e.conditionitems.Item.Quickened] or @UUID[Compendium.pf2e.conditionitems.Item.Slowed] unless he chooses to be.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DgApO6iOQpwx3KfR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Resolve",
-            "sort": 5500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When Foras rolls a success on a Will save, he gets a critical success instead.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "selector": "will",
-                        "text": "When Foras rolls a success on a Will save, he gets a critical success instead.",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "selector": "will",
-                        "type": "save"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aHuQg1Wi1gb8KAbH",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Time Siphon",
-            "sort": 5600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. A living creature that enters the aura or ends its turn within it has some of its temporal essence drained away to Yog-Sothoth. It must succeed at a @Check[will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). Worshipers of Yog-Sothoth are immune to Time Siphon.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "time-siphon",
-                        "traits": [
-                            "occult"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "79pJPNMXOyazfHy6",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Accelerated Existence",
-            "sort": 5700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Foras is @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and he can use this additional action to Step, Stride, or @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustain a Spell}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dGglOjtXAyHqoW5X",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Steady Spellcasting",
-            "sort": 5800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If a reaction would disrupt Foras's spellcasting action, he attempts a @Check[flat|dc:15].; on a success, the action isn't disrupted.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "U69KdW5yZ21jJT4a",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Yog-Sothoth Lore",
-            "sort": 5900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 37
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Foras",

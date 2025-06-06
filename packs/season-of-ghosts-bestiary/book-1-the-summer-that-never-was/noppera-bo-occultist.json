@@ -4,22 +4,57 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Bm4V5hcwg4tWjbAj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "RT6lf0UIWCyeRrNn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 30 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rgyk2wqtcm1Oys6K",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "No Face",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Noppera-bos have no sense of vision, but their sense of hearing is precise. They don't breathe and are immune to effects that require breathing. They gain sustenance by absorbing fluids through their skin—traditionally by immersing their hands or faceless head into the fluid to \"drink\" through osmosis; they can also benefit from consumables, such as potions or elixirs, in this way.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,18 +62,254 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "n34F72Y2nq0N1iiI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sensitive Hearing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>As long as a noppera-bo is @UUID[Compendium.pf2e.conditionitems.Item.Deafened], they are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "self:condition:deafened"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "envUeTN0k7tSghdD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Impersonate Shape",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The noppera-bo changes into a version of a Small or Medium humanoid they've touched during the last 24 hours, and gains the target creature's face and voice. While transformed, the noppera-bo gains a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] that creature and loses its no face ability and listed immunities. The noppera-bo can change back by using this ability again.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "impersonate-shape",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "impersonate-shape",
+                            "action:impersonate"
+                        ],
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            {
+                                "not": "impersonate-shape"
+                            }
+                        ],
+                        "type": [
+                            "inhaled",
+                            "olfactory",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pP2UMigQ0QEhk7eu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Remove Face",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The noppera-bo is Impersonating a creature with a face</p>\n<hr />\n<p><strong>Effect</strong> The noppera-bo's facial features melt into nothingness, and they menace a creature within 30 feet. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} on a failed @Check[will|dc:18] save (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rR5vCZbn7VEK8QPN",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Steal Face",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The noppera-bo occultist is faceless</p>\n<hr />\n<p><strong>Effect</strong> The noppera-bo occultist targets one creature within 30 feet. The creature must attempt a @Check[fortitude|dc:18] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the start of its next turn.</p>\n<p><strong>Failure</strong> The noppera-bo gains the target's face. The target's face vanishes until the end of its next turn. Until then, it is @UUID[Compendium.pf2e.conditionitems.Item.Blinded], can't speak or ingest, and can't smell. The target must also hold its breath or begin to suffocate.</p>\n<p><strong>Critical Failure</strong> As failure, but the effect doesn't end automatically. The target can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such attempt.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "curse",
+                        "incapacitation",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sry3Eqn8ijj1qF7v",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "SQz1y4yvNTEwbE0s"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "ruaK8IefznkmP9pr": {
+                        "damage": "1d4+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|id}-damage",
+                        "slug": "base"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "two-hand-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "s8jdLi8KeWlXnU1R",
@@ -47,7 +318,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -134,7 +405,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -214,7 +485,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -292,7 +563,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -378,7 +649,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -441,7 +712,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -520,7 +791,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 800000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -582,7 +853,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 900000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -648,13 +919,50 @@
             "type": "spell"
         },
         {
+            "_id": "Bm4V5hcwg4tWjbAj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 1600000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "SQz1y4yvNTEwbE0s",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 1000000,
+            "sort": 1700000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -729,314 +1037,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "sry3Eqn8ijj1qF7v",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "SQz1y4yvNTEwbE0s"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "ruaK8IefznkmP9pr": {
-                        "damage": "1d4+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageDice",
-                        "label": "PF2E.TraitTwoHandD8",
-                        "override": {
-                            "dieSize": "d8"
-                        },
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "selector": "{item|id}-damage",
-                        "slug": "base"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "RT6lf0UIWCyeRrNn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 30 feet",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rgyk2wqtcm1Oys6K",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "No Face",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Noppera-bos have no sense of vision, but their sense of hearing is precise. They don't breathe and are immune to effects that require breathing. They gain sustenance by absorbing fluids through their skin—traditionally by immersing their hands or faceless head into the fluid to \"drink\" through osmosis; they can also benefit from consumables, such as potions or elixirs, in this way.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "n34F72Y2nq0N1iiI",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sensitive Hearing",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>As long as a noppera-bo is @UUID[Compendium.pf2e.conditionitems.Item.Deafened], they are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "inMemoryOnly": true,
-                        "key": "GrantItem",
-                        "predicate": [
-                            "self:condition:deafened"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "envUeTN0k7tSghdD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Impersonate Shape",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The noppera-bo changes into a version of a Small or Medium humanoid they've touched during the last 24 hours, and gains the target creature's face and voice. While transformed, the noppera-bo gains a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] that creature and loses its no face ability and listed immunities. The noppera-bo can change back by using this ability again.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "impersonate-shape",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "impersonate-shape",
-                            "action:impersonate"
-                        ],
-                        "selector": "deception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            {
-                                "not": "impersonate-shape"
-                            }
-                        ],
-                        "type": [
-                            "inhaled",
-                            "olfactory",
-                            "visual"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pP2UMigQ0QEhk7eu",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Remove Face",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The noppera-bo is Impersonating a creature with a face</p>\n<hr />\n<p><strong>Effect</strong> The noppera-bo's facial features melt into nothingness, and they menace a creature within 30 feet. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} on a failed @Check[will|dc:18] save (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "occult",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rR5vCZbn7VEK8QPN",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Steal Face",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The noppera-bo occultist is faceless</p>\n<hr />\n<p><strong>Effect</strong> The noppera-bo occultist targets one creature within 30 feet. The creature must attempt a @Check[fortitude|dc:18] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the start of its next turn.</p>\n<p><strong>Failure</strong> The noppera-bo gains the target's face. The target's face vanishes until the end of its next turn. Until then, it is @UUID[Compendium.pf2e.conditionitems.Item.Blinded], can't speak or ingest, and can't smell. The target must also hold its breath or begin to suffocate.</p>\n<p><strong>Critical Failure</strong> As failure, but the effect doesn't end automatically. The target can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such attempt.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "curse",
-                        "incapacitation",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Noppera-bo Occultist",

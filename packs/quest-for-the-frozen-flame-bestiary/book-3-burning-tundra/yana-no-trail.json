@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4fHv06JrTecRmhgd",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Primal Innate Spells",
+            "_id": "0p01fzotq52bejwq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cold Tolerant",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>Yana treats environmental cold effects as if they were one step less extreme.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,87 +25,190 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot2": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 23,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 13
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "VqoTQIvezsCF8bwT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.yhz9fF69uwRhnHix"
-            },
-            "img": "icons/creatures/birds/raptor-owl-flying-moon.webp",
-            "name": "Animal Messenger",
+            "_id": "spsrvcvstpllz0ia",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Evasion",
             "sort": 200000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>You offer food, and an ordinary Tiny animal within range approaches to eat it. You imprint the image, direction, and distance of an obvious place or landmark well known to you within the animal. You can also attach a small object or note up to light Bulk to it. The animal does its best to reach the destination; if it makes it there, it waits nearby and allows nonhostile creatures to approach and remove the attached object. The spell ends after the message is delivered or after 24 hours, whichever comes first.</p>\n<p>If there are no Tiny wild animals in range, the spell is lost.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "see text"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "4fHv06JrTecRmhgd"
+                    "value": "<p>When Yana rolls a success on a Reflex save, he gets a critical success instead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "animal-messenger",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1 minute"
-                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "reflex",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "reflex"
+                    }
+                ],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "primal"
-                    ],
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1xr9ftknwkl3cfqj",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Nimble Dodge",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Yana is targeted by a melee or ranged attack from an attacker he can see</p><hr /><p><strong>Effect</strong> Yana gains a +2 circumstance bonus to AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "nimble-dodge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "nimble-dodge"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "nimble-dodge",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xfpxcn0mcbcpka7v",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Yana can transform into an Ulfen human, Tiny fox, or hybrid kitsune form. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. He can remain in any of his forms indefinitely.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "mental"
+                        "divine",
+                        "kitsune",
+                        "polymorph"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
+        },
+        {
+            "_id": "X7Zvd6cAkzS26BT5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Yana deals an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         },
         {
             "_id": "DP1SxNzc8iqVz6fi",
@@ -116,7 +217,7 @@
             },
             "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-flying.webp",
             "name": "Potion of Flying (Standard)",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -180,7 +281,7 @@
             "_id": "iqn49ng243cqj7eo",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -223,211 +324,110 @@
             "type": "melee"
         },
         {
-            "_id": "0p01fzotq52bejwq",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cold Tolerant",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Yana treats environmental cold effects as if they were one step less extreme.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
+            "_id": "VqoTQIvezsCF8bwT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.yhz9fF69uwRhnHix"
             },
-            "type": "action"
-        },
-        {
-            "_id": "spsrvcvstpllz0ia",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Evasion",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When Yana rolls a success on a Reflex save, he gets a critical success instead.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "reflex",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    },
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "selector": "reflex"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1xr9ftknwkl3cfqj",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Nimble Dodge",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Yana is targeted by a melee or ranged attack from an attacker he can see</p><hr /><p><strong>Effect</strong> Yana gains a +2 circumstance bonus to AC against the triggering attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "nimble-dodge",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "nimble-dodge"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "nimble-dodge",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xfpxcn0mcbcpka7v",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
+            "img": "icons/creatures/birds/raptor-owl-flying-moon.webp",
+            "name": "Animal Messenger",
             "sort": 800000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>Yana can transform into an Ulfen human, Tiny fox, or hybrid kitsune form. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. He can remain in any of his forms indefinitely.</p>"
+                    "value": "<p>You offer food, and an ordinary Tiny animal within range approaches to eat it. You imprint the image, direction, and distance of an obvious place or landmark well known to you within the animal. You can also attach a small object or note up to light Bulk to it. The animal does its best to reach the destination; if it makes it there, it waits nearby and allows nonhostile creatures to approach and remove the attached object. The spell ends after the message is delivered or after 24 hours, whichever comes first.</p>\n<p>If there are no Tiny wild animals in range, the spell is lost.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "see text"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "4fHv06JrTecRmhgd"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "animal-messenger",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1 minute"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ],
                     "value": [
                         "concentrate",
-                        "divine",
-                        "kitsune",
-                        "polymorph"
+                        "manipulate",
+                        "mental"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "X7Zvd6cAkzS26BT5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
+            "_id": "4fHv06JrTecRmhgd",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Primal Innate Spells",
             "sort": 900000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Yana deals an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot2": {
+                        "max": 2,
+                        "value": 2
                     }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 23,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 13
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Yana No-trail",

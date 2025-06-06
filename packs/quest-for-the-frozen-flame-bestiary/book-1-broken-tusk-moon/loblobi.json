@@ -4,23 +4,98 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "bLH0qAglKyN5KOcT",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "eCySTKuCMmk9D179",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unflappable Self-Importance",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>When a loblobi rolls a success on a Will save against an emotion effect or an effect that would make it controlled, it gets a critical success instead. When it rolls a critical failure against such an effect, it gets a failure instead.</p>\n<p>However, a loblobi is vulnerable to flattery. It takes a -4 circumstance penalty to its Will and Perception DCs against any fulsome Deception and Diplomacy checks to Lie, @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], or Request.</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better",
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "emotion",
+                                    "controlled"
+                                ]
+                            }
+                        ],
+                        "selector": "will",
+                        "type": "save"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:lie",
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
+                        ],
+                        "selector": "will",
+                        "type": "circumstance",
+                        "value": -4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:lie",
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": -4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZDzz6wFZnGMBzxMF",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Arrogant Preen",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The loblobi tidies its feathered crest to look supernaturally regal. Each non-fey creature within @Template[emanation|distance:30]{30 feet} must attempt a @Check[will|dc:17] save, then is temporarily immune to Arrogant Preen for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is distracted by the preening and can't take reactions until the start of its next turn.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the loblobi and can't take reactions for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure. Additionally, while the creature is fascinated, any hostile actions from the loblobi don't break the fascination, but instead allow the target to attempt a new Will save to end the effect at the start of its next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,18 +103,62 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 16,
-                    "mod": 0,
-                    "value": 8
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "primal"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "UxmywTIT8UmcNp4u",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Beak",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "xitwy7fetq9zx8efc3qr": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "lb86H51wrZOTa4pl",
@@ -48,7 +167,7 @@
             },
             "img": "systems/pf2e/icons/spells/faerie-fire.webp",
             "name": "Faerie Fire",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -114,7 +233,7 @@
             },
             "img": "icons/magic/water/wave-water-blue.webp",
             "name": "Water Walk (At Will) (Loblobi Can Dismiss the Spell)",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -181,7 +300,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -244,7 +363,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -310,7 +429,7 @@
             },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -390,7 +509,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation (Only to Move, Clean, or Soil Small Amounts of Water)",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -452,143 +571,23 @@
             "type": "spell"
         },
         {
-            "_id": "UxmywTIT8UmcNp4u",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Beak",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "xitwy7fetq9zx8efc3qr": {
-                        "damage": "1d6+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "eCySTKuCMmk9D179",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unflappable Self-Importance",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When a loblobi rolls a success on a Will save against an emotion effect or an effect that would make it controlled, it gets a critical success instead. When it rolls a critical failure against such an effect, it gets a failure instead.</p>\n<p>However, a loblobi is vulnerable to flattery. It takes a -4 circumstance penalty to its Will and Perception DCs against any fulsome Deception and Diplomacy checks to Lie, @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], or Request.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "criticalFailure": "one-degree-better",
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "emotion",
-                                    "controlled"
-                                ]
-                            }
-                        ],
-                        "selector": "will",
-                        "type": "save"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:lie",
-                                    "action:make-an-impression",
-                                    "action:request"
-                                ]
-                            }
-                        ],
-                        "selector": "will",
-                        "type": "circumstance",
-                        "value": -4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:lie",
-                                    "action:make-an-impression",
-                                    "action:request"
-                                ]
-                            }
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": -4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZDzz6wFZnGMBzxMF",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Arrogant Preen",
+            "_id": "bLH0qAglKyN5KOcT",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1000000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The loblobi tidies its feathered crest to look supernaturally regal. Each non-fey creature within @Template[emanation|distance:30]{30 feet} must attempt a @Check[will|dc:17] save, then is temporarily immune to Arrogant Preen for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is distracted by the preening and can't take reactions until the start of its next turn.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the loblobi and can't take reactions for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure. Additionally, while the creature is fascinated, any hostile actions from the loblobi don't break the fascination, but instead allow the target to attempt a new Will save to end the effect at the start of its next turn.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -596,17 +595,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation",
-                        "mental",
-                        "primal"
-                    ]
+                "spelldc": {
+                    "dc": 16,
+                    "mod": 0,
+                    "value": 8
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Loblobi",

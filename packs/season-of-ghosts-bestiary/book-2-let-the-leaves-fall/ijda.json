@@ -4,22 +4,63 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "C87slniCJsgBKjT2",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "Y8UsuPRivKXWSvyx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Forgetfulness",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>30 feet. A creature who begins its turn in the aura must attempt a @Check[will|dc:21] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Aura of Forgetfulness for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn, as it has trouble remembering what it intended to do.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "aura-of-forgetfulness",
+                        "traits": [
+                            "mental",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "S2rn7jixmCzDSBIE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Soul Shred",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Creatures killed by a idja are difficult to bring back to life or animate as undead. The idja automatically attempts to counteract any attempt to resurrect or animate any creature that it has killed (counteract modifier [[/r 1d20+14 #Counteract]]{+14}, counteract rank 3). If the idja who slew the creature is itself slain, the creature can be brought back from death or become undead normally.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,18 +68,134 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "value": 16
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "UkZGAgg80Om502bF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Manifest False Memories",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ijda releases a cloud of red butterflies from its body, each of which carries a false memory that infects those they brush against. All non-nindoru creatures @Template[emanation|distance:10]{within 10 feet} of the ijda must attempt a @Check[will|dc:21] save. The ijda can't Manifest False Memories for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is stupefied 1 and @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature is stupefied 1 and confused for 1 minute. It can attempt a new save at the end of each of its turns to end the effects.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xOkPSND80Q0tnWZY",
+            "_stats": {
+                "compendiumSource": "Actor.TVi4RDeqw7GDsxp0.Item.3mU3jco88GY5GjJy"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ruin Wielder",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a ijda wields a broken non-magical weapon, they do not take any of the disadvantages of the weapon being broken. While the ijda wields it, the weapon becomes a +1 striking weapon that deals an additional 1d6 mental damage on a successful hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hmTyYz2PKzVQqHy9",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "DO2xieZFaN1wHSUJ"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Broken Katana",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+8",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "deadly-d8",
+                        "magical",
+                        "reach-15",
+                        "two-hand-d10",
+                        "unholy",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "KYZe9BEXSKUkgU9T",
@@ -47,7 +204,7 @@
             },
             "img": "icons/skills/melee/shield-damaged-broken-gold.webp",
             "name": "Shatter",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -127,7 +284,7 @@
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Touch of Idiocy",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -194,7 +351,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -281,7 +438,7 @@
             },
             "img": "systems/pf2e/icons/spells/item-facade.webp",
             "name": "Item Facade",
-            "sort": 500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -344,7 +501,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -430,7 +587,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -485,13 +642,50 @@
             "type": "spell"
         },
         {
+            "_id": "C87slniCJsgBKjT2",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 1200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 24,
+                    "value": 16
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "DO2xieZFaN1wHSUJ",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y1dkRsRd1Z7Jf2y6"
             },
             "img": "systems/pf2e/icons/equipment/weapons/katana.webp",
             "name": "Broken Katana",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "katana",
                 "bonus": {
@@ -570,200 +764,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "hmTyYz2PKzVQqHy9",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "DO2xieZFaN1wHSUJ"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Broken Katana",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d6+8",
-                        "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "deadly-d8",
-                        "magical",
-                        "reach-15",
-                        "two-hand-d10",
-                        "unholy",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Y8UsuPRivKXWSvyx",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aura of Forgetfulness",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A creature who begins its turn in the aura must attempt a @Check[will|dc:21] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Aura of Forgetfulness for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn, as it has trouble remembering what it intended to do.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "aura-of-forgetfulness",
-                        "traits": [
-                            "mental",
-                            "occult"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "S2rn7jixmCzDSBIE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Soul Shred",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Creatures killed by a idja are difficult to bring back to life or animate as undead. The idja automatically attempts to counteract any attempt to resurrect or animate any creature that it has killed (counteract modifier [[/r 1d20+14 #Counteract]]{+14}, counteract rank 3). If the idja who slew the creature is itself slain, the creature can be brought back from death or become undead normally.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UkZGAgg80Om502bF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Manifest False Memories",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The ijda releases a cloud of red butterflies from its body, each of which carries a false memory that infects those they brush against. All non-nindoru creatures @Template[emanation|distance:10]{within 10 feet} of the ijda must attempt a @Check[will|dc:21] save. The ijda can't Manifest False Memories for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is stupefied 1 and @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature is stupefied 1 and confused for 1 minute. It can attempt a new save at the end of each of its turns to end the effects.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xOkPSND80Q0tnWZY",
-            "_stats": {
-                "compendiumSource": "Actor.TVi4RDeqw7GDsxp0.Item.3mU3jco88GY5GjJy"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Ruin Wielder",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a ijda wields a broken non-magical weapon, they do not take any of the disadvantages of the weapon being broken. While the ijda wields it, the weapon becomes a +1 striking weapon that deals an additional 1d6 mental damage on a successful hit.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Ijda",

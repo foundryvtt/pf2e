@@ -3,10 +3,171 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "gaQkru5JOGM8uMiC",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Electromagnetic Disruption",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When living lodestone takes electricity damage, they automatically reverses polarity.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mynj7eOAR1kEuedx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Magnetic Field",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet.</p>\n<p>A living lodestone constantly emits a powerful magnetic field that is either positively or negatively aligned. Each creature within the aura that is wielding a metallic weapon, wearing metallic armor, or made partially or entirely out of metal is subject to an effect determined by the lodestone's current polarity.</p>\n<p><strong>Negative</strong> An affected creature is pushed 5 feet away from the lodestone at the start of each of its turns, and it treats each square in the aura as difficult terrain when moving closer to the lodestone. Unattended metal objects in the aura of 2 Bulk or less are pushed just outside the aura.</p>\n<p><strong>Positive</strong> An affected creature is pulled 5 feet toward the lodestone at the start of each of its turns, and it treats each square in the aura as difficult terrain when moving farther from the lodestone. Unattended metal objects in the aura of 2 Bulk or less are pulled adjacent to the lodestone.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "magnetic-field",
+                        "traits": [
+                            "metal",
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "metal",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YWlLdGQ9qulsSiVz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hover",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A living lodestone floats above the ground high enough to ignore all difficult terrain and greater difficult terrain on the ground.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wQSqACVeoMz7ed56",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Magnetic Disarm",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The living lodestone attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] a metal weapon from a creature within its magnetic field. On a critical success, the weapon is either pushed to just outside the aura if the polarity is negative or is pulled to the lodestone and sticks to it if the polarity is positive. An item stuck to the lodestone can be wrenched free with an Interact action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TB0vejgDO2mb7bbp",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Reverse Polarity",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The living lodestone switches the polarity of its magnetic field from positive to negative, or vice versa. Each creature affected by the lodestone's aura falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] unless it succeeds at a @Check[reflex|dc:21] save.</p>\n<p>The lodestone can't Reverse Polarity again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "7HC7b3bAn0OIm1Am",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jolt",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -46,7 +207,7 @@
             "_id": "EOVspuvMPp5NCJX1",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hurled Metal Object",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -138,167 +299,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "gaQkru5JOGM8uMiC",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Electromagnetic Disruption",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When living lodestone takes electricity damage, they automatically reverses polarity.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mynj7eOAR1kEuedx",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Magnetic Field",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet.</p>\n<p>A living lodestone constantly emits a powerful magnetic field that is either positively or negatively aligned. Each creature within the aura that is wielding a metallic weapon, wearing metallic armor, or made partially or entirely out of metal is subject to an effect determined by the lodestone's current polarity.</p>\n<p><strong>Negative</strong> An affected creature is pushed 5 feet away from the lodestone at the start of each of its turns, and it treats each square in the aura as difficult terrain when moving closer to the lodestone. Unattended metal objects in the aura of 2 Bulk or less are pushed just outside the aura.</p>\n<p><strong>Positive</strong> An affected creature is pulled 5 feet toward the lodestone at the start of each of its turns, and it treats each square in the aura as difficult terrain when moving farther from the lodestone. Unattended metal objects in the aura of 2 Bulk or less are pulled adjacent to the lodestone.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "magnetic-field",
-                        "traits": [
-                            "metal",
-                            "primal"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "metal",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YWlLdGQ9qulsSiVz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hover",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A living lodestone floats above the ground high enough to ignore all difficult terrain and greater difficult terrain on the ground.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wQSqACVeoMz7ed56",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Magnetic Disarm",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The living lodestone attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] a metal weapon from a creature within its magnetic field. On a critical success, the weapon is either pushed to just outside the aura if the polarity is negative or is pulled to the lodestone and sticks to it if the polarity is positive. An item stuck to the lodestone can be wrenched free with an Interact action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TB0vejgDO2mb7bbp",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Reverse Polarity",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The living lodestone switches the polarity of its magnetic field from positive to negative, or vice versa. Each creature affected by the lodestone's aura falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] unless it succeeds at a @Check[reflex|dc:21] save.</p>\n<p>The lodestone can't Reverse Polarity again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Living Lodestone",

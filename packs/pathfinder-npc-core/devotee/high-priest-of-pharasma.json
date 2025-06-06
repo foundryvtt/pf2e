@@ -4,23 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3lmMOkUuWRYkYOfO",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
+            "_id": "HFPIgJxAdemd6ItG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Religious Specialist",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>For encounters involving religious debates, church politics, and conflicts of doctrine, the high priest is a 13th-level challenge.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -28,140 +25,569 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "xVd2m1t3oAITJZUZ"
-                            },
-                            {
-                                "id": "YUUhXiUM27mrvz6R"
-                            },
-                            {
-                                "id": "cfas5QxFYdTrGlQl"
-                            },
-                            {
-                                "id": "DVzHMs5gVOhsWmML"
-                            },
-                            {
-                                "id": "85N3dLHO4zkcNqkP"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "DGRfo6jK83h7aTtk"
-                            },
-                            {
-                                "id": "1h2DVgmYozEq9SiU"
-                            },
-                            {
-                                "id": "SHqrtoA6HgrYh2IZ"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "PBI5zgYBeKdTkHdC"
-                            },
-                            {
-                                "id": "0LfFnqCJZqyCCJrG"
-                            },
-                            {
-                                "id": "INXd1isWRGi3ZTzD"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "yWFrXX3JJOcQV3n8"
-                            },
-                            {
-                                "id": "dO6cVC6gHtVfwAq0"
-                            },
-                            {
-                                "id": "GKth6knANtMEy7Na"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "G4xVKE4fMQyYDXgb"
-                            },
-                            {
-                                "id": "G4xVKE4fMQyYDXgb"
-                            },
-                            {
-                                "id": "i0glFK8iYijYOBu6"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 7,
-                        "prepared": [
-                            {
-                                "id": "8NG8ro5zzMyWEI7d"
-                            },
-                            {
-                                "id": "6vPJuDpi6RGJpvaY"
-                            },
-                            {
-                                "id": "6vPJuDpi6RGJpvaY"
-                            },
-                            {
-                                "id": "6vPJuDpi6RGJpvaY"
-                            },
-                            {
-                                "id": "6vPJuDpi6RGJpvaY"
-                            },
-                            {
-                                "id": "6vPJuDpi6RGJpvaY"
-                            },
-                            {
-                                "id": "ClpbOIHRr3zk0Xzr"
-                            }
-                        ]
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "JCFQaCMK8sKMFgL2",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Cleric Domain Spells",
+            "_id": "3jw1aDaBLwRZmLPY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Steward of the Faithful",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>30 feet.</p>\n<p>Each ally in the aura who worships @UUID[Compendium.pf2e.deities.Item.Pharasma] gains resistance 5 to void and a +1 status bonus to Will saves, Diplomacy checks, and Medicine checks.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "predicate": [
+                                    "deity:primary:pharasma"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Steward of the Faithful"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "divine",
+                            "vitality"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qyfnISUNMYriKGNK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unshakable Faith",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>During a religious debate, clash of church politics, or similar conflict, the high priest gains a +4 circumstance bonus to Perception check to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] and to their Perception DC against attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Lie] to them.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "unshakable-faith",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shared-faith",
+                            "action:sense-motive"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6SS8rVfwSj7Oy7WY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Healing Hands",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the high priest casts @UUID[Compendium.pf2e.spells-srd.Item.Heal], they roll d10s instead of d8s.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:slug:heal"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "spell-damage",
+                            "spell-healing"
+                        ],
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gPPQ8LBSdpJuL575",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Restorative Channel",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The high priest can sacrifice one prepared @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell to instead cast @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction], @UUID[Compendium.pf2e.spells-srd.Item.Clear Mind], @UUID[Compendium.pf2e.spells-srd.Item.Sound Body], or @UUID[Compendium.pf2e.spells-srd.Item.Sure Footing] at the same spell rank.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hSjsuwaaoz2JhwxM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
+            "name": "Bolts",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "bolts",
+                "stackGroup": "bolts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "G4hPWADZlBrc0I5a",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153"
+            },
+            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
+            "name": "Scroll of Cleanse Affliction (Rank 4)",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "scroll",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 70
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "scroll-of-4th-rank-spell",
+                "spell": {
+                    "_id": "ZYUVhKA7PkRtc1Ux",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.SUKaxVZW2TlM8lu0"
+                    },
+                    "img": "icons/consumables/fruit/berry-clustered-white.webp",
+                    "name": "Cleanse Affliction",
+                    "sort": 0,
+                    "system": {
+                        "area": null,
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": true,
+                        "damage": {},
+                        "defense": null,
+                        "description": {
+                            "value": "<p>Gentle restorative magic pushes back the effects of toxins and more complex maladies. Choose an affliction on the target, such as a curse, disease, or poison. If it has advanced past stage one, reduce the stage by one. This reduction can be applied only once to a given case of an affliction, with the case ending when it's completely cured. Although the reduction can't occur again, heightened versions of this spell attempt to counteract with each casting.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> Attempt to counteract the affliction if it is a disease or poison.</p>\n<p><strong>Heightened (4th)</strong> Attempt to counteract the affliction if it is a curse, disease, or poison.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": ""
+                        },
+                        "level": {
+                            "value": 2
+                        },
+                        "location": {
+                            "heightenedLevel": 4,
+                            "value": null
+                        },
+                        "publication": {
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
+                        },
+                        "range": {
+                            "value": "touch"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "cleanse-affliction",
+                        "target": {
+                            "value": "1 willing creature"
+                        },
+                        "time": {
+                            "value": "2"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "divine",
+                                "occult",
+                                "primal"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "healing",
+                                "manipulate"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "manipulate",
+                        "scroll"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "bx41GTmmeq4G4oVp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
+            },
+            "img": "icons/containers/bags/pouch-gold-green.webp",
+            "name": "Healer's Toolkit",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace its tools as part of the action that uses them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healers-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "MCTYhS0UokZrx7Ec",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
+            "name": "Religious Symbol of Pharasma",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-silver",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "dx5YeuxK1Jo5Vlu2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.z1okOYtNVnpBNj9F"
+            },
+            "img": "icons/sundries/books/book-open-brown.webp",
+            "name": "Religious Text of Pharasma",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This manuscript contains scripture of a particular religion. Some divine spellcasters, such as clerics, can use a religious text to use certain abilities. A religious text must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "religious-text",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "jjl9cXmahezwQAUn",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Boneyard Lore",
+            "sort": 1100000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
+                "mod": {
+                    "value": 27
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -170,19 +596,195 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                },
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "DaLY8qVjJ5QiTKLJ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "6FqoCjVzMHUQAqXe"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d4+7",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d10",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XzSCMiod5QCMPemL",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "6FqoCjVzMHUQAqXe"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d4+7",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d10",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Uok5lw8F59mfSNU1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+7",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d10",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FFtRDe635maJ6nGk",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "QWb7PyHuImfPhbvV"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hand Crossbow",
+            "sort": 1500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+7",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d10",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "hand-crossbow",
+                "traits": {
+                    "value": [
+                        "range-increment-60",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "8NG8ro5zzMyWEI7d",
@@ -191,7 +793,7 @@
             },
             "img": "icons/magic/life/heart-shadow-red.webp",
             "name": "Breath of Life",
-            "sort": 300000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -269,7 +871,7 @@
             },
             "img": "systems/pf2e/icons/spells/resurrect.webp",
             "name": "Resurrect",
-            "sort": 400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -334,7 +936,7 @@
             },
             "img": "icons/environment/people/cleric-orange.webp",
             "name": "Atone",
-            "sort": 500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -397,7 +999,7 @@
             },
             "img": "systems/pf2e/icons/spells/eradicate-undeath.webp",
             "name": "Eradicate Undeath",
-            "sort": 600000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -483,7 +1085,7 @@
             },
             "img": "systems/pf2e/icons/spells/rest-eternal.webp",
             "name": "Rest Eternal",
-            "sort": 700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -546,7 +1148,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Vision of Death",
-            "sort": 800000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -633,7 +1235,7 @@
             },
             "img": "systems/pf2e/icons/spells/vital-beacon.webp",
             "name": "Vital Beacon",
-            "sort": 900000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -695,7 +1297,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghostly-weapon.webp",
             "name": "Ghostly Weapon",
-            "sort": 1000000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -755,7 +1357,7 @@
             },
             "img": "icons/magic/life/ankh-gold-blue.webp",
             "name": "Heroism",
-            "sort": 1100000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -816,7 +1418,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Holy Light",
-            "sort": 1200000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -909,7 +1511,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 1300000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -970,7 +1572,7 @@
             },
             "img": "icons/magic/holy/chalice-glowing-gold-water.webp",
             "name": "Consecrate",
-            "sort": 1400000,
+            "sort": 2700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1036,7 +1638,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkvision.webp",
             "name": "Darkvision",
-            "sort": 1500000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1111,7 +1713,7 @@
             },
             "img": "icons/skills/social/diplomacy-handshake.webp",
             "name": "Heartbond",
-            "sort": 1600000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1174,7 +1776,7 @@
             },
             "img": "icons/magic/perception/orb-eye-scrying.webp",
             "name": "Status",
-            "sort": 1700000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1249,7 +1851,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1800000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1328,7 +1930,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1900000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1415,7 +2017,7 @@
             },
             "img": "icons/magic/death/skull-humanoid-white-blue.webp",
             "name": "Death's Call",
-            "sort": 2000000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1473,7 +2075,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2100000,
+            "sort": 3400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1540,7 +2142,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2200000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1620,7 +2222,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2300000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1816,7 +2418,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2400000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1892,7 +2494,7 @@
             },
             "img": "systems/pf2e/icons/spells/mindlink.webp",
             "name": "Mindlink",
-            "sort": 2500000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1953,7 +2555,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2600000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2032,7 +2634,7 @@
             },
             "img": "icons/magic/control/energy-stream-link-teal.webp",
             "name": "Spirit Link",
-            "sort": 2700000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2112,7 +2714,7 @@
             },
             "img": "icons/magic/death/undead-skeleton-fire-green.webp",
             "name": "Vitality Lash",
-            "sort": 2800000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2191,13 +2793,194 @@
             "type": "spell"
         },
         {
+            "_id": "3lmMOkUuWRYkYOfO",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
+            "sort": 4200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "xVd2m1t3oAITJZUZ"
+                            },
+                            {
+                                "id": "YUUhXiUM27mrvz6R"
+                            },
+                            {
+                                "id": "cfas5QxFYdTrGlQl"
+                            },
+                            {
+                                "id": "DVzHMs5gVOhsWmML"
+                            },
+                            {
+                                "id": "85N3dLHO4zkcNqkP"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "DGRfo6jK83h7aTtk"
+                            },
+                            {
+                                "id": "1h2DVgmYozEq9SiU"
+                            },
+                            {
+                                "id": "SHqrtoA6HgrYh2IZ"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "PBI5zgYBeKdTkHdC"
+                            },
+                            {
+                                "id": "0LfFnqCJZqyCCJrG"
+                            },
+                            {
+                                "id": "INXd1isWRGi3ZTzD"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "yWFrXX3JJOcQV3n8"
+                            },
+                            {
+                                "id": "dO6cVC6gHtVfwAq0"
+                            },
+                            {
+                                "id": "GKth6knANtMEy7Na"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "G4xVKE4fMQyYDXgb"
+                            },
+                            {
+                                "id": "G4xVKE4fMQyYDXgb"
+                            },
+                            {
+                                "id": "i0glFK8iYijYOBu6"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 7,
+                        "prepared": [
+                            {
+                                "id": "8NG8ro5zzMyWEI7d"
+                            },
+                            {
+                                "id": "6vPJuDpi6RGJpvaY"
+                            },
+                            {
+                                "id": "6vPJuDpi6RGJpvaY"
+                            },
+                            {
+                                "id": "6vPJuDpi6RGJpvaY"
+                            },
+                            {
+                                "id": "6vPJuDpi6RGJpvaY"
+                            },
+                            {
+                                "id": "6vPJuDpi6RGJpvaY"
+                            },
+                            {
+                                "id": "ClpbOIHRr3zk0Xzr"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "JCFQaCMK8sKMFgL2",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Cleric Domain Spells",
+            "sort": 4300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "6FqoCjVzMHUQAqXe",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 2900000,
+            "sort": 4400000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -2286,7 +3069,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/hand-crossbow.webp",
             "name": "Hand Crossbow",
-            "sort": 3000000,
+            "sort": 4500000,
             "system": {
                 "baseItem": "hand-crossbow",
                 "bonus": {
@@ -2369,7 +3152,7 @@
             },
             "img": "systems/pf2e/icons/equipment/consumables/other-consumables/holy-water.webp",
             "name": "Holy Water",
-            "sort": 3100000,
+            "sort": 4600000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -2458,789 +3241,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "bx41GTmmeq4G4oVp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
-            },
-            "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Healer's Toolkit",
-            "sort": 3200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace its tools as part of the action that uses them.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "healers-toolkit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "MCTYhS0UokZrx7Ec",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
-            "name": "Religious Symbol of Pharasma",
-            "sort": 3300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-silver",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "dx5YeuxK1Jo5Vlu2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.z1okOYtNVnpBNj9F"
-            },
-            "img": "icons/sundries/books/book-open-brown.webp",
-            "name": "Religious Text of Pharasma",
-            "sort": 3400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This manuscript contains scripture of a particular religion. Some divine spellcasters, such as clerics, can use a religious text to use certain abilities. A religious text must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "religious-text",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "hSjsuwaaoz2JhwxM",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
-            "name": "Bolts",
-            "sort": 3500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "bolts",
-                "stackGroup": "bolts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "G4hPWADZlBrc0I5a",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153"
-            },
-            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Cleanse Affliction (Rank 4)",
-            "sort": 3600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "scroll",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 70
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "scroll-of-4th-rank-spell",
-                "spell": {
-                    "_id": "ZYUVhKA7PkRtc1Ux",
-                    "_stats": {
-                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.SUKaxVZW2TlM8lu0"
-                    },
-                    "img": "icons/consumables/fruit/berry-clustered-white.webp",
-                    "name": "Cleanse Affliction",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": true,
-                        "damage": {},
-                        "defense": null,
-                        "description": {
-                            "value": "<p>Gentle restorative magic pushes back the effects of toxins and more complex maladies. Choose an affliction on the target, such as a curse, disease, or poison. If it has advanced past stage one, reduce the stage by one. This reduction can be applied only once to a given case of an affliction, with the case ending when it's completely cured. Although the reduction can't occur again, heightened versions of this spell attempt to counteract with each casting.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> Attempt to counteract the affliction if it is a disease or poison.</p>\n<p><strong>Heightened (4th)</strong> Attempt to counteract the affliction if it is a curse, disease, or poison.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": ""
-                        },
-                        "level": {
-                            "value": 2
-                        },
-                        "location": {
-                            "heightenedLevel": 4,
-                            "value": null
-                        },
-                        "publication": {
-                            "license": "ORC",
-                            "remaster": true,
-                            "title": "Pathfinder Player Core"
-                        },
-                        "range": {
-                            "value": "touch"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "cleanse-affliction",
-                        "target": {
-                            "value": "1 willing creature"
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "divine",
-                                "occult",
-                                "primal"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "healing",
-                                "manipulate"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "manipulate",
-                        "scroll"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "DaLY8qVjJ5QiTKLJ",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "6FqoCjVzMHUQAqXe"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 3700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d4+7",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "1d10",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "XzSCMiod5QCMPemL",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "6FqoCjVzMHUQAqXe"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 3800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d4+7",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "1d10",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Uok5lw8F59mfSNU1",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 3900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+7",
-                        "damageType": "bludgeoning"
-                    },
-                    "1": {
-                        "damage": "1d10",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "FFtRDe635maJ6nGk",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "QWb7PyHuImfPhbvV"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hand Crossbow",
-            "sort": 4000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+7",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "1d10",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "hand-crossbow",
-                "traits": {
-                    "value": [
-                        "range-increment-60",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "HFPIgJxAdemd6ItG",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Religious Specialist",
-            "sort": 4100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>For encounters involving religious debates, church politics, and conflicts of doctrine, the high priest is a 13th-level challenge.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3jw1aDaBLwRZmLPY",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Steward of the Faithful",
-            "sort": 4200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>30 feet.</p>\n<p>Each ally in the aura who worships @UUID[Compendium.pf2e.deities.Item.Pharasma] gains resistance 5 to void and a +1 status bonus to Will saves, Diplomacy checks, and Medicine checks.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "predicate": [
-                                    "deity:primary:pharasma"
-                                ],
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Steward of the Faithful"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "divine",
-                            "vitality"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qyfnISUNMYriKGNK",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Unshakable Faith",
-            "sort": 4300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>During a religious debate, clash of church politics, or similar conflict, the high priest gains a +4 circumstance bonus to Perception check to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] and to their Perception DC against attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Lie] to them.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "unshakable-faith",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "shared-faith",
-                            "action:sense-motive"
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6SS8rVfwSj7Oy7WY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Healing Hands",
-            "sort": 4400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the high priest casts @UUID[Compendium.pf2e.spells-srd.Item.Heal], they roll d10s instead of d8s.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "item:slug:heal"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "spell-damage",
-                            "spell-healing"
-                        ],
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gPPQ8LBSdpJuL575",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Restorative Channel",
-            "sort": 4500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The high priest can sacrifice one prepared @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell to instead cast @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction], @UUID[Compendium.pf2e.spells-srd.Item.Clear Mind], @UUID[Compendium.pf2e.spells-srd.Item.Sound Body], or @UUID[Compendium.pf2e.spells-srd.Item.Sure Footing] at the same spell rank.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jjl9cXmahezwQAUn",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Boneyard Lore",
-            "sort": 4600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "High Priest of Pharasma",

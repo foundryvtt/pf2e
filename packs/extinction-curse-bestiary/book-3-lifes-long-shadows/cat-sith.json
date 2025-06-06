@@ -4,23 +4,66 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zP8eq2K9H89vQwFw",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "5hIqoXM1Pti9OonO",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ill Omen",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>60 feet. Any creature within the area that can see the cat sith must succeed at a @Check[will|dc:21] save or become struck by an ill omen. On a failure, the creature becomes immune to fortune effects as long as it remains in the aura and for 1 minute thereafter. On a critical failure, the creature takes a -1 penalty to attack rolls, skill checks, and saving throws while within the ill omen aura and becomes immune to fortune effects for 1 day.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Ill Omen]</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "ill-omen",
+                        "traits": [
+                            "curse",
+                            "misfortune",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "curse",
+                        "misfortune",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Brr6EgY2XOH5SCbH",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cat Sith's Mark",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature hit by a cat sith's claw must succeed at a @Check[will|dc:23] save or be cursed with misfortune. Whenever the cursed creature rolls a critical success on a skill check or saving throw, it gets a success instead. Each day, a cursed creature can attempt a @Check[flat|dc:10|name:Break Cat Sith's Mark] check to break the curse.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Cat Sith's Mark]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,174 +71,48 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot2": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot3": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 23,
-                    "mod": 0,
-                    "value": 15
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "n86sZNE8O0jn1kkF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2qGqa33E4GPUCbMV"
-            },
-            "img": "systems/pf2e/icons/spells/humanoid-form.webp",
-            "name": "Humanoid Form (At Will)",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You transform your appearance to that of a Small or Medium humanoid, such as a dwarf, elf, goblin, halfling, human, orc, or lizardfolk. You gain the humanoid trait in addition to your other traits while in this form, as well as any trait related to the creature's kind (such as goblin or human). If this transformation reduces your size, it reduces your reach accordingly (as the shrink spell). This transformation doesn't change your statistics in any way, and you don't gain any special abilities of the humanoid form you assume. You can still wear and use your gear, which changes size (if necessary) to match your new form. If items leave your person, they return to their usual size.</p>\n<p>Humanoid form grants you a +4 status bonus to Deception checks to pass as a generic member of the chosen ancestry, and you add your level even if you're untrained, but you can't make yourself look like a specific person. If you want to Impersonate an individual, you still need to create a disguise, though the GM won't factor in the difference in ancestry when determining the DC of your Deception check. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You gain darkvision or low-light vision if the form you assume has that ability.</p>\n<p><strong>Heightened (5th)</strong> You can take on the appearance of a Large humanoid. If this increases your size, you gain the effects of the enlarge spell.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "heightenedLevel": 2,
-                    "value": "zP8eq2K9H89vQwFw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "humanoid-form",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": "cat-siths-mark",
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ],
                     "value": [
-                        "concentrate",
-                        "manipulate",
-                        "polymorph"
+                        "curse",
+                        "misfortune"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "NPXKE4YvXOrMaRte",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Mkbq9xlAUxHUHyR2"
-            },
-            "img": "icons/magic/fire/flame-burning-eye.webp",
-            "name": "Paranoia",
+            "_id": "uZNc6ZOmT97s4O7v",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Steal Soul",
             "sort": 300000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "action"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You cause the target to see all other creatures as dire threats. The target is stricken by intense paranoia toward all creatures around it and must attempt a Will save.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target believes everyone it sees is a potential threat. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Unfriendly] to all creatures to which it wasn't already hostile, even those that were previously allies. It treats no one as an ally. The spell ends after 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect lasts 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, except the target believes that everyone it sees is a mortal enemy. It uses its reactions and free actions against everyone, regardless of whether they were previously its allies, as determined by the GM. It otherwise acts as rationally as it normally does and likely prefers to attack creatures that are actively attacking or hindering it over those leaving it alone.</p>\n<hr /><p><strong>Heightened (6th)</strong> You can target up to 5 creatures.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "heightening": {
-                    "levels": {
-                        "6": {
-                            "target": {
-                                "value": "5 creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
+                "actions": {
                     "value": 2
                 },
-                "location": {
-                    "heightenedLevel": 2,
-                    "uses": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "value": "zP8eq2K9H89vQwFw"
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cat sith touches a dying creature or a creature that died within the past 3 days. If the target is a dying creature, it must attempt a @Check[fortitude|dc:25] save; on a failure, its dying value increases by 1 (or 2 on a critical failure). If the target is dead, it receives no save and its soul is imprisoned in the cat sith's body, becoming freed only if the cat sith is slain. While the soul is imprisoned, the creature can't be brought back to life by any means short of a @UUID[Compendium.pf2e.spells-srd.Item.Wish] or @UUID[Compendium.pf2e.spells-srd.Item.Miracle]. The cat sith can hold only one soul at a time and can release a soul as a free action.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "paranoia",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "occult"
-                    ],
                     "value": [
-                        "concentrate",
-                        "illusion",
-                        "manipulate",
-                        "mental"
+                        "occult"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
             "_id": "CCoxtcbk850mBaMi",
@@ -288,99 +205,167 @@
             "type": "melee"
         },
         {
-            "_id": "5hIqoXM1Pti9OonO",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ill Omen",
+            "_id": "n86sZNE8O0jn1kkF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2qGqa33E4GPUCbMV"
+            },
+            "img": "systems/pf2e/icons/spells/humanoid-form.webp",
+            "name": "Humanoid Form (At Will)",
             "sort": 600000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>60 feet. Any creature within the area that can see the cat sith must succeed at a @Check[will|dc:21] save or become struck by an ill omen. On a failure, the creature becomes immune to fortune effects as long as it remains in the aura and for 1 minute thereafter. On a critical failure, the creature takes a -1 penalty to attack rolls, skill checks, and saving throws while within the ill omen aura and becomes immune to fortune effects for 1 day.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Ill Omen]</p>"
+                    "value": "<p>You transform your appearance to that of a Small or Medium humanoid, such as a dwarf, elf, goblin, halfling, human, orc, or lizardfolk. You gain the humanoid trait in addition to your other traits while in this form, as well as any trait related to the creature's kind (such as goblin or human). If this transformation reduces your size, it reduces your reach accordingly (as the shrink spell). This transformation doesn't change your statistics in any way, and you don't gain any special abilities of the humanoid form you assume. You can still wear and use your gear, which changes size (if necessary) to match your new form. If items leave your person, they return to their usual size.</p>\n<p>Humanoid form grants you a +4 status bonus to Deception checks to pass as a generic member of the chosen ancestry, and you add your level even if you're untrained, but you can't make yourself look like a specific person. If you want to Impersonate an individual, you still need to create a disguise, though the GM won't factor in the difference in ancestry when determining the DC of your Deception check. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You gain darkvision or low-light vision if the form you assume has that ability.</p>\n<p><strong>Heightened (5th)</strong> You can take on the appearance of a Large humanoid. If this increases your size, you gain the effects of the enlarge spell.</p>"
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "ill-omen",
-                        "traits": [
-                            "curse",
-                            "misfortune",
-                            "occult"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "curse",
-                        "misfortune",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Brr6EgY2XOH5SCbH",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cat Sith's Mark",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature hit by a cat sith's claw must succeed at a @Check[will|dc:23] save or be cursed with misfortune. Whenever the cursed creature rolls a critical success on a skill check or saving throw, it gets a success instead. Each day, a cursed creature can attempt a @Check[flat|dc:10|name:Break Cat Sith's Mark] check to break the curse.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Cat Sith's Mark]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "cat-siths-mark",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "misfortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uZNc6ZOmT97s4O7v",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Steal Soul",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "level": {
                     "value": 2
                 },
-                "category": "offensive",
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": "zP8eq2K9H89vQwFw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "humanoid-form",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "NPXKE4YvXOrMaRte",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Mkbq9xlAUxHUHyR2"
+            },
+            "img": "icons/magic/fire/flame-burning-eye.webp",
+            "name": "Paranoia",
+            "sort": 700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
                 "description": {
-                    "value": "<p>The cat sith touches a dying creature or a creature that died within the past 3 days. If the target is a dying creature, it must attempt a @Check[fortitude|dc:25] save; on a failure, its dying value increases by 1 (or 2 on a critical failure). If the target is dead, it receives no save and its soul is imprisoned in the cat sith's body, becoming freed only if the cat sith is slain. While the soul is imprisoned, the creature can't be brought back to life by any means short of a @UUID[Compendium.pf2e.spells-srd.Item.Wish] or @UUID[Compendium.pf2e.spells-srd.Item.Miracle]. The cat sith can hold only one soul at a time and can release a soul as a free action.</p>"
+                    "value": "<p>You cause the target to see all other creatures as dire threats. The target is stricken by intense paranoia toward all creatures around it and must attempt a Will save.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target believes everyone it sees is a potential threat. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Unfriendly] to all creatures to which it wasn't already hostile, even those that were previously allies. It treats no one as an ally. The spell ends after 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect lasts 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, except the target believes that everyone it sees is a mortal enemy. It uses its reactions and free actions against everyone, regardless of whether they were previously its allies, as determined by the GM. It otherwise acts as rationally as it normally does and likely prefers to attack creatures that are actively attacking or hindering it over those leaving it alone.</p>\n<hr /><p><strong>Heightened (6th)</strong> You can target up to 5 creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "levels": {
+                        "6": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "value": "zP8eq2K9H89vQwFw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "paranoia",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "zP8eq2K9H89vQwFw",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 800000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -388,15 +373,30 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot2": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot3": {
+                        "max": 1,
+                        "value": 1
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
+                "spelldc": {
+                    "dc": 23,
+                    "mod": 0,
+                    "value": 15
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Cat Sith",

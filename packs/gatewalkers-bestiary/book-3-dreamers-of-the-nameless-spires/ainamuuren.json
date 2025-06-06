@@ -4,22 +4,101 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "7ZnMqZJpO8AkwSO8",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "4ZJbY5P0QE5LQ1mM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to Saves Against Good and Necromancy Spells and Effects",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "good",
+                                    "necromancy"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "f5jkOtXWyvkQGCpR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity (Tentacle Only)",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Tentacle only</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OQKlJONTnWZs1hjS",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Blackfrost Evasion",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Ainamuuren takes at least 35 physical damage from a single attack, and he isn't currently discorporated</p>\n<hr />\n<p><strong>Effect</strong> Ainamuuren discorporates into a whirling blizzard of blackfrost for 3 rounds. During this time, he gains resistance 10 to physical damage and weakness 10 to force damage. He gains a fly Speed of 40 feet, but the only action he can take is to Fly. While discorporated, the first time each round that Ainamuuren enters another creature's space or a creature enters Ainamuuren's space, that creature takes @Damage[4d8[cold]] and is exposed to blackfrost. At the start of his turn, Ainamuuren can end this effect as a free action.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,20 +106,275 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "aIO9hNjjRS6Hk5nZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Reactive Tentacles",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>At the start of his turn, when Ainamuuren regains his actions, he gains an additional reaction that can be used only to make an Attack of Opportunity.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4KtOu5m7qO7JHyuR",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dreams of the Blackfrost Whale",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Ainamuuren fixes his many-eyed gaze upon a single target he can see within 60 feet, then opens wide his maw to release a torrent of whispers channeled from Osoyo's slumbering mind. The targeted creature must attempt a @Check[will|dc:32] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature endures a brief moment where they believe they are imprisoned in the ice, as Osoyo has been for thousands of years, and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The vision of being imprisoned in ice is more profound, and in the span of a few seconds, the creature endures what seems like a thousand years of imprisonment. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] until the end of its next turn, after which it emerges from its paralysis @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature doesn't automatically recover from paralysis at the end of its turn. Instead, it can attempt a new DC 32 save. On a success, the paralysis ends and they are stupefied 1, but on a failure, the paralysis continues for another round.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zLamtRK8e8Ympwuc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.kLQ0eq18SvKEvggc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Invasive Blackfrost",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Gatewalker characters are not immune to blackfrost effects inflicted by Ainamuuren</p>\n<p>This affliction can't be reduced below stage 1, nor the damage from it healed, until successfully treated with @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] or a similar effect; the affliction can then be removed as a normal disease. A creature that dies from cold damage while cursed with blackfrost rises as a blackfrost dead after 24 hours. Blackfrost has a counteract rank of 10.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Stage 1</strong> @Damage[4d6[cold]] (1 minute)</p>\n<p><strong>Stage 2</strong> weakness to cold 5 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> weakness to cold 10 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #189: Dreamers of the Nameless Spires"
+                },
+                "rules": [],
+                "slug": "blackfrost-dead-blackfrost",
+                "traits": {
+                    "value": [
+                        "cold",
+                        "curse",
+                        "disease",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nM6hESP0jDpmClEF",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Twist Deviance",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ainamuuren reaches out, then clutches his fingers into a fist and twists his arm, as if he were wrenching and tugging. At the same moment, all gatewalkers in a @Template[cone|distance:60] that Ainamuuren can see feel the signs they've worn on their bodies since they emerged from their Missing Moment spike with pain, as if Ainamuuren had @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] that flesh and was twisting and tearing it. The targets must attempt a @Check[will|dc:32] save. Ainamuuren can't use Twist Deviance again for [[/gmr 1d4 #Recharge Twist Deviance]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature endures a brief moment of horrific pain and takes @Damage[4d8[mental]].</p>\n<p><strong>Failure</strong> The pain is much greater, and for a moment the creature is convinced that the portion of their flesh that was adorned with the sign of the gatewalker has been torn free. They take @Damage[8d8[mental]] and can't use their deviant abilities for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[16d8[mental]] and they can't use their deviant abilities for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "egrUrC04io6IwCBT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ux5EuvPI07xICF28",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "blackfrost-dead-blackfrost"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "vWD8b4Qf4pO5WkMe": {
+                        "damage": "3d6+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PeXCCiCMHQimn1ot",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Horns",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "2wKeqY0UHCq0j4Je": {
+                        "damage": "3d8+10",
+                        "damageType": "bludgeoning"
+                    },
+                    "JNpt7Z7jMb6wB11r": {
+                        "damage": "1d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "cold"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "0hf2gEXybf2elfbw",
@@ -49,7 +383,7 @@
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Feeblemind",
-            "sort": 200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -118,7 +452,7 @@
             },
             "img": "icons/magic/earth/explosion-lava-stone-red.webp",
             "name": "Phantasmal Calamity",
-            "sort": 300000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -207,7 +541,7 @@
             },
             "img": "systems/pf2e/icons/spells/black-tentacles.webp",
             "name": "Black Tentacles",
-            "sort": 400000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "details": "20-foot burst adjacent to a flat surface",
@@ -289,7 +623,7 @@
             },
             "img": "icons/magic/fire/barrier-shield-explosion-yellow.webp",
             "name": "Synaptic Pulse",
-            "sort": 500000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -359,7 +693,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 600000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -440,377 +774,43 @@
             "type": "spell"
         },
         {
-            "_id": "Ux5EuvPI07xICF28",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tentacle",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "blackfrost-dead-blackfrost"
-                    ]
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "vWD8b4Qf4pO5WkMe": {
-                        "damage": "3d6+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "PeXCCiCMHQimn1ot",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Horns",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "knockdown"
-                    ]
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "2wKeqY0UHCq0j4Je": {
-                        "damage": "3d8+10",
-                        "damageType": "bludgeoning"
-                    },
-                    "JNpt7Z7jMb6wB11r": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "cold"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "4ZJbY5P0QE5LQ1mM",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to Saves Against Good and Necromancy Spells and Effects",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "good",
-                                    "necromancy"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "f5jkOtXWyvkQGCpR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity (Tentacle Only)",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Tentacle only</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OQKlJONTnWZs1hjS",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Blackfrost Evasion",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Ainamuuren takes at least 35 physical damage from a single attack, and he isn't currently discorporated</p>\n<hr />\n<p><strong>Effect</strong> Ainamuuren discorporates into a whirling blizzard of blackfrost for 3 rounds. During this time, he gains resistance 10 to physical damage and weakness 10 to force damage. He gains a fly Speed of 40 feet, but the only action he can take is to Fly. While discorporated, the first time each round that Ainamuuren enters another creature's space or a creature enters Ainamuuren's space, that creature takes @Damage[4d8[cold]] and is exposed to blackfrost. At the start of his turn, Ainamuuren can end this effect as a free action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aIO9hNjjRS6Hk5nZ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Reactive Tentacles",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>At the start of his turn, when Ainamuuren regains his actions, he gains an additional reaction that can be used only to make an Attack of Opportunity.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4KtOu5m7qO7JHyuR",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dreams of the Blackfrost Whale",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Ainamuuren fixes his many-eyed gaze upon a single target he can see within 60 feet, then opens wide his maw to release a torrent of whispers channeled from Osoyo's slumbering mind. The targeted creature must attempt a @Check[will|dc:32] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature endures a brief moment where they believe they are imprisoned in the ice, as Osoyo has been for thousands of years, and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The vision of being imprisoned in ice is more profound, and in the span of a few seconds, the creature endures what seems like a thousand years of imprisonment. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] until the end of its next turn, after which it emerges from its paralysis @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature doesn't automatically recover from paralysis at the end of its turn. Instead, it can attempt a new DC 32 save. On a success, the paralysis ends and they are stupefied 1, but on a failure, the paralysis continues for another round.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "incapacitation",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zLamtRK8e8Ympwuc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.kLQ0eq18SvKEvggc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Invasive Blackfrost",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Gatewalker characters are not immune to blackfrost effects inflicted by Ainamuuren</p>\n<p>This affliction can't be reduced below stage 1, nor the damage from it healed, until successfully treated with @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] or a similar effect; the affliction can then be removed as a normal disease. A creature that dies from cold damage while cursed with blackfrost rises as a blackfrost dead after 24 hours. Blackfrost has a counteract rank of 10.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Stage 1</strong> @Damage[4d6[cold]] (1 minute)</p>\n<p><strong>Stage 2</strong> weakness to cold 5 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> weakness to cold 10 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #189: Dreamers of the Nameless Spires"
-                },
-                "rules": [],
-                "slug": "blackfrost-dead-blackfrost",
-                "traits": {
-                    "value": [
-                        "cold",
-                        "curse",
-                        "disease",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nM6hESP0jDpmClEF",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Twist Deviance",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ainamuuren reaches out, then clutches his fingers into a fist and twists his arm, as if he were wrenching and tugging. At the same moment, all gatewalkers in a @Template[cone|distance:60] that Ainamuuren can see feel the signs they've worn on their bodies since they emerged from their Missing Moment spike with pain, as if Ainamuuren had @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] that flesh and was twisting and tearing it. The targets must attempt a @Check[will|dc:32] save. Ainamuuren can't use Twist Deviance again for [[/gmr 1d4 #Recharge Twist Deviance]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature endures a brief moment of horrific pain and takes @Damage[4d8[mental]].</p>\n<p><strong>Failure</strong> The pain is much greater, and for a moment the creature is convinced that the portion of their flesh that was adorned with the sign of the gatewalker has been torn free. They take @Damage[8d8[mental]] and can't use their deviant abilities for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[16d8[mental]] and they can't use their deviant abilities for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "egrUrC04io6IwCBT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Knockdown",
+            "_id": "7ZnMqZJpO8AkwSO8",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1600000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "knockdown",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Ainamuuren",

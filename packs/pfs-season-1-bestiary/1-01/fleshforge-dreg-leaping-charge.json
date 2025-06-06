@@ -4,10 +4,57 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "GzdybGnrkPAKBmak",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Leaping Charge",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The fleshforge prototype Strides up to 10 feet, ignoring difficult terrain as it leaps over obstacles. It then makes a fist Strike, gaining a +1 circumstance bonus to its attack roll.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "leaping-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "leaping-charge"
+                        ],
+                        "selector": "attack-roll",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "zRIrkULRfpQVitb9",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 100000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -50,7 +97,7 @@
             "_id": "WKk98xCRGRpl0zo5",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tentacle",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -89,53 +136,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "GzdybGnrkPAKBmak",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Leaping Charge",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The fleshforge prototype Strides up to 10 feet, ignoring difficult terrain as it leaps over obstacles. It then makes a fist Strike, gaining a +1 circumstance bonus to its attack roll.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "leaping-charge",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "leaping-charge"
-                        ],
-                        "selector": "attack-roll",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "selected": {},
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Fleshforge Dreg (Leaping Charge)",

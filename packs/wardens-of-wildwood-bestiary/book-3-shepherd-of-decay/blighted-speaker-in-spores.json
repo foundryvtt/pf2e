@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "e4DbBURvhF8eraFQ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "fm8f64IkYgzjeS8q",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shaped Tongue",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>The speaker in spores can speak with all plants and the creature they resemble.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +25,328 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "ydYe3xCq5mKtBnWK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Matrix",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>60 feet.</p>\n<p>The speaker in spores is surrounded by a strong concentration of spores. The speaker can communicate telepathically to any creatures in the aura who have breathed in their spores. This communication always uses the listener's native language and can't be used with a creature that doesn't breathe.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "traits": [
+                            "mental",
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9lZkGsGN1jC2gr1X",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sporesight (Imprecise) 120 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The speaker in spores can see through spores drifting in the air, ignoring cover. This is an imprecise sense and functions only in areas without strong wind currents. Sporesight doesn't function underwater.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uXvgtood7GBTpaxH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5bh50PFBvi5JE12E",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blight Walker",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The speaker in spores recovers from the @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], and @UUID[Compendium.pf2e.conditionitems.Item.Stunned] conditions at the end of their turn. They're also immune to penalties to their Speeds and ignore cover, concealment, difficult terrain, and greater difficult terrain resulting from plants or fungi.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZjKCneopRcXQbI3U",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Toxic Spores",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature critically hits the speaker or the speaker dies</p><hr /><p><strong>Effect</strong> The blighted speaker in spores releases a burst of toxic spores. Any creature within 10 feet of the speaker in spores takes @Damage[3d6[poison]] damage (@Check[fortitude|dc:31|basic] save). Creatures that fail their saving throw are exposed to Ayrzul's Blight.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tTRerHiQUoyqeDxy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Accelerate Decay",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The speaker in spores unleashes void energy that forces desiccation in a @Template[emanation|distance:30]. Each living creature in the area takes @Damage[14d6[void]|options:area-damage] damage (@Check[fortitude|dc:33|basic|options:area-effect] save). Creatures afflicted by a disease take a –2 circumstance penalty to this save.</p>\n<p>All Small or smaller non-magical plant life (though not plant creatures) in the area wither and die, eliminating any cover or concealment and leaving difficult terrain in their wake.</p>\n<p>The speaker in spores is immune to this effect and can't use this ability again for [[/gmr 1d4 #Recharge Accelerate Decay]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ir3VJ4WcvWlwr8CA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ayrzul's Blight",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Radioactive elemental energy courses through sap and blood, petrifies bark and bone, withers flesh, and mutates life. Creatures with the wood or plant trait treat critical successes against the disease as successes. The drained condition caused by Ayrzul's Blight can't be healed until the disease is removed. Ayrzul's Blight presents with obvious but varying symptoms, from coughing up black dust to suddenly becoming covered in itchy patches of flaky stone.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:33]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4} (1 day)</p>\n<p><strong>Stage 5</strong> mutation (on a failure) or death (on a critical failure)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease",
+                        "earth",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4qf77qK6wrBKhCRo",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spell-effects.Item.MuRBCiZn5IKeaoxi"
+            },
+            "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
+            "name": "Spell Effect: Fly",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fly]</p>\n<p>The target can soar through the air, gaining a fly Speed equal to its Speed or 20 feet, whichever is greater.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "minutes",
+                    "value": 5
+                },
+                "level": {
+                    "value": 4
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "BaseSpeed",
+                        "selector": "fly",
+                        "value": "max(20,@actor.attributes.speed.total)"
+                    }
+                ],
+                "slug": "spell-effect-fly",
+                "start": {
+                    "initiative": null,
+                    "value": 30
+                },
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
+            "_id": "KbLid1hjvgm6vzDC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tendril",
+            "sort": 1000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "S6NDS7vgMM0EtQck": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "poison"
+                    },
+                    "z85Ie3OdIZsXQy2y": {
+                        "damage": "3d10+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "Un5zs26q7tSZzxlJ",
@@ -50,7 +355,7 @@
             },
             "img": "systems/pf2e/icons/spells/blight.webp",
             "name": "Blight",
-            "sort": 200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -116,7 +421,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly (Constant)",
-            "sort": 300000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -179,7 +484,7 @@
             },
             "img": "systems/pf2e/icons/spells/endure-elements.webp",
             "name": "Environmental Endurance (Constant)",
-            "sort": 400000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -235,109 +540,22 @@
             "type": "spell"
         },
         {
-            "_id": "4qf77qK6wrBKhCRo",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spell-effects.Item.MuRBCiZn5IKeaoxi"
-            },
-            "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
-            "name": "Spell Effect: Fly",
-            "sort": 500000,
+            "_id": "e4DbBURvhF8eraFQ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 1400000,
             "system": {
-                "description": {
-                    "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fly]</p>\n<p>The target can soar through the air, gaining a fly Speed equal to its Speed or 20 feet, whichever is greater.</p>"
-                },
-                "duration": {
-                    "expiry": "turn-start",
-                    "sustained": false,
-                    "unit": "minutes",
-                    "value": 5
-                },
-                "level": {
-                    "value": 4
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "key": "BaseSpeed",
-                        "selector": "fly",
-                        "value": "max(20,@actor.attributes.speed.total)"
-                    }
-                ],
-                "slug": "spell-effect-fly",
-                "start": {
-                    "initiative": null,
-                    "value": 30
-                },
-                "tokenIcon": {
-                    "show": true
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "effect"
-        },
-        {
-            "_id": "KbLid1hjvgm6vzDC",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tendril",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "S6NDS7vgMM0EtQck": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "poison"
-                    },
-                    "z85Ie3OdIZsXQy2y": {
-                        "damage": "3d10+13",
-                        "damageType": "bludgeoning"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "reach-10"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "fm8f64IkYgzjeS8q",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shaped Tongue",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The speaker in spores can speak with all plants and the creature they resemble.</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -345,239 +563,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 33,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "ydYe3xCq5mKtBnWK",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spore Matrix",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>60 feet.</p>\n<p>The speaker in spores is surrounded by a strong concentration of spores. The speaker can communicate telepathically to any creatures in the aura who have breathed in their spores. This communication always uses the listener's native language and can't be used with a creature that doesn't breathe.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "traits": [
-                            "mental",
-                            "primal"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9lZkGsGN1jC2gr1X",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sporesight (Imprecise) 120 feet",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The speaker in spores can see through spores drifting in the air, ignoring cover. This is an imprecise sense and functions only in areas without strong wind currents. Sporesight doesn't function underwater.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uXvgtood7GBTpaxH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5bh50PFBvi5JE12E",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Blight Walker",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The speaker in spores recovers from the @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], and @UUID[Compendium.pf2e.conditionitems.Item.Stunned] conditions at the end of their turn. They're also immune to penalties to their Speeds and ignore cover, concealment, difficult terrain, and greater difficult terrain resulting from plants or fungi.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZjKCneopRcXQbI3U",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Toxic Spores",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature critically hits the speaker or the speaker dies</p><hr /><p><strong>Effect</strong> The blighted speaker in spores releases a burst of toxic spores. Any creature within 10 feet of the speaker in spores takes @Damage[3d6[poison]] damage (@Check[fortitude|dc:31|basic] save). Creatures that fail their saving throw are exposed to Ayrzul's Blight.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tTRerHiQUoyqeDxy",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Accelerate Decay",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The speaker in spores unleashes void energy that forces desiccation in a @Template[emanation|distance:30]. Each living creature in the area takes @Damage[14d6[void]|options:area-damage] damage (@Check[fortitude|dc:33|basic|options:area-effect] save). Creatures afflicted by a disease take a –2 circumstance penalty to this save.</p>\n<p>All Small or smaller non-magical plant life (though not plant creatures) in the area wither and die, eliminating any cover or concealment and leaving difficult terrain in their wake.</p>\n<p>The speaker in spores is immune to this effect and can't use this ability again for [[/gmr 1d4 #Recharge Accelerate Decay]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "primal",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ir3VJ4WcvWlwr8CA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Ayrzul's Blight",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Radioactive elemental energy courses through sap and blood, petrifies bark and bone, withers flesh, and mutates life. Creatures with the wood or plant trait treat critical successes against the disease as successes. The drained condition caused by Ayrzul's Blight can't be healed until the disease is removed. Ayrzul's Blight presents with obvious but varying symptoms, from coughing up black dust to suddenly becoming covered in itchy patches of flaky stone.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:33]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4} (1 day)</p>\n<p><strong>Stage 5</strong> mutation (on a failure) or death (on a critical failure)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "disease",
-                        "earth",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Blighted Speaker in Spores",

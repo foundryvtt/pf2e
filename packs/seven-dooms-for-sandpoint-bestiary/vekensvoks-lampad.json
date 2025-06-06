@@ -3,21 +3,54 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "LCYVlQZcfJT8AY75",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "zZdlKoZukVTRu2lC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cavern Dependent",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 4
+                "actionType": {
+                    "value": "passive"
                 },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>A lampad is mystically bonded to a single cavern or other self-contained underground area and must remain within 300 feet of it.</p>\n<p>If they move beyond that range, they become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and are unable to recover. They must attempt a @Check[fortitude|dc:19] save every hour or increase the sickened value by 1 (to a maximum of sickened 4).</p>\n<p>After 24 hours, they become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, with this value increasing by 1 every additional 24 hours. A lampad can perform a 24-hour ritual to bond to a new cavern.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Mq1buiTxEF2rhIx8",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Weep",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The lampad begins a heart-wrenching fit of weeping, inspiring sympathetic sobbing in nearby creatures. Each non-lampad creature within @Template[emanation|distance:30]{30 feet} who hears the lampad's weeping must succeed at a @Check[will|dc:20] save or be unable to use reactions for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on its next turn as it sobs uncontrollably.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
                     "value": 1
                 },
                 "publication": {
@@ -26,21 +59,116 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 22,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Dpji6q4R6gQMLALe",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Earthen Fist",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
                     "value": 14
                 },
-                "tradition": {
-                    "value": "primal"
+                "damageRolls": {
+                    "q78toso3wby243bz0d44": {
+                        "damage": "2d10+2",
+                        "damageType": "bludgeoning"
+                    }
                 },
-                "traits": {}
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "5iH51KTA8CfAOS08",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Light Wisp",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "l8mhg4lhlz8a7sl3ybu7": {
+                        "damage": "1d8+2",
+                        "damageType": "mental"
+                    },
+                    "t5tatin740jycg7yf562": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    },
+                    "e11bamvawfq2ku1sxfi2": {
+                        "damage": "1d6",
+                        "damageType": "vitality"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "hejuvCAwkpLBs9Ee",
@@ -49,7 +177,7 @@
             },
             "img": "systems/pf2e/icons/spells/shape-stone.webp",
             "name": "Shape Stone",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -116,7 +244,7 @@
             },
             "img": "icons/magic/earth/strike-fist-stone-light.webp",
             "name": "Meld into Stone (At Will)",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -178,7 +306,7 @@
             },
             "img": "systems/pf2e/icons/spells/faerie-fire.webp",
             "name": "Faerie Fire",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -244,7 +372,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -307,7 +435,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -504,7 +632,7 @@
             },
             "img": "systems/pf2e/icons/spells/pummeling-rubble.webp",
             "name": "Pummeling Rubble",
-            "sort": 700000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -586,152 +714,21 @@
             "type": "spell"
         },
         {
-            "_id": "Dpji6q4R6gQMLALe",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Earthen Fist",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "q78toso3wby243bz0d44": {
-                        "damage": "2d10+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "5iH51KTA8CfAOS08",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Light Wisp",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "l8mhg4lhlz8a7sl3ybu7": {
-                        "damage": "1d8+2",
-                        "damageType": "mental"
-                    },
-                    "t5tatin740jycg7yf562": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "e11bamvawfq2ku1sxfi2": {
-                        "damage": "1d6",
-                        "damageType": "vitality"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-increment-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "zZdlKoZukVTRu2lC",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cavern Dependent",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A lampad is mystically bonded to a single cavern or other self-contained underground area and must remain within 300 feet of it.</p>\n<p>If they move beyond that range, they become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and are unable to recover. They must attempt a @Check[fortitude|dc:19] save every hour or increase the sickened value by 1 (to a maximum of sickened 4).</p>\n<p>After 24 hours, they become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, with this value increasing by 1 every additional 24 hours. A lampad can perform a 24-hour ritual to bond to a new cavern.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Mq1buiTxEF2rhIx8",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Weep",
+            "_id": "LCYVlQZcfJT8AY75",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": 4
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The lampad begins a heart-wrenching fit of weeping, inspiring sympathetic sobbing in nearby creatures. Each non-lampad creature within @Template[emanation|distance:30]{30 feet} who hears the lampad's weeping must succeed at a @Check[will|dc:20] save or be unable to use reactions for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on its next turn as it sobs uncontrollably.</p>"
+                    "value": ""
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -740,18 +737,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "mental",
-                        "primal"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 22,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Vekensvok's Lampad",

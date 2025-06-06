@@ -4,22 +4,103 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "i2QEqJYeVMjEAa3U",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
+            "_id": "G9RDOnk58z4e0Mof",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-monster-core.Actor.CFlx1tkRxKC9qAC7.Item.GhnXpFtWM1vyvu8V"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Construct Armor (Hardness 8)",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The automatic greeter has Hardness. Once the automatic greeter is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks, removing the Hardness and reducing its Armor Class to 18.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
+                        "option": "construct-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "ac",
+                        "value": -4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 0
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "el8elsXNwClsPK5k",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spinning Arm",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "LevAweimhzzdMdw3": {
+                        "damage": "2d8+5",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +108,12 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "value": 11
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
             "_id": "e12lbFdpbDqI0DQ3",
@@ -50,7 +122,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "line",
@@ -138,7 +210,7 @@
             },
             "img": "systems/pf2e/icons/spells/time-jump.webp",
             "name": "Time Jump",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -198,7 +270,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-smoke-orange.webp",
             "name": "Blazing Bolt",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -321,7 +393,7 @@
             },
             "img": "icons/tools/smithing/furnace-fire-metal-orange.webp",
             "name": "Heat Metal",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -417,7 +489,7 @@
             },
             "img": "systems/pf2e/icons/spells/ignite-fireworks.webp",
             "name": "Ignite Fireworks",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -517,7 +589,7 @@
             },
             "img": "icons/tools/fishing/hook-curved-barbed-steel-white.webp",
             "name": "Magnetic Attraction",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -579,7 +651,7 @@
             },
             "img": "systems/pf2e/icons/spells/dragon-breath.webp",
             "name": "Breathe Fire",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -667,7 +739,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -747,7 +819,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -832,7 +904,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -895,7 +967,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
             "name": "Ignition",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1005,7 +1077,7 @@
             },
             "img": "icons/magic/light/projectile-needles-salvo-white.webp",
             "name": "Needle Darts",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1145,7 +1217,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1208,7 +1280,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-construct.webp",
             "name": "Summon Construct",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1269,7 +1341,7 @@
             },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Thunderstrike",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1360,25 +1432,22 @@
             "type": "spell"
         },
         {
-            "_id": "el8elsXNwClsPK5k",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spinning Arm",
-            "sort": 1700000,
+            "_id": "i2QEqJYeVMjEAa3U",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
+            "sort": 1800000,
             "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "LevAweimhzzdMdw3": {
-                        "damage": "2d8+5",
-                        "damageType": "slashing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1386,90 +1455,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 19,
+                    "value": 11
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "G9RDOnk58z4e0Mof",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-monster-core.Actor.CFlx1tkRxKC9qAC7.Item.GhnXpFtWM1vyvu8V"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Construct Armor (Hardness 8)",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The automatic greeter has Hardness. Once the automatic greeter is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks, removing the Hardness and reducing its Armor Class to 18.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
-                        "option": "construct-armor",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "construct-armor",
-                                    {
-                                        "lt": [
-                                            "hp-percent",
-                                            50
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "selector": "ac",
-                        "value": -4
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hardness.value",
-                        "phase": "afterDerived",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "construct-armor",
-                                    {
-                                        "lt": [
-                                            "hp-percent",
-                                            50
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "value": 0
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Auto-Greeter",

@@ -4,22 +4,105 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "FH98KC2pUcRXdN35",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "cg8fgSm6sGAJE6bt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fast Healing 10",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 10
+                    }
+                ],
+                "slug": "fast-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B3NBi21pYXb87QM2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.Sj1IGDjUmlwFpC35"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Nosferatu Vulnerabilities",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>n addition to the typical vampire vulnerabilities, Vikandian is jealous he can't create spawn. A PC who pokes at this shame when they attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] Vikandian gains a +4 circumstance bonus on their Intimidation check. If they're successful, Vikandian becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as he remains frightened as he sputters in rage.</p><ul><li><strong>Revulsion</strong> A nosferatu can't voluntarily come within 10 feet of brandished garlic or a brandished religious symbol of a non-evil deity. To brandish garlic or a religious symbol, a creature must Interact to do so for 1 round (similar to Raising a Shield). If the nosferatu involuntarily comes within 10 feet of an object of their revulsion, they gain the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition, running from the object of their revulsion until they end an action beyond 10 feet. After 1 round of being exposed to the subject of their revulsion, a nosferatu can attempt a @Check[will|dc:25|traits:concentrate] save as a single action, which has the concentrate trait. On a success, they overcome their revulsions for [[/gmr 1d6 #Overcome Revulsions]]{1d6 rounds} (or 1 hour on a critical success).</li><li><strong>Stake</strong> A magical wooden stake (such as one affected by a weapon potency rune, magic weapon, or similar magic) driven through the nosferatu's heart drops the nosferatu to 0 HP and prevents them from healing above 0 HP, even in their coffin. Staking a nosferatu requires 3 actions and works only if the nosferatu is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. If the stake is removed, the nosferatu can heal above 0 HP again, and if they're in their coffin, the 1-hour rest period begins once the stake is removed. If the nosferatu's head is severed and anointed with <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy Water]</em> while the stake is in place, the nosferatu is destroyed.</li><li><strong>Sunlight</strong> If exposed to direct sunlight, a nosferatu immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}. The slowed value increases by 1 each time the nosferatu ends their turn in sunlight, and the condition ends when they're no longer in sunlight. If the nosferatu loses all their actions in this way, they're destroyed.</li></ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    "damage:material:wood"
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalWood"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
+                "slug": "vampire-nosferatu-nosferatu-vulnerabilities",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6yaJZiY5ioc9C8Fy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Opportune Riposte",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy within Vikandian's reach critically fails on a Strike against him</p><hr /><p><strong>Effect</strong> Vikandian either makes a melee Strike against the triggering enemy or attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] them of the weapon used for the Strike. If he succeeds, he gains panache.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,242 +110,368 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "yMZjDluDwdyDmxeR",
+            "_id": "GUTBHqMY0oGnnUx0",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OsOhx3TGIZ7AhD0P"
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.hOOXkWcTw9EFKJev"
             },
-            "img": "systems/pf2e/icons/spells/dominate.webp",
-            "name": "Dominate (At Will) (See Dominate)",
-            "sort": 200000,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Plagued Coffin Restoration",
+            "sort": 400000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
+                "actions": {
+                    "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> You control the target. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Controlled] condition, but it can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The duration is unlimited.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the next time you make your daily preparations"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "heightenedLevel": 6,
-                    "value": "FH98KC2pUcRXdN35"
+                    "value": "<p>If he's reduced to 0 HP, Vikandian disperses into an immense number of individual rats that flee in every direction in an attempt to return to his coffin in area <strong>N6</strong>. If even a single rat enters this coffin, he reforms in his body and is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. If his body rests in his coffin for 1 hour, Vikandian gains 1 HP, after which his fast healing begins to function normally. If his coffin doesn't contain plagued grave dirt, he instead needs to rest in his coffin for 1 day before he gains 1 HP and regains his fast healing.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Bestiary 3"
                 },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "dominate",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": "vampire-nosferatu-plagued-coffin-restoration",
                 "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
+                    "value": [
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QTLnr9MYtcbjoq6C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8lbBLbpZMN6uwHeE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bleeding Finisher",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Vikandian has panache</p><hr /><p><strong>Effect</strong> Vikandian attempts a sword cane Strike. If he hits, the target also takes 3d6 persistent bleed damage. He then loses his panache and can't use actions that have the attack trait for the rest of his turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "bleeding-finisher",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "persistent",
+                        "damageType": "bleed",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "bleeding-finisher"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RDF08DgCVW9LDvLd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.DWku0nZzkqmYjrQ5"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Vikandian transforms into a swarm of rats. He gains a land Speed of 30 feet and a climb Speed of 10 feet, and he becomes Large. Each enemy in his space takes @Damage[2d10[piercing]] damage (@Check[reflex|dc:26|basic] save). A creature that fails the save is exposed to plague of ancients.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "vampire-nosferatu-change-shape",
+                "traits": {
                     "value": [
                         "concentrate",
+                        "divine",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e2fOY59UxAgnqdHF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.8UQWXpYfn9oE1ZHu"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Command Thrall",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> One of Vikandian's morlock thralls is present and can hear him</p><hr /><p><strong>Effect</strong> Vikandian gives a single command to one of his thralls, which the thrall follows to the best of their ability during their next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "vampire-nosferatu-command-thrall",
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "divine",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4nSekhH06OdsuVpK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.4B8O9QBJuDhJkVcz"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dominate",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The nosferatu can cast @UUID[Compendium.pf2e.spells-srd.Item.Dominate] at will as a divine innate spell. Casting it requires staring into the target's eyes, giving the spell the visual trait (@Check[will|dc:26]). A creature that succeeds is temporarily immune to that nosferatu's Dominate for 24 hours. Fully destroying the nosferatu ends the domination, but merely reducing the nosferatu to 0 HP is insufficient to break the spell.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "vampire-nosferatu-dominate",
+                "traits": {
+                    "value": [
+                        "divine",
                         "incapacitation",
-                        "manipulate",
                         "mental",
                         "visual"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "sqFZcYoVTYrsYN4c",
+            "_id": "mR1hECOdG4ihzUpu",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.tpLTLbJUrYcMWGld"
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.GpKQH8hnSYWiyuQU"
             },
-            "img": "icons/magic/sonic/projectile-sound-rings-wave.webp",
-            "name": "Telekinetic Haul",
-            "sort": 300000,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drink Blood",
+            "sort": 1000000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "action"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>You move the target up to 20 feet, potentially suspending it in midair. When you Sustain the Spell, you can do so again, or you can choose a different eligible target to move.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "heightenedLevel": 5,
-                    "uses": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "value": "FH98KC2pUcRXdN35"
+                    "value": "<p><strong>Requirements</strong> The nosferatu's last action was a successful fangs Strike</p><hr /><p><strong>Effect</strong> The nosferatu sinks their fangs into the targeted creature to drink its blood. This requires an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC. On a success, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, and Vikandian regains @Damage[10[healing]] HP, gaining any excess HP as temporary Hit Points and gaining panache. Drinking Blood from a creature that's already drained doesn't restore any HP to the nosferatu, but increases the creature's drained condition value by 1. A nosferatu can also consume blood that's been emptied into a vessel for sustenance, but they gain no HP from doing so.</p>\n<p>The target creature's drained condition value decreases by 1 per week. A blood transfusion, which requires a successful @Check[medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained value by 1 after 10 minutes.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Bestiary 3"
                 },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "telekinetic-haul",
-                "target": {
-                    "value": "1 unattended object of up to 80 Bulk with no dimension longer than 20 feet"
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": "vampire-nosferatu-drink-blood",
                 "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
                     "value": [
-                        "concentrate",
-                        "manipulate"
+                        "divine"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "eKjqIkDsPK4oG4Em",
+            "_id": "P7rE9vi1P70NJ5iD",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VitLIpdIAmKlGb7i"
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.NgiwaeUqMPfkYvQq"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/sword-cane.webp",
-            "name": "Sword Cane",
-            "sort": 400000,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Plague of Ancients",
+            "sort": 1100000,
             "system": {
-                "baseItem": "sword-cane",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This slender, rapier-like sword is concealed within a wooden or metal cane that serves as a sheath, making it an inconspicuous weapon easy to slip past inspections or into high-society events. A sword cane is typically 4 feet long when sheathed, and its hilt is usually capped with a wooden or metal decoration.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "sword",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:26]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> drained (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}, @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2}, drained 3, and enfeebled 3 (1 day)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 day)</p>\n<p><strong>Stage 6</strong> death</p>"
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 1
-                },
-                "size": "med",
-                "slug": "sword-cane",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": "vampire-nosferatu-plague-of-ancients",
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "agile",
-                        "concealable",
-                        "finesse"
+                        "disease",
+                        "virulent"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "leBhqdtsM3tajunv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Precise Fencer",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Vikandian deals an additional 3 precision damage with his sword cane, fangs, or claw Strikes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "X05VJUOijknoXUlb",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Vampiric Panache",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Vikandian gains panache when he successfully uses Opportune Riposte, when he successfully @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes} a creature, when he successfully Dominates a creature, and when he Drinks Blood.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         },
         {
             "_id": "o1Qm9Y8r9sZ2z8kr",
@@ -271,7 +480,7 @@
             },
             "img": "icons/equipment/neck/amulet-round-engraved-spiral-gold.webp",
             "name": "Charm of Electricity Resistance",
-            "sort": 500000,
+            "sort": 1400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -363,7 +572,7 @@
             "_id": "XiUc96AU4n1aM3zU",
             "img": "icons/sundries/misc/key-copper.webp",
             "name": "Key",
-            "sort": 600000,
+            "sort": 1500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -416,7 +625,7 @@
             "_id": "WMgMO9G3wUtuSBs8",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fangs",
-            "sort": 700000,
+            "sort": 1600000,
             "system": {
                 "attackEffects": {
                     "value": [
@@ -460,7 +669,7 @@
             "_id": "DotZCkt036LONE1t",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 800000,
+            "sort": 1700000,
             "system": {
                 "attackEffects": {
                     "value": [
@@ -510,7 +719,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sword Cane",
-            "sort": 900000,
+            "sort": 1800000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -555,432 +764,156 @@
             "type": "melee"
         },
         {
-            "_id": "cg8fgSm6sGAJE6bt",
+            "_id": "yMZjDluDwdyDmxeR",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OsOhx3TGIZ7AhD0P"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fast Healing 10",
-            "sort": 1000000,
+            "img": "systems/pf2e/icons/spells/dominate.webp",
+            "name": "Dominate (At Will) (See Dominate)",
+            "sort": 1900000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FastHealing",
-                        "type": "fast-healing",
-                        "value": 10
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
                     }
-                ],
-                "slug": "fast-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "B3NBi21pYXb87QM2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.Sj1IGDjUmlwFpC35"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Nosferatu Vulnerabilities",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>n addition to the typical vampire vulnerabilities, Vikandian is jealous he can't create spawn. A PC who pokes at this shame when they attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] Vikandian gains a +4 circumstance bonus on their Intimidation check. If they're successful, Vikandian becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as he remains frightened as he sputters in rage.</p><ul><li><strong>Revulsion</strong> A nosferatu can't voluntarily come within 10 feet of brandished garlic or a brandished religious symbol of a non-evil deity. To brandish garlic or a religious symbol, a creature must Interact to do so for 1 round (similar to Raising a Shield). If the nosferatu involuntarily comes within 10 feet of an object of their revulsion, they gain the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition, running from the object of their revulsion until they end an action beyond 10 feet. After 1 round of being exposed to the subject of their revulsion, a nosferatu can attempt a @Check[will|dc:25|traits:concentrate] save as a single action, which has the concentrate trait. On a success, they overcome their revulsions for [[/gmr 1d6 #Overcome Revulsions]]{1d6 rounds} (or 1 hour on a critical success).</li><li><strong>Stake</strong> A magical wooden stake (such as one affected by a weapon potency rune, magic weapon, or similar magic) driven through the nosferatu's heart drops the nosferatu to 0 HP and prevents them from healing above 0 HP, even in their coffin. Staking a nosferatu requires 3 actions and works only if the nosferatu is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. If the stake is removed, the nosferatu can heal above 0 HP again, and if they're in their coffin, the 1-hour rest period begins once the stake is removed. If the nosferatu's head is severed and anointed with <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy Water]</em> while the stake is in place, the nosferatu is destroyed.</li><li><strong>Sunlight</strong> If exposed to direct sunlight, a nosferatu immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}. The slowed value increases by 1 each time the nosferatu ends their turn in sunlight, and the condition ends when they're no longer in sunlight. If the nosferatu loses all their actions in this way, they're destroyed.</li></ul>"
+                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> You control the target. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Controlled] condition, but it can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The duration is unlimited.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the next time you make your daily preparations"
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "heightenedLevel": 6,
+                    "value": "FH98KC2pUcRXdN35"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary 3"
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "exceptions": [
-                            {
-                                "definition": [
-                                    "item:magical",
-                                    "damage:material:wood"
-                                ],
-                                "label": "PF2E.IWR.Custom.MagicalWood"
-                            }
-                        ],
-                        "key": "Resistance",
-                        "type": "physical",
-                        "value": 10
-                    }
-                ],
-                "slug": "vampire-nosferatu-nosferatu-vulnerabilities",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6yaJZiY5ioc9C8Fy",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Opportune Riposte",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
+                "range": {
+                    "value": "30 feet"
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy within Vikandian's reach critically fails on a Strike against him</p><hr /><p><strong>Effect</strong> Vikandian either makes a melee Strike against the triggering enemy or attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] them of the weapon used for the Strike. If he succeeds, he gains panache.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "dominate",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GUTBHqMY0oGnnUx0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.hOOXkWcTw9EFKJev"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Plagued Coffin Restoration",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If he's reduced to 0 HP, Vikandian disperses into an immense number of individual rats that flee in every direction in an attempt to return to his coffin in area <strong>N6</strong>. If even a single rat enters this coffin, he reforms in his body and is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. If his body rests in his coffin for 1 hour, Vikandian gains 1 HP, after which his fast healing begins to function normally. If his coffin doesn't contain plagued grave dirt, he instead needs to rest in his coffin for 1 day before he gains 1 HP and regains his fast healing.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 3"
-                },
-                "rules": [],
-                "slug": "vampire-nosferatu-plagued-coffin-restoration",
-                "traits": {
-                    "value": [
-                        "divine",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QTLnr9MYtcbjoq6C",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8lbBLbpZMN6uwHeE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bleeding Finisher",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Vikandian has panache</p><hr /><p><strong>Effect</strong> Vikandian attempts a sword cane Strike. If he hits, the target also takes 3d6 persistent bleed damage. He then loses his panache and can't use actions that have the attack trait for the rest of his turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "bleeding-finisher",
-                        "toggleable": true
-                    },
-                    {
-                        "category": "persistent",
-                        "damageType": "bleed",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "bleeding-finisher"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RDF08DgCVW9LDvLd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.DWku0nZzkqmYjrQ5"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Vikandian transforms into a swarm of rats. He gains a land Speed of 30 feet and a climb Speed of 10 feet, and he becomes Large. Each enemy in his space takes @Damage[2d10[piercing]] damage (@Check[reflex|dc:26|basic] save). A creature that fails the save is exposed to plague of ancients.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 3"
-                },
-                "rules": [],
-                "slug": "vampire-nosferatu-change-shape",
-                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
                         "concentrate",
-                        "divine",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "e2fOY59UxAgnqdHF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.8UQWXpYfn9oE1ZHu"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Command Thrall",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> One of Vikandian's morlock thralls is present and can hear him</p><hr /><p><strong>Effect</strong> Vikandian gives a single command to one of his thralls, which the thrall follows to the best of their ability during their next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 3"
-                },
-                "rules": [],
-                "slug": "vampire-nosferatu-command-thrall",
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "divine",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4nSekhH06OdsuVpK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.4B8O9QBJuDhJkVcz"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dominate",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The nosferatu can cast @UUID[Compendium.pf2e.spells-srd.Item.Dominate] at will as a divine innate spell. Casting it requires staring into the target's eyes, giving the spell the visual trait (@Check[will|dc:26]). A creature that succeeds is temporarily immune to that nosferatu's Dominate for 24 hours. Fully destroying the nosferatu ends the domination, but merely reducing the nosferatu to 0 HP is insufficient to break the spell.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 3"
-                },
-                "rules": [],
-                "slug": "vampire-nosferatu-dominate",
-                "traits": {
-                    "value": [
-                        "divine",
                         "incapacitation",
+                        "manipulate",
                         "mental",
                         "visual"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "mR1hECOdG4ihzUpu",
+            "_id": "sqFZcYoVTYrsYN4c",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.GpKQH8hnSYWiyuQU"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.tpLTLbJUrYcMWGld"
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Drink Blood",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The nosferatu's last action was a successful fangs Strike</p><hr /><p><strong>Effect</strong> The nosferatu sinks their fangs into the targeted creature to drink its blood. This requires an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC. On a success, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, and Vikandian regains @Damage[10[healing]] HP, gaining any excess HP as temporary Hit Points and gaining panache. Drinking Blood from a creature that's already drained doesn't restore any HP to the nosferatu, but increases the creature's drained condition value by 1. A nosferatu can also consume blood that's been emptied into a vessel for sustenance, but they gain no HP from doing so.</p>\n<p>The target creature's drained condition value decreases by 1 per week. A blood transfusion, which requires a successful @Check[medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained value by 1 after 10 minutes.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 3"
-                },
-                "rules": [],
-                "slug": "vampire-nosferatu-drink-blood",
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "P7rE9vi1P70NJ5iD",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.NgiwaeUqMPfkYvQq"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Plague of Ancients",
+            "img": "icons/magic/sonic/projectile-sound-rings-wave.webp",
+            "name": "Telekinetic Haul",
             "sort": 2000000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:26]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> drained (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}, @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2}, drained 3, and enfeebled 3 (1 day)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 day)</p>\n<p><strong>Stage 6</strong> death</p>"
+                    "value": "<p>You move the target up to 20 feet, potentially suspending it in midair. When you Sustain the Spell, you can do so again, or you can choose a different eligible target to move.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "heightenedLevel": 5,
+                    "uses": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "value": "FH98KC2pUcRXdN35"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary 3"
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": "vampire-nosferatu-plague-of-ancients",
+                "slug": "telekinetic-haul",
+                "target": {
+                    "value": "1 unattended object of up to 80 Bulk with no dimension longer than 20 feet"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "disease",
-                        "virulent"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "leBhqdtsM3tajunv",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Precise Fencer",
+            "_id": "FH98KC2pUcRXdN35",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 2100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Vikandian deals an additional 3 precision damage with his sword cane, fangs, or claw Strikes.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -988,41 +921,108 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "X05VJUOijknoXUlb",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Vampiric Panache",
+            "_id": "eKjqIkDsPK4oG4Em",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VitLIpdIAmKlGb7i"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sword-cane.webp",
+            "name": "Sword Cane",
             "sort": 2200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "sword-cane",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p>Vikandian gains panache when he successfully uses Opportune Riposte, when he successfully @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes} a creature, when he successfully Dominates a creature, and when he Drinks Blood.</p>"
+                    "value": "<p>This slender, rapier-like sword is concealed within a wooden or metal cane that serves as a sheath, making it an inconspicuous weapon easy to slip past inspections or into high-society events. A sword cane is typically 4 feet long when sheathed, and its hilt is usually capped with a wooden or metal decoration.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "sword-cane",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "concealable",
+                        "finesse"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         }
     ],
     "name": "Vikandian",

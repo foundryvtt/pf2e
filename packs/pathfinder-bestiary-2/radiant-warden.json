@@ -3,22 +3,159 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "cjXnGrEMkDDki8sC",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "iRmxw9CTYdvk3WOX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Gatekeeper Aura",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. A creature that uses a teleportation ability within the aura's emanation or enters it via a teleportation ability must succeed a @Check[will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and have its destination changed to a point of the radiant warden's choosing within the emanation. On a successful save, the creature arrives as intended but is still sickened 1.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "gatekeeper-aura",
+                        "traits": [
+                            "occult",
+                            "teleportation"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "occult",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "S31hZB9EKGtsEZ7B",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Orrery",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Until it acts, the radiant warden appears to be an orrery (or similar large mechanical contraption, such as a telescope). It has an automatic result of 53 on Deception checks and DCs to convincingly pass as such a machine.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xOfT1xQ4weGRsYHu",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Radiant Blast",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The radiant warden releases a @Template[cone|distance:50] of bright energy that deals @Damage[10d12[force]] damage (@Check[reflex|dc:38|basic] save). The radiant warden can't use Radiant Blast for [[/gmr 1d4 #Recharge Radiant Blast]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "force",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vu4nBmfeMF19jeah",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Radiant Blow",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a creature is hit by the radiant warden's hammer Strike, a flash of radiant energy attempts to anchor the creature in place. The creature must attempt a @Check[will|dc:38] save; on a failure, the creature can't use any teleportation effects for 1 minute. On a critical failure, the creature is also permanently @UUID[Compendium.pf2e.conditionitems.Item.Blinded].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "radiant-blow",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4s8ELNWXmsGfFB7V",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Astronomy Lore",
+            "sort": 500000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "mod": {
+                    "value": 36
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -27,18 +164,101 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "mod": 0,
-                    "value": 28
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "tikGFRXVhGNo3ahM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hammer",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
-                "tradition": {
-                    "value": "occult"
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "radiant-blow"
+                    ]
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "3stgh3u6whf7ffx69nij": {
+                        "damage": "3d12+15",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-15",
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "LzoVt6l20KHm15wv",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Radiant Beam",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "2lu9f0yjajft9t86gbzg": {
+                        "damage": "4d10",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "xvjReMwS5blhUJlo",
@@ -47,7 +267,7 @@
             },
             "img": "systems/pf2e/icons/spells/teleport.webp",
             "name": "Teleport",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -108,7 +328,7 @@
             },
             "img": "systems/pf2e/icons/spells/collective-transposition.webp",
             "name": "Collective Transposition",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -181,7 +401,7 @@
             },
             "img": "systems/pf2e/icons/spells/scintillating-pattern.webp",
             "name": "Scintillating Pattern",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -251,7 +471,7 @@
             },
             "img": "systems/pf2e/icons/spells/dimensional-lock.webp",
             "name": "Dimensional Lock",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -315,7 +535,7 @@
             },
             "img": "systems/pf2e/icons/spells/prismatic-spray.webp",
             "name": "Prismatic Spray",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -379,7 +599,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At will)",
-            "sort": 700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -434,251 +654,22 @@
             "type": "spell"
         },
         {
-            "_id": "tikGFRXVhGNo3ahM",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hammer",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "radiant-blow"
-                    ]
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "3stgh3u6whf7ffx69nij": {
-                        "damage": "3d12+15",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-15",
-                        "shove"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "LzoVt6l20KHm15wv",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Radiant Beam",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "2lu9f0yjajft9t86gbzg": {
-                        "damage": "4d10",
-                        "damageType": "force"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-15"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "iRmxw9CTYdvk3WOX",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Gatekeeper Aura",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. A creature that uses a teleportation ability within the aura's emanation or enters it via a teleportation ability must succeed a @Check[will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and have its destination changed to a point of the radiant warden's choosing within the emanation. On a successful save, the creature arrives as intended but is still sickened 1.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "gatekeeper-aura",
-                        "traits": [
-                            "occult",
-                            "teleportation"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "occult",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "S31hZB9EKGtsEZ7B",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Orrery",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Until it acts, the radiant warden appears to be an orrery (or similar large mechanical contraption, such as a telescope). It has an automatic result of 53 on Deception checks and DCs to convincingly pass as such a machine.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xOfT1xQ4weGRsYHu",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Radiant Blast",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The radiant warden releases a @Template[cone|distance:50] of bright energy that deals @Damage[10d12[force]] damage (@Check[reflex|dc:38|basic] save). The radiant warden can't use Radiant Blast for [[/gmr 1d4 #Recharge Radiant Blast]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "force",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vu4nBmfeMF19jeah",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Radiant Blow",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a creature is hit by the radiant warden's hammer Strike, a flash of radiant energy attempts to anchor the creature in place. The creature must attempt a @Check[will|dc:38] save; on a failure, the creature can't use any teleportation effects for 1 minute. On a critical failure, the creature is also permanently @UUID[Compendium.pf2e.conditionitems.Item.Blinded].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "radiant-blow",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4s8ELNWXmsGfFB7V",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Astronomy Lore",
+            "_id": "cjXnGrEMkDDki8sC",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1400000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 36
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -687,9 +678,18 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 38,
+                    "mod": 0,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "occult"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Radiant Warden",

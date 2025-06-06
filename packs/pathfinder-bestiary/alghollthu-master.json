@@ -3,22 +3,105 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "CqU1NxH3VCWX924G",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "DFaamiHPt04lXEiq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mucus Cloud",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>5 feet. While underwater, an aboleth exudes a cloud of transparent slime. An air-breathing creature adjacent to an aboleth must succeed at a @Check[fortitude|dc:25] save each round or lose the ability to breathe air but gain the ability to breathe water for 3 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "radius": 5,
+                        "slug": "mucus-cloud",
+                        "traits": [
+                            "disease"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.Underwater",
+                        "option": "terrain:underwater",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cckOUw1gK3GNCnML",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Slime",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<hr />\n<p><strong>Stage 1</strong> no ill effect (1 round)</p>\n<p><strong>Stage 2</strong> the victim's skin softens, inflicting @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 3</strong> the victim's skin transforms into a clear, slimy membrane, inflicting @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} until the curse ends; every hour this membrane remains dry, the creature's drained condition increases by 1 (permanent).</p>\n<p>A @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] spell can counteract this curse, but immunity to disease offers no protection against it</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "slime",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "occult",
+                        "virulent"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y4RJFccf3Sw5GwrU",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Lore (any one subcategory)",
+            "sort": 300000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "mod": {
+                    "value": 14
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -27,21 +110,58 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "z0XDoZaPAzbT1buS",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
-                "slots": {},
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "slime"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "j3rgjdjczyn55buec6ok": {
+                        "damage": "2d8+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
             "_id": "CRjz5QeNCuFvnsRa",
@@ -50,7 +170,7 @@
             },
             "img": "systems/pf2e/icons/spells/project-image.webp",
             "name": "Project Image (At Will)",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -113,7 +233,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -185,7 +305,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene (At Will)",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -253,7 +373,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
             "name": "Hallucinatory Terrain (At Will)",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -319,7 +439,7 @@
             },
             "img": "systems/pf2e/icons/spells/veil.webp",
             "name": "Veil (At Will)",
-            "sort": 600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -382,7 +502,7 @@
             },
             "img": "systems/pf2e/icons/spells/hypnotic-pattern.webp",
             "name": "Hypnotic Pattern (At Will)",
-            "sort": 700000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -452,7 +572,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object (At Will)",
-            "sort": 800000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -512,154 +632,22 @@
             "type": "spell"
         },
         {
-            "_id": "z0XDoZaPAzbT1buS",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tentacle",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "slime"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "j3rgjdjczyn55buec6ok": {
-                        "damage": "2d8+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "DFaamiHPt04lXEiq",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mucus Cloud",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>5 feet. While underwater, an aboleth exudes a cloud of transparent slime. An air-breathing creature adjacent to an aboleth must succeed at a @Check[fortitude|dc:25] save each round or lose the ability to breathe air but gain the ability to breathe water for 3 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "terrain:underwater"
-                        ],
-                        "radius": 5,
-                        "slug": "mucus-cloud",
-                        "traits": [
-                            "disease"
-                        ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SkillVariant.Underwater",
-                        "option": "terrain:underwater",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cckOUw1gK3GNCnML",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Slime",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<hr />\n<p><strong>Stage 1</strong> no ill effect (1 round)</p>\n<p><strong>Stage 2</strong> the victim's skin softens, inflicting @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 3</strong> the victim's skin transforms into a clear, slimy membrane, inflicting @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} until the curse ends; every hour this membrane remains dry, the creature's drained condition increases by 1 (permanent).</p>\n<p>A @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] spell can counteract this curse, but immunity to disease offers no protection against it</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "slime",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "occult",
-                        "virulent"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "y4RJFccf3Sw5GwrU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore (any one subcategory)",
+            "_id": "CqU1NxH3VCWX924G",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1200000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 14
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -668,9 +656,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "occult"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Alghollthu Master",

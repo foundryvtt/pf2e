@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "z7z4vnXmpaynpilE",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Primal Spells",
+            "_id": "a0Y3uV615pfpXjsl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Nasty Ink",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>A scrit's fingers are perpetually covered in smeared ink from the writing it's destroyed. This ink mixes with its skin oils to create a disgusting, sticky poison.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:14]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<hr />\n<p><strong>Stage 1</strong> @Damage[1d4[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 round)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,23 +25,92 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 15,
-                    "mod": 0,
-                    "value": 7
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "48Y9uY1twqYCaXUZ",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Smear Text",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The scrit rubs its fingers against one page of writing, smearing the text and rendering it unreadable. The scrit can smear and destroy magical writing such as a @UUID[Compendium.pf2e.spells-srd.Item.Rune Trap] or a @UUID[Compendium.pf2e.spells-srd.Item.Sigil] by succeeding at a counteract check (using the scrit's [[/r 1d20+8]]{spell attack modifier}) against the caster's DC.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Pykc2G0zgbc5FSEO",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sticky Fingers",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "nasty-ink"
+                    ]
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "tzqs9unih6mcaxwzqs0c": {
+                        "damage": "1d4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "SgOk4d9iMKfqHw3U",
@@ -52,7 +119,7 @@
             },
             "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
             "name": "Speak with Animals (At Will)",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -112,7 +179,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -178,7 +245,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -235,99 +302,22 @@
             "type": "spell"
         },
         {
-            "_id": "Pykc2G0zgbc5FSEO",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sticky Fingers",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "nasty-ink"
-                    ]
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "tzqs9unih6mcaxwzqs0c": {
-                        "damage": "1d4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "a0Y3uV615pfpXjsl",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Nasty Ink",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A scrit's fingers are perpetually covered in smeared ink from the writing it's destroyed. This ink mixes with its skin oils to create a disgusting, sticky poison.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:14]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<hr />\n<p><strong>Stage 1</strong> @Damage[1d4[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "48Y9uY1twqYCaXUZ",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Smear Text",
+            "_id": "z7z4vnXmpaynpilE",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Primal Spells",
             "sort": 700000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The scrit rubs its fingers against one page of writing, smearing the text and rendering it unreadable. The scrit can smear and destroy magical writing such as a @UUID[Compendium.pf2e.spells-srd.Item.Rune Trap] or a @UUID[Compendium.pf2e.spells-srd.Item.Sigil] by succeeding at a counteract check (using the scrit's [[/r 1d20+8]]{spell attack modifier}) against the caster's DC.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -335,13 +325,23 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 1,
+                        "value": 1
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 15,
+                    "mod": 0,
+                    "value": 7
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Troublesome Scrit",

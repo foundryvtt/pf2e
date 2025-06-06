@@ -1,0 +1,295 @@
+{
+    "_id": "yD6d0C9wWQRPOq4T",
+    "folder": "qY2Irz9JNcTK9OY0",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "9PdktfqMDTRsi7zP",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Chilling Currents",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A goldpebble can cause the temperature of all water within a @Template[type:emanation|distance:30] centered on itself to plummet for 1 minute. Any creature that starts its turn or enters the affected water takes @Damage[2d6[cold]] damage (@Check[fortitude|dc:19|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nuBwlYSALfoQIfYC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pebblefang Poison",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[cold]] damage (2 rounds)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[cold]] damage (2 rounds)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[cold]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DzYjkTrj6vIzhxjm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 300000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "pebblefang-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "mb6GQc7mnG01e0VP": {
+                        "damage": "1d8",
+                        "damageType": "cold"
+                    },
+                    "yKMVVqZVPhKwxZ86": {
+                        "damage": "1d8+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hYZXvSYd9fUbq1sU",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "3ieOTevZ1Tc86ZA3": {
+                        "damage": "2d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Goldpebble",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 25
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Goldpebbles are large water snakes with bodies that, to the unassuming eye, appear to be nothing more than river rocks, some glinting with traces of gold. These terrifying creatures mimic their natural surroundings to ambush greedy adventurers.</p>\n<p>A Taldan alchemist created the goldpebble with the ultimate goal of breeding a creature capable of reproducing at a high rate while possessing a body that would turn to gold upon death, effectively ensuring an endless supply of wealth. Initially, the experiments were successful, with each shed of the snake's skin producing trace amounts of gold. As the snakes grew, however, the amount of gold didn't, and the snakes themselves soon proved unwieldy and difficult to contain. Unhindered, the alchemist redoubled her efforts, adding alchemical reagents to her experiments and leaning more heavily into inhumane tactics to produce her desired results. These tactics failed to lead to an increase in the amount of gold produced but instead mutated the creatures' venom, giving them the ability to slowly turn a victim's blood to frozen water. Empowered with this new ability, the goldpebbles felled their own creator and escaped to spread across the Inner Sea region.</p>\n<p>Goldpebbles are generally solitary creatures except for their biannual mating season. During this time, they're even more dangerous than usual, becoming territorial and protective of their young while attacking in groups. Once the eggs hatch, the breeding grounds are filled with hundreds of tiny snakes slithering in all directions in search of new territory. These young goldpebbles are less in control of their alchemical powers than their adult counterparts and have the potential to freeze the water around them at a moment's notice.</p>\n<p>Goldpebbles rely heavily on ambush tactics. Often found hiding in shallow pools, rivers, and lakes, goldpebbles will lure unsuspecting adventurers to their lairs using their gold-flecked scales. Once within reach, goldpebbles attack with a gruesome bite that can poison an unlucky victim, slowly turning their prey's blood into freezing water. Goldpebbles can also chill the waters around them, making it incredibly difficult for prey to survive.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens Shining Kingdoms"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "wavesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 12,
+                "special": []
+            },
+            "athletics": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "to Swim",
+                        "predicate": [
+                            "action:swim"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 13,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "aquatic",
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

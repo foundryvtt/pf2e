@@ -4,174 +4,156 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3lzbstEHLXDXOAan",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.LJdbVTOZog39EEbi"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
-            "name": "Longsword",
+            "_id": "0AiUaTUE96AdfKo2",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hunt Prey",
             "sort": 100000,
             "system": {
-                "baseItem": "longsword",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
+                "actions": {
                     "value": 1
                 },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d8"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>Longswords can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "group": "sword",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
+                    "value": "<p>The bloody blade mercenary designates a single creature as their prey and focuses their attacks against that creature. The mercenary must be able to see or hear the prey, or must be tracking the prey during exploration.</p>\n<p>The mercenary gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek]{Seeks} their prey and a +2 circumstance bonus to Survival checks when they @UUID[Compendium.pf2e.actionspf2e.Item.Track]{Tracks} their prey. The mercenary also ignores the penalty for making ranged attacks within their second range increment against the prey they are hunting.</p>\n<p>The mercenary can have only one creature designated as their prey at a time. If they use Hunt Prey against a creature when they already have a creature designated, the prior creature loses the designation and the new prey gains the designation. This designation lasts until their next daily preparations.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "longsword",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                        "option": "hunted-prey",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                        "predicate": [
+                            "action:seek",
+                            "hunted-prey"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                        "predicate": [
+                            "action:track",
+                            "hunted-prey"
+                        ],
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": [
+                            "hunted-prey"
+                        ]
+                    }
+                ],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "versatile-p"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "R0fRljmWaDdBPkLW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hIgqLgH3YcLZBeoT"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/shortbow.webp",
-            "name": "Shortbow",
+            "_id": "7imiZn40Mr9yePd1",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hunted Shot",
             "sort": 200000,
             "system": {
-                "baseItem": "shortbow",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
+                "actions": {
                     "value": 1
                 },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> The bloody blade mercenary is wielding a ranged weapon with reload 0</p>\n<hr />\n<p>The bloody blade mercenary takes two quick shots against the one they hunt. They make two Strikes against their prey with the required weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply the mercenary's multiple attack penalty to each Strike normally.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "bow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": 60,
-                "reload": {
-                    "value": "0"
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "shortbow",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "deadly-d10"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-plus-hands"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "L6oDlNintmXHhjAv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Precision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The first time the mercenary hits their hunted prey in a round, they deal 1d8 additional precision damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.HuntPrey.FirstHitSwitch",
+                        "option": "first-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "label": "PF2E.SpecificRule.HuntPrey.FirstHitDamage",
+                        "predicate": [
+                            "first-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         },
         {
             "_id": "mMxoWvQreVyLqCIm",
@@ -180,7 +162,7 @@
             },
             "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
             "name": "Studded Leather Armor",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "acBonus": 2,
                 "baseItem": "studded-leather-armor",
@@ -248,7 +230,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
             "name": "Arrows",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -306,61 +288,6 @@
                 }
             },
             "type": "consumable"
-        },
-        {
-            "_id": "0cDIzdi1CF8z4VnV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
-            "name": "Silver Pieces",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 15,
-                "rules": [],
-                "size": "med",
-                "slug": "silver-pieces",
-                "stackGroup": "coins",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
         },
         {
             "_id": "6CWSsZ6ciRweK8gJ",
@@ -461,156 +388,229 @@
             "type": "melee"
         },
         {
-            "_id": "0AiUaTUE96AdfKo2",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hunt Prey",
+            "_id": "0cDIzdi1CF8z4VnV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
+            "name": "Silver Pieces",
             "sort": 800000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "baseItem": null,
+                "bulk": {
                     "value": 1
                 },
-                "category": "offensive",
+                "containerId": null,
                 "description": {
-                    "value": "<p>The bloody blade mercenary designates a single creature as their prey and focuses their attacks against that creature. The mercenary must be able to see or hear the prey, or must be tracking the prey during exploration.</p>\n<p>The mercenary gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek]{Seeks} their prey and a +2 circumstance bonus to Survival checks when they @UUID[Compendium.pf2e.actionspf2e.Item.Track]{Tracks} their prey. The mercenary also ignores the penalty for making ranged attacks within their second range increment against the prey they are hunting.</p>\n<p>The mercenary can have only one creature designated as their prey at a time. If they use Hunt Prey against a creature when they already have a creature designated, the prior creature loses the designation and the new prey gains the designation. This designation lasts until their next daily preparations.</p>"
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                        "option": "hunted-prey",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
-                        "predicate": [
-                            "action:seek",
-                            "hunted-prey"
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
-                        "predicate": [
-                            "action:track",
-                            "hunted-prey"
-                        ],
-                        "selector": "survival",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "domain": "ranged-attack-roll",
-                        "key": "RollOption",
-                        "option": "ignore-range-penalty:2",
-                        "predicate": [
-                            "hunted-prey"
-                        ]
-                    }
-                ],
-                "slug": null,
+                "quantity": 15,
+                "rules": [],
+                "size": "med",
+                "slug": "silver-pieces",
+                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
                 }
             },
-            "type": "action"
+            "type": "treasure"
         },
         {
-            "_id": "7imiZn40Mr9yePd1",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hunted Shot",
+            "_id": "3lzbstEHLXDXOAan",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.LJdbVTOZog39EEbi"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
+            "name": "Longsword",
             "sort": 900000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "baseItem": "longsword",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
                     "value": 1
                 },
-                "category": "offensive",
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8"
+                },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> The bloody blade mercenary is wielding a ranged weapon with reload 0</p>\n<hr />\n<p>The bloody blade mercenary takes two quick shots against the one they hunt. They make two Strikes against their prey with the required weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply the mercenary's multiple attack penalty to each Strike normally.</p>"
+                    "value": "<p>Longswords can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "longsword",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "versatile-p"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
-            "_id": "L6oDlNintmXHhjAv",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Precision",
+            "_id": "R0fRljmWaDdBPkLW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hIgqLgH3YcLZBeoT"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/shortbow.webp",
+            "name": "Shortbow",
             "sort": 1000000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "shortbow",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p>The first time the mercenary hits their hunted prey in a round, they deal 1d8 additional precision damage.</p>"
+                    "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "bow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.HuntPrey.FirstHitSwitch",
-                        "option": "first-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "label": "PF2E.SpecificRule.HuntPrey.FirstHitDamage",
-                        "predicate": [
-                            "first-attack"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
+                "quantity": 1,
+                "range": 60,
+                "reload": {
+                    "value": "0"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "shortbow",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "deadly-d10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-plus-hands"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         }
     ],
     "name": "Bloody Blade Mercenary",

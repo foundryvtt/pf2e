@@ -4,21 +4,365 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "0h3Hzq30mCIzXcop",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
+            "_id": "XIcgtyDG2R4Ita9b",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "AC 42 vs. Reactions and Ranged Weapon Attacks",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "focus"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "vs-ranged-reactions"
+                        ],
+                        "selector": "ac",
+                        "value": 4
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Defending vs. Ranged or Reaction",
+                        "option": "vs-ranged-reactions",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "n3rhHu2WPvGH8Mkv",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Tangled Forest Trip",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Kas Xi Rai is in tangled forest stance</p>\n<p><strong>Trigger</strong> A creature leaves a space within Kas Xi Rai's reach</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must attempt a @Check[reflex|dc:37] save, @Check[acrobatics|dc:37] check, or @Check[athletics|dc:37] check. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for that action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kJ78e3R1iGB8OqPY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Exhausting Flurry",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Kas Xi Rai targets the same creature with two Strikes from her Flurry of Blows and at least one hits and deals damage, the target must succeed at a @Check[fortitude|dc:39] save or be @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and take a -5-foot status penalty to land Speed while enfeebled. On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and takes a -10-foot status penalty to land Speed while enfeebled.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WvZLWpqya6dXbIOg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Flurry of Blows",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Kas Xi Rai makes two Strikes with her fist. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gRldPaampXuW50sz",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Tangled Forest Rake",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Kas Xi Rai makes a lashing branch Strike. If she hits and deals damage, she forces the target to move 5 feet into a space within her reach.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3AN9w8tsz241tk9u",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Tangled Forest Stance",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Kas Xi Rai extends her arms and enters a deadly tree-like combat stance. As long as she is in this stance, Kas Xi Rai can use Tangled Forest Trip and Tangled Forest Rake and make lashing branch Strikes with her fists.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sfDwDgTbBW9im7Bc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UblsH5cGyUdXypek"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-undetectability.webp",
+            "name": "Potion of Undetectability",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Drinking this dull-black liquid makes you undetectable to divinations.</p>\n<p>This grants the same effects as @UUID[Compendium.pf2e.spells-srd.Item.Hidden Mind], but without the bonus against mental effects. You also gain the effects of a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] spell, which protects against @UUID[Compendium.pf2e.spells-srd.Item.See the Unseen] spells of 8th level and lower and has a DC of 36 against @UUID[Compendium.pf2e.spells-srd.Item.Truesight].</p>\n<p>The potion's effects last for 10 minutes.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 18
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4400
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "potion-of-undetectability",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "illusion",
+                        "magical",
+                        "potion"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "ARV7fyOKOhXKGuJe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8mhSUxEvNuXDP8Ki"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
+            "name": "Bracers of Armor II",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": false
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 14
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "ac",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "saving-throw",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "value": 5
+                    }
+                ],
+                "size": "med",
+                "slug": "bracers-of-armor-ii",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornbracers"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "11HPHRUkwye0ljJh",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Crime Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 27
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -27,18 +371,111 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "mod": 0,
-                    "value": 30
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "iolvE2dOfUz57ljw",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
-                "tradition": {
-                    "value": "arcane"
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "7mldt3ixf6is2zg5odjo": {
+                        "damage": "3d6+12",
+                        "damageType": "bludgeoning"
+                    },
+                    "ui7l494axb95d4wyrvjv": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "FN1jPZvyzmDeGbK1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Lashing Branch",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "5xm3saw9bgqazveoqa1v": {
+                        "damage": "3d8+12",
+                        "damageType": "slashing"
+                    },
+                    "jkxs0jq0hsu09c9bcxqz": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "GfO9PCaIW76I1fZF",
@@ -47,7 +484,7 @@
             },
             "img": "systems/pf2e/icons/spells/wind-jump.webp",
             "name": "Wind Jump",
-            "sort": 200000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -106,7 +543,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-rush.webp",
             "name": "Ki Rush",
-            "sort": 300000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -164,7 +601,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-strike.webp",
             "name": "Ki Strike",
-            "sort": 400000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -234,13 +671,50 @@
             "type": "spell"
         },
         {
+            "_id": "0h3Hzq30mCIzXcop",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Focus Spells",
+            "sort": 1500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 38,
+                    "mod": 0,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "aTjYL60fDsG2Dzsq",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "+2 Gerater Striking Greater Corrosive Handwraps of Mighty Blows",
-            "sort": 500000,
+            "sort": 1600000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -325,480 +799,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "ARV7fyOKOhXKGuJe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8mhSUxEvNuXDP8Ki"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bracers of Armor II",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": false
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 14
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "ac",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "selector": "saving-throw",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "value": 5
-                    }
-                ],
-                "size": "med",
-                "slug": "bracers-of-armor-ii",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornbracers"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "sfDwDgTbBW9im7Bc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UblsH5cGyUdXypek"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-undetectability.webp",
-            "name": "Potion of Undetectability",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Drinking this dull-black liquid makes you undetectable to divinations.</p>\n<p>This grants the same effects as @UUID[Compendium.pf2e.spells-srd.Item.Hidden Mind], but without the bonus against mental effects. You also gain the effects of a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] spell, which protects against @UUID[Compendium.pf2e.spells-srd.Item.See the Unseen] spells of 8th level and lower and has a DC of 36 against @UUID[Compendium.pf2e.spells-srd.Item.Truesight].</p>\n<p>The potion's effects last for 10 minutes.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 18
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4400
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "potion-of-undetectability",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "illusion",
-                        "magical",
-                        "potion"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "iolvE2dOfUz57ljw",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "7mldt3ixf6is2zg5odjo": {
-                        "damage": "3d6+12",
-                        "damageType": "bludgeoning"
-                    },
-                    "ui7l494axb95d4wyrvjv": {
-                        "damage": "1d6",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "FN1jPZvyzmDeGbK1",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Lashing Branch",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "5xm3saw9bgqazveoqa1v": {
-                        "damage": "3d8+12",
-                        "damageType": "slashing"
-                    },
-                    "jkxs0jq0hsu09c9bcxqz": {
-                        "damage": "1d6",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "XIcgtyDG2R4Ita9b",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "AC 42 vs. Reactions and Ranged Weapon Attacks",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "vs-ranged-reactions"
-                        ],
-                        "selector": "ac",
-                        "value": 4
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Defending vs. Ranged or Reaction",
-                        "option": "vs-ranged-reactions",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "n3rhHu2WPvGH8Mkv",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Tangled Forest Trip",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Kas Xi Rai is in tangled forest stance</p>\n<p><strong>Trigger</strong> A creature leaves a space within Kas Xi Rai's reach</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must attempt a @Check[reflex|dc:37] save, @Check[acrobatics|dc:37] check, or @Check[athletics|dc:37] check. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for that action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kJ78e3R1iGB8OqPY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Exhausting Flurry",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Kas Xi Rai targets the same creature with two Strikes from her Flurry of Blows and at least one hits and deals damage, the target must succeed at a @Check[fortitude|dc:39] save or be @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and take a -5-foot status penalty to land Speed while enfeebled. On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and takes a -10-foot status penalty to land Speed while enfeebled.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WvZLWpqya6dXbIOg",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Flurry of Blows",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Kas Xi Rai makes two Strikes with her fist. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gRldPaampXuW50sz",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Tangled Forest Rake",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Kas Xi Rai makes a lashing branch Strike. If she hits and deals damage, she forces the target to move 5 feet into a space within her reach.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3AN9w8tsz241tk9u",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Tangled Forest Stance",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Kas Xi Rai extends her arms and enters a deadly tree-like combat stance. As long as she is in this stance, Kas Xi Rai can use Tangled Forest Trip and Tangled Forest Rake and make lashing branch Strikes with her fists.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "11HPHRUkwye0ljJh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crime Lore",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Kas Xi Rai",

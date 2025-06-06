@@ -4,22 +4,60 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "xjyPYxg1ZVfC9CIh",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "5j2E6W4tYSe5TJvH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Azarpal Poison",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 6 minutes</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 minute)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 minute)</p>\n<p><strong>Stage 3</strong> @Damage[2d12[poison]] damage plus fatigued and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} (1 minute); the sickened condition value caused by azarpal poison cannot be reduced below 1 as long as the poison's duration remains active.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:azarpal-poison"
+                        ],
+                        "key": "Immunity",
+                        "label": "{item|name}",
+                        "type": "custom"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HdszbtxYPFB5CGXX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Culinary Alchemy",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The azarpal knows the formulas for all common and uncommon alchemical foods of its level or lower found on pages 46–51 of Treasure Vault without needing a formula book. A typical azarpal carries about 700 gp of alchemical food.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,84 +65,101 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "bCZJeh8E1W4vUqBx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.i35dpZFI7jZcRoBo"
-            },
-            "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
-            "name": "Illusory Disguise",
-            "sort": 200000,
+            "_id": "9ODukZH5NQbhgnMd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Gulp or Grab",
+            "sort": 300000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "action"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>You create an illusion that causes the target to appear as another creature of the same body shape, and with roughly similar height (within 6 inches) and weight (within 50 pounds). The disguise is typically good enough to hide their identity, but not to impersonate a specific individual. The spell changes their appearance and voice, but not mannerisms. You can change the appearance of its clothing and worn items, such as making its armor look like a dress. Held items are unaffected, and any worn item removed from the creature returns to its true appearance.</p>\n<p>Casting <em>illusory disguise</em> counts as setting up a disguise for the @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] use of Deception; it ignores any circumstance penalties the target might take for disguising itself as a dissimilar creature, gives a +4 status bonus to Deception checks to prevent others from seeing through the disguise, and lets the target add its level to such Deception checks even if untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The target can appear as any creature of the same size, even a specific individual. You must have seen an individual to replicate its appearance, and must have heard its voice to replicate its voice.</p>\n<p><strong>Heightened (4th)</strong> You can target up to 10 willing creatures. If you target multiple creatures, you can choose a different disguise for each target, but none can impersonate a specific individual. You can Dismiss each disguise individually or all collectively.</p>\n<p><strong>Heightened (7th)</strong> As 4th, but you can choose disguises that impersonate specific individuals. You must have seen an individual to replicate its appearance, and must have heard its voice to replicate its voice.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Illusory Disguise]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 hour"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 7,
-                    "value": "xjyPYxg1ZVfC9CIh"
+                    "value": "<p>The Azarpal swallows a single meal or alchemical food and stores it in one of six stomachs. Therein, the food doesn't spoil (drinks must be swallowed in closed containers, or they spill and affect the azarpal normally). The azarpal can use this activity to reach into its mouth and retrieve a stored item as well. Any item that remains stored in an azarpal's stomach for at least 24 hours becomes laced with azarpal poison.</p>"
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "illusory-disguise",
-                "target": {
-                    "value": "1 willing creature"
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
                     "value": [
-                        "concentrate",
-                        "illusion",
-                        "manipulate",
-                        "visual"
+                        "manipulate"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
+        },
+        {
+            "_id": "LgUDIkkHbcqb2upf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Lasting Illusion",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When an azarpal casts illusory disguise and only targets themselves, the duration increases to 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gTcQrngXowJbgDv0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Twirl Tail",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The azarpal lashes and twirls their confounding tail, snapping and lashing it in all adjacent squares. Until the start of the azarpal's next turn, all non-azarpals treat the squares adjacent to the azarpal as difficult terrain.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         },
         {
             "_id": "dRSwojvSLz6GXmAF",
@@ -113,7 +168,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/fury-cocktail.webp",
             "name": "Skeptical Fury Cocktail (Moderate)",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -183,7 +238,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/consumable.svg",
             "name": "Poison Fizz (Moderate)",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -245,10 +300,213 @@
             "type": "consumable"
         },
         {
+            "_id": "gZyaj1v66SeWC4iw",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Cooking Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 23
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "CFm3c0zFNyUOnbJu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "THcEeUTFLEmYdSnR": {
+                        "damage": "3d12+12",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LCzGJSeM3iuUaE9G",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 1000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "2vYN9jvG4MvCIK7i": {
+                        "damage": "3d10+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bCZJeh8E1W4vUqBx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.i35dpZFI7jZcRoBo"
+            },
+            "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
+            "name": "Illusory Disguise",
+            "sort": 1100000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You create an illusion that causes the target to appear as another creature of the same body shape, and with roughly similar height (within 6 inches) and weight (within 50 pounds). The disguise is typically good enough to hide their identity, but not to impersonate a specific individual. The spell changes their appearance and voice, but not mannerisms. You can change the appearance of its clothing and worn items, such as making its armor look like a dress. Held items are unaffected, and any worn item removed from the creature returns to its true appearance.</p>\n<p>Casting <em>illusory disguise</em> counts as setting up a disguise for the @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] use of Deception; it ignores any circumstance penalties the target might take for disguising itself as a dissimilar creature, gives a +4 status bonus to Deception checks to prevent others from seeing through the disguise, and lets the target add its level to such Deception checks even if untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The target can appear as any creature of the same size, even a specific individual. You must have seen an individual to replicate its appearance, and must have heard its voice to replicate its voice.</p>\n<p><strong>Heightened (4th)</strong> You can target up to 10 willing creatures. If you target multiple creatures, you can choose a different disguise for each target, but none can impersonate a specific individual. You can Dismiss each disguise individually or all collectively.</p>\n<p><strong>Heightened (7th)</strong> As 4th, but you can choose disguises that impersonate specific individuals. You must have seen an individual to replicate its appearance, and must have heard its voice to replicate its voice.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Illusory Disguise]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 hour"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 7,
+                    "value": "xjyPYxg1ZVfC9CIh"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "illusory-disguise",
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "xjyPYxg1ZVfC9CIh",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 1200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 30,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "FOclMUXY1FgCIhZ5",
             "img": "icons/consumables/food/bowl-stew-tofu-potato-red.webp",
             "name": "Regional Meals",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -292,264 +550,6 @@
                 }
             },
             "type": "treasure"
-        },
-        {
-            "_id": "CFm3c0zFNyUOnbJu",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "THcEeUTFLEmYdSnR": {
-                        "damage": "3d12+12",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "LCzGJSeM3iuUaE9G",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "2vYN9jvG4MvCIK7i": {
-                        "damage": "3d10+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "5j2E6W4tYSe5TJvH",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Azarpal Poison",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 6 minutes</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 minute)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 minute)</p>\n<p><strong>Stage 3</strong> @Damage[2d12[poison]] damage plus fatigued and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} (1 minute); the sickened condition value caused by azarpal poison cannot be reduced below 1 as long as the poison's duration remains active.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            "item:slug:azarpal-poison"
-                        ],
-                        "key": "Immunity",
-                        "label": "{item|name}",
-                        "type": "custom"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HdszbtxYPFB5CGXX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Culinary Alchemy",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The azarpal knows the formulas for all common and uncommon alchemical foods of its level or lower found on pages 46–51 of Treasure Vault without needing a formula book. A typical azarpal carries about 700 gp of alchemical food.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9ODukZH5NQbhgnMd",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Gulp or Grab",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Azarpal swallows a single meal or alchemical food and stores it in one of six stomachs. Therein, the food doesn't spoil (drinks must be swallowed in closed containers, or they spill and affect the azarpal normally). The azarpal can use this activity to reach into its mouth and retrieve a stored item as well. Any item that remains stored in an azarpal's stomach for at least 24 hours becomes laced with azarpal poison.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LgUDIkkHbcqb2upf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Lasting Illusion",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When an azarpal casts illusory disguise and only targets themselves, the duration increases to 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gTcQrngXowJbgDv0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Twirl Tail",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The azarpal lashes and twirls their confounding tail, snapping and lashing it in all adjacent squares. Until the start of the azarpal's next turn, all non-azarpals treat the squares adjacent to the azarpal as difficult terrain.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gZyaj1v66SeWC4iw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Cooking Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Azarpal",

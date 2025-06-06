@@ -4,22 +4,237 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "SLW8aLZrbrMqAniN",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "iyWevLBiGLmYMOP5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 3
+                "actionType": {
+                    "value": "passive"
                 },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. @Check[will|dc:29]</p>\n<p>Animals take a -2 circumstance penalty to the Will save.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y8Ki9xMtjEbm4nIF",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Horrid Visage",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Creatures that see the bugul noz must succeed at a @Check[fortitude|dc:31] saving throw. On a failure, creatures are @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UhrlbhvCVWik38KZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mirror Vulnerability",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Upon seeing its own reflection in a mirror or other reflective surface, the bugul noz must succeed at a @Check[will|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for [[/r {1d4-1,1} kh #Rounds]]{1d4-1 rounds} (minimum 1 round). While confused and immobilized, the bugul noz cries and wallows in misery, making it immune to visual and auditory effects for the duration.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ElO9xLxjB4wblX7d",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Flail",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bugul noz swings its limbs about wildly. It makes up to three claw Strikes, each against a different creature and each with a -2 circumstance penalty. Its multiple attack penalty doesn't increase until after it makes all the attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "flail",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "flail"
+                        ],
+                        "selector": "claw-attack",
+                        "type": "circumstance",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jgEA3ptMljnGxy1j",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Forest Jaunt",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bugul noz ignores difficult terrain in forests.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RJ26mcn4UnryXIsN",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Haunting Wail",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bugul noz lets out a hair-raising keen. Other creatures within @Template[emanation|distance:30]{30 feet} must attempt a @Check[fortitude|dc:31|traits:damaging-effect] save.</p>\n<p>The bugul noz can't use this ability again for [[/gmr 1d4 #Recharge Haunting Wail]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes @Damage[2d10[sonic]] damage.</p>\n<p><strong>Failure</strong> The target takes @Damage[4d10[sonic]] damage and gains sonic weakness 10 for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "illusion"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8lXF29Na3oJh3PrL",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Forest Lore",
+            "sort": 700000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "mod": {
+                    "value": 22
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -28,34 +243,96 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "DNVtXPFDKGXBnkvT",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
-                "slots": {
-                    "slot0": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot2": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "h2n3xl6uzkiaig8s3vzk": {
+                        "damage": "3d8+6",
+                        "damageType": "piercing"
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "mod": 0,
-                    "value": 25
+                "description": {
+                    "value": ""
                 },
-                "tradition": {
-                    "value": "primal"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "3cmVTpBQzoejUsbQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rock",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "csfl34r78cvyp2ylyqsn": {
+                        "damage": "2d8+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "EbfKQMOYO2kHQ9tR",
@@ -64,7 +341,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -136,7 +413,7 @@
             },
             "img": "icons/environment/wilderness/terrain-river-road-gray.webp",
             "name": "Wanderer's Guide",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -196,7 +473,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -259,7 +536,7 @@
             },
             "img": "icons/magic/nature/stealth-hide-eyes-green.webp",
             "name": "Pass Without Trace",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -327,324 +604,22 @@
             "type": "spell"
         },
         {
-            "_id": "DNVtXPFDKGXBnkvT",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "h2n3xl6uzkiaig8s3vzk": {
-                        "damage": "3d8+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "3cmVTpBQzoejUsbQ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rock",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "csfl34r78cvyp2ylyqsn": {
-                        "damage": "2d8+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "iyWevLBiGLmYMOP5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. @Check[will|dc:29]</p>\n<p>Animals take a -2 circumstance penalty to the Will save.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Y8Ki9xMtjEbm4nIF",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Horrid Visage",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Creatures that see the bugul noz must succeed at a @Check[fortitude|dc:31] saving throw. On a failure, creatures are @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UhrlbhvCVWik38KZ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mirror Vulnerability",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Upon seeing its own reflection in a mirror or other reflective surface, the bugul noz must succeed at a @Check[will|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for [[/r {1d4-1,1} kh #Rounds]]{1d4-1 rounds} (minimum 1 round). While confused and immobilized, the bugul noz cries and wallows in misery, making it immune to visual and auditory effects for the duration.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ElO9xLxjB4wblX7d",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Flail",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The bugul noz swings its limbs about wildly. It makes up to three claw Strikes, each against a different creature and each with a -2 circumstance penalty. Its multiple attack penalty doesn't increase until after it makes all the attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "option": "flail",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "flail"
-                        ],
-                        "selector": "claw-attack",
-                        "type": "circumstance",
-                        "value": -2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jgEA3ptMljnGxy1j",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Forest Jaunt",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The bugul noz ignores difficult terrain in forests.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RJ26mcn4UnryXIsN",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Haunting Wail",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The bugul noz lets out a hair-raising keen. Other creatures within @Template[emanation|distance:30]{30 feet} must attempt a @Check[fortitude|dc:31|traits:damaging-effect] save.</p>\n<p>The bugul noz can't use this ability again for [[/gmr 1d4 #Recharge Haunting Wail]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes @Damage[2d10[sonic]] damage.</p>\n<p><strong>Failure</strong> The target takes @Damage[4d10[sonic]] damage and gains sonic weakness 10 for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "illusion"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8lXF29Na3oJh3PrL",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Forest Lore",
+            "_id": "SLW8aLZrbrMqAniN",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1400000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": 3
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 22
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -653,9 +628,34 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot2": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 33,
+                    "mod": 0,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "primal"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Bugul Noz",

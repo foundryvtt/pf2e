@@ -31,37 +31,10 @@
         },
         "rules": [
             {
-              "adjustName": false,
-              "choices": [
-                {
-                  "label": "PF2E.ProficiencyLevel1",
-                  "value": 1,
-                  "predicate": [
-                    "skill:society:rank:0"
-                  ]
-                },
-                {
-                  "label": "PF2E.ProficiencyLevel2",
-                  "value": 2,
-                  "predicate": [
-                    {
-                        "gte": [
-                            "skill:society:rank",
-                            1
-                        ]
-                    }
-                  ]
-                }
-              ],
-              "flag": "rank",
-              "key": "ChoiceSet",
-              "priority": 30
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.society.rank",
-                "value": "@item.flags.pf2e.rulesSelections.rank"
+                "value": 1
             },
             {
                 "key": "GrantItem",

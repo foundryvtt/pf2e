@@ -4,21 +4,277 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "mJhd5iLsmLx74Qjo",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Spontaneous Divine Spells",
+            "_id": "40tzhYIHgsaEat6r",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity (Special)",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Rinnarv can use Attack of Opportunity when a creature within his reach uses a concentrate action, in addition to its normal trigger. He can disrupt triggering concentrate actions, and he disrupts actions on any hit, not just a critical hit.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VqMcIUne6jfbwvel",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blood Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Rinnarv casts one of his bloodline spells or a spell from his list of granted spells, he creates an aura that protects himself or one of the targets of the spell. The aura grants a +1 status bonus to saving throws for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "blood-magic",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "blood-magic"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IwqiOEcQaE9YK1Sa",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Spell Strike",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> Rinnarv begins to Cast a Spell that targets at least 1 creature</p>\n<hr />\n<p><strong>Effect</strong> Rinnarv channels his spell through his blade. He makes a Strike with his blade against a target within reach. If the Strike is successful, the target is automatically subject to the spell. If the spell required an attack roll, the target is hit. If the spell required a saving throw, the target takes a -4 status penalty to its saving throw instead. If the spell could target multiple creatures, it targets only the creature Rinnarv hit with his Strike.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OBr4iMQYSp8jHCDH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Gq1cZWSKOtJhKd2p"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
+            "name": "Full Plate",
+            "sort": 400000,
+            "system": {
+                "acBonus": 6,
+                "baseItem": "full-plate",
+                "bulk": {
+                    "value": 4
+                },
+                "category": "heavy",
+                "checkPenalty": -3,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor] and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
+                },
+                "dexCap": 0,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": false
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 2
+                },
+                "size": "med",
+                "slug": "full-plate",
+                "speedPenalty": -10,
+                "strength": 4,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bulwark"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "rGTFhXu5q65KIeEU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0yeM77XLNrB0a0LF"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/apex-items/circlet-of-persuasion.webp",
+            "name": "Circlet of Persuasion",
+            "sort": 500000,
+            "system": {
+                "apex": {
+                    "attribute": "cha"
+                },
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This elegant silver band often resembles curling fig leaves and fits around your brow. You gain a +2 item bonus to Deception and Diplomacy checks. When you invest the circlet, you either increase your Charisma score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You cast a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell (DC 38).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": false
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 17
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 15000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "deception",
+                            "diplomacy"
+                        ],
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
+                "size": "med",
+                "slug": "circlet-of-persuasion",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "apex",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worncirclet"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "iqsG9i0M9rfRDnFG",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Hermea Lore",
+            "sort": 600000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "spontaneous"
+                "mod": {
+                    "value": 32
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -27,59 +283,59 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot10": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot7": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot8": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot9": {
-                        "max": 4,
-                        "value": 4
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 42,
-                    "mod": 0,
-                    "value": 38
-                },
-                "tradition": {
-                    "value": "divine"
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "8l7ngHz7yzWzu3vM",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "4YYh61RgLRJVFW9O"
                 }
             },
-            "type": "spellcastingEntry"
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Elven Curve Blade",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "gxullqdf55jhqxsizf91": {
+                        "damage": "4d8+24",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "forceful",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "j7t4s0PBcLGf4DFM",
@@ -88,7 +344,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Miracle",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -147,7 +403,7 @@
             },
             "img": "systems/pf2e/icons/spells/revival.webp",
             "name": "Revival",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -219,7 +475,7 @@
             },
             "img": "icons/magic/perception/orb-eye-scrying.webp",
             "name": "Foresight",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -282,7 +538,7 @@
             },
             "img": "systems/pf2e/icons/spells/massacre.webp",
             "name": "Massacre",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "line",
@@ -380,7 +636,7 @@
             },
             "img": "systems/pf2e/icons/spells/telepathic-demand.webp",
             "name": "Telepathic Demand",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -449,7 +705,7 @@
             },
             "img": "systems/pf2e/icons/spells/weapon-of-judgement.webp",
             "name": "Weapon of Judgment",
-            "sort": 700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -537,7 +793,7 @@
             },
             "img": "icons/environment/settlement/watchtower-cliff.webp",
             "name": "Discern Location",
-            "sort": 800000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -599,7 +855,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-aura.webp",
             "name": "Divine Aura",
-            "sort": 900000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -662,7 +918,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-inspiration.webp",
             "name": "Divine Inspiration",
-            "sort": 1000000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -722,7 +978,7 @@
             },
             "img": "systems/pf2e/icons/spells/moment-of-renewal.webp",
             "name": "Moment of Renewal",
-            "sort": 1100000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -783,7 +1039,7 @@
             },
             "img": "systems/pf2e/icons/spells/dimensional-lock.webp",
             "name": "Dimensional Lock",
-            "sort": 1200000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -847,7 +1103,7 @@
             },
             "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Divine Decree",
-            "sort": 1300000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -933,7 +1189,7 @@
             },
             "img": "icons/magic/life/cross-beam-green.webp",
             "name": "Regenerate",
-            "sort": 1400000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -996,7 +1252,7 @@
             },
             "img": "icons/magic/life/cross-beam-green.webp",
             "name": "Regenerate",
-            "sort": 1500000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1058,7 +1314,7 @@
             },
             "img": "systems/pf2e/icons/spells/sunburst.webp",
             "name": "Sunburst",
-            "sort": 1600000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1146,7 +1402,7 @@
             },
             "img": "icons/skills/melee/strike-dagger-white-orange.webp",
             "name": "Blade Barrier",
-            "sort": 1700000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1228,7 +1484,7 @@
             },
             "img": "icons/skills/melee/strike-dagger-white-orange.webp",
             "name": "Blade Barrier",
-            "sort": 1800000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1311,7 +1567,7 @@
             },
             "img": "icons/skills/melee/strike-dagger-white-orange.webp",
             "name": "Blade Barrier",
-            "sort": 1900000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1394,7 +1650,7 @@
             },
             "img": "icons/skills/melee/strike-dagger-white-orange.webp",
             "name": "Blade Barrier",
-            "sort": 2000000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1477,7 +1733,7 @@
             },
             "img": "icons/magic/life/heart-area-circle-red-green.webp",
             "name": "Field of Life",
-            "sort": 2100000,
+            "sort": 2700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1580,7 +1836,7 @@
             },
             "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
             "name": "Repulsion",
-            "sort": 2200000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1648,7 +1904,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 2300000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1711,7 +1967,7 @@
             },
             "img": "icons/magic/life/heart-shadow-red.webp",
             "name": "Breath of Life",
-            "sort": 2400000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1782,7 +2038,7 @@
             },
             "img": "systems/pf2e/icons/spells/drop-dead.webp",
             "name": "Drop Dead",
-            "sort": 2500000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1843,7 +2099,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Flame Strike",
-            "sort": 2600000,
+            "sort": 3200000,
             "system": {
                 "area": {
                     "details": "10-foot radius, 40-foot-tall cylinder",
@@ -1930,7 +2186,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-guardian.webp",
             "name": "Spiritual Guardian",
-            "sort": 2700000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2010,7 +2266,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-guardian.webp",
             "name": "Spiritual Guardian",
-            "sort": 2800000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2090,7 +2346,7 @@
             },
             "img": "icons/equipment/shield/heater-steel-segmented-purple.webp",
             "name": "Dimensional Anchor",
-            "sort": 2900000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2156,7 +2412,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 3000000,
+            "sort": 3600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2244,7 +2500,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 3100000,
+            "sort": 3700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2333,7 +2589,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 3200000,
+            "sort": 3800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2422,7 +2678,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 3300000,
+            "sort": 3900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2511,7 +2767,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 3400000,
+            "sort": 4000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2600,7 +2856,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement",
-            "sort": 3500000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2661,7 +2917,7 @@
             },
             "img": "icons/magic/light/orb-shadow-blue.webp",
             "name": "Spell Immunity",
-            "sort": 3600000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2722,7 +2978,7 @@
             },
             "img": "systems/pf2e/icons/spells/circle-of-protection.webp",
             "name": "Circle of Protection",
-            "sort": 3700000,
+            "sort": 4300000,
             "system": {
                 "area": {
                     "details": "10-foot emanation centered on the touched creature",
@@ -2786,7 +3042,7 @@
             },
             "img": "icons/magic/life/ankh-gold-blue.webp",
             "name": "Heroism",
-            "sort": 3800000,
+            "sort": 4400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2847,7 +3103,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
-            "sort": 3900000,
+            "sort": 4500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2945,7 +3201,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
-            "sort": 4000000,
+            "sort": 4600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3044,7 +3300,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 4100000,
+            "sort": 4700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3130,7 +3386,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 4200000,
+            "sort": 4800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3216,7 +3472,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 4300000,
+            "sort": 4900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3302,7 +3558,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 4400000,
+            "sort": 5000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3388,7 +3644,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 4500000,
+            "sort": 5100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3474,7 +3730,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 4600000,
+            "sort": 5200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3559,7 +3815,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkvision.webp",
             "name": "Darkvision",
-            "sort": 4700000,
+            "sort": 5300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3634,7 +3890,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 4800000,
+            "sort": 5400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3712,7 +3968,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 4900000,
+            "sort": 5500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3790,7 +4046,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 5000000,
+            "sort": 5600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3868,7 +4124,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 5100000,
+            "sort": 5700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3946,7 +4202,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 5200000,
+            "sort": 5800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4024,7 +4280,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 5300000,
+            "sort": 5900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4101,7 +4357,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 5400000,
+            "sort": 6000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4179,7 +4435,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 5500000,
+            "sort": 6100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4241,7 +4497,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Weapon",
-            "sort": 5600000,
+            "sort": 6200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4321,7 +4577,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Weapon",
-            "sort": 5700000,
+            "sort": 6300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4402,7 +4658,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Weapon",
-            "sort": 5800000,
+            "sort": 6400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4482,7 +4738,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 5900000,
+            "sort": 6500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -4551,7 +4807,7 @@
             },
             "img": "systems/pf2e/icons/spells/bless.webp",
             "name": "Bless",
-            "sort": 6000000,
+            "sort": 6600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4612,7 +4868,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 6100000,
+            "sort": 6700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4698,7 +4954,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 6200000,
+            "sort": 6800000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -4765,7 +5021,7 @@
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
-            "sort": 6300000,
+            "sort": 6900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4826,7 +5082,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 6400000,
+            "sort": 7000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -4887,7 +5143,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 6500000,
+            "sort": 7100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -5084,7 +5340,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 6600000,
+            "sort": 7200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -5280,7 +5536,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 6700000,
+            "sort": 7300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -5477,7 +5733,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 6800000,
+            "sort": 7400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -5674,7 +5930,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 6900000,
+            "sort": 7500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -5871,7 +6127,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 7000000,
+            "sort": 7600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -6068,7 +6324,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 7100000,
+            "sort": 7700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -6265,7 +6521,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 7200000,
+            "sort": 7800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -6462,7 +6718,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 7300000,
+            "sort": 7900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -6526,7 +6782,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 7400000,
+            "sort": 8000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -6601,7 +6857,7 @@
             },
             "img": "systems/pf2e/icons/spells/protection.webp",
             "name": "Protection",
-            "sort": 7500000,
+            "sort": 8100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -6661,7 +6917,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 7600000,
+            "sort": 8200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -6723,7 +6979,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 7700000,
+            "sort": 8300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -6780,13 +7036,91 @@
             "type": "spell"
         },
         {
+            "_id": "mJhd5iLsmLx74Qjo",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Spontaneous Divine Spells",
+            "sort": 8400000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot10": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot7": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot8": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot9": {
+                        "max": 4,
+                        "value": 4
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 42,
+                    "mod": 0,
+                    "value": 38
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "4YYh61RgLRJVFW9O",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mgrabKkyLmvxgLBK"
             },
             "img": "systems/pf2e/icons/equipment/weapons/elven-curve-blade.webp",
             "name": "Elven Curve Blade",
-            "sort": 7800000,
+            "sort": 8500000,
             "system": {
                 "baseItem": "elven-curve-blade",
                 "bonus": {
@@ -6865,340 +7199,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "OBr4iMQYSp8jHCDH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Gq1cZWSKOtJhKd2p"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
-            "name": "Full Plate",
-            "sort": 7900000,
-            "system": {
-                "acBonus": 6,
-                "baseItem": "full-plate",
-                "bulk": {
-                    "value": 4
-                },
-                "category": "heavy",
-                "checkPenalty": -3,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor] and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
-                },
-                "dexCap": 0,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": false
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 30
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 2
-                },
-                "size": "med",
-                "slug": "full-plate",
-                "speedPenalty": -10,
-                "strength": 4,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "bulwark"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "rGTFhXu5q65KIeEU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0yeM77XLNrB0a0LF"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/apex-items/circlet-of-persuasion.webp",
-            "name": "Circlet of Persuasion",
-            "sort": 8000000,
-            "system": {
-                "apex": {
-                    "attribute": "cha"
-                },
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This elegant silver band often resembles curling fig leaves and fits around your brow. You gain a +2 item bonus to Deception and Diplomacy checks. When you invest the circlet, you either increase your Charisma score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You cast a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell (DC 38).</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": false
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 17
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 15000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": [
-                            "deception",
-                            "diplomacy"
-                        ],
-                        "type": "item",
-                        "value": 2
-                    }
-                ],
-                "size": "med",
-                "slug": "circlet-of-persuasion",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "apex",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worncirclet"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "8l7ngHz7yzWzu3vM",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "4YYh61RgLRJVFW9O"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Elven Curve Blade",
-            "sort": 8100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "gxullqdf55jhqxsizf91": {
-                        "damage": "4d8+24",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "forceful",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "40tzhYIHgsaEat6r",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity (Special)",
-            "sort": 8200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Rinnarv can use Attack of Opportunity when a creature within his reach uses a concentrate action, in addition to its normal trigger. He can disrupt triggering concentrate actions, and he disrupts actions on any hit, not just a critical hit.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VqMcIUne6jfbwvel",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blood Magic",
-            "sort": 8300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Rinnarv casts one of his bloodline spells or a spell from his list of granted spells, he creates an aura that protects himself or one of the targets of the spell. The aura grants a +1 status bonus to saving throws for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "blood-magic",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "blood-magic"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IwqiOEcQaE9YK1Sa",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Spell Strike",
-            "sort": 8400000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> Rinnarv begins to Cast a Spell that targets at least 1 creature</p>\n<hr />\n<p><strong>Effect</strong> Rinnarv channels his spell through his blade. He makes a Strike with his blade against a target within reach. If the Strike is successful, the target is automatically subject to the spell. If the spell required an attack roll, the target is hit. If the spell required a saving throw, the target takes a -4 status penalty to its saving throw instead. If the spell could target multiple creatures, it targets only the creature Rinnarv hit with his Strike.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iqsG9i0M9rfRDnFG",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Hermea Lore",
-            "sort": 8500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 32
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Rinnarv Bontimar",

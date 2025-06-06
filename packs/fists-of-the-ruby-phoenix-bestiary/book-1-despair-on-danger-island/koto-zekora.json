@@ -4,136 +4,297 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2YsgkSpxPr5k633t",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Spontaneous Arcane Spells",
+            "_id": "O3FlJkeqZNFI6MD7",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bloodline Magic",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 8
+                "actionType": {
+                    "value": "passive"
                 },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>When Koto Zekora casts a bloodline spell, @UUID[Compendium.pf2e.spells-srd.Item.Translocate], @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate], @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], @UUID[Compendium.pf2e.spells-srd.Item.Haste], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], @UUID[Compendium.pf2e.spells-srd.Item.Prismatic Spray], @UUID[Compendium.pf2e.spells-srd.Item.Scouting Eye], or @UUID[Compendium.pf2e.spells-srd.Item.Quandary], she gains a +1 status bonus to skill checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Bloodline Magic]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot7": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot8": {
-                        "max": 3,
-                        "value": 3
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:bloodline-magic"
+                        ],
+                        "selector": "skill-check",
+                        "type": "status",
+                        "value": 1
                     }
-                },
+                ],
                 "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "mod": 0,
-                    "value": 28
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "lakHxBya0Tud6OmM",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
+            "_id": "w6hqhza8hfdNFAZd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
-                },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
-                "slots": {
-                    "slot8": {
-                        "max": 3
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
                     }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "mod": 0,
-                    "value": 28
-                },
-                "tradition": {
-                    "value": "arcane"
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "olvF5RYCoINLngzv",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Primal Spells",
+            "_id": "mi4iZW5Ggypto2mg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 15 (Deactivated by Acid or Fire)",
             "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 15
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EphoRbFbHdHPbRCy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nxdr8kif69hRmy9m",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Koto Zekora takes on the appearance of an ogre. This doesn't change her Speed or Strike attack and damage.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EwdkOsd6FURaJqYl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.pRoikbRo5HFW6YUB"
+            },
+            "img": "icons/equipment/chest/breastplate-gorget-steel-white.webp",
+            "name": "Half Plate",
+            "sort": 600000,
+            "system": {
+                "acBonus": 5,
+                "baseItem": "half-plate",
+                "bulk": {
+                    "value": 3
+                },
+                "category": "heavy",
+                "checkPenalty": -3,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor] and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": false
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 18
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "lg",
+                "slug": "half-plate",
+                "speedPenalty": -10,
+                "strength": 3,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "JDyQP6tlL5ez4x4p",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xpv3fLuRoQ7hCELA"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greatclub",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "stvddbkigrd3l8i1uev7": {
+                        "damage": "3d10+20",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -141,21 +302,69 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "mod": 0,
-                    "value": 28
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "backswing",
+                        "magical",
+                        "reach-10",
+                        "shove",
+                        "unholy"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "UVmsS823wXwbyL65",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "k3dt26wbnxfngr2mxegs": {
+                        "damage": "3d8+16",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "ofcOjwIT7RP8EkzA",
@@ -164,7 +373,7 @@
             },
             "img": "icons/commodities/treasure/puzzle-cube.webp",
             "name": "Ancestral Memories",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -222,7 +431,7 @@
             },
             "img": "icons/magic/light/projectiles-star-purple.webp",
             "name": "Arcane Countermeasure",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -280,7 +489,7 @@
             },
             "img": "systems/pf2e/icons/spells/extend-spell.webp",
             "name": "Extend Spell",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -339,7 +548,7 @@
             },
             "img": "systems/pf2e/icons/spells/maze.webp",
             "name": "Maze",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -401,7 +610,7 @@
             },
             "img": "icons/magic/lightning/fist-unarmed-strike-blue.webp",
             "name": "Polar Ray",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -480,7 +689,7 @@
             },
             "img": "systems/pf2e/icons/spells/scintillating-pattern.webp",
             "name": "Scintillating Pattern",
-            "sort": 900000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -550,7 +759,7 @@
             },
             "img": "systems/pf2e/icons/spells/eclipse-burst.webp",
             "name": "Eclipse Burst",
-            "sort": 1000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -636,7 +845,7 @@
             },
             "img": "icons/commodities/treasure/mask-wood-tan.webp",
             "name": "Mask of Terror",
-            "sort": 1100000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -702,7 +911,7 @@
             },
             "img": "systems/pf2e/icons/spells/prismatic-spray.webp",
             "name": "Prismatic Spray",
-            "sort": 1200000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -766,7 +975,7 @@
             },
             "img": "systems/pf2e/icons/spells/reverse-gravity.webp",
             "name": "Reverse Gravity",
-            "sort": 1300000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -826,7 +1035,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 1400000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -909,7 +1118,7 @@
             },
             "img": "systems/pf2e/icons/spells/disintegrate.webp",
             "name": "Disintegrate",
-            "sort": 1500000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -991,7 +1200,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 1600000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1077,7 +1286,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-exsanguination.webp",
             "name": "Vampiric Exsanguination",
-            "sort": 1700000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1165,7 +1374,7 @@
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Cone of Cold",
-            "sort": 1800000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1251,7 +1460,7 @@
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Cone of Cold",
-            "sort": 1900000,
+            "sort": 2400000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1337,7 +1546,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 2000000,
+            "sort": 2500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1423,7 +1632,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Prying Eye",
-            "sort": 2100000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1485,7 +1694,7 @@
             },
             "img": "icons/commodities/stone/paver-brick-brown.webp",
             "name": "Wall of Stone",
-            "sort": 2200000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1546,7 +1755,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 2300000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1615,7 +1824,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 2400000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1676,7 +1885,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement",
-            "sort": 2500000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1737,7 +1946,7 @@
             },
             "img": "systems/pf2e/icons/spells/gaseous-form.webp",
             "name": "Gaseous Form",
-            "sort": 2600000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1799,7 +2008,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 2700000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1859,7 +2068,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 2800000,
+            "sort": 3300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1930,7 +2139,7 @@
             },
             "img": "icons/magic/fire/flame-burning-campfire-rocks.webp",
             "name": "Wall of Fire",
-            "sort": 2900000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2008,7 +2217,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 3000000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2078,7 +2287,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 3100000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2148,7 +2357,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 3200000,
+            "sort": 3700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2234,7 +2443,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 3300000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2295,7 +2504,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 3400000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2361,7 +2570,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 3500000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2441,7 +2650,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 3600000,
+            "sort": 4100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2507,7 +2716,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 3700000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2569,7 +2778,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (at will, self only)",
-            "sort": 3800000,
+            "sort": 4300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2629,7 +2838,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 3900000,
+            "sort": 4400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2691,7 +2900,7 @@
             },
             "img": "icons/creatures/invertebrates/spider-striped-web-red.webp",
             "name": "Spider Climb",
-            "sort": 4000000,
+            "sort": 4500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2751,7 +2960,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 4100000,
+            "sort": 4600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2912,7 +3121,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 4200000,
+            "sort": 4700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2999,7 +3208,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 4300000,
+            "sort": 4800000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -3066,7 +3275,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 4400000,
+            "sort": 4900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3151,7 +3360,7 @@
             },
             "img": "icons/commodities/materials/feather-damaged-brown.webp",
             "name": "Feather Fall",
-            "sort": 4500000,
+            "sort": 5000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3210,7 +3419,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 4600000,
+            "sort": 5100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3275,7 +3484,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 4700000,
+            "sort": 5200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3346,7 +3555,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 4800000,
+            "sort": 5300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3427,7 +3636,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 4900000,
+            "sort": 5400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3489,7 +3698,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 5000000,
+            "sort": 5500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3543,13 +3752,167 @@
             "type": "spell"
         },
         {
+            "_id": "2YsgkSpxPr5k633t",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Spontaneous Arcane Spells",
+            "sort": 5600000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": 8
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot7": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot8": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 36,
+                    "mod": 0,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "lakHxBya0Tud6OmM",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Focus Spells",
+            "sort": 5700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot8": {
+                        "max": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 36,
+                    "mod": 0,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "olvF5RYCoINLngzv",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Primal Spells",
+            "sort": 5800000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 36,
+                    "mod": 0,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "xpv3fLuRoQ7hCELA",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.kdGqnqbrwPzQfTsm"
             },
             "img": "systems/pf2e/icons/equipment/weapons/greatclub.webp",
             "name": "Greatclub",
-            "sort": 5100000,
+            "sort": 5900000,
             "system": {
                 "baseItem": "greatclub",
                 "bonus": {
@@ -3627,369 +3990,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "EwdkOsd6FURaJqYl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.pRoikbRo5HFW6YUB"
-            },
-            "img": "icons/equipment/chest/breastplate-gorget-steel-white.webp",
-            "name": "Half Plate",
-            "sort": 5200000,
-            "system": {
-                "acBonus": 5,
-                "baseItem": "half-plate",
-                "bulk": {
-                    "value": 3
-                },
-                "category": "heavy",
-                "checkPenalty": -3,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor] and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
-                },
-                "dexCap": 1,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": false
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 18
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "lg",
-                "slug": "half-plate",
-                "speedPenalty": -10,
-                "strength": 3,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "JDyQP6tlL5ez4x4p",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "xpv3fLuRoQ7hCELA"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greatclub",
-            "sort": 5300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "stvddbkigrd3l8i1uev7": {
-                        "damage": "3d10+20",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "backswing",
-                        "magical",
-                        "reach-10",
-                        "shove",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "UVmsS823wXwbyL65",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 5400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "k3dt26wbnxfngr2mxegs": {
-                        "damage": "3d8+16",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "O3FlJkeqZNFI6MD7",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bloodline Magic",
-            "sort": 5500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When Koto Zekora casts a bloodline spell, @UUID[Compendium.pf2e.spells-srd.Item.Translocate], @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate], @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], @UUID[Compendium.pf2e.spells-srd.Item.Haste], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], @UUID[Compendium.pf2e.spells-srd.Item.Prismatic Spray], @UUID[Compendium.pf2e.spells-srd.Item.Scouting Eye], or @UUID[Compendium.pf2e.spells-srd.Item.Quandary], she gains a +1 status bonus to skill checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Bloodline Magic]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:bloodline-magic"
-                        ],
-                        "selector": "skill-check",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "w6hqhza8hfdNFAZd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 5600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mi4iZW5Ggypto2mg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 15 (Deactivated by Acid or Fire)",
-            "sort": 5700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "acid",
-                            "fire"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 15
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EphoRbFbHdHPbRCy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 5800000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nxdr8kif69hRmy9m",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 5900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Koto Zekora takes on the appearance of an ogre. This doesn't change her Speed or Strike attack and damage.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "polymorph",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Koto Zekora",

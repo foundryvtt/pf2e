@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "oqDI13hy8hIqZVpR",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
+            "_id": "KxBL8fjnUIUlbkFU",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Absorb Worldly Influence",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p><strong>Trigger</strong> Abbot Tsujon is within the emanation of a magical area effect as it's being created</p>\n<p><strong>Requirements</strong> Abbot Tsujon is wielding a khakkhara</p>\n<hr />\n<p><strong>Effect</strong> Abbot Tsujon uses her khakkhara as a medium to absorb the incoming area effect into its central ring. She attempts to counteract the triggering effect. For 1 round after Absorbing Worldly Influence, a glowing orb floats within the khakkhara's central ring, allowing Tsujon to Release Worldly Passions</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,18 +25,506 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 40,
-                    "mod": 0,
-                    "value": 32
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "5MmO9sdIuhc0PNeQ",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Crying Bell Stance",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Abbot Tsujon cups one hand and poses the other to strike it, like the Rai Sho Monastery's central bell. In this stance, they can make temple bell Strikes (see Strikes). While in this stance, she gains a +2 status bonus to AC against ranged attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Crying Bell Stance (vs. ranged attacks)",
+                        "option": "crying-bell",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "crying-bell"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c6ryL1TfwqlZnORG",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Falling Sal Stance",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Abbot Tsujon joins their palms together in the shape of a sal flower, evoking the truth that all things eventually decay. In this stance, they can make sal blossom Strikes (see Strikes) and are @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and can use the extra action only to cast wholeness of body.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Mj4l2nnjlPjOiOKH",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 status to all saves vs. death effects",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "death"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "loKLGM3cWGVj9Jq0",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "All This Has Happened Before",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Abbot Tsujon is about to roll initiative</p>\n<hr />\n<p><strong>Effect</strong> Abbot Tsujon experiences a flash of recognition from a previous existence, gaining a +4 circumstance bonus to the triggering roll.</p>\n<p>If this causes Abbot Tsujon to be the first creature to act, they also become @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 round, but they can use the extra action only to Recall Knowledge or Step.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "happened-before",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "happened-before"
+                        ],
+                        "selector": "initiative",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zMwgYGhdMY4kqyCB",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "All This Will Happen Again",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Abbot Tsujon fails or critically fails a Will save against an emotion effect</p>\n<hr />\n<p><strong>Effect</strong> Even in the face of overwhelming tribulation, Abbot Tsujon finds solace in the notion that all things are merely part of a never-ending cycle. They reroll the saving throw with a +1 status bonus; they must use the second result.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fortune",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "g2tnOSA68AdQ1IwB",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Release Worldly Passions",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Abbot Tsujon's khakkhara holds a glowing orb from Absorb Worldly Influence</p>\n<hr />\n<p><strong>Effect</strong> Abbot Tsujon strikes her prayer staff once upon the ground, releasing the energy she captured in it along with the jingling of its rings. She blasts a wave of force in a 30- foot emanation, dealing @Damage[2d6[force]] damage per level of the ability she counteracted (@Check[reflex|dc:40|basic] save). If the ability she counteracted usually deals energy damage, she can choose to deal this type of damage instead (for instance, if she used Absorb Worldly Influence to counteract a fireball, she could deal either fire or force damage).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "force",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fO1CGqdX7LmdEhYC",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Stunning Flurry",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Abbot Tsujon makes two Strikes, each of which must be an unarmed Strike or crying temple bell Strike. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. If either Strike hits and deals damage, the target must succeed at a @Check[fortitude|dc:39|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure); this save has the incapacitation trait.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Txyod4ZUNndlswmq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sal Blossom",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "5jmlog5wt3uuz05fiaux": {
+                        "damage": "4d10+13",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d10",
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qHYkseAWEoINO6gC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "dkqq4oz8kxbsnpldhdzv": {
+                        "damage": "4d6+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "gOmkhosbUCsVEEhy",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "HBJIWp86T9JHOxlo"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Khakkhara",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "l8obisxc9li0q2gsj76l": {
+                        "damage": "4d6+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Khakkhara",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "shove",
+                        "two-hand-d10",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "DUzJlXmog6FErzPF",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Temple Bell",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "das0wgl84m8vr76wamrn": {
+                        "damage": "4d10+8",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-60",
+                        "sonic"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "8TQL0QUF6tfmQP7b",
@@ -47,7 +533,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-blast.webp",
             "name": "Ki Blast",
-            "sort": 200000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -132,7 +618,7 @@
             },
             "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
             "name": "Wholeness of Body",
-            "sort": 300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -209,7 +695,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-rush.webp",
             "name": "Ki Rush",
-            "sort": 400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -267,7 +753,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-strike.webp",
             "name": "Ki Strike",
-            "sort": 500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -336,13 +822,50 @@
             "type": "spell"
         },
         {
+            "_id": "oqDI13hy8hIqZVpR",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Focus Spells",
+            "sort": 1700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 40,
+                    "mod": 0,
+                    "value": 32
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "HBJIWp86T9JHOxlo",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.KgKSX95uVSg8iBBA"
             },
             "img": "systems/pf2e/icons/equipment/weapons/khakkhara.webp",
             "name": "Khakkhara",
-            "sort": 600000,
+            "sort": 1800000,
             "system": {
                 "baseItem": "khakkhara",
                 "bonus": {
@@ -421,529 +944,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "Txyod4ZUNndlswmq",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sal Blossom",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "5jmlog5wt3uuz05fiaux": {
-                        "damage": "4d10+13",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d10",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "qHYkseAWEoINO6gC",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "dkqq4oz8kxbsnpldhdzv": {
-                        "damage": "4d6+13",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "gOmkhosbUCsVEEhy",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "HBJIWp86T9JHOxlo"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Khakkhara",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "l8obisxc9li0q2gsj76l": {
-                        "damage": "4d6+13",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Khakkhara",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "shove",
-                        "two-hand-d10",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "DUzJlXmog6FErzPF",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Temple Bell",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "das0wgl84m8vr76wamrn": {
-                        "damage": "4d10+8",
-                        "damageType": "sonic"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-60",
-                        "sonic"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "KxBL8fjnUIUlbkFU",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Absorb Worldly Influence",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Abbot Tsujon is within the emanation of a magical area effect as it's being created</p>\n<p><strong>Requirements</strong> Abbot Tsujon is wielding a khakkhara</p>\n<hr />\n<p><strong>Effect</strong> Abbot Tsujon uses her khakkhara as a medium to absorb the incoming area effect into its central ring. She attempts to counteract the triggering effect. For 1 round after Absorbing Worldly Influence, a glowing orb floats within the khakkhara's central ring, allowing Tsujon to Release Worldly Passions</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5MmO9sdIuhc0PNeQ",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Crying Bell Stance",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Abbot Tsujon cups one hand and poses the other to strike it, like the Rai Sho Monastery's central bell. In this stance, they can make temple bell Strikes (see Strikes). While in this stance, she gains a +2 status bonus to AC against ranged attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Crying Bell Stance (vs. ranged attacks)",
-                        "option": "crying-bell",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "crying-bell"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "c6ryL1TfwqlZnORG",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Falling Sal Stance",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Abbot Tsujon joins their palms together in the shape of a sal flower, evoking the truth that all things eventually decay. In this stance, they can make sal blossom Strikes (see Strikes) and are @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and can use the extra action only to cast wholeness of body.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Mj4l2nnjlPjOiOKH",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 status to all saves vs. death effects",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "death"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "loKLGM3cWGVj9Jq0",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "All This Has Happened Before",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Abbot Tsujon is about to roll initiative</p>\n<hr />\n<p><strong>Effect</strong> Abbot Tsujon experiences a flash of recognition from a previous existence, gaining a +4 circumstance bonus to the triggering roll.</p>\n<p>If this causes Abbot Tsujon to be the first creature to act, they also become @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 round, but they can use the extra action only to Recall Knowledge or Step.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "happened-before",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "happened-before"
-                        ],
-                        "selector": "initiative",
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zMwgYGhdMY4kqyCB",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "All This Will Happen Again",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Abbot Tsujon fails or critically fails a Will save against an emotion effect</p>\n<hr />\n<p><strong>Effect</strong> Even in the face of overwhelming tribulation, Abbot Tsujon finds solace in the notion that all things are merely part of a never-ending cycle. They reroll the saving throw with a +1 status bonus; they must use the second result.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "fortune",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "g2tnOSA68AdQ1IwB",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Release Worldly Passions",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Abbot Tsujon's khakkhara holds a glowing orb from Absorb Worldly Influence</p>\n<hr />\n<p><strong>Effect</strong> Abbot Tsujon strikes her prayer staff once upon the ground, releasing the energy she captured in it along with the jingling of its rings. She blasts a wave of force in a 30- foot emanation, dealing @Damage[2d6[force]] damage per level of the ability she counteracted (@Check[reflex|dc:40|basic] save). If the ability she counteracted usually deals energy damage, she can choose to deal this type of damage instead (for instance, if she used Absorb Worldly Influence to counteract a fireball, she could deal either fire or force damage).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "force",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fO1CGqdX7LmdEhYC",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Stunning Flurry",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Abbot Tsujon makes two Strikes, each of which must be an unarmed Strike or crying temple bell Strike. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. If either Strike hits and deals damage, the target must succeed at a @Check[fortitude|dc:39|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure); this save has the incapacitation trait.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Abbot Tsujon",

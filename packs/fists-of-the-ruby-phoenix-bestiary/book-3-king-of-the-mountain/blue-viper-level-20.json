@@ -4,13 +4,1190 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "LF5gi4818bCXaIHR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Infused Items",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Blue Viper carries the following infused items:</p>\n<p>3 @UUID[Compendium.pf2e.equipment-srd.Item.Acid Flask (Major)]</p>\n<p>5 @UUID[Compendium.pf2e.equipment-srd.Item.Black Lotus Extract]</p>\n<p>3 @UUID[Compendium.pf2e.equipment-srd.Item.Bottled Lightning (Major)]</p>\n<p>4 @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (True)]</p>\n<p>3 @UUID[Compendium.pf2e.equipment-srd.Item.Frost Vial (Major)]</p>\n<p>2 @UUID[Compendium.pf2e.equipment-srd.Item.Mindfog Mist]</p>\n<p>3 @UUID[Compendium.pf2e.equipment-srd.Item.Oblivion Essence]</p>\n<p>3 @UUID[Compendium.pf2e.equipment-srd.Item.Glue Bomb (Major)]{Tanglefoot Bag (Major)}</p>\n<p>5 @UUID[Compendium.pf2e.equipment-srd.Item.Tears of Death]</p>\n<p>2 @UUID[Compendium.pf2e.equipment-srd.Item.Blasting Stone (Major)]{Thunderstone (Major)}</p>\n<p>These items last for 24 hours, or until the next time Blue Viper makes his daily preparations.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JCUCSFZaASOsRhNG",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+3 status to all saves vs. transmutation",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "transmutation"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aT1K6zkwI73D4tJ8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Poisoned Coat",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature adjacent to Blue Viper hits him with a melee unarmed Strike.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature is exposed to @UUID[Compendium.pf2e.equipment-srd.Item.Dragon Bile]. This consumes the poison, and Blue Viper can't use Poisoned Coat again until he spends 10 minutes applying one dose of contact or injury poison to his clothing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "G1wu8KW1gALb7KbD",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pinpoint Poisoner",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Blue Viper successfully Strikes an off-guard creature with a poisoned weapon or exposes an off-guard creature to an inhaled poison, the creature takes a -2 circumstance penalty to its initial save against that poison.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sUXeC5liFm6oJVn7",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Plum Rain Deluge",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Blue Viper accelerates the flow of time so his poisons run their course faster. He Interacts to draw a contact poison and throws it in the air, where it showers down in a @Template[burst|distance:20] within 60 feet. All creatures in the burst are automatically exposed to the poison, bypassing any onset time, and each creature must attempt a saving throw against that poison. If a creature fails, the duration of any beneficial spells or effects affecting the creature are reduced by 3 rounds (or by 6 rounds on a critical failure).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "certain-kill"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Tt37ijMg1fiX7fGx",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Poison Spray",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Blue Viper is holding a contact or injury poison.</p>\n<hr />\n<p><strong>Effect</strong> Blue Viper swigs the poison and sprays it out of his mouth, affecting a @Template[cone|distance:15]. Blue Viper isn't exposed to the poison. All creatures in the cone are immediately exposed to the poison and each creature must attempt a Fortitude save against the poison.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rbtSqixbTXvvcmJc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Potent Poisoner",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Blue Viper's infused poisons have a DC of 47.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UUgL7mamcQM9PkU0",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Quick Application",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Blue Viper Interacts to draw an injury poison and applies it to a weapon he is holding.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TJSUkfiilrbozvGh",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Quick Bomber",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Blue Viper Interacts to draw a bomb, then Strikes with it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KNsjthb0m0ASdoMo",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Toxic Escape",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Blue Viper Interacts to draw an inhaled poison, deploys the poison in a smoke cloud that provides concealment in a @Template[emanation|distance:5], then Sneaks up to his Speed. He is not exposed to the inhaled poison.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ljAsYwPMN3rYSpsH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6swrLimere2nZtz9"
+            },
+            "img": "icons/commodities/materials/glass-orb-marble-green.webp",
+            "name": "Dragon Bile (Applied to Body)",
+            "sort": 1100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>A mix of digestive juices and green dragon poison glands nauseates the victim as its flesh is digested from within.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Contact)</p>\n<p><strong>Saving Throw</strong> DC 37 Fortitude</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[7d6[poison]] damage and sickened 3 (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[9d6[poison]] damage and sickened 4 (1 round)</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 15
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 925
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "dragon-bile",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "contact",
+                        "poison"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "9tGAqp6muB77JLmJ",
+            "img": "systems/pf2e/icons/default-icons/consumable.svg",
+            "name": "Hidden cheek needles",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "9KYBMszbKQmSan5O",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xQS1MSqGQz44FWUh"
+            },
+            "img": "icons/consumables/potions/potion-flask-corked-tied-necklace-teal.webp",
+            "name": "Black Lotus Extract (Infused)",
+            "sort": 1300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "poison",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Black lotus extract causes severe internal bleeding.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Contact)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:42]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[15d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[17d6[poison]] damage and drained 1 (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[20d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 19
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 6500
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "black-lotus-extract",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "contact",
+                        "infused",
+                        "poison",
+                        "virulent"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Kx5pMyeAwYbcnY7s",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qK964kZz1ALcysOa"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (True) (Infused)",
+            "sort": 1400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": {
+                    "formula": "10d6+27",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span></p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(10d6+27)[healing]] Hit Points and gain +4 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 19
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 8000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 4,
+                "rules": [],
+                "size": "med",
+                "slug": "elixir-of-life-true",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing",
+                        "infused"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "fybOtfqqfCfFHEfK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.GMi5tw0cbMx3ZQPg"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/mindfog-mist.webp",
+            "name": "Mindfog Mist (Infused)",
+            "sort": 1500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "poison",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Mindfog mist can be used to undermine spellcasters, as its effect on a victim's mental faculties are swift and powerful.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Inhaled)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:35]</p>\n<p><strong>Onset</strong> 1 round</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Confused] and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} (1 round)</p>\n<p><strong>Stage 3</strong> confused and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} (1 round)</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 15
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "mindfog-mist",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "infused",
+                        "inhaled",
+                        "poison"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "ymWu6VXW1YkDZGIP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5hGJ6CZi0A9OjMd4"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/oblivion-essence.webp",
+            "name": "Oblivion Essence (Infused)",
+            "sort": 1600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "poison",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Created from a daemon's powdered soul gems or refined from the waters of Abaddon's rivers, oblivion essence causes victims to rapidly age and decay.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:42]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[8d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[10d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, and slowed 1 (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[12d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}, slowed 1 (1 round)</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 19
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 6500
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #149: Against the Scarlet Triad"
+                },
+                "quantity": 3,
+                "rules": [],
+                "size": "med",
+                "slug": "oblivion-essence",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "infused",
+                        "injury",
+                        "poison"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "KcMrUrb8SC403AO5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.gDGPvobJV1QGYBPy"
+            },
+            "img": "icons/consumables/drinks/wine-amphora-clay-gray.webp",
+            "name": "Tears of Death (Infused)",
+            "sort": 1700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "poison",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Tears of death are among the most powerful of alchemical poisons, distilled from extracts of five other deadly poisons in just the right ratios.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Contact)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:46]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 10 minutes</p>\n<p><strong>Stage 1</strong> @Damage[18d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[25d6[poison]] damage and paralyzed (1 minute)</p>\n<p><strong>Stage 3</strong> @Damage[30d6[poison]] damage and paralyzed (1 minute)</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 20
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 12000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "tears-of-death",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "contact",
+                        "infused",
+                        "poison",
+                        "virulent"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "sxPUOzRcSJZGAeNw",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "PBUfX3wQpH209Pyh"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shortsword",
+            "sort": 1800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "p070swe92zp7xin5ks1i": {
+                        "damage": "4d6+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "1ytm10EBunourBmr",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7xOc6ZCaUyYKBNYo"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Major Acid Flask",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1",
+                        "damageType": "acid"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "4d6",
+                        "damageType": "acid"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "4",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "range-increment-20",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "x6m0LbmWc8Cn84Lu",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "m0PLLG2geCBu1ulR"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Major Tanglefoot Bag",
+            "sort": 2000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "ahs98hd1sewwxvit0bwt": {
+                        "damage": "0",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-attack",
+                        "text": "PF2E.BombNotes.TanglefootBag.Major.success"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-attack",
+                        "text": "PF2E.BombNotes.TanglefootBag.Major.criticalSuccess"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "fire",
+                        "range-increment-20",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "EfrEtVXaCW3qrooZ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "zuBJPD0vSVBloWkb"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Major Bottled Lightning",
+            "sort": 2100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d6",
+                        "damageType": "electricity"
+                    },
+                    "1": {
+                        "category": "splash",
+                        "damage": "4",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.BottledLightning.Major.success"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "electricity",
+                        "range-increment-20",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "J5M688CLiZAfnf7K",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "EOiUXenIGcgEg27k"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Major Frost Vial",
+            "sort": 2200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d6",
+                        "damageType": "cold"
+                    },
+                    "1": {
+                        "category": "splash",
+                        "damage": "4",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.FrostVial.Major.success"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "cold",
+                        "consumable",
+                        "range-increment-20",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Y7c8IfiheN014iIt",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "fW3GZzXfkJVw3Fma"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Major Thunderstone",
+            "sort": 2300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d4",
+                        "damageType": "sonic"
+                    },
+                    "1": {
+                        "category": "splash",
+                        "damage": "4",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.Thunderstone.Major.success"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "range-increment-20",
+                        "sonic",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "PBUfX3wQpH209Pyh",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
-            "sort": 100000,
+            "sort": 2400000,
             "system": {
                 "baseItem": "shortsword",
                 "bonus": {
@@ -97,7 +1274,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
             "name": "Acid Flask (Major) (Infused)",
-            "sort": 200000,
+            "sort": 2500000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -193,7 +1370,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/bottled-lightning.webp",
             "name": "Bottled Lightning (Major) (Infused)",
-            "sort": 300000,
+            "sort": 2600000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -290,7 +1467,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/frost-vial.webp",
             "name": "Frost Vial (Major) (Infused)",
-            "sort": 400000,
+            "sort": 2700000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -387,7 +1564,7 @@
             },
             "img": "icons/containers/bags/sack-simple-leather-tan.webp",
             "name": "Tanglefoot Bag (Major) (Infused)",
-            "sort": 500000,
+            "sort": 2800000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -495,7 +1672,7 @@
             },
             "img": "icons/commodities/gems/pearl-rough-turquoise.webp",
             "name": "Thunderstone (Major) (Infused)",
-            "sort": 600000,
+            "sort": 2900000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -584,1183 +1761,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "ljAsYwPMN3rYSpsH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6swrLimere2nZtz9"
-            },
-            "img": "icons/commodities/materials/glass-orb-marble-green.webp",
-            "name": "Dragon Bile (Applied to Body)",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>A mix of digestive juices and green dragon poison glands nauseates the victim as its flesh is digested from within.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Contact)</p>\n<p><strong>Saving Throw</strong> DC 37 Fortitude</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[7d6[poison]] damage and sickened 3 (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[9d6[poison]] damage and sickened 4 (1 round)</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 15
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 925
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "dragon-bile",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "contact",
-                        "poison"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "9tGAqp6muB77JLmJ",
-            "img": "systems/pf2e/icons/default-icons/consumable.svg",
-            "name": "Hidden cheek needles",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "9KYBMszbKQmSan5O",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xQS1MSqGQz44FWUh"
-            },
-            "img": "icons/consumables/potions/potion-flask-corked-tied-necklace-teal.webp",
-            "name": "Black Lotus Extract (Infused)",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "poison",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Black lotus extract causes severe internal bleeding.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Contact)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:42]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[15d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[17d6[poison]] damage and drained 1 (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[20d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 19
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 6500
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 5,
-                "rules": [],
-                "size": "med",
-                "slug": "black-lotus-extract",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "contact",
-                        "infused",
-                        "poison",
-                        "virulent"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "Kx5pMyeAwYbcnY7s",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qK964kZz1ALcysOa"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (True) (Infused)",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": null,
-                "damage": {
-                    "formula": "10d6+27",
-                    "kind": "healing",
-                    "type": "untyped"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span></p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(10d6+27)[healing]] Hit Points and gain +4 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 19
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 8000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 4,
-                "rules": [],
-                "size": "med",
-                "slug": "elixir-of-life-true",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing",
-                        "infused"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "fybOtfqqfCfFHEfK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.GMi5tw0cbMx3ZQPg"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/mindfog-mist.webp",
-            "name": "Mindfog Mist (Infused)",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "poison",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Mindfog mist can be used to undermine spellcasters, as its effect on a victim's mental faculties are swift and powerful.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Inhaled)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:35]</p>\n<p><strong>Onset</strong> 1 round</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Confused] and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} (1 round)</p>\n<p><strong>Stage 3</strong> confused and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} (1 round)</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 15
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "mindfog-mist",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "infused",
-                        "inhaled",
-                        "poison"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "ymWu6VXW1YkDZGIP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5hGJ6CZi0A9OjMd4"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/oblivion-essence.webp",
-            "name": "Oblivion Essence (Infused)",
-            "sort": 1200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "poison",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Created from a daemon's powdered soul gems or refined from the waters of Abaddon's rivers, oblivion essence causes victims to rapidly age and decay.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:42]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[8d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[10d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, and slowed 1 (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[12d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}, slowed 1 (1 round)</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 19
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 6500
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #149: Against the Scarlet Triad"
-                },
-                "quantity": 3,
-                "rules": [],
-                "size": "med",
-                "slug": "oblivion-essence",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "infused",
-                        "injury",
-                        "poison"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "KcMrUrb8SC403AO5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.gDGPvobJV1QGYBPy"
-            },
-            "img": "icons/consumables/drinks/wine-amphora-clay-gray.webp",
-            "name": "Tears of Death (Infused)",
-            "sort": 1300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "poison",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Tears of death are among the most powerful of alchemical poisons, distilled from extracts of five other deadly poisons in just the right ratios.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Contact)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:46]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 10 minutes</p>\n<p><strong>Stage 1</strong> @Damage[18d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[25d6[poison]] damage and paralyzed (1 minute)</p>\n<p><strong>Stage 3</strong> @Damage[30d6[poison]] damage and paralyzed (1 minute)</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 20
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 12000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 5,
-                "rules": [],
-                "size": "med",
-                "slug": "tears-of-death",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "contact",
-                        "infused",
-                        "poison",
-                        "virulent"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "sxPUOzRcSJZGAeNw",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "PBUfX3wQpH209Pyh"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shortsword",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "p070swe92zp7xin5ks1i": {
-                        "damage": "4d6+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "1ytm10EBunourBmr",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "7xOc6ZCaUyYKBNYo"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Major Acid Flask",
-            "sort": 1500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1",
-                        "damageType": "acid"
-                    },
-                    "1": {
-                        "category": "persistent",
-                        "damage": "4d6",
-                        "damageType": "acid"
-                    },
-                    "2": {
-                        "category": "splash",
-                        "damage": "4",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "acid",
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "range-increment-20",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "x6m0LbmWc8Cn84Lu",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "m0PLLG2geCBu1ulR"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Major Tanglefoot Bag",
-            "sort": 1600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "ahs98hd1sewwxvit0bwt": {
-                        "damage": "0",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-attack",
-                        "text": "PF2E.BombNotes.TanglefootBag.Major.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-attack",
-                        "text": "PF2E.BombNotes.TanglefootBag.Major.criticalSuccess"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "fire",
-                        "range-increment-20",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "EfrEtVXaCW3qrooZ",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "zuBJPD0vSVBloWkb"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Major Bottled Lightning",
-            "sort": 1700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d6",
-                        "damageType": "electricity"
-                    },
-                    "1": {
-                        "category": "splash",
-                        "damage": "4",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.BottledLightning.Major.success"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "electricity",
-                        "range-increment-20",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "J5M688CLiZAfnf7K",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "EOiUXenIGcgEg27k"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Major Frost Vial",
-            "sort": 1800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d6",
-                        "damageType": "cold"
-                    },
-                    "1": {
-                        "category": "splash",
-                        "damage": "4",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.FrostVial.Major.success"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "bomb",
-                        "cold",
-                        "consumable",
-                        "range-increment-20",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Y7c8IfiheN014iIt",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "fW3GZzXfkJVw3Fma"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Major Thunderstone",
-            "sort": 1900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d4",
-                        "damageType": "sonic"
-                    },
-                    "1": {
-                        "category": "splash",
-                        "damage": "4",
-                        "damageType": "sonic"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.Thunderstone.Major.success"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "range-increment-20",
-                        "sonic",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "LF5gi4818bCXaIHR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Infused Items",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Blue Viper carries the following infused items:</p>\n<p>3 @UUID[Compendium.pf2e.equipment-srd.Item.Acid Flask (Major)]</p>\n<p>5 @UUID[Compendium.pf2e.equipment-srd.Item.Black Lotus Extract]</p>\n<p>3 @UUID[Compendium.pf2e.equipment-srd.Item.Bottled Lightning (Major)]</p>\n<p>4 @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (True)]</p>\n<p>3 @UUID[Compendium.pf2e.equipment-srd.Item.Frost Vial (Major)]</p>\n<p>2 @UUID[Compendium.pf2e.equipment-srd.Item.Mindfog Mist]</p>\n<p>3 @UUID[Compendium.pf2e.equipment-srd.Item.Oblivion Essence]</p>\n<p>3 @UUID[Compendium.pf2e.equipment-srd.Item.Glue Bomb (Major)]{Tanglefoot Bag (Major)}</p>\n<p>5 @UUID[Compendium.pf2e.equipment-srd.Item.Tears of Death]</p>\n<p>2 @UUID[Compendium.pf2e.equipment-srd.Item.Blasting Stone (Major)]{Thunderstone (Major)}</p>\n<p>These items last for 24 hours, or until the next time Blue Viper makes his daily preparations.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JCUCSFZaASOsRhNG",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+3 status to all saves vs. transmutation",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "transmutation"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aT1K6zkwI73D4tJ8",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Poisoned Coat",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature adjacent to Blue Viper hits him with a melee unarmed Strike.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature is exposed to @UUID[Compendium.pf2e.equipment-srd.Item.Dragon Bile]. This consumes the poison, and Blue Viper can't use Poisoned Coat again until he spends 10 minutes applying one dose of contact or injury poison to his clothing.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "G1wu8KW1gALb7KbD",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Pinpoint Poisoner",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Blue Viper successfully Strikes an off-guard creature with a poisoned weapon or exposes an off-guard creature to an inhaled poison, the creature takes a -2 circumstance penalty to its initial save against that poison.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sUXeC5liFm6oJVn7",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Plum Rain Deluge",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Blue Viper accelerates the flow of time so his poisons run their course faster. He Interacts to draw a contact poison and throws it in the air, where it showers down in a @Template[burst|distance:20] within 60 feet. All creatures in the burst are automatically exposed to the poison, bypassing any onset time, and each creature must attempt a saving throw against that poison. If a creature fails, the duration of any beneficial spells or effects affecting the creature are reduced by 3 rounds (or by 6 rounds on a critical failure).</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "certain-kill"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Tt37ijMg1fiX7fGx",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Poison Spray",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Blue Viper is holding a contact or injury poison.</p>\n<hr />\n<p><strong>Effect</strong> Blue Viper swigs the poison and sprays it out of his mouth, affecting a @Template[cone|distance:15]. Blue Viper isn't exposed to the poison. All creatures in the cone are immediately exposed to the poison and each creature must attempt a Fortitude save against the poison.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rbtSqixbTXvvcmJc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Potent Poisoner",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Blue Viper's infused poisons have a DC of 47.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UUgL7mamcQM9PkU0",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Quick Application",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Blue Viper Interacts to draw an injury poison and applies it to a weapon he is holding.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TJSUkfiilrbozvGh",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Quick Bomber",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Blue Viper Interacts to draw a bomb, then Strikes with it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KNsjthb0m0ASdoMo",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Toxic Escape",
-            "sort": 2900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Blue Viper Interacts to draw an inhaled poison, deploys the poison in a smoke cloud that provides concealment in a @Template[emanation|distance:5], then Sneaks up to his Speed. He is not exposed to the inhaled poison.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Blue Viper (Level 20)",

@@ -3,23 +3,93 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "djU8N0rJuOlO9qqb",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "H3cDChRjDRA71MNI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense (Imprecise) 60 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YG1rDVP0SPT5NVZR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fk6qtcr37ue5mbxw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Terrible Foresight",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature struck by the fluxwraith's temporal fracturing ray receives a glimpse of a possible tragic event in its future. It must succeed at a @Check[will|dc:35] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure). If the creature is already affected by terrible foresight, it increases its stupefied value by 1 on a failed save, to a maximum of stupefied 4. Each time the creature gets a full night's rest, its condition values from terrible foresight decrease by 1.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +97,144 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 39,
-                    "mod": 0,
-                    "value": 31
-                },
-                "tradition": {
-                    "value": "occult"
+                "slug": "terrible-foresight",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult",
+                        "prediction"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "3kzbeblthgly6zkx",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Time Shift",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature struck by the fluxwraith's time-shifting touch must succeed at a @Check[will|dc:35] saving throw or be thrust forward in time, vanishing from its space. The target automatically reappears in the same location after [[/gmr 1d4 #Time Shift]]{1d4 rounds} but can attempt an additional Will save at the end of each of its turns to end the duration. If its original space is occupied when it returns, the creature appears in the nearest unoccupied space. Since the creature is shunted forward in time, it doesn't experience any of the intervening time. Likewise, any effects on the creature with a duration don't decrease their duration, resuming when the creature reappears. A creature that succeeds at any saving throw against time shift is temporarily immune for 1 hour.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "time-shift",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6h26o4rywcidme60",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Time-shifting Touch",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "time-shift"
+                    ]
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "cl4sDXbFLXFhBtFE": {
+                        "damage": "3d8+14",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8lahe1p6o2mjwdip",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Temporal Fracturing Ray",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "terrible-foresight"
+                    ]
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "boiGAoCkVQx5Y7Qf": {
+                        "damage": "3d6+14",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "OXZFM65THvR5udY2",
@@ -50,7 +243,7 @@
             },
             "img": "systems/pf2e/icons/spells/time-stop.webp",
             "name": "Time Stop",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -111,7 +304,7 @@
             },
             "img": "icons/magic/time/hourglass-brown-orange.webp",
             "name": "Cast into Time",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -207,7 +400,7 @@
             },
             "img": "icons/magic/time/clock-spinning-gold-pink.webp",
             "name": "Day's Weight",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -274,7 +467,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste (Self Only)",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -341,7 +534,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -409,7 +602,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -472,7 +665,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -559,7 +752,7 @@
             },
             "img": "systems/pf2e/icons/spells/deja-vu.webp",
             "name": "Déjà Vu (At Will)",
-            "sort": 900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -626,222 +819,23 @@
             "type": "spell"
         },
         {
-            "_id": "6h26o4rywcidme60",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Time-shifting Touch",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "time-shift"
-                    ]
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "cl4sDXbFLXFhBtFE": {
-                        "damage": "3d8+14",
-                        "damageType": "force"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "8lahe1p6o2mjwdip",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Temporal Fracturing Ray",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "terrible-foresight"
-                    ]
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "boiGAoCkVQx5Y7Qf": {
-                        "damage": "3d6+14",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-increment-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "H3cDChRjDRA71MNI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense (Imprecise) 60 feet",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "lifesense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YG1rDVP0SPT5NVZR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fk6qtcr37ue5mbxw",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Terrible Foresight",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature struck by the fluxwraith's temporal fracturing ray receives a glimpse of a possible tragic event in its future. It must succeed at a @Check[will|dc:35] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure). If the creature is already affected by terrible foresight, it increases its stupefied value by 1 on a failed save, to a maximum of stupefied 4. Each time the creature gets a full night's rest, its condition values from terrible foresight decrease by 1.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "terrible-foresight",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult",
-                        "prediction"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3kzbeblthgly6zkx",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Time Shift",
+            "_id": "djU8N0rJuOlO9qqb",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1500000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>A creature struck by the fluxwraith's time-shifting touch must succeed at a @Check[will|dc:35] saving throw or be thrust forward in time, vanishing from its space. The target automatically reappears in the same location after [[/gmr 1d4 #Time Shift]]{1d4 rounds} but can attempt an additional Will save at the end of each of its turns to end the duration. If its original space is occupied when it returns, the creature appears in the nearest unoccupied space. Since the creature is shunted forward in time, it doesn't experience any of the intervening time. Likewise, any effects on the creature with a duration don't decrease their duration, resuming when the creature reappears. A creature that succeeds at any saving throw against time shift is temporarily immune for 1 hour.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -849,15 +843,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "time-shift",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 39,
+                    "mod": 0,
+                    "value": 31
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Fluxwraith",

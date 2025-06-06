@@ -3,175 +3,78 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "yW3k0nAo6sWO1GvX",
+            "_id": "UKffxjoJRg2IEdFH",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.PqGX4Dgy9siZJitH"
             },
-            "img": "icons/weapons/axes/axe-double-engraved.webp",
-            "name": "Greataxe",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stench",
             "sort": 100000,
             "system": {
-                "baseItem": "greataxe",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 2
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d12"
-                },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded,\" having a hook at the bottom to increase the strength of their chopping power.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 2,
-                    "invested": null
-                },
-                "group": "axe",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
+                    "value": "<p>30 feet @Check[fortitude|dc:19]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": "Pathfinder Monster Core"
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "greataxe",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "stench",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": "stench",
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "sweep"
+                        "aura",
+                        "olfactory"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "1x1GZKpA4K3ZaSZD",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.JNt7GmLCCVz5BiEI"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
-            "name": "Javelin",
+            "_id": "1BwIo7mgXKcuS2Vg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Weakening Strike",
             "sort": 200000,
             "system": {
-                "baseItem": "javelin",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "dart",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
+                    "value": "<p>A creature hit by a xulgath leader's jaws or claw Strike is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical hit) for 1 round.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 4,
-                "range": 30,
-                "reload": {
-                    "value": "-"
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "javelin",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": "weakening-strike",
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "thrown"
-                    ]
-                },
-                "usage": {
-                    "canBeAmmo": false,
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
             "_id": "Vebk6mvEAQ2umwd9",
@@ -433,78 +336,175 @@
             "type": "melee"
         },
         {
-            "_id": "UKffxjoJRg2IEdFH",
+            "_id": "yW3k0nAo6sWO1GvX",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.PqGX4Dgy9siZJitH"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
+            "img": "icons/weapons/axes/axe-double-engraved.webp",
+            "name": "Greataxe",
             "sort": 800000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "greataxe",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "defensive",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d12"
+                },
                 "description": {
-                    "value": "<p>30 feet @Check[fortitude|dc:19]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
+                    "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded,\" having a hook at the bottom to increase the strength of their chopping power.</p>"
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 2,
+                    "invested": null
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "stench",
-                        "traits": [
-                            "olfactory"
-                        ]
+                "group": "axe",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
                     }
-                ],
-                "slug": "stench",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1BwIo7mgXKcuS2Vg",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Weakening Strike",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature hit by a xulgath leader's jaws or claw Strike is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical hit) for 1 round.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
-                "slug": "weakening-strike",
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "greataxe",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "sweep"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
                 }
             },
-            "type": "action"
+            "type": "weapon"
+        },
+        {
+            "_id": "1x1GZKpA4K3ZaSZD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.JNt7GmLCCVz5BiEI"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
+            "name": "Javelin",
+            "sort": 900000,
+            "system": {
+                "baseItem": "javelin",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "dart",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 4,
+                "range": 30,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "javelin",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         }
     ],
     "name": "Xulgath Leader",

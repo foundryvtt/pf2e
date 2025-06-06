@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4t5XvSdzxMt0dvuc",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
+            "_id": "97l0hEJqbFlmWhUZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Reach Spell",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If Meitremar's next action this turn is to Cast a Spell that has a range, he increases that spell's range by 30 feet (or increases the range of a touch spell to 30 feet).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,45 +24,30 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "spellshape"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "wy6MelxfzLoSJxmq",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Demonic Bloodline Spells",
+            "_id": "QXmns8bw5DBlNJ9D",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Signature Spell",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Meitremar can heighten @UUID[Compendium.pf2e.spells-srd.Item.Heal] spells freely.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -72,18 +55,576 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "OIfP1D2R4MCZnxzY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
+            },
+            "img": "icons/equipment/chest/breastplate-collared-steel.webp",
+            "name": "Rusted (Broken) Breastplate",
+            "sort": 300000,
+            "system": {
+                "acBonus": 4,
+                "baseItem": "breastplate",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or half-plate armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 8
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "breastplate",
+                "speedPenalty": -5,
+                "strength": 3,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "me4FpDefTGC3cqRe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD"
+            },
+            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
+            "name": "Wand of Create Food (Level 2)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "wand",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Create Food]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 160
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "magic-wand-2nd-level-spell",
+                "spell": {
+                    "_id": "jdzO5jv01ZJiMfQ9",
+                    "flags": {
+                        "core": {
+                            "sourceId": "Compendium.pf2e.spells-srd.Item.Mt6ZzkVX8Q4xigFq"
+                        }
+                    },
+                    "img": "systems/pf2e/icons/spells/create-food.webp",
+                    "name": "Create Food",
+                    "sort": 0,
+                    "system": {
+                        "area": null,
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": false,
+                        "damage": {},
+                        "defense": null,
+                        "description": {
+                            "value": "<p>You create enough food to feed six Medium creatures for a day. This food is bland and unappealing, but it is nourishing. After 1 day, if no one has eaten the food, it decays and becomes inedible. Most Small creatures eat one-quarter as much as a Medium creature (one-sixteenth as much for most Tiny creatures), and most Large creatures eat 10 times as much (100 times as much for Huge creatures and so on).</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can feed 12 Medium creatures.</p>\n<p><strong>Heightened (6th)</strong> You can feed 50 Medium creatures.</p>\n<p><strong>Heightened (8th)</strong> You can feed 200 Medium creatures.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": ""
+                        },
+                        "level": {
+                            "value": 2
+                        },
+                        "location": {
+                            "heightenedLevel": 2,
+                            "value": null
+                        },
+                        "publication": {
+                            "license": "OGL",
+                            "remaster": false,
+                            "title": "Pathfinder Core Rulebook"
+                        },
+                        "range": {
+                            "value": "30 feet"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "create-food",
+                        "target": {
+                            "value": ""
+                        },
+                        "time": {
+                            "value": "1 hour"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "arcane",
+                                "divine",
+                                "primal"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "manipulate"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "magical",
+                        "primal",
+                        "wand"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": false,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "cK4qTaCXRhCx8ZJo",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD"
+            },
+            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
+            "name": "Wand of Restoration (Level 2)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "wand",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Restoration]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 160
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "magic-wand-2nd-level-spell",
+                "spell": {
+                    "_id": "GACQiQFA0EJe8jGz",
+                    "flags": {
+                        "core": {
+                            "sourceId": "Compendium.pf2e.spells-srd.Item.SnaLVgxZ9ryUFmUr"
+                        }
+                    },
+                    "img": "icons/magic/life/heart-cross-strong-green.webp",
+                    "name": "Restoration",
+                    "sort": 0,
+                    "system": {
+                        "area": null,
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": false,
+                        "damage": {},
+                        "defense": null,
+                        "description": {
+                            "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Drained] to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-rank restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": ""
+                        },
+                        "level": {
+                            "value": 2
+                        },
+                        "location": {
+                            "heightenedLevel": 2,
+                            "value": null
+                        },
+                        "publication": {
+                            "license": "OGL",
+                            "remaster": false,
+                            "title": "Pathfinder Core Rulebook"
+                        },
+                        "range": {
+                            "value": "touch"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "restoration",
+                        "target": {
+                            "value": "1 creature"
+                        },
+                        "time": {
+                            "value": "1 minute"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "divine",
+                                "occult",
+                                "primal"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "healing",
+                                "manipulate"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "magical",
+                        "occult",
+                        "primal",
+                        "wand"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": false,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "BcTshfIDNU2joXjC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4eC5wMw1vcDDgC4x"
+            },
+            "img": "icons/commodities/bones/horn-curved-orange.webp",
+            "name": "Horn of Rust",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "gm": "<p>While the Horn of Rust's power has diminished over the ages since Xar-Azmak's death, those who carry it are still subject to its palpable chaotic influences. If you aren't chaotic evil, you are @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} while carrying or using the Horn of Rust, and if you're lawful or good, you are instead @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}. The longer a non-worshipper of Xar-Azmak carries the Horn of Rust, the greater the chances a vloriak or other demon (or group of demons) will seek them out to slay them and reclaim the artifact. The frequency of these attacks is left to the GM to determine, but they should occur no less frequently than once a month. These attacks should always be at least moderate encounters; if the PCs don't take them seriously, the attacks could eventually escalate into severe encounters.</p>\n<hr />\n<p><strong>Xar-Azmak Resurrected</strong> If the demon lord Xar-Azmak is resurrected, the Horn of Rust becomes a 20th-level item. Its swirling aura of rusty metal shards grants a +3 item bonus to AC, deals @Damage[20d6[slashing]] damage (@Check[reflex|dc:43|basic] save), and the tetanus has a @Check[fortitude|dc:43] save. It has a [[/r 1d20+31 #Counteract]]{+31} counteract modifier against diseases. You can cast the following additional spells using the artifact's charges.</p>\n<ul>\n<li><strong>4th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Rusting Grasp]</li>\n<li><strong>5th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Toxic Cloud]</li>\n<li><strong>6th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</li>\n<li><strong>7th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Divine Decree] (chaotic or evil only)</li>\n<li><strong>8th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Desiccate]</li>\n<li><strong>9th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Disjunction]</li>\n<li><strong>10th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Cataclysm]</li>\n</ul>\n<hr />\n<p><strong>Destruction</strong> The Horn of Rust must be washed with the juice of a fresh peach plucked from an immortal arboreal, then dipped into a pool of molten dawnsilver, and finally cooled with the tears of a remorseful demon. Alternatively, GMs can devise a series of their own quests for the PCs and send them to destroy this ancient artifact. Once the horn is destroyed, Xar-Azmak can never be resurrected.</p>",
+                    "value": "<p>This rusted, coiled iron horn is sizable, appearing similar in shape to a ram's horn but measuring nearly 2 feet in diameter. Flakes of rust constantly fall from this item, and it leaves hands with a rusty red stain that lingers.</p>\n<p>Some of the Horn of Rust's activated powers consume charges, similar to how a magic staff functions. When its charges are reduced to zero, its activations that require charges can still be used normally. It can be prepared with charges in the same method as a staff, and it counts as a staff for the limit of how many staves you can prepare in a day.</p>\n<hr />\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Effect</strong> You expend a number of charges from the Horn of Rust to cast a spell from the following list.</p>\n<ul>\n<li>Cantrip @UUID[Compendium.pf2e.spells-srd.Item.Divine Lance]</li>\n<li>1st @UUID[Compendium.pf2e.spells-srd.Item.Noxious Vapors]</li>\n<li>2nd @UUID[Compendium.pf2e.spells-srd.Item.Shatter]</li>\n<li>3rd @UUID[Compendium.pf2e.spells-srd.Item.Stinking Cloud]</li>\n</ul>\n<p>The following activations do not consume charges from the Horn of Rust, and they can be utilized even when the artifact has no charges available.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You blow on the horn to unleash a swirling aura of jagged, rusty metal shards that orbit you in a @Template[emanation|distance:5] for 1 minute. The shards grant you a +1 item bonus to AC. Creatures and objects that begin their turn in this area take @Damage[6d6[slashing]] damage from the shards (@Check[reflex|dc:19|basic] save). A creature damaged by this aura is exposed to a potent form of tetanus that has a level equal to the Horn of Rust's level and has a DC 19 Fortitude save. Worshippers of Xar-Azmak are immune to this effect.</p>\n<p><strong>Tetanus</strong> An infection introduced through open wounds, tetanus can produce stiffness, muscle spasms strong enough to break bones, and ultimately death.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:19|traits:disease]</p>\n<p><strong>Onset</strong> 10 days</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 week)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and can't speak (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] with spasms (1 day)</p>\n<p><strong>Stage 4</strong> death</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You place the horn's bell against a diseased creature and then inhale into the mouthpiece rather than blow into it. The horn attempts to draw out the disease, casting a remove disease spell to your specification with a counteract modifier of [[/r 1d20+11 #Counteract]]{+11}. If the Horn of Rust succeeds at countering a disease, it gains a number of charges equal to half the disease's level (rounded down, minimum 1). If it critically fails, not only is the disease not countered, but you are exposed to the disease and must attempt a saving throw against it to resist contracting the affliction.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Adventure: Rusthenge"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "horn-of-rust",
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "artifact",
+                        "chaotic",
+                        "evil",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "1UkMRLPkSdLUW5xK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
+            "name": "Tarnished Silver Religious Symbol (Xar-azmak)",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-silver",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "oHYtarmUC2qQjUtU",
+            "img": "icons/sundries/misc/key-gold.webp",
+            "name": "Key",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "gm": "<p>key to chest in area <strong>E2</strong></p>",
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "bgQMWH9nQHUERk88",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "jkNiHwasyHBISJRx"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pick",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "1PtYCW4cEq5PXm7F": {
+                        "damage": "2d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fatal-d10",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "n2f7wZbZhpqknWmY",
@@ -92,7 +633,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-undead.webp",
             "name": "Create Undead",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -157,7 +698,7 @@
             },
             "img": "icons/magic/unholy/silhouette-evil-horned-giant.webp",
             "name": "Enlarge",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -229,7 +770,7 @@
             },
             "img": "icons/creatures/fish/fish-fangtooth-skeletal-green.webp",
             "name": "Ghoulish Cravings",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -297,7 +838,7 @@
             },
             "img": "systems/pf2e/icons/spells/inveigle.webp",
             "name": "Inveigle",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -362,7 +903,7 @@
             },
             "img": "systems/pf2e/icons/spells/sudden-blight.webp",
             "name": "Sudden Blight",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -449,7 +990,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -610,7 +1151,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 900000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -680,7 +1221,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1000000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -760,7 +1301,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1100000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -841,7 +1382,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1200000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -922,7 +1463,7 @@
             },
             "img": "icons/creatures/abilities/mouth-teeth-sharp.webp",
             "name": "Glutton's Jaw",
-            "sort": 1300000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -982,7 +1523,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 1400000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1043,7 +1584,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1500000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1238,7 +1779,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1600000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1436,7 +1977,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1700000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1500,7 +2041,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1800000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1562,7 +2103,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 1900000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1619,13 +2160,96 @@
             "type": "spell"
         },
         {
+            "_id": "4t5XvSdzxMt0dvuc",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
+            "sort": 2700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 20,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "wy6MelxfzLoSJxmq",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Demonic Bloodline Spells",
+            "sort": 2800000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 20,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "jkNiHwasyHBISJRx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6I4YJAQUbTAqbpsI"
             },
             "img": "icons/weapons/axes/pickaxe-iron-green.webp",
             "name": "Pick",
-            "sort": 2000000,
+            "sort": 2900000,
             "system": {
                 "baseItem": "pick",
                 "bonus": {
@@ -1702,630 +2326,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "OIfP1D2R4MCZnxzY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
-            },
-            "img": "icons/equipment/chest/breastplate-collared-steel.webp",
-            "name": "Rusted (Broken) Breastplate",
-            "sort": 2100000,
-            "system": {
-                "acBonus": 4,
-                "baseItem": "breastplate",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or half-plate armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
-                },
-                "dexCap": 1,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": false,
-                    "invested": null
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 8
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "breastplate",
-                "speedPenalty": -5,
-                "strength": 3,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "BcTshfIDNU2joXjC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4eC5wMw1vcDDgC4x"
-            },
-            "img": "icons/commodities/bones/horn-curved-orange.webp",
-            "name": "Horn of Rust",
-            "sort": 2200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "gm": "<p>While the Horn of Rust's power has diminished over the ages since Xar-Azmak's death, those who carry it are still subject to its palpable chaotic influences. If you aren't chaotic evil, you are @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} while carrying or using the Horn of Rust, and if you're lawful or good, you are instead @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}. The longer a non-worshipper of Xar-Azmak carries the Horn of Rust, the greater the chances a vloriak or other demon (or group of demons) will seek them out to slay them and reclaim the artifact. The frequency of these attacks is left to the GM to determine, but they should occur no less frequently than once a month. These attacks should always be at least moderate encounters; if the PCs don't take them seriously, the attacks could eventually escalate into severe encounters.</p>\n<hr />\n<p><strong>Xar-Azmak Resurrected</strong> If the demon lord Xar-Azmak is resurrected, the Horn of Rust becomes a 20th-level item. Its swirling aura of rusty metal shards grants a +3 item bonus to AC, deals @Damage[20d6[slashing]] damage (@Check[reflex|dc:43|basic] save), and the tetanus has a @Check[fortitude|dc:43] save. It has a [[/r 1d20+31 #Counteract]]{+31} counteract modifier against diseases. You can cast the following additional spells using the artifact's charges.</p>\n<ul>\n<li><strong>4th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Rusting Grasp]</li>\n<li><strong>5th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Toxic Cloud]</li>\n<li><strong>6th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</li>\n<li><strong>7th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Divine Decree] (chaotic or evil only)</li>\n<li><strong>8th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Desiccate]</li>\n<li><strong>9th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Disjunction]</li>\n<li><strong>10th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Cataclysm]</li>\n</ul>\n<hr />\n<p><strong>Destruction</strong> The Horn of Rust must be washed with the juice of a fresh peach plucked from an immortal arboreal, then dipped into a pool of molten dawnsilver, and finally cooled with the tears of a remorseful demon. Alternatively, GMs can devise a series of their own quests for the PCs and send them to destroy this ancient artifact. Once the horn is destroyed, Xar-Azmak can never be resurrected.</p>",
-                    "value": "<p>This rusted, coiled iron horn is sizable, appearing similar in shape to a ram's horn but measuring nearly 2 feet in diameter. Flakes of rust constantly fall from this item, and it leaves hands with a rusty red stain that lingers.</p>\n<p>Some of the Horn of Rust's activated powers consume charges, similar to how a magic staff functions. When its charges are reduced to zero, its activations that require charges can still be used normally. It can be prepared with charges in the same method as a staff, and it counts as a staff for the limit of how many staves you can prepare in a day.</p>\n<hr />\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Effect</strong> You expend a number of charges from the Horn of Rust to cast a spell from the following list.</p>\n<ul>\n<li>Cantrip @UUID[Compendium.pf2e.spells-srd.Item.Divine Lance]</li>\n<li>1st @UUID[Compendium.pf2e.spells-srd.Item.Noxious Vapors]</li>\n<li>2nd @UUID[Compendium.pf2e.spells-srd.Item.Shatter]</li>\n<li>3rd @UUID[Compendium.pf2e.spells-srd.Item.Stinking Cloud]</li>\n</ul>\n<p>The following activations do not consume charges from the Horn of Rust, and they can be utilized even when the artifact has no charges available.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You blow on the horn to unleash a swirling aura of jagged, rusty metal shards that orbit you in a @Template[emanation|distance:5] for 1 minute. The shards grant you a +1 item bonus to AC. Creatures and objects that begin their turn in this area take @Damage[6d6[slashing]] damage from the shards (@Check[reflex|dc:19|basic] save). A creature damaged by this aura is exposed to a potent form of tetanus that has a level equal to the Horn of Rust's level and has a DC 19 Fortitude save. Worshippers of Xar-Azmak are immune to this effect.</p>\n<p><strong>Tetanus</strong> An infection introduced through open wounds, tetanus can produce stiffness, muscle spasms strong enough to break bones, and ultimately death.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:19|traits:disease]</p>\n<p><strong>Onset</strong> 10 days</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 week)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and can't speak (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] with spasms (1 day)</p>\n<p><strong>Stage 4</strong> death</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You place the horn's bell against a diseased creature and then inhale into the mouthpiece rather than blow into it. The horn attempts to draw out the disease, casting a remove disease spell to your specification with a counteract modifier of [[/r 1d20+11 #Counteract]]{+11}. If the Horn of Rust succeeds at countering a disease, it gains a number of charges equal to half the disease's level (rounded down, minimum 1). If it critically fails, not only is the disease not countered, but you are exposed to the disease and must attempt a saving throw against it to resist contracting the affliction.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Adventure: Rusthenge"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "horn-of-rust",
-                "traits": {
-                    "rarity": "unique",
-                    "value": [
-                        "artifact",
-                        "chaotic",
-                        "evil",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "1UkMRLPkSdLUW5xK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
-            "name": "Tarnished Silver Religious Symbol (Xar-azmak)",
-            "sort": 2300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-silver",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "oHYtarmUC2qQjUtU",
-            "img": "icons/sundries/misc/key-gold.webp",
-            "name": "Key",
-            "sort": 2400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "gm": "<p>key to chest in area <strong>E2</strong></p>",
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "me4FpDefTGC3cqRe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD"
-            },
-            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
-            "name": "Wand of Create Food (Level 2)",
-            "sort": 2500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "wand",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Create Food]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 160
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "magic-wand-2nd-level-spell",
-                "spell": {
-                    "_id": "jdzO5jv01ZJiMfQ9",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.Mt6ZzkVX8Q4xigFq"
-                        }
-                    },
-                    "img": "systems/pf2e/icons/spells/create-food.webp",
-                    "name": "Create Food",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {},
-                        "defense": null,
-                        "description": {
-                            "value": "<p>You create enough food to feed six Medium creatures for a day. This food is bland and unappealing, but it is nourishing. After 1 day, if no one has eaten the food, it decays and becomes inedible. Most Small creatures eat one-quarter as much as a Medium creature (one-sixteenth as much for most Tiny creatures), and most Large creatures eat 10 times as much (100 times as much for Huge creatures and so on).</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can feed 12 Medium creatures.</p>\n<p><strong>Heightened (6th)</strong> You can feed 50 Medium creatures.</p>\n<p><strong>Heightened (8th)</strong> You can feed 200 Medium creatures.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": ""
-                        },
-                        "level": {
-                            "value": 2
-                        },
-                        "location": {
-                            "heightenedLevel": 2,
-                            "value": null
-                        },
-                        "publication": {
-                            "license": "OGL",
-                            "remaster": false,
-                            "title": "Pathfinder Core Rulebook"
-                        },
-                        "range": {
-                            "value": "30 feet"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "create-food",
-                        "target": {
-                            "value": ""
-                        },
-                        "time": {
-                            "value": "1 hour"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "arcane",
-                                "divine",
-                                "primal"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "manipulate"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "magical",
-                        "primal",
-                        "wand"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": false,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "cK4qTaCXRhCx8ZJo",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD"
-            },
-            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
-            "name": "Wand of Restoration (Level 2)",
-            "sort": 2600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "wand",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Restoration]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 160
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "magic-wand-2nd-level-spell",
-                "spell": {
-                    "_id": "GACQiQFA0EJe8jGz",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.SnaLVgxZ9ryUFmUr"
-                        }
-                    },
-                    "img": "icons/magic/life/heart-cross-strong-green.webp",
-                    "name": "Restoration",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {},
-                        "defense": null,
-                        "description": {
-                            "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Drained] to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-rank restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": ""
-                        },
-                        "level": {
-                            "value": 2
-                        },
-                        "location": {
-                            "heightenedLevel": 2,
-                            "value": null
-                        },
-                        "publication": {
-                            "license": "OGL",
-                            "remaster": false,
-                            "title": "Pathfinder Core Rulebook"
-                        },
-                        "range": {
-                            "value": "touch"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "restoration",
-                        "target": {
-                            "value": "1 creature"
-                        },
-                        "time": {
-                            "value": "1 minute"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "divine",
-                                "occult",
-                                "primal"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "healing",
-                                "manipulate"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "magical",
-                        "occult",
-                        "primal",
-                        "wand"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": false,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "bgQMWH9nQHUERk88",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "jkNiHwasyHBISJRx"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Pick",
-            "sort": 2700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "1PtYCW4cEq5PXm7F": {
-                        "damage": "2d6+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fatal-d10",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "97l0hEJqbFlmWhUZ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Reach Spell",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If Meitremar's next action this turn is to Cast a Spell that has a range, he increases that spell's range by 30 feet (or increases the range of a touch spell to 30 feet).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "spellshape"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QXmns8bw5DBlNJ9D",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Signature Spell",
-            "sort": 2900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Meitremar can heighten @UUID[Compendium.pf2e.spells-srd.Item.Heal] spells freely.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Meitremar",

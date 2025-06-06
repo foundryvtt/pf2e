@@ -4,95 +4,64 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "GheHph9mssuH3bxq",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Prepared Spells",
+            "_id": "CUd7yJTScP3CfZ6K",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shared Confidence",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>When a coven aspirant is within 30 feet of at least two allies, they and their allies gain a +1 status bonus to Will saves.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "XHZi9XxOG34Howpl"
-                            },
-                            {
-                                "id": "VirHAiZwWloWl6l4"
-                            },
-                            {
-                                "id": "HIZPxXmikUpkq4fL"
-                            },
-                            {
-                                "id": "bYy4UUZOu6ex0y6B"
-                            },
-                            {
-                                "id": "RIHFg8lTeCaqQGx3"
-                            }
-                        ]
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "shared-confidence",
+                        "toggleable": true
                     },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "YAFs5Pt3P6XyfPkV"
-                            },
-                            {
-                                "id": "r0E3FBqokfOkeKHg"
-                            },
-                            {
-                                "id": "dnp3CdMwS2qeFi0e"
-                            }
-                        ]
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shared-confidence"
+                        ],
+                        "selector": "will",
+                        "type": "status",
+                        "value": 1
                     }
-                },
+                ],
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "M8eR05NDpox0eSDq",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Focus Spells",
+            "_id": "QlkPRh3XNHPzuE3A",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Forge Pact",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The coven aspirant forms a temporary coven with two or more willing creatures within 30 feet, all of whom must be able to cast spells.</p>\n<p>Members of the temporary coven can cast @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Entangling Flora], and @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise] as 2nd-rank occult innate spells at will, using DC 17 or their spellcasting DC, whichever is higher.</p>\n<p>The coven is dissolved after 3 rounds or when all but one member is dead, whichever comes first. A creature can be a member of only one temporary coven at a time and can join a temporary coven no more than once per 24 hours.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -100,18 +69,196 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "linguistic",
+                        "mental",
+                        "occult"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "PPgGl80czWcfW9ld",
+            "img": "icons/tools/cooking/cauldron-empty.webp",
+            "name": "Cauldron",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "rjrADYSPUSK26Qn3",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "06eBnCT1mpwL5KVO"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "qNJMvfXMPdyR71Ts": {
+                        "damage": "1d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "5zkEaeZ21ukoxcyg",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "CI7lzYFlBUB9ho0E"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dart",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "RoY4sCsTrfFFRrMK": {
+                        "damage": "1d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dart",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "MMCYKd69dsTEEPkN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.PBb2WprHhEIQE9jN.Item.AuocSDVewXxiFzuz"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "XHZi9XxOG34Howpl",
@@ -120,7 +267,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -207,7 +354,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -287,7 +434,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -350,7 +497,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 600000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "line",
@@ -437,7 +584,7 @@
             },
             "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen",
-            "sort": 700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -503,7 +650,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -567,7 +714,7 @@
             },
             "img": "systems/pf2e/icons/spells/needle-of-vengeance.webp",
             "name": "Needle of Vengeance",
-            "sort": 900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -650,7 +797,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -713,7 +860,7 @@
             },
             "img": "systems/pf2e/icons/spells/shroud-of-night.webp",
             "name": "Shroud of Night",
-            "sort": 1100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -785,7 +932,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 1200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -865,13 +1012,123 @@
             "type": "spell"
         },
         {
+            "_id": "GheHph9mssuH3bxq",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Prepared Spells",
+            "sort": 1700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "XHZi9XxOG34Howpl"
+                            },
+                            {
+                                "id": "VirHAiZwWloWl6l4"
+                            },
+                            {
+                                "id": "HIZPxXmikUpkq4fL"
+                            },
+                            {
+                                "id": "bYy4UUZOu6ex0y6B"
+                            },
+                            {
+                                "id": "RIHFg8lTeCaqQGx3"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "YAFs5Pt3P6XyfPkV"
+                            },
+                            {
+                                "id": "r0E3FBqokfOkeKHg"
+                            },
+                            {
+                                "id": "dnp3CdMwS2qeFi0e"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "M8eR05NDpox0eSDq",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Focus Spells",
+            "sort": 1800000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "06eBnCT1mpwL5KVO",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 1300000,
+            "sort": 1900000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -960,7 +1217,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dart.webp",
             "name": "Dart",
-            "sort": 1400000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "dart",
                 "bonus": {
@@ -1039,263 +1296,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "PPgGl80czWcfW9ld",
-            "img": "icons/tools/cooking/cauldron-empty.webp",
-            "name": "Cauldron",
-            "sort": 1500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "rjrADYSPUSK26Qn3",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "06eBnCT1mpwL5KVO"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "qNJMvfXMPdyR71Ts": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "5zkEaeZ21ukoxcyg",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "CI7lzYFlBUB9ho0E"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dart",
-            "sort": 1700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "RoY4sCsTrfFFRrMK": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dart",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-20"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "MMCYKd69dsTEEPkN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.PBb2WprHhEIQE9jN.Item.AuocSDVewXxiFzuz"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+4",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "CUd7yJTScP3CfZ6K",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shared Confidence",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When a coven aspirant is within 30 feet of at least two allies, they and their allies gain a +1 status bonus to Will saves.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "shared-confidence",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "shared-confidence"
-                        ],
-                        "selector": "will",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QlkPRh3XNHPzuE3A",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Forge Pact",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The coven aspirant forms a temporary coven with two or more willing creatures within 30 feet, all of whom must be able to cast spells.</p>\n<p>Members of the temporary coven can cast @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Entangling Flora], and @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise] as 2nd-rank occult innate spells at will, using DC 17 or their spellcasting DC, whichever is higher.</p>\n<p>The coven is dissolved after 3 rounds or when all but one member is dead, whichever comes first. A creature can be a member of only one temporary coven at a time and can join a temporary coven no more than once per 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "linguistic",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Coven Aspirant",

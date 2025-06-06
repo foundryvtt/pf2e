@@ -3,10 +3,260 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "z3zV7qtWvRzQf68z",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Disperse",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The picture-in-clouds takes damage from a hostile action</p>\n<hr />\n<p><strong>Effect</strong> The picture-in-clouds disperses. Until the end of the current turn, they can't be attacked or targeted, they don't take up space, and any auras or emanations they have are suppressed. At the end of the turn, the picture-in-clouds re-forms in any sufficient space within 150 feet of where they dispersed; any auras or emanations they have are restored as long as the duration didn't run out while the elemental was dispersed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DIIuzRQ3T88ID3n6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "High Winds",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. Air within the emanation is difficult terrain for Flying creatures that don't have the air trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "high-winds",
+                        "traits": [
+                            "air"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "air",
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wjaEnVx69nysSMCQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Cloudgaze",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The picture-in-clouds shifts into their choice of an eagle shape, elephant shape, or sword shape.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mLW9XuxdkACGswz2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Elephant Blast",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The picture-in-clouds is in elephant shape</p>\n<hr />\n<p><strong>Effect</strong> The picture-in-clouds breathes out a @Template[cone|distance:30] of air from their cloudy trunk. Creatures in the area must attempt a @Check[fortitude|dc:30] save to stand their ground. A creature pushed into a solid object stops moving and takes @Damage[4d10[bludgeoning]] damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is pushed 20 feet.</p>\n<p><strong>Failure</strong> The creature is pushed 40 feet.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 40 feet and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WFEv5nXEjmqmEtye",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Feather Storm",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The picture-in-clouds is in eagle shape</p>\n<hr />\n<p><strong>Effect</strong> The picture-in-clouds Flies 125 feet, flapping their wings and creating a barrier along their path. This barrier has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Wall of Wind] (@Check[fortitude|dc:30]) and lasts until the end of the picture-in-clouds's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pG0x520Uwo6BJI2S",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Slicing Wind",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The picture-in-clouds is in sword shape</p>\n<hr />\n<p><strong>Effect</strong> The picture-in-clouds spins, forming a whirlwind that deals @Damage[5d8[slashing]] damage in a @Template[emanation|distance:15] (@Check[reflex|dc:30|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2NEmC2ONaE3ogfMP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Swiftness",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The picture-in-clouds's movement doesn't trigger reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7FiIKCvEtmejoIwD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push 15 feet",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "push",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "AWJ53yllhed4ZXoS",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Gust",
-            "sort": 100000,
+            "sort": 900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -52,7 +302,7 @@
             "_id": "co9SgsX8OUmPxGGj",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Lightning Lash",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "attack": {
                     "value": ""
@@ -89,256 +339,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "z3zV7qtWvRzQf68z",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Disperse",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The picture-in-clouds takes damage from a hostile action</p>\n<hr />\n<p><strong>Effect</strong> The picture-in-clouds disperses. Until the end of the current turn, they can't be attacked or targeted, they don't take up space, and any auras or emanations they have are suppressed. At the end of the turn, the picture-in-clouds re-forms in any sufficient space within 150 feet of where they dispersed; any auras or emanations they have are restored as long as the duration didn't run out while the elemental was dispersed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DIIuzRQ3T88ID3n6",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "High Winds",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. Air within the emanation is difficult terrain for Flying creatures that don't have the air trait.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "high-winds",
-                        "traits": [
-                            "air"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "air",
-                        "aura"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wjaEnVx69nysSMCQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Cloudgaze",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The picture-in-clouds shifts into their choice of an eagle shape, elephant shape, or sword shape.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mLW9XuxdkACGswz2",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Elephant Blast",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The picture-in-clouds is in elephant shape</p>\n<hr />\n<p><strong>Effect</strong> The picture-in-clouds breathes out a @Template[cone|distance:30] of air from their cloudy trunk. Creatures in the area must attempt a @Check[fortitude|dc:30] save to stand their ground. A creature pushed into a solid object stops moving and takes @Damage[4d10[bludgeoning]] damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is pushed 20 feet.</p>\n<p><strong>Failure</strong> The creature is pushed 40 feet.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 40 feet and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WFEv5nXEjmqmEtye",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Feather Storm",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The picture-in-clouds is in eagle shape</p>\n<hr />\n<p><strong>Effect</strong> The picture-in-clouds Flies 125 feet, flapping their wings and creating a barrier along their path. This barrier has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Wall of Wind] (@Check[fortitude|dc:30]) and lasts until the end of the picture-in-clouds's next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "move"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pG0x520Uwo6BJI2S",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Slicing Wind",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The picture-in-clouds is in sword shape</p>\n<hr />\n<p><strong>Effect</strong> The picture-in-clouds spins, forming a whirlwind that deals @Damage[5d8[slashing]] damage in a @Template[emanation|distance:15] (@Check[reflex|dc:30|basic] save).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2NEmC2ONaE3ogfMP",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Swiftness",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The picture-in-clouds's movement doesn't trigger reactions.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7FiIKCvEtmejoIwD",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Push 15 feet",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "push",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Picture-in-Clouds",

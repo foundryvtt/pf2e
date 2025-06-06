@@ -3,22 +3,69 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "gdPgf1rGos471csi",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
+            "_id": "8YOU5O0qxqlZcslG",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Imperious Retreat",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> King Merlokrep is adjacent to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> King Merlokrep whips his fabulous satin cloak into the face of an adjacent creature and attempts an @Check[intimidation|defense:will] check against that creature's Will DC. On a success, the creature is humiliated and distracted by the act and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of King Merlokrep's next turn. King Merlokrep then Strides up to his Speed and gains a +2 circumstance bonus to AC against reactions triggered by this movement. He must end this movement in a space that isn't adjacent to any enemy.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "imperious-retreat",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "imperious-retreat"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate",
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KXN0pWiNHPs86Zt8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Signature Spells",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>King Merlokrep can cast any of his signature spells (Fireball, Dispel Magic, and Magic Missile) as heightened versions freely.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,34 +73,248 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "gUlLJDYDAuGsSgHW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rise From Death",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>If King Merlokrep is slain, the Crown of the Kobold King glows brighter with an awful yellow radiance; this light slithers down inside the dead kobold's flesh, emanating from within as his body begins to twitch and writhe. If the Crown is allowed to remain on his head for 3 rounds, King Merlokrep rises from death as an undead Kobold King-this restores him to full hit points and grants him the Undead trait (along with void healing and susceptibility to vitality energy). Once the undead king is defeated, he remains destroyed-the absorbed energy of the Third Seal allows him to Rise from Death only once. If the Crown is removed before 3 rounds pass, the light winks out, and the energy absorbed by the Third Seal dissipates harmlessly.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mWm3zHLghzTvmLLO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>King Merlokrep deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y3zvtMVsyEBfDUM4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B5ZfLr6Ox816FBEc"
+            },
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "name": "Crown of the Kobold King",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Originally, this magical crown was to be known as the Crown of Toil-a magic item crafted by the dwarven priest named Gristogar. He intended for the crown to bolster his ability to rule and herald in a new era of a dwarven kingdom that followed the teachings of Droskar. Yet Gristogar wasn't equal to his own ambitions, and before he could complete the Crown of Toil, his cult died out and he ended his own life. For centuries, the incomplete crown lay dormant, but over that time, fragments of Gristogar's soul infused it-not enough to transform it into a truly intelligent item, but enough to give it a rudimentary need and desire to be completed.</p>\n<p>When the Kobold King Merlokrep discovered the discarded crown and placed it upon his head, the crown at last had agency- if not in a hale and hearty dwarf, at least in the frame of a powerful and ambitious kobold. Just as the crown began influencing Merlokrep, so too did the Kobold King's personality influence the crown. Today, the device is known as the <em>Crown of the Kobold King</em>, and while it still urges the one who wears it to build a kingdom of endlessly toiling workers, it no longer does so in honor of Droskar. Instead, it seeks the rise of a brutal kobold kingdom.</p>\n<p>The crown appears as a golden band surrounded by iron spikes that glisten with fresh blood-the addition of a kobold skull to the top is largely decorative, but one the crown has grown to \"enjoy.\" Even in its incomplete state, a few rituals away from its true potential, the Crown of the Kobold King is a potent item. Wearing the crown grants you a +2 item bonus to Intimidation checks and a +1 item bonus to saving throws against fear effects.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (command, envision)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The crown infuses you with the glorious conviction that you're meant to rule, granting you a +1 status bonus to attack rolls, saving throws, and Charisma-based skill checks for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Crown of the Kobold King]</p>\n<hr />\n<p><strong>Activate</strong> 10 minutes (envision, Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You cast a @UUID[Compendium.pf2e.spells-srd.Item.Nightmare] spell.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 9
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 700
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Adventure: Crown of the Kobold King"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "critical": false,
+                        "key": "FlatModifier",
+                        "selector": "intimidation",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "critical": false,
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "fear"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "crown-of-the-kobold-king",
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornheadwear"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "GDkM7LI45g2jVpRj",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Mining Lore",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "RhlvqLS4OwIiD4Og",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "lSQ5wqEPAIA7xxPy"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Battle Axe",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "EyC5XOyL57FpSo90": {
+                        "damage": "2d8+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "NqmuQougMBAgFCIR",
@@ -62,7 +323,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -140,7 +401,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -228,7 +489,7 @@
             },
             "img": "icons/skills/melee/spear-tips-three-purple.webp",
             "name": "Weapon Storm",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -294,7 +555,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -382,7 +643,7 @@
             },
             "img": "icons/magic/light/projectile-stars-blue.webp",
             "name": "Levitate",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -443,7 +704,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -521,7 +782,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 800000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -584,7 +845,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter",
-            "sort": 900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -652,7 +913,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 1000000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -715,7 +976,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 1100000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -778,7 +1039,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1200000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -865,7 +1126,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1300000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -932,7 +1193,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 1400000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1017,7 +1278,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1500000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1098,7 +1359,7 @@
             },
             "img": "icons/commodities/materials/feather-damaged-brown.webp",
             "name": "Feather Fall",
-            "sort": 1600000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1158,7 +1419,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 1700000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1232,7 +1493,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1800000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1288,13 +1549,219 @@
             "type": "spell"
         },
         {
+            "_id": "gdPgf1rGos471csi",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
+            "sort": 2500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 26,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "iTf8yIz4QQZwimTp",
+            "img": "systems/pf2e/icons/default-icons/treasure.svg",
+            "name": "Gold Horn Bangles",
+            "sort": 2600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 12
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "aDsVkcCpD2TpbTj5",
+            "img": "systems/pf2e/icons/default-icons/treasure.svg",
+            "name": "Gold Lip Ring",
+            "sort": 2700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "M5gNQmboCHC1YvhW",
+            "img": "systems/pf2e/icons/default-icons/treasure.svg",
+            "name": "Red and Gold Satin Cloak",
+            "sort": 2800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This oversized red and gold satin cloak has a crude painting of a gold dragon on the back.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
             "_id": "lSQ5wqEPAIA7xxPy",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4ADeEQGQJR0ju2Nd"
             },
             "img": "icons/weapons/axes/axe-battle-blackened.webp",
             "name": "Man-Feller",
-            "sort": 1900000,
+            "sort": 2900000,
             "system": {
                 "baseItem": "battle-axe",
                 "bonus": {
@@ -1394,473 +1861,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "Y3zvtMVsyEBfDUM4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B5ZfLr6Ox816FBEc"
-            },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "Crown of the Kobold King",
-            "sort": 2000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Originally, this magical crown was to be known as the Crown of Toil-a magic item crafted by the dwarven priest named Gristogar. He intended for the crown to bolster his ability to rule and herald in a new era of a dwarven kingdom that followed the teachings of Droskar. Yet Gristogar wasn't equal to his own ambitions, and before he could complete the Crown of Toil, his cult died out and he ended his own life. For centuries, the incomplete crown lay dormant, but over that time, fragments of Gristogar's soul infused it-not enough to transform it into a truly intelligent item, but enough to give it a rudimentary need and desire to be completed.</p>\n<p>When the Kobold King Merlokrep discovered the discarded crown and placed it upon his head, the crown at last had agency- if not in a hale and hearty dwarf, at least in the frame of a powerful and ambitious kobold. Just as the crown began influencing Merlokrep, so too did the Kobold King's personality influence the crown. Today, the device is known as the <em>Crown of the Kobold King</em>, and while it still urges the one who wears it to build a kingdom of endlessly toiling workers, it no longer does so in honor of Droskar. Instead, it seeks the rise of a brutal kobold kingdom.</p>\n<p>The crown appears as a golden band surrounded by iron spikes that glisten with fresh blood-the addition of a kobold skull to the top is largely decorative, but one the crown has grown to \"enjoy.\" Even in its incomplete state, a few rituals away from its true potential, the Crown of the Kobold King is a potent item. Wearing the crown grants you a +2 item bonus to Intimidation checks and a +1 item bonus to saving throws against fear effects.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (command, envision)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The crown infuses you with the glorious conviction that you're meant to rule, granting you a +1 status bonus to attack rolls, saving throws, and Charisma-based skill checks for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Crown of the Kobold King]</p>\n<hr />\n<p><strong>Activate</strong> 10 minutes (envision, Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You cast a @UUID[Compendium.pf2e.spells-srd.Item.Nightmare] spell.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 9
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 700
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Adventure: Crown of the Kobold King"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "critical": false,
-                        "key": "FlatModifier",
-                        "selector": "intimidation",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "critical": false,
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "fear"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "crown-of-the-kobold-king",
-                "traits": {
-                    "rarity": "unique",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornheadwear"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "iTf8yIz4QQZwimTp",
-            "img": "systems/pf2e/icons/default-icons/treasure.svg",
-            "name": "Gold Horn Bangles",
-            "sort": 2100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 12
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
-            "_id": "aDsVkcCpD2TpbTj5",
-            "img": "systems/pf2e/icons/default-icons/treasure.svg",
-            "name": "Gold Lip Ring",
-            "sort": 2200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
-            "_id": "M5gNQmboCHC1YvhW",
-            "img": "systems/pf2e/icons/default-icons/treasure.svg",
-            "name": "Red and Gold Satin Cloak",
-            "sort": 2300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This oversized red and gold satin cloak has a crude painting of a gold dragon on the back.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 10
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
-            "_id": "RhlvqLS4OwIiD4Og",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "lSQ5wqEPAIA7xxPy"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Battle Axe",
-            "sort": 2400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "EyC5XOyL57FpSo90": {
-                        "damage": "2d8+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "sweep"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "8YOU5O0qxqlZcslG",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Imperious Retreat",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> King Merlokrep is adjacent to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> King Merlokrep whips his fabulous satin cloak into the face of an adjacent creature and attempts an @Check[intimidation|defense:will] check against that creature's Will DC. On a success, the creature is humiliated and distracted by the act and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of King Merlokrep's next turn. King Merlokrep then Strides up to his Speed and gains a +2 circumstance bonus to AC against reactions triggered by this movement. He must end this movement in a space that isn't adjacent to any enemy.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "imperious-retreat",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "imperious-retreat"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate",
-                        "move"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KXN0pWiNHPs86Zt8",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Signature Spells",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>King Merlokrep can cast any of his signature spells (Fireball, Dispel Magic, and Magic Missile) as heightened versions freely.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gUlLJDYDAuGsSgHW",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rise From Death",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>If King Merlokrep is slain, the Crown of the Kobold King glows brighter with an awful yellow radiance; this light slithers down inside the dead kobold's flesh, emanating from within as his body begins to twitch and writhe. If the Crown is allowed to remain on his head for 3 rounds, King Merlokrep rises from death as an undead Kobold King-this restores him to full hit points and grants him the Undead trait (along with void healing and susceptibility to vitality energy). Once the undead king is defeated, he remains destroyed-the absorbed energy of the Third Seal allows him to Rise from Death only once. If the Crown is removed before 3 rounds pass, the light winks out, and the energy absorbed by the Third Seal dissipates harmlessly.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mWm3zHLghzTvmLLO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>King Merlokrep deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GDkM7LI45g2jVpRj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Mining Lore",
-            "sort": 2900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "King Merlokrep",

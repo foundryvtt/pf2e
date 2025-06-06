@@ -4,21 +4,101 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "VfUecgqYJC9OenbD",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "VjpfyKmnhYR8Bus6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 30 (Deactivated by Acid or Fire)",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 30
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BEcAt0SdsvIa6qp9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Befuddling Lash",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the Speaker damages a creature with her tail, a wave of befuddlement clouds the target's thoughts. The creature must succeed at a @Check[will|dc:42] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "befuddling-lash",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vkQCMGp1H43fc8Jo",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Manipulate Luck",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The huldra touches another creature to manipulate the creature's luck. The creature must attempt a @Check[will|dc:42] save. On a failure, the huldra chooses good luck or bad luck. If the huldra chooses good luck, the affected creature can roll twice on one d20 roll within the next minute and use the higher result; this is a fortune effect. If the huldra chooses bad luck, the creature must roll twice and use the lower result on its next d20 roll; this is a misfortune effect.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Manipulate Luck (Good)]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Manipulate Luck (Bad)]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
                     "value": 1
                 },
                 "publication": {
@@ -27,20 +107,118 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 42,
-                    "value": 34
-                },
-                "tradition": {
-                    "value": "primal"
+                "slug": "",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "primal"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "jTT3N3sXixsPE4b1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d10+14",
+                        "damageType": "bludgeoning"
+                    },
+                    "Dyqe88XrNmMI9trw": {
+                        "damage": "2d8",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "unarmed",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vx5wkGlnDaE4xpPz",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "befuddling-lash"
+                    ]
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d6+14",
+                        "damageType": "bludgeoning"
+                    },
+                    "5k63LHIlJE6mlflu": {
+                        "damage": "2d10",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "backswing",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "SWtwVARfxt515DnY",
@@ -49,7 +227,7 @@
             },
             "img": "icons/magic/lightning/projectile-tendrils-teal.webp",
             "name": "Disjunction",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -110,7 +288,7 @@
             },
             "img": "icons/commodities/treasure/mask-wood-tan.webp",
             "name": "Mask of Terror",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -182,7 +360,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -267,7 +445,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -356,7 +534,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
-            "sort": 600000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -445,7 +623,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -507,7 +685,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -569,7 +747,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants (Constant)",
-            "sort": 900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -630,7 +808,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 1000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -707,7 +885,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 1100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -768,7 +946,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -965,7 +1143,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1162,7 +1340,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1400000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1359,7 +1537,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1500000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1556,7 +1734,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1600000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1620,7 +1798,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 1700000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1701,7 +1879,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 1800000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1758,203 +1936,21 @@
             "type": "spell"
         },
         {
-            "_id": "jTT3N3sXixsPE4b1",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d10+14",
-                        "damageType": "bludgeoning"
-                    },
-                    "Dyqe88XrNmMI9trw": {
-                        "damage": "2d8",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "unarmed",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "vx5wkGlnDaE4xpPz",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 2000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "befuddling-lash"
-                    ]
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d6+14",
-                        "damageType": "bludgeoning"
-                    },
-                    "5k63LHIlJE6mlflu": {
-                        "damage": "2d10",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "backswing",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "VjpfyKmnhYR8Bus6",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 30 (Deactivated by Acid or Fire)",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "acid",
-                            "fire"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 30
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BEcAt0SdsvIa6qp9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Befuddling Lash",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the Speaker damages a creature with her tail, a wave of befuddlement clouds the target's thoughts. The creature must succeed at a @Check[will|dc:42] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "befuddling-lash",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vkQCMGp1H43fc8Jo",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Manipulate Luck",
+            "_id": "VfUecgqYJC9OenbD",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 2300000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The huldra touches another creature to manipulate the creature's luck. The creature must attempt a @Check[will|dc:42] save. On a failure, the huldra chooses good luck or bad luck. If the huldra chooses good luck, the affected creature can roll twice on one d20 roll within the next minute and use the higher result; this is a fortune effect. If the huldra chooses bad luck, the creature must roll twice and use the lower result on its next d20 roll; this is a misfortune effect.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Manipulate Luck (Good)]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Manipulate Luck (Bad)]</p>"
+                    "value": ""
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -1963,16 +1959,20 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "primal"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 42,
+                    "value": 34
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Speaker Of Svaryr",

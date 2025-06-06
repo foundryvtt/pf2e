@@ -3,10 +3,224 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "LoLS2Gw8HzHFPWld",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Languages",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The Fortune Eater speaks languages spoken by the adventurers (typically Common, Dwarven, Elven, and Goblin).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fvVvVEF0pK4ATbmC",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Luck Osmosis",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature affected by the fortune eater's unluck aura has just rolled two d20s for a check and taken the lower result</p>\n<hr />\n<p><strong>Effect</strong> The fortune-eater stores the higher of the two numbers rolled and uses that number in place of their next d20 roll; this is a fortune effect. They can have only one number stored at a time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FTFBPXIVH7AJW2HL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.unR8VVR4yyRnsmnB"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>Offering the fortune eater a chance to be instrumental in completing a heroic deed releases their component spirits to move on to the afterlife.</p>\n<hr />\n<p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghost-rejuvenation",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oVMhwSHesHUR8PLW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unluck Aura",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. A creature entering the area must attempt a @Check[will|dc:23] save, rolling the save twice and using the worse result. On a successful save, the creature is temporarily immune to fortune eater unluck auras for 24 hours. On a failure, the creature must roll twice and use the worse result on all checks as long as it is within the aura.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Unluck Aura]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "unluck-aura",
+                        "traits": [
+                            "divine",
+                            "mental",
+                            "misfortune"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "mental",
+                        "misfortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5pRHBAOx7kPRJDBR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "43VfyQa8GnQbb1JR",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Team Attack",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Dead teammates coalesce to attack with phantasmal versions of the weapons they used in life. The fortune eater makes a ghostly longsword Strike, ghostly dagger Strike, and ghostly longbow Strike in any order. Each must target a different creature. Their multiple attack penalty doesn't increase until after all the attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "vxPqbqu0444ekUR7",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ghostly Longsword",
-            "sort": 100000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -56,7 +270,7 @@
             "_id": "tODukcahVjECiTcK",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ghostly Light Mace",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -107,7 +321,7 @@
             "_id": "SrTNivRRl7pbrWZN",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ghostly Longbow",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -153,220 +367,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "LoLS2Gw8HzHFPWld",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Languages",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The Fortune Eater speaks languages spoken by the adventurers (typically Common, Dwarven, Elven, and Goblin).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fvVvVEF0pK4ATbmC",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Luck Osmosis",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature affected by the fortune eater's unluck aura has just rolled two d20s for a check and taken the lower result</p>\n<hr />\n<p><strong>Effect</strong> The fortune-eater stores the higher of the two numbers rolled and uses that number in place of their next d20 roll; this is a fortune effect. They can have only one number stored at a time.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FTFBPXIVH7AJW2HL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.unR8VVR4yyRnsmnB"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>Offering the fortune eater a chance to be instrumental in completing a heroic deed releases their component spirits to move on to the afterlife.</p>\n<hr />\n<p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "ghost-rejuvenation",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oVMhwSHesHUR8PLW",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unluck Aura",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. A creature entering the area must attempt a @Check[will|dc:23] save, rolling the save twice and using the worse result. On a successful save, the creature is temporarily immune to fortune eater unluck auras for 24 hours. On a failure, the creature must roll twice and use the worse result on all checks as long as it is within the aura.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Unluck Aura]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 20,
-                        "slug": "unluck-aura",
-                        "traits": [
-                            "divine",
-                            "mental",
-                            "misfortune"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "mental",
-                        "misfortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5pRHBAOx7kPRJDBR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "43VfyQa8GnQbb1JR",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Team Attack",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Dead teammates coalesce to attack with phantasmal versions of the weapons they used in life. The fortune eater makes a ghostly longsword Strike, ghostly dagger Strike, and ghostly longbow Strike in any order. Each must target a different creature. Their multiple attack penalty doesn't increase until after all the attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Fortune Eater",

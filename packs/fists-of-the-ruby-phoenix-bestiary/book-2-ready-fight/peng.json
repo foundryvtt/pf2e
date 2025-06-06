@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4doYTauqOzpdMTt7",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Primal Spells",
+            "_id": "qeAA0MrubbWA2ybq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Calm Weather Aura",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>1 mile. The ambient weather around a peng is always lightly cloudy with a pleasant breeze, and the temperature is pleasantly warm for the season. A creature that attempts to alter the weather within this aura (such as with a control weather ritual or localized effect like gust of wind) must succeed at a @Check[will|dc:33] save; otherwise the effect is disrupted. The peng can activate or deactivate this aura as a single action (this action has the concentrate trait).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,18 +25,228 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 31,
-                    "mod": 0,
-                    "value": 23
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "air",
+                        "aura",
+                        "primal"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "ibrs1SfHXiSzP0TG",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Heaven's View",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Clouds don't impair a peng's vision.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pB40Arkv2E9RNW8f",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Windslice",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Pengs can move in any wind with easy grace. A peng ignores difficult terrain caused by wind and doesn't need to Maneuver in Flight in high winds.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aM2dAbsj3WL2w3SB",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Cloud Cover",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The peng exhales a thick cloud and envelops themself in the mist. The peng gains @UUID[Compendium.pf2e.other-effects.Item.Effect: Cover]{Cover} until the end of their next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "air",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HNDwQNd55Yh0zWou",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flap Wings",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The peng beats its wings to create a mighty burst of frosty air and push away foes. Each creature within 10 feet of the peng takes @Damage[3d6[bludgeoning]] damage and @Damage[3d6[cold]] damage (@Check[reflex|dc:32|basic] save). Creatures that fail their save are pushed away 10 feet; creatures that critically fail are pushed away 20 feet and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The peng can't Flap Wings again for [[/gmr 1d4 #Recharge Flap Wings]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FTCnEaypJuglhT6O",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Beak",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "6k1tou9vky6xu3sqj60m": {
+                        "damage": "3d8+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hXMjRBT7StmhwWNg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Talon",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "tjog0p17fysurq6qkfwe": {
+                        "damage": "3d6+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "V15shXgzjIdEsFDa",
@@ -47,7 +255,7 @@
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Cone of Cold",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -134,7 +342,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
             "name": "Wall of Wind (At Will)",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -196,7 +404,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind (At Will)",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "line",
@@ -260,235 +468,22 @@
             "type": "spell"
         },
         {
-            "_id": "FTCnEaypJuglhT6O",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Beak",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "6k1tou9vky6xu3sqj60m": {
-                        "damage": "3d8+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "hXMjRBT7StmhwWNg",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Talon",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "tjog0p17fysurq6qkfwe": {
-                        "damage": "3d6+10",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "qeAA0MrubbWA2ybq",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Calm Weather Aura",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>1 mile. The ambient weather around a peng is always lightly cloudy with a pleasant breeze, and the temperature is pleasantly warm for the season. A creature that attempts to alter the weather within this aura (such as with a control weather ritual or localized effect like gust of wind) must succeed at a @Check[will|dc:33] save; otherwise the effect is disrupted. The peng can activate or deactivate this aura as a single action (this action has the concentrate trait).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "air",
-                        "aura",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ibrs1SfHXiSzP0TG",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Heaven's View",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Clouds don't impair a peng's vision.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pB40Arkv2E9RNW8f",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Windslice",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Pengs can move in any wind with easy grace. A peng ignores difficult terrain caused by wind and doesn't need to Maneuver in Flight in high winds.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aM2dAbsj3WL2w3SB",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Cloud Cover",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The peng exhales a thick cloud and envelops themself in the mist. The peng gains @UUID[Compendium.pf2e.other-effects.Item.Effect: Cover]{Cover} until the end of their next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "air",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HNDwQNd55Yh0zWou",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Flap Wings",
+            "_id": "4doYTauqOzpdMTt7",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Primal Spells",
             "sort": 1100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The peng beats its wings to create a mighty burst of frosty air and push away foes. Each creature within 10 feet of the peng takes @Damage[3d6[bludgeoning]] damage and @Damage[3d6[cold]] damage (@Check[reflex|dc:32|basic] save). Creatures that fail their save are pushed away 10 feet; creatures that critically fail are pushed away 20 feet and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The peng can't Flap Wings again for [[/gmr 1d4 #Recharge Flap Wings]]{1d4 rounds}.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -496,13 +491,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 31,
+                    "mod": 0,
+                    "value": 23
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Peng",

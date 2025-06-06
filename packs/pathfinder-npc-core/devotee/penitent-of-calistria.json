@@ -4,182 +4,80 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "CoHDk1SkUNJubpif",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
-            },
-            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
-            "name": "Dagger",
+            "_id": "jbuLsvWF1rCKUZ9s",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Agonizing Drive",
             "sort": 100000,
             "system": {
-                "baseItem": "dagger",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d4"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "knife",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
+                    "value": "<p>The penitent ignores the penalty to attack rolls from being @UUID[Compendium.pf2e.conditionitems.Item.Frightened] and gains a status bonus to damage rolls equal to their frightened value.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "dagger",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "selector": "attack",
+                        "slug": "frightened",
+                        "suppress": true,
+                        "value": 0
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "damage",
+                        "type": "status",
+                        "value": "@actor.conditions.frightened.badge.value"
+                    }
+                ],
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "usage": {
-                    "canBeAmmo": false,
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "SlvQypCLjAVMqHb3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.f1gwoTkf3Nn0v3PN"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/whip.webp",
-            "name": "Whip",
+            "_id": "mcaFQLCGYQ4uikPg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Repentant Defiance",
             "sort": 200000,
             "system": {
-                "baseItem": "whip",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": 2
                 },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d4"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This long strand of thick leather, often braided, delivers a painful but nonlethal slash at a distance, usually accompanied by a distinctive cracking sound.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "group": "flail",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
+                    "value": "<p>The penitent Strikes, then increases their own @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value by 2 and deals @Damage[3[slashing]] damage to themselves, bypassing resistance. The penitent then gains resistance 3 to physical damage until the start of their next turn.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
+                "selfEffect": {
+                    "name": "Effect: Repentant Defiance",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Repentant Defiance"
                 },
-                "size": "med",
-                "slug": "whip",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disarm",
-                        "finesse",
-                        "nonlethal",
-                        "reach",
-                        "trip"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
             "_id": "TvjKZbbovXlKSZ7F",
@@ -316,6 +214,32 @@
             "type": "equipment"
         },
         {
+            "_id": "DJoBKghTLDRpqABA",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Calistria Lore",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 6
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
             "_id": "mRm4pp1jOLiFsv2f",
             "flags": {
                 "pf2e": {
@@ -324,7 +248,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Whip",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -368,7 +292,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -410,7 +334,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -448,7 +372,7 @@
             "_id": "YYbxGAEUY95REpQF",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -483,106 +407,182 @@
             "type": "melee"
         },
         {
-            "_id": "jbuLsvWF1rCKUZ9s",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Agonizing Drive",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The penitent ignores the penalty to attack rolls from being @UUID[Compendium.pf2e.conditionitems.Item.Frightened] and gains a status bonus to damage rolls equal to their frightened value.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "AdjustModifier",
-                        "selector": "attack",
-                        "slug": "frightened",
-                        "suppress": true,
-                        "value": 0
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "selector": "damage",
-                        "type": "status",
-                        "value": "@actor.conditions.frightened.badge.value"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
+            "_id": "CoHDk1SkUNJubpif",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
-            "type": "action"
-        },
-        {
-            "_id": "mcaFQLCGYQ4uikPg",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Repentant Defiance",
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
+            "name": "Dagger",
             "sort": 1000000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The penitent Strikes, then increases their own @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value by 2 and deals @Damage[3[slashing]] damage to themselves, bypassing resistance. The penitent then gains resistance 3 to physical damage until the start of their next turn.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Repentant Defiance",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Repentant Defiance"
-                },
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DJoBKghTLDRpqABA",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Calistria Lore",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
+                "baseItem": "dagger",
+                "bonus": {
                     "value": 0
                 },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {}
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "dagger",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
             },
-            "type": "lore"
+            "type": "weapon"
+        },
+        {
+            "_id": "SlvQypCLjAVMqHb3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.f1gwoTkf3Nn0v3PN"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/whip.webp",
+            "name": "Whip",
+            "sort": 1100000,
+            "system": {
+                "baseItem": "whip",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This long strand of thick leather, often braided, delivers a painful but nonlethal slash at a distance, usually accompanied by a distinctive cracking sound.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "flail",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "whip",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "nonlethal",
+                        "reach",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         }
     ],
     "name": "Penitent of Calistria",

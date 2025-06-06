@@ -4,10 +4,243 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "EoPnAhoSpqgOXqgu",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cold Adaptation",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The arabuk reduces the effects it suffers from cold environments by one step.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CIlpwcNVlRkSNhWx",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Snow Vision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Snow doesn't impair an arabuk's vision; it ignores concealment from snowfall.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BnV5C1pWHXYbRm3g",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Deafening Echo",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On a critical hit with an antler reverberation Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "antler-reverberation-damage",
+                        "text": "On a critical hit with an antler reverberation Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute.",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oqWh2XGsZhrhNY89",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dominance Display",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The arabuk postures and roars. All non-arabuk creatures within @Template[emanation|distance:30]{30 feet} must attempt a @Check[will|dc:20] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to this arabuk's Dominance Display for 24 hours.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d8[sonic]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(2d8+9)[sonic]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(2d8+9)[sonic]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5cf5c4QvVxAQ2DpC",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Pounce",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The arabuk Strides and makes a Strike at the end of that movement. If the arabuk began this action @UUID[Compendium.pf2e.conditionitems.Item.Hidden], it remains hidden until after this ability's Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IjVhdoG1O0Tobs4K",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reverb",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The arabuk hits a creature with an antler Strike</p>\n<hr />\n<p><strong>Effect</strong> The arabuk snarls, causing its antlers to reverberate and dealing an additional @Damage[1d6[sonic]] damage to the creature struck. This is in addition to the normal sonic damage from the antler Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pEBPYHWxT2jukxE7",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Snow Stride",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The arabuk ignores difficult terrain, greater difficult terrain, and uneven ground from non-magical ice and snow.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "c1Rij1fPfXpONW0O",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -50,7 +283,7 @@
             "_id": "OaRwW8sQyr4mOJjK",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Antler",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -95,7 +328,7 @@
             "_id": "fQq5clN4JHONv4jv",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Antler Reverberation",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "attack": {
                     "value": ""
@@ -137,239 +370,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "EoPnAhoSpqgOXqgu",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cold Adaptation",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The arabuk reduces the effects it suffers from cold environments by one step.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CIlpwcNVlRkSNhWx",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Snow Vision",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Snow doesn't impair an arabuk's vision; it ignores concealment from snowfall.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BnV5C1pWHXYbRm3g",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Deafening Echo",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>On a critical hit with an antler reverberation Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "antler-reverberation-damage",
-                        "text": "On a critical hit with an antler reverberation Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute.",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oqWh2XGsZhrhNY89",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dominance Display",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The arabuk postures and roars. All non-arabuk creatures within @Template[emanation|distance:30]{30 feet} must attempt a @Check[will|dc:20] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to this arabuk's Dominance Display for 24 hours.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d8[sonic]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(2d8+9)[sonic]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(2d8+9)[sonic]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5cf5c4QvVxAQ2DpC",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Pounce",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The arabuk Strides and makes a Strike at the end of that movement. If the arabuk began this action @UUID[Compendium.pf2e.conditionitems.Item.Hidden], it remains hidden until after this ability's Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IjVhdoG1O0Tobs4K",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reverb",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The arabuk hits a creature with an antler Strike</p>\n<hr />\n<p><strong>Effect</strong> The arabuk snarls, causing its antlers to reverberate and dealing an additional @Damage[1d6[sonic]] damage to the creature struck. This is in addition to the normal sonic damage from the antler Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pEBPYHWxT2jukxE7",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Snow Stride",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The arabuk ignores difficult terrain, greater difficult terrain, and uneven ground from non-magical ice and snow.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Arabuk",

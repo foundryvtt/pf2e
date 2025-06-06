@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4DxK55znXhBy05Je",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "YzVNI5zauuNyLldf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sunset Dependent",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>A hesperid is mystically bonded to a single remote location with a good view of the sunset-usually an island, coastal cliff, or valley. If they aren't at that location and able to see the sky at sunset on any given day, they become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, increasing the value by 1 for each missed sunset and reducing by 1 only when they see the sunset.</p>\n<p>A hesperid can perform a 24-hour ritual to bond to a new location.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,20 +24,147 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "LH24pBPDHDAEH6TV",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Create Golden Apple",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>While the hesperid is within their bonded location, they can spin golden light around an object they're holding of up to 20 cubic feet in volume and up to 80 Bulk. Doing so condenses the object into a magic apple made of golden light with light Bulk.</p>\n<p>The golden apple reverts back to its original shape after a full day away from the hesperid's bonded location, or when the hesperid spends a single action (which has the concentrate trait) to end the effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R1JY8Uw7yAyXK7JQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sunset Ribbon",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d10+6",
+                        "damageType": "slashing"
+                    },
+                    "c18tjplaeao8ozr1g8p5": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    },
+                    "2ltb0yg7gakvl6aeiait": {
+                        "damage": "1d6",
+                        "damageType": "vitality"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hww0iSmzvgv1CuVE",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sunset Ray",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d12+6",
+                        "damageType": "fire"
+                    },
+                    "u5pe5ykvafssyihotpql": {
+                        "damage": "1d6",
+                        "damageType": "vitality"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-increment-60"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "UIb5ayCvxRLBaY2E",
@@ -48,7 +173,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -146,7 +271,7 @@
             },
             "img": "systems/pf2e/icons/spells/faerie-fire.webp",
             "name": "Faerie Fire",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -212,7 +337,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -275,7 +400,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -472,7 +597,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -539,7 +664,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -597,152 +722,22 @@
             "type": "spell"
         },
         {
-            "_id": "R1JY8Uw7yAyXK7JQ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sunset Ribbon",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d10+6",
-                        "damageType": "slashing"
-                    },
-                    "c18tjplaeao8ozr1g8p5": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "2ltb0yg7gakvl6aeiait": {
-                        "damage": "1d6",
-                        "damageType": "vitality"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "hww0iSmzvgv1CuVE",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sunset Ray",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d12+6",
-                        "damageType": "fire"
-                    },
-                    "u5pe5ykvafssyihotpql": {
-                        "damage": "1d6",
-                        "damageType": "vitality"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-increment-60"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "YzVNI5zauuNyLldf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sunset Dependent",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A hesperid is mystically bonded to a single remote location with a good view of the sunset-usually an island, coastal cliff, or valley. If they aren't at that location and able to see the sky at sunset on any given day, they become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, increasing the value by 1 for each missed sunset and reducing by 1 only when they see the sunset.</p>\n<p>A hesperid can perform a 24-hour ritual to bond to a new location.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LH24pBPDHDAEH6TV",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Create Golden Apple",
+            "_id": "4DxK55znXhBy05Je",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>While the hesperid is within their bonded location, they can spin golden light around an object they're holding of up to 20 cubic feet in volume and up to 80 Bulk. Doing so condenses the object into a magic apple made of golden light with light Bulk.</p>\n<p>The golden apple reverts back to its original shape after a full day away from the hesperid's bonded location, or when the hesperid spends a single action (which has the concentrate trait) to end the effect.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -750,15 +745,20 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
+                "spelldc": {
+                    "dc": 28,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Hesperid",

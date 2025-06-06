@@ -4,10 +4,171 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "jEONedyoxPV0Uymr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.CG9ZpebqEUsftFgn"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense 60 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The monster senses motion through vibrations and air movement.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Rc6ZoOmMG3mlyrrV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Spore Explosion",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When the reaper skull puffball dies, it explodes, dealing @Damage[8d8[poison]] damage to each creature in a @Template[emanation|distance:20] (@Check[fortitude|dc:28|basic] save).</p>\n<p>Creatures that fail their save are exposed to skull rot.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zKQUDZzcDDJHuOiB",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Paralysis",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature hit by the puffball's tendril must succeed a @Check[fortitude|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]. The paralyzed creature can attempt a new save at the end of each of its turns.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "paralysis",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7hyO9Fv7Tl6MS4L3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Skull Rot",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d8[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d8[poison]] damage plus enfeebled 2 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[3d8[poison]] damage plus enfeebled 2 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} ([[/gmr 1d4 #Duration Skull Rot]]{1d4 rounds})</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WA3qxd5nl6en4BPF",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Spore Cloud",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The puffball releases a @Template[cone|distance:30] of spores that deals @Damage[4d8[poison]] damage (@Check[fortitude|dc:28|basic] save) to creatures in the cone.</p>\n<p>Creatures that fail this save are also exposed to skull rot.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "fGmd67WxTzSxDIpe",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tendril",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -49,167 +210,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "jEONedyoxPV0Uymr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.CG9ZpebqEUsftFgn"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Motion Sense 60 feet",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The monster senses motion through vibrations and air movement.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Rc6ZoOmMG3mlyrrV",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Spore Explosion",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When the reaper skull puffball dies, it explodes, dealing @Damage[8d8[poison]] damage to each creature in a @Template[emanation|distance:20] (@Check[fortitude|dc:28|basic] save).</p>\n<p>Creatures that fail their save are exposed to skull rot.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zKQUDZzcDDJHuOiB",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Paralysis",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature hit by the puffball's tendril must succeed a @Check[fortitude|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]. The paralyzed creature can attempt a new save at the end of each of its turns.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "paralysis",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7hyO9Fv7Tl6MS4L3",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Skull Rot",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d8[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d8[poison]] damage plus enfeebled 2 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[3d8[poison]] damage plus enfeebled 2 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} ([[/gmr 1d4 #Duration Skull Rot]]{1d4 rounds})</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WA3qxd5nl6en4BPF",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Spore Cloud",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The puffball releases a @Template[cone|distance:30] of spores that deals @Damage[4d8[poison]] damage (@Check[fortitude|dc:28|basic] save) to creatures in the cone.</p>\n<p>Creatures that fail this save are also exposed to skull rot.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Reaper Skull Puffball",

@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Ato9TlsXs5ZZrvM9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "AyJLn3Nhlv3NipOn",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spell Sight",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>A zoog's eyes shed bright light in a @Template[emanation|distance:15] (and dim light in the next 15 feet). Any magic effect in this area glows faintly. A zoog can quell or renew this light as a free action on its turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,21 +24,73 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "qtp69uvxQxclU9gE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Gnash and Slash",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the swarm's space takes @Damage[2d6[piercing],2d6[slashing]]{2d6 piercing damage, 2d6 slashing damage}, and @Damage[1d6[persistent,bleed]] damage (@Check[reflex|dc:26|basic] save). A successful save negates the bleed damage. The slashing damage can damage incorporeal creatures, as if it were enhanced by a ghost touch property rune.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wg7JDTgWdHrE6TrJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Overwhelming Clutches",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The zoog swarm attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a Medium or smaller creature in its space. If the swarm Grabs or Restrains the creature, the zoog swarm can then Stride twice, dragging the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] creature along with them as they move.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack",
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
         },
         {
             "_id": "kNZoHpqisoRqFTy6",
@@ -49,7 +99,7 @@
             },
             "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
             "name": "Speak with Animals (At Will)",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -108,7 +158,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -169,78 +219,22 @@
             "type": "spell"
         },
         {
-            "_id": "AyJLn3Nhlv3NipOn",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spell Sight",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A zoog's eyes shed bright light in a @Template[emanation|distance:15] (and dim light in the next 15 feet). Any magic effect in this area glows faintly. A zoog can quell or renew this light as a free action on its turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qtp69uvxQxclU9gE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Gnash and Slash",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Each enemy in the swarm's space takes @Damage[2d6[piercing],2d6[slashing]]{2d6 piercing damage, 2d6 slashing damage}, and @Damage[1d6[persistent,bleed]] damage (@Check[reflex|dc:26|basic] save). A successful save negates the bleed damage. The slashing damage can damage incorporeal creatures, as if it were enhanced by a ghost touch property rune.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wg7JDTgWdHrE6TrJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Overwhelming Clutches",
+            "_id": "Ato9TlsXs5ZZrvM9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 600000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The zoog swarm attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a Medium or smaller creature in its space. If the swarm Grabs or Restrains the creature, the zoog swarm can then Stride twice, dragging the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] creature along with them as they move.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -248,15 +242,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "attack",
-                        "move"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 17,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Zoog Swarm",

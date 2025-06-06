@@ -4,10 +4,305 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "UZiC0hbYaPytP9Ds",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Integrated Weapon",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A juggernaut's armor includes one integrated melee weapon, such as a diamond-tipped rotary saw blade, massive pneumatic drill, or heavy spiked gauntlet. The specifics don't change the damage dealt by its Strikes, but determines whether it deals bludgeoning, piercing, or slashing damage. A juggernaut with tools and a workshop can spend 2 hours to swap their armor's integrated weapon.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "integrated-weapon",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "integrated-weapon-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.integratedWeapon}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8qFdBx31AnozeOIo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Power Source",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Juggernaut armor requires a power source built into the armor—such as a steam boiler, Stasian coil, or alchemical reservoir. This determines a damage type—cold, electricity, fire, or poison—for certain abilities.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "power-source",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitPoison",
+                                "value": "poison"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.powerSource",
+                        "value": "{item|flags.pf2e.rulesSelections.powerSource}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dwAUiDRwxVeb32EQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Galvanized Plating",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The juggernaut has resistance 10 to the damage type of the armor's power source.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "type": "{actor|flags.pf2e.powerSource}",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "40i1dSafzK9Okkiy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Self-Destruct",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The juggernaut is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> The juggernaut collapses and their armor emits a steady ticking sound. At the beginning of what would have been the juggernaut's next turn, the armor's power source explodes, destroying it completely and dealing @Damage[10d6[@actor.flags.pf2e.powerSource]|options:area-damage] damage in a @Template[type:emanation|distance:30] with a @Check[reflex|dc:33|basic|options:area-effect] save. The explosion deals the damage type of the armor's power source. An adjacent creature can cancel the self-destruct sequence by succeeding at a DC 33 Thievery check to [[/act disable-device dc=33]]{Disable a Device}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8vRQFNB6ZuJQuPsr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Energy Projector",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A juggernaut carries a powerful cannon-like projectile weapon that requires two hands to wield and deals @Damage[14d6[@actor.flags.pf2e.powerSource]|options:area-damage] damage to all creatures in its area with a DC 31 basic save; the damage type, area, and save are based on the armor's power source, as listed below. Once activated, Energy Projector can't be used again for [[/gmr 1d4 #Recharge Energy Projector]]{1d4 rounds}.</p><ul><li><strong>Cold</strong> @Template[type:cone|distance:30] of cold (@Check[reflex|basic|dc:31|options:area-effect|traits:cold])</li><li><strong>Electricity</strong> @Template[type:line|distance:60] of electricity (@Check[reflex|basic|dc:31|options:area-effect|traits:electricity])</li><li><strong>Fire</strong> @Template[type:cone|distance:30] of fire (@Check[reflex|basic|dc:31|options:area-effect|traits:fire])</li><li><strong>Poison</strong> @Template[type:cone|distance:30] of poison gas (@Check[fortitude|basic|dc:31|options:area-effect|traits:poison])</li></ul>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "alchemical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YQs9nKDc0BMAA6m1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Jump Jets",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The juggernaut gains a Fly speed of 15 feet until the end of their current turn. If the juggernaut isn't on solid ground when they lose their fly Speed, they fall. After the effect ends, the juggernaut can't use Jump Jets again for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "jump-jets",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "jump-jets"
+                        ],
+                        "selector": "fly",
+                        "value": 15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "alchemical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uzqaluUrz4rDIwR6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Medium or smaller, plated fist, @Check[reflex|dc:33|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "trample",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "ZIbn9RSo0rYpaXYB",
             "img": "systems/pf2e/icons/default-icons/armor.svg",
             "name": "Juggernaut Armor",
-            "sort": 100000,
+            "sort": 800000,
             "system": {
                 "acBonus": 0,
                 "baseItem": null,
@@ -73,7 +368,7 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/artisan-tools.webp",
             "name": "Artisan's Toolkit (Blacksmithing)",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -130,7 +425,7 @@
             },
             "img": "icons/tools/smithing/anvil.webp",
             "name": "Repair Toolkit",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -181,10 +476,36 @@
             "type": "equipment"
         },
         {
+            "_id": "5Wv2dutVLf2lUNX5",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Engineering Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
             "_id": "je0CzQdPmOide7z9",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Integrated Weapon",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -218,7 +539,7 @@
             "_id": "wdKi5VZFwtnhqLzf",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Plated Fist",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -247,327 +568,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "UZiC0hbYaPytP9Ds",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Integrated Weapon",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A juggernaut's armor includes one integrated melee weapon, such as a diamond-tipped rotary saw blade, massive pneumatic drill, or heavy spiked gauntlet. The specifics don't change the damage dealt by its Strikes, but determines whether it deals bludgeoning, piercing, or slashing damage. A juggernaut with tools and a workshop can spend 2 hours to swap their armor's integrated weapon.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "option": "integrated-weapon",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitBludgeoning",
-                                "value": "bludgeoning"
-                            },
-                            {
-                                "label": "PF2E.TraitPiercing",
-                                "value": "piercing"
-                            },
-                            {
-                                "label": "PF2E.TraitSlashing",
-                                "value": "slashing"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "override",
-                        "property": "damage-type",
-                        "selectors": [
-                            "integrated-weapon-damage"
-                        ],
-                        "value": "{item|flags.pf2e.rulesSelections.integratedWeapon}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8qFdBx31AnozeOIo",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Power Source",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Juggernaut armor requires a power source built into the armor—such as a steam boiler, Stasian coil, or alchemical reservoir. This determines a damage type—cold, electricity, fire, or poison—for certain abilities.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "option": "power-source",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitCold",
-                                "value": "cold"
-                            },
-                            {
-                                "label": "PF2E.TraitElectricity",
-                                "value": "electricity"
-                            },
-                            {
-                                "label": "PF2E.TraitFire",
-                                "value": "fire"
-                            },
-                            {
-                                "label": "PF2E.TraitPoison",
-                                "value": "poison"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.powerSource",
-                        "value": "{item|flags.pf2e.rulesSelections.powerSource}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dwAUiDRwxVeb32EQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Galvanized Plating",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The juggernaut has resistance 10 to the damage type of the armor's power source.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Resistance",
-                        "type": "{actor|flags.pf2e.powerSource}",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "40i1dSafzK9Okkiy",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Self-Destruct",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The juggernaut is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> The juggernaut collapses and their armor emits a steady ticking sound. At the beginning of what would have been the juggernaut's next turn, the armor's power source explodes, destroying it completely and dealing @Damage[10d6[@actor.flags.pf2e.powerSource]|options:area-damage] damage in a @Template[type:emanation|distance:30] with a @Check[reflex|dc:33|basic|options:area-effect] save. The explosion deals the damage type of the armor's power source. An adjacent creature can cancel the self-destruct sequence by succeeding at a DC 33 Thievery check to [[/act disable-device dc=33]]{Disable a Device}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8vRQFNB6ZuJQuPsr",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Energy Projector",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A juggernaut carries a powerful cannon-like projectile weapon that requires two hands to wield and deals @Damage[14d6[@actor.flags.pf2e.powerSource]|options:area-damage] damage to all creatures in its area with a DC 31 basic save; the damage type, area, and save are based on the armor's power source, as listed below. Once activated, Energy Projector can't be used again for [[/gmr 1d4 #Recharge Energy Projector]]{1d4 rounds}.</p><ul><li><strong>Cold</strong> @Template[type:cone|distance:30] of cold (@Check[reflex|basic|dc:31|options:area-effect|traits:cold])</li><li><strong>Electricity</strong> @Template[type:line|distance:60] of electricity (@Check[reflex|basic|dc:31|options:area-effect|traits:electricity])</li><li><strong>Fire</strong> @Template[type:cone|distance:30] of fire (@Check[reflex|basic|dc:31|options:area-effect|traits:fire])</li><li><strong>Poison</strong> @Template[type:cone|distance:30] of poison gas (@Check[fortitude|basic|dc:31|options:area-effect|traits:poison])</li></ul>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "alchemical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YQs9nKDc0BMAA6m1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Jump Jets",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The juggernaut gains a Fly speed of 15 feet until the end of their current turn. If the juggernaut isn't on solid ground when they lose their fly Speed, they fall. After the effect ends, the juggernaut can't use Jump Jets again for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "jump-jets",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "BaseSpeed",
-                        "predicate": [
-                            "jump-jets"
-                        ],
-                        "selector": "fly",
-                        "value": 15
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "alchemical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uzqaluUrz4rDIwR6",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Trample",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Medium or smaller, plated fist, @Check[reflex|dc:33|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "trample",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5Wv2dutVLf2lUNX5",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Engineering Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Juggernaut",

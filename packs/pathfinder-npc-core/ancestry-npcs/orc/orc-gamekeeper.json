@@ -4,13 +4,364 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "Vyjc348MEF8eDk6S",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Insistent Command",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the gamekeeper rolls a success to [[/act command-an-animal]], they get a critical success instead; if they roll a critical failure, they get a failure instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better",
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:command-an-animal"
+                        ],
+                        "selector": "skill-check"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "z14fU7mise4W1BMI",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Play Chicken",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An adjacent enemy misses the gamekeeper with melee attack</p><hr /><p><strong>Effect</strong> The gamekeeper attempts to capture the flailing assailant. They attempt an Athletics check to [[/act grapple]] the attacker.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "K8GiCfuGTZ5WMvO2",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Animal Tandem",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The orc gamekeeper makes a Strike against a creature adjacent to one of the gamekeeper's animal allies. If it hits, the animal ally deals one die of damage to the target, using the highest damage die among its unarmed attacks.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SjtJ3wXZVvYXYds9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Km4lSOsyrip5q6iD"
+            },
+            "img": "icons/commodities/wood/kindling-sticks-yellow.webp",
+            "name": "Hampering Snare",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "snare",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>You arrange brambles, wires, sticky goo, or other materials to interfere with a creature's movement. The square with this snare, as well as three adjacent squares (to form a @Template[square|distance:10]{10-foot-by-10-foot area}), become difficult terrain when the first creature enters the snare's square. The difficult terrain affects the creature's movement right away, including its movement into the triggering square, and it lasts for [[/gmr 1d4 #rounds]]{1d4 rounds} after the snare is triggered. A creature can use an Interact action to clear the difficult terrain out of a single square early.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "hampering-snare",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "mechanical",
+                        "snare",
+                        "trap"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "ldNKsos3SVMPz91S",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.T8EopYZLT137CsdW"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/net.webp",
+            "name": "Net",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You can use a net either on its own or attached to a rope. When attached to a rope, you can use the net to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a Medium or smaller creature up to 10 feet away (instead of only adjacent creatures). You can continue to Grapple to keep your hold on the target so long as the target remains within 10 feet and you continue to hold the net. The grabbed creature gains a +2 circumstance bonus to Escape unless you are adjacent to them, and it can attempt a @Check[athletics|dc:16|traits:action:force-open] check to Force Open the net entirely. Once the target is no longer grabbed, the net is unwieldy until refolded with an Interact action with the concentrate trait that requires two hands; if used without being refolded, Grapple checks made with the net take a -2 penalty.</p>\n<p>When the net is unattached, you can attempt a ranged attack roll using your simple weapon proficiency against a Medium or smaller creature within 20 feet. On a hit, the target is off-guard and takes a -10- foot circumstance penalty to its Speeds until it Escapes, and on a critical hit, it's also immobilized until it Escapes. The Escape DC is 16. A creature adjacent to the target can Interact to remove the net.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "net",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "CCtnKHddiiQltVkn",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Cuj8MGsurX4WQHSk"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bola",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "vxS26mYgJGoUVw5M": {
+                        "damage": "1d6+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "bola",
+                "traits": {
+                    "value": [
+                        "nonlethal",
+                        "ranged-trip",
+                        "thrown-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FH2P4Ub7DxWDqCTV",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "fVL8DJRyXLCPmvJy"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Whip",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "sY9CkJQMaAHSgcuO": {
+                        "damage": "1d4+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "whip",
+                "traits": {
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "nonlethal",
+                        "reach",
+                        "trip"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "NbXUEPqawUmoiCBJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "iJ3LCcVEclPWI3RF": {
+                        "damage": "1d4+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "Cuj8MGsurX4WQHSk",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YUzPv0i8d8p2J9yx"
             },
             "img": "icons/weapons/thrown/bolas-stone.webp",
             "name": "Bola",
-            "sort": 100000,
+            "sort": 900000,
             "system": {
                 "baseItem": "bola",
                 "bonus": {
@@ -98,7 +449,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/whip.webp",
             "name": "Whip",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "baseItem": "whip",
                 "bonus": {
@@ -179,357 +530,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "ldNKsos3SVMPz91S",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.T8EopYZLT137CsdW"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/net.webp",
-            "name": "Net",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You can use a net either on its own or attached to a rope. When attached to a rope, you can use the net to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a Medium or smaller creature up to 10 feet away (instead of only adjacent creatures). You can continue to Grapple to keep your hold on the target so long as the target remains within 10 feet and you continue to hold the net. The grabbed creature gains a +2 circumstance bonus to Escape unless you are adjacent to them, and it can attempt a @Check[athletics|dc:16|traits:action:force-open] check to Force Open the net entirely. Once the target is no longer grabbed, the net is unwieldy until refolded with an Interact action with the concentrate trait that requires two hands; if used without being refolded, Grapple checks made with the net take a -2 penalty.</p>\n<p>When the net is unattached, you can attempt a ranged attack roll using your simple weapon proficiency against a Medium or smaller creature within 20 feet. On a hit, the target is off-guard and takes a -10- foot circumstance penalty to its Speeds until it Escapes, and on a critical hit, it's also immobilized until it Escapes. The Escape DC is 16. A creature adjacent to the target can Interact to remove the net.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "net",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "SjtJ3wXZVvYXYds9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Km4lSOsyrip5q6iD"
-            },
-            "img": "icons/commodities/wood/kindling-sticks-yellow.webp",
-            "name": "Hampering Snare",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "snare",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>You arrange brambles, wires, sticky goo, or other materials to interfere with a creature's movement. The square with this snare, as well as three adjacent squares (to form a @Template[square|distance:10]{10-foot-by-10-foot area}), become difficult terrain when the first creature enters the snare's square. The difficult terrain affects the creature's movement right away, including its movement into the triggering square, and it lasts for [[/gmr 1d4 #rounds]]{1d4 rounds} after the snare is triggered. A creature can use an Interact action to clear the difficult terrain out of a single square early.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "hampering-snare",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "mechanical",
-                        "snare",
-                        "trap"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "CCtnKHddiiQltVkn",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Cuj8MGsurX4WQHSk"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bola",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "vxS26mYgJGoUVw5M": {
-                        "damage": "1d6+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "bola",
-                "traits": {
-                    "value": [
-                        "nonlethal",
-                        "ranged-trip",
-                        "thrown-20"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "FH2P4Ub7DxWDqCTV",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "fVL8DJRyXLCPmvJy"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Whip",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "sY9CkJQMaAHSgcuO": {
-                        "damage": "1d4+9",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "whip",
-                "traits": {
-                    "value": [
-                        "disarm",
-                        "finesse",
-                        "nonlethal",
-                        "reach",
-                        "trip"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "NbXUEPqawUmoiCBJ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "iJ3LCcVEclPWI3RF": {
-                        "damage": "1d4+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Vyjc348MEF8eDk6S",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Insistent Command",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When the gamekeeper rolls a success to [[/act command-an-animal]], they get a critical success instead; if they roll a critical failure, they get a failure instead.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "criticalFailure": "one-degree-better",
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "action:command-an-animal"
-                        ],
-                        "selector": "skill-check"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "z14fU7mise4W1BMI",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Play Chicken",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent enemy misses the gamekeeper with melee attack</p><hr /><p><strong>Effect</strong> The gamekeeper attempts to capture the flailing assailant. They attempt an Athletics check to [[/act grapple]] the attacker.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "K8GiCfuGTZ5WMvO2",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Animal Tandem",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The orc gamekeeper makes a Strike against a creature adjacent to one of the gamekeeper's animal allies. If it hits, the animal ally deals one die of damage to the target, using the highest damage die among its unarmed attacks.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Orc Gamekeeper",

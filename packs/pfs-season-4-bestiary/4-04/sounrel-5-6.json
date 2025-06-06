@@ -4,75 +4,68 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ZfZvbmxHEG6qZ9qI",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
+            "_id": "IxZJIkZ5XQ9BwO3l",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Accursed Claws",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Sounrel's claws carry her mother's hag magic. When she critically hits with a claw Strike, the target takes an additional @Damage[1d4[persistent,mental]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "value": 2
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "claw-damage"
                     }
-                },
+                ],
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "LklHlzfius4V44Tw",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Focus Spells",
+            "_id": "gNtvj3ZKCCqX2Hlr",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "I8cNcN5SuvHtBByJ": {
+                        "damage": "1d4 + 7",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -80,17 +73,71 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "JbNH2h4enJgj9fLg",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "9CmmwbjTYYVNDFDW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Flintlock Musket",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "DGus5Cy1do8F3joh": {
+                        "damage": "2d6+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concussive",
+                        "fatal-d10",
+                        "magical",
+                        "range-increment-70",
+                        "reload-1"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "IbtWe4Qza1ILVNj0",
@@ -99,7 +146,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -187,7 +234,7 @@
             },
             "img": "icons/magic/unholy/strike-body-explode-disintegrate.webp",
             "name": "Horrific Visage",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -259,7 +306,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -337,7 +384,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -423,7 +470,7 @@
             },
             "img": "systems/pf2e/icons/spells/animated-assault.webp",
             "name": "Animated Assault",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -510,7 +557,7 @@
             },
             "img": "systems/pf2e/icons/spells/blur.webp",
             "name": "Blur",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -573,7 +620,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -641,7 +688,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -702,7 +749,7 @@
             },
             "img": "icons/magic/fire/orb-vortex.webp",
             "name": "Sound Burst",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -789,7 +836,7 @@
             },
             "img": "systems/pf2e/icons/spells/biting-words.webp",
             "name": "Biting Words",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -870,7 +917,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -956,7 +1003,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1043,7 +1090,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1110,7 +1157,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1198,7 +1245,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1272,7 +1319,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1334,7 +1381,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1900000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1458,7 +1505,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1513,13 +1560,102 @@
             "type": "spell"
         },
         {
+            "_id": "ZfZvbmxHEG6qZ9qI",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
+            "sort": 2200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "occult"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "LklHlzfius4V44Tw",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Focus Spells",
+            "sort": 2300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "occult"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "9CmmwbjTYYVNDFDW",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hqMtsTwmOShdAdQW"
             },
             "img": "systems/pf2e/icons/equipment/weapons/flintlock-musket.webp",
             "name": "Flintlock Musket",
-            "sort": 2100000,
+            "sort": 2400000,
             "system": {
                 "baseItem": "flintlock-musket",
                 "bonus": {
@@ -1598,142 +1734,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "gNtvj3ZKCCqX2Hlr",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 2200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "I8cNcN5SuvHtBByJ": {
-                        "damage": "1d4 + 7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "JbNH2h4enJgj9fLg",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "9CmmwbjTYYVNDFDW"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Flintlock Musket",
-            "sort": 2300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "DGus5Cy1do8F3joh": {
-                        "damage": "2d6+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concussive",
-                        "fatal-d10",
-                        "magical",
-                        "range-increment-70",
-                        "reload-1"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "IxZJIkZ5XQ9BwO3l",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Accursed Claws",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Sounrel's claws carry her mother's hag magic. When she critically hits with a claw Strike, the target takes an additional @Damage[1d4[persistent,mental]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "mental",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "selector": "claw-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Sounrel (5-6)",

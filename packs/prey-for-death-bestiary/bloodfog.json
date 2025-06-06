@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "U1QaK9LZeGGN5C7N",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "qL8ejQLdTTmInudT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Misty Form",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>A bloodfog's body is composed of a semisolid red fog similar in consistency to thick foam. This enables a bloodfog to move through spaces as narrow as 1 inch in diameter with no reduction to its Speed. However, a bloodfog can't wear or interact with objects. It also can't enter water or other fluids, and it's treated as Tiny for the purpose of how wind affects it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,21 +24,144 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 35,
-                    "value": 27
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "35ZsQuRkNarzpDaz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sense Blood",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A bloodfog can sense creatures that have blood within 120 feet. It can sense exposed blood within a mile.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kpAUd6w5EIgR0HZj",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blood Siphon",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a bloodfog damages a creature with a misty tendril Strike, the creature must attempt a @Check[fortitude|dc:38] save. If the Strike was a critical hit, the outcome of the creature's save is one degree worse than the result of the saving throw. Any temporary Hit Points the bloodfog gains from blood siphon fade after 1 hour.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, and the bloodfog gains 20 temporary Hit Points.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}. The bloodfog gains 40 temporary Hit Points and takes on an intense red hue until the end of its next turn. During this time, it gains a +2 status bonus to AC and saves and is @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. It can use its extra action only to Strike.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Blood Siphon (Critical Failure)]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hYIXQp9jDfGghAFz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blood Vengeance",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A bloodfog can cast blood vendetta even though it can't actually bleed. In addition to the spell's normal trigger, a bloodfog can cast blood vendetta as a reaction even if the target's piercing, slashing, or persistent bleed damage didn't actually result in damage to the bloodfog itself (either as a result of its resistance blocking the damage or its immunity to bleed coming into effect).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gtSmVl2jGZhqoDCQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Misty Tendril",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "blood-siphon"
+                    ]
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "EdPzCEIbGkmJ73a4": {
+                        "category": "persistent",
+                        "damage": "3d6",
+                        "damageType": "bleed"
+                    },
+                    "dl5uDZYBAgMgkM3r": {
+                        "damage": "5d6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "OCH2yQTMXwAuE34X",
@@ -49,7 +170,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-exsanguination.webp",
             "name": "Vampiric Exsanguination",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -143,7 +264,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Feast",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -234,7 +355,7 @@
             },
             "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
             "name": "Blood Vendetta (At Will)",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -313,65 +434,22 @@
             "type": "spell"
         },
         {
-            "_id": "gtSmVl2jGZhqoDCQ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Misty Tendril",
-            "sort": 500000,
+            "_id": "U1QaK9LZeGGN5C7N",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 900000,
             "system": {
-                "attackEffects": {
-                    "value": [
-                        "blood-siphon"
-                    ]
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "EdPzCEIbGkmJ73a4": {
-                        "category": "persistent",
-                        "damage": "3d6",
-                        "damageType": "bleed"
-                    },
-                    "dl5uDZYBAgMgkM3r": {
-                        "damage": "5d6",
-                        "damageType": "slashing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "reach-15"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "qL8ejQLdTTmInudT",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Misty Form",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A bloodfog's body is composed of a semisolid red fog similar in consistency to thick foam. This enables a bloodfog to move through spaces as narrow as 1 inch in diameter with no reduction to its Speed. However, a bloodfog can't wear or interact with objects. It also can't enter water or other fluids, and it's treated as Tiny for the purpose of how wind affects it.</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -379,99 +457,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 35,
+                    "value": 27
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "35ZsQuRkNarzpDaz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sense Blood",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A bloodfog can sense creatures that have blood within 120 feet. It can sense exposed blood within a mile.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kpAUd6w5EIgR0HZj",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Blood Siphon",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a bloodfog damages a creature with a misty tendril Strike, the creature must attempt a @Check[fortitude|dc:38] save. If the Strike was a critical hit, the outcome of the creature's save is one degree worse than the result of the saving throw. Any temporary Hit Points the bloodfog gains from blood siphon fade after 1 hour.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, and the bloodfog gains 20 temporary Hit Points.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}. The bloodfog gains 40 temporary Hit Points and takes on an intense red hue until the end of its next turn. During this time, it gains a +2 status bonus to AC and saves and is @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. It can use its extra action only to Strike.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Blood Siphon (Critical Failure)]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hYIXQp9jDfGghAFz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Blood Vengeance",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A bloodfog can cast blood vendetta even though it can't actually bleed. In addition to the spell's normal trigger, a bloodfog can cast blood vendetta as a reaction even if the target's piercing, slashing, or persistent bleed damage didn't actually result in damage to the bloodfog itself (either as a result of its resistance blocking the damage or its immunity to bleed coming into effect).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Bloodfog",

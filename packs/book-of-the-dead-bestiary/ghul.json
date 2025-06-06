@@ -3,10 +3,186 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "2aUUvMiYk0FR7Cfr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VJtbJPj39575cPho",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ghul takes on the appearance of a Small or Medium @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Hyena]. This doesn't change its Speed or Strikes. Effects or abilities that detect the presence of undead don't reveal the ghul as an undead while in this form.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wbqipaniohqje45s",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Devour Flesh",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The ghul has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p>\n<hr />\n<p><strong>Effect</strong> The ghul attempts to eat a portion of the grabbed creature's flesh. It makes a jaws Strike against the grabbed creature. On a success, the ghul successfully devours some of the flesh and regains @Damage[3d6[healing]] Hit Points. The grabbed creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} if the jaws Strike was a critical success). The violent consumption requires the ghul to release the creature as it feasts. A ghul can regain Hit Points from consuming the flesh of a given creature only once per hour; it must consume the flesh of a different creature to gain additional Hit Points during this time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bnge6fye2orz7wv1",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Luring Laugh",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The ghul is in its hyena shape</p>\n<hr />\n<p><strong>Effect</strong> The ghul lets out an alluring chitter. Each creature in a @Template[emanation|distance:60] must succeed at a @Check[will|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated], @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], and compelled to move toward the ghul on the creature's turn. The effect lasts until the end of the ghul's next turn, but the ghul can @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustain a Spell} on Luring Laugh. If the ghul attacks, the fascinated condition ends for only the creature that's attacked. On a successful save, a creature is temporarily immune to Luring Laugh for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "woLgXjw2p6sRigIz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "u5fvma01emd3ped8",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -55,7 +231,7 @@
             "_id": "fv0690n3y8ghmvd9",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -98,182 +274,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "2aUUvMiYk0FR7Cfr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VJtbJPj39575cPho",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The ghul takes on the appearance of a Small or Medium @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Hyena]. This doesn't change its Speed or Strikes. Effects or abilities that detect the presence of undead don't reveal the ghul as an undead while in this form.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "polymorph",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wbqipaniohqje45s",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Devour Flesh",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The ghul has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p>\n<hr />\n<p><strong>Effect</strong> The ghul attempts to eat a portion of the grabbed creature's flesh. It makes a jaws Strike against the grabbed creature. On a success, the ghul successfully devours some of the flesh and regains @Damage[3d6[healing]] Hit Points. The grabbed creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} if the jaws Strike was a critical success). The violent consumption requires the ghul to release the creature as it feasts. A ghul can regain Hit Points from consuming the flesh of a given creature only once per hour; it must consume the flesh of a different creature to gain additional Hit Points during this time.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bnge6fye2orz7wv1",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Luring Laugh",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The ghul is in its hyena shape</p>\n<hr />\n<p><strong>Effect</strong> The ghul lets out an alluring chitter. Each creature in a @Template[emanation|distance:60] must succeed at a @Check[will|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated], @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], and compelled to move toward the ghul on the creature's turn. The effect lasts until the end of the ghul's next turn, but the ghul can @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustain a Spell} on Luring Laugh. If the ghul attacks, the fascinated condition ends for only the creature that's attacked. On a successful save, a creature is temporarily immune to Luring Laugh for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "woLgXjw2p6sRigIz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Ghul",

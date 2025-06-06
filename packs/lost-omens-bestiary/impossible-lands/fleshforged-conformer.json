@@ -4,22 +4,63 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "40NDv4xTfgTjOeUn",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "cX6w047KDcTYZxse",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 10 (Deactivated by Cold Iron)",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold-iron"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 10
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ATYdz5E54DuLSoxk",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Conformance",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The conformer contorts and reshapes their body into a desired form. The conformer takes on the specific appearance of any Small, Medium, or Large humanoid or animal that they've observed and whose appearance they remember. This doesn't change the conformer's Speed or their attack and damage bonus with their Strikes, but might change the damage type their Strikes deal.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,20 +68,190 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "XlZ6tISKXPBfkK9U",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Surgical Detachment",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The conformer detaches part of their body to serve them as an autonomous organism. For the next 24 hours, the conformer gains the loyal service of a fleshforged @UUID[Compendium.pf2e.lost-omens-bestiary.Actor.Skinskitter]. As long as they remain within 1 mile of each other, the conformer can use the Surgical Detachment action again to empathically direct the actions of their skinskitter servant as well as perceive through its senses. Due to how taxing this process is, the conformer can have only one skinskitter servant at a time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "morph",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JfKCalt1jPXqeWKU",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Tissue Siphon",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The conformer is within reach of an @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] or willing creature, or a creature taking persistent bleed damage</p>\n<hr />\n<p><strong>Effect</strong> The conformer touches and absorbs some of the creature's flesh. The target must attempt a @Check[fortitude|dc:26] save; on a failure, they become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and take damage from their persistent bleed damage, even though it isn't the end of their turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ddDvnd23sZWFzoxt",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Wear Flesh",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The conformer has used Tissue Siphon to absorb flesh within the last hour</p><hr /><p><strong>Effect</strong> The conformer expends the flesh they've absorbed to transform their body, reproducing the effects of one of the following spells: @UUID[Compendium.pf2e.spells-srd.Item.Adapt Self], @UUID[Compendium.pf2e.spells-srd.Item.Enlarge], @UUID[Compendium.pf2e.spells-srd.Item.Shifting Form], @UUID[Compendium.pf2e.spells-srd.Item.Tentacular Limbs], or @UUID[Compendium.pf2e.spells-srd.Item.Unusual Anatomy]. The Wear Flesh action gains the traits of the spell it's reproducing, and the conformer can Sustain a Spell on these effects.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0eOrNdC2RxxbKNH3",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Fleshwarp Lore",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 170
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "CKIVIdYktVxXXtw2",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fanged-Maw Finger",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d10+3",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d8",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "GNBmtoQ13O8IxyDb",
@@ -49,7 +260,7 @@
             },
             "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
             "name": "Blood Vendetta",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -134,7 +345,7 @@
             },
             "img": "icons/commodities/currency/coins-plain-stack-gold-yellow.webp",
             "name": "Charitable Urge",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -203,7 +414,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -270,7 +481,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -343,244 +554,22 @@
             "type": "spell"
         },
         {
-            "_id": "CKIVIdYktVxXXtw2",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fanged-Maw Finger",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d10+3",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "1d8",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "cX6w047KDcTYZxse",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 10 (Deactivated by Cold Iron)",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "cold-iron"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 10
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ATYdz5E54DuLSoxk",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Conformance",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The conformer contorts and reshapes their body into a desired form. The conformer takes on the specific appearance of any Small, Medium, or Large humanoid or animal that they've observed and whose appearance they remember. This doesn't change the conformer's Speed or their attack and damage bonus with their Strikes, but might change the damage type their Strikes deal.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XlZ6tISKXPBfkK9U",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Surgical Detachment",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The conformer detaches part of their body to serve them as an autonomous organism. For the next 24 hours, the conformer gains the loyal service of a fleshforged @UUID[Compendium.pf2e.lost-omens-bestiary.Actor.Skinskitter]. As long as they remain within 1 mile of each other, the conformer can use the Surgical Detachment action again to empathically direct the actions of their skinskitter servant as well as perceive through its senses. Due to how taxing this process is, the conformer can have only one skinskitter servant at a time.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "morph",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JfKCalt1jPXqeWKU",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Tissue Siphon",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The conformer is within reach of an @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] or willing creature, or a creature taking persistent bleed damage</p>\n<hr />\n<p><strong>Effect</strong> The conformer touches and absorbs some of the creature's flesh. The target must attempt a @Check[fortitude|dc:26] save; on a failure, they become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and take damage from their persistent bleed damage, even though it isn't the end of their turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ddDvnd23sZWFzoxt",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Wear Flesh",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The conformer has used Tissue Siphon to absorb flesh within the last hour</p><hr /><p><strong>Effect</strong> The conformer expends the flesh they've absorbed to transform their body, reproducing the effects of one of the following spells: @UUID[Compendium.pf2e.spells-srd.Item.Adapt Self], @UUID[Compendium.pf2e.spells-srd.Item.Enlarge], @UUID[Compendium.pf2e.spells-srd.Item.Shifting Form], @UUID[Compendium.pf2e.spells-srd.Item.Tentacular Limbs], or @UUID[Compendium.pf2e.spells-srd.Item.Unusual Anatomy]. The Wear Flesh action gains the traits of the spell it's reproducing, and the conformer can Sustain a Spell on these effects.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0eOrNdC2RxxbKNH3",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Fleshwarp Lore",
+            "_id": "40NDv4xTfgTjOeUn",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1200000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 170
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -588,9 +577,20 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "occult"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Fleshforged Conformer",

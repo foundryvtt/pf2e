@@ -4,10 +4,262 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "YPqH3eXv1Ux2rBDb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense (Imprecise) 60 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "I9tVwoP0Z0dV0r5j",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Clan Dagger Relic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The corrupted relic is Taargick's clan dagger rather than an amulet. When the spirit Manifests, the clan dagger teleports into its hand. The clan dagger can be targeted by Strikes (AC 21, Hardness 8, HP 20, BT 10).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pgjyNm2rRbnBKZmb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Sudden Manifestation",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The relic detects a creature using its lifesense.</p>\n<hr />\n<p><strong>Effect</strong> The relic Manifests. If this causes an encounter to begin, the relic gains a +4 status bonus to its initiative roll.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "initiative",
+                        "key": "RollOption",
+                        "option": "sudden-manifestation",
+                        "priority": 50,
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "sudden-manifestation"
+                        ],
+                        "selector": "initiative",
+                        "type": "status",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YWWsxw1woFyoUa9a",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0I5zkpKVe1aT6Em3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blood Accusation",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of the corrupted blade spirit takes persistent bleed damage</p>\n<hr />\n<p><strong>Effect</strong> The corrupted blade spirit shapes the spilled blood into words that remind the bleeding creature of their fears, mistakes, and shames. The corrupted blade spirit Demoralizes the creature, additionally dealing @Damage[1d6[mental]] damage on a critical success.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fear",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "56iLpxxqpM1gYATc",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Death Gaze",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The spirit targets a creature it can see within 30 feet, dealing to it @Damage[4d6[void]] damage (@Check[fortitude|dc:20|basic] save).</p>\n<p>A creature with @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Void Healing] instead regains @Damage[4d6[healing]] Hit Points and is then temporarily immune for 10 minutes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DYPC5uZCfiJo895S",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Manifest",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The relic detects at least one creature using its lifesense.</p>\n<hr />\n<p><strong>Effect</strong> The spirit within the relic manifests in an open space within 10 feet of the amulet. When it does, the relic teleports around its neck. The spirit remains in its manifested state until it no longer senses any living creatures within range of its lifesense.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "nIqiNS5etJdv3J1R",
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/dragonscale-amulet.webp",
             "name": "Amulet",
-            "sort": 100000,
+            "sort": 800000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -60,7 +312,7 @@
             "_id": "4KGlzeHqmtsJnLv9",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Clan Dagger",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -115,7 +367,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spectral Hand",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "attack": {
                     "value": ""
@@ -164,7 +416,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Deadly Spark",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -206,258 +458,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "YPqH3eXv1Ux2rBDb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense (Imprecise) 60 feet",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "lifesense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "I9tVwoP0Z0dV0r5j",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Clan Dagger Relic",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The corrupted relic is Taargick's clan dagger rather than an amulet. When the spirit Manifests, the clan dagger teleports into its hand. The clan dagger can be targeted by Strikes (AC 21, Hardness 8, HP 20, BT 10).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pgjyNm2rRbnBKZmb",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Sudden Manifestation",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The relic detects a creature using its lifesense.</p>\n<hr />\n<p><strong>Effect</strong> The relic Manifests. If this causes an encounter to begin, the relic gains a +4 status bonus to its initiative roll.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "initiative",
-                        "key": "RollOption",
-                        "option": "sudden-manifestation",
-                        "priority": 50,
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "sudden-manifestation"
-                        ],
-                        "selector": "initiative",
-                        "type": "status",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YWWsxw1woFyoUa9a",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0I5zkpKVe1aT6Em3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Blood Accusation",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of the corrupted blade spirit takes persistent bleed damage</p>\n<hr />\n<p><strong>Effect</strong> The corrupted blade spirit shapes the spilled blood into words that remind the bleeding creature of their fears, mistakes, and shames. The corrupted blade spirit Demoralizes the creature, additionally dealing @Damage[1d6[mental]] damage on a critical success.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fear",
-                        "linguistic",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "56iLpxxqpM1gYATc",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Death Gaze",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The spirit targets a creature it can see within 30 feet, dealing to it @Damage[4d6[void]] damage (@Check[fortitude|dc:20|basic] save).</p>\n<p>A creature with @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Void Healing] instead regains @Damage[4d6[healing]] Hit Points and is then temporarily immune for 10 minutes.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DYPC5uZCfiJo895S",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Manifest",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The relic detects at least one creature using its lifesense.</p>\n<hr />\n<p><strong>Effect</strong> The spirit within the relic manifests in an open space within 10 feet of the amulet. When it does, the relic teleports around its neck. The spirit remains in its manifested state until it no longer senses any living creatures within range of its lifesense.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Corrupted Blade Spirit",
