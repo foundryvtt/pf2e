@@ -13,6 +13,7 @@ import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
     DatabaseCreateOperation,
     DatabaseDeleteCallbackOptions,
+    DatabaseDeleteOperation,
     DatabaseUpdateOperation,
     Document,
 } from "@common/abstract/_module.d.mts";
@@ -1785,6 +1786,47 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    protected override _preCreateDescendantDocuments<P extends Document>(
+        parent: P,
+        collection: string,
+        data: Record<string, unknown>[],
+        options: DatabaseCreateOperation<P>,
+        userId: string,
+    ): void;
+    protected override _preCreateDescendantDocuments(
+        parent: Document,
+        collection: string,
+        data: Record<string, unknown>[],
+        options: DatabaseCreateOperation<Document> & { size?: ActorSizePF2e },
+        userId: string,
+    ): void {
+        super._preCreateDescendantDocuments(parent, collection, data, options, userId);
+        if (parent === this && collection === "items") {
+            options.size = this.system.traits?.size;
+        }
+    }
+
+    protected override _onCreateDescendantDocuments<P extends Document>(
+        parent: P,
+        collection: string,
+        documents: Document<P>[],
+        changes: Record<string, unknown>[],
+        options: DatabaseCreateOperation<P>,
+        userId: string,
+    ): void;
+    protected override _onCreateDescendantDocuments(
+        parent: Document,
+        collection: string,
+        documents: Document<Document>[],
+        changes: Record<string, unknown>[],
+        options: DatabaseCreateOperation<Document> & { size?: ActorSizePF2e },
+        userId: string,
+    ): void {
+        super._onCreateDescendantDocuments(parent, collection, documents, changes, options, userId);
+        if (!options.size || this !== parent || collection !== "items") return;
+        this.#updateTokenSizes(options.size);
+    }
+
     /** Store certain data to be checked in _onUpdateDescendantDocuments */
     protected override _preUpdateDescendantDocuments<P extends Document>(
         parent: P,
@@ -1797,12 +1839,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         parent: Document,
         collection: string,
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<Document> & { previous?: object },
+        options: DatabaseUpdateOperation<Document> & { previous?: object; size?: ActorSizePF2e },
         userId: string,
     ): void {
         super._preUpdateDescendantDocuments(parent, collection, changes, options, userId);
         if (parent === this && collection === "items") {
             options.previous = { maxHitPoints: this.hitPoints?.max };
+            options.size = this.system.traits?.size;
         }
     }
 
@@ -1820,7 +1863,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         collection: string,
         documents: Document<Document>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<Document> & { previous?: { maxHitPoints?: number } },
+        options: DatabaseUpdateOperation<Document> & { previous?: { maxHitPoints?: number }; size?: ActorSizePF2e },
         userId: string,
     ): void {
         super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
@@ -1840,6 +1883,90 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 this.update({ "system.attributes.hp.value": newHitPoints }, { allowHPOverage: true });
             }
         }
+
+        if (options.size) {
+            this.#updateTokenSizes(options.size);
+        }
+    }
+
+    protected override _preDeleteDescendantDocuments<P extends Document>(
+        parent: P,
+        collection: string,
+        ids: string[],
+        options: DatabaseDeleteOperation<P>,
+        userId: string,
+    ): void;
+    protected override _preDeleteDescendantDocuments(
+        parent: Document,
+        collection: string,
+        ids: string[],
+        options: DatabaseDeleteOperation<Document> & { size?: ActorSizePF2e },
+        userId: string,
+    ): void {
+        super._preDeleteDescendantDocuments(parent, collection, ids, options, userId);
+        if (parent === this && collection === "items") {
+            options.size = this.system.traits?.size;
+        }
+    }
+
+    protected override _onDeleteDescendantDocuments<P extends Document>(
+        parent: P,
+        collection: string,
+        documents: Document<Document>[],
+        ids: string[],
+        options: DatabaseDeleteOperation<P>,
+        userId: string,
+    ): void;
+    protected override _onDeleteDescendantDocuments(
+        parent: Document,
+        collection: string,
+        documents: Document<Document>[],
+        ids: string[],
+        options: DatabaseDeleteOperation<Document> & { size?: ActorSizePF2e },
+        userId: string,
+    ): void {
+        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
+        if (!options.size || this !== parent || collection !== "items") return;
+        this.#updateTokenSizes(options.size);
+    }
+
+    /** Perform actor and token updates if the actor's size is to be dynamically changed. */
+    async #updateTokenSizes(previousSize: ActorSizePF2e): Promise<boolean | void> {
+        const currentSize = this.system.traits?.size;
+        if (!currentSize) return;
+        // Ensure that the size actually changed
+        if ((["value", "width", "length"] as const).every((p) => currentSize[p] === previousSize[p])) return;
+
+        // Simple case: synthetic actor and its single token
+        const newWidth = currentSize.width / 5;
+        const newHeight = currentSize.length / 5;
+        const operation = { animation: { movementSpeed: 2 } };
+        const unlinkedToken = this.token;
+        if (unlinkedToken) {
+            if (unlinkedToken?.linkToActorSize) {
+                const result = await unlinkedToken.update({ width: newWidth, height: newHeight }, operation);
+                if (!result) return false;
+            }
+            return;
+        }
+
+        // Add prototype token to list of changes and update tokens across all scenes
+        const actorResult = this.update({ prototypeToken: { width: newWidth, height: newHeight } }, { render: false });
+        const tokens = game.scenes
+            .map((s) =>
+                s.tokens.filter(
+                    (t) => t.actor === this && t.linkToActorSize && (t.width !== newWidth || t.height !== newHeight),
+                ),
+            )
+            .flat();
+        const updates = R.filter(
+            await Promise.all([
+                actorResult,
+                ...tokens.map((t) => t.update({ width: newWidth, height: newHeight }, { ...operation })),
+            ]),
+            R.isDefined,
+        );
+        if (![tokens.length, tokens.length + 1].includes(updates.length)) return false;
     }
 
     /** Redirect to `toggleCondition` if possible. */
