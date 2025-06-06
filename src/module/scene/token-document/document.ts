@@ -339,7 +339,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     }
 
     /** Ensure that actors that don't allow synthetics are linked */
-    protected override async _preCreate(
+    protected override _preCreate(
         data: this["_source"],
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
@@ -347,18 +347,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (this.actor?.allowSynthetics === false && data.actorLink === false) {
             this._source.actorLink = true;
         }
-
-        if (this.linkToActorSize) {
-            const size = this.actor?.system.traits?.size;
-            if (size) {
-                const height = size.length / 5;
-                const width = size.width / 5;
-                if (data.height !== height || data.width !== width) {
-                    this.updateSource({ height, width });
-                }
-            }
-        }
-
         return super._preCreate(data, options, user);
     }
 
