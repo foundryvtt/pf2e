@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p>When you transform, you can take on a bear's bulk and size. You can spend an additional action when using Ursine Avenger Form to gain the effects of a 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] spell, which lasts for the spell's normal duration or until you leave your Ursine Avenger Form, whichever comes first.</p>"
+            "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p>When you transform, you can take on a bear's bulk and size. You can spend an additional action when using Ursine Avenger Form to gain the effects of a 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] spell, which lasts for the spell's normal duration or until you leave your Ursine Avenger Form, whichever comes first.</p>"
         },
         "frequency": {
             "max": 1,
@@ -33,7 +33,40 @@
             "remaster": true,
             "title": "Pathfinder Treasure Vault (Remastered)"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "great-bear",
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "great-bear"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.UrsineAvenger.Frequency"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.UrsineAvenger.Description"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.UrsineAvenger.Description"
+                    },
+                    {
+                        "divider": true,
+                        "predicate": [
+                            "feat:mighty-bear"
+                        ],
+                        "text": "PF2E.SpecificRule.UrsineAvenger.MightyBear"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
