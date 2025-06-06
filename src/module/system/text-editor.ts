@@ -196,15 +196,6 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         return roll.toMessage({ speaker, flavor }, { rollMode });
     }
 
-    /** Remove once https://github.com/foundryvtt/foundryvtt/issues/12933 is fixed */
-    protected static override async _embedContent(
-        match: RegExpMatchArray,
-        options: EnrichmentOptionsPF2e = {},
-    ): Promise<HTMLElement | null> {
-        options = { ...options };
-        return super._embedContent(match, options);
-    }
-
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
         const html = createHTMLElement("div", { innerHTML: content });
         const rollData = resolveRollData(options.rollData);
