@@ -4,7 +4,7 @@
     "name": "Spell Effect: Mantle of the Magma Heart",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mantle of the Magma Heart]</p>\n<p>Pick two of the options below. As a single action, which has the concentrate trait, you can change one of your chosen abilities to a different option from the list.</p><ul><li><strong>Enlarging Eruption</strong> You grow to size Large. You're clumsy 1. Your reach increases by 5 feet (or by 10 feet if you started out Tiny), and you gain a +2 status bonus to melee damage. You can't choose this option if you're already Large or larger.</li><li><strong>Fiery Grasp</strong> You gain a lava fist unarmed attack in the brawling weapon group. Your lava fists deal 1d8 bludgeoning damage as their base damage, plus an additional 2d6 fire damage and 1d6 persistent fire damage.</li><li><strong>Warming Flames</strong> You gain resistance 5 to cold and fire.</li></ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mantle of the Magma Heart]</p>\n<p>Pick two of the options below. As a single action, which has the concentrate trait, you can change one of your chosen abilities to a different option from the list.</p><ul><li><strong>Enlarging Eruption</strong> You grow to size Large. You're clumsy 1. Your reach increases by 5 feet (or by 10 feet if you started out Tiny), and you gain a +2 status bonus to melee damage. You can't choose this option if you're already Large or larger.</li><li><strong>Fiery Grasp</strong> You gain a lava fist unarmed attack in the brawling weapon group. Your lava fists deal 1d8 bludgeoning damage as their base damage, plus an additional 2d6 fire damage and 1d6 persistent fire damage.</li><li><strong>Heart of Fire</strong> any creature that touches you, or that hits you with a melee unarmed attack or non-reach melee weapon attack, takes 2d6 damage.</li><li><strong>Warming Flames</strong> You gain resistance 5 to cold and fire.</li></ul>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -90,6 +90,19 @@
                     }
                 ],
                 "toggleable": true
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:heart-of-fire",
+                "predicate": [
+                    {
+                        "or": [
+                            "magma-heart-first:heart-of-fire",
+                            "magma-heart-second:heart-of-fire"
+                        ]
+                    }
+                ]
             },
             {
                 "key": "FlatModifier",
@@ -185,6 +198,19 @@
                 ],
                 "type": "fire",
                 "value": 5
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:heart-of-fire",
+                    "item:type:melee",
+                    {
+                        "not": "item:trait:reach"
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.DamageNote.HeartOfFire",
+                "title": "{item|name}"
             }
         ],
         "start": {
