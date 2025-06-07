@@ -7,7 +7,7 @@ const action = new SingleCheckAction({
     difficultyClass: "will",
     name: `${PREFIX}.Title`,
     notes: [
-        { outcome: ["criticalSuccess", "success"], text: `${PREFIX}.Notes.criticalSuccess` },
+        { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },
         { outcome: ["success"], text: `${PREFIX}.Notes.success` },
         { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
     ],
