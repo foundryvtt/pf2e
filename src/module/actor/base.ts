@@ -1797,12 +1797,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         parent: Document,
         collection: string,
         data: Record<string, unknown>[],
-        options: DatabaseCreateOperation<Document> & { size?: ActorSizePF2e },
+        options: DatabaseCreateOperation<Document> & { previous?: PrevoiusActorData },
         userId: string,
     ): void {
         super._preCreateDescendantDocuments(parent, collection, data, options, userId);
         if (parent === this && collection === "items") {
-            options.size = this.system.traits?.size;
+            options.previous = { size: this.system.traits?.size };
         }
     }
 
@@ -1819,12 +1819,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         collection: string,
         documents: Document<Document>[],
         changes: Record<string, unknown>[],
-        options: DatabaseCreateOperation<Document> & { size?: ActorSizePF2e },
+        options: DatabaseCreateOperation<Document> & { previous?: PrevoiusActorData },
         userId: string,
     ): void {
         super._onCreateDescendantDocuments(parent, collection, documents, changes, options, userId);
-        if (!options.size || this !== parent || collection !== "items") return;
-        this.#updateTokenSizes(options.size);
+        if (!options.previous?.size || this !== parent || collection !== "items") return;
+        this.#updateTokenSizes(options.previous.size);
     }
 
     /** Store certain data to be checked in _onUpdateDescendantDocuments */
@@ -1839,13 +1839,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         parent: Document,
         collection: string,
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<Document> & { previous?: object; size?: ActorSizePF2e },
+        options: DatabaseUpdateOperation<Document> & { previous?: PrevoiusActorData },
         userId: string,
     ): void {
         super._preUpdateDescendantDocuments(parent, collection, changes, options, userId);
         if (parent === this && collection === "items") {
             options.previous = { maxHitPoints: this.hitPoints?.max };
-            options.size = this.system.traits?.size;
+            options.previous.size = this.system.traits?.size;
         }
     }
 
@@ -1863,7 +1863,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         collection: string,
         documents: Document<Document>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<Document> & { previous?: { maxHitPoints?: number }; size?: ActorSizePF2e },
+        options: DatabaseUpdateOperation<Document> & { previous?: PrevoiusActorData },
         userId: string,
     ): void {
         super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
@@ -1884,8 +1884,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             }
         }
 
-        if (options.size) {
-            this.#updateTokenSizes(options.size);
+        if (options.previous?.size) {
+            this.#updateTokenSizes(options.previous.size);
         }
     }
 
@@ -1900,12 +1900,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         parent: Document,
         collection: string,
         ids: string[],
-        options: DatabaseDeleteOperation<Document> & { size?: ActorSizePF2e },
+        options: DatabaseDeleteOperation<Document> & { previous?: PrevoiusActorData },
         userId: string,
     ): void {
         super._preDeleteDescendantDocuments(parent, collection, ids, options, userId);
         if (parent === this && collection === "items") {
-            options.size = this.system.traits?.size;
+            options.previous = { size: this.system.traits?.size };
         }
     }
 
@@ -1922,15 +1922,16 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         collection: string,
         documents: Document<Document>[],
         ids: string[],
-        options: DatabaseDeleteOperation<Document> & { size?: ActorSizePF2e },
+        options: DatabaseDeleteOperation<Document> & { previous?: PrevoiusActorData },
         userId: string,
     ): void {
         super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
-        if (!options.size || this !== parent || collection !== "items") return;
-        this.#updateTokenSizes(options.size);
+        if (!options.previous?.size || this !== parent || collection !== "items") return;
+        this.#updateTokenSizes(options.previous.size);
     }
 
-    /** Perform actor and token updates if the actor's size is to be dynamically changed. */
+    /** Perform actor and token updates if the actor's size is to be dynamically changed and the given
+     *  `previousSize` differs from the actor's current size */
     async #updateTokenSizes(previousSize: ActorSizePF2e): Promise<boolean | void> {
         const currentSize = this.system.traits?.size;
         if (!currentSize) return;
@@ -2158,6 +2159,12 @@ interface RechargeOptions {
     /** How much time elapsed as a delta operation */
     duration: "turn" | "round" | "day";
     commit?: boolean;
+}
+
+/** Data stored before changes to the actor were made in descendant document `_pre` hooks for use in `_on` hooks */
+interface PrevoiusActorData {
+    maxHitPoints?: number;
+    size?: ActorSizePF2e;
 }
 
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */
