@@ -117,15 +117,38 @@
                 "value": -15
             },
             {
-                "adjustment": {
-                    "criticalSuccess": "to-failure",
-                    "success": "to-failure"
-                },
-                "key": "AdjustDegreeOfSuccess",
-                "predicate": [
-                    "item:damage:type:acid"
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "acid",
+                            "formula": "1d4"
+                        }
+                    }
                 ],
-                "selector": "pd-recovery-check"
+                "key": "GrantItem",
+                "predicate": [
+                    "ooze-ammunition:ooze-ammunition-lesser"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "acid",
+                            "formula": "2d4"
+                        }
+                    }
+                ],
+                "key": "GrantItem",
+                "predicate": [
+                    "ooze-ammunition:ooze-ammunition-moderate"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
             },
             {
                 "alterations": [
@@ -139,6 +162,26 @@
                     }
                 ],
                 "key": "GrantItem",
+                "predicate": [
+                    "ooze-ammunition:ooze-ammunition-greater"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "acid",
+                            "formula": "4d4"
+                        }
+                    }
+                ],
+                "key": "GrantItem",
+                "predicate": [
+                    "ooze-ammunition:ooze-ammunition-major"
+                ],
                 "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
             }
         ],
