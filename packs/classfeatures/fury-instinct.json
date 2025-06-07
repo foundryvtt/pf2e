@@ -56,7 +56,12 @@
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "class:barbarian"
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
                 ],
                 "selector": "strike-damage",
                 "slug": "rage",
@@ -136,6 +141,11 @@
                 "value": 13
             }
         ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
         "traits": {
             "otherTags": [
                 "barbarian-instinct"

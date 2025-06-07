@@ -35,8 +35,40 @@
                 "mode": "add",
                 "path": "flags.pf2e.barbarian.archetypeFeatCount",
                 "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:category:class",
+                        "item:trait:barbarian",
+                        {
+                            "not": "item:draconic-arrogance"
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "furyInstinct",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feature:fury-instinct"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:fury-instinct"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.furyInstinct}"
             }
         ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
         "traits": {
             "rarity": "common",
             "value": [
