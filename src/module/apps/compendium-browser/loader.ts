@@ -1,9 +1,6 @@
+import type { CompendiumDocument } from "@client/documents/_module.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
-import type {
-    CompendiumDocument,
-    CompendiumIndex,
-    CompendiumIndexData,
-} from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumIndex, CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import { localizer, sluggify } from "@util";
 import type { CompendiumBrowserSources } from "./browser.ts";
 

@@ -76,20 +76,18 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             title: "PF2E.CompendiumBrowser.Title",
         },
         actions: {
-            addToRollTable: () => {
-                const browser = game.pf2e.compendiumBrowser;
-                if (!browser.activeTab) return;
-                browser.toggleControls();
-                browser.activeTab.addToRollTable();
+            addToRollTable: function (this: CompendiumBrowser) {
+                if (!this.activeTab) return;
+                this.toggleControls(false);
+                this.activeTab.addToRollTable();
             },
-            createRollTable: () => {
-                const browser = game.pf2e.compendiumBrowser;
-                if (!browser.activeTab) return;
-                browser.toggleControls();
-                browser.activeTab.createRollTable();
+            createRollTable: function (this: CompendiumBrowser) {
+                if (!this.activeTab) return;
+                this.toggleControls(false);
+                this.activeTab.createRollTable();
             },
-            openSettings: () => {
-                game.pf2e.compendiumBrowser.toggleControls();
+            openSettings: function (this: CompendiumBrowser) {
+                this.toggleControls(false);
                 new CompendiumBrowserSettingsApp().render({ force: true });
             },
         },
@@ -101,7 +99,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         this.#setVisibleTabs();
     }
 
-    protected override _onClose(options: fa.ApplicationRenderOptions): void {
+    protected override _onClose(options: fa.ApplicationClosingOptions): void {
         super._onClose(options);
         for (const tab of this.tabsArray) {
             tab.filterData.search.text = "";
