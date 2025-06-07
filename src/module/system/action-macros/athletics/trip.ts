@@ -11,10 +11,7 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     data: CheckContextData<ItemType>,
 ): CheckMacroContext<ItemType> | undefined {
     // weapon
-    const item = [
-        ...(ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "trip") ?? []),
-        ...(ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "ranged-trip") ?? []),
-    ].shift();
+    const item = ActionMacroHelpers.getBestEquippedItemForAction(opts.actor, ["trip", "ranged-trip"], data.slug);
 
     // context
     const context = ActionMacroHelpers.defaultCheckContext(opts, {

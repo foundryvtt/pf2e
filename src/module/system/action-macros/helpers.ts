@@ -1,10 +1,10 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import type { StrikeData } from "@actor/data/base.ts";
 import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckModifier, ModifierPF2e, ensureProficiencyOption } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
-import type { ItemPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e, WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -341,6 +341,27 @@ class ActionMacroHelpers {
         } else {
             return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
         }
+    }
+
+    static getBestEquippedItemForAction(
+        actor: ActorPF2e,
+        traits: WeaponTrait[],
+        selector: string,
+    ): WeaponPF2e<ActorPF2e> | null {
+        const items = [] as WeaponPF2e<ActorPF2e>[];
+        traits.forEach((x) => items.push(...ActionMacroHelpers.getApplicableEquippedWeapons(actor, x)));
+
+        if (items.length === 0) return null;
+
+        const bestItem = items.reduce(
+            (max, item) =>
+                (ActionMacroHelpers.getWeaponPotencyModifier(item, selector)?.value ?? 0) >
+                (ActionMacroHelpers.getWeaponPotencyModifier(max, selector)?.value ?? 0)
+                    ? item
+                    : max,
+            items[0],
+        );
+        return bestItem ?? null;
     }
 
     /** Attempts to get the label for the given statistic using a slug */
