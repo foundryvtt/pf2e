@@ -1,0 +1,98 @@
+{
+    "_id": "PZuICqcgpErGQcqG",
+    "img": "icons/creatures/abilities/bear-roar-bite-brown-green.webp",
+    "name": "Effect: Great Bear",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Great Bear]</p>\n<p>You gain the effects of an <em>enlarge</em> spell.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeHuge",
+                        "predicate": [
+                            "feat:mighty-bear"
+                        ],
+                        "value": {
+                            "damage": 4,
+                            "reach": 15,
+                            "size": "huge"
+                        }
+                    },
+                    {
+                        "label": "PF2E.ActorSizeLarge",
+                        "predicate": [
+                            {
+                                "not": "feat:mighty-bear"
+                            }
+                        ],
+                        "value": {
+                            "damage": 2,
+                            "reach": 10,
+                            "size": "large"
+                        }
+                    }
+                ],
+                "flag": "enlarge",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.CreatureSize"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "self:effect:ursine-avenger-form"
+                ],
+                "reach": {
+                    "override": "{item|flags.pf2e.rulesSelections.enlarge.reach}"
+                },
+                "resizeEquipment": true,
+                "value": "{item|flags.pf2e.rulesSelections.enlarge.size}"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "self:effect:ursine-avenger-form"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:ursine-avenger-form"
+                ],
+                "selector": "melee-damage",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.enlarge.damage}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
