@@ -1,5 +1,6 @@
 import type { Language, SenseAcuity } from "@actor/creature/types.ts";
 import { SENSES_WITH_MANDATORY_ACUITIES, SENSES_WITH_UNLIMITED_RANGE } from "@actor/creature/values.ts";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import {
     activateActionSheetListeners,
     createSelfEffectSheetData,

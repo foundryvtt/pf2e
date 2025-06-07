@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { DatabaseUpdateOperation } from "@common/abstract/_module.d.mts";
 import type { ScenePF2e } from "@scene";
 
 export class MockToken {

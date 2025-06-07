@@ -1,8 +1,9 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ImageFilePath } from "@common/constants.d.mts";
+import type { JournalEntrySource } from "@common/documents/_module.d.mts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
 import * as R from "remeda";
-import type { JournalEntrySource } from "types/foundry/common/documents/journal-entry.d.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Rename all uses and mentions of "flat-footed" to "off-guard"  */

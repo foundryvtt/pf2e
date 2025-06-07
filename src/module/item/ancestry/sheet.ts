@@ -1,3 +1,4 @@
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import { ABCSheetData, ABCSheetPF2e } from "@item/abc/sheet.ts";
 import type { AncestryPF2e } from "@item/ancestry/index.ts";
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";

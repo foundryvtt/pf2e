@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { OneToTen } from "@module/data.ts";
 import { TagifyEntry, createTagifyTraits } from "@module/sheet/helpers.ts";

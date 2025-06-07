@@ -1,3 +1,5 @@
+import type { PlaceablesLayerPointerEvent } from "@client/canvas/layers/base/placeables-layer.d.mts";
+import type { Point } from "@common/_types.d.mts";
 import type { RegionSource } from "@common/documents/region.d.mts";
 import type { RegionDocumentPF2e } from "@scene/region-document/document.ts";
 

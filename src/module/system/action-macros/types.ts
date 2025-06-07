@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import type { ModifierPF2e } from "@actor/modifiers.ts";
 import type { DCSlug } from "@actor/types.ts";
+import type { Rolled } from "@client/dice/_module.d.mts";
 import type { ItemPF2e } from "@item";
 import type { WeaponTrait } from "@item/weapon/types.ts";
 import type { RollNotePF2e } from "@module/notes.ts";

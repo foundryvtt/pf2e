@@ -1,6 +1,7 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
-import type { CompendiumActorUUID, CompendiumItemUUID, ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { CompendiumActorUUID, CompendiumItemUUID, ItemUUID } from "@client/documents/_module.d.mts";
 import type { CompendiumDocumentType } from "@client/utils/_module.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import type { DocumentStatsData, DocumentStatsSchema, SourceFromSchema } from "@common/data/fields.d.mts";
 import type { ItemSourcePF2e, MeleeSource } from "@item/base/data/index.ts";
 import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
@@ -12,8 +13,8 @@ import { recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "
 import fs from "fs";
 import path from "path";
 import * as R from "remeda";
-import systemJSON from "../../static/system.json";
-import coreIconsJSON from "../core-icons.json";
+import systemJSON from "../../static/system.json" with { type: "json" };
+import coreIconsJSON from "../core-icons.json" with { type: "json" };
 import "./foundry-utils.ts";
 import { PackError, getFilesRecursively } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";

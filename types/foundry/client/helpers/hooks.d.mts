@@ -21,7 +21,7 @@ import { DatabaseCreateOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import type ApplicationV2 from "../applications/api/application.mjs";
 import type TokenHUD from "../applications/hud/token-hud.mjs";
-import { ChatLog, CompendiumDirectory, ItemDirectory } from "../applications/sidebar/tabs/_module.mjs";
+import { ChatLog, CompendiumDirectory, ItemDirectory, Settings } from "../applications/sidebar/tabs/_module.mjs";
 import type ActorDirectory from "../applications/sidebar/tabs/actor-directory.mjs";
 import type Hotbar from "../applications/ui/hotbar.mjs";
 import type SceneControls from "../applications/ui/scene-controls.mjs";
@@ -113,6 +113,7 @@ export default class Hooks {
     static on(...args: HookParamsRender<ActorDirectory<Actor<null>>, "ActorDirectory">): number;
     static on(...args: HookParamsRender<ItemDirectory<Item<null>>, "ItemDirectory">): number;
     static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
+    static on(...args: HookParamsRender<Settings, "Settings">): number;
     static on(...args: HookParamsRender<SettingsConfig, "SettingsConfig">): number;
     static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
     static on(

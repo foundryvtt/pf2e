@@ -1,3 +1,5 @@
+import type { VideoFilePath } from "@common/constants.d.mts";
+
 export class MockScene {
     _source: foundry.documents.SceneSource;
 

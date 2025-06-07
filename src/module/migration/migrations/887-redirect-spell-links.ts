@@ -1,6 +1,6 @@
+import type { JournalEntrySource } from "@client/documents/_module.d.mts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
-import type { JournalEntrySource } from "types/foundry/common/documents/journal-entry.d.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Redirect links some to-be-deleted spells to replacements */

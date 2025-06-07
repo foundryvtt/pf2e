@@ -9,6 +9,7 @@ import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ValueAndMax } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";
 import type { ConsumableSource, ConsumableSystemData } from "./data.ts";
@@ -90,7 +91,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override async getChatData(
         this: ConsumablePF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
         rollOptions: Record<string, unknown> = {},
     ): Promise<RawItemChatData> {
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);

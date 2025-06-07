@@ -1,3 +1,4 @@
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { ArmorSystemSource } from "@item/armor/data.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";

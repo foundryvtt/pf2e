@@ -20,12 +20,12 @@ class UUIDUtils {
     static async fromUUIDs(uuids: ItemUUID[], options?: { relative?: Maybe<Document> }): Promise<ItemPF2e[]>;
     static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<Document> }): Promise<Document[]>;
     static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<Document> }): Promise<Document[]> {
-        const resolvedUUIDs = R.unique(uuids).flatMap((u) => fu.parseUuid(u, options).uuid ?? []);
+        const resolvedUUIDs = R.unique(uuids).flatMap((u) => fu.parseUuid(u, options)?.uuid ?? []);
 
         // These can't be retrieved via `fromUuidSync`: separate and retrieve directly via `fromUuid`
         const packEmbeddedLinks = resolvedUUIDs.filter((u) => {
             const parsed = fu.parseUuid(u, options);
-            return parsed.collection instanceof fd.collections.CompendiumCollection && parsed.embedded.length > 0;
+            return parsed?.collection instanceof fd.collections.CompendiumCollection && parsed.embedded.length > 0;
         });
         const packEmbeddedDocs = (await Promise.all(packEmbeddedLinks.map((u) => fromUuid(u)))).filter(R.isTruthy);
 
@@ -50,7 +50,9 @@ class UUIDUtils {
             )
         ).flat();
 
-        return R.sortBy([...packEmbeddedDocs, ...worldDocsAndCacheHits, ...packDocs], (d) => uuids.indexOf(d.uuid));
+        return R.sortBy([...packEmbeddedDocs, ...worldDocsAndCacheHits, ...packDocs], (d) =>
+            uuids.indexOf(d.uuid ?? ""),
+        );
     }
 
     static isItemUUID(uuid: unknown, options: { embedded: true }): uuid is EmbeddedItemUUID;
@@ -60,6 +62,7 @@ class UUIDUtils {
         if (typeof uuid !== "string") return false;
         try {
             const parseResult = fu.parseUuid(uuid);
+            if (!parseResult) return false;
             const isEmbedded = parseResult.embedded.length > 0;
             return (
                 parseResult.type === "Item" &&
@@ -77,6 +80,7 @@ class UUIDUtils {
         if (typeof uuid !== "string") return false;
         try {
             const parseResult = fu.parseUuid(uuid);
+            if (!parseResult) return false;
             const isCompendiumUUID = parseResult.collection instanceof fd.collections.CompendiumCollection;
             return isCompendiumUUID && (docType ? uuid.includes(`.${docType}.`) : true);
         } catch {
@@ -88,6 +92,7 @@ class UUIDUtils {
         if (typeof uuid !== "string") return false;
         try {
             const parsed = fu.parseUuid(uuid);
+            if (!parsed) return false;
             return parsed.documentType === "Scene" && parsed.embedded[0] === "Token";
         } catch {
             return false;

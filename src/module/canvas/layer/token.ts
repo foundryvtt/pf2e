@@ -1,3 +1,4 @@
+import type { PlaceablesLayerPointerEvent } from "@client/canvas/layers/base/placeables-layer.d.mts";
 import type { TokenPF2e } from "../index.ts";
 
 class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TObject> {

@@ -1,4 +1,6 @@
 import type { AuraAppearanceData } from "@actor/types.ts";
+import type { GridHighlight } from "@client/canvas/containers/_module.d.mts";
+import type { Point } from "@common/_types.d.mts";
 
 /** A square (`PIXI.Rectangle`) with additional information about an effect area it's part of */
 export class EffectAreaSquare extends PIXI.Rectangle {

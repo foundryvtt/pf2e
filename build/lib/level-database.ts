@@ -7,7 +7,7 @@ import { tupleHasValue } from "@util";
 import type { AbstractSublevel } from "abstract-level";
 import { ClassicLevel, type DatabaseOptions } from "classic-level";
 import * as R from "remeda";
-import systemJSON from "../../static/system.json" assert { type: "json" };
+import systemJSON from "../../static/system.json" with { type: "json" };
 import { PackError } from "./helpers.ts";
 import { PackEntry } from "./types.ts";
 

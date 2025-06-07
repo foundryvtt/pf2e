@@ -1,4 +1,5 @@
-import type { ProseMirrorMenu } from "@common/prosemirror/menu.d.mts";
+import type { ProseMirrorMenu } from "@common/prosemirror/_module.d.mts";
+import type { Mark, NodeType, ResolvedPos } from "prosemirror-model";
 import * as R from "remeda";
 
 function monkeyPatchFoundry(): void {
@@ -18,7 +19,7 @@ function isMarkActive(this: ProseMirrorMenu, item: ProseMirrorMenuItem): boolean
     // is not removed from marks
     const state = this.view.state;
     const { from, $from, to, empty } = state.selection;
-    const markCompare = (mark: ProseMirror.Mark) => {
+    const markCompare = (mark: Mark) => {
         if (mark.type !== item.mark) return false;
         // R.isDeepEqual returns false here so we use the foundry helper
         if (item.attrs) return fu.objectsEqual(mark.attrs, item.attrs);
@@ -46,7 +47,7 @@ function isNodeActive(this: ProseMirrorMenu, item: ProseMirrorMenuItem): boolean
 
 function toggleTextBlock(
     this: ProseMirrorMenu,
-    node: ProseMirror.NodeType,
+    node: NodeType,
     options?: {
         attrs?: Record<string, unknown> | null;
     },
@@ -71,11 +72,7 @@ function toggleTextBlock(
  * A reimplementation of Foundry's `ResolvedPos.prototype.hasAncestor` extension that keeps the
  * `attrs._preserve` property when comparing nodes
  */
-function hasAncestor(
-    pos: ProseMirror.ResolvedPos,
-    other?: ProseMirror.NodeType,
-    attrs?: Record<string, unknown> | null,
-): boolean {
+function hasAncestor(pos: ResolvedPos, other?: NodeType, attrs?: Record<string, unknown> | null): boolean {
     if (!pos.depth || !other) return false;
     for (let i = pos.depth; i > 0; i--) {
         // Depth 0 is the root document, so we don't need to test that.

@@ -1,5 +1,6 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { MODIFIER_TYPES, ModifierType } from "@actor/modifiers.ts";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { FlatModifierRuleElement, FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
 import type { DamageCategoryUnique } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
