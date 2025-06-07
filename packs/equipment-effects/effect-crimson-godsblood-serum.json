@@ -1,0 +1,115 @@
+{
+    "_id": "m942gdWRO19p0QS8",
+    "img": "icons/consumables/potions/bottle-bulb-corked-glowing-red.webp",
+    "name": "Effect: Crimson Godsblood Serum",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Crimson Godsblood Serum (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Crimson Godsblood Serum (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Crimson Godsblood Serum (Greater)]</p>\n<p>You gain a status bonus to physical damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:crimson-godsblood-serum-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Crimson Godsblood Serum (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:crimson-godsblood-serum-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Crimson Godsblood Serum (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:crimson-godsblood-serum-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Crimson Godsblood Serum (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "crimson-godsblood-serum"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:damage:category:physical"
+                ],
+                "selector": "damage",
+                "slug": "crimson-godsblood-serum",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "crimson-godsblood-serum:crimson-godsblood-serum-moderate"
+                ],
+                "selector": "damage",
+                "slug": "crimson-godsblood-serum",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "crimson-godsblood-serum:crimson-godsblood-serum-greater"
+                ],
+                "selector": "damage",
+                "slug": "crimson-godsblood-serum",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

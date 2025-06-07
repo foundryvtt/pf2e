@@ -36,46 +36,6 @@
         "quantity": 1,
         "rules": [
             {
-                "key": "RollOption",
-                "label": "Current Season",
-                "option": "current-season",
-                "toggleable": true
-            },
-            {
-                "alwaysActive": true,
-                "key": "RollOption",
-                "label": "Change of Season",
-                "option": "change-of-season",
-                "suboptions": [
-                    {
-                        "label": "Spring",
-                        "value": "spring"
-                    },
-                    {
-                        "label": "Summer",
-                        "value": "summer"
-                    },
-                    {
-                        "label": "Fall",
-                        "value": "fall"
-                    },
-                    {
-                        "label": "Winter",
-                        "value": "winter"
-                    }
-                ],
-                "toggleable": true
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "current-season"
-                ],
-                "selector": "fortitude",
-                "type": "item",
-                "value": 1
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
                     "action:make-an-impression"
@@ -85,9 +45,54 @@
                 "value": 2
             },
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.ShawlOfSeasons.BenefitToggleLabel",
+                "option": "shawl-of-seasons:change-of-seasons",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Seasons.Spring",
+                        "value": "spring"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Seasons.Summer",
+                        "value": "summer"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Seasons.Fall",
+                        "value": "fall"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Seasons.Winter",
+                        "value": "winter"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "disabledIf": [
+                    {
+                        "not": "shawl-of-seasons:change-of-seasons"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.ShawlOfSeasons.CurrentSeasonToggleLabel",
+                "option": "shawl-of-seasons:current-season",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "change-of-season:spring"
+                    "shawl-of-seasons:current-season"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "shawl-of-seasons:change-of-seasons:spring"
                 ],
                 "selector": "land-speed",
                 "type": "item",
