@@ -180,8 +180,7 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
             selector: ".effect-item[data-item-id]",
             locked: true,
             direction: "LEFT",
-            cssClass: `pf2e effect-info application themed`,
-            themeGroup: "interface",
+            cssClass: `pf2e effect-info application`,
             align: "top",
             render: async (effectEl) => {
                 const actor = this.#actor;
