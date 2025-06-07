@@ -8,6 +8,7 @@ import type {
     DatabaseUpdateCallbackOptions,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
+import { ImageFilePath } from "@common/constants.mjs";
 import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
 import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
@@ -564,8 +565,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
-    getMystifiedData(status: IdentificationStatus, _options?: Record<string, boolean>): MystifiedData {
-        const mystifiedData: MystifiedData = this.system.identification[status];
+    getMystifiedData(
+        status: IdentificationStatus,
+        _options?: Record<string, boolean>,
+    ): MystifiedData & { img: ImageFilePath } {
+        const mystifiedData = this.system.identification[status];
 
         const name = mystifiedData.name || this.generateUnidentifiedName();
         const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this);
