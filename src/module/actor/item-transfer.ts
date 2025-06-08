@@ -120,8 +120,17 @@ export class ItemTransfer implements ItemTransferData {
         if ("items" in document) {
             // Use a special moniker for party actors
             if (document.isOfType("party")) return game.i18n.localize("PF2E.loot.PartyStash");
+
+            // check to see if the token name can be seen
+            const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
+            const canSeeName = !tokenSetsNameVisibility || !document.token || document.token.playersCanSeeName;
+
             // Synthetic actor: use its token name or, failing that, actor name
-            if (document.token) return document.token.name;
+            // hide name if the token's name is not visible and the token is an NPC
+            if (document.token)
+                return !canSeeName && document.isOfType("npc")
+                    ? game.i18n.localize("PF2E.loot.LootUnknownNPCMessage")
+                    : document.token.name;
 
             // Linked actor: use its token prototype name
             return document.prototypeToken?.name ?? document.name;
