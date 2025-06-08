@@ -1,5 +1,12 @@
-import { DataModelConstructionContext } from "@common/abstract/_types.mjs";
-import { ImageFilePath, ShapeDataType, TileOcclusionMode, VideoFilePath } from "@common/constants.mjs";
+import { DatabaseUpdateOperation, DataModelConstructionContext } from "@common/abstract/_types.mjs";
+import {
+    DocumentOwnershipLevel,
+    DocumentOwnershipString,
+    ImageFilePath,
+    ShapeDataType,
+    TileOcclusionMode,
+    VideoFilePath,
+} from "@common/constants.mjs";
 import DataModel from "../abstract/data.mjs";
 import * as documents from "../documents/_module.mjs";
 import { TokenSchema } from "../documents/token.mjs";
@@ -299,6 +306,53 @@ export class PrototypeToken<TParent extends documents.BaseActor | null> extends 
     protected override _initialize(): void;
 
     override toJSON(): this["_source"];
+
+    /* -------------------------------------------- */
+    /*  Document Compatibility Methods              */
+    /* -------------------------------------------- */
+
+    /**
+     * @see {@link foundry.abstract.Document#update}
+     * @ignore
+     */
+    update(
+        data: Record<string, unknown>,
+        operation?: Partial<Omit<DatabaseUpdateOperation<null>, "parent" | "pack">>,
+    ): Promise<this | undefined>;
+
+    /**
+     * @see {@link foundry.abstract.Document#getFlag}
+     * @ignore
+     */
+    getFlag(scope: string, key: string): unknown;
+
+    /**
+     * @see {@link foundry.abstract.Document#getFlag}
+     * @ignore
+     */
+    setFlag(scope: string, key: string, value: unknown): Promise<this>;
+
+    /**
+     * @see {@link foundry.abstract.Document#unsetFlag}
+     * @ignore
+     */
+    unsetFlag(scope: string, key: string): Promise<this | undefined>;
+
+    /**
+     * @see {@link foundry.abstract.Document#testUserPermission}
+     * @ignore
+     */
+    testUserPermission(
+        user: documents.BaseUser,
+        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        { exact }?: { exact?: boolean },
+    ): boolean;
+
+    /**
+     * @see {@link foundry.documents.BaseActor#isOwner}
+     * @ignore
+     */
+    get isOwner(): boolean;
 }
 
 export interface PrototypeToken<TParent extends documents.BaseActor | null>

@@ -9,7 +9,6 @@ import {
     ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
-import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -47,10 +46,6 @@ export const Init = {
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.combat = EncounterTracker;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
-
-            if (game.release.generation === 12) {
-                CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
-            }
 
             // The condition in Pathfinder 2e is "blinded" rather than "blind"
             CONFIG.specialStatusEffects.BLIND = "blinded";

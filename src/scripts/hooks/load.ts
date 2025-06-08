@@ -48,6 +48,7 @@ import {
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene/index.ts";
+import { PrototypeTokenConfigPF2e } from "@scene/token-document/index.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
 import { ClientDatabaseBackendPF2e } from "@system/client-backend.ts";
@@ -89,6 +90,7 @@ export const Load = {
         CONFIG.Scene.documentClass = ScenePF2e;
         CONFIG.Tile.documentClass = TileDocumentPF2e;
         CONFIG.Token.documentClass = TokenDocumentPF2e;
+        CONFIG.Token.prototypeSheetClass = PrototypeTokenConfigPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.User.documentClass = UserPF2e;
 

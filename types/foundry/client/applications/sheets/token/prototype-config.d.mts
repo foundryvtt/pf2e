@@ -5,6 +5,7 @@ import {
     ApplicationRenderOptions,
     FormFooterButton,
 } from "@client/applications/_types.mjs";
+import { DocumentSheetRenderContext } from "@client/applications/api/_module.mjs";
 import { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.mjs";
 import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
 import { Actor } from "@client/documents/_module.mjs";
@@ -50,6 +51,8 @@ export default class PrototypeTokenConfig extends TokenApplicationMixin(Applicat
 
     protected override _initializeTokenPreview(): Promise<void>;
 
+    protected override _prepareContext(options: HandlebarsRenderOptions): Promise<DocumentSheetRenderContext>;
+
     protected override _configureRenderOptions(options: HandlebarsRenderOptions): void;
 
     protected override _prepareButtons(): FormFooterButton[];
@@ -63,8 +66,16 @@ export default class PrototypeTokenConfig extends TokenApplicationMixin(Applicat
     /*  Form Submission                             */
     /* -------------------------------------------- */
 
+    /**
+     * Customize how form data is extracted into an expanded object.
+     * @param event    The originating form submission event
+     * @param form     The form element that was submitted
+     * @param formData Processed data for the submitted form
+     * @returns An expanded object of processed form data
+     * @throws Subclasses may throw validation errors here to prevent form submission
+     */
     protected _processFormData(
-        event: Event,
+        event: SubmitEvent | null,
         form: HTMLFormElement,
         formData: FormDataExtended,
     ): Record<string, unknown>;
