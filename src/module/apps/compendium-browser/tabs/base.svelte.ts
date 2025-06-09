@@ -1,3 +1,4 @@
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import type { TableResultSource } from "@common/documents/table-result.d.mts";
 import { CompendiumDirectoryPF2e } from "@module/apps/sidebar/compendium-directory.ts";
 import { ErrorPF2e, htmlQuery, sluggify } from "@util";
@@ -275,23 +276,16 @@ export abstract class CompendiumBrowserTab {
         initial?: number;
         weight?: number;
     }): Partial<TableResultSource>[] {
-        return this.results
-            .map((e, i): Partial<TableResultSource> | null => {
-                const data = fromUuidSync(e.uuid);
-                if (!data?.pack || !data._id || !("name" in data)) return null;
-                const rangeMinMax = initial + i + 1;
-                return {
-                    text: data.name,
-                    type: CONST.TABLE_RESULT_TYPES.COMPENDIUM,
-                    documentCollection: data.pack,
-                    documentId: data._id,
-                    img: e.img,
-                    weight,
-                    range: [rangeMinMax, rangeMinMax],
-                    drawn: false,
-                };
-            })
-            .filter((r): r is Partial<TableResultSource> => !!r);
+        return this.results.map((entry, index): Partial<TableResultSource> => {
+            const rangeMinMax = initial + index + 1;
+            return {
+                type: "document",
+                documentUuid: entry.uuid,
+                weight,
+                range: [rangeMinMax, rangeMinMax],
+                drawn: false,
+            };
+        });
     }
 
     async createRollTable(): Promise<void> {
@@ -315,7 +309,8 @@ export abstract class CompendiumBrowserTab {
             content,
             window: { title: "PF2E.CompendiumBrowser.RollTable.CreateLabel" },
             yes: {
-                callback: (_event, _button, dialogEl) => {
+                callback: (_event, _button, dialog) => {
+                    const dialogEl = dialog.element;
                     const name =
                         htmlQuery<HTMLInputElement>(dialogEl, "input[name=name]")?.value ||
                         game.i18n.localize("PF2E.CompendiumBrowser.Title");
@@ -359,7 +354,8 @@ export abstract class CompendiumBrowserTab {
             window: { title: "PF2E.CompendiumBrowser.RollTable.SelectTableTitle" },
             content,
             yes: {
-                callback: (_event, _button, html) => {
+                callback: (_event, _button, dialog) => {
+                    const html = dialog.element;
                     const option = htmlQuery<HTMLSelectElement>(html, "select[name=roll-table]")?.selectedOptions[0];
                     if (!option) return;
                     const weight = Number(htmlQuery<HTMLInputElement>(html, "input[name=weight]")?.value) || 1;
@@ -367,9 +363,8 @@ export abstract class CompendiumBrowserTab {
                     table.createEmbeddedDocuments(
                         "TableResult",
                         this.#getRollTableResults({ initial: table.results.size, weight }),
-                        { renderSheet: true },
                     );
-                    table?.sheet.render({ force: true });
+                    table?.sheet?.render({ force: true });
                 },
             },
         });
