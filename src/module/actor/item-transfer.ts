@@ -127,10 +127,11 @@ export class ItemTransfer implements ItemTransferData {
 
             // Synthetic actor: use its token name or, failing that, actor name
             // hide name if the token's name is not visible and the token is an NPC
-            if (document.token)
+            if (document.token) {
                 return !canSeeName && document.isOfType("npc")
                     ? game.i18n.localize("PF2E.loot.LootUnknownNPCMessage")
                     : document.token.name;
+            }
 
             // Linked actor: use its token prototype name
             return document.prototypeToken?.name ?? document.name;
