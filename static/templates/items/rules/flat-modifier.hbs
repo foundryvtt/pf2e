@@ -1,16 +1,16 @@
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.Label"}}</label>
+    <label class="short">{{fields.label.label}}</label>
     <div class="form-fields">
         <input type="text" name="{{basePath}}.label" value="{{rule.label}}" placeholder="{{object.label}}" />
         <label>
-            {{localize "PF2E.RuleEditor.FlatModifier.HideIfDisabled"}}
+            {{fields.hideIfDisabled.label}}
             <input type="checkbox" name="{{basePath}}.hideIfDisabled" {{checked rule.hideIfDisabled}}>
         </label>
     </div>
 </div>
 
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
+    <label class="short">{{fields.selector.label}}</label>
     <div class="attached-input">
         <button type="button" class="attachment" data-action="toggle-selector">
             {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
@@ -24,14 +24,14 @@
 </div>
 
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.Value"}}</label>
+    <label class="short">{{fields.value.label}}</label>
     <div class="form-fields">
         {{#if (eq rule.type "ability")}}
             <select name="{{basePath}}.ability">
                 {{selectOptions abilities selected=rule.ability localize=true}}
             </select>
             <label>
-                {{localize "PF2E.RuleEditor.FlatModifier.Force"}}
+                {{fields.force.label}}
                 <input type="checkbox" name="{{basePath}}.force" {{checked rule.force}}>
             </label>
         {{else}}
@@ -49,7 +49,7 @@
 
 {{#if isDamage}}
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.DamageType"}}</label>
+    <label class="short">{{fields.damageType.label}}</label>
     <div class="form-fields">
         <input type="text" class="pf2e-tagify damage-type" name="{{basePath}}.damageType" value="{{rule.damageType}}"/>
         <select name="{{basePath}}.damageCategory" class="short">
@@ -63,6 +63,6 @@
 {{/if}}
 
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
+    <label class="short">{{fields.predicate.label}}</label>
     <input type="text" name="{{basePath}}.predicate" value="{{json rule.predicate}}" />
 </div>

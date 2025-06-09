@@ -1687,40 +1687,9 @@
         "RuleEditor": {
             "Aura": {
                 "Appearance": {
-                    "Border": "Border",
-                    "Color": "Color",
-                    "Highlight": "Highlight",
-                    "Label": "Appearance",
-                    "Loop": {
-                        "Hint": "If the File is a video, whether to loop it",
-                        "Label": "Loop"
-                    },
-                    "NotApplicable": "Not Applicable",
-                    "PlaybackRate": {
-                        "Hint": "If the File is a video, the playback rate of the resulting <em>HTMLVideoElement</em>",
-                        "Label": "Playback Rate"
-                    },
-                    "Texture": "Texture",
-                    "Translation": {
-                        "Hint": "A manual x/y translation of the texture resource",
-                        "Label": "Translation",
-                        "X": "x",
-                        "Y": "y"
-                    }
-                },
-                "Basics": {
-                    "Level": {
-                        "Hint": "An optional level for the aura, to be used to set the level of the effects it transmits",
-                        "Label": "Level"
-                    },
-                    "MergeExisting": {
-                        "Hint": "If another aura with the same slug is already being emitted, merge this aura's data in with the other's, combining traits and effects as well as merging <em>colors</em> data.",
-                        "Label": "Merge Existing"
-                    },
-                    "Radius": "Radius"
+                    "NotApplicable": "Not Applicable"
                 },
                 "Effects": {
-                    "Affects": "Affects",
                     "AffectsOptions": {
                         "All": "All",
                         "Allies": "Allies",
@@ -1734,19 +1703,109 @@
                         "TurnEnd": "Turn End",
                         "TurnStart": "Turn Start"
                     },
-                    "IncludesSelf": "Includes Self",
-                    "Label": "Effects",
-                    "RemoveEffect": "Remove Effect",
-                    "RemoveOnExit": "Remove on Exit",
-                    "Type": "Type"
+                    "RemoveEffect": "Remove Effect"
+                },
+                "FIELDS": {
+                    "mergeExisting": {
+                        "hint": "If another aura with the same slug is already being emitted, merge this aura's data in with the other's, combining traits and effects as well as merging <em>colors</em> data.",
+                        "label": "Merge Existing"
+                    },
+                    "appearance": {
+                        "border": {
+                            "alpha": {
+                                "label": "Alpha"
+                            },
+                            "color": {
+                                "label": "Color"
+                            },
+                            "label": "Border"
+                        },
+                        "highlight": {
+                            "alpha": {
+                                "label": "Alpha"
+                            },
+                            "color": {
+                                "label": "Color"
+                            },
+                            "label": "Border"
+                        },
+                        "label": "Highlight",
+                        "texture": {
+                            "alpha": {
+                                "label": "Alpha"
+                            },
+                            "label": "Texture",
+                            "opacity": {
+                                "label": "Opacity"
+                            },
+                            "scale": "Scale",
+                            "loop": {
+                                "hint": "If the File is a video, whether to loop it",
+                                "label": "Loop"
+                            },
+                            "playbackRate": {
+                                "hint": "If the File is a video, the playback rate of the resulting <em>HTMLVideoElement</em>",
+                                "label": "Playback Rate"
+                            },
+                            "translation": {
+                                "hint": "A manual x/y translation of the texture resource",
+                                "label": "Translation",
+                                "x": { "label": "x" },
+                                "y": { "label": "y" }
+                            }
+                        }
+                    },
+                    "effects": {
+                        "element": {
+                            "affects": {
+                                "label": "Affects"
+                            },
+                            "includesSelf": {
+                                "label": "Includes Self"
+                            },
+                            "save": {
+                                "type": {
+                                    "label": "Type"
+                                },
+                                "dc": {
+                                    "label": "DC"
+                                },
+                                "label": {
+                                    "label": "Saves"
+                                }
+                            },
+                            "removeOnExit": {
+                                "label": "Remove on Exit"
+                            },
+                            "predicate": {
+                                "label": "Predicate"
+                            }
+                        },
+                        "label": "Effects"
+                    },
+                    "level": {
+                        "hint": "An optional level for the aura, to be used to set the level of the effects it transmits",
+                        "label": "Level"
+                    },
+                    "radius": { "label": "Radius" }
                 }
             },
             "FastHealing": {
-                "DeactivatedBy": "Deactivated By"
+                "FIELDS": {
+                    "deactivatedBy": {
+                        "label": "Deactivated By"
+                    }
+                }
             },
             "FlatModifier": {
-                "Force": "Force?",
-                "HideIfDisabled": "Hide (If Disabled)"
+                "FIELDS": {
+                    "force": {
+                        "label": "Force?"
+                    },
+                    "hideIfDisabled": {
+                        "label": "Hide (If Disabled)"
+                    }
+                }
             },
             "General": {
                 "Add": "Add",
@@ -1757,33 +1816,91 @@
                     "null": "2x Damage on Crit",
                     "true": "Critical Damage Only"
                 },
-                "DamageType": "Damage Type",
-                "Label": "Label",
-                "Opacity": "Opacity",
-                "Predicate": "Predicate",
                 "Primitive": "Primitive",
                 "PriorityHint": "Priority determines the order in which rule elements are executed within the same phase. Rule elements with lower priority values are executed first.",
                 "Range": "Range",
                 "Remove": "Remove",
-                "Selector": "Selector",
-                "Slug": "Slug",
                 "Value": "Value"
             },
+            "RuleElement": {
+                "FIELDS": {
+                    "damageType": {
+                        "label": "Damage Type"
+                    },
+                    "label": {
+                        "label": "Label"
+                    },
+                    "level": {
+                        "label": "Level"
+                    },
+                    "predicate": {
+                        "label": "Predicate"
+                    },
+                    "selector": {
+                        "label": "Selector"
+                    },
+                    "slug": {
+                        "label": "Slug"
+                    },
+                    "traits": {
+                        "label": "Traits"
+                    },
+                    "value": {
+                        "label": "Value"
+                    }
+                }
+            },
             "GrantItem": {
-                "AllowDuplicate": "Allow Duplicates",
-                "ReevaluateOnUpdate": "Reevaluate on Update",
-                "ReplaceSelf": "Replace Self"
+                "FIELDS": {
+                    "uuid": {
+                        "label": "Grant UUID"
+                    },
+                    "allowDuplicate": {
+                        "label": "Allow Duplicates"
+                    },
+                    "reevaluateOnUpdate": {
+                        "label": "Reevaluate on Update",
+                        "Choices": {
+                            "false": "Never",
+                            "true": "On Actor Updates",
+                            "items": "On Item Updates"
+                        }
+                    },
+                    "replaceSelf": {
+                        "label": "Replace Self"
+                    }
+                }
             },
             "Note": {
-                "Hidden": "Hidden",
-                "Outcome": "Outcome",
-                "Text": "Text Content",
-                "Title": "Title"
+                "FIELDS": {
+                    "hidden": {
+                        "label": "Hidden"
+                    },
+                    "outcome": {
+                        "label": "Outcome"
+                    },
+                    "text": {
+                        "label": "Text Content"
+                    },
+                    "title": {
+                        "label": "Title"
+                    }
+                }
             },
             "TokenImage": {
-                "Ring": {
-                    "Label": "Dynamic Ring",
-                    "ScaleCorrection": "Scale Correction"
+                "FIELDS": {
+                    "alpha": {
+                        "label": "Alpha"
+                    },
+                    "scale": {
+                        "label": "Scale"
+                    },
+                    "ring": {
+                        "label": "Dynamic Ring",
+                        "scale": {
+                            "label": "Scale Correction"
+                        }
+                    }
                 }
             }
         },
@@ -2865,10 +2982,10 @@
                     }
                 },
                 "SimpleWeaponExpertise": {
-                    "animist":  {
+                    "animist": {
                         "Description": "Training and magical assistance from your spiritual companions have improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
                     },
-                    "summoner":  {
+                    "summoner": {
                         "Description": "Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
                     }
                 },
@@ -2885,7 +3002,7 @@
                     },
                     "druid": {
                         "Expert": "Your command of primal forces has deepened, empowering your spells. Your proficiency ranks for spell attack modifier and spell DC increase to expert.",
-                         "Legendary": "You have developed an unparalleled rapport with the magic of nature. Your proficiency ranks for spell attack modifier and spell DC increase to legendary.",
+                        "Legendary": "You have developed an unparalleled rapport with the magic of nature. Your proficiency ranks for spell attack modifier and spell DC increase to legendary.",
                         "Master": "Primal magic answers your command. Your proficiency ranks for spell attack modifier and spell DC increase to master."
                     },
                     "magus": {
@@ -3353,13 +3470,13 @@
             "Elementalist": {
                 "Wizard": {
                     "ElementalSchool": {
-                        "Prompt":"Choose which element your elemental school follows."
+                        "Prompt": "Choose which element your elemental school follows."
                     }
                 },
                 "Philosophy": {
                     "ElementalCycle": "Elemental Cycle",
                     "InnerSea": "Inner Sea Elementalism",
-                    "Prompt":"Choose an elemental philosophy."
+                    "Prompt": "Choose an elemental philosophy."
                 }
             },
             "Elf": {
@@ -3645,7 +3762,7 @@
                     "ReactiveStrikeNote": "On a successful @UUID[Compendium.pf2e.actionspf2e.Item.KAVf7AmRnbCAHrkT]{Reactive Strike}, add one charge: @UUID[Compendium.pf2e.equipment-effects.Item.nLwtvyLZZTZgFmKq]{Effect: Tactician's Helm Charges}"
                 },
                 "TalentedTapShoes": {
-                    "Note":  "When you succeed or critically succeed at a Reflex save to avoid a damaging effect, you can Stride half your Speed as a reaction."
+                    "Note": "When you succeed or critically succeed at a Reflex save to avoid a damaging effect, you can Stride half your Speed as a reaction."
                 },
                 "ThreePillaredYangNa": {
                     "ToggleLabel": "Three-Pillared Yang Na — Third Blessing"
@@ -4557,11 +4674,11 @@
                 }
             },
             "LostInTheCrowd": {
-              "CrowdSize": {
-                "Ten": "At least 10 creatures",
-                "Hundred": "At least 100 creatures"
-              },
-              "Prompt": "Select a crowd size."
+                "CrowdSize": {
+                    "Ten": "At least 10 creatures",
+                    "Hundred": "At least 100 creatures"
+                },
+                "Prompt": "Select a crowd size."
             },
             "MagicalExperiment": {
                 "EnhancedSenses": "Enhanced Senses",
@@ -5596,29 +5713,29 @@
             },
             "SpellEffectMantle": {
                 "FrozenHeart": {
-                   "Label": {
-                       "ChillingIce": "Chilling Ice",
-                       "HeartOfIce": "Heart of Ice",
-                       "IceGlide": "Ice Glide",
-                       "IceGlideSurface": "Moving along a smooth surface",
-                       "IcyClaws": "Icy Claws"
-                   },
-                   "RollOptionLabel": {
-                    "First": "Mantle of the Frozen Heart — First ability",
-                    "Second": "Mantle of the Frozen Heart — Second ability"
-                   }
+                    "Label": {
+                        "ChillingIce": "Chilling Ice",
+                        "HeartOfIce": "Heart of Ice",
+                        "IceGlide": "Ice Glide",
+                        "IceGlideSurface": "Moving along a smooth surface",
+                        "IcyClaws": "Icy Claws"
+                    },
+                    "RollOptionLabel": {
+                        "First": "Mantle of the Frozen Heart — First ability",
+                        "Second": "Mantle of the Frozen Heart — Second ability"
+                    }
                 },
                 "MagmaHeart": {
                     "Label": {
-                       "EnlargingEruption": "Enlarging Eruption",
-                       "FieryGrasp": "Fiery Grasp",
-                       "HeartOfFire": "Heart of Fire",
-                       "WarmingFlames": "Warming Flames"
-                   },
-                   "RollOptionLabel": {
-                    "First": "Mantle of the Magma Heart — First ability",
-                    "Second": "Mantle of the Magma Heart — Second ability"
-                   }
+                        "EnlargingEruption": "Enlarging Eruption",
+                        "FieryGrasp": "Fiery Grasp",
+                        "HeartOfFire": "Heart of Fire",
+                        "WarmingFlames": "Warming Flames"
+                    },
+                    "RollOptionLabel": {
+                        "First": "Mantle of the Magma Heart — First ability",
+                        "Second": "Mantle of the Magma Heart — Second ability"
+                    }
                 }
             },
             "SpellEffectMentalMap": {
@@ -6421,23 +6538,23 @@
                             "Title": "Familiar of Stalking Night"
                         },
                         "BolsteringAid": {
-                            "Description":"Your familiar knows all manner of tricks that can help! When you Cast or Sustain a hex, and your familiar is adjacent to an ally, that ally gains a +2 status bonus to the next non-attack skill check that ally attempts before the start of your next turn.",
+                            "Description": "Your familiar knows all manner of tricks that can help! When you Cast or Sustain a hex, and your familiar is adjacent to an ally, that ally gains a +2 status bonus to the next non-attack skill check that ally attempts before the start of your next turn.",
                             "Title": "Familiar of Bolstering Aid"
                         },
                         "EnticingNegotiation": {
-                            "Description":"When you Cast or Sustain a hex and your familiar is within 10 feet of an enemy, the enemy becomes @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn. Your familiar can only distract a single enemy per round in this way.",
+                            "Description": "When you Cast or Sustain a hex and your familiar is within 10 feet of an enemy, the enemy becomes @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn. Your familiar can only distract a single enemy per round in this way.",
                             "Title": "Familiar of Enticing Negotiation"
                         },
                         "ObscuringSnowfall": {
-                            "Description":"When you Cast or Sustain a hex, you can cause clinging snow to fall in a @Template[type:burst|distance:5] centered on a square of your familiar's space. This snowfall remains until the start of your next turn, and enemies that enter these squares during that period are @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn.",
+                            "Description": "When you Cast or Sustain a hex, you can cause clinging snow to fall in a @Template[type:burst|distance:5] centered on a square of your familiar's space. This snowfall remains until the start of your next turn, and enemies that enter these squares during that period are @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn.",
                             "Title": "Familiar of Obscuring Snowfall"
                         },
                         "PairedPerplexity": {
-                            "Description":"When you Cast or Sustain a hex, your familiar seems to double and be in two places at once. One creature you choose within 20 feet of it is @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} until the start of your next turn; this is a visual effect.",
+                            "Description": "When you Cast or Sustain a hex, your familiar seems to double and be in two places at once. One creature you choose within 20 feet of it is @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} until the start of your next turn; this is a visual effect.",
                             "Title": "Familiar of Paired Perplexity"
                         },
                         "SwarmsHeart": {
-                            "Description":"When you Cast or Sustain a hex, the insects swarm to protect you and your allies. Until the start of your next turn, your familiar grants concealment to you or any ally while sharing the same space.",
+                            "Description": "When you Cast or Sustain a hex, the insects swarm to protect you and your allies. Until the start of your next turn, your familiar grants concealment to you or any ally while sharing the same space.",
                             "Title": "Familiar of Swarm's Heart"
                         }
                     },

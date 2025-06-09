@@ -10,6 +10,8 @@ import fields = foundry.data.fields;
  * @category RuleElement
  */
 class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
+    static override LOCALIZATION_PREFIXES = ["PF2E.RuleEditor.RuleElement", "PF2E.RuleEditor.TokenImage"];
+
     static override defineSchema(): TokenImageRuleSchema {
         return {
             ...super.defineSchema(),
@@ -21,7 +23,6 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
             }),
             tint: new fields.ColorField({ label: "TOKEN.FIELDS.texture.tint.label" }),
             alpha: new fields.AlphaField({
-                label: "PF2E.RuleEditor.General.Opacity",
                 required: false,
                 nullable: true,
                 initial: null,
@@ -31,7 +32,6 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                 nullable: true,
                 positive: true,
                 initial: null,
-                label: "Scale",
             }),
             ring: new fields.SchemaField(
                 {
@@ -49,7 +49,6 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                                 nullable: false,
                                 min: 0.8,
                                 initial: 1,
-                                label: "PF2E.RuleEditor.TokenImage.Ring.ScaleCorrection",
                             }),
                         },
                         { required: true, nullable: false, initial: undefined },

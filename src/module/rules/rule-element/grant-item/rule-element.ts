@@ -18,6 +18,8 @@ import { ItemAlteration } from "../item-alteration/alteration.ts";
 import type { GrantItemSchema } from "./schema.ts";
 
 class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
+    static override LOCALIZATION_PREFIXES = ["PF2E.RuleEditor.RuleElement", "PF2E.RuleEditor.GrantItem"];
+
     static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     /** The id of the granted item */
@@ -79,14 +81,12 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 nullable: false,
                 blank: false,
                 initial: undefined,
-                label: "PF2E.UUID.Label",
             }),
             flag: new SlugField({ required: true, nullable: true, initial: null, camel: "dromedary" }),
-            reevaluateOnUpdate: new fields.BooleanField({ label: "PF2E.RuleEditor.GrantItem.ReevaluateOnUpdate" }),
+            reevaluateOnUpdate: new fields.BooleanField(),
             inMemoryOnly: new fields.BooleanField(),
             allowDuplicate: new fields.BooleanField({
                 initial: true,
-                label: "PF2E.RuleEditor.GrantItem.AllowDuplicate",
             }),
             nestUnderGranter: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),

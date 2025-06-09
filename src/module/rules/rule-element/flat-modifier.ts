@@ -25,6 +25,8 @@ import fields = foundry.data.fields;
  * @category RuleElement
  */
 class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
+    static override LOCALIZATION_PREFIXES = ["PF2E.RuleEditor.RuleElement", "PF2E.RuleEditor.FlatModifier"];
+
     constructor(source: FlatModifierSource, options: RuleElementOptions) {
         super(source, options);
         if (this.invalid) return;

@@ -8,6 +8,8 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
 import fields = foundry.data.fields;
 
 class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
+    static override LOCALIZATION_PREFIXES = ["PF2E.RuleEditor.RuleElement", "PF2E.RuleEditor.Note"];
+
     static override defineSchema(): RollNoteSchema {
         return {
             ...super.defineSchema(),

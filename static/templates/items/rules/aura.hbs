@@ -1,14 +1,14 @@
 <nav class="sheet-tabs tabs rule-tabs">
     <h4>
         <a data-rule-tab="basics"><i class="fa-solid fa-cogs"></i> {{localize "PF2E.RuleEditor.General.Basics"}}</a>
-        <a data-rule-tab="effects"><i class="fa-solid fa-play"></i> {{localize fields.effects.label}}</a>
-        <a data-rule-tab="appearance"><i class="fa-solid fa-image"></i> {{localize fields.appearance.label}}</a>
+        <a data-rule-tab="effects"><i class="fa-solid fa-play"></i> {{fields.effects.label}}</a>
+        <a data-rule-tab="appearance"><i class="fa-solid fa-image"></i> {{fields.appearance.label}}</a>
     </h4>
 </nav>
 
 <div data-rule-tab="basics">
     <div class="grid-item">
-        <label>{{localize fields.radius.label}}</label>
+        <label>{{fields.radius.label}}</label>
         <div class="resolvable">
             {{{form.resolvableValue "radius"}}}
             {{{form.resolvableAddBracket "radius"}}}
@@ -20,7 +20,7 @@
 
     <div class="grid-item">
         <label>
-            {{localize fields.level.label}}
+            {{fields.level.label}}
             <i class="fa-solid fa-circle-info" data-tooltip="{{fields.level.hint}}"></i>
         </label>
         <div class="resolvable">
@@ -34,13 +34,13 @@
 
     <div class="stacked">
         <div class="grid-item">
-            <label>{{localize fields.traits.label}}</label>
+            <label>{{fields.traits.label}}</label>
             <tagify-tags class="pf2e-tagify tagify-traits" name="system.rules.{{index}}.traits" value="{{json rule.traits}}" />
         </div>
 
         <div class="grid-item long-label">
             <label>
-                {{localize fields.mergeExisting.label}}
+                {{fields.mergeExisting.label}}
                 <i class="fa-solid fa-circle-info" data-tooltip="{{fields.mergeExisting.hint}}"></i>
             </label>
             <div class="checkbox">
@@ -50,7 +50,7 @@
     </div>
 
     <div class="form-group">
-        <label for="{{fieldIdPrefix}}predicate" class="short">{{localize fields.predicate.label}}</label>
+        <label for="{{fieldIdPrefix}}predicate" class="short">{{fields.predicate.label}}</label>
         <input type="text" name="{{basePath}}.predicate" id="{{fieldIdPrefix}}predicate" value="{{json rule.predicate}}" placeholder="[ ]" />
     </div>
 </div>
@@ -132,10 +132,10 @@
 
 <div data-rule-tab="appearance">
     <fieldset>
-        <legend>{{localize fields.appearance.fields.border.label}}</legend>
+        <legend>{{fields.appearance.fields.border.label}}</legend>
         <div class="stacked">
             <div class="two-items">
-                <label for="{{fieldIdPrefix}}border-color">{{localize fields.appearance.fields.border.fields.color.label}}</label>
+                <label for="{{fieldIdPrefix}}border-color">{{fields.appearance.fields.border.fields.color.label}}</label>
                 <div class="color-picker">
                     {{#if object.appearance.border}}
                         <color-picker name="system.rules.{{index}}.appearance.border.color" value="{{borderColor}}"></color-picker>
@@ -157,17 +157,17 @@
             </div>
 
             <div class="three-items">
-                <label>{{localize fields.appearance.fields.border.fields.alpha.label}}</label>
+                <label>{{fields.appearance.fields.border.fields.alpha.label}}</label>
                 <range-picker name="system.rules.{{index}}.appearance.border.alpha" value="{{coalesce object.appearance.border.alpha 0}}" placeholder="0.75" min="0" max="1" step="0.05" />
             </div>
         </div>
     </fieldset>
 
     <fieldset>
-        <legend>{{localize fields.appearance.fields.highlight.label}}</legend>
+        <legend>{{fields.appearance.fields.highlight.label}}</legend>
         <div class="stacked">
             <div class="two-items">
-                <label for="{{fieldIdPrefix}}highlight-color">{{localize fields.appearance.fields.border.fields.color.label}}</label>
+                <label for="{{fieldIdPrefix}}highlight-color">{{fields.appearance.fields.border.fields.color.label}}</label>
                 <div class="color-picker">
                     <color-picker name="system.rules.{{index}}.appearance.highlight.color" value="{{highlightColor}}"></color-picker>
 
@@ -184,14 +184,14 @@
                 </div>
             </div>
             <div class="three-items">
-                <label>{{localize fields.appearance.fields.highlight.fields.alpha.label}}</label>
+                <label>{{fields.appearance.fields.highlight.fields.alpha.label}}</label>
                 <range-picker name="system.rules.{{index}}.appearance.highlight.alpha" value="{{object.appearance.highlight.alpha}}" placeholder="0.75" min="0" max="1" step="0.05" />
             </div>
         </div>
     </fieldset>
 
     <fieldset>
-        <legend>{{localize fields.appearance.fields.texture.label}}</legend>
+        <legend>{{fields.appearance.fields.texture.label}}</legend>
         <div class="stacked">
             <div class="three-items image-path">
                 <label>{{localize fields.appearance.fields.texture.fields.src.label}}</label>
@@ -200,30 +200,30 @@
 
             {{#if object.appearance.texture.src}}
                 <div class="three-items long-label">
-                    <label>{{localize fields.appearance.fields.texture.fields.alpha.label}}</label>
+                    <label>{{loalizefields.appearance.fields.texture.fields.alpha.label}}</label>
                     <range-picker name="system.rules.{{index}}.appearance.texture.alpha" value="{{object.appearance.texture.alpha}}" placeholder="1" min="0" max="1" step="0.05" />
                 </div>
 
                 <div class="three-items{{#if (not isImageFile)}} long-label{{/if}}">
-                    <label>{{localize fields.appearance.fields.texture.fields.scale.label}}</label>
+                    <label>{{fields.appearance.fields.texture.fields.scale.label}}</label>
                     <range-picker name="system.rules.{{index}}.appearance.texture.scale" value="{{object.appearance.texture.scale}}" placeholder="1" min="0" max="5" step="0.01" />
                 </div>
 
                 <div class="three-items translation long-label">
                     <label>
-                        {{localize fields.appearance.fields.texture.fields.translation.label}}
+                        {{fields.appearance.fields.texture.fields.translation.label}}
                         <i class="fa-solid fa-circle-info" data-tooltip="{{fields.appearance.fields.texture.fields.translation.hint}}"></i>
                     </label>
                     <input type="number"
                         name="system.rules.{{index}}.appearance.texture.translation.x"
                         data-translation="x"
-                        placeholder="{{localize fields.appearance.fields.texture.fields.translation.fields.x.label}}"
+                        placeholder="{{fields.appearance.fields.texture.fields.translation.fields.x.label}}"
                         value="{{object.appearance.texture.translation.x}}"
                     >
                     <input type="number"
                         name="system.rules.{{index}}.appearance.texture.translation.y"
                         data-translation="y"
-                        placeholder="{{localize fields.appearance.fields.texture.fields.translation.fields.y.label}}"
+                        placeholder="{{fields.appearance.fields.texture.fields.translation.fields.y.label}}"
                         value="{{object.appearance.texture.translation.y}}"
                     >
                 </div>
@@ -231,7 +231,7 @@
                 {{#if (not isImageFile)}}
                     <div class="three-items long-label">
                         <label>
-                            {{localize fields.appearance.fields.texture.fields.playbackRate.label}}
+                            {{fields.appearance.fields.texture.fields.playbackRate.label}}
                             <i class="fa-solid fa-circle-info" data-tooltip="{{fields.appearance.fields.texture.fields.playbackRate.hint}}"></i>
                         </label>
                         <range-picker name="system.rules.{{index}}.appearance.texture.playbackRate" value="{{object.appearance.texture.playbackRate}}" placeholder="1" min="0" max="4" step="0.05" />
@@ -239,7 +239,7 @@
 
                     <div class="grid-item long-label">
                         <label>
-                            {{localize fields.appearance.fields.texture.fields.loop.label}}
+                            {{fields.appearance.fields.texture.fields.loop.label}}
                             <i class="fa-solid fa-circle-info" data-tooltip="{{fields.appearance.fields.texture.fields.loop.hint}}"></i>
                         </label>
                         <input type="checkbox" name="system.rules.{{index}}.appearance.texture.loop" {{checked object.appearance.texture.loop}}/>

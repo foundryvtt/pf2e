@@ -3,7 +3,7 @@
         <a data-rule-tab="basics"><i class="fa-solid fa-image-portrait"></i>
             {{localize "PF2E.RuleEditor.General.Basics"}}</a>
         <a data-rule-tab="ring"><i class="fa-regular fa-circle-user"></i>
-            {{localize "PF2E.RuleEditor.TokenImage.Ring.Label"}}</a>
+            {{fields.ring.label}}</a>
     </h4>
 </nav>
 
@@ -33,7 +33,7 @@
     </div>
     <div class="form-group scale">
         <label for="{{fieldIdPrefix}}scale" class="short">
-            {{localize fields.scale.label}}
+            {{fields.scale.label}}
             <span class="units">({{localize "Ratio"}})</span>
         </label>
         <div class="form-fields">
@@ -49,14 +49,14 @@
         </div>
     </div>
     <div class="form-group alpha">
-        <label for="{{fieldIdPrefix}}alpha" class="short">{{localize fields.alpha.label}}</label>
+        <label for="{{fieldIdPrefix}}alpha" class="short">{{fields.alpha.label}}</label>
         <div class="form-fields">
             <input type="checkbox" data-action="toggle-alpha" {{checked alphaEnabled}} />
             <range-picker name="system.rules.{{index}}.alpha" value="{{object.alpha}}" min="0" max="1" step="0.05" />
         </div>
     </div>
     <div class="form-group">
-        <label for="{{fieldIdPrefix}}predicate" class="short">{{localize fields.predicate.label}}</label>
+        <label for="{{fieldIdPrefix}}predicate" class="short">{{fields.predicate.label}}</label>
         <input
             type="text"
             name="system.rules.{{index}}.predicate"
@@ -83,7 +83,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="{{fieldIdPrefix}}subject-scale">{{localize fields.ring.fields.subject.fields.scale.label}}</label>
+        <label for="{{fieldIdPrefix}}subject-scale">{{fields.ring.fields.subject.fields.scale.label}}</label>
         <div class="form-fields">
             <range-picker
                 name="system.rules.{{index}}.ring.subject.scale"
@@ -107,7 +107,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="{{fieldIdPrefix}}colors-ring">{{localize fields.ring.fields.colors.fields.ring.label}}</label>
+        <label for="{{fieldIdPrefix}}colors-ring">{{fields.ring.fields.colors.fields.ring.label}}</label>
         <div class="form-fields">
             <color-picker
                 name="system.rules.{{index}}.ring.colors.ring"

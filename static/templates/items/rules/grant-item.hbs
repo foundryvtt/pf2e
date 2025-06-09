@@ -1,7 +1,7 @@
 <div class="form-group">
-    <label for="{{fieldIdPrefix}}uuid">{{localize fields.uuid.label}}</label>
+    <label for="{{fieldIdPrefix}}uuid">{{fields.uuid.label}}</label>
     <div class="form-fields">
-        <input type="text" name="system.rules.{{index}}.uuid" id="{{fieldIdPrefix}}uuid" value="{{rule.uuid}}" />
+        {{formInput fields.uuid id=(concat fieldIdPrefix "uuid") value=rule.uuid}}
         {{#if granted}}
             <a class="content-link" data-link data-uuid="{{granted.uuid}}">
                 <img src="{{granted.img}}"/> {{granted.name}}
@@ -11,7 +11,7 @@
 </div>
 
 <div class="form-group">
-    <label for="{{fieldIdPrefix}}predicate">{{localize fields.predicate.label}}</label>
+    <label for="{{fieldIdPrefix}}predicate">{{fields.predicate.label}}</label>
     <div class="form-fields">
         <input
             type="text"
@@ -23,26 +23,5 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label for="{{fieldIdPrefix}}allow-duplicates">{{localize fields.allowDuplicate.label}}</label>
-    <div class="form-fields">
-        <input
-            type="checkbox"
-            name="system.rules.{{index}}.allowDuplicate"
-            id="{{fieldIdPrefix}}allow-duplicates"
-            {{checked rule.allowDuplicate}}
-        />
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="{{fieldIdPrefix}}reevaluate-on-update">{{localize fields.reevaluateOnUpdate.label}}</label>
-    <div class="form-fields">
-        <input
-            type="checkbox"
-            name="system.rules.{{index}}.reevaluateOnUpdate"
-            id="{{fieldIdPrefix}}reevaluate-on-update"
-            {{checked rule.reevaluateOnUpdate}}
-        />
-    </div>
-</div>
+{{formGroup fields.allowDuplicate name=(concat "system.rules." index ".allowDuplicate") value=rule.allowDuplicatee}}
+{{formGroup fields.reevaluateOnUpdate name=(concat "system.rules." index ".reevaluateOnUpdate") value=rule.reevaluateOnUpdate}}

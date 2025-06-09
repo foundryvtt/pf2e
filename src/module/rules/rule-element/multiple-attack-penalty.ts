@@ -7,18 +7,18 @@ import fields = foundry.data.fields;
  * @category RuleElement
  */
 class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
+    static override LOCALIZATION_PREFIXES = ["PF2E.RuleEditor.RuleElement"];
+
     static override defineSchema(): MAPRuleSchema {
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({
                 required: true,
                 blank: false,
-                label: "PF2E.RuleEditor.General.Selector",
             }),
             value: new ResolvableValueField({
                 required: true,
                 initial: undefined,
-                label: "PF2E.RuleEditor.General.Value",
             }),
         };
     }
