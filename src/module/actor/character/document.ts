@@ -1417,7 +1417,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Show the ammo list if the weapon requires ammo
-        if (weapon.ammoRequired > 0) {
+        if (weapon.system.expend) {
             const compatible = ammos
                 .filter((a) => a.isAmmoFor(weapon))
                 .map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` }));
@@ -1472,15 +1472,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 params.options ??= [];
 
                 const configuredAmmo = weapon.ammo;
-                const ammoRequired = weapon.ammoRequired;
                 const ammoRemaining = configuredAmmo?.isOfType("consumable")
                     ? configuredAmmo.uses.max > 1
                         ? configuredAmmo.uses.value
                         : configuredAmmo.quantity
                     : (configuredAmmo?.quantity ?? 0);
-                params.consumeAmmo ??= ammoRequired > 0;
+                params.consumeAmmo ??= weapon.system.expend > 0;
 
-                if (params.consumeAmmo && ammoRequired > ammoRemaining) {
+                if (params.consumeAmmo && weapon.system.expend > ammoRemaining) {
                     ui.notifications.warn(
                         game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name }),
                     );
