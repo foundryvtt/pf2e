@@ -6,6 +6,7 @@ import { calculateDC } from "@module/dc.ts";
 import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessIndex, RollBrief } from "@system/degree-of-success.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { EarnIncomeResult, earnIncome } from "./calculate.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 
 function escapeHtml(text: string): string {
     const p = document.createElement("p");
@@ -87,32 +88,26 @@ interface CalculateIncomeParams {
 
 function runEarnIncome({ actor, event, skill, level, days }: RunEarnIncomeParams): void {
     const dc = calculateDC(level, { pwol: game.pf2e.settings.variants.pwol.enabled });
-    const options = new Set(
-        actor.getRollOptions([
-            "all",
-            "skill-check",
-            skill.slug,
-            `${skill.attribute}-based`,
-            `${skill.attribute}-skill-check`,
-        ]),
-    );
-    options.add("action:earn-income");
 
-    game.pf2e.Check.roll(
-        new game.pf2e.CheckModifier(`Earn Income: ${skill.label}`, skill, []),
-        { actor, type: "skill-check", dc: { value: dc }, options },
-        event,
-        (roll): void => {
+    const statistic = actor.getStatistic(skill.slug);
+    statistic?.roll({
+        ...eventToRollParams(event, { type: "check" }),
+        action: "earn-income",
+        dc,
+        label: `Earn Income: ${skill.label}`,
+        extraRollOptions: ["action:earn-income"],
+        traits: ["downtime"],
+        callback: (roll) => {
             const dieValue = roll.dice[0].results[0].result;
             const modifier = roll.total - dieValue;
             calculateIncome({ actor, skill, rollBrief: { dieValue, modifier }, level, days, dc });
         },
-    );
+    });
 }
 
 interface RunEarnIncomeParams {
     actor: CharacterPF2e;
-    event: JQuery.TriggeredEvent | undefined;
+    event: JQuery.TriggeredEvent | Event | undefined;
     skill: Statistic;
     level: number;
     days: number;
