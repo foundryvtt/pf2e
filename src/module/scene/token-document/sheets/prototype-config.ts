@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
 import type { DocumentSheetConfiguration } from "@client/applications/api/document-sheet.d.mts";
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";

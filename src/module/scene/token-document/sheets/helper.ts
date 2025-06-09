@@ -1,9 +1,10 @@
+import type { ActorPF2e } from "@actor";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { DocumentSheetRenderContext } from "@client/applications/api/_module.mjs";
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
-import { SettingsMenuOptions } from "@system/settings/menu.ts";
+import type { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { createHTMLElement, ErrorPF2e, htmlQuery } from "@util";
-import { TokenDocumentPF2e } from "../document.ts";
+import type { TokenDocumentPF2e } from "../document.ts";
 import type { PrototypeTokenConfigPF2e } from "./prototype-config.ts";
 import type { TokenConfigPF2e } from "./token-config.ts";
 
@@ -20,12 +21,12 @@ class TokenConfigHelper {
     }
 
     get linkToActorSize(): boolean {
-        return !!this.#sheet.token.flags.pf2e.linkToActorSize;
+        return !!this.token.flags.pf2e.linkToActorSize;
     }
 
     /** Get this token's dimensions were they linked to its actor's size */
     get dimensionsFromActorSize(): number {
-        const actorSize = this.#sheet.actor?.size ?? "med";
+        const actorSize = this.actor?.size ?? "med";
         return {
             tiny: 0.5,
             sm: 1,
@@ -37,25 +38,31 @@ class TokenConfigHelper {
     }
 
     get rulesBasedVision(): boolean {
-        const token = this.#sheet.token;
-        if (token instanceof TokenDocumentPF2e) {
-            const isCreature = !!this.#sheet.actor?.isOfType("creature");
-            return isCreature && token.rulesBasedVision;
+        if ("rulesBasedVision" in this.token) {
+            const isCreature = !!this.actor?.isOfType("creature");
+            return isCreature && this.token.rulesBasedVision;
         }
-        return this.#sheet.isPrototype && game.pf2e.settings.rbv;
+        return game.pf2e.settings.rbv;
+    }
+
+    get actor(): ActorPF2e | null {
+        return this.#sheet.actor;
+    }
+
+    get token(): TokenDocumentPF2e | foundry.data.PrototypeToken<ActorPF2e> {
+        return this.#sheet.token;
     }
 
     async prepareContext(context: DocumentSheetRenderContext): Promise<TokenConfigContext> {
-        const actor = this.#sheet.actor;
-        const token = this.#sheet.token;
+        const actor = this.actor;
         const sizeLinkable = !!actor && SIZE_LINKABLE_ACTOR_TYPES.has(actor.type);
-        const linkToActorSize = sizeLinkable && token.flags.pf2e.linkToActorSize;
+        const linkToActorSize = sizeLinkable && this.token.flags.pf2e.linkToActorSize;
         return Object.assign(context, {
             sizeLinkable,
             linkToActorSize,
-            autoscale: sizeLinkable && token.flags.pf2e.autoscale,
+            autoscale: sizeLinkable && this.token.flags.pf2e.autoscale,
             linkToSizeTitle: linkToActorSize ? "Unlink" : "Link",
-            autoscaleTitle: token.flags.pf2e.autoscale ? "Unlink" : "Link",
+            autoscaleTitle: this.token.flags.pf2e.autoscale ? "Unlink" : "Link",
         });
     }
 
@@ -63,11 +70,11 @@ class TokenConfigHelper {
         if (options.parts.includes("identity")) {
             this.#swapDispositionField();
             // Disable un-linking for certain actor types we prefer not to become synthetics
-            if (this.#sheet.actor?.allowSynthetics === false) {
+            if (this.actor?.allowSynthetics === false) {
                 const control = htmlQuery<HTMLInputElement>(this.#sheet.element, "input[name=actorLink]");
                 if (control && control.checked) {
                     control.disabled = true;
-                    const typeLocalization = game.i18n.localize(`TYPES.Actor.${this.#sheet.actor.type}`);
+                    const typeLocalization = game.i18n.localize(`TYPES.Actor.${this.actor.type}`);
                     control.dataset.tooltip = game.i18n.format("PF2E.Token.ActorLinkForced", {
                         type: typeLocalization,
                     });
@@ -81,20 +88,19 @@ class TokenConfigHelper {
         // Readd scale property to form data if input is disabled: necessary for mirroring checkboxes to function
         const scaleInput = form.elements.namedItem("scale");
         if (scaleInput instanceof HTMLElement && scaleInput.getAttribute("disabled") === "true") {
-            data["scale"] = Math.abs(this.#sheet.token._source.texture.scaleX);
+            data["scale"] = Math.abs(this.token._source.texture.scaleX);
         }
         // Change `null` disposition (not secret) back to numeric value
         if (data["disposition"] === null) {
-            data["disposition"] = this.#sheet.token.disposition === -2 ? -1 : this.#sheet.token.disposition;
+            data["disposition"] = this.token.disposition === -2 ? -1 : this.token.disposition;
         }
         return data;
     }
 
     async processSubmitData(submitData: Record<string, unknown>): Promise<void> {
-        console.log(`linkToActorSize: ${this.linkToActorSize}`);
         if (this.linkToActorSize) {
-            if (this.#sheet.actor?.isOfType("vehicle")) {
-                const dimensions = this.#sheet.actor.dimensions;
+            if (this.actor?.isOfType("vehicle")) {
+                const dimensions = this.actor.dimensions;
                 const width = Math.max(Math.round(dimensions.width / 5), 1);
                 const length = Math.max(Math.round(dimensions.length / 5), 1);
                 submitData["width"] = width;
@@ -117,15 +123,13 @@ class TokenConfigHelper {
                 break;
             }
             case "toggleAutoscale": {
-                const token = this.#sheet.token;
                 await this.#sheet.submit({ operation: { render: false } });
-                await token.update({ "flags.pf2e.autoscale": !token.flags.pf2e.autoscale });
+                await this.token.update({ "flags.pf2e.autoscale": !this.token.flags.pf2e.autoscale });
                 break;
             }
             case "toggleSizeLink": {
-                const token = this.#sheet.token;
                 await this.#sheet.submit({ operation: { render: false } });
-                await token.update({ "flags.pf2e.linkToActorSize": !token.flags.pf2e.linkToActorSize });
+                await this.token.update({ "flags.pf2e.linkToActorSize": !this.token.flags.pf2e.linkToActorSize });
                 break;
             }
         }
@@ -149,7 +153,7 @@ class TokenConfigHelper {
         checkbox.id = input.id;
         checkbox.value = String(CONST.TOKEN_DISPOSITIONS.SECRET);
         checkbox.dataset.dtype = "Number";
-        checkbox.defaultChecked = this.#sheet.token._source.disposition === CONST.TOKEN_DISPOSITIONS.SECRET;
+        checkbox.defaultChecked = this.token._source.disposition === CONST.TOKEN_DISPOSITIONS.SECRET;
         input.replaceWith(checkbox);
     }
 
