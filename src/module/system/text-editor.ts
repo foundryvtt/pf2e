@@ -875,20 +875,22 @@ function getCheckDC({
         const idDomain = item ? `${item.id}-inline-dc` : null;
         const slugDomain = `${sluggify(name)}-inline-dc`;
         const domains = [params.type !== "flat" ? "all" : null, "inline-dc", idDomain, slugDomain].filter(R.isTruthy);
-        const { synthetics } = actor;
         const modifier = new ModifierPF2e({
             slug: "base",
             label: "PF2E.ModifierTitle",
             modifier: base - 10,
-            adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, "base"),
+            adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "base"),
         });
-        const stat = new Statistic(actor, {
-            slug: params.type,
-            label: name,
-            domains,
-            modifiers: [modifier],
-        });
-
+        const stat = new Statistic(
+            actor,
+            {
+                slug: params.type,
+                label: name,
+                domains,
+                modifiers: [modifier],
+            },
+            { extraRollOptions: [`inline-dc:value:${base}`], item },
+        );
         return String(stat.dc.value);
     }
 
