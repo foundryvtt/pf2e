@@ -300,7 +300,7 @@ export abstract class DataField<
      * @throws          An Error if this DataField subclass does not support input rendering
      * @returns         A rendered HTMLElement for the field
      */
-    protected _toInput(config?: FormInputConfig): HTMLElement | HTMLCollection;
+    protected _toInput(config: FormInputConfig): HTMLElement | HTMLCollection;
 
     /**
      * Render this DataField as a standardized form-group element.
@@ -613,6 +613,15 @@ export class StringField<
     protected override _validateSpecial(value: unknown): boolean | void;
 
     protected _validateType(value: unknown): boolean | void;
+
+    /* -------------------------------------------- */
+    /*  Form Field Integration                      */
+    /* -------------------------------------------- */
+
+    /**
+     * Prepare form input configuration to accept a limited choice set of options.
+     */
+    static _prepareChoiceConfig(config: foundry.data.FormInputConfig & Partial<foundry.data.ChoiceInputConfig>): void;
 }
 
 /** A subclass of `DataField` which deals with object-typed data. */

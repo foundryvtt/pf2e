@@ -15,7 +15,7 @@ import type {
     SourceFromSchema,
 } from "@common/data/fields.d.mts";
 import { Predicate, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
-import { SlugCamel, objectHasKey, sluggify } from "@util";
+import { SlugCamel, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import fields = foundry.data.fields;
 import validation = foundry.data.validation;
@@ -163,31 +163,73 @@ class StrictObjectField<
     }
 }
 
+type JSONPrimitive = Exclude<JSONValue, "object">;
+
 /** A field that allows nothing except for the provided choices */
 class AnyChoiceField<
-    TChoices extends JSONValue,
+    TChoices extends JSONPrimitive,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
 > extends fields.DataField<TChoices, TChoices, TRequired, TNullable, THasInitial> {
+    static override get _defaults(): AnyChoiceFieldOptions<JSONPrimitive, boolean, boolean, boolean> {
+        return { ...super._defaults, choices: [] } as AnyChoiceFieldOptions<JSONPrimitive, boolean, boolean, boolean>;
+    }
+
+    // Overriden to satisfy typescript types only
+    constructor(
+        options?: AnyChoiceFieldOptions<TChoices, TRequired, TNullable, THasInitial>,
+        context?: foundry.data.DataFieldContext,
+    ) {
+        super(options, context);
+    }
+
+    /** Converts invalid string representations to valid non-string choices if they exist */
+    protected override _cleanType(value: unknown): unknown {
+        if (typeof value === "string" && !this.choices.includes(value)) {
+            const index = this.choices.findIndex((c) => String(c) === value);
+            return index >= 0 ? this.choices[index] : value;
+        }
+        return value;
+    }
+
     protected override _cast(value: unknown): unknown {
         return value;
     }
 
     protected override _validateType(value: unknown): void {
         if (this.options.nullable && value === null) return;
-
-        const choices =
-            "choices" in this.options
-                ? typeof this.options.choices === "function"
-                    ? this.options.choices()
-                    : (this.options.choices ?? [])
-                : null;
-        const isValid = Array.isArray(choices) ? choices.includes(value) : objectHasKey(choices, value);
-        if (!isValid) {
+        if (!tupleHasValue(this.choices, value)) {
             throw new Error(`${value} is not a valid choice`);
         }
     }
+
+    override _toInput(
+        config: foundry.applications.fields.SelectInputConfig & Partial<foundry.data.ChoiceInputConfig>,
+    ): HTMLElement | HTMLCollection {
+        config.choices ??= R.mapToObj(this.choices, (c) => [String(c), c]);
+        fields.StringField._prepareChoiceConfig(config);
+        return foundry.applications.fields.createSelectInput(config);
+    }
+}
+
+interface AnyChoiceField<
+    TChoices extends JSONPrimitive,
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true,
+> extends fields.DataField<TChoices, TChoices, TRequired, TNullable, THasInitial> {
+    choices: JSONPrimitive[];
+    options: AnyChoiceFieldOptions<TChoices, TRequired, TNullable, THasInitial>;
+}
+
+interface AnyChoiceFieldOptions<
+    TChoices extends JSONPrimitive,
+    TRequired extends boolean,
+    TNullable extends boolean,
+    THasInitial extends boolean,
+> extends DataFieldOptions<TChoices, TRequired, TNullable, THasInitial> {
+    choices: JSONPrimitive[];
 }
 
 class DataUnionField<
