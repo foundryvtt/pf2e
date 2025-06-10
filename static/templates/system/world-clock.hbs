@@ -1,4 +1,6 @@
-<header>{{date}} ({{time}})</header>
+<div>{{! When root is "true" in the part configuration, and there is only one element, only the children of that element are rendered. }}
+    <header>{{date}} ({{time}})</header>
+</div>
 {{#if user.isGM}}
     <div class="form-group flexrow">
         <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="6"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneRound"}}</button>
