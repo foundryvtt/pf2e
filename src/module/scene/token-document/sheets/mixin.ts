@@ -1,14 +1,14 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
-import { ApplicationRenderContext } from "@client/applications/_module.mjs";
+import type { ApplicationRenderContext } from "@client/applications/_module.d.mts";
 import type { DocumentSheetConfiguration, DocumentSheetRenderContext } from "@client/applications/api/_module.d.mts";
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
 import type { TokenApplicationMixin } from "@client/applications/sheets/_module.d.mts";
 import type { DocumentFlags } from "@common/data/_module.d.mts";
 import type { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { createHTMLElement, ErrorPF2e, htmlQuery } from "@util";
-import { TokenDocumentPF2e } from "../document.ts";
-import { PrototypeTokenConfigPF2e } from "./prototype-config.ts";
+import type { TokenDocumentPF2e } from "../document.ts";
+import type { PrototypeTokenConfigPF2e } from "./prototype-config.ts";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMixin>>(Base: TBase) {
@@ -93,33 +93,6 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
                 }
             }
             if (options.parts.includes("vision")) this.#disableVisionInputs();
-        }
-
-        processFormData(data: Record<string, unknown>, form: HTMLFormElement): Record<string, unknown> {
-            // Readd scale property to form data if input is disabled: necessary for mirroring checkboxes to function
-            const scaleInput = form.elements.namedItem("scale");
-            if (scaleInput instanceof HTMLElement && scaleInput.getAttribute("disabled") === "true") {
-                data["scale"] = Math.abs(this.token._source.texture.scaleX);
-            }
-            // Change `null` disposition (not secret) back to numeric value
-            if (data["disposition"] === null) {
-                data["disposition"] = this.token.disposition === -2 ? -1 : this.token.disposition;
-            }
-            return data;
-        }
-
-        async processSubmitData(submitData: Record<string, unknown>): Promise<void> {
-            if (this.linkToActorSize) {
-                if (this.actor?.isOfType("vehicle")) {
-                    const dimensions = this.actor.dimensions;
-                    const width = Math.max(Math.round(dimensions.width / 5), 1);
-                    const length = Math.max(Math.round(dimensions.length / 5), 1);
-                    submitData["width"] = width;
-                    submitData["height"] = length;
-                } else {
-                    submitData["width"] = submitData["height"] = this.dimensionsFromActorSize;
-                }
-            }
         }
 
         #swapDispositionField(): void {
@@ -218,6 +191,37 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
         static async #onClickToggleSizeLink(this: PrototypeTokenConfigPF2e): Promise<void> {
             await this.submit({ operation: { render: false } });
             await this.token.update({ "flags.pf2e.linkToActorSize": !this.token.flags.pf2e.linkToActorSize });
+        }
+
+        /* -------------------------------------------- */
+        /*  Form Submission                             */
+        /* -------------------------------------------- */
+
+        protected processFormData(data: Record<string, unknown>, form: HTMLFormElement): Record<string, unknown> {
+            // Readd scale property to form data if input is disabled: necessary for mirroring checkboxes to function
+            const scaleInput = form.elements.namedItem("scale");
+            if (scaleInput instanceof HTMLElement && scaleInput.getAttribute("disabled") === "true") {
+                data["scale"] = Math.abs(this.token._source.texture.scaleX);
+            }
+            // Change `null` disposition (not secret) back to numeric value
+            if (data["disposition"] === null) {
+                data["disposition"] = this.token.disposition === -2 ? -1 : this.token.disposition;
+            }
+            return data;
+        }
+
+        protected async processSubmitData(submitData: Record<string, unknown>): Promise<void> {
+            if (this.linkToActorSize) {
+                if (this.actor?.isOfType("vehicle")) {
+                    const dimensions = this.actor.dimensions;
+                    const width = Math.max(Math.round(dimensions.width / 5), 1);
+                    const length = Math.max(Math.round(dimensions.length / 5), 1);
+                    submitData["width"] = width;
+                    submitData["height"] = length;
+                } else {
+                    submitData["width"] = submitData["height"] = this.dimensionsFromActorSize;
+                }
+            }
         }
     }
 
