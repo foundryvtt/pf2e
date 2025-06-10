@@ -33,7 +33,8 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import { eventToRollParams } from "@module/sheet/helpers.ts";
+import { AELikeRuleElement } from "@module/rules/rule-element/ae-like.ts";
+import { eventToRollMode, eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
@@ -249,13 +250,18 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return this.isVariant ? (this.original?.uuid ?? super.uuid) : super.uuid;
     }
 
-    /** Given a slot level, compute the actual level the spell will be cast at */
-    computeCastRank(slotNumber?: number): OneToTen {
+    /**
+     * Given a slot or cast rank, compute the actual rank the spell will be cast at.
+     * Generally, spells requested at a specific cast rank should resolve at that rank.
+     * Spell ranks that represent spell slots are subject to alterations and auto scaling.
+     */
+    computeCastRank(slotRank?: number | string | null): OneToTen {
+        slotRank = slotRank ? Number(slotRank) : null;
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
-        if (isAutoScaling && this.actor) return this.rank;
-
-        // Spells cannot go lower than base level
-        return Math.max(this.baseRank, slotNumber ?? this.rank) as OneToTen;
+        return this.system.level.alterations.reduce(
+            (rank, { mode, value }) => Math.clamp(AELikeRuleElement.getNewValue(mode, rank, value), this.baseRank, 10),
+            Math.clamp(isAutoScaling && this.actor ? this.rank : (slotRank ?? this.rank), this.baseRank, 10),
+        ) as OneToTen;
     }
 
     override getRollData(rollOptions: { castRank?: number | string } = {}): RollDataPF2e {
@@ -471,19 +477,23 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     loadVariant(options: SpellVariantOptions = {}): SpellPF2e | null {
         if (this.original) {
             const entryId = this.system.location.value;
-            return this.original.loadVariant({ entryId, ...options });
+            const overlayIds = Array.from(this.appliedOverlays?.values() ?? []);
+            return this.original.loadVariant({ entryId, overlayIds, ...options });
         }
-        const { castRank, overlayIds } = options;
+
+        const overlayIds = options.overlayIds;
+        const castRank = options.castRank ?? this.computeCastRank(options.slotRank || this.rank);
         const appliedOverlays: Map<SpellOverlayType, string> = new Map();
         const heightenOverlays = this.getHeightenLayers(castRank ?? this.rank);
         const overlays = overlayIds?.map((id) => ({ id, data: this.overlays.get(id, { strict: true }) })) ?? [];
 
         const overrides = (() => {
             // If there are no overlays, return an override if this is a simple heighten or if its a different entry id
+            const isEntryChange = options.entryId && options.entryId !== this.system.location.value;
             if (overlays.length === 0 && heightenOverlays.length === 0) {
                 if (castRank !== this.rank) {
                     return fu.mergeObject(this.toObject(), { system: { location: { heightenedLevel: castRank } } });
-                } else if (!options.entryId || options.entryId === this.system.location.value) {
+                } else if (!isEntryChange) {
                     return null;
                 }
             }
@@ -526,14 +536,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         if (!overrides) return null;
 
-        // Set spellcasting entry to use if supplied
-        if (options.entryId) {
-            overrides.system.location.value = options.entryId;
-        }
-
         // Create the variant and run additional prep since it exists outside the normal cycle
-        const actor = this.parent;
-        const variant = new SpellPF2e(overrides, { parent: actor, parentItem: this.parentItem });
+        overrides.system.location.value = options.entryId ?? this.system.location.value;
+        const variant = new SpellPF2e(overrides, { parent: this.parent, parentItem: this.parentItem });
         variant.original = this;
         variant.appliedOverlays = appliedOverlays;
         variant.system.traits.value = Array.from(variant.traits);
@@ -609,6 +614,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         super.prepareBaseData();
 
         this.system.location.value ||= null;
+        this.system.level.alterations = [];
 
         // In case bad level data somehow made it in
         this.system.level.value = (Math.clamp(this.system.level.value, 1, 10) || 1) as OneToTen;
@@ -804,41 +810,53 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         event?: Maybe<MouseEvent>,
         { create = true, data, rollMode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
+        const actor = this.actor;
+        if (!actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
+
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
         // Only spells/consumables currently use DOM data.
         // Eventually sheets should be handling "retrieve spell but heightened"
         const domData = htmlClosest(event?.currentTarget, ".item")?.dataset;
-        const castData = fu.mergeObject(data ?? {}, domData ?? {});
+        data = fu.mergeObject(data ?? {}, domData ?? {});
 
-        // If this is for a higher level spell, heighten it first
-        const castRank = Number(castData.castRank ?? "");
-        if (castRank && castRank !== this.rank) {
-            return this.loadVariant({ castRank })?.toMessage(event, { create, data, rollMode });
-        }
+        // If this is for a higher level spell, heighten first. Skip if same rank to avoid infinite loops
+        // If neither castRank nor slotRank is given, assume the spell's rank is the slot rank to allow adjustments
+        const slotRank = data.slotRank ? Number(data.slotRank) : null;
+        const spell = (this.loadVariant({
+            castRank: Number(data.castRank ?? ""),
+            slotRank: slotRank ?? this.rank,
+        }) ?? this) as SpellPF2e<ActorPF2e>;
 
-        const message = await super.toMessage(event, { create: false, data: castData, rollMode });
-        if (!message) return undefined;
+        // Basic template rendering data
+        const template = `systems/pf2e/templates/chat/spell-card.hbs`;
+        const token = actor.token;
+        const content = await fa.handlebars.renderTemplate(template, {
+            actor,
+            tokenId: token ? `${token.parent?.id}.${token.id}` : null,
+            item: spell,
+            data: await spell.getChatData(undefined, data),
+        });
 
-        const messageSource = message.toObject();
-        const flags = messageSource.flags.pf2e;
-        const spellcasting = this.spellcasting;
-
+        // Determine flags
+        const pf2eFlags: ChatMessagePF2e["flags"]["pf2e"] = {
+            origin: spell.getOriginData(),
+        };
+        const spellcasting = spell.spellcasting;
         if (spellcasting?.statistic) {
-            // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
-            const tradition = spellcasting.tradition ?? this.traditions.first() ?? "arcane";
-            flags.casting = {
+            pf2eFlags.casting = {
                 // When casting from a chat message, we need to pull the resolved casting ability, not the temp one
                 id: spellcasting.original?.id ?? spellcasting.id,
-                tradition,
+                // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
+                tradition: spellcasting.tradition ?? spell.traditions.first() ?? "arcane",
             };
-            if (this.parentItem) {
-                flags.casting.embeddedSpell = this.toObject();
+            if (spell.parentItem) {
+                pf2eFlags.casting.embeddedSpell = spell.toObject();
             }
 
             // The only data that can possibly exist in a casted spell is the dc, so we pull that data.
-            if (this.system.defense) {
-                const dc = spellcasting.statistic.withRollOptions({ item: this }).dc;
-                flags.context = {
+            if (spell.system.defense) {
+                const dc = spellcasting.statistic.withRollOptions({ item: spell }).dc;
+                pf2eFlags.context = {
                     type: "spell-cast",
                     domains: dc.domains,
                     options: [...dc.options],
@@ -847,12 +865,24 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
-        if (!create) {
-            message.updateSource(messageSource);
-            return message;
-        }
+        // Basic chat message data
+        const chatData = ChatMessagePF2e.applyRollMode(
+            {
+                style: CONST.CHAT_MESSAGE_STYLES.OTHER,
+                speaker: ChatMessagePF2e.getSpeaker({
+                    actor: actor,
+                    token: actor.getActiveTokens(false, true).at(0),
+                }),
+                content,
+                flags: { pf2e: pf2eFlags },
+            },
+            rollMode ?? eventToRollMode(event),
+        );
 
-        return ChatMessagePF2e.create(messageSource, { renderSheet: false });
+        const operation = { rollMode, renderSheet: false };
+        return (create ?? true)
+            ? ChatMessagePF2e.create(chatData, operation)
+            : new ChatMessagePF2e(chatData, { rollMode });
     }
 
     override async getDescriptionData(): Promise<ItemDescriptionData> {
@@ -865,16 +895,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override async getChatData(
         this: SpellPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptionsPF2e = {},
-        rollOptions: { castRank?: number | string; groupId?: SpellSlotGroupId } = {},
+        data: { castRank?: number | string; slotRank?: number | string; groupId?: SpellSlotGroupId } = {},
     ): Promise<RawItemChatData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
-        const groupNumber = spellSlotGroupIdToNumber(rollOptions.groupId) || this.rank;
-        const castRank = Number(rollOptions.castRank) || this.computeCastRank(groupNumber);
+        const slotRank = Number(data.slotRank) || spellSlotGroupIdToNumber(data.groupId);
+        const castRank = Number(data.castRank ?? "") || this.computeCastRank(slotRank || this.rank);
 
         // Load the heightened version of the spell if one exists
         if (!this.isVariant) {
             const variant = this.loadVariant({ castRank });
-            if (variant) return variant.getChatData(htmlOptions, rollOptions);
+            if (variant) return variant.getChatData(htmlOptions, data);
         }
 
         const variants = this.overlays.overrideVariants
@@ -1263,7 +1293,7 @@ interface SpellVariantChatData {
 interface SpellToMessageOptions {
     create?: boolean;
     rollMode?: RollMode;
-    data?: { castRank?: number };
+    data?: { castRank?: number; slotRank?: number };
 }
 
 interface SpellDamageOptions {
@@ -1273,6 +1303,9 @@ interface SpellDamageOptions {
 }
 
 interface SpellVariantOptions {
+    /** The spell slot this variant is associated with, and not always the same as the cast rank */
+    slotRank?: number;
+    /** The rank the new spell is being cast at */
     castRank?: number;
     overlayIds?: string[];
     entryId?: string | null;

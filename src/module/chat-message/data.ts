@@ -36,7 +36,7 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
         journalEntry?: DocumentUUID;
         appliedDamage?: AppliedDamageFlag | null;
         treatWoundsMacroFlag?: { bonus: number };
-        [key: string]: unknown;
+        [key: string]: JSONValue;
     };
     core: NonNullable<ChatMessageFlags["core"]>;
 };

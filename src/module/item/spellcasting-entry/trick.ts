@@ -138,12 +138,8 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
     }
 
     async cast(spell: SpellPF2e, options: CastOptions = {}): Promise<void> {
-        const { rollMode, message } = options;
-        const castRank = spell.computeCastRank(spell.rank);
-        if (message === false) return;
-
-        spell = spell.loadVariant({ entryId: this.id }) ?? spell;
-        await spell.toMessage(null, { rollMode, data: { castRank } });
+        if (options.message === false) return;
+        await spell.toMessage(null, { rollMode: options.rollMode, data: { slotRank: options.rank } });
     }
 
     async getSheetData(): Promise<SpellcastingSheetData> {
@@ -163,5 +159,5 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
     }
 }
 
-export { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, traditionSkills };
+export { traditionSkills, TRICK_MAGIC_SKILLS, TrickMagicItemEntry };
 export type { TrickMagicItemSkill };

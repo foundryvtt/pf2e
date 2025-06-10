@@ -259,12 +259,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     async cast(spell: SpellPF2e<ActorPF2e>, options: CastOptions = {}): Promise<void> {
         const consume = options.consume ?? true;
         const message = options.message ?? true;
-        const rank = options.rank ?? spell.rank;
-        const valid = !consume || spell.atWill || (await this.consume(spell, rank, options.slotId));
+        const slotRank = options.rank ?? spell.rank;
+        const valid = !consume || spell.atWill || (await this.consume(spell, slotRank, options.slotId));
         if (message && valid) {
             spell.system.location.value ??= this.id;
-            const castRank = spell.computeCastRank(rank);
-            await spell.toMessage(null, { rollMode: options.rollMode, data: { castRank } });
+            await spell.toMessage(null, { rollMode: options.rollMode, data: { slotRank } });
         }
     }
 

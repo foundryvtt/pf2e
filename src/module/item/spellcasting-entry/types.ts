@@ -55,7 +55,7 @@ type SpellcastingCategory = keyof ConfigPF2e["PF2E"]["preparationType"];
 
 interface CastOptions {
     slotId?: number;
-    /** The rank at which to cast the spell */
+    /** The slot rank at which to cast the spell */
     rank?: OneToTen;
     consume?: boolean;
     message?: boolean;
