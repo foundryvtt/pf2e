@@ -7,14 +7,14 @@
             "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Strangle]</p>\n<p>You must succeed at a DC 10 flat check or lose any action that requires speech. For an action requiring speech that is also a manipulate action, like Casting a Spell with the concentrate and manipulate trait, you just roll a single DC 10 flat check, rather than an additional DC 5 flat check for being grabbed.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 8
         },
         "publication": {
             "license": "ORC",
@@ -27,7 +27,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "self:condition:grabbed"
+                    "self:condition:grabbed",
+                    {
+                        "not": "item:trait:subtle"
+                    }
                 ],
                 "property": "description",
                 "value": [
@@ -36,12 +39,7 @@
                     },
                     {
                         "predicate": [
-                            {
-                                "or": [
-                                    "item:trait:concentrate",
-                                    "item:trait:manipulate"
-                                ]
-                            }
+                            "item:trait:manipulate"
                         ],
                         "text": "PF2E.SpecificRule.Wrestler.Strangle.FlatCheckNote"
                     }
