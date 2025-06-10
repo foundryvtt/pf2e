@@ -23,44 +23,27 @@
         },
         "rules": [
             {
-                "itemType": "action",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:trait:manipulate"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Wrestler.Strangle"
-                    }
-                ]
-            },
-            {
-                "itemType": "feat",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:trait:manipulate"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Wrestler.Strangle"
-                    }
-                ]
-            },
-            {
                 "itemType": "spell",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:trait:manipulate"
+                    "self:condition:grabbed"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Wrestler.Strangle"
+                        "text": "PF2E.SpecificRule.Wrestler.Strangle.CastingNote"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:trait:concentrate",
+                                    "item:trait:manipulate"
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.Wrestler.Strangle.FlatCheckNote"
                     }
                 ]
             }
