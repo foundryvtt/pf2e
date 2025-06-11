@@ -16,7 +16,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             ...options,
             classes: [...options.classes, "hazard"],
             scrollY: ["section.content"],
-            width: 700,
+            width: 710,
             height: 680,
             template: "systems/pf2e/templates/actors/hazard/sheet.hbs",
         };
