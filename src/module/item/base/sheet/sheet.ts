@@ -56,7 +56,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
 
         return {
             ...options,
-            width: 695,
+            width: 700,
             height: 460,
             template: "systems/pf2e/templates/items/sheet.hbs",
             scrollY: [".tab.active", ".inventory-details", "div[data-rule-tab]"],
