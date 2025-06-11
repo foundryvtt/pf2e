@@ -335,7 +335,7 @@ class ActionMacroHelpers {
         }
     }
 
-    static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): WeaponPF2e<ActorPF2e>[] {
+    static #getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): WeaponPF2e<ActorPF2e>[] {
         if (actor.isOfType("character")) {
             return actor.system.actions.flatMap((s) => (s.ready && s.item.traits.has(trait) ? s.item : []));
         } else {
@@ -348,7 +348,7 @@ class ActionMacroHelpers {
         traits: WeaponTrait[],
         selector: string,
     ): WeaponPF2e<ActorPF2e> | null {
-        const items = traits.flatMap((t) => ActionMacroHelpers.getApplicableEquippedWeapons(actor, t));
+        const items = traits.flatMap((t) => ActionMacroHelpers.#getApplicableEquippedWeapons(actor, t));
         if (items.length === 0) return null;
 
         const bestItem = items.reduce(
