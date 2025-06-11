@@ -38,7 +38,7 @@
                 "choices": [
                     {
                         "label": "PF2E.SpecificRule.Magus.ArcaneCascade.WeaponDamage",
-                        "value": ""
+                        "value": "weapon-damage"
                     },
                     {
                         "label": "PF2E.TraitBludgeoning",
@@ -99,7 +99,8 @@
                 ],
                 "flag": "stanceArcaneCascade",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "arcane-cascade-damage"
             },
             {
                 "definition": [
@@ -111,11 +112,25 @@
                 "value": "arcane"
             },
             {
-                "damageType": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}",
                 "key": "FlatModifier",
                 "selector": "melee-strike-damage",
                 "slug": "arcane-cascade-extra-damage",
                 "value": 1
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "not": "arcane-cascade-damage:weapon-damage"
+                    }
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "melee-strike-damage"
+                ],
+                "slug": "arcane-cascade-extra-damage",
+                "value": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}"
             },
             {
                 "key": "AdjustModifier",
