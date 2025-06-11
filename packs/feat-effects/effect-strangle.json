@@ -1,0 +1,61 @@
+{
+    "_id": "7HXxtWO5MAJWkwnt",
+    "img": "icons/skills/melee/unarmed-punch-fist-yellow-red.webp",
+    "name": "Effect: Strangle",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Strangle]</p>\n<p>You must succeed at a DC 10 flat check or lose any action that requires speech. For an action requiring speech that is also a manipulate action, like Casting a Spell with the concentrate and manipulate trait, you just roll a single DC 10 flat check, rather than an additional DC 5 flat check for being grabbed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "self:condition:grabbed",
+                    {
+                        "not": "item:trait:subtle"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Wrestler.Strangle.VerbalNote"
+                    },
+                    {
+                        "predicate": [
+                            "item:trait:manipulate"
+                        ],
+                        "text": "PF2E.SpecificRule.Wrestler.Strangle.FlatCheckNote"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
