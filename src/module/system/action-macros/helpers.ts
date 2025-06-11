@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import type { StrikeData } from "@actor/data/base.ts";
 import { getRangeIncrement } from "@actor/helpers.ts";
