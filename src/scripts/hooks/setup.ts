@@ -28,6 +28,14 @@ export const Setup = {
             game.settings.settings.get("core.dynamicTokenRingFitMode").default = "grid";
             // PF2E has no directional facing rules, and top-down tokens are rare
             game.settings.settings.get("core.tokenAutoRotate").default = false;
+
+            // Localize All Rule Element data models
+            for (const element of Object.values(game.pf2e.RuleElements.all)) {
+                if (!element) continue;
+                foundry.helpers.Localization.localizeDataModel(element, {
+                    prefixPath: element.name + ".",
+                });
+            }
         });
     },
 };

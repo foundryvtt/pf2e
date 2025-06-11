@@ -12,6 +12,8 @@ import fields = foundry.data.fields;
  * @category RuleElement
  */
 class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
+    static override LOCALIZATION_PREFIXES = ["PF2E.RuleEditor.RuleElement", "PF2E.RuleEditor.FastHealing"];
+
     static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     static override defineSchema(): FastHealingRuleSchema {

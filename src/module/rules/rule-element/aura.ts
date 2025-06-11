@@ -20,6 +20,8 @@ import fields = foundry.data.fields;
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
 class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
+    static override LOCALIZATION_PREFIXES = ["PF2E.RuleEditor.RuleElement", "PF2E.RuleEditor.Aura"];
+
     constructor(source: AuraRuleElementSource, options: RuleElementOptions) {
         super(source, options);
         if (this.invalid) return;
@@ -46,7 +48,6 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 blank: false,
                 initial: "all",
                 choices: ["allies", "enemies", "all"],
-                label: "PF2E.RuleEditor.Aura.Effects.Affects",
             }),
             events: new StrictArrayField(
                 new fields.StringField({
@@ -66,29 +67,25 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                         blank: false,
                         initial: undefined,
                         choices: SAVE_TYPES,
-                        label: "PF2E.RuleEditor.Aura.Effects.Type",
                     }),
                     dc: new ResolvableValueField({
                         required: true,
                         nullable: false,
                         initial: undefined,
-                        label: "PF2E.Check.DC.Unspecific",
                     }),
                 },
-                { required: true, nullable: true, initial: null, label: "PF2E.SavesHeader" },
+                { required: true, nullable: true, initial: null },
             ),
             predicate: new PredicateField(),
             removeOnExit: new fields.BooleanField({
                 required: true,
                 nullable: false,
                 initial: true,
-                label: "PF2E.RuleEditor.Aura.Effects.RemoveOnExit",
             }),
             includesSelf: new fields.BooleanField({
                 required: true,
                 nullable: false,
                 initial: (d) => d.affects !== "enemies",
-                label: "PF2E.RuleEditor.Aura.Effects.IncludesSelf",
             }),
             alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
         });
@@ -99,14 +96,12 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 integer,
                 nullable: false,
                 initial: undefined,
-                label: "PF2E.RuleEditor.Aura.Appearance.Translation.X",
             }),
             y: new fields.NumberField({
                 required: true,
                 integer,
                 nullable: false,
                 initial: undefined,
-                label: "PF2E.RuleEditor.Aura.Appearance.Translation.Y",
             }),
         });
 
@@ -126,21 +121,18 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                             required: true,
                             nullable: false,
                             initial: "#000000",
-                            label: "PF2E.RuleEditor.Aura.Appearance.Color",
                         },
                     ),
                     alpha: new fields.AlphaField({
                         required: true,
                         nullable: false,
                         initial: 0.75,
-                        label: "PF2E.RuleEditor.General.Opacity",
                     }),
                 } as const,
                 {
                     required: false,
                     nullable: true,
                     initial: () => ({ color: "#000000", alpha: 0.75 }),
-                    label: "PF2E.RuleEditor.Aura.Appearance.Border",
                 } as const,
             ),
             highlight: new fields.SchemaField(
@@ -159,21 +151,18 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                             required: true,
                             nullable: false,
                             initial: "user-color",
-                            label: "PF2E.RuleEditor.Aura.Appearance.Color",
                         },
                     ),
                     alpha: new fields.AlphaField({
                         required: false,
                         nullable: false,
                         initial: 0.25,
-                        label: "PF2E.RuleEditor.General.Opacity",
                     }),
                 } as const,
                 {
                     required: false,
                     nullable: false,
                     initial: () => ({ color: "user-color", alpha: 0.25 }),
-                    label: "PF2E.RuleEditor.Aura.Appearance.Highlight",
                 },
             ),
             texture: new fields.SchemaField(
@@ -188,28 +177,22 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                         required: true,
                         nullable: false,
                         initial: 1,
-                        label: "PF2E.RuleEditor.General.Opacity",
                     }),
                     scale: new fields.NumberField({
                         required: true,
                         nullable: false,
                         positive: true,
                         initial: 1,
-                        label: "Scale",
                     }),
                     translation: new fields.SchemaField(xyPairSchema({ integer: true }), {
                         required: false,
                         nullable: true,
                         initial: null,
-                        label: "PF2E.RuleEditor.Aura.Appearance.Translation.Label",
-                        hint: "PF2E.RuleEditor.Aura.Appearance.Translation.Hint",
                     } as const),
                     loop: new fields.BooleanField<boolean, boolean, true, false, true>({
                         required: true,
                         nullable: false,
                         initial: true,
-                        label: "PF2E.RuleEditor.Aura.Appearance.Loop.Label",
-                        hint: "PF2E.RuleEditor.Aura.Appearance.Loop.Hint",
                     }),
                     playbackRate: new fields.NumberField({
                         required: false,
@@ -217,11 +200,9 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                         positive: true,
                         max: 4,
                         initial: 1,
-                        label: "PF2E.RuleEditor.Aura.Appearance.PlaybackRate.Label",
-                        hint: "PF2E.RuleEditor.Aura.Appearance.PlaybackRate.Hint",
                     }),
                 } as const,
-                { required: false, nullable: true, initial: null, label: "PF2E.RuleEditor.Aura.Appearance.Texture" },
+                { required: false, nullable: true, initial: null },
             ),
         };
 
@@ -231,24 +212,19 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 required: true,
                 nullable: false,
                 initial: 5,
-                label: "PF2E.RuleEditor.Aura.Basics.Radius",
             }),
             level: new ResolvableValueField({
                 required: false,
                 nullable: true,
                 initial: null,
-                label: "PF2E.RuleEditor.Aura.Basics.Level.Label",
-                hint: "PF2E.RuleEditor.Aura.Basics.Level.Hint",
             }),
             traits: new LaxArrayField(auraTraitField, {
                 required: true,
                 nullable: false,
-                label: "PF2E.TraitsLabel",
             }),
             effects: new StrictArrayField(effectSchemaField, {
                 required: true,
                 nullable: false,
-                label: "PF2E.RuleEditor.Aura.Effects.Label",
             }),
             appearance: new fields.SchemaField(appearanceSchema, {
                 required: true,
@@ -258,14 +234,11 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     highlight: { color: "user-color", alpha: 0.25 },
                     texture: null,
                 }),
-                label: "PF2E.RuleEditor.Aura.Appearance.Label",
             }),
             mergeExisting: new fields.BooleanField({
                 required: true,
                 nullable: false,
                 initial: true,
-                label: "PF2E.RuleEditor.Aura.Basics.MergeExisting.Label",
-                hint: "PF2E.RuleEditor.Aura.Basics.MergeExisting.Hint",
             }),
         };
     }

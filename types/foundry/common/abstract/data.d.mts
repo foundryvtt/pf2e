@@ -61,6 +61,9 @@ export default abstract class DataModel<
         joint: foundry.data.validation.DataModelValidationFailure | null;
     };
 
+    /** A set of localization prefix paths which are used by this data model. */
+    static LOCALIZATION_PREFIXES: string[];
+
     /* ---------------------------------------- */
     /*  Data Cleaning Methods                   */
     /* ---------------------------------------- */

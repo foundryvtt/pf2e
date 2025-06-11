@@ -1,6 +1,6 @@
 
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.Value"}}</label>
+    <label class="short">{{fields.value.label}}</label>
     <div class="form-fields">
         {{{form.resolvableValue "value"}}}
         <select name="system.rules.{{index}}.type" class="short">
@@ -12,7 +12,7 @@
 {{{form.resolvableBrackets "value"}}}
 {{#if (eq rule.type "regeneration")}}
     <div class="form-group">
-        <label class="short">{{localize "PF2E.RuleEditor.FastHealing.DeactivatedBy"}}</label>
+        <label class="short">{{fields.deactivatedBy.label}}</label>
         <tagify-tags class="pf2e-tagify deactivated-by" name="system.rules.{{index}}.deactivatedBy" value="{{json rule.deactivatedBy}}" />
     </div>
 {{else}}
@@ -22,6 +22,6 @@
     </div>
 {{/if}}
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
+    <label class="short">{{fields.predicate.label}}</label>
     <input type="text" name="system.rules.{{index}}.predicate" value="{{json rule.predicate}}" />
 </div>
