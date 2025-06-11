@@ -2134,7 +2134,6 @@ interface RechargeOptions {
 
 /** Data stored before changes to the actor were made in descendant document `_pre` hooks for use in `_on` hooks */
 type OperationWithPreviousData<T = DatabaseOperation<Document>> = T & {
-    reevaluate?: boolean;
     previous?: {
         maxHitPoints?: number;
         size?: ActorSizePF2e;
