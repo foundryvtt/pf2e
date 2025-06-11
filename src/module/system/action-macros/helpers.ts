@@ -348,9 +348,7 @@ class ActionMacroHelpers {
         traits: WeaponTrait[],
         selector: string,
     ): WeaponPF2e<ActorPF2e> | null {
-        const items = [] as WeaponPF2e<ActorPF2e>[];
-        traits.forEach((x) => items.push(...ActionMacroHelpers.getApplicableEquippedWeapons(actor, x)));
-
+        const items = traits.flatMap((t) => ActionMacroHelpers.getApplicableEquippedWeapons(actor, t));
         if (items.length === 0) return null;
 
         const bestItem = items.reduce(
