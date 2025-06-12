@@ -1929,15 +1929,22 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             }
         } else if (sizeChanged) {
             // Update tokens across all scenes
-            const tokens = game.scenes
-                .map((s) =>
-                    s.tokens.filter(
-                        (t) =>
-                            t.actor === this && t.linkToActorSize && (t.width !== newWidth || t.height !== newHeight),
-                    ),
-                )
-                .flat();
-            await Promise.all(tokens.map((t) => t.update({ width: newWidth, height: newHeight }, { animation })));
+            const sceneUpdates = game.scenes
+                .map((s) => {
+                    const tokenUpdates = s.tokens
+                        .filter(
+                            (t) =>
+                                t.actor === this &&
+                                t.linkToActorSize &&
+                                (t.width !== newWidth || t.height !== newHeight),
+                        )
+                        .map((t) => ({ _id: t.id, width: newWidth, height: newHeight }), { animation });
+                    return tokenUpdates.length ? s.updateEmbeddedDocuments("Token", tokenUpdates) : null;
+                })
+                .filter((u): u is Promise<TokenDocumentPF2e<ScenePF2e>[]> => !!u);
+            if (sceneUpdates.length > 0) {
+                await Promise.all(sceneUpdates);
+            }
         }
     }
 
