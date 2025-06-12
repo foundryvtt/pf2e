@@ -42,6 +42,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "persistent-damage",
         "range-increment",
         "range-max",
+        "rank",
         "rarity",
         "speed-penalty",
         "strength",
@@ -419,6 +420,15 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const maxRange = data.item.system.maxRange;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, maxRange, data.alteration.value);
                 data.item.system.maxRange = newValue;
+                return;
+            }
+            case "rank": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data) || !(data.item instanceof ItemPF2e)) {
+                    return;
+                }
+
+                data.item.system.level.alterations.push({ mode: this.mode, value: data.alteration.value });
                 return;
             }
         }

@@ -1,6 +1,7 @@
 import type { SaveType } from "@actor/types.ts";
 import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/base/data/system.ts";
 import type { OneToTen, ValueAndMax, ZeroToThree } from "@module/data.ts";
+import type { AELikeChangeMode } from "@module/rules/rule-element/ae-like.ts";
 import type { DamageCategoryUnique, DamageKind, DamageType, MaterialDamageEffect } from "@system/damage/index.ts";
 import type { EffectAreaShape, MagicTradition, SpellTrait } from "./types.ts";
 
@@ -103,6 +104,11 @@ interface SpellOverlayOverride {
 interface SpellSystemData
     extends Omit<SpellSystemSource, "damage" | "description">,
         Omit<ItemSystemData, "level" | "traits"> {
+    level: {
+        value: OneToTen;
+        /** Alterations performed on the rank when casting the spell */
+        alterations: { mode: AELikeChangeMode; value: number }[];
+    };
     /** Time and resources consumed in the casting of this spell */
     cast: SpellCastData;
     damage: Record<string, SpellDamage>;

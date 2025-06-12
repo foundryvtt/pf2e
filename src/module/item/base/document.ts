@@ -225,12 +225,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const template = `systems/pf2e/templates/chat/${sluggify(this.type)}-card.hbs`;
         const token = this.actor.token;
         const nearestItem = htmlClosest(event?.target, ".item");
-        const rollOptions = options.data ?? { ...(nearestItem?.dataset ?? {}) };
+        const data = options.data ?? { ...(nearestItem?.dataset ?? {}) };
         const templateData = {
             actor: this.actor,
             tokenId: token ? `${token.parent?.id}.${token.id}` : null,
             item: this,
-            data: await this.getChatData(undefined, rollOptions),
+            data: await this.getChatData(undefined, data),
         };
 
         // Basic chat message data

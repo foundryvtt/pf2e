@@ -115,23 +115,17 @@ class ChatCards {
                 case "spell-variant": {
                     const castRank = Number(htmlQuery(html, "div.chat-card")?.dataset.castRank) || 1;
                     const overlayIds = button.dataset.overlayIds?.split(",").map((id) => id.trim());
-                    if (overlayIds) {
-                        const variantSpell = spell?.loadVariant({ overlayIds, castRank });
-                        if (variantSpell) {
-                            const data = { castRank };
-                            const variantMessage = await variantSpell.toMessage(null, { data, create: false });
-                            if (variantMessage) {
-                                const whisper = message._source.whisper;
-                                const changes = variantMessage.clone({ whisper }).toObject();
-                                await message.update(changes);
-                            }
-                        }
-                    } else if (spell) {
-                        const originalSpell = spell.loadBaseVariant();
-                        const restoredMessage = await originalSpell.toMessage(null, { create: false });
-                        if (restoredMessage) {
+                    const variantOrOriginal = overlayIds
+                        ? spell?.loadVariant({ overlayIds })
+                        : spell?.loadBaseVariant();
+                    if (variantOrOriginal) {
+                        const newMessage = await variantOrOriginal.toMessage(null, {
+                            data: { castRank },
+                            create: false,
+                        });
+                        if (newMessage) {
                             const whisper = message._source.whisper;
-                            const changes = restoredMessage.clone({ whisper }).toObject();
+                            const changes = newMessage.clone({ whisper }).toObject();
                             await message.update(changes);
                         }
                     }

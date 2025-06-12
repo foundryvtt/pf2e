@@ -429,6 +429,18 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
+    rank: new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["spell"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "downgrade", "multiply", "override", "remove", "subtract", "upgrade"],
+        }),
+        value: new fields.NumberField({
+            required: true,
+            nullable: false,
+            initial: undefined,
+        } as const),
+    }),
     "frequency-max": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["action", "feat"] }),
         mode: new fields.StringField({

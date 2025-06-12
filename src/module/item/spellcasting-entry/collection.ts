@@ -167,31 +167,31 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
 
         if (this.entry.isPrepared && this.entry instanceof SpellcastingEntryPF2e) {
             // Prepared Spells. Active spells are what's been prepped.
-            for (let rank = 0 as ZeroToTen; rank <= this.highestRank; rank++) {
-                const group = this.entry.system.slots[`slot${rank}`];
+            for (let slotRank = 0 as ZeroToTen; slotRank <= this.highestRank; slotRank++) {
+                const group = this.entry.system.slots[`slot${slotRank}`];
                 // Detect which spells are active. If flexible, it will be set later via signature spells
                 const showRank = this.entry.showSlotlessRanks || group.max > 0;
-                const populateList = showRank && (rank === 0 || !isFlexible);
+                const populateList = showRank && (slotRank === 0 || !isFlexible);
                 const active = populateList
                     ? group.prepared.map((slot) => {
                           const spell = slot && this.get(slot.id ?? "");
-                          const castRank = spell?.computeCastRank(rank);
+                          const castRank = spell?.computeCastRank(slotRank);
                           return spell ? { castRank, spell, expended: slot.expended } : null;
                       })
                     : [];
 
                 const [groupId, maxRank]: [SpellSlotGroupId, OneToTen] =
-                    rank === 0 ? ["cantrips", maxCantripRank] : [rank, rank];
+                    slotRank === 0 ? ["cantrips", maxCantripRank] : [slotRank, slotRank];
                 const label =
                     groupId === "cantrips"
                         ? "PF2E.Actor.Creature.Spellcasting.Cantrips"
-                        : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) });
+                        : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(slotRank) });
                 const uses = {
-                    value: rank > 0 && isFlexible ? group.value || 0 : undefined,
+                    value: slotRank > 0 && isFlexible ? group.value || 0 : undefined,
                     max: group.max,
                 };
 
-                groups.push({ id: groupId, maxRank, label, uses, active, number: rank });
+                groups.push({ id: groupId, maxRank, label, uses, active, number: slotRank });
             }
         } else if (this.entry.isFocusPool) {
             // All non-cantrips are grouped together as they're auto-scaled
@@ -223,16 +223,17 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
             const alwaysShowHeader = !this.entry.isRitual;
             const spellsByRank = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.rank));
             const isInnate = this.entry.category === "innate";
-            for (let rank = 0 as ZeroToTen; rank <= this.highestRank; rank++) {
-                const data = this.entry.system.slots[`slot${rank}`];
-                const spells = spellsByRank.get(rank) ?? [];
+            for (let slotRank = 0 as ZeroToTen; slotRank <= this.highestRank; slotRank++) {
+                const data = this.entry.system.slots[`slot${slotRank}`];
+                const spells = spellsByRank.get(slotRank) ?? [];
                 if (alwaysShowHeader || spells.length > 0) {
                     const uses =
-                        this.entry.isSpontaneous && rank !== 0 ? { value: data.value, max: data.max } : undefined;
+                        this.entry.isSpontaneous && slotRank !== 0 ? { value: data.value, max: data.max } : undefined;
                     const active = spells.map((spell) => ({
                         spell,
                         expended: isInnate && !spell.system.location.uses?.value,
                         uses: isInnate && !spell.atWill ? spell.system.location.uses : undefined,
+                        castRank: spell.computeCastRank(slotRank),
                     }));
 
                     // These entries hide if there are no active spells at that level, or if there are no spell slots
@@ -240,18 +241,18 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
                     const hideForInnate = this.entry.isInnate && active.length === 0;
                     if (!this.entry.system.showSlotlessLevels.value && (hideForSpontaneous || hideForInnate)) continue;
                     const [groupId, maxRank]: [SpellSlotGroupId, OneToTen] =
-                        rank === 0 ? ["cantrips", maxCantripRank] : [rank, rank];
+                        slotRank === 0 ? ["cantrips", maxCantripRank] : [slotRank, slotRank];
 
                     groups.push({
                         id: groupId,
                         label:
                             groupId === "cantrips"
                                 ? "PF2E.Actor.Creature.Spellcasting.Cantrips"
-                                : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
+                                : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(slotRank) }),
                         maxRank,
                         uses,
                         active,
-                        number: rank,
+                        number: slotRank,
                     });
                 }
             }
@@ -274,7 +275,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
                     if (existing) {
                         existing.signature = true;
                     } else if (group.uses?.max) {
-                        const castRank = group.id;
+                        const castRank = spell.computeCastRank(group.id);
                         group.active.push({ spell, castRank, signature: true, virtual: true });
                     }
                 }
@@ -311,14 +312,19 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
         const groupedByRank = R.groupBy(Array.from(this.values()), (s) => s.rank);
         const groups = R.entries(groupedByRank)
             .sort(([a], [b]) => Number(a) - Number(b))
-            .map(
-                ([rank, spells]): SpellcastingSlotGroup => ({
-                    id: Number(rank) as SpellSlotGroupId,
-                    label: game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(rank)) }),
+            .map(([group, spells]): SpellcastingSlotGroup => {
+                const slotRank = spellSlotGroupIdToNumber(group);
+                return {
+                    id: Number(group) as SpellSlotGroupId,
+                    label: game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(group)) }),
                     maxRank: 10,
-                    active: spells.map((spell) => ({ spell, expended: spell.parentItem?.uses.value === 0 })),
-                }),
-            );
+                    active: spells.map((spell) => ({
+                        spell,
+                        expended: spell.parentItem?.uses.value === 0,
+                        castRank: spell.computeCastRank(slotRank),
+                    })),
+                };
+            });
 
         return { groups, prepList: null };
     }
