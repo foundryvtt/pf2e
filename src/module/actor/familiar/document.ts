@@ -141,7 +141,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
     /** Skip rule-element preparation if there is no master unless it is the pre-ready prep */
     protected override prepareRuleElements(): RuleElementPF2e[] {
-        return (this.master || !game.ready) ? super.prepareRuleElements() : [];
+        return this.master || !game.ready ? super.prepareRuleElements() : [];
     }
 
     override prepareDerivedData(): void {
