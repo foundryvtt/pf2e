@@ -74,6 +74,7 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
         const adjustment: ModifierAdjustment = {
             slug: this.slug,
             test: (options): boolean => {
+                // Lazy load the predicate and avoid constructing it again every time the adjustment is tested
                 predicate ??= new Predicate(this.resolveInjectedProperties(fu.deepClone([...this.predicate])));
                 return predicate.test([...options, ...this.item.getRollOptions("parent")]);
             },
