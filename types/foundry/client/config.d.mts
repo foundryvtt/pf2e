@@ -6,6 +6,7 @@ import { applications, dice, documents } from "./_module.mjs";
 import DocumentSheetV2 from "./applications/api/document-sheet.mjs";
 import CameraViews from "./applications/apps/av/cameras.mjs";
 import HTMLEnrichedContentElement from "./applications/elements/enriched-content.mjs";
+import { PrototypeTokenConfig } from "./applications/sheets/_module.mjs";
 import * as sidebar from "./applications/sidebar/_module.mjs";
 import { CompendiumDirectory } from "./applications/sidebar/tabs/_module.mjs";
 import { MainMenu, Notifications, SceneNavigation } from "./applications/ui/_module.mjs";
@@ -440,7 +441,7 @@ export default interface Config<
     Token: {
         documentClass: ConstructorOf<TTokenDocument>;
         objectClass: ConstructorOf<NonNullable<TTokenDocument["object"]>>;
-        prototypeSheetClass: ConstructorOf<TTokenDocument["sheet"]>;
+        prototypeSheetClass: ConstructorOf<PrototypeTokenConfig>;
         ring: TokenRingConfig;
     };
 

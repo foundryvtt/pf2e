@@ -24,7 +24,7 @@ import * as R from "remeda";
 import type { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
 import type { DetectionModeEntry, TokenFlagsPF2e } from "./data.ts";
-import type { TokenConfigPF2e } from "./sheet.ts";
+import type { TokenConfigPF2e } from "./sheets/token-config.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     declare auras: Map<string, TokenAura>;

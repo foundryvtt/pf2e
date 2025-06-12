@@ -36,7 +36,7 @@ import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
+import { TokenConfigPF2e } from "@scene/token-document/index.ts";
 import appv1 = foundry.appv1;
 
 export function registerSheets(): void {
