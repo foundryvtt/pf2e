@@ -20,7 +20,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             ),
             uuid: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined }),
             adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
-            alterations: new fields.ArrayField(alterationField, { required: false, nullable: false }),
+            alterations: new fields.ArrayField(alterationField, { required: false, nullable: false, initial: [] }),
         };
     }
 
