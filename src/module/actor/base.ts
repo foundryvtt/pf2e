@@ -13,6 +13,8 @@ import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
     DatabaseCreateOperation,
     DatabaseDeleteCallbackOptions,
+    DatabaseDeleteOperation,
+    DatabaseOperation,
     DatabaseUpdateOperation,
     Document,
 } from "@common/abstract/_module.d.mts";
@@ -1785,59 +1787,163 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
-    /** Store certain data to be checked in _onUpdateDescendantDocuments */
-    protected override _preUpdateDescendantDocuments<P extends Document>(
-        parent: P,
+    protected override _preCreateDescendantDocuments(
+        parent: Document,
         collection: string,
-        changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<P>,
+        data: Record<string, unknown>[],
+        options: OperationWithPreviousData<DatabaseCreateOperation<Document>>,
         userId: string,
-    ): void;
+    ): void {
+        super._preCreateDescendantDocuments(parent, collection, data, options, userId);
+        if (parent === this && collection === "items") {
+            options.previous = {
+                maxHitPoints: this.hitPoints?.max,
+                size: this.system.traits?.size,
+            };
+        }
+    }
+
+    /** Store certain data to be checked in _onUpdateDescendantDocuments */
     protected override _preUpdateDescendantDocuments(
         parent: Document,
         collection: string,
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<Document> & { previous?: object },
+        options: OperationWithPreviousData<DatabaseUpdateOperation<Document>>,
         userId: string,
     ): void {
         super._preUpdateDescendantDocuments(parent, collection, changes, options, userId);
         if (parent === this && collection === "items") {
-            options.previous = { maxHitPoints: this.hitPoints?.max };
+            options.previous = {
+                maxHitPoints: this.hitPoints?.max,
+                size: this.system.traits?.size,
+            };
+        }
+    }
+
+    protected override _preDeleteDescendantDocuments(
+        parent: Document,
+        collection: string,
+        ids: string[],
+        options: OperationWithPreviousData<DatabaseDeleteOperation<Document>>,
+        userId: string,
+    ): void {
+        super._preDeleteDescendantDocuments(parent, collection, ids, options, userId);
+        if (parent === this && collection === "items") {
+            options.previous = {
+                maxHitPoints: this.hitPoints?.max,
+                size: this.system.traits?.size,
+            };
+        }
+    }
+
+    protected override _onCreateDescendantDocuments(
+        parent: Document,
+        collection: string,
+        documents: Document<Document>[],
+        changes: Record<string, unknown>[],
+        options: OperationWithPreviousData<DatabaseCreateOperation<Document>>,
+        userId: string,
+    ): void {
+        super._onCreateDescendantDocuments(parent, collection, documents, changes, options, userId);
+        if (this === parent && collection === "items") {
+            this.#onItemChange(documents as ItemPF2e[], options);
         }
     }
 
     /** Overriden to handle max hp updates when certain items changes. */
-    protected override _onUpdateDescendantDocuments<P extends Document>(
-        parent: P,
-        collection: string,
-        documents: Document<P>[],
-        changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<P>,
-        userId: string,
-    ): void;
     protected override _onUpdateDescendantDocuments(
         parent: Document,
         collection: string,
         documents: Document<Document>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<Document> & { previous?: { maxHitPoints?: number } },
+        options: OperationWithPreviousData<DatabaseUpdateOperation<Document>>,
         userId: string,
     ): void {
         super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
-        if (this !== parent || collection !== "items") return;
+        if (this === parent && collection === "items") {
+            this.#onItemChange(documents as ItemPF2e[], options);
+        }
+    }
 
-        // Ensure the items being updated are all permanent character building options.
+    protected override _onDeleteDescendantDocuments(
+        parent: Document,
+        collection: string,
+        documents: Document<Document>[],
+        ids: string[],
+        options: OperationWithPreviousData<DatabaseDeleteOperation<Document>>,
+        userId: string,
+    ): void {
+        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
+        if (this === parent && collection === "items") {
+            this.#onItemChange(documents as ItemPF2e[], options);
+        }
+    }
+
+    /** Handle updates that occur after of a batch item update */
+    async #onItemChange(documents: ItemPF2e[], options: OperationWithPreviousData) {
+        const actorUpdates: Record<string, unknown> = {};
+
+        // Check for max HP differences, but only for character updates where all items are permanent building options.
         // These updates should not occur due to temporary changes from something like drained
         const items = documents.filter((d): d is ItemPF2e<this> => d instanceof ItemPF2e);
-        if (
+        const previousHitPoints = options.previous?.maxHitPoints;
+        const hpMaxDifference =
+            typeof previousHitPoints === "number" &&
             this?.isOfType("character") &&
+            options.action !== "delete" &&
             items.every((d) => d.isOfType("ancestry", "background", "class", "feat", "heritage"))
-        ) {
-            const previousHitPoints = options.previous?.maxHitPoints;
-            const hpMaxDifference = typeof previousHitPoints === "number" ? this.hitPoints.max - previousHitPoints : 0;
-            if (hpMaxDifference !== 0) {
-                const newHitPoints = this._source.system.attributes.hp.value + hpMaxDifference;
-                this.update({ "system.attributes.hp.value": newHitPoints }, { allowHPOverage: true });
+                ? this.hitPoints.max - previousHitPoints
+                : 0;
+        if (hpMaxDifference !== 0 && this?.isOfType("character")) {
+            const newHitPoints = this._source.system.attributes.hp.value + hpMaxDifference;
+            actorUpdates["system.attributes.hp.value"] = newHitPoints;
+        }
+
+        // Check for the token size changing as a result of item updates
+        const token = this.token;
+        const previousSize = options.previous?.size;
+        const currentSize = this.system.traits?.size;
+        const newWidth = currentSize ? currentSize.width / 5 : 5;
+        const newHeight = currentSize ? currentSize.length / 5 : 5;
+        const sizeChanged =
+            currentSize &&
+            previousSize &&
+            !(["value", "width", "length"] as const).every((p) => currentSize[p] === previousSize[p]);
+        if (sizeChanged && !token) {
+            // We need to add prototype token to the list of changes if its non-synthetic
+            actorUpdates.prototypeToken = { width: newWidth, height: newHeight };
+        }
+
+        // Save any actor changes
+        if (!R.isEmpty(actorUpdates)) {
+            const options = { render: !!hpMaxDifference, allowHPOverage: !!hpMaxDifference };
+            await this.update(actorUpdates, options);
+        }
+
+        // Propagate changes to tokens
+        const animation = { movementSpeed: 2 };
+        if (sizeChanged && token) {
+            // Simple case: synthetic actor and its single token
+            if (token.linkToActorSize) {
+                await token.update({ width: newWidth, height: newHeight }, { animation });
+            }
+        } else if (sizeChanged) {
+            // Update tokens across all scenes
+            const sceneUpdates = game.scenes
+                .map((s) => {
+                    const tokenUpdates = s.tokens
+                        .filter(
+                            (t) =>
+                                t.actor === this &&
+                                t.linkToActorSize &&
+                                (t.width !== newWidth || t.height !== newHeight),
+                        )
+                        .map((t) => ({ _id: t.id, width: newWidth, height: newHeight }), { animation });
+                    return tokenUpdates.length ? s.updateEmbeddedDocuments("Token", tokenUpdates) : null;
+                })
+                .filter((u): u is Promise<TokenDocumentPF2e<ScenePF2e>[]> => !!u);
+            if (sceneUpdates.length > 0) {
+                await Promise.all(sceneUpdates);
             }
         }
     }
@@ -2032,6 +2138,14 @@ interface RechargeOptions {
     duration: "turn" | "round" | "day";
     commit?: boolean;
 }
+
+/** Data stored before changes to the actor were made in descendant document `_pre` hooks for use in `_on` hooks */
+type OperationWithPreviousData<T = DatabaseOperation<Document>> = T & {
+    previous?: {
+        maxHitPoints?: number;
+        size?: ActorSizePF2e;
+    };
+};
 
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */
 const ActorProxyPF2e = new Proxy(ActorPF2e, {
