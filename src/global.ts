@@ -191,7 +191,7 @@ interface GamePF2e
             generateItemName: (item: PhysicalItemPF2e) => string;
         };
         variantRules: {
-            AutomaticBonusProgression: typeof AutomaticBonusProgression;
+            AutomaticBonusProgression: typeof ABP;
         };
         Check: typeof CheckPF2e;
         CheckModifier: typeof CheckModifier;
@@ -334,8 +334,6 @@ declare global {
             Hotbar<MacroPF2e>
         >;
 
-        const AutomaticBonusProgression: typeof ABP;
-
         // Add functions to the `Math` namespace for use in `Roll` formulas
         interface Math {
             eq: (a: number, b: number) => boolean;
@@ -349,7 +347,7 @@ declare global {
     }
 
     interface Window {
-        AutomaticBonusProgression: typeof AutomaticBonusProgression;
+        AutomaticBonusProgression: typeof ABP;
     }
 
     namespace foundry {
