@@ -1797,13 +1797,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Store certain data to be checked in _onUpdateDescendantDocuments */
-    protected override _preUpdateDescendantDocuments<P extends Document>(
-        parent: P,
-        collection: string,
-        changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<P>,
-        userId: string,
-    ): void;
     protected override _preUpdateDescendantDocuments(
         parent: Document,
         collection: string,
@@ -1818,14 +1811,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Overriden to handle max hp updates when certain items changes. */
-    protected override _onUpdateDescendantDocuments<P extends Document>(
-        parent: P,
-        collection: string,
-        documents: Document<P>[],
-        changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<P>,
-        userId: string,
-    ): void;
     protected override _onUpdateDescendantDocuments(
         parent: Document,
         collection: string,
