@@ -687,6 +687,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // Convert all non-kit sources to item objects, and recursively extract the simple grants from ABC items
+        const actorClone = actor.clone({}, { keepId: true });
         const items = await (async (): Promise<ItemPF2e<ActorPF2e>[]> => {
             /** Internal function to recursively get all simple granted items */
             async function getSimpleGrants(item: ItemPF2e<ActorPF2e>): Promise<ItemPF2e<ActorPF2e>[]> {
@@ -696,7 +697,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     (i): ItemPF2e<ActorPF2e> =>
                         (i.parent
                             ? i
-                            : new CONFIG.Item.documentClass(i._source, { parent: actor })) as ItemPF2e<ActorPF2e>,
+                            : new CONFIG.Item.documentClass(i._source, { parent: actorClone })) as ItemPF2e<ActorPF2e>,
                 );
                 return [...reparented, ...(await Promise.all(reparented.map(getSimpleGrants))).flat()];
             }
@@ -705,7 +706,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 if (!(operation.keepId || operation.keepEmbeddedIds)) {
                     source._id = fu.randomID();
                 }
-                return new CONFIG.Item.documentClass(source, { parent: actor }) as ItemPF2e<ActorPF2e>;
+                return new CONFIG.Item.documentClass(source, { parent: actorClone }) as ItemPF2e<ActorPF2e>;
             });
 
             // If any item we plan to add will add new items (such as ABC items), add those too
