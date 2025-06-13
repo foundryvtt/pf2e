@@ -43,13 +43,13 @@ interface EffectContextData {
         token: TokenDocumentUUID | null;
         item: ItemUUID | null;
         spellcasting: EffectContextSpellcastingData | null;
-        rollOptions?: string[];
+        rollOptions: string[];
     };
     target: {
         actor: ActorUUID;
         token: TokenDocumentUUID | null;
     } | null;
-    roll: Pick<CheckRoll, "total" | "degreeOfSuccess"> | null;
+    roll: Pick<foundry.dice.Rolled<CheckRoll>, "total" | "degreeOfSuccess"> | null;
 }
 
 interface EffectContextSpellcastingData {
