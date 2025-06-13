@@ -56,7 +56,6 @@ export interface DataModelUpdateOptions {
 }
 
 export interface DatabaseGetOperation<TParent extends Document | null> {
-    action: "get";
     /** A query object which identifies the set of Documents retrieved */
     query: Record<string, unknown>;
     /** Get requests are never broadcast */

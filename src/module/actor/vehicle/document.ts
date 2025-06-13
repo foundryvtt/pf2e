@@ -1,12 +1,11 @@
 import { setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorDimensions } from "@actor/types.ts";
-import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ItemType } from "@item/base/data/index.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ArmorStatistic, HitPointsStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { ActorPF2e, HitPointsSummary } from "../base.ts";
+import { ActorPF2e, ActorUpdateCallbackOptions, HitPointsSummary } from "../base.ts";
 import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data.ts";
 
 class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
@@ -50,8 +49,8 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         // Set the dimensions of this vehicle in its size object
         const size = this.system.traits.size;
         const dimensions = this.dimensions;
-        size.length = dimensions.length;
-        size.width = dimensions.width;
+        size.long = dimensions.length;
+        size.wide = dimensions.width;
 
         // Set the prototype token's dimensions according to the vehicle dimensions
         if (this.prototypeToken.flags?.pf2e?.linkToActorSize) {
@@ -134,7 +133,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateCallbackOptions,
+        options: ActorUpdateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
         const result = await super._preUpdate(changed, options, user);

@@ -823,6 +823,21 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
+        // If this item is of a certain type and is being added to a PC, change current HP along with any change to max
+        if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
+            const clone = this.actor.clone({
+                items: [...this.actor.items.toObject(), data],
+            });
+            const hpMaxDifference = clone.hitPoints.max - this.actor.hitPoints.max;
+            if (hpMaxDifference !== 0) {
+                const newHitPoints = this.actor.hitPoints.value + hpMaxDifference;
+                await this.actor.update(
+                    { "system.attributes.hp.value": newHitPoints },
+                    { render: false, allowHPOverage: true },
+                );
+            }
+        }
+
         this._source.system.traits.value?.sort();
         // Remove any rule elements that request their own removal upon item creation
         this._source.system.rules = this._source.system.rules.filter(

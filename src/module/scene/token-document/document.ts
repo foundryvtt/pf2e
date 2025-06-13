@@ -21,7 +21,7 @@ import { DifficultTerrainGrade, EnvironmentFeatureRegionBehavior, RegionDocument
 import { isDefaultTokenImage } from "@scene/helpers.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
-import type { ScenePF2e } from "../document.ts";
+import { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
 import type { DetectionModeEntry, TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheets/token-config.ts";
@@ -508,6 +508,20 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super._onUpdate(changed, options, userId);
     }
 
+    /** Follow up any actor (or descendant document thereof) modification with a size synchronization. */
+    override _onUpdateBaseActor(
+        update?: Record<string, unknown>,
+        options?: foundry.abstract.DatabaseUpdateCallbackOptions,
+    ): void {
+        super._onUpdateBaseActor(update, options);
+        if (this.linkToActorSize && this.actor?.system.traits?.size && this.parent instanceof ScenePF2e) {
+            const dimensions = this.actor.system.traits.size.tokenDimensions;
+            if (dimensions.width !== this.width || dimensions.height !== this.height) {
+                this.parent.syncTokenDimensions(this, dimensions);
+            }
+        }
+    }
+
     protected override _onRelatedUpdate(
         update: { _id?: string; [key: string]: unknown } | { _id?: string; [key: string]: unknown }[],
         operation: Partial<DatabaseOperation<Document | null>>,
@@ -531,7 +545,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const isVehicleSizeCange = actor.isOfType("vehicle") && "space" in (changed.system.details ?? {});
         if (isNPCSizeChange || isVehicleSizeCange) {
             const newSize = actor.system.traits.size;
-            this.update({ width: newSize.width / 5, height: newSize.length / 5 }, { animation: { movementSpeed: 2 } });
+            this.update({ width: newSize.wide / 5, height: newSize.long / 5 }, { animation: { movementSpeed: 2 } });
         }
     }
 

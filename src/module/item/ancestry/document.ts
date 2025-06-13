@@ -2,7 +2,6 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { SenseData } from "@actor/creature/index.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { ActorSizePF2e } from "@actor/data/size.ts";
 import { AttributeString } from "@actor/types.ts";
 import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ABCItemPF2e, type FeatPF2e } from "@item";
@@ -84,7 +83,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         actor.system.attributes.ancestryhp = this.hitPoints;
         this.logAutoChange("system.attributes.ancestryhp", this.hitPoints);
 
-        actor.system.traits.size = new ActorSizePF2e({ value: this.size });
+        actor.system.traits.size.value = this.size;
         this.logAutoChange("system.traits.size.value", this.size);
 
         const reach = SIZE_TO_REACH[this.size];

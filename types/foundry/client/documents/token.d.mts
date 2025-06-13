@@ -592,9 +592,11 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
 
     /**
      * When the base Actor for a TokenDocument changes, we may need to update its Actor instance
+     * @param update The update delta
+     * @param options The database operation that was performed
      * @internal
      */
-    protected _onUpdateBaseActor(update?: Record<string, unknown>, options?: DatabaseUpdateCallbackOptions): void;
+    _onUpdateBaseActor(update?: Record<string, unknown>, options?: DatabaseUpdateCallbackOptions): void;
 
     /**
      * Whenever the token's actor delta changes, or the base actor changes, perform associated refreshes.

@@ -8,13 +8,20 @@ interface SizeDimensions {
 export class ActorSizePF2e {
     /** The size category of this category */
     value: Size;
-    /** The length dimension of this actor's space: corresponds with token height */
-    length: number;
-    /** The width dimension of this actor's space */
-    width: number;
+
+    /** The length dimension of this actor's space in feet: corresponds with token `height` */
+    long: number;
+
+    /** The width dimension of this actor's space in feet */
+    wide: number;
+
+    /** The actor dimensions as canvas square-grid values */
+    get tokenDimensions(): { width: number; height: number } {
+        return { width: this.wide / 5, height: this.long / 5 };
+    }
 
     /** The default space (in a Pathfinder 2e rules context) of each size */
-    private static defaultSpaces: Record<Size, SizeDimensions> = {
+    static #defaultSpaces: Record<Size, SizeDimensions> = {
         tiny: { length: 2.5, width: 2.5 },
         sm: { length: 5, width: 5 },
         med: { length: 5, width: 5 },
@@ -24,7 +31,7 @@ export class ActorSizePF2e {
     };
 
     /** A ranked ordering of sizes */
-    private static sizeRanks: Record<Size, ZeroToFive> = {
+    static #sizeRanks: Record<Size, ZeroToFive> = {
         grg: 5,
         huge: 4,
         lg: 3,
@@ -45,9 +52,9 @@ export class ActorSizePF2e {
         }
 
         this.value = params.value;
-        const spaces = ActorSizePF2e.defaultSpaces[params.value] ?? ActorSizePF2e.defaultSpaces.med;
-        this.length = params.length ?? spaces.length;
-        this.width = params.width ?? spaces.width;
+        const spaces = ActorSizePF2e.#defaultSpaces[params.value] ?? ActorSizePF2e.#defaultSpaces.med;
+        this.long = params.length ?? spaces.length;
+        this.wide = params.width ?? spaces.width;
     }
 
     /**
@@ -71,7 +78,7 @@ export class ActorSizePF2e {
         const other = size instanceof ActorSizePF2e ? size : new ActorSizePF2e({ value: size });
         const thisSize = this.getEffectiveSize(this.value, { smallIsMedium });
         const otherSize = this.getEffectiveSize(other.value, { smallIsMedium });
-        return ActorSizePF2e.sizeRanks[thisSize] > ActorSizePF2e.sizeRanks[otherSize];
+        return ActorSizePF2e.#sizeRanks[thisSize] > ActorSizePF2e.#sizeRanks[otherSize];
     }
 
     /**
@@ -83,7 +90,7 @@ export class ActorSizePF2e {
         const other = size instanceof ActorSizePF2e ? size : new ActorSizePF2e({ value: size });
         const thisSize = this.getEffectiveSize(this.value, { smallIsMedium });
         const otherSize = this.getEffectiveSize(other.value, { smallIsMedium });
-        return ActorSizePF2e.sizeRanks[thisSize] < ActorSizePF2e.sizeRanks[otherSize];
+        return ActorSizePF2e.#sizeRanks[thisSize] < ActorSizePF2e.#sizeRanks[otherSize];
     }
 
     /**
@@ -94,7 +101,7 @@ export class ActorSizePF2e {
     difference(size: ActorSizePF2e, { smallIsMedium = false } = {}): number {
         const thisSize = this.getEffectiveSize(this.value, { smallIsMedium });
         const otherSize = this.getEffectiveSize(size.value, { smallIsMedium });
-        return ActorSizePF2e.sizeRanks[thisSize] - ActorSizePF2e.sizeRanks[otherSize];
+        return ActorSizePF2e.#sizeRanks[thisSize] - ActorSizePF2e.#sizeRanks[otherSize];
     }
 
     /**
@@ -120,9 +127,9 @@ export class ActorSizePF2e {
                     ? "grg"
                     : SIZES[SIZES.indexOf(this.value) + 1];
 
-        const newSpace = ActorSizePF2e.defaultSpaces[this.value];
-        this.length = newSpace.length;
-        this.width = newSpace.width;
+        const newSpace = ActorSizePF2e.#defaultSpaces[this.value];
+        this.long = newSpace.length;
+        this.wide = newSpace.width;
     }
 
     /**
@@ -133,9 +140,9 @@ export class ActorSizePF2e {
         const toTiny = (this.value === "med" && skipSmall) || this.value === "tiny";
         this.value = toTiny ? "tiny" : SIZES[SIZES.indexOf(this.value) - 1];
 
-        const newSpace = ActorSizePF2e.defaultSpaces[this.value];
-        this.length = newSpace.length;
-        this.width = newSpace.width;
+        const newSpace = ActorSizePF2e.#defaultSpaces[this.value];
+        this.long = newSpace.length;
+        this.wide = newSpace.width;
     }
 
     toString(): string {
