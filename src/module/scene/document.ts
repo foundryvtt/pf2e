@@ -115,14 +115,14 @@ class ScenePF2e extends Scene {
     }
 
     /** Retrieve size and clear size-sync batch, make updates. */
-    async #processSyncBatch(): Promise<void> {
+    #processSyncBatch = foundry.utils.debounce((): void => {
         const entries = this.#sizeSyncBatch
             .entries()
             .toArray()
             .map(([_id, { width, height }]) => ({ _id, width, height }));
         this.#sizeSyncBatch.clear();
         this.updateEmbeddedDocuments("Token", entries);
-    }
+    }, 0);
 
     /* -------------------------------------------- */
     /*  Event Handlers                              */
