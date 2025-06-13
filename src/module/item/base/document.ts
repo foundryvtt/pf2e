@@ -107,11 +107,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Set a source ID on a dropped embedded item without a full data reset
      * This is currently necessary as of 10.291 due to system measures to prevent premature data preparation
      */
-    static override async fromDropData<T extends typeof Document>(
-        this: T,
+    static override async fromDropData<T extends Document>(
+        this: ConstructorOf<T>,
         data: object,
         options?: object,
-    ): Promise<InstanceType<T> | null>;
+    ): Promise<T | null>;
     static override async fromDropData(data: object, options?: Record<string, unknown>): Promise<Document | null> {
         if ("uuid" in data && UUIDUtils.isItemUUID(data.uuid)) {
             const item = await fromUuid(data.uuid);
