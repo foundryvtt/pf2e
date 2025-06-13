@@ -70,7 +70,7 @@ interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, 
     temporary: boolean;
     identification: IdentificationData;
     usage: UsageDetails;
-    stackGroup: string | null;
+    stackGroup?: string | null;
 }
 
 type Investable<TData extends PhysicalSystemData | PhysicalSystemSource> = TData & {
@@ -108,7 +108,7 @@ interface ItemMaterialData extends ItemMaterialSource {
 type IdentifiedData = DeepPartial<MystifiedData>;
 
 interface IdentificationData extends IdentificationSource {
-    identified: MystifiedData;
+    identified: MystifiedData & { img: ImageFilePath | null };
 }
 
 type EquippedData = {
