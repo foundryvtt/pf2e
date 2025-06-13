@@ -570,7 +570,10 @@ class CheckPF2e {
                   const opposer = context.target?.actor === actor.uuid ? context.origin : context.target;
                   const targetFlavor = await this.#createResultFlavor({ degree, self, opposer, targeting });
                   if (targetFlavor) {
-                      htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
+                      // when players reroll, they cannot extract the gm-visible parts of the HTML
+                      htmlQuery(parsedFlavor, ".target-dc-result")
+                          ? htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor)
+                          : htmlQuery(parsedFlavor, ".action")?.insertAdjacentElement("afterend", targetFlavor);
                   }
                   htmlQuery(parsedFlavor, "ul.notes")?.remove();
                   const newNotes = context.notes?.map((n) => new RollNotePF2e(n)) ?? [];
