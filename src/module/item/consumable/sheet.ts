@@ -1,3 +1,4 @@
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";

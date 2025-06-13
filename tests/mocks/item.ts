@@ -1,4 +1,6 @@
 import type { ActorPF2e } from "@actor/index.ts";
+import type { DocumentConstructionContext } from "@common/_types.d.mts";
+import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ItemSystemSource } from "@item/base/data/system.ts";
 import type { ItemPF2e } from "@item/index.ts";

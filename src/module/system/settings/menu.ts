@@ -29,7 +29,7 @@ abstract class SettingsMenuPF2e extends appv1.api.FormApplication {
             template: `systems/pf2e/templates/system/settings/menu.hbs`,
             width: 550,
             height: "auto",
-            tabs: [{ navSelector: ".sheet-tabs", contentSelector: "form" }],
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: "form", initial: "" }],
             closeOnSubmit: false,
             submitOnChange: true,
         };

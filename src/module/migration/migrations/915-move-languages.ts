@@ -1,7 +1,7 @@
 import { LANGUAGES } from "@actor/creature/values.ts";
 import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
 import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
-import { AELikeSchema, AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import * as R from "remeda";
 import { Migration914MovePerceptionSenses } from "./914-move-perception-senses.ts";
 
@@ -41,7 +41,7 @@ export class Migration915MoveLanguages extends Migration914MovePerceptionSenses 
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const languageAELikes = source.system.rules.filter(
-            (r: AELikeSource): r is Partial<SourceFromSchema<AELikeSchema>> =>
+            (r: AELikeSource): r is AELikeSource =>
                 r.key === "ActiveEffectLike" &&
                 r.path === "system.traits.languages.value" &&
                 typeof r.value === "string",

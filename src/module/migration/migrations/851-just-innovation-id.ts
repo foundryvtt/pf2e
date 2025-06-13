@@ -3,6 +3,7 @@ import { RuleElementSource } from "@module/rules/index.ts";
 import { AELikeSchema } from "@module/rules/rule-element/ae-like.ts";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
+import fields = foundry.data.fields;
 
 /** Set the same flag ("pf2e.innovationId") from all innovation class features  */
 export class Migration851JustInnovationId extends MigrationBase {
@@ -19,7 +20,7 @@ export class Migration851JustInnovationId extends MigrationBase {
             (r: MaybeAELikeSource) => r.key === "ActiveEffectLike" && r.path === "flags.pf2e.innovationId",
         );
         if (source.system.slug === "weapon-innovation" && !hasAELike) {
-            const reSource: Pick<SourceFromSchema<AELikeSchema>, "key" | "mode" | "path" | "value"> = {
+            const reSource: Pick<fields.SourceFromSchema<AELikeSchema>, "key" | "mode" | "path" | "value"> = {
                 key: "ActiveEffectLike",
                 mode: "override",
                 path: "flags.pf2e.innovationId",
@@ -27,7 +28,7 @@ export class Migration851JustInnovationId extends MigrationBase {
             };
             source.system.rules.push(reSource);
         } else if (source.system.slug === "construct-innovation" && !hasAELike) {
-            const reSource: Pick<SourceFromSchema<AELikeSchema>, "key" | "mode" | "path" | "value"> = {
+            const reSource: Pick<fields.SourceFromSchema<AELikeSchema>, "key" | "mode" | "path" | "value"> = {
                 key: "ActiveEffectLike",
                 mode: "override",
                 path: "flags.pf2e.innovationId",

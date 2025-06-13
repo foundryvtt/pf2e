@@ -1,3 +1,4 @@
+import type { ClientDocument } from "@client/documents/abstract/_module.d.mts";
 import type { GrantItemRuleElement, GrantItemSource } from "@module/rules/rule-element/grant-item/rule-element.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";

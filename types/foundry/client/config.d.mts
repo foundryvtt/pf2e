@@ -567,7 +567,7 @@ export default interface Config<
         dragSpeedModifier: number;
         maxZoom: number;
         objectBorderThickness: number;
-        lightAnimations: Record<string, LightSourceAnimationConfig>;
+        lightAnimations: LightSourceAnimationConfig;
 
         pings: {
             types: {

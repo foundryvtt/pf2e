@@ -1,3 +1,4 @@
+import type { PointSourcePolygon } from "@client/canvas/geometry/_module.d.mts";
 import type { TokenPF2e } from "../token/index.ts";
 
 /** Subclassed to include hearing detection */

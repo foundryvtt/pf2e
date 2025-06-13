@@ -1,4 +1,5 @@
 import { AuraAppearanceData, AuraData } from "@actor/types.ts";
+import type { GridHighlight } from "@client/canvas/containers/_module.d.mts";
 import { ItemTrait } from "@item/base/data/system.ts";
 import { TokenAuraData } from "@scene/token-document/aura/index.ts";
 import { isVideoFilePath } from "@util";

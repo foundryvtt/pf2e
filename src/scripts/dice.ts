@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ApplicationV1Options } from "@client/appv1/api/_module.d.mts";
 import type { Rolled } from "@client/dice/roll.d.mts";
+import type { RollMode } from "@common/constants.d.mts";
 import type { ItemPF2e } from "@item";
 import { createSimpleFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { ErrorPF2e } from "@util";
