@@ -8,6 +8,7 @@ import { condenseSenses, createAbilityViewData } from "@actor/sheet/helpers.ts";
 import type { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import type {
     AncestryPF2e,
     BackgroundPF2e,

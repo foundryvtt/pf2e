@@ -323,7 +323,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
               : "opposition";
 
         // Attributes
-        const attributes: DeepPartial<CharacterAttributes> = this.system.attributes;
+        const attributes: Partial<CharacterAttributes> = this.system.attributes;
         attributes.polymorphed = false;
         attributes.battleForm = false;
         attributes.classDC = null;
@@ -1471,15 +1471,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                 params.options ??= [];
 
+                const expend = weapon.system.expend ?? 0;
                 const configuredAmmo = weapon.ammo;
                 const ammoRemaining = configuredAmmo?.isOfType("consumable")
                     ? configuredAmmo.uses.max > 1
                         ? configuredAmmo.uses.value
                         : configuredAmmo.quantity
                     : (configuredAmmo?.quantity ?? 0);
-                params.consumeAmmo ??= weapon.system.expend > 0;
+                params.consumeAmmo ??= expend > 0;
 
-                if (params.consumeAmmo && weapon.system.expend > ammoRemaining) {
+                if (params.consumeAmmo && expend > ammoRemaining) {
                     ui.notifications.warn(
                         game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name }),
                     );
@@ -1832,7 +1833,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (changed.system.resources?.crafting?.infusedReagents?.value !== undefined) {
             const infusedReagents = changed.system.resources.crafting.infusedReagents;
             const max = Math.max(0, this.system.resources.crafting.infusedReagents.max || 0);
-            infusedReagents.value = Math.clamp(Math.floor(infusedReagents.value) || 0, 0, max);
+            infusedReagents.value = Math.clamp(Math.floor(infusedReagents.value || 0), 0, max);
         }
 
         // Clamp Stamina and Resolve

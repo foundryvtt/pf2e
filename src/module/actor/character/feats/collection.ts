@@ -5,7 +5,7 @@ import * as R from "remeda";
 import { FeatGroup } from "./group.ts";
 import { FeatGroupData, FeatSlotData } from "./types.ts";
 
-class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<TActor>> {
+class CharacterFeats<TActor extends CharacterPF2e> extends Collection<string, FeatGroup<TActor>> {
     /** Feats belonging no actual group ("bonus feats" in rules text) */
     bonus: FeatGroup<TActor>;
 
