@@ -29,7 +29,45 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "suplex",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "suplex",
+                    {
+                        "or": [
+                            "target:condition:grabbed",
+                            "target:condition:restrained"
+                        ]
+                    }
+                ],
+                "selector": "unarmed-damage",
+                "text": "PF2E.SpecificRule.Wrestler.Suplex.Note",
+                "title": "{item|name}"
+            },
+            {
+                "critical": false,
+                "damageType": "bludgeoning",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "check:outcome:critical-success",
+                    "suplex"
+                ],
+                "selector": "unarmed-damage"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
