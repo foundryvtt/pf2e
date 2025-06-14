@@ -11,7 +11,7 @@ function shoveCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     data: CheckContextData<ItemType>,
 ): CheckMacroContext<ItemType> | undefined {
     // weapon
-    const weapon = (ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "shove") ?? []).shift();
+    const weapon = ActionMacroHelpers.getBestEquippedItemForAction(opts.actor, ["shove"], data.slug);
 
     // modifiers
     const modifiers = data.modifiers?.length ? [...data.modifiers] : [];

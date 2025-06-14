@@ -335,12 +335,31 @@ class ActionMacroHelpers {
         }
     }
 
-    static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): WeaponPF2e<ActorPF2e>[] {
+    static #getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): WeaponPF2e<ActorPF2e>[] {
         if (actor.isOfType("character")) {
             return actor.system.actions.flatMap((s) => (s.ready && s.item.traits.has(trait) ? s.item : []));
         } else {
             return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
         }
+    }
+
+    static getBestEquippedItemForAction(
+        actor: ActorPF2e,
+        traits: WeaponTrait[],
+        selector: string,
+    ): WeaponPF2e<ActorPF2e> | null {
+        const items = traits.flatMap((t) => ActionMacroHelpers.#getApplicableEquippedWeapons(actor, t));
+        if (items.length === 0) return null;
+
+        const bestItem = items.reduce(
+            (max, item) =>
+                (ActionMacroHelpers.getWeaponPotencyModifier(item, selector)?.value ?? 0) >
+                (ActionMacroHelpers.getWeaponPotencyModifier(max, selector)?.value ?? 0)
+                    ? item
+                    : max,
+            items[0],
+        );
+        return bestItem ?? null;
     }
 
     /** Attempts to get the label for the given statistic using a slug */

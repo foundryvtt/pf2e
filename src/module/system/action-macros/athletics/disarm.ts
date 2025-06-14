@@ -11,7 +11,7 @@ function disarmCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     data: CheckContextData<ItemType>,
 ): CheckMacroContext<ItemType> | undefined {
     // weapon
-    const weapon = (ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "disarm") ?? []).shift();
+    const weapon = ActionMacroHelpers.getBestEquippedItemForAction(opts.actor, ["disarm"], data.slug);
 
     // modifiers
     const modifiers = data.modifiers?.length ? [...data.modifiers] : [];
