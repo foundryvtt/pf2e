@@ -3,104 +3,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ewPaxkwRS28GoetB",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "werecreature-curse-of-the-werecreature",
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "75692ru4cojuuqc3btob": {
-                        "damage": "2d6+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "4ZdMoPLM5L40W4TK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "r31xw9h9do0qewmtzmic": {
-                        "damage": "2d4+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "UI2oqnHXnGO5sCNx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.iAXHLkxuuCUOwqkN"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Tiger Empathy",
-            "sort": 300000,
+            "sort": 100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -133,7 +42,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Strike",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -166,7 +75,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -176,7 +85,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<ul>\n<li><strong>Human</strong>\n<ul>\n<li><strong>Melee</strong> fist +14 <strong>Damage</strong> 1d4+7</li>\n</ul>\n</li>\n<li><strong>Animal</strong>\n<ul>\n<li><strong>Speed</strong> 30 feet</li>\n<li>Wrestle</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p>The werecreature changes into its humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is its hybrid shape.</p>\n<p>In humanoid shape, the werecreature uses its original humanoid size, loses its jaws and claws Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by its claw.</p>\n<p>In animal shape, its Speed and size change to that of the animal, it gains any special Strike effects of the animal that it didn't already have (such as Grab), and it loses its weapon Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<ul><li><strong>Human</strong><ul><li><strong>Melee</strong> fist +14 <strong>Damage</strong> 1d4+7</li></ul></li><li><strong>Animal</strong><ul><li><strong>Speed</strong> 30 feet</li><li>Wrestle</li></ul></li></ul><hr /><p>The werecreature changes into its humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is its hybrid shape.</p>\n<p>In humanoid shape, the werecreature uses its original humanoid size, loses its jaws and claws Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by its claw.</p>\n<p>In animal shape, its Speed and size change to that of the animal, it gains any special Strike effects of the animal that it didn't already have (such as Grab), and it loses its weapon Strikes.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -224,6 +133,47 @@
                         ]
                     },
                     {
+                        "attackModifier": 14,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "not": "change-shape:humanoid"
+                            }
+                        ],
+                        "slug": "jaws"
+                    },
+                    {
+                        "attackModifier": 14,
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d4",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "change-shape:humanoid"
+                            }
+                        ],
+                        "slug": "claw",
+                        "traits": [
+                            "agile"
+                        ]
+                    },
+                    {
                         "key": "FlatModifier",
                         "predicate": [
                             "change-shape:animal"
@@ -251,7 +201,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Curse of the Weretiger",
-            "sort": 600000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -268,7 +218,15 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "jaws-attack",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "werecreature-curse-of-the-werecreature",
                 "traits": {
                     "rarity": "common",
@@ -287,7 +245,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Moon Frenzy",
-            "sort": 700000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -320,7 +278,7 @@
             "_id": "3t8p1OnCR5iUrhxt",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Pounce",
-            "sort": 800000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -353,7 +311,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rend",
-            "sort": 900000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -383,7 +341,7 @@
             "_id": "8l6UxI1NK1aNu3og",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wrestle (Animal Shape)",
-            "sort": 1000000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -416,7 +374,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 1100000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -433,7 +391,15 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "jaws-attack",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "grab",
                 "traits": {
                     "rarity": "common",
