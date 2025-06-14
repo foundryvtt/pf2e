@@ -34,7 +34,26 @@
             "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "walking-cauldron-walking",
+                "toggleable": true,
+                "value": true,
+                "label": "PF2E.SpecificRule.Equipment.WalkingCauldron.ToggleLabel"
+            },
+            {
+                "itemType": "equipment",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "walking-cauldron-walking",
+                    "item:slug:walking-cauldron"
+                ],
+                "property": "bulk",
+                "value": 0
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
