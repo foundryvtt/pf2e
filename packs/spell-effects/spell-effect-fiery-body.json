@@ -4,7 +4,7 @@
     "name": "Spell Effect: Fiery Body",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fiery Body]</p>\n<p>You gain fire immunity, resistance 10 to precision damage, weakness 5 to cold and to water, and a fly speed of 40 feet. Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon takes @Damage[3d6[fire]] damage.</p>\n<p>Your unarmed attacks deal an additional 1d4 fire damage, and your fire spells deal one additional die of fire damage (of the same damage die the spell uses).</p><hr /><p><strong>Heightened (9th)</strong> Your unarmed attacks deal an additional 2d4 fire damage, and you have a fly Speed of 60 feet.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fiery Body]</p>\n<p>You gain fire immunity, resistance 10 to precision damage, weakness 5 to cold and to water, and a fly speed of 40 feet. Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon takes 3d6 fire damage.</p>\n<p>Your unarmed attacks deal an additional 1d4 fire damage, and your fire spells deal one additional die of fire damage (of the same damage die the spell uses).</p><hr /><p><strong>Heightened (9th)</strong> Creatures touching you take 4d6 fire damage instead of 3d6, your unarmed attacks deal 2d4 additional fire damage, and you have a fly Speed of 60 feet.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -52,13 +52,13 @@
             {
                 "key": "BaseSpeed",
                 "selector": "fly",
-                "value": 40
+                "value": "ternary(gte(@item.level,9), 60, 40)"
             },
             {
                 "damageType": "fire",
                 "diceNumber": 1,
                 "key": "DamageDice",
-                "label": "Fiery Body",
+                "label": "PF2E.SpecificRule.SpellEffectFieryBody.Label",
                 "predicate": [
                     "fire"
                 ],
