@@ -608,10 +608,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
         const newSize = new ActorSizePF2e({ value: changes.system.traits.size.value });
         const currentSize = this.system.traits.size;
-        if (newSize.width !== currentSize.width || newSize.length !== currentSize.length) {
+        if (newSize.wide !== currentSize.wide || newSize.long !== currentSize.long) {
             const prototypeToken = (changes.prototypeToken ??= {});
-            prototypeToken.width = newSize.width / 5;
-            prototypeToken.height = newSize.length / 5;
+            prototypeToken.width = newSize.wide / 5;
+            prototypeToken.height = newSize.long / 5;
         }
     }
 }

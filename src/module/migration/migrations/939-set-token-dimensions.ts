@@ -13,8 +13,8 @@ export class Migration939SetTokenDimensions extends MigrationBase {
     override async updateToken(source: TokenSource, actor: Readonly<ActorPF2e | null>): Promise<void> {
         const actorSize = actor?.system.traits?.size;
         if (!(actorSize instanceof ActorSizePF2e)) return;
-        const { width, length: height } = actorSize;
-        source.width = width / 5;
-        source.height = height / 5;
+        const { width, height } = actorSize.tokenDimensions;
+        source.width = width;
+        source.height = height;
     }
 }

@@ -592,9 +592,11 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
 
     /**
      * When the base Actor for a TokenDocument changes, we may need to update its Actor instance
+     * @param update The update delta
+     * @param options The database operation that was performed
      * @internal
      */
-    protected _onUpdateBaseActor(update?: Record<string, unknown>, options?: DatabaseUpdateCallbackOptions): void;
+    _onUpdateBaseActor(update?: Record<string, unknown>, options?: DatabaseUpdateCallbackOptions): void;
 
     /**
      * Whenever the token's actor delta changes, or the base actor changes, perform associated refreshes.
@@ -602,8 +604,8 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
      * @param options The options provided to the update.
      */
     protected _onRelatedUpdate(
-        update: { _id?: string; [key: string]: unknown } | { _id?: string; [key: string]: unknown }[],
-        options: Partial<DatabaseOperation<Document | null>>,
+        update?: { _id?: string; [key: string]: unknown } | { _id?: string; [key: string]: unknown }[],
+        options?: Partial<DatabaseOperation<Document | null>>,
     ): void;
 
     /** Get an Array of attribute choices which could be tracked for Actors in the Combat Tracker */

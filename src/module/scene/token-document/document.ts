@@ -1,6 +1,5 @@
 import type { ActorPF2e } from "@actor";
 import type { PrototypeTokenPF2e } from "@actor/data/base.ts";
-import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { TrackedAttributesDescription } from "@client/_types.d.mts";
 import type { TokenResourceData } from "@client/canvas/placeables/token.d.mts";
@@ -21,7 +20,7 @@ import { DifficultTerrainGrade, EnvironmentFeatureRegionBehavior, RegionDocument
 import { isDefaultTokenImage } from "@scene/helpers.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
-import type { ScenePF2e } from "../document.ts";
+import { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
 import type { DetectionModeEntry, TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheets/token-config.ts";
@@ -509,30 +508,24 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     }
 
     protected override _onRelatedUpdate(
-        update: { _id?: string; [key: string]: unknown } | { _id?: string; [key: string]: unknown }[],
-        operation: Partial<DatabaseOperation<Document | null>>,
+        update?: { _id?: string; [key: string]: unknown } | { _id?: string; [key: string]: unknown }[],
+        operation?: Partial<DatabaseOperation<Document | null>>,
     ): void {
         super._onRelatedUpdate(update, operation);
-        const updates = Array.isArray(update) ? update : [update];
-        this.simulateUpdate(updates[0]);
-        for (const changed of updates) {
-            if (changed.system && changed._id && [this.delta?.id, this.actor?.id].includes(changed._id)) {
-                this.#resizeFromActor(changed);
+        const { actor, scene } = this;
+        if (!actor || !(scene instanceof ScenePF2e)) return;
+
+        // Follow up any actor (or descendant document thereof) modification with a size synchronization
+        if (this.linkToActorSize && actor.system.traits?.size) {
+            const dimensions = actor.system.traits.size.tokenDimensions;
+            if (dimensions.width !== this.width || dimensions.height !== this.height) {
+                scene.syncTokenDimensions(this, dimensions);
             }
         }
-    }
 
-    /** Follow up actor size-category or (in case of vehicles) dimensions change with dimensions update. */
-    #resizeFromActor(changed: DeepPartial<ActorSourcePF2e>) {
-        if (this.inCompendium) return;
-        const actor = this.actor;
-        if (!actor || !this.linkToActorSize || !changed.system) return;
-        const isNPCSizeChange = actor.isOfType("npc") && changed.system.traits?.size;
-        const isVehicleSizeCange = actor.isOfType("vehicle") && "space" in (changed.system.details ?? {});
-        if (isNPCSizeChange || isVehicleSizeCange) {
-            const newSize = actor.system.traits.size;
-            this.update({ width: newSize.width / 5, height: newSize.length / 5 }, { animation: { movementSpeed: 2 } });
-        }
+        // Simulate update to detect and fulfill canvas-affecting actor changes
+        const updates = Array.isArray(update) ? update : [update];
+        this.simulateUpdate(updates[0]);
     }
 
     protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {

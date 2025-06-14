@@ -62,6 +62,9 @@ class ScenePF2e extends Scene {
         return (this.active && !soleUserIsGM) || (this.isView && soleUserIsGM);
     }
 
+    /** A map of `TokenDocument` IDs embedded in this scene long with new dimensions from actor size-category changes */
+    #sizeSyncBatch = new Map<string, { width: number; height: number }>();
+
     override prepareData(): void {
         super.prepareData();
         Promise.resolve().then(() => {
@@ -104,6 +107,22 @@ class ScenePF2e extends Scene {
             }
         }
     }
+
+    /** Synchronize a token's dimensions with its actor's size category. */
+    syncTokenDimensions(tokenDoc: TokenDocumentPF2e, dimensions: { width: number; height: number }): void {
+        this.#sizeSyncBatch.set(tokenDoc.id, dimensions);
+        this.#processSyncBatch();
+    }
+
+    /** Retrieve size and clear size-sync batch, make updates. */
+    #processSyncBatch = foundry.utils.debounce((): void => {
+        const entries = this.#sizeSyncBatch
+            .entries()
+            .toArray()
+            .map(([_id, { width, height }]) => ({ _id, width, height }));
+        this.#sizeSyncBatch.clear();
+        this.updateEmbeddedDocuments("Token", entries, { animation: { movementSpeed: 1.5 } });
+    }, 0);
 
     /* -------------------------------------------- */
     /*  Event Handlers                              */
