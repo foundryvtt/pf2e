@@ -121,7 +121,7 @@ class ScenePF2e extends Scene {
             .toArray()
             .map(([_id, { width, height }]) => ({ _id, width, height }));
         this.#sizeSyncBatch.clear();
-        this.updateEmbeddedDocuments("Token", entries);
+        this.updateEmbeddedDocuments("Token", entries, { animation: { movementSpeed: 1.5 } });
     }, 0);
 
     /* -------------------------------------------- */
