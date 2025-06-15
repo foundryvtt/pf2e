@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { applyActorUpdate } from "@actor/helpers.ts";
+import { applyActorGroupUpdate } from "@actor/helpers.ts";
 import { ItemPF2e, ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e, KitSource, PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -258,7 +258,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
             _id: id,
             "system.quantity": quantity,
         }));
-        applyActorUpdate(this.actor, { itemCreates, itemUpdates });
+        applyActorGroupUpdate(this.actor, { itemCreates, itemUpdates });
     }
 }
 
