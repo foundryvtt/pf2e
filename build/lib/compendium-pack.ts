@@ -306,9 +306,7 @@ class CompendiumPack {
                         if(v.match(/^PF2E\.[^{}]+$/) && !localizationKeys.includes(v)){
                             throw PackError(`${docSource.name} has a rule element with an invalid localization key ${v}`);
                         }
-
                     }
-
                 }
             }
 

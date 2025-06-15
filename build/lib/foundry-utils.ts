@@ -119,7 +119,7 @@ export function getType(variable: unknown): string {
    * @return    A flattened object
    */
 function flattenObject(obj:object, _d = 0) {
-    const flat:{[id:string]: any} = {};
+    const flat:{[id:string]: string|number|null} = {};
     if (_d > 100) {
         throw new Error("Maximum depth exceeded");
     }
@@ -127,9 +127,15 @@ function flattenObject(obj:object, _d = 0) {
         let t = getType(v);
         if (t === "Array"){
             for(const k1 in v){
-                const inner = flattenObject(v[k1], _d+2);
-                for (const [ik, iv] of Object.entries(inner))
-                    flat[`${k}.${k1}.${ik}`] = iv;
+                const t1 = getType(v[k1]);
+                if(["number", "string"].includes(t1)){
+                    flat[`${k}.${k1}`] = v[k1];
+                }
+                else {
+                    const inner = flattenObject(v[k1], _d+2);
+                    for (const [ik, iv] of Object.entries(inner))
+                        flat[`${k}.${k1}.${ik}`] = iv;
+                }
             }
         }
         else if (t === "Object") {
