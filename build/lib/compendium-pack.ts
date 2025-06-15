@@ -14,6 +14,10 @@ import path from "path";
 import * as R from "remeda";
 import systemJSON from "../../static/system.json";
 import coreIconsJSON from "../core-icons.json";
+import systemLocalizationKeysJSON from "../../static/lang/en.json";
+import ruleElementsLocalizationKeysJSON from "../../static/lang/re-en.json";
+import actionsLocalizationKeysJSON from "../../static/lang/action-en.json";
+import kingmakerLocalizationKeysJSON from "../../static/lang/kingmaker-en.json";
 import "./foundry-utils.ts";
 import { PackError, getFilesRecursively } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
@@ -57,6 +61,13 @@ function isItemSource(docSource: PackEntry): docSource is ItemSourcePF2e {
  *  as upstream adds more icons.
  */
 const coreIcons = new Set(coreIconsJSON);
+
+const localizationKeys = Object.keys({
+    ...fu.flattenObject(systemLocalizationKeysJSON),
+    ...fu.flattenObject(ruleElementsLocalizationKeysJSON),
+    ...fu.flattenObject(actionsLocalizationKeysJSON),
+    ...fu.flattenObject(kingmakerLocalizationKeysJSON),
+});
 
 class CompendiumPack {
     packId: string;
@@ -286,6 +297,18 @@ class CompendiumPack {
                 const featCategory = docSource.system.category;
                 if (!setHasElement(FEAT_OR_FEATURE_CATEGORIES, featCategory)) {
                     throw PackError(`${docSource.name} has an unrecognized feat category: ${featCategory}`);
+                }
+            }
+
+            for (const rule of docSource.system.rules) {
+                for (const v of Object.values(fu.flattenObject(rule))) {
+                    if (typeof v === "string") {
+                        if (v.match(/^PF2E\.[^{}]+$/) && !localizationKeys.includes(v)) {
+                            throw PackError(
+                                `${docSource.name} has a rule element with an invalid localization key ${v}`,
+                            );
+                        }
+                    }
                 }
             }
 
