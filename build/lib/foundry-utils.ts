@@ -113,6 +113,38 @@ export function getType(variable: unknown): string {
 }
 
 /**
+   * Flatten a possibly multi-dimensional object to a one-dimensional one by converting all nested keys to dot notation
+   * @param obj The object to flatten
+   * @param _d  Track the recursion depth to prevent overflow
+   * @return    A flattened object
+   */
+function flattenObject(obj:object, _d = 0) {
+    const flat:{[id:string]: any} = {};
+    if (_d > 100) {
+        throw new Error("Maximum depth exceeded");
+    }
+    for (let [k, v] of Object.entries(obj)) {
+        let t = getType(v);
+        if (t === "Array"){
+            for(const k1 in v){
+                const inner = flattenObject(v[k1], _d+2);
+                for (const [ik, iv] of Object.entries(inner))
+                    flat[`${k}.${k1}.${ik}`] = iv;
+            }
+        }
+        else if (t === "Object") {
+            if (isEmpty(v)) flat[k] = v;
+            let inner = flattenObject(v, _d + 1);
+            for (let [ik, iv] of Object.entries(inner)) {
+                flat[`${k}.${ik}`] = iv;
+            }
+        }
+        else flat[k] = v;
+    }
+    return flat;
+}
+
+/**
  * Expand a flattened object to be a standard multi-dimensional nested Object by converting all dot-notation keys to
  * inner objects.
  *
@@ -405,6 +437,7 @@ const f = (global.foundry = {
         diffObject,
         duplicate,
         expandObject,
+        flattenObject,
         isEmpty,
         getType,
         mergeObject,
