@@ -1,1 +1,1 @@
-export default class IterableWeakSet extends Set {}
+export default class IterableWeakSet<T> extends Set<T> {}

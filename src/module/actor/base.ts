@@ -424,6 +424,20 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return 0;
     }
 
+    /**
+     * @inheritdoc
+     * Overriden to also clone dependent tokens if keepId is true
+     */
+    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this {
+        const clone = super.clone(data, context);
+        if (context?.keepId) {
+            for (const [key, value] of this._dependentTokens.entries()) {
+                clone._dependentTokens.set(key, value);
+            }
+        }
+        return clone;
+    }
+
     /** Create a clone of this actor to recalculate its statistics with ephemeral effects and roll options included */
     getContextualClone(rollOptions: string[], ephemeralEffects: (ConditionSource | EffectSource)[] = []): this {
         const rollOptionsAll = rollOptions.reduce(

@@ -8,6 +8,7 @@ import {
 } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
+import { IterableWeakMap, IterableWeakSet } from "@common/utils/_module.mjs";
 import ActorSheet from "../appv1/sheets/actor-sheet.mjs";
 import { ActiveEffect, ActorUUID, BaseActor, Combat, Item, Scene, TokenDocument } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
@@ -79,6 +80,12 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
 
     /** Whether the Actor has at least one Combatant in the active Combat that represents it. */
     get inCombat(): boolean;
+
+    /**
+     * Maintain a list of Token Documents that represent this Actor, stored by Scene.
+     * @internal
+     */
+    readonly _dependentTokens: IterableWeakMap<Scene, IterableWeakSet<TokenDocument>>;
 
     /* -------------------------------------------- */
     /*  Methods                                     */
