@@ -33,7 +33,7 @@ import { CheckModifier, ModifierPF2e, StatisticModifier, createAttributeModifier
 import type { NPCStrike } from "./npc/data.ts";
 import { CheckContext } from "./roll-context/check.ts";
 import { DamageContext } from "./roll-context/damage.ts";
-import type { ActorCommitData, AttributeString, AuraEffectData } from "./types.ts";
+import type { ActorGroupUpdate, AttributeString, AuraEffectData } from "./types.ts";
 
 /**
  * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
@@ -801,16 +801,28 @@ async function transferItemsBetweenActors(
     }
 }
 
+/** Creates an empty actor group update with optional additional data */
+function createActorGroupUpdate(data: Partial<ActorGroupUpdate> = {}): ActorGroupUpdate {
+    return {
+        actorUpdates: {},
+        itemCreates: [],
+        itemUpdates: [],
+        itemDeletes: [],
+        ...data,
+    };
+}
+
 /** Applies multiple batched updates to the actor, delaying rendering till the end */
-async function applyActorUpdate<T extends ActorPF2e>(
-    actor: T,
-    data: Partial<ActorCommitData<T>>,
+async function applyActorGroupUpdate(
+    actor: ActorPF2e,
+    data: Partial<ActorGroupUpdate>,
     { render = true }: { render?: boolean } = {},
 ): Promise<void> {
     const itemCreates = data.itemCreates ?? [];
     const itemUpdates = data.itemUpdates ?? [];
+    const itemDeletes = data.itemDeletes ?? [];
 
-    if (data.actorUpdates) {
+    if (data.actorUpdates && !R.isEmpty(data.actorUpdates)) {
         await actor.update(data.actorUpdates, { render: false });
     }
     if (itemCreates.length > 0) {
@@ -819,19 +831,23 @@ async function applyActorUpdate<T extends ActorPF2e>(
     if (itemUpdates.length > 0) {
         await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
     }
+    if (itemDeletes.length > 0) {
+        await actor.deleteEmbeddedDocuments("Item", itemDeletes, { render: false });
+    }
 
-    const changed = data.actorUpdates || itemCreates.length || itemUpdates.length;
+    const changed = data.actorUpdates || itemCreates.length || itemUpdates.length || itemDeletes.length;
     if (render && changed) {
         actor.render();
     }
 }
 
 export {
-    applyActorUpdate,
+    applyActorGroupUpdate,
     auraAffectsActor,
     calculateMAPs,
     calculateRangePenalty,
     checkAreaEffects,
+    createActorGroupUpdate,
     createEncounterRollOptions,
     createEnvironmentRollOptions,
     getRangeIncrement,

@@ -73,9 +73,10 @@ import type { ActorSourcePF2e } from "./data/index.ts";
 import { Immunity, Resistance, Weakness } from "./data/iwr.ts";
 import { ActorSizePF2e } from "./data/size.ts";
 import {
-    applyActorUpdate,
+    applyActorGroupUpdate,
     auraAffectsActor,
     checkAreaEffects,
+    createActorGroupUpdate,
     createEncounterRollOptions,
     createEnvironmentRollOptions,
     isReallyPC,
@@ -524,11 +525,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Recharges all abilities after some time has elapsed. */
-    async recharge(options: RechargeOptions): Promise<ActorRechargeData<this>> {
-        const commitData: ActorRechargeData<this> = {
-            actorUpdates: null,
-            itemCreates: [],
-            itemUpdates: [],
+    async recharge(options: RechargeOptions): Promise<ActorRechargeData> {
+        const commitData: ActorRechargeData = {
+            ...createActorGroupUpdate(),
             affected: {
                 frequencies: false,
                 spellSlots: false,
@@ -589,7 +588,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Commit to the database unless commit is explicitly set to false
         if (options.commit !== false) {
-            await applyActorUpdate(this, commitData);
+            await applyActorGroupUpdate(this, commitData);
         }
 
         return commitData;

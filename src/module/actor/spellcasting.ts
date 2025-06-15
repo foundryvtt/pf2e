@@ -4,11 +4,12 @@ import { SpellcastingEntryPF2e } from "@item";
 import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import { TRICK_MAGIC_SKILLS, TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
-import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
+import type { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { Statistic } from "@system/statistic/statistic.ts";
 import { DelegatedCollection, ErrorPF2e, tupleHasValue } from "@util";
-import { CreatureSource } from "./data/index.ts";
-import { ActorCommitData } from "./types.ts";
+import type { CreatureSource } from "./data/index.ts";
+import { createActorGroupUpdate } from "./helpers.ts";
+import type { ActorGroupUpdate } from "./types.ts";
 
 export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollection<BaseSpellcastingEntry<TActor>> {
     actor: TActor;
@@ -105,7 +106,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
      * Recharges all spellcasting entries based on the type of entry it is
      * @todo Support a timespan property of some sort and handle 1/hour innate spells
      */
-    recharge(): ActorCommitData<TActor> {
+    recharge(): ActorGroupUpdate {
         type SpellcastingUpdate = EmbeddedDocumentUpdateData | EmbeddedDocumentUpdateData[];
 
         const itemUpdates = this.contents.flatMap((entry): SpellcastingUpdate => {
@@ -144,7 +145,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
             return [];
         });
 
-        const actorUpdates = this.refocus({ all: true });
-        return { actorUpdates, itemCreates: [], itemUpdates };
+        const actorUpdates = this.refocus({ all: true }) ?? {};
+        return createActorGroupUpdate({ actorUpdates, itemUpdates });
     }
 }
