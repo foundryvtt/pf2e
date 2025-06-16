@@ -45,10 +45,12 @@ export class Migration731TogglePropertyToRollOption extends Migration727TrimSelf
     }
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
-        if (source.flags.pf2e?.rollOptions?.all) {
-            source.flags.pf2e.rollOptions.all["-=panache"] = false;
-            source.flags.pf2e.rollOptions.all["-=rage"] = false;
-            source.flags.pf2e.rollOptions.all["-=target:flatFooted"] = false;
+        const rollOptionsAll: Record<string, boolean | null | undefined> | undefined =
+            source.flags.pf2e?.rollOptions?.all;
+        if (rollOptionsAll) {
+            rollOptionsAll["-=panache"] = null;
+            rollOptionsAll["-=rage"] = null;
+            rollOptionsAll["-=target:flatFooted"] = null;
         }
     }
 }
