@@ -60,7 +60,7 @@ import type {
     InventoryItem,
     SheetInventory,
 } from "./data-types.ts";
-import { applyDeltaToInput, createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
+import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
 import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog.ts";
@@ -517,40 +517,73 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             });
         }
 
-        // Only allow digits & leading plus and minus signs for `data-allow-delta` inputs,
-        // thus emulating input[type="number"]
-        // Also enable delta adjustment by arrow key and mousewheel
+        // Inputs with the data-allow-delta attribute emulate number type inputs, but allow +X and -Y delta values
         for (const deltaInput of htmlQueryAll<HTMLInputElement>(html, "input[data-allow-delta]")) {
+            deltaInput.dataset.numValue = deltaInput.value;
+
+            const sendChangeEvent = fu.debounce(
+                () => deltaInput.dispatchEvent(new Event("change", { bubbles: true })),
+                100,
+            );
+
+            const applyClamp = (value: number) => {
+                const min = Number(deltaInput.dataset.min) || 0;
+                const max = deltaInput.dataset.max ? Number(deltaInput.dataset.max) : Infinity;
+                return Math.clamp(value, min, max);
+            };
+
+            const applyDelta = (delta: number): void => {
+                const oldValue = Number(deltaInput.dataset.numValue) || 0;
+                deltaInput.value = deltaInput.dataset.numValue = String(applyClamp(oldValue + delta));
+            };
+
+            // Force valid characters while inputting
             deltaInput.addEventListener("input", () => {
                 const match = /[+-]?\d*/.exec(deltaInput.value)?.at(0);
                 deltaInput.value = match ?? deltaInput.value;
             });
 
+            // Keyup/Keydown support
             deltaInput.addEventListener("keydown", (event: KeyboardEvent) => {
                 if (event.key === "ArrowUp") {
-                    applyDeltaToInput(deltaInput, 1);
+                    applyDelta(1);
+                    sendChangeEvent();
                 } else if (event.key === "ArrowDown") {
-                    applyDeltaToInput(deltaInput, -1);
+                    applyDelta(-1);
+                    sendChangeEvent();
                 }
             });
 
+            // Mousewheel while focused support
             deltaInput.addEventListener(
                 "wheel",
                 (event: WheelEvent) => {
                     if (deltaInput === document.activeElement) {
                         event.preventDefault();
-                        event.stopPropagation();
                         const step = Math.sign(-1 * event.deltaY);
-                        const min = Number(deltaInput.dataset.min) || 0;
-                        const max = Number(deltaInput.dataset.max) || 0;
-                        const oldValue = Number(deltaInput.value) || min;
-                        const newValue =
-                            max > 0 ? Math.clamp(oldValue + step, min, max) : Math.max(oldValue + step, min);
-                        deltaInput.value = String(newValue);
+                        applyDelta(step);
+                        sendChangeEvent();
                     }
                 },
                 { passive: false },
             );
+
+            // Clamp data and apply deltas on change events
+            // For this to work properly, this change event must occur before other ones
+            deltaInput.addEventListener("change", () => {
+                const rawValue = deltaInput.value;
+                const value = Number(rawValue);
+                if (Number.isNaN(value)) {
+                    deltaInput.value = String(Number(deltaInput.dataset.numValue || "0"));
+                    return;
+                }
+
+                if (deltaInput.value.startsWith("+") || deltaInput.value.startsWith("-")) {
+                    applyDelta(value);
+                } else {
+                    deltaInput.value = String(applyClamp(value));
+                }
+            });
         }
 
         // Work around search filter flashing on re-render
@@ -1446,22 +1479,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         if (options?.tab) {
             this.openTab(options.tab);
         }
-    }
-
-    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
-        const data = super._getSubmitData(updateData);
-
-        // Use delta values for inputs that have `data-allow-delta` if input value starts with + or -
-        for (const el of this.form.elements) {
-            if (el instanceof HTMLInputElement && el.dataset.allowDelta !== undefined) {
-                const strValue = el.value.trim();
-                const value = Number(strValue);
-                if ((strValue.startsWith("+") || strValue.startsWith("-")) && !Number.isNaN(value))
-                    data[el.name] = Number(fu.getProperty(this.actor, el.name)) + value;
-            }
-        }
-
-        return data;
     }
 
     protected override _configureProseMirrorPlugins(
