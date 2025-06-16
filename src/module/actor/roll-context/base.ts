@@ -41,7 +41,12 @@ abstract class RollContext<
         const origin = {
             actor: params.origin?.actor ?? params.origin?.token?.actor ?? null,
             statistic: params.origin?.statistic ?? null,
-            token: params.origin?.token ?? params.origin?.actor?.getActiveTokens(true, true).shift() ?? null,
+            token: (() => {
+                // Use assigned token for fetch one, prioritizing controlled tokens
+                if (params.origin?.token) return params.origin.token;
+                const activeTokens = params.origin?.actor?.getActiveTokens(true, true) ?? [];
+                return activeTokens.find((t) => t.object?.controlled) ?? activeTokens.shift() ?? null;
+            })(),
             item: params.origin?.item?.actor === params.origin?.actor ? (params.origin?.item ?? null) : null,
         };
         const targetActor = params.target?.actor ?? params.target?.token?.actor;
@@ -317,6 +322,7 @@ abstract class RollContext<
         return unclonedItem;
     }
 
+    /** Attempts to retrieve the current statistic from the cloned actor if it exists */
     #getClonedStatistic(clonedActor: ActorPF2e | null): Statistic | StrikeData | null {
         const unresolvedRoller = this.unresolved[this.rollerRole];
         const unresolvedStatistic = unresolvedRoller?.statistic ?? null;
