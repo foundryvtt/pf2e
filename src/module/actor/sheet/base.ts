@@ -517,24 +517,30 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             });
         }
 
-        // Inputs with the data-allow-delta attribute emulate number type inputs, but allow +X and -Y delta values
+        // Inputs with the data-allow-delta attribute mostly emulate number type inputs, but allow +X and -X delta values
         for (const deltaInput of htmlQueryAll<HTMLInputElement>(html, "input[data-allow-delta]")) {
             deltaInput.dataset.numValue = deltaInput.value;
 
-            const sendChangeEvent = fu.debounce(
-                () => deltaInput.dispatchEvent(new Event("change", { bubbles: true })),
-                100,
-            );
+            const sendChangeEvent = fu.debounce((value: string) => {
+                deltaInput.value = value;
+                deltaInput.dispatchEvent(new Event("change", { bubbles: true }));
+            }, 1000);
 
-            const applyClamp = (value: number) => {
+            // Applies whatever is in the input to the current value
+            const updateInput = (delta?: number) => {
                 const min = Number(deltaInput.dataset.min) || 0;
                 const max = deltaInput.dataset.max ? Number(deltaInput.dataset.max) : Infinity;
-                return Math.clamp(value, min, max);
-            };
 
-            const applyDelta = (delta: number): void => {
-                const oldValue = Number(deltaInput.dataset.numValue) || 0;
-                deltaInput.value = deltaInput.dataset.numValue = String(applyClamp(oldValue + delta));
+                const rawValue = deltaInput.value;
+                const value = Number(rawValue);
+                const oldValue = Number(deltaInput.dataset.numValue || "0");
+                const appliedValue = Number.isNaN(value)
+                    ? oldValue
+                    : deltaInput.value.startsWith("+") || deltaInput.value.startsWith("-")
+                      ? Math.clamp(oldValue + value, min, max)
+                      : Math.clamp(value, min, max);
+                const newValue = Math.clamp(appliedValue + (delta ?? 0), min, max);
+                deltaInput.value = deltaInput.dataset.numValue = String(newValue);
             };
 
             // Force valid characters while inputting
@@ -545,12 +551,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
             // Keyup/Keydown support
             deltaInput.addEventListener("keydown", (event: KeyboardEvent) => {
-                if (event.key === "ArrowUp") {
-                    applyDelta(1);
-                    sendChangeEvent();
-                } else if (event.key === "ArrowDown") {
-                    applyDelta(-1);
-                    sendChangeEvent();
+                const step = event.key === "ArrowUp" ? 1 : event.key === "ArrowDown" ? -1 : 0;
+                if (step !== 0) {
+                    updateInput(step);
+                    sendChangeEvent(deltaInput.value);
                 }
             });
 
@@ -561,8 +565,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                     if (deltaInput === document.activeElement) {
                         event.preventDefault();
                         const step = Math.sign(-1 * event.deltaY);
-                        applyDelta(step);
-                        sendChangeEvent();
+                        updateInput(step);
+                        sendChangeEvent(deltaInput.value);
                     }
                 },
                 { passive: false },
@@ -571,18 +575,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             // Clamp data and apply deltas on change events
             // For this to work properly, this change event must occur before other ones
             deltaInput.addEventListener("change", () => {
-                const rawValue = deltaInput.value;
-                const value = Number(rawValue);
-                if (Number.isNaN(value)) {
-                    deltaInput.value = String(Number(deltaInput.dataset.numValue || "0"));
-                    return;
-                }
-
-                if (deltaInput.value.startsWith("+") || deltaInput.value.startsWith("-")) {
-                    applyDelta(value);
-                } else {
-                    deltaInput.value = String(applyClamp(value));
-                }
+                updateInput();
             });
         }
 
