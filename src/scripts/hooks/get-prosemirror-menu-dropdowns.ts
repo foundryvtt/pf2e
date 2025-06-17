@@ -10,15 +10,11 @@ export const GetProseMirrorMenuDropDowns = {
                     children: [
                         {
                             action: "pf2e-action-glyph",
-                            class: "action-glyph",
                             title: "Icons 1 2 3 F R",
                             mark: menu.schema.marks.span,
                             attrs: { _preserve: { class: "action-glyph" } },
                             priority: 1,
-                            cmd: () => {
-                                toggleMark(menu.schema.marks.span, { _preserve: { class: "action-glyph" } });
-                                return true;
-                            },
+                            cmd: toggleMark(menu.schema.marks.span, { _preserve: { class: "action-glyph" } }),
                         },
                         {
                             action: "pf2e-inline-header",
@@ -111,10 +107,7 @@ export const GetProseMirrorMenuDropDowns = {
                             mark: menu.schema.marks.span,
                             attrs: { _preserve: { "data-visibility": "gm" } },
                             priority: 1,
-                            cmd: () => {
-                                toggleMark(menu.schema.marks.span, { _preserve: { "data-visibility": "gm" } });
-                                return true;
-                            },
+                            cmd: toggleMark(menu.schema.marks.span, { _preserve: { "data-visibility": "gm" } }),
                         },
                     ],
                 });
