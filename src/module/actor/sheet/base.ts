@@ -191,7 +191,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     }
 
     protected prepareInventory(): SheetInventory {
-        const items = [...iterateAllItems(this.actor)].filter((i) => i.isOfType("physical"));
+        const actor = this.actor;
+        const items = [...iterateAllItems(actor)].filter((i) => i.isOfType("physical"));
         this.#inventorySearchEngine.removeAll();
         this.#inventorySearchEngine.addAll(items.map((i) => R.pick(i, ["uuid", "name"])));
 
@@ -212,7 +213,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             { label: game.i18n.localize("PF2E.Item.Container.Plural"), types: ["backpack"], items: [] },
         ];
 
-        const actor = this.actor.clone({}, { keepId: true });
         for (const item of actor.inventory.contents.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
             if (item.isInContainer) continue;
             const section = sections.find((s) => s.types.includes(item.type));
