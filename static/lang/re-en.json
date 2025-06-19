@@ -5805,14 +5805,15 @@
                 "CallAndResponse": "While the spell is active, one ally of your choice affected by the spell can respond to your call as a single action that has the auditory and concentrate traits to extend the spell's duration by 1 round. Only one ally can respond to a given call, and responding to the ally's response has no additional effect.",
                 "CastDown": "The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} if it takes any damage from the spell. If the target critically fails its save against the spell, it also takes a –10-foot status penalty to its Speed for 1 minute. @UUID[Compendium.pf2e.feat-effects.Item.Ve1CRFI8ikL6dqcL]{Effect: Cast Down}",
                 "CodexofDestructionAndRenewal": {
-                    "Destruction": {
-                        "Label": "Codex of Destruction and Renewal — Destruction",
-                        "Note": "The spell ignores 10 resistance and you reroll any damage dice that roll a 1. If the spell reduces a creature to 0 Hit Points, they're torn apart at an infinitesimal level, not even leaving a fine ash; this is a death effect."
+                    "RollOptionLabel": {
+                        "Damage": "Damage",
+                        "Healing": "Healing"
                     },
-                    "Renewal": {
-                        "Label": "Codex of Destruction and Renewal — Renewal",
-                        "Note": "The spell grants the target regeneration 20, restoring 20 Hit Points at the start of its turn. @UUID[Compendium.pf2e.equipment-effects.Item.yZW8I6G2Di6gdd16]{Effect: Codex of Destruction and Renewal}"
-                    }
+                    "Note": {
+                        "destruction": "The spell ignores 10 resistance and you reroll any damage dice that roll a 1. If the spell reduces a creature to 0 Hit Points, they're torn apart at an infinitesimal level, not even leaving a fine ash; this is a death effect.",
+                        "renewal": "The spell grants the target regeneration 20, restoring 20 Hit Points at the start of its turn. @UUID[Compendium.pf2e.equipment-effects.Item.yZW8I6G2Di6gdd16]{Effect: Codex of Destruction and Renewal}"
+                    },
+                    "Prompt": "Spell prepared"
                 },
                 "ConcealSpell": "The spell gains the subtle trait, hiding the shining runes, sparks of magic, and other manifestations that would usually give away your spellcasting. The trait hides only the spell's spellcasting actions and manifestations, not its effects, so an observer might still see a ray streak out from you or see you vanish into thin air.",
                 "CourageousAdvance": "One ally of your choice who gains a status bonus from the spell can immediately use their reaction to Stride.",
@@ -5825,6 +5826,7 @@
                 "DivineInfusion": "The target deals additional damage with its melee weapons and unarmed attacks until the end of its next turn. The damage type is void if you cast <em>harm</em> and vitality if you cast <em>heal</em>. @UUID[Compendium.pf2e.feat-effects.Item.eecIuD6sGPX0FJcT]{Effect: Divine Infusion}.",
                 "DousingSpell": "You soak the target of the spell with water. If the target has persistent acid or fire damage, the DC to end those conditions is reduced to 10, and the creature can attempt a flat check to end those types of persistent damage immediately. The spell gains the water trait (causing it to deal extra damage to creatures with weakness to water).",
                 "EbbAndFlow": "Choose one creature in range that would be harmed by the spell, and choose another creature within range that would be healed by the spell. Your heal or harm targets both creatures.",
+                "EchoingSpell": "You can Cast the Spell a second time before the end of your next turn without expending a spell slot.",
                 "EchoingChannel": "Choose one additional creature in range. Target that creature with a 1-action version of the same spell. This spell is the same rank as the 2-action harm or heal you cast and doesn't cost another spell slot",
                 "EnergyAblation": "If your next action is to Cast a Spell that deals at least one type of energy damage (acid, cold, electricity, fire, force, sonic, vitality, or void), you gain resistance to an energy damage type of your choice equal to the spell's rank. The resistance lasts until the end of your next turn. You get the resistance regardless of whether or not your spell dealt damage.",
                 "EnergyFusion": "Select a non-cantrip spell in your spell repertoire that deals a different type of energy damage, and expend an additional spell slot of the same rank as this secondary spell. The spell you cast deals additional damage equal to the rank of the secondary spell slot expended. The spell's total damage is divided evenly between the energy type of the spell you cast and the energy type of the secondary spell.",
@@ -5878,6 +5880,7 @@
                 "SplitHex": "If the next action you use is to Cast a Spell to cast a harmful hex with a single target, reduce its rank by 2 (making it 2 ranks lower than the maximum spell rank you can cast). If you do, you can select a second target for that hex to affect.",
                 "SplitShot": "If your next action is to Cast a Spell without a duration that requires an attack roll against a single target, you can choose a second target within range. You roll a single attack roll and compare the result to the AC of both targets. This counts as one attack for your multiple attack penalty. To the second target, the spell deals half the amount of damage it would normally deal and has no effects beyond the spell's initial damage (such as imposing conditions or penalties).",
                 "SurgingMight": "If the next action you use is to Cast a Spell, the spell ignores an amount of the target's resistance equal to your level against the following types of damage: spirit, vitality, and void. This applies to all damage the spell deals, including persistent damage and damage caused by an ongoing effect of the spell. This doesn't cause the spell to ignore immunities, only resistances.",
+                "SynergisticSpell": "You can Cast another Spell as a free action. This spell must be cast from one of your halcyon spell slots.",
                 "ThunderclapSpell": "If your next action is to Cast a Spell that has the electricity trait or deals electricity damage, has no duration, and requires creatures to attempt a saving throw, the force of the spell's lightning creates a thunderclap, in addition to its other effects. Each creature that failed its Reflex save against the spell is @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 round, and those who critically failed are also knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
                 "TimelineSplittingSpell": "You Cast two Spells that each take 1 or 2 actions to cast. These can't be the same spell heightened to two different levels. You expend the resources for both spells, such as spell slots, Focus Points, and material components. Determine the immediate results for both spells, including attack rolls, saving throws, damage, and any other dice rolls. Then, choose which of the two spells takes effect, using the previously made rolls. The other spell's resources are still expended, but the spell has no effect as the magic disappears the other timeline.",
                 "UnlimitedPotential": "If your next action is to Cast a Spell of 5th level or lower that has no duration, you don't expend the prepared spell as you cast it.",
@@ -5885,7 +5888,17 @@
                 "VigorousAnthem": "You and all affected allies gain temporary HP equal to 3 + your Charisma modifier that last for 1 minute. @UUID[Compendium.pf2e.feat-effects.Item.7AzGhIOx4Df5Cicr]{Effect: Vigorous Anthem}",
                 "WhatCouldHaveBeen": "If your next action is to Cast a Spell that summons a creature, that creature is another version of you. This creature remains the type of creature you summoned and has largely the same abilities (plus the following adjustments), but it clearly resembles you, likely sharing some distinguishing features, such as mannerisms, speech patterns, tattoos, or clothing. The summoned creature gains a +1 status bonus to any skill check in which you're trained, a +2 status bonus if you're an expert, a +3 status bonus if you're a master, or a +4 status bonus if you're legendary. The creature also takes a –2 penalty to all skills in which you're untrained.",
                 "WidenSpell": "If the next action you use is to Cast a Spell that has an area of a burst, cone, or line and does not have a duration, increase the area of that spell. Add 5 feet to the radius of a burst that normally has a radius of at least 10 feet (a burst with a smaller radius is not affected). Add 5 feet to the length of a cone or line that is normally 15 feet long or smaller, and add 10 feet to the length of a larger cone or line.",
-                "WindTossedSpell": "You ignore the target's @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} condition and any cover they have from you. The spell gains the air trait."
+                "WindTossedSpell": "You ignore the target's @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} condition and any cover they have from you. The spell gains the air trait.",
+                "WorldsphereGravity": {
+                    "GravitationalMorass": {
+                        "Note": "Flying creatures that pass through the area (@Template[burst|distance:20] centered within the spell's area) must succeed at a Reflex save against your spell DC or fall to the ground, taking bludgeoning damage equal to half the distance fallen.",
+                        "RollOptionLabel": "Gravitational Morass"
+                    },
+                    "FlowingTime": {
+                        "Note": "A creature that starts its turn in the burst (@Template[burst|distance:20] centered within the spell's area) is affected by @UUID[Compendium.pf2e.spells-srd.Item.o6YCGx4lycsYpww4]{Haste} on that turn.",
+                        "RollOptionLabel": "Flowing Time"
+                    }
+                }
             },
             "SpiritPower": {
                 "Love": {

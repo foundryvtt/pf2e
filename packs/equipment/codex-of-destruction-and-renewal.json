@@ -43,22 +43,29 @@
                 "placement": "spellcasting",
                 "suboptions": [
                     {
-                        "label": "PF2E.SpecificRule.Spellshape.CodexofDestructionAndRenewal.Destruction.Label",
-                        "value": "codex-destruction"
+                        "label": "{item|name}",
+                        "value": "codex-of-destruction-and-renewal"
                     }
                 ],
                 "toggleable": true
             },
             {
+                "alwaysActive": true,
                 "key": "RollOption",
-                "label": "PF2E.TraitSpellshape",
-                "mergeable": true,
-                "option": "spellshape",
+                "label": "PF2E.SpecificRule.Spellshape.CodexofDestructionAndRenewal.Prompt",
+                "option": "spell-type",
                 "placement": "spellcasting",
+                "predicate": [
+                    "spellshape:codex-of-destruction-and-renewal"
+                ],
                 "suboptions": [
                     {
-                        "label": "PF2E.SpecificRule.Spellshape.CodexofDestructionAndRenewal.Renewal.Label",
-                        "value": "codex-renewal"
+                        "label": "PF2E.SpecificRule.Spellshape.CodexofDestructionAndRenewal.RollOptionLabel.Damage",
+                        "value": "destruction"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spellshape.CodexofDestructionAndRenewal.RollOptionLabel.Healing",
+                        "value": "renewal"
                     }
                 ],
                 "toggleable": true
@@ -68,25 +75,8 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "spellshape:codex-destruction",
-                    "damaging-effect",
-                    {
-                        "not": "item:trait:cantrip"
-                    }
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Spellshape.CodexofDestructionAndRenewal.Destruction.Note"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "spellshape:codex-renewal",
+                    "spellshape:codex-of-destruction-and-renewal",
+                    "spell-type:renewal",
                     "healing",
                     {
                         "not": "item:trait:cantrip"
@@ -95,7 +85,26 @@
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Spellshape.CodexofDestructionAndRenewal.Renewal.Note"
+                        "text": "PF2E.SpecificRule.Spellshape.CodexofDestructionAndRenewal.Note.{item|flags.pf2e.rulesSelections.spellType}"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:codex-of-destruction-and-renewal",
+                    "spell-type:destruction",
+                    "damaging-effect",
+                    {
+                        "not": "item:trait:cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.CodexofDestructionAndRenewal.Note.{item|flags.pf2e.rulesSelections.spellType}"
                     }
                 ]
             }

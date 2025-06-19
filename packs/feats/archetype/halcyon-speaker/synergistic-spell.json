@@ -38,7 +38,37 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "synergistic-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:synergistic-spell",
+                    "item:cast:actions:2"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.SynergisticSpell"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
