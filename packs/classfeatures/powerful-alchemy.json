@@ -26,22 +26,10 @@
         },
         "rules": [
             {
-                "key": "RollOption",
-                "option": "powerful-alchemy",
-                "toggleable": true
-            },
-            {
                 "key": "AdjustModifier",
-                "mode": "override",
+                "mode": "upgrade",
                 "predicate": [
-                    "item:trait:infused",
-                    "powerful-alchemy",
-                    {
-                        "gt": [
-                            "{actor|classDCs.alchemist.dc.value}",
-                            "inline-dc:value"
-                        ]
-                    }
+                    "item:trait:infused"
                 ],
                 "selector": "inline-dc",
                 "value": "@actor.classDCs.alchemist.mod"
