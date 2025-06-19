@@ -250,7 +250,10 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: game.system.version }));
         const documents = await compendium.getDocuments();
-        await compendium.documentClass.updateDocuments(documents, { diff: false, recursive: false, pack });
+        await compendium.documentClass.updateDocuments(
+            documents.map((d) => d.toObject()),
+            { diff: false, recursive: false, pack },
+        );
         ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: game.system.version }));
     }
 
