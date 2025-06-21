@@ -496,8 +496,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                         contents: unfiltered.contents
                             .filter((c) => c.predicate.test(rollOptions))
                             .map((line) => {
-                                line.title &&= game.i18n.localize(line.title).trim();
-                                line.text = markdownToHTML(line.text);
+                                if (!line.processed) {
+                                    line.title &&= game.i18n.localize(line.title).trim();
+                                    line.text = markdownToHTML(line.text);
+                                    line.processed = true;
+                                }
                                 return line;
                             }),
                     };

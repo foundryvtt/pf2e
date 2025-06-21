@@ -120,6 +120,7 @@ interface AlteredDescriptionContent {
     text: string;
     divider: boolean;
     predicate: Predicate;
+    processed?: boolean;
 }
 
 type FrequencyInterval = keyof typeof CONFIG.PF2E.frequencies;
