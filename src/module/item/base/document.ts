@@ -222,7 +222,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
         // Basic template rendering data
-        const template = `systems/pf2e/templates/chat/${sluggify(this.type)}-card.hbs`;
+        const sluggifiedType = sluggify(this.type);
+        const templateBase = ["weapon", "armor", "backpack"].includes(sluggifiedType) ? "equipment" : sluggifiedType;
+        const template = `systems/pf2e/templates/chat/${templateBase}-card.hbs`;
         const token = this.actor.token;
         const nearestItem = htmlClosest(event?.target, ".item");
         const rollOptions = options.data ?? { ...(nearestItem?.dataset ?? {}) };

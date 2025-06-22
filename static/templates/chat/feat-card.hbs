@@ -2,20 +2,19 @@
     <header class="card-header flexrow">
         <img src="{{item.img}}" alt="{{item.name}}" />
         <h3>{{item.name}}{{#if item.actionCost}} {{{actionGlyph item.actionCost}}}{{/if}}</h3>
+        <div class="tags paizo-style" data-tooltip-class="pf2e">
+            {{#if data.rarity}}
+                <span
+                    class="tag rarity {{data.rarity.slug}}"
+                    data-trait="{{data.rarity.slug}}"
+                    data-tooltip="{{data.rarity.description}}"
+                >{{localize data.rarity.label}}</span>
+            {{/if}}
+            {{#each data.traits as |trait|}}
+                <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
+            {{/each}}
+        </div>
     </header>
-
-    <div class="tags paizo-style" data-tooltip-class="pf2e">
-        {{#if data.rarity}}
-            <span
-                class="tag rarity {{data.rarity.slug}}"
-                data-trait="{{data.rarity.slug}}"
-                data-tooltip="{{data.rarity.description}}"
-            >{{localize data.rarity.label}}</span>
-        {{/if}}
-        {{#each data.traits as |trait|}}
-            <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
-        {{/each}}
-    </div>
 
     <div class="card-content">
         {{{data.description.value}}}

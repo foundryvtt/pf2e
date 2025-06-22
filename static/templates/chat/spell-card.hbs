@@ -8,13 +8,12 @@
         <img src="{{item.img}}" alt="{{item.name}}" />
         <h3>{{item.name}}{{#if item.actionGlyph}} <span class="action-glyph">{{item.actionGlyph}}</span>{{/if}}</h3>
         <h4 class="rank">{{data.rankLabel}}</h4>
+        <section class="tags paizo-style" data-tooltip-class="pf2e">
+            {{#each data.traits as |trait|}}
+                <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{trait.label}}</span>
+            {{/each}}
+        </section>
     </header>
-
-    <section class="tags" data-tooltip-class="pf2e">
-        {{#each data.traits as |trait|}}
-            <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{trait.label}}</span>
-        {{/each}}
-    </section>
 
     <section class="card-content">
         {{{data.description.value}}}
