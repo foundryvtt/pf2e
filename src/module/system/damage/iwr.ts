@@ -48,13 +48,22 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const formalDescription = new Set([...instance.formalDescription, ...rollOptions]);
 
             // If the roll's total was increased to a minimum of 1, treat the first instance as having a total of 1
-            const wasIncreased = instance.total <= 0 && typeof roll.options.increasedFrom === "number";
+            const wasIncreased = instance.total <= 0 && typeof instance.options.increasedFrom === "number";
             const isFirst = instances.indexOf(instance) === 0;
             const instanceTotal = wasIncreased && isFirst ? 1 : Math.max(instance.total, 0);
+            const instanceApplications: IWRApplication[] = [];
 
             // Step 0: Inapplicable damage outside the IWR framework
             if (!actor.isAffectedBy(instance.type)) {
                 return [{ category: "unaffected", type: instance.type, adjustment: -1 * instanceTotal }];
+            }
+            // Step 0.5: adjust for 0 damage rolls
+            if (wasIncreased && isFirst){
+                instanceApplications.push({
+                    category: "weakness",
+                    type: "adjusment",
+                    adjustment: 1,
+                });
             }
 
             // Step 1: Immunities
@@ -71,7 +80,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 return [{ category: "immunity", type: appliedImmunity.label, adjustment: -1 * instanceTotal }];
             }
 
-            const instanceApplications: IWRApplication[] = [];
+            
 
             let redirectedFromImmunity: DamageType | null = null;
             for (const immunity of applicableImmunities) {
