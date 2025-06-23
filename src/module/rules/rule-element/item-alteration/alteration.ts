@@ -34,9 +34,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "focus-point-cost",
         "frequency-max",
         "frequency-per",
+        "group",
         "hardness",
         "hp-max",
         "material-type",
+        "name",
         "other-tags",
         "pd-recovery-dc",
         "persistent-damage",
@@ -259,6 +261,13 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 data.item.system.cast.focusPoints = (Math.clamp(newValue, 0, 3) || 0) as ZeroToThree;
                 return;
             }
+            case "group": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (validator.isValid(data)) {
+                    data.item.system.group = data.alteration.value;
+                }
+                return;
+            }
             case "hardness": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (validator.isValid(data)) {
@@ -355,6 +364,13 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     if (!otherTags.includes(newValue)) otherTags.push(newValue);
                 } else if (["subtract", "remove"].includes(this.mode)) {
                     otherTags.splice(otherTags.indexOf(newValue), 1);
+                }
+                return;
+            }
+            case "name": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (validator.isValid(data)) {
+                    data.item.name = data.alteration.value;
                 }
                 return;
             }

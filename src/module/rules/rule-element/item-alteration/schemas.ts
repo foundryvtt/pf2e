@@ -301,6 +301,38 @@ const ITEM_ALTERATION_VALIDATORS = {
         }),
         value: new StrictNumberField({ required: true, nullable: false, integer: true, initial: undefined } as const),
     }),
+    "group": new ItemAlterationValidator(
+        {
+            itemType: new fields.StringField({ required: true, choices: ["armor", "weapon"] }),
+            mode: new fields.StringField({ required: true, choices: ["override"] }),
+            value: new fields.StringField({
+                required: true,
+                nullable: false,
+                initial: undefined,
+            } as const),
+        },
+        {
+            validateForItem: (item, alteration): validation.DataModelValidationFailure | void => {
+                const value = alteration.value;
+                if (item.type === "armor") {
+                    const validTraits = CONFIG.PF2E.armorGroups;
+                    if (typeof value !== "string" || !(value in validTraits)) {
+                        return new validation.DataModelValidationFailure({
+                            message: `${alteration.value} is not a valid armor group`
+                        });
+                    }
+                }
+                else if (item.type ==="weapon") {
+                    const validTraits = CONFIG.PF2E.weaponGroups;
+                    if (typeof value !== "string" || !(value in validTraits)) {
+                        return new validation.DataModelValidationFailure({
+                            message: `${alteration.value} is not a valid weapon group`
+                        });
+                    }
+                }
+            },
+        }
+    ),
     hardness: new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
         mode: new fields.StringField({
@@ -465,6 +497,11 @@ const ITEM_ALTERATION_VALIDATORS = {
             blank: false,
             initial: undefined,
         } as const),
+    }),
+    "name": new ItemAlterationValidator({
+        itemType: new fields.StringField({required: true}),
+        mode: new fields.StringField({required: true, choices: ["override"],}),
+        value: new fields.StringField({required: true,nullable: false,blank: false,} as const),
     }),
     "speed-penalty": new ItemAlterationValidator({
         itemType: new fields.StringField({
