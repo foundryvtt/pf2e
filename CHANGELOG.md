@@ -1,3 +1,67 @@
+## 7.2.1
+
+### Bugfixes
+
+- (stwlam) Fix errors when migrating from some old versions
+- (Supe) Fix action glyphs and inline gm text in prosemirror menus
+- (Supe) Fix create kingdom button duplicating in certain conditions
+- (Supe) Fix duplicate buttons in user config
+- (Supe) Fix excessive space between elements in chat messages
+- (Supe) Fix issue where item description alterations may sometimes be unformatted
+- (Supe) Fix migrating compendiums in the migration status window
+- (Supe) Prioritize selected token when calculating ranged increment
+
+### Data Updates
+
+- (Ambrose, Tikael) Add content from Myth-Speaker's Player's guide
+- (Ambrose) Add Ancient Stone strike and correct action cost of Echo the Past on Lithic Locus npc
+- (Ambrose) Add Ankou Shadow Double actor and link to Ankou's Shadow Double ability
+- (Ambrose) Add area damage, area-effect and damaging-effect options to more NPC abilities
+- (Ambrose) Add Escape act prompt to select NPC abilities
+- (Ambrose) Add Temperature Effects to the GM Screen journal
+- (Ambrose) Add automation to Fortune's Coin items
+- (Ambrose) Add effect for Gladiator Dedication and Play to the Crowd
+- (Ambrose) Add escape actions to select NPC abilities
+- (Ambrose) Add icons to select Deities
+- (Ambrose) Add missing Tallusian actor to Claws of the Tyrant bestiary
+- (Ambrose) Brush up Fiery Body spell effect and redirect 9th Rank version
+- (Ambrose) Correct spelling of khakkhara in Noble Branch class feature
+- (Ambrose) Default Brass Dwarf's initial resistance selection to fire
+- (Ambrose) Improve automation of several Spellshape feats and Codex of Destruction and Renewal
+- (Ambrose) Refresh Seelah's Iconic actor
+- (Ambrose) Remove Manticore Bestiary actor and redirect to Monster Core equivalent
+- (Ambrose) Update Azarketi Crab Catcher and Azarketi Tide Tamer's strikes
+- (Dire Weasel) Add area-effect to Picture-in-Clouds' Elephant Blast
+- (Dire Weasel) Add effect for Subaquatic Marauder's Depth Charge
+- (Dire Weasel) Brush up effect for Barbed Net
+- (Dire Weasel) Fix action cost of some instances of Frightful Moan
+- (Dire Weasel) Fix some basic saves
+- (Dire Weasel) Fix some missing spell IDs
+- (Dire Weasel) Remove fey trait from Mandragora's Blood Scent and Blood Drain abilities
+- (DocSchlock) Add AdjustModifier to Powerful Alchemy for DC replacement
+- (DocSchlock) Add Language AELike REs to Chokers of Elocution
+- (DocSchlock) Update Wellspring Surge roll table with inlines and conditions
+- (kromko) Add missing traits to Wand of Shattering Images and Wand of Shocking Haze
+- (kromko) Add slug to Barghest's Unhealing Wound
+- (kromko) Fix multiple localization keys
+- (Rigo) Add effects for Called Shot and Targeting Finisher
+- (Rigo) Add effects for Electromuscular Stimulator
+- (Rigo) Add spellwatch to armor property runes list
+- (Rigo) Adjust DC of invested items with Intensify Investiture
+- (Rigo) Allow other Strikes to be made with Stonestrike Stance
+- (Rigo) Automate Greenwatcher's cold iron Strikes and critical hit Note
+- (Rigo) Automate Swashbuckler's Incredible Luck
+- (Rigo) Correct action cost of some Exemplar transcendence actions
+- (Rigo) Ensure Compliant Gold's Item Alteration adds reach to chosen ikon
+- (Rigo) Grant quickened condition with Panache Paragon and add Will save to Vivacious Afterimage
+- (Rigo) Implement Major Bestial Mutagen's Weapon Specialization
+- (Rigo) Update text of Greater than the Sum to Player Core 2
+- (Tikael) Add effect for Triceratops' Frill Defense
+
+### Under the Hood
+
+- (In3luki) Exclude flat checks from adjusting inline-dc
+
 ## 7.2.0
 
 ### System Improvements
