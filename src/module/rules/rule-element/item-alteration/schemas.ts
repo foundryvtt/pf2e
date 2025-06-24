@@ -377,6 +377,16 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
+    img: new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true }),
+        mode: new fields.StringField({ required: true, choices: ["override"] }),
+        value: new fields.FilePathField({
+            required: true,
+            nullable: false,
+            blank: false,
+            categories: ["IMAGE"],
+        } as const),
+    }),
     "material-type": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
         mode: new fields.StringField({ required: true, choices: ["override"] }),
