@@ -9,7 +9,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageDiceFaces, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { PredicateField, SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
-import { tupleHasValue } from "@util";
+import { objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { AELikeChangeMode } from "../ae-like.ts";
 import fields = foundry.data.fields;
@@ -313,20 +313,32 @@ const ITEM_ALTERATION_VALIDATORS = {
         },
         {
             validateForItem: (item, alteration): validation.DataModelValidationFailure | void => {
-                const value = alteration.value;
+                const group = alteration.value;
                 if (item.type === "armor") {
-                    const validTraits = CONFIG.PF2E.armorGroups;
-                    if (typeof value !== "string" || !(value in validTraits)) {
+                    if (group !== null && !objectHasKey(CONFIG.PF2E.armorGroups, group)) {
                         return new validation.DataModelValidationFailure({
                             message: `${alteration.value} is not a valid armor group`,
                         });
                     }
                 } else if (item.type === "weapon") {
-                    const validTraits = CONFIG.PF2E.weaponGroups;
-                    if (typeof value !== "string" || !(value in validTraits)) {
+                    if (group !== null && !objectHasKey(CONFIG.PF2E.weaponGroups, group)) {
                         return new validation.DataModelValidationFailure({
                             message: `${alteration.value} is not a valid weapon group`,
                         });
+                    } else {
+                        const alterIsMelee = objectHasKey(CONFIG.PF2E.meleeWeaponGroups, group);
+                        const originalIsMelee = objectHasKey(CONFIG.PF2E.meleeWeaponGroups, item.system.group);
+                        if (alterIsMelee !== originalIsMelee) {
+                            if (alterIsMelee) {
+                                return new validation.DataModelValidationFailure({
+                                    message: `Cannot alter a ranged weapon group to a melee weapon group`,
+                                });
+                            } else if (originalIsMelee) {
+                                return new validation.DataModelValidationFailure({
+                                    message: `Cannot alter a melee weapon group to a ranged weapon group`,
+                                });
+                            }
+                        }
                     }
                 }
             },
