@@ -1,5 +1,5 @@
 import type { DataFieldOptions } from "@common/data/_types.d.mts";
-import type { ItemPF2e } from "@item";
+import type { ItemPF2e, WeaponPF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import type { ItemTrait } from "@item/base/types.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -326,20 +326,31 @@ const ITEM_ALTERATION_VALIDATORS = {
                         return new validation.DataModelValidationFailure({
                             message: `${group} is not a valid weapon group`,
                         });
-                    } else {
-                        const alterIsMandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, group);
-                        const originalIsMandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, item.system.group);
-                        if (alterIsMandatoryRanged !== originalIsMandatoryRanged) {
-                            if (alterIsMandatoryRanged) {
-                                return new validation.DataModelValidationFailure({
-                                    message: `Cannot alter ${item.system.group} into ${group}, a mandatory ranged group`,
-                                });
-                            } else if (originalIsMandatoryRanged) {
-                                return new validation.DataModelValidationFailure({
-                                    message: `Cannot alter ${item.system.group} into ${group}, a non-mandatory ranged group`,
-                                });
-                            }
-                        }
+                    }
+
+                    const weapon = item as WeaponPF2e;
+
+                    const rangedOnlyTraits = ["combination", "thrown"] as const;
+                    const hasRangedOnlyTraits =
+                        rangedOnlyTraits.some((trait) => weapon.traits.has(trait)) ||
+                        weapon.traits.some((trait) => /^volley-\d+$/.test(trait));
+                    const hasMeleeOnlyTraits = weapon.traits.some((trait) => /^thrown-\d+$/.test(trait));
+
+                    const alterIsMandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, group) || hasRangedOnlyTraits;
+                    const originalIsMandatoryRanged =
+                        setHasElement(MANDATORY_RANGED_GROUPS, weapon.system.group) || hasRangedOnlyTraits;
+
+                    const alterIsMandatoryMelee = !alterIsMandatoryRanged && hasMeleeOnlyTraits;
+                    const originalIsMandatoryMelee = !originalIsMandatoryRanged && hasMeleeOnlyTraits;
+
+                    if (alterIsMandatoryMelee !== originalIsMandatoryMelee) {
+                        return new validation.DataModelValidationFailure({
+                            message: `Cannot alter ${weapon.system.group} into ${group} because of melee only traits.`,
+                        });
+                    } else if (alterIsMandatoryRanged !== originalIsMandatoryRanged) {
+                        return new validation.DataModelValidationFailure({
+                            message: `Cannot alter ${weapon.system.group} into ${group} because one is ranged only.`,
+                        });
                     }
                 }
             },
