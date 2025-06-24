@@ -9,11 +9,12 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageDiceFaces, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { PredicateField, SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
-import { objectHasKey, tupleHasValue } from "@util";
+import { objectHasKey, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { AELikeChangeMode } from "../ae-like.ts";
 import fields = foundry.data.fields;
 import validation = foundry.data.validation;
+import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 
 /** A `SchemaField` reappropriated for validation of specific item alterations */
 class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.SchemaField<TSchema> {
@@ -317,25 +318,25 @@ const ITEM_ALTERATION_VALIDATORS = {
                 if (item.type === "armor") {
                     if (group !== null && !objectHasKey(CONFIG.PF2E.armorGroups, group)) {
                         return new validation.DataModelValidationFailure({
-                            message: `${alteration.value} is not a valid armor group`,
+                            message: `${group} is not a valid armor group`,
                         });
                     }
                 } else if (item.type === "weapon") {
                     if (group !== null && !objectHasKey(CONFIG.PF2E.weaponGroups, group)) {
                         return new validation.DataModelValidationFailure({
-                            message: `${alteration.value} is not a valid weapon group`,
+                            message: `${group} is not a valid weapon group`,
                         });
                     } else {
-                        const alterIsMelee = objectHasKey(CONFIG.PF2E.meleeWeaponGroups, group);
-                        const originalIsMelee = objectHasKey(CONFIG.PF2E.meleeWeaponGroups, item.system.group);
-                        if (alterIsMelee !== originalIsMelee) {
-                            if (alterIsMelee) {
+                        const alterIsMandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, group);
+                        const originalIsMandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, item.system.group);
+                        if (alterIsMandatoryRanged !== originalIsMandatoryRanged) {
+                            if (alterIsMandatoryRanged) {
                                 return new validation.DataModelValidationFailure({
-                                    message: `Cannot alter a ranged weapon group to a melee weapon group`,
+                                    message: `Cannot alter ${item.system.group} into ${group}, a mandatory ranged group`,
                                 });
-                            } else if (originalIsMelee) {
+                            } else if (originalIsMandatoryRanged) {
                                 return new validation.DataModelValidationFailure({
-                                    message: `Cannot alter a melee weapon group to a ranged weapon group`,
+                                    message: `Cannot alter ${item.system.group} into ${group}, a non-mandatory ranged group`,
                                 });
                             }
                         }
