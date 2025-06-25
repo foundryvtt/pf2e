@@ -1,44 +1,8 @@
-<div class="hover-content manage-tabs">
-    <ul>
+<ul>
+    {{#each tabs as |tab|}}
         <li class="item">
-            <label>{{localize "PF2E.TabCharacterLabel"}}</label>
-            <input type="checkbox" data-tab-name="character" />
+            <label for="enable-tab-{{tab.name}}">{{localize tab.label}}</label>
+            <input id="enable-tab-{{tab.name}}" type="checkbox" data-tab-name="{{tab.name}}" {{checked tab.checked}} />
         </li>
-        <li class="item">
-            <label>{{localize "PF2E.TabActionsLabel"}}</label>
-            <input type="checkbox" data-tab-name="actions" />
-        </li>
-        <li class="item">
-            <label>{{localize "PF2E.TabInventoryLabel"}}</label>
-            <input type="checkbox" data-tab-name="inventory" />
-        </li>
-        <li class="item">
-            <label>{{localize "PF2E.TabSpellbookLabel"}}</label>
-            <input type="checkbox" data-tab-name="spellcasting" />
-        </li>
-        <li class="item">
-            <label>{{localize "PF2E.TabCraftingLabel"}}</label>
-            <input type="checkbox" data-tab-name="crafting" />
-        </li>
-        <li class="item">
-            <label>{{localize "PF2E.TabSkillsLabel"}}</label>
-            <input type="checkbox" data-tab-name="proficiencies" />
-        </li>
-        <li class="item">
-            <label>{{localize "PF2E.Item.Feat.Plural"}}</label>
-            <input type="checkbox" data-tab-name="feats" />
-        </li>
-        <li class="item">
-            <label>{{localize "PF2E.Item.Effect.Plural"}}</label>
-            <input type="checkbox" data-tab-name="effects" />
-        </li>
-        <li class="item">
-            <label>{{localize "PF2E.Biography"}}</label>
-            <input type="checkbox" data-tab-name="biography" />
-        </li>
-        <li class="item">
-            <label>{{localize "PF2E.TabPathfinderSociety"}}</label>
-            <input type="checkbox" data-tab-name="pfs" />
-        </li>
-    </ul>
-</div>
+    {{/each}}
+</ul>

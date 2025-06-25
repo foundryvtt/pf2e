@@ -63,9 +63,11 @@
             {{> "systems/pf2e/templates/actors/character/icons/pfs.hbs"}}
         </a>
 
-        <a class="manage-tabs" data-action="manage-tabs" data-tooltip="PF2E.TabManageTabsLabel" aria-label="{{localize "PF2E.TabManageTabsLabel"}}">
-            <i class="fa-solid fa-fw fa-ellipsis-v"></i>
-        </a>
+        {{#if editable}}
+            <a class="manage-tabs" data-action="manage-tabs" data-tooltip="PF2E.TabManageTabsLabel" aria-label="{{localize "PF2E.TabManageTabsLabel"}}">
+                <i class="fa-solid fa-fw fa-ellipsis-v"></i>
+            </a>
+        {{/if}}
     </nav>
 
     {{!-- BODY --}}

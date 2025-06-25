@@ -1,7 +1,7 @@
 import { CreatureSheetData, Language, ResourceData } from "@actor/creature/index.ts";
 import type { Sense } from "@actor/creature/sense.ts";
 import { isReallyPC } from "@actor/helpers.ts";
-import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
+import { createProficiencyModifier, MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { AbilityViewData, InventoryItem } from "@actor/sheet/data-types.ts";
 import { condenseSenses, createAbilityViewData } from "@actor/sheet/helpers.ts";
@@ -36,6 +36,7 @@ import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
+    createHTMLElement,
     ErrorPF2e,
     fontAwesomeIcon,
     getActionIcon,
@@ -72,7 +73,6 @@ import {
 import { CharacterPF2e } from "./document.ts";
 import { ElementalBlast, ElementalBlastConfig } from "./elemental-blast.ts";
 import type { FeatBrowserFilterProps, FeatGroup } from "./feats/index.ts";
-import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
 
 class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
@@ -781,11 +781,97 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         navTitleArea.innerText = game.i18n.localize(activeTab.dataset.tooltip ?? "");
         const manageTabsAnchor = htmlQuery<HTMLAnchorElement>(sheetNavigation, ":scope > a[data-action=manage-tabs]");
-        if (manageTabsAnchor) new PCSheetTabManager(this.actor, manageTabsAnchor);
+        manageTabsAnchor?.addEventListener("click", () => {
+            this.#manageTabs(manageTabsAnchor);
+        });
 
         sheetNavigation.addEventListener("click", (event) => {
             const anchor = htmlClosest(event.target, "a[data-tab]");
             if (anchor) navTitleArea.innerText = game.i18n.localize(anchor.dataset.tooltip ?? "");
+        });
+    }
+
+    async #manageTabs(anchor: HTMLElement) {
+        const actor = this.actor;
+        const tabVisibility: Record<string, boolean> = actor.flags.pf2e.sheetTabs;
+        const tabs = [
+            {
+                label: "PF2E.TabCharacterLabel",
+                name: "character",
+            },
+            {
+                label: "PF2E.TabActionsLabel",
+                name: "actions",
+            },
+            {
+                label: "PF2E.TabInventoryLabel",
+                name: "inventory",
+            },
+            {
+                label: "PF2E.TabSpellbookLabel",
+                name: "spellcasting",
+            },
+            {
+                label: "PF2E.TabCraftingLabel",
+                name: "crafting",
+            },
+            {
+                label: "PF2E.TabSkillsLabel",
+                name: "proficiencies",
+            },
+            {
+                label: "PF2E.Item.Feat.Plural",
+                name: "feats",
+            },
+            {
+                label: "PF2E.Item.Effect.Plural",
+                name: "effects",
+            },
+            {
+                label: "PF2E.Biography",
+                name: "biography",
+            },
+            {
+                label: "PF2E.TabPathfinderSociety",
+                name: "pfs",
+            },
+        ].map((t) => ({ ...t, checked: !!tabVisibility[t.name] }));
+
+        const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/actors/character/manage-tabs.hbs", {
+            tabs,
+        });
+        const html = createHTMLElement("div", { innerHTML: content }).firstElementChild;
+        if (!(html instanceof HTMLElement)) throw new Error("Unexpected result rendering tab manager");
+
+        const checkboxes = html.querySelectorAll("input");
+        html.addEventListener("change", async (event) => {
+            const checkbox = event.target;
+            if (!(checkbox instanceof HTMLInputElement)) return;
+
+            const tabName = checkbox?.dataset.tabName;
+            if (!tabName) return;
+
+            for (const c of checkboxes) {
+                c.disabled = true;
+            }
+
+            if (checkbox.checked) {
+                await this.actor.update({ [`flags.pf2e.sheetTabs.-=${tabName}`]: null });
+            } else {
+                await this.actor.update({ [`flags.pf2e.sheetTabs.${tabName}`]: false });
+            }
+
+            for (const c of checkboxes) {
+                c.disabled = false;
+            }
+        });
+
+        game.tooltip.dismissLockedTooltips();
+        game.tooltip.activate(anchor, {
+            cssClass: "pf2e manage-tabs",
+            html,
+            locked: true,
+            direction: "DOWN",
         });
     }
 
