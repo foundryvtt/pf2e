@@ -295,14 +295,34 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Kothogaz is permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}. It can use this extra action to Stride or Strike.</p>"
+                    "value": "<p>Kothogaz is permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. It can use this extra action to Stride or Strike.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+                    },
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:granter:id:{item|id}"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

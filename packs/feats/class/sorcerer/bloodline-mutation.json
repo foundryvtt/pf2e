@@ -29,7 +29,177 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "creatureTraits"
+                },
+                "flag": "traitOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.BloodlineMutation.TraitPrompt"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "second-trait"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "no-second-trait"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.BloodlineMutation.SecondTraitPrompt",
+                "rollOption": "bloodline-mutation-traits"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "creatureTraits"
+                },
+                "flag": "traitTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "bloodline-mutation-traits:second-trait"
+                ],
+                "prompt": "PF2E.SpecificRule.Sorcerer.BloodlineMutation.TraitPrompt"
+            },
+            {
+                "adjustName": false,
+                "allowNoSelection": true,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+                        "value": "darkvision"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.LowLightVision",
+                        "value": "low-light-vision"
+                    }
+                ],
+                "flag": "sense",
+                "key": "ChoiceSet",
+                "rollOption": "bloodline-mutation-sense"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Fly",
+                        "value": "fly"
+                    },
+                    {
+                        "label": "PF2E.TraitAmphibious",
+                        "value": "amphibious"
+                    },
+                    {
+                        "label": "PF2E.RuleElement.Resistance",
+                        "value": "resistance"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "bloodline-mutation-benefit"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "bloodline-mutation-benefit:resistance"
+                ]
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "bloodline-mutation-sense:low-light-vision"
+                ],
+                "selector": "low-light-vision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "bloodline-mutation-sense:darkvision"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "bloodline-mutation-benefit:fly"
+                ],
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "bloodline-mutation-benefit:amphibious"
+                ],
+                "selector": "swim",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "add": [
+                    "amphibious"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "bloodline-mutation-benefit:amphibious"
+                ]
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "bloodline-mutation-benefit:resistance"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.damageType}",
+                "value": 20
+            },
+            {
+                "add": [
+                    "{item|flags.pf2e.rulesSelections.traitOne}"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "add": [
+                    "{item|flags.pf2e.rulesSelections.traitTwo}"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "bloodline-mutation-traits:second-trait"
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

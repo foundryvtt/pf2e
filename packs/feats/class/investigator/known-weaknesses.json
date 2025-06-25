@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem], you can also attempt a check to Recall Knowledge as part of that action before rolling the d20. If you critically succeed at the Recall Knowledge check, you notice a weakness and can convey the information to allies to grant each of them a +1 circumstance bonus to their next attack roll against the subject, as long as their attack is made before the beginning of your next turn. If you choose an attack stratagem, this bonus applies to that attack roll too.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Known Weakness]</p>"
+            "value": "<p>Whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem], you can also attempt a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] as part of that action before rolling the d20. If you critically succeed at the Recall Knowledge check, you notice a weakness and can convey the information to allies to grant each of them a +1 circumstance bonus to their next attack roll against the subject, as long as their attack is made before the beginning of your next turn. If you choose an attack stratagem, this bonus applies to that attack roll too.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Known Weaknesses]</p>"
         },
         "level": {
             "value": 1
@@ -27,15 +27,18 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "Known Weakness (critically succeeded on Recall Knowledge)",
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "devise-a-strategem",
-                    "known-weaknesses"
+                    "item:slug:devise-a-stratagem"
                 ],
-                "selector": "attack",
-                "type": "circumstance",
-                "value": 1
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
             }
         ],
         "traits": {

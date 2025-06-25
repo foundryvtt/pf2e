@@ -4,7 +4,7 @@
     "name": "Stance: Assume Earth's Mantle",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Assume Earth's Mantle]</p><ul><li>You become Large if you were smaller. This increases your reach by 5 feet (or by 10 feet if you started out Tiny).</li><li>You gain a climb Speed equal to your land Speed, but you can use it only to climb surfaces of earthen matter.</li><li>The armor grants you a +1 circumstance bonus to your Fortitude saves and a +2 circumstance bonus to your Fortitude or Reflex DCs against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] you, @UUID[Compendium.pf2e.actionspf2e.Item.Trip] you, or knock you @UUID[Compendium.pf2e.conditionitems.Item.Prone].</li><li>If your Strength is below +4, this armor raises your Strength to +4. If your Strength is +4 or higher, this armor grants you a +1 item bonus to your Strength.</li><li>If you have the Armor in Earth impulse, you can add its effects to Assume Earth's Mantle.</li></ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Assume Earth's Mantle]</p><ul><li>You become Large if you were smaller. This increases your reach by 5 feet (or by 10 feet if you started out Tiny).</li><li>You gain a climb Speed equal to your land Speed, but you can use it only to climb surfaces of earthen matter.</li><li>You gain a +1 circumstance bonus to your Fortitude saves and a +2 circumstance bonus to your Fortitude or Reflex DCs against attempts to Shove you, Trip you, or knock you Prone.</li><li>If your Strength is below +4, this armor raises your Strength to +4. If your Strength is +4 or higher, this armor grants you a +1 item bonus to your Strength.</li></ul>"
         },
         "duration": {
             "expiry": null,
@@ -13,7 +13,7 @@
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 14
         },
         "publication": {
             "license": "OGL",
@@ -22,7 +22,61 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeTiny",
+                        "predicate": [
+                            "self:size:tiny"
+                        ],
+                        "value": "tiny"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "self:size:medium",
+                                    "self:size:small"
+                                ]
+                            }
+                        ],
+                        "value": "medium-or-small"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeLarge",
+                        "predicate": [
+                            {
+                                "gt": [
+                                    "self:size",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "large-or-larger"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "assume-earths-mantle-initial-size"
+            },
+            {
                 "key": "CreatureSize",
+                "predicate": [
+                    "assume-earths-mantle-initial-size:tiny"
+                ],
+                "reach": {
+                    "add": 10
+                },
+                "value": "large"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "assume-earths-mantle-initial-size:medium-or-small"
+                ],
+                "reach": {
+                    "add": 5
+                },
                 "value": "large"
             },
             {

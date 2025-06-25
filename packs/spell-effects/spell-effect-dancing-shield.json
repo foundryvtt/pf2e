@@ -13,7 +13,7 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 2
         },
         "publication": {
             "license": "OGL",
@@ -21,12 +21,6 @@
             "title": "Pathfinder Lost Omens Knights of Lastwall"
         },
         "rules": [
-            {
-                "key": "FlatModifier",
-                "selector": "ac",
-                "type": "circumstance",
-                "value": "{item|flags.pf2e.rulesSelections.spellEffectDancingShield}"
-            },
             {
                 "choices": [
                     {
@@ -45,6 +39,12 @@
                 "flag": "spellEffectDancingShield",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.DancingShield.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.spellEffectDancingShield"
             }
         ],
         "start": {

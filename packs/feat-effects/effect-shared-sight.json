@@ -1,19 +1,20 @@
 {
-    "_id": "7MQLLkQACZt8cspt",
-    "img": "icons/magic/water/wave-water-teal.webp",
-    "name": "Effect: Purifying Breeze",
+    "_id": "0v30plBl9TuuJQ5F",
+    "img": "icons/creatures/magical/construct-golem-stone-blue.webp",
+    "name": "Effect: Shared Sight",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Purifying Breeze]</p>\n<p>You gain a +1 status bonus to Fortitude saving throws.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Shared Sight]</p>\n<p>You gain spiritsense.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
+            "unit": "minutes",
             "value": 1
         },
+        "fromSpell": false,
         "level": {
-            "value": 14
+            "value": 12
         },
         "publication": {
             "license": "OGL",
@@ -22,10 +23,8 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "fortitude",
-                "type": "status",
-                "value": 1
+                "key": "Sense",
+                "selector": "spiritsense"
             }
         ],
         "start": {
@@ -36,7 +35,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

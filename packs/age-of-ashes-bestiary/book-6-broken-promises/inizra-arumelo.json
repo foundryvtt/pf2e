@@ -566,14 +566,34 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Inizra is permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}. She can use her extra action only to Strike.</p>"
+                    "value": "<p>Inizra is permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. She can use her extra action only to Strike.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+                    },
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:granter:id:{item|id}"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

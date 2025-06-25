@@ -2504,7 +2504,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>When you enter a new location, such as a room or corridor, you immediately notice one thing out of the ordinary. The GM determines what it is, or whether there's nothing reasonable to pick up, skipping obvious clues that can be easily noticed without a check or specifically looking for them. You learn only that an area or object is suspicious, but not why it's suspicious. For example, if you entered a study with a large bloodstain on the ground, the bloodstain is so obviously suspicious it's evident to you already, so the GM might note that there's something suspicious about the desk drawer instead. You would then need to investigate the drawer further to find out what specifically is out of the ordinary. If you wish, you can Pursue a Lead concerning this detail even if you have Pursed a Lead less than 10 minutes ago.</p>\n<p>That's Odd doesn't reveal whether creatures are suspicious. You don't typically get any benefit when you leave and come back to a place, though if a major change has happened there and time has passed, the GM might determine that you do.</p>"
+                    "value": "<p>When you enter a new location, such as a room or corridor, you immediately notice one thing out of the ordinary. The GM determines what it is, or whether there's nothing reasonable to pick up, skipping obvious clues that can be easily noticed without a check or specifically looking for them. You learn only that an area or object is suspicious, but not why it's suspicious. For example, if you entered a study with a large bloodstain on the ground, the bloodstain is so obviously suspicious it's evident to you already, so the GM might note that there's something suspicious about the desk drawer instead. You would then need to investigate the drawer further to find out what specifically is out of the ordinary. If you wish, you can Pursue a Lead concerning this detail even if you have Pursued a Lead less than 10 minutes ago.</p>\n<p>That's Odd doesn't reveal whether creatures are suspicious. You don't typically get any benefit when you leave and come back to a place, though if a major change has happened there and time has passed, the GM might determine that you do.</p>"
                 },
                 "level": {
                     "value": 1
@@ -3076,152 +3076,6 @@
             "type": "feat"
         },
         {
-            "_id": "bjvhMYrzM8W0LdtP",
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Known Weaknesses",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>Whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem], you can also attempt a check to Recall Knowledge as part of that action before rolling the d20. If you critically succeed at the Recall Knowledge check, you notice a weakness and can convey the information to allies to grant each of them a +1 circumstance bonus to their next attack roll against the subject, as long as their attack is made before the beginning of your next turn. If you choose an attack stratagem, this bonus applies to that attack roll too.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Known Weakness]</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Known Weakness (critically succeeded on Recall Knowledge)",
-                        "predicate": [
-                            "devise-a-strategem",
-                            "known-weaknesses"
-                        ],
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": "known-weaknesses",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "investigator"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "UEhNuXLpHevmBiar",
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Shared Stratagem",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>The plans you make include your allies as well as yourself. When you hit a creature with an attack on which you substituted your attack roll due to Devising a Stratagem, designate one ally. The creature you hit is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to that ally on the next attack that ally makes against that creature before the start of your next turn.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 2
-                },
-                "location": "class-2",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "target:mark:devise-a-stratagem"
-                        ],
-                        "selector": "strike-attack-roll",
-                        "text": "PF2E.SpecificRule.Investigator.SharedStratagem.Note",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": "shared-stratagem",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "investigator"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "wP45MBwuvr7vrE5y",
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Strategic Assessment",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You learn your foes' strengths and weaknesses by watching them move. When you hit a creature with a Strike on which you substituted your attack roll due to Devising a Stratagem, the GM chooses one of the following pieces of information about the enemy to tell you.</p><ul><li>Which of the enemy's weaknesses is highest</li><li>Which of the enemy's resistances is highest</li><li>Which of the enemy's saving throws is lowest</li><li>One immunity the enemy has</li></ul><p>The GM can choose deliberately or at random, but they can't choose information that doesn't apply (such as choosing an immunity for an enemy that has no immunities). This applies only the first time you hit a given creature.</p>"
-                },
-                "level": {
-                    "taken": 4,
-                    "value": 4
-                },
-                "location": "class-4",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [],
-                "slug": "strategic-assessment",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "investigator"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "mtg55ZMyDSuhZFwf",
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Dirty Trick",
@@ -3480,6 +3334,182 @@
                     "rarity": "common",
                     "value": [
                         "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "l5pzSVAjj7X0z7HS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.iWvpq3uDZcXvBJj8"
+            },
+            "folder": "He0R55LpPjtky8mJ",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Known Weaknesses",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>Whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem], you can also attempt a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] as part of that action before rolling the d20. If you critically succeed at the Recall Knowledge check, you notice a weakness and can convey the information to allies to grant each of them a +1 circumstance bonus to their next attack roll against the subject, as long as their attack is made before the beginning of your next turn. If you choose an attack stratagem, this bonus applies to that attack roll too.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Known Weaknesses]</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:devise-a-stratagem"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
+                    }
+                ],
+                "slug": "known-weaknesses",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "investigator"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "KiEfhdoCcwzJtdpA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.N4wCUZH2KG6FoGqh"
+            },
+            "folder": "He0R55LpPjtky8mJ",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Shared Stratagem",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>The plans you make include your allies as well as yourself. When you hit a creature with an attack on which you substituted your attack roll due to @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]{Devising a Stratagem}, designate one ally. The creature you hit is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to that ally on the next attack that ally makes against that creature before the start of your next turn.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "target:mark:devise-a-stratagem"
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "PF2E.SpecificRule.Investigator.SharedStratagem.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "shared-stratagem",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "investigator"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "CfJulz8bv4RlvQ5y",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.IvgLDtXmZwzbVJj1"
+            },
+            "folder": "He0R55LpPjtky8mJ",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Strategic Assessment",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You learn your foes' strengths and weaknesses by watching them move. When you hit a creature with a Strike on which you substituted your attack roll due to Devising a Stratagem, the GM chooses one of the following pieces of information about the enemy to tell you.</p><ul><li>Which of the enemy's weaknesses is highest</li><li>Which of the enemy's resistances is highest</li><li>Which of the enemy's saving throws is lowest</li><li>One immunity the enemy has</li></ul><p>The GM can choose deliberately or at random, but they can't choose information that doesn't apply (such as choosing an immunity for an enemy that has no immunities). This applies only the first time you hit a given creature.</p>"
+                },
+                "level": {
+                    "taken": 4,
+                    "value": 4
+                },
+                "location": "class-4",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "strategic-assessment",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "investigator"
                     ]
                 }
             },

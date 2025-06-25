@@ -348,8 +348,23 @@
                 },
                 "rules": [
                     {
+                        "inMemoryOnly": true,
                         "key": "GrantItem",
                         "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+                    },
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:granter:id:{item|id}"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
                     }
                 ],
                 "slug": null,

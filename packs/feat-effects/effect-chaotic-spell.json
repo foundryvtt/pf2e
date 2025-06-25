@@ -1,31 +1,31 @@
 {
-    "_id": "7MQLLkQACZt8cspt",
-    "img": "icons/magic/water/wave-water-teal.webp",
-    "name": "Effect: Purifying Breeze",
+    "_id": "sgK3JkyLbXLoNjPI",
+    "img": "icons/magic/control/debuff-energy-hold-levitate-blue-yellow.webp",
+    "name": "Effect: Chaotic Spell",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Purifying Breeze]</p>\n<p>You gain a +1 status bonus to Fortitude saving throws.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Chaotic Spell]</p>\n<p>You take a –10-foot penalty to all Speeds.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": "turn-end",
             "sustained": false,
             "unit": "rounds",
             "value": 1
         },
+        "fromSpell": false,
         "level": {
-            "value": 14
+            "value": 8
         },
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder Lost Omens Knights of Lastwall"
+            "title": "Pathfinder Wake the Dead #3"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "fortitude",
-                "type": "status",
-                "value": 1
+                "selector": "all-speeds",
+                "value": -10
             }
         ],
         "start": {
@@ -36,7 +36,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

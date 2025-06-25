@@ -33,130 +33,20 @@
             {
                 "alwaysActive": true,
                 "key": "RollOption",
-                "option": "eternal",
+                "option": "expert-longevity",
                 "phase": "beforeDerived",
-                "priority": 49,
-                "suboptions": [
-                    {
-                        "label": "PF2E.Skill.Acrobatics",
-                        "predicate": [
-                            "skill:acrobatics:rank:1"
-                        ],
-                        "value": "acrobatics"
-                    },
-                    {
-                        "label": "PF2E.Skill.Arcana",
-                        "predicate": [
-                            "skill:arcana:rank:1"
-                        ],
-                        "value": "arcana"
-                    },
-                    {
-                        "label": "PF2E.Skill.Athletics",
-                        "predicate": [
-                            "skill:athletics:rank:1"
-                        ],
-                        "value": "athletics"
-                    },
-                    {
-                        "label": "PF2E.Skill.Crafting",
-                        "predicate": [
-                            "skill:crafting:rank:1"
-                        ],
-                        "value": "crafting"
-                    },
-                    {
-                        "label": "PF2E.Skill.Deception",
-                        "predicate": [
-                            "skill:deception:rank:1"
-                        ],
-                        "value": "deception"
-                    },
-                    {
-                        "label": "PF2E.Skill.Diplomacy",
-                        "predicate": [
-                            "skill:diplomacy:rank:1"
-                        ],
-                        "value": "diplomacy"
-                    },
-                    {
-                        "label": "PF2E.Skill.Intimidation",
-                        "predicate": [
-                            "skill:intimidation:rank:1"
-                        ],
-                        "value": "intimidation"
-                    },
-                    {
-                        "label": "PF2E.Skill.Medicine",
-                        "predicate": [
-                            "skill:medicine:rank:1"
-                        ],
-                        "value": "medicine"
-                    },
-                    {
-                        "label": "PF2E.Skill.Nature",
-                        "predicate": [
-                            "skill:nature:rank:1"
-                        ],
-                        "value": "nature"
-                    },
-                    {
-                        "label": "PF2E.Skill.Occultism",
-                        "predicate": [
-                            "skill:occultism:rank:1"
-                        ],
-                        "value": "occultism"
-                    },
-                    {
-                        "label": "PF2E.Skill.Performance",
-                        "predicate": [
-                            "skill:performance:rank:1"
-                        ],
-                        "value": "performance"
-                    },
-                    {
-                        "label": "PF2E.Skill.Religion",
-                        "predicate": [
-                            "skill:religion:rank:1"
-                        ],
-                        "value": "religion"
-                    },
-                    {
-                        "label": "PF2E.Skill.Society",
-                        "predicate": [
-                            "skill:society:rank:1"
-                        ],
-                        "value": "society"
-                    },
-                    {
-                        "label": "PF2E.Skill.Stealth",
-                        "predicate": [
-                            "skill:stealth:rank:1"
-                        ],
-                        "value": "stealth"
-                    },
-                    {
-                        "label": "PF2E.Skill.Survival",
-                        "predicate": [
-                            "skill:survival:rank:1"
-                        ],
-                        "value": "survival"
-                    },
-                    {
-                        "label": "PF2E.Skill.Thievery",
-                        "predicate": [
-                            "skill:thievery:rank:1"
-                        ],
-                        "value": "thievery"
-                    }
-                ],
-                "toggleable": true,
-                "value": true
+                "suboptions": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:1"
+                    ]
+                },
+                "toggleable": true
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.{item|flags.pf2e.rulesSelections.eternal}.rank",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.expertLongevity}.rank",
                 "phase": "beforeDerived",
                 "priority": 60,
                 "value": 2

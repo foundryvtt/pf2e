@@ -1621,14 +1621,34 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The titan is as ever-moving as ocean waves. They're permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and the extra action can only be used to Stride, Strike, or Sustain a Spell, or as one of the actions necessary to Cast @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic].</p>"
+                    "value": "<p>The titan is as ever-moving as ocean waves. They're permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened], and the extra action can only be used to Stride, Strike, or Sustain a Spell, or as one of the actions necessary to Cast @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+                    },
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:granter:id:{item|id}"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
