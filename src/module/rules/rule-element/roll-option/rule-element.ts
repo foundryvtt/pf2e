@@ -180,25 +180,21 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         const data = fu.getProperty(CONFIG.PF2E, suboptions.config);
         const choices = processChoicesFromData(data);
-        return choices.map(
-            (choice) =>
-                new Suboption(
-                    {
-                        label: choice.label,
-                        value: choice.value,
-                        predicate:
-                            choice.predicate || suboptions.predicate.length
-                                ? this.resolveInjectedProperties(
-                                      new Predicate(choice.predicate ?? fu.deepClone(suboptions.predicate)),
-                                      {
-                                          injectables: { choice },
-                                      },
-                                  )
-                                : null,
-                    },
-                    { parent: this },
-                ),
-        );
+        return choices.map((choice) => {
+            const rawPredicate = choice.predicate ?? fu.deepClone(suboptions.predicate);
+            return new Suboption(
+                {
+                    label: choice.label,
+                    value: choice.value,
+                    predicate: rawPredicate?.length
+                        ? this.resolveInjectedProperties(new Predicate(rawPredicate), {
+                              injectables: { choice },
+                          })
+                        : null,
+                },
+                { parent: this },
+            );
+        });
     }
 
     /** Filter suboptions, including those among the same merge family. */
