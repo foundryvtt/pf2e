@@ -264,21 +264,29 @@ class DataUnionField<
         return value;
     }
 
+    /**
+     * Perform some cleaning while first checking that an upstream `_cast` won't convert a dog into a cat (or a number
+     * into an array).
+     */
     override clean(
         value: unknown,
         options?: CleanFieldOptions | undefined,
     ): MaybeUnionSchemaProp<TField, TRequired, TNullable, THasInitial> {
-        if (Array.isArray(value) && this.fields.some((f) => f instanceof foundry.data.fields.ArrayField)) {
+        type MaybeProp = MaybeUnionSchemaProp<TField, TRequired, TNullable, THasInitial>;
+        if (Array.isArray(value) && this.fields.some((f) => f instanceof fields.ArrayField)) {
             const arrayField = this.fields.find((f) => f instanceof StrictArrayField);
-            return (arrayField?.clean(value, options) ?? value) as MaybeUnionSchemaProp<
-                TField,
-                TRequired,
-                TNullable,
-                THasInitial
-            >;
+            return (arrayField?.clean(value, options) ?? value) as MaybeProp;
+        } else if (R.isPlainObject(value)) {
+            const field = this.fields.find((f) => f instanceof fields.SchemaField || f instanceof fields.ObjectField);
+            const initial = field?.getInitialValue();
+            if (!R.isPlainObject(initial)) return super.clean(value, options) as MaybeProp;
+            for (const key of Object.keys(initial)) {
+                if (!(key in value)) value[key] = initial[key];
+            }
+            return value as MaybeProp;
         }
 
-        return super.clean(value, options) as MaybeUnionSchemaProp<TField, TRequired, TNullable, THasInitial>;
+        return super.clean(value, options) as MaybeProp;
     }
 
     protected override _validateType(
