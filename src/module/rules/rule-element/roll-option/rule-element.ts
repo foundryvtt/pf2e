@@ -75,20 +75,13 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             }),
             suboptions: new DataUnionField(
                 [
-                    new fields.SchemaField(
-                        {
-                            config: new fields.StringField({ required: true, nullable: false }),
-                            predicate: new PredicateField({ required: false, nullable: false, initial: undefined }),
-                        },
-                        { required: false, nullable: false, initial: undefined },
-                    ),
-                    new StrictArrayField(new fields.EmbeddedDataField(Suboption), {
-                        required: true,
-                        nullable: false,
-                        initial: [],
+                    new StrictArrayField(new fields.EmbeddedDataField(Suboption)),
+                    new fields.SchemaField({
+                        config: new fields.StringField({ required: true, blank: false }),
+                        predicate: new PredicateField(),
                     }),
                 ],
-                { required: false, nullable: false, initial: [] },
+                { required: false, nullable: false, initial: () => [] },
             ),
             mergeable: new fields.BooleanField({ required: false }),
             value: new ResolvableValueField({
@@ -190,9 +183,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                             choice.predicate || suboptions.predicate.length
                                 ? this.resolveInjectedProperties(
                                       new Predicate(choice.predicate ?? fu.deepClone(suboptions.predicate)),
-                                      {
-                                          injectables: { choice },
-                                      },
+                                      { injectables: { choice } },
                                   )
                                 : null,
                     },

@@ -89,7 +89,7 @@ type SuboptionField = fields.EmbeddedDataField<Suboption, true, false, false>;
 
 type SuboptionConfigSchema = {
     config: fields.StringField<string, string, true, false, false>;
-    predicate: PredicateField<false, false>;
+    predicate: PredicateField;
 };
 
 export { Suboption };

@@ -122,7 +122,7 @@ class StrictArrayField<
         model: ConstructorOf<DataModel>,
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): Maybe<TModelProp> {
-        return Array.isArray(value) ? super.initialize(value, model, options) : null;
+        return Array.isArray(value) ? super.initialize(value, model, options) : this.nullable ? null : undefined;
     }
 }
 
