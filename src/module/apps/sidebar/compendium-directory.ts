@@ -245,7 +245,7 @@ class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
 
     /** Anyone can drag from search results */
     protected override _canDragStart(selector: string): boolean {
-        return selector === "ol.document-matches" || super._canDragStart(selector);
+        return selector === "li.match" || super._canDragStart(selector);
     }
 
     /** Replicate the functionality of dragging a compendium document from an open `Compendium` */
