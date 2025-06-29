@@ -258,7 +258,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                 const slug = anchor.dataset.slug ?? "";
                 feat.update({ "system.subfeatures.languages.granted": currentGranted.filter((l) => l !== slug) });
             } else if (anchor.dataset.action === "delete-slots") {
-                feat.update({ "system.subfeatures.languages.-=slots": null });
+                feat.update({ "system.subfeatures.languages.slots": 0 });
             }
         });
     }
@@ -402,12 +402,6 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             if (this.item._source.system.subfeatures?.keyOptions) {
                 formData["system.subfeatures.-=keyOptions"] = null;
             }
-        }
-
-        const languageSlotsKey = "system.subfeatures.languages.slots";
-        if (languageSlotsKey in formData && !(Number(formData[languageSlotsKey]) > 0)) {
-            delete formData[languageSlotsKey];
-            formData["system.subfeatures.languages.-=slots"] = null;
         }
 
         const pattern = /^system\.subfeatures\.proficiencies\.([a-z]+)\.to$/;
