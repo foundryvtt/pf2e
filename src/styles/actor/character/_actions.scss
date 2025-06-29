@@ -181,6 +181,7 @@
                 button {
                     // Modular damage select menu
                     select.modular {
+                        --form-field-height: 18px;
                         appearance: auto;
                         background: none;
                         color: var(--text-dark);
@@ -188,7 +189,12 @@
                         font: inherit;
                         margin-left: 0.5em;
                         padding: 0.15em 0.2em;
+                        pointer-events: unset;
                         text-transform: uppercase;
+
+                        &:focus {
+                            box-shadow: none;
+                        }
 
                         option {
                             background: var(--bg-dark);
