@@ -106,14 +106,14 @@ abstract class CreaturePF2e<
                 ? [{ item: weapon, ready: true }]
                 : (this.system.actions ?? []);
             const readyAttacks = attacks.filter((a) => a.ready);
-            const traitsFromItems = readyAttacks.map((a) => new Set(a.item.system.traits?.value ?? []));
+            const traitsFromItems = readyAttacks.map((a) => a.item.system.traits?.value ?? []);
             if (traitsFromItems.length === 0) return baseReach;
 
             const reaches = traitsFromItems.map((traits): number => {
-                if (setHasElement(traits, "reach")) return baseReach + 5;
+                if (traits.includes("reach")) return baseReach + 5;
 
                 const reachNPattern = /^reach-\d{1,3}$/;
-                return Number([...traits].find((t) => reachNPattern.test(t))?.replace("reach-", "")) || baseReach;
+                return Number(traits.find((t) => reachNPattern.test(t))?.replace("reach-", "")) || baseReach;
             });
 
             return Math.max(...reaches);
