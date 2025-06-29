@@ -108,6 +108,8 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const feat = this.item;
         const localize = localizer("PF2E.Actor.Character");
         const selectedIncreases = feat.system.subfeatures.proficiencies;
+        const sourceData = this.item.system._source.subfeatures.proficiencies;
+        const invalidKeys = Object.keys(sourceData).filter((k) => !(k in selectedIncreases));
 
         return {
             other: {
@@ -123,6 +125,12 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                         label: game.i18n.localize("PF2E.Actor.Creature.Spellcasting.ShortLabel"),
                         rank: selectedIncreases.spellcasting?.rank ?? null,
                     },
+                    ...invalidKeys.map((slug) => ({
+                        slug,
+                        label: slug,
+                        rank: null,
+                        invalid: true,
+                    })),
                 ].sort((a, b) => a.label.localeCompare(b.label)),
             },
             saves: {
@@ -285,7 +293,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                 }
             } else if (anchor.dataset.action === "delete-proficiency") {
                 const slug = anchor.dataset.slug ?? "";
-                if (slug in feat.system.subfeatures.proficiencies) {
+                if (slug in feat.system._source.subfeatures.proficiencies) {
                     feat.update({ [`system.subfeatures.proficiencies.-=${slug}`]: null });
                 }
             }
@@ -432,7 +440,7 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     hasSenses: boolean;
     languages: LanguageOptions;
     mandatoryTakeOnce: boolean;
-    maxTakableOptions: FormSelectOption[];
+    maxTakableOptions: fa.fields.FormSelectOption[];
     proficiencies: ProficiencyOptions;
     proficiencyRankOptions: Record<string, string>;
     selfEffect: SelfEffectReference | null;
@@ -459,7 +467,7 @@ interface ProficiencyOptions {
 
 interface ProficiencyOptionGroup<TGroup extends string | null = string> {
     group: TGroup;
-    options: { slug: string; label: string; rank: OneToFour | null }[];
+    options: { slug: string; label: string; rank: OneToFour | null; invalid?: boolean }[];
 }
 
 interface SenseOption {

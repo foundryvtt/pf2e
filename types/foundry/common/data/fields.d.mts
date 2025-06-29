@@ -224,7 +224,7 @@ export abstract class DataField<
      */
     initialize(
         value: unknown,
-        model?: ConstructorOf<abstract.DataModel>,
+        model?: abstract.DataModel,
         options?: object,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
@@ -500,7 +500,7 @@ export class SchemaField<
 
     override initialize(
         value: unknown,
-        model?: ConstructorOf<abstract.DataModel>,
+        model?: abstract.DataModel,
         options?: Record<string, unknown>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
@@ -641,7 +641,7 @@ export class ObjectField<
 
     override initialize(
         value: unknown,
-        model?: ConstructorOf<abstract.DataModel>,
+        model?: abstract.DataModel,
         options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
@@ -704,7 +704,7 @@ export class TypedObjectField<
 
     override initialize(
         value: unknown,
-        model?: ConstructorOf<abstract.DataModel>,
+        model?: abstract.DataModel,
         options?: ObjectFieldOptions<Record<string, SourceFromDataField<TField>>, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<Record<string, ModelPropFromDataField<TField>>, TRequired, TNullable, THasInitial>;
 
@@ -797,7 +797,7 @@ export class ArrayField<
 
     override initialize(
         value: JSONValue,
-        model: ConstructorOf<abstract.DataModel>,
+        model: abstract.DataModel,
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
@@ -840,7 +840,7 @@ export class SetField<
 
     override initialize(
         value: TSourceProp,
-        model: ConstructorOf<abstract.DataModel>,
+        model: abstract.DataModel,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(value: TModelProp): TSourceProp;
@@ -883,7 +883,7 @@ export class EmbeddedDataField<
 
     override initialize(
         value: MaybeSchemaProp<TModelProp["_source"], TRequired, TNullable, THasInitial>,
-        model: ConstructorOf<abstract.DataModel>,
+        model: abstract.DataModel,
         options?: object,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
@@ -916,7 +916,7 @@ export class EmbeddedDocumentField<
 
     override initialize(
         value: MaybeSchemaProp<TModelProp["_source"], TRequired, TNullable, THasInitial>,
-        model: ConstructorOf<TModelProp>,
+        model: TModelProp,
         options?: Record<string, unknown>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
@@ -980,7 +980,7 @@ export class EmbeddedCollectionField<
 
     override initialize(
         _value: unknown,
-        model: ConstructorOf<abstract.DataModel>,
+        model?: abstract.DataModel,
     ): MaybeSchemaProp<abstract.EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial>;
 
     override toObject(
@@ -1089,7 +1089,7 @@ export class ForeignDocumentField<
 
     override initialize(
         value: string,
-        model: ConstructorOf<abstract.DataModel>,
+        model?: abstract.DataModel,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     toObject(value: TModelProp): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
@@ -1366,7 +1366,7 @@ export class TypeDataField<
 
     override initialize(
         value: TSourceProp,
-        model?: ConstructorOf<TDocument>,
+        model?: TDocument,
         options?: Record<string, unknown>,
     ): MaybeSchemaProp<TModelProp, true, false, true>;
 
@@ -1435,7 +1435,7 @@ export class TypedSchemaField<
 
     override initialize(
         value: JSONValue | undefined,
-        model?: ConstructorOf<abstract.DataModel>,
+        model?: abstract.DataModel,
         options?: object,
     ): MaybeSchemaProp<ModelFromTypedSchemaTypes<TTypes>, TRequired, TNullable, THasInitial>;
 

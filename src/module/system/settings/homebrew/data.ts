@@ -11,6 +11,7 @@ const HOMEBREW_ELEMENT_KEYS = [
     "languages",
     "armorGroups",
     "baseArmors",
+    "classTraits",
     "weaponCategories",
     "weaponGroups",
     "baseWeapons",
@@ -25,6 +26,7 @@ const HOMEBREW_ELEMENT_KEYS = [
 /** Homebrew elements from some of the above records are propagated to related records */
 const TRAIT_PROPAGATIONS = {
     actionTraits: ["effectTraits"],
+    classTraits: ["featTraits", "spellTraits"],
     creatureTraits: ["ancestryTraits", "hazardTraits"],
     equipmentTraits: ["armorTraits", "consumableTraits"],
     featTraits: ["actionTraits"],

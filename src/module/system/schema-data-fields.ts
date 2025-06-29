@@ -114,12 +114,12 @@ class StrictArrayField<
 
     override initialize(
         value: JSONValue,
-        model: ConstructorOf<DataModel>,
+        model: DataModel,
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
     override initialize(
         value: JSONValue,
-        model: ConstructorOf<DataModel>,
+        model: DataModel,
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): Maybe<TModelProp> {
         return Array.isArray(value) ? super.initialize(value, model, options) : this.nullable ? null : undefined;
@@ -307,7 +307,7 @@ class DataUnionField<
 
     override initialize(
         value: unknown,
-        model?: ConstructorOf<DataModel> | undefined,
+        model?: DataModel,
         options?: object | undefined,
     ): MaybeUnionSchemaProp<TField, TRequired, TNullable, THasInitial> {
         const field = this.fields.find((f) => !f.validate(value));
@@ -412,12 +412,12 @@ class PredicateField<
     /** Construct a `PredicatePF2e` from the initialized `PredicateStatement[]` */
     override initialize(
         value: RawPredicate,
-        model: ConstructorOf<foundry.abstract.DataModel>,
+        model: foundry.abstract.DataModel,
         options?: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<Predicate, TRequired, TNullable, THasInitial>;
     override initialize(
         value: RawPredicate,
-        model: ConstructorOf<foundry.abstract.DataModel>,
+        model: foundry.abstract.DataModel,
         options: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>,
     ): Predicate | null | undefined {
         const statements = super.initialize(value, model, options);
@@ -531,7 +531,12 @@ class RecordField<
             }
         }
         if (failures.elements.length) {
-            failures.unresolved = failures.elements.some((e) => e.failure.unresolved);
+            if (failures.elements.every((f) => f.id in values)) {
+                failures.unresolved = false;
+            } else {
+                failures.unresolved = failures.elements.some((e) => e.failure.unresolved);
+            }
+
             return failures;
         }
     }
@@ -559,19 +564,32 @@ class RecordField<
 
     override initialize(
         values: object | null | undefined,
-        model: ConstructorOf<foundry.abstract.DataModel>,
+        model: foundry.abstract.DataModel,
         options?: ObjectFieldOptions<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<RecordFieldModelProp<TKeyField, TValueField, TDense>, TRequired, TNullable, THasInitial>;
     override initialize(
         values: object | null | undefined,
-        model: ConstructorOf<foundry.abstract.DataModel>,
+        model: foundry.abstract.DataModel,
         options?: ObjectFieldOptions<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>,
     ): Record<string, unknown> | null | undefined {
         if (!values) return values;
+
+        // Check for validation failures in the model to omit from the results
+        const path = this.fieldPath.startsWith(model.schema.fieldPath + ".")
+            ? this.fieldPath.substring(model.schema.fieldPath.length + 1)
+            : this.fieldPath;
+        const pathParts = path.split(".");
+        const failures = pathParts.reduce((fields, part) => {
+            return fields ? fields.fields[part] : null;
+        }, model.validationFailures.fields);
+        const failureKeys = failures?.elements.map((e) => e.id) ?? [];
+
         const data: Record<string, unknown> = {};
         for (const [key, value] of Object.entries(values)) {
+            if (failureKeys.includes(key)) continue;
             data[key] = this.valueField.initialize(value, model, options);
         }
+
         return data;
     }
 }
