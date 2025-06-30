@@ -818,12 +818,13 @@ async function applyActorGroupUpdate(
     data: Partial<ActorGroupUpdate>,
     { render = true }: { render?: boolean } = {},
 ): Promise<void> {
+    const actorUpdates = data.actorUpdates && !R.isEmpty(data.actorUpdates) ? data.actorUpdates : null;
     const itemCreates = data.itemCreates ?? [];
     const itemUpdates = data.itemUpdates ?? [];
     const itemDeletes = data.itemDeletes ?? [];
 
-    if (data.actorUpdates && !R.isEmpty(data.actorUpdates)) {
-        await actor.update(data.actorUpdates, { render: false });
+    if (actorUpdates) {
+        await actor.update(actorUpdates, { render: false });
     }
     if (itemCreates.length > 0) {
         await actor.createEmbeddedDocuments("Item", itemCreates, { render: false });
@@ -835,7 +836,7 @@ async function applyActorGroupUpdate(
         await actor.deleteEmbeddedDocuments("Item", itemDeletes, { render: false });
     }
 
-    const changed = data.actorUpdates || itemCreates.length || itemUpdates.length || itemDeletes.length;
+    const changed = !!actorUpdates || itemCreates.length || itemUpdates.length || itemDeletes.length;
     if (render && changed) {
         actor.render();
     }
