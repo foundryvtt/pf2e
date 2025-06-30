@@ -1,3 +1,53 @@
+## 7.2.2
+
+### Bugfixes
+
+- (stwlam) Check whether actor is owned before updating token size
+- (stwlam) Fix error when config predicate is missing
+- (stwlam) Fix mouse-accessibility of Modular-trait select element
+- (Supe) Fix deleting effect badges
+- (Supe) Fix deleting feat subfeature language slots
+- (Supe) Fix players dragging compendium search results from sidebar
+- (Supe) Fix retrieving effect origin roll options
+
+### Data Updates
+
+- (Ambrose) Add `area damage`, `area-effect` and `damaging-effect` options to more NPC abilities
+- (Ambrose) Add automation for NPC abilities with variable damage types
+- (Ambrose) Add Note automation to Resounding Bravery and brush up effect automation
+- (Ambrose) Add slugs and traits to some NPC fist Strikes
+- (Ambrose) Condense Quantium Golem actor variants
+- (Ambrose) Update automation for more Werecreature actors
+- (Dire Weasel) Add effect for Bugul Noz's Haunting Wail
+- (Drental) Fix the inline Check in Primadonna
+- (HavocsCall) Fix the level and price of Dr. Ushernacht's Astonishing Ink (Major)
+- (HavocsCall) Remove errant weapon data from Belt of Good Health
+- (jfn4th) Update Inveigle to PC2 Description
+- (kromko) Fix typo in Environmental damage journal title
+- (kromko) Update Witch Patron Theme description to Player Core
+- (Rigo) Add description addendum to 1-action spellshapes with Spellshape Mastery
+- (Rigo) Add effect and spell description addendum to Chaotic Spell and Shared Sight
+- (Rigo) Add effect for Helt's Spelldance
+- (Rigo) Add effect for Sympathetic Strike and correct its action cost and frequency
+- (Rigo) Add Ephemeral Effect for Spirits' Interference
+- (Rigo) Add Furious Finish and Oversized Throw effects
+- (Rigo) Add Note to Barreling Charge's Athletics check while having Overpowering Charge
+- (Rigo) Add Pointed Question effect and other minor investigator fixes
+- (Rigo) Add spellcasting tradition trait to some witch feats
+- (Rigo) Automate and update formatting of Greater Spiritual Evolution
+- (Rigo) Automate Bloodline Mutation
+- (Rigo) Automate damage and focus point expenditure of Consecrate Spell
+- (Rigo) Automate several permanent quickened-granting features
+- (Rigo) Implement reach increase from Assume Earth's Mantle stance
+- (Rigo) Omit Bravado notes if the character already has Panache
+- (Rigo) Update skill suboption dropdowns to use config list
+- (Rigo) Use Damage Alteration over Damage Dice RE for mindshifted Psi Strikes
+
+### Under the Hood
+
+- (Supe) Create CSS variables for inventory header color for theming
+- (Supe) Create encumbrance css color variables for theming
+
 ## 7.2.1
 
 ### Bugfixes
