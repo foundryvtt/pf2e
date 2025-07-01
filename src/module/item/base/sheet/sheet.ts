@@ -339,7 +339,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             htmlQuery(rulesPanel, "a[data-action=regenerate-slug]")?.addEventListener("click", () => {
                 if (this._submitting) return;
 
-                slugInput.value = sluggify(this.item.name);
+                slugInput.value = sluggify(this.item._source.name);
                 const event = new Event("change");
                 slugInput.dispatchEvent(event);
             });
