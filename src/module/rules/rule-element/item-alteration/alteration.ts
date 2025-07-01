@@ -37,7 +37,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "group",
         "hardness",
         "hp-max",
-        "img",
         "material-type",
         "name",
         "other-tags",
@@ -291,13 +290,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                         hp.brokenThreshold = Math.floor(hp.max / 2);
                     }
                     this.#adjustCreatureShieldData(data.item);
-                }
-                return;
-            }
-            case "img": {
-                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
-                if (validator.isValid(data)) {
-                    data.item.img = data.alteration.value;
                 }
                 return;
             }
