@@ -513,15 +513,12 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     ): void {
         super._onRelatedUpdate(update, operation);
 
-        // Let the active GM take care of updates if available
-        const activeGM = game.users.activeGM;
-        if (activeGM && game.user !== activeGM) return;
-
         const { actor, scene } = this;
         if (!actor?.isOwner || !(scene instanceof ScenePF2e)) return;
 
         // Follow up any actor (or descendant document thereof) modification with a size synchronization
-        if (this.linkToActorSize && actor.system.traits?.size) {
+        const activeGM = game.users.activeGM; // Let the active GM take care of updates if available
+        if ((!activeGM || game.user === activeGM) && this.linkToActorSize && actor.system.traits?.size) {
             const dimensions = actor.system.traits.size.tokenDimensions;
             if (dimensions.width !== this.width || dimensions.height !== this.height) {
                 scene.syncTokenDimensions(this, dimensions);
