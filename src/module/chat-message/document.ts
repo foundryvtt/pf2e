@@ -197,7 +197,8 @@ class ChatMessagePF2e extends ChatMessage {
         // For non-image types consider video thumbnails using game.video.createThumbnail() depending on cache performance
         // Tokens with smaller scales (such as for small and tiny actors) are set to scale 1
         const header = html?.querySelector("header.message-header");
-        if (actor && header && this.isContentVisible) {
+        const isOOC = this.style === CONST.CHAT_MESSAGE_STYLES.OOC;
+        if (!isOOC && actor && header && this.isContentVisible) {
             const token = this.token ?? actor.prototypeToken;
 
             const [imageUrl, scale] = (() => {
