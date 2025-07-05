@@ -5,6 +5,7 @@ import { TreasurePF2e } from "@item";
 import { SIZES, Size } from "@module/data.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
 import { tupleHasValue } from "@util";
+import * as R from "remeda";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
@@ -31,7 +32,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
             reach: new RecordField(
                 new fields.StringField({ required: true, nullable: false, choices: ["add", "upgrade", "override"] }),
                 new ResolvableValueField({ required: true, nullable: false }),
-                { required: false, nullable: false, initial: undefined },
+                { required: false, nullable: true, initial: null },
             ),
             resizeEquipment: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             minimumSize: new fields.StringField({
@@ -88,7 +89,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
             this.failValidation(`"${size}" is not a recognized size`);
             return;
         }
-        const { actor } = this;
+        const actor = this.actor;
         const originalSize = new ActorSizePF2e({ value: actor.size });
 
         if (value === 1) {
@@ -143,14 +144,13 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
                 return Math.trunc(Math.abs(Number(resolved)));
             })();
 
-            if (!Number.isInteger(changeValue)) return current;
-            if (this.reach.add) return current + changeValue;
-            if (this.reach.upgrade) return Math.max(current, changeValue);
-            if (this.reach.override) return changeValue;
+            if (this.ignored || !Number.isInteger(changeValue)) return current;
+            if (!R.isNullish(this.reach.add)) return current + changeValue;
+            if (!R.isNullish(this.reach.upgrade)) return Math.max(current, changeValue);
+            if (!R.isNullish(this.reach.override)) return changeValue;
         }
 
         const newSize = this.actor.system.traits.size;
-
         return newSize.isLargerThan(originalSize)
             ? Math.max(SIZE_TO_REACH[this.actor.size], current)
             : newSize.isSmallerThan(originalSize)
@@ -171,8 +171,8 @@ type CreatureSizeRuleSchema = RuleElementSchema & {
         fields.StringField<"add" | "upgrade" | "override", "add" | "upgrade" | "override", true, false, false>,
         ResolvableValueField<true, false, false>,
         false,
-        false,
-        false
+        true,
+        true
     >;
     resizeEquipment: fields.BooleanField<boolean, boolean, false, false, false>;
     minimumSize: fields.StringField<Size, Size, false, false, false>;
