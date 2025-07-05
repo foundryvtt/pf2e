@@ -323,7 +323,7 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
             NonNullable<TEncounter>
         >;
         if (typeof dropped.initiative !== "number") {
-            ui.notifications.error(game.i18n.format("PF2E.Encounter.HasNoInitiativeScore", { actor: dropped.name }));
+            ui.notifications.error("PF2E.Encounter.HasNoInitiativeScore", { format: { actor: dropped.name } });
             return;
         }
 
