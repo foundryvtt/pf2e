@@ -108,6 +108,9 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const feat = this.item;
         const localize = localizer("PF2E.Actor.Character");
         const selectedIncreases = feat.system.subfeatures.proficiencies;
+        const invalidKeys = Object.keys(this.item.system._source.subfeatures.proficiencies ?? {}).filter(
+            (k) => !(k in selectedIncreases),
+        );
 
         return {
             other: {
@@ -175,6 +178,16 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                         rank: selectedIncreases[slug]?.rank ?? null,
                     }))
                     .sort((a, b) => a.label.localeCompare(b.label)),
+            },
+            invalid: {
+                group: null,
+                invalid: true,
+                options: invalidKeys.map((slug) => ({
+                    slug,
+                    label: slug,
+                    attribute: null,
+                    rank: null,
+                })),
             },
         };
     }
@@ -285,7 +298,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                 }
             } else if (anchor.dataset.action === "delete-proficiency") {
                 const slug = anchor.dataset.slug ?? "";
-                if (slug in feat.system.subfeatures.proficiencies) {
+                if (slug in feat.system._source.subfeatures.proficiencies) {
                     feat.update({ [`system.subfeatures.proficiencies.-=${slug}`]: null });
                 }
             }
@@ -432,7 +445,7 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     hasSenses: boolean;
     languages: LanguageOptions;
     mandatoryTakeOnce: boolean;
-    maxTakableOptions: FormSelectOption[];
+    maxTakableOptions: foundry.applications.fields.FormSelectOption[];
     proficiencies: ProficiencyOptions;
     proficiencyRankOptions: Record<string, string>;
     selfEffect: SelfEffectReference | null;
@@ -455,6 +468,7 @@ interface ProficiencyOptions {
     attacks: ProficiencyOptionGroup;
     defenses: ProficiencyOptionGroup;
     classes: ProficiencyOptionGroup;
+    invalid: ProficiencyOptionGroup<null> & { invalid: true };
 }
 
 interface ProficiencyOptionGroup<TGroup extends string | null = string> {

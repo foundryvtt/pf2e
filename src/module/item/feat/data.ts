@@ -43,14 +43,6 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
         const senseTypes: Record<SenseType, string> = CONFIG.PF2E.senses;
         const senseAcuities: Record<SenseAcuity, string> = CONFIG.PF2E.senseAcuities;
         const languages: Record<Language, string> = CONFIG.PF2E.languages;
-        const increasableProficiencies: Record<IncreasableProficiency, string> = {
-            ...CONFIG.PF2E.saves,
-            ...CONFIG.PF2E.classTraits,
-            ...CONFIG.PF2E.armorCategories,
-            ...CONFIG.PF2E.weaponCategories,
-            perception: "PF2E.PerceptionLabel",
-            spellcasting: "PF2E.Item.Spell.Plural",
-        };
 
         return {
             ...super.defineSchema(),
@@ -154,7 +146,8 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
                     { required: false, nullable: false, initial: undefined },
                 ),
                 proficiencies: new RecordField(
-                    new fields.StringField({ required: true, nullable: false, choices: increasableProficiencies }),
+                    // Valid proficiencies are validated during data preparation to facilitate removal
+                    new fields.StringField({ required: true, nullable: false }),
                     new fields.SchemaField({
                         rank: new fields.NumberField<OneToFour, OneToFour, true, false, false>({
                             required: true,
@@ -226,7 +219,6 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
         const subfeatures = this.subfeatures;
         subfeatures.keyOptions ??= [];
         subfeatures.languages ??= { slots: 0, granted: [] };
-        subfeatures.proficiencies ??= {};
         subfeatures.senses ??= {};
         subfeatures.suppressedFeatures ??= [];
     }
@@ -293,14 +285,11 @@ type FeatSystemSchema = Omit<ItemSystemSchema, "traits"> & {
             false
         >;
         proficiencies: RecordField<
-            fields.StringField<IncreasableProficiency, IncreasableProficiency, true, false, false>,
+            fields.StringField<string, string, true, false, false>,
             fields.SchemaField<{
                 rank: fields.NumberField<OneToFour, OneToFour, true, false, false>;
                 attribute: fields.StringField<AttributeString, AttributeString, true, true, true>;
-            }>,
-            false,
-            false,
-            false
+            }>
         >;
         senses: SensesField;
         suppressedFeatures: fields.ArrayField<fields.DocumentUUIDField<ItemUUID, true, false, false>>;

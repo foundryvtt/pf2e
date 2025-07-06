@@ -168,6 +168,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         build.languages.granted.push(...subfeatures.languages.granted.map((slug) => ({ slug, source: this.name })));
 
         // Proficiency-rank increases
+        const invalidProficiencies: string[] = [];
         for (const [slug, increase] of Object.entries(subfeatures.proficiencies)) {
             const proficiency = ((): { rank: number } | null => {
                 if (slug === "perception") return actor.system.perception;
@@ -181,11 +182,22 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     const attribute = increase.attribute ?? "str";
                     return (classDCs[slug] ??= { attribute, label: CONFIG.PF2E.classTraits[slug], rank: 0 });
                 }
+
+                invalidProficiencies.push(slug);
                 return null;
             })();
             if (proficiency && increase?.rank) {
                 proficiency.rank = Math.max(proficiency.rank, increase.rank);
             }
+        }
+        if (invalidProficiencies.length) {
+            subfeatures.proficiencies = R.omit(
+                subfeatures.proficiencies,
+                invalidProficiencies as (keyof typeof subfeatures.proficiencies)[],
+            );
+            console.warn(
+                `Invalid proficiency increases on feat ${this.name} (${this.uuid}): ${invalidProficiencies.join(", ")}`,
+            );
         }
 
         // Senses
