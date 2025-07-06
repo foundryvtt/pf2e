@@ -26,8 +26,12 @@
                         <div class="name">{{member.actor.name}}</div>
                         {{#unless member.restricted}}
                             <div class="value">
-                                <i class="fa-solid fa-scale-unbalanced"></i>
-                                {{numberFormat member.actor.inventory.totalWealth.goldValue decimals=2}} {{localize "PF2E.CurrencyAbbreviations.gp"}}
+                                <i class="fa-solid fa-coins fa-fw"></i>
+                                {{numberFormat member.coins decimals=2}} {{localize "PF2E.CurrencyAbbreviations.gp"}}
+                            </div>
+                            <div class="value">
+                                <i class="fa-solid fa-scale-unbalanced fa-fw"></i>
+                                {{numberFormat member.wealth decimals=2}} {{localize "PF2E.CurrencyAbbreviations.gp"}}
                             </div>
                         {{/unless}}
                     </div>

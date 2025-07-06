@@ -183,6 +183,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     img: action.img,
                     traits: createSheetTags(CONFIG.PF2E.actionTraits, action.system.traits?.value ?? []),
                 })),
+                coins: actor.inventory.coins.goldValue,
+                wealth: actor.inventory.totalWealth.goldValue,
                 restricted,
             };
         });
@@ -309,7 +311,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const tab = openSheetLink.dataset.tab;
             const actorUUID = htmlClosest(openSheetLink, "[data-actor-uuid]")?.dataset.actorUuid;
             const actor = fromUuidSync(actorUUID ?? "");
-            openSheetLink.addEventListener("click", async () => actor?.sheet.render(true, { tab }));
+            if (actor instanceof ActorPF2e) {
+                openSheetLink.addEventListener("click", async () => actor.sheet.render(true, { tab }));
+            }
         }
 
         // Control active overview summary
@@ -584,6 +588,9 @@ interface MemberBreakdown {
         img: string;
         traits: SheetOptions;
     }[];
+
+    coins: number;
+    wealth: number;
 
     /** If true, the current user is restricted from seeing meta details */
     restricted: boolean;
