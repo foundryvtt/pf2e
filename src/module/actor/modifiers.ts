@@ -84,6 +84,8 @@ interface ModifierAdjustment {
     damageType?: DamageType;
     relabel?: string;
     suppress?: boolean;
+    /** The number of times this adjustment has been applied to a single statistic */
+    applications?: number;
     getNewValue?: (current: number) => number;
     getDamageType?: (current: DamageType | null) => DamageType | null;
 }
@@ -620,6 +622,13 @@ class StatisticModifier {
 }
 
 function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
+    // Reset all adjustments for consistent behavior between repeat runs
+    for (const modifier of modifiers) {
+        for (const adjustment of modifier.adjustments) {
+            adjustment.applications = 0;
+        }
+    }
+
     for (const modifier of [...modifiers].sort((a, b) => Math.abs(b.value) - Math.abs(a.value))) {
         modifier.applyAdjustments({ rollOptions });
     }

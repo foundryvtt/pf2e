@@ -11,9 +11,6 @@ import fields = foundry.data.fields;
 
 /** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
 class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
-    /** The number of times this adjustment has been applied */
-    applications = 0;
-
     constructor(source: AdjustModifierSource, options: RuleElementOptions) {
         if (source.suppress) source.mode = "override"; // Allow `suppress` as a shorthand without providing `mode`
         super(source, options);
@@ -80,21 +77,18 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
             },
             suppress: this.suppress,
             getNewValue: (current: number): number => {
+                adjustment.applications ??= 0;
                 if (this.value === null) return current;
 
                 const change = this.resolveValue(this.value);
                 if (typeof change !== "number" || Number.isNaN(change)) {
                     this.failValidation("value: must resolve to a number");
                     return current;
-                } else if (this.ignored) {
+                } else if (this.ignored || adjustment.applications >= this.maxApplications) {
                     return current;
                 }
 
-                this.applications += 1;
-                if (this.applications === this.maxApplications) {
-                    this.ignored = true;
-                }
-
+                adjustment.applications += 1;
                 return Math.trunc(AELikeRuleElement.getNewValue(this.mode, current, change));
             },
             getDamageType: (current: DamageType | null): DamageType | null => {
@@ -139,7 +133,7 @@ type AdjustModifierSchema = RuleElementSchema & {
     damageType: fields.StringField<string, string, false, true, true>;
     /** Rather than changing a modifier's value, ignore it entirely */
     suppress: fields.BooleanField<boolean, boolean, false, false, true>;
-    /** The maximum number of times this adjustment can be applied */
+    /** The maximum number of times this adjustment can be applied to a statistic */
     maxApplications: fields.NumberField<number, number, false, true, true>;
     value: ResolvableValueField<false, true, true>;
 };
