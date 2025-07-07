@@ -7,22 +7,25 @@
     {{#each data.damageRolls as |damageRoll key|}}
         <li class="damage-partial" data-key="{{key}}">
             <div class="form-group">
-                <label>{{localize "PF2E.DamageLabel"}}</label>
-                <input type="text" name="system.damageRolls.{{key}}.damage" value="{{lookup this "damage"}}" />
+                <div class="form-fields">
+                    <label>{{localize "PF2E.DamageLabel"}}</label>
+                    <div class="form-fields">
+                        <input type="text" name="system.damageRolls.{{key}}.damage" value="{{lookup this "damage"}}" />
+                    </div>
+
+                    <label>{{localize "PF2E.Roll.Type"}}</label>
+                    <select name="system.damageRolls.{{key}}.damageType">
+                        {{selectOptions @root.damageTypes selected=damageRoll.damageType localize=true}}
+                    </select>
+
+                    <label>{{localize "PF2E.Category"}}</label>
+                    <select name="system.damageRolls.{{key}}.category">
+                        {{selectOptions @root.damageCategories selected=damageRoll.category blank="" localize=true}}
+                    </select>
+
+                    <a class="damage-control remove-partial icon fa-solid fa-trash" data-action="remove-partial"></a>
+                </div>
             </div>
-            <div class="form-group type">
-                <label>{{localize "PF2E.Roll.Type"}}</label>
-                <select name="system.damageRolls.{{key}}.damageType">
-                    {{selectOptions @root.damageTypes selected=damageRoll.damageType localize=true}}
-                </select>
-            </div>
-            <div class="form-group category">
-                <label>{{localize "PF2E.Category"}}</label>
-                <select name="system.damageRolls.{{key}}.category">
-                    {{selectOptions @root.damageCategories selected=damageRoll.category blank="" localize=true}}
-                </select>
-            </div>
-            <a class="damage-control remove-partial" data-action="remove-partial"><i class="fa-solid fa-minus"></i></a>
         </li>
     {{/each}}
     <li class="damage-partial add">
