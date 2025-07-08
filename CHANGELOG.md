@@ -1,3 +1,52 @@
+## 7.2.3
+
+### System Improvements
+
+- (Dire Weasel) Add icons for inline `cube`, `cylinder`, and `square` template buttons
+- (Mecha Maya) Add name and group alterations to ItemAlteration
+- (stwlam) Add definition for "magic" immunity
+- (stwlam) Prevent check for `activeGM` from aborting simulated token updates
+- (Supe) Improve search performance of ABC picker and fix clearing query
+- (Supe) Show member coins in party sheet stash
+
+### Bugfixes
+
+- (stwlam) Fix issue causing token changes to not fail when simultaneously changing two or properties (such as size and texture)
+- (stwlam) Exclude token image in OOC messages
+- (stwlam) Fix display of melee-sheet damage partials
+- (stwlam) Fix handling of CreatureSize RE changes that do not change reach
+- (stwlam) Fix issue causing combatant drag & drop to result in the dropped combatant landing at the wrong initiative position
+- (Supe) Fix issue causing limited-application modifier adjustments to sometimes not apply correctly
+
+### Data Updates
+
+- (Ambrose) Add `area-effect`, `area-damage`, `damage-effect`, and `inflicts:` options to select NPC abilities
+- (Ambrose) Add automation to Vrock's Dance of Ruin
+- (Ambrose) Add Feint action to Distracting Spellstrike
+- (Ambrose) Add flat modifier and roll option to `Stab and Blast` Gunslinger feat
+- (Ambrose) Add Trip (acrobatics) action to Tumbling Opportunist
+- (Ambrose) Add variable damage automation to select NPC abilities
+- (Ambrose) Allow variable damage types for Angry Townsfolk's Pitchfork and Torches ability
+- (Ambrose) Condense Dragon Form effects and add a grant action for Dragon Breath
+- (Ambrose) Correct Choice Set options for Spore Wars Heroic Artifact items
+- (Ambrose) Correct damage type for Avenging Wildwood piercing variant
+- (Ambrose) Correct syntax typo in Beiran's Icy Japes ability
+- (Ambrose) Update Surging Serum text to match Player Core 2
+- (Dire Weasel) Add effect for Wight's Drain Life
+- (Dire Weasel) Fix Guhdggi's spell bonuses
+- (kromko) Add failure Note to Magical Shorthand
+- (kromko) Fix Inky Tendrils disable acrobatics check
+- (rectulo) Update Corpseward Pendant to match (remaster) Treasure Vault
+- (rectulo) Fix the description of the Minor Armory Bracelet
+- (Rigo) Automate Elemental Bloodline focus spells' damage types and traits
+- (Rigo) Select and grant a dedication feat with Social Purview
+- (Rigo) Update Bomber's Field Vials toggle label to be more informative
+- (Rigo) Update formatting and automation on Anadi ancestry feats and heritages
+- (Rigo) Upgrade base size of Devrin's Cunning Stance to PC2 Marshal aura
+- (Tikael) Add content from Gatewalkers Remastered Player's Guide
+- (Tikael) Fix effect for Hunt the Razer's Pawn
+- (Vauxs) Add ItemAlteration Description to Extended Kinesis
+
 ## 7.2.2
 
 ### Bugfixes
