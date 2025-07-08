@@ -100,13 +100,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return usageToHands[this.system.usage.value] ?? "1";
     }
 
-    /** Calculates the reach of this weapon used by this actor for attacks */
-    get reach(): number | null {
-        return this.isMelee
-            ? (this.actor?.getReach({ action: "attack", weapon: this as WeaponPF2e<ActorPF2e> }) ?? null)
-            : null;
-    }
-
     /** The maximum range of this weapon: `null` if melee, and usually 6 * range increment if ranged */
     get maxRange(): number | null {
         return this.system.maxRange ?? (this.system.range ? this.system.range * 6 : null);
