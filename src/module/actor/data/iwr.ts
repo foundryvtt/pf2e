@@ -138,7 +138,7 @@ abstract class IWR<TType extends IWRType> {
             case "holy":
                 return [{ or: ["origin:action:trait:holy", "item:trait:holy"] }];
             case "magic":
-                return [{ or: ["action:trait:impulse", "item:from-spell", "item:type:spell"] }];
+                return [{ or: ["origin:action:trait:impulse", "item:from-spell", "item:type:spell"] }];
             case "magical":
                 return [
                     {
