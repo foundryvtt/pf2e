@@ -219,6 +219,7 @@ class ChatMessagePF2e extends ChatMessage {
             const image = document.createElement("img");
             image.alt = actor.name;
             image.src = imageUrl;
+            image.inert = true;
             image.style.transform = `scale(${scale})`;
 
             // If image scale is above 1.2, we might need to add a radial fade to not block out the name
