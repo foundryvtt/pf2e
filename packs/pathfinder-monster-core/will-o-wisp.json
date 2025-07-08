@@ -120,7 +120,36 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:from-spell",
+                                    "item:trait:impulse",
+                                    "item:type:spell"
+                                ]
+                            },
+                            {
+                                "not": {
+                                    "and": [
+                                        "item:type:spell",
+                                        {
+                                            "or": [
+                                                "item:slug:force-barrage",
+                                                "item:slug:quandary",
+                                                "item:slug:revealing-light"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "key": "Immunity",
+                        "label": "PF2E.Damage.IWR.Type.magic",
+                        "type": "custom"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -254,12 +283,7 @@
                 "temp": 0,
                 "value": 50
             },
-            "immunities": [
-                {
-                    "exceptions": [],
-                    "type": "magic"
-                }
-            ],
+            "immunities": [],
             "speed": {
                 "otherSpeeds": [
                     {
