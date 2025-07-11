@@ -155,11 +155,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         if (changed.system?.badge) {
             const badgeSource = this._source.system.badge;
             const badgeChange = fu.mergeObject(changed.system.badge, badgeSource ?? {}, { overwrite: false });
-            const badgeTypeChanged = badgeChange.type !== badgeSource?.type;
-            if (badgeTypeChanged) {
-                // If the badge type changes, reset the value and min/max
-                badgeChange.value = 1;
-            } else if (badgeChange.type === "counter") {
+            if (badgeChange.type === "counter") {
                 // Clamp to the counter value, or delete if decremented to 0
                 badgeChange.labels ??= null;
                 const [minValue, maxValue] = badgeChange.labels
