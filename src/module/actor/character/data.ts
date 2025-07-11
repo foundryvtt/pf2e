@@ -248,9 +248,9 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission
     /** A catch-all for character proficiencies */
     proficiencies: {
         /** Proficiencies in the four weapon categories as well as groups, base weapon types, etc. */
-        attacks: Record<WeaponCategory, MartialProficiency> & Record<string, MartialProficiency | undefined>;
+        attacks: Record<string, MartialProficiency>;
         /** Proficiencies in the four armor categories as well as groups, base armor types, etc. */
-        defenses: Record<ArmorCategory, MartialProficiency> & Record<string, MartialProficiency | undefined>;
+        defenses: Record<string, MartialProficiency>;
         /** Zero or more class DCs, used for saves related to class abilities. */
         classDCs: Record<string, ClassDCData>;
         /** Spellcasting attack modifier and dc for all spellcasting */

@@ -373,7 +373,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.system.traits.size = new ActorSizePF2e({ value: "med" });
 
         // Attack and defense proficiencies
-        type PartialMartialProficiency = Record<string, Partial<MartialProficiency> | undefined>;
+        type PartialMartialProficiency = Record<string, DeepPartial<MartialProficiency> | undefined>;
         const attacks: PartialMartialProficiency = (system.proficiencies.attacks ??= {});
         // Set custom attack proficiencies to be visible
         for (const attack of Object.values(attacks).filter(R.isDefined)) {
@@ -1715,10 +1715,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             );
             for (const proficiency of linkedProficiencies) {
                 const category = proficiencies[proficiency.sameAs ?? ""];
-                proficiency.rank = ((): ZeroToFour => {
-                    const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
-                    return Math.min(category?.rank ?? 0, maxRankIndex) as ZeroToFour;
-                })();
+                const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
+                proficiency.rank = Math.min(category?.rank ?? 0, maxRankIndex) as ZeroToFour;
             }
 
             // Deduplicate proficiencies, set proficiency bonuses to all
