@@ -113,21 +113,17 @@ class RuleElements {
             }
             const REConstructor = this.custom[source.key] ?? this.custom[source.key] ?? this.builtin[source.key];
             if (REConstructor) {
-                const rule = ((): RuleElementPF2e | null => {
-                    try {
-                        return new REConstructor(source, { ...options, sourceIndex });
-                    } catch (error) {
-                        if (!options?.suppressWarnings) {
-                            console.warn(
-                                `PF2e System | Failed to construct rule element ${source.key} on item ${item.name}`,
-                                `(${item.uuid})`,
-                            );
-                            console.warn(error);
-                        }
-                        return null;
+                try {
+                    rules.push(new REConstructor(source, { ...options, sourceIndex }));
+                } catch (error) {
+                    if (!options?.suppressWarnings) {
+                        console.warn(
+                            `PF2e System | Failed to construct rule element ${source.key} on item ${item.name}`,
+                            `(${item.uuid})`,
+                        );
+                        console.warn(error);
                     }
-                })();
-                if (rule) rules.push(rule);
+                }
             } else {
                 const { name, uuid } = item;
                 console.warn(`PF2e System | Unrecognized rule element ${source.key} on item ${name} (${uuid})`);
@@ -142,4 +138,4 @@ type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (n
     options: RuleElementOptions,
 ) => RuleElementPF2e);
 
-export { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements };
+export { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource };
