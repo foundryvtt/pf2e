@@ -4,6 +4,7 @@ import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import type { ItemTrait } from "@item/base/types.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
+import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 import { RARITIES } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageDiceFaces, DamageType } from "@system/damage/types.ts";
@@ -14,7 +15,6 @@ import * as R from "remeda";
 import type { AELikeChangeMode } from "../ae-like.ts";
 import fields = foundry.data.fields;
 import validation = foundry.data.validation;
-import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 
 /** A `SchemaField` reappropriated for validation of specific item alterations */
 class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.SchemaField<TSchema> {
@@ -526,6 +526,16 @@ const ITEM_ALTERATION_VALIDATORS = {
         mode: new fields.StringField({ required: true, choices: ["override"] }),
         value: new fields.StringField({ required: true, nullable: false, blank: false } as const),
     }),
+    potency: new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["weapon", "armor"] }),
+        mode: new fields.StringField({ required: true, choices: ["upgrade", "override"] }),
+        value: new fields.NumberField({ required: true, nullable: false, min: 0, max: 4, integer: true } as const),
+    }),
+    resilient: new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["armor"] }),
+        mode: new fields.StringField({ required: true, choices: ["upgrade", "override"] }),
+        value: new fields.NumberField({ required: true, nullable: false, min: 0, max: 4, integer: true } as const),
+    }),
     "speed-penalty": new ItemAlterationValidator({
         itemType: new fields.StringField({
             required: true,
@@ -558,6 +568,11 @@ const ITEM_ALTERATION_VALIDATORS = {
             positive: true,
             initial: undefined,
         } as const),
+    }),
+    striking: new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
+        mode: new fields.StringField({ required: true, choices: ["upgrade", "override"] }),
+        value: new fields.NumberField({ required: true, nullable: false, min: 0, max: 4, integer: true } as const),
     }),
     traits: new ItemAlterationValidator(
         {
