@@ -52,23 +52,9 @@ async function createUseActionMessage(
         traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
     });
 
-    // Get a preview slice of the message
-    const previewLength = 100;
-    const descriptionPreview = ((): string | null => {
-        if (item.actor.pack) return null;
-        const tempDiv = document.createElement("div");
-        const documentTypes = [...CONST.DOCUMENT_LINK_TYPES, "Compendium", "UUID"];
-        const linkPattern = new RegExp(`@(${documentTypes.join("|")})\\[([^#\\]]+)(?:#([^\\]]+))?](?:{([^}]+)})?`, "g");
-        tempDiv.innerHTML = item.description.replace(linkPattern, (_match, ...args) => args[3]);
-
-        return tempDiv.innerText.slice(0, previewLength);
-    })();
     const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/collapsed.hbs", {
         actor: item.actor,
-        description: {
-            full: descriptionPreview && descriptionPreview.length < previewLength ? item.description : null,
-            preview: descriptionPreview,
-        },
+        description: item.description,
         selfEffect: !!item.system.selfEffect,
         craftedItem: craftedItem?.toAnchor({ attrs: { draggable: "true" } }).outerHTML,
         withoutResources: craftedItem && !consumeResources,

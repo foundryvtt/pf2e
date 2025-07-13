@@ -17,7 +17,7 @@ class ChatCards {
     static #lastClick = 0;
 
     static listen(message: ChatMessagePF2e, html: HTMLElement): void {
-        const selector = ["a[data-action], button[data-action]"].join(",");
+        const selector = ["a[data-action], button[data-action], .collapsed[data-action=expand-description]"].join(",");
         for (const button of htmlQueryAll<HTMLButtonElement>(html, selector)) {
             button.addEventListener("click", async (event) => this.#onClickButton({ message, event, html, button }));
         }
@@ -71,6 +71,27 @@ class ChatCards {
                     return;
                 }
             }
+        }
+
+        if (action === "expand-description") {
+            const element = htmlClosest(button, ".description, .collapsed");
+            if (element && "autoCollapse" in element.dataset) {
+                element.classList.remove("collapsed");
+                const shadow = element.nextElementSibling;
+                if (shadow?.classList.contains("shadow")) {
+                    shadow.remove();
+                }
+                delete button.dataset.tooltip;
+                delete button.dataset.action;
+                game.tooltip.deactivate();
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
+            } else if (element && item) {
+                // temporary support for the old way involving dom replacement
+                // todo: remove in a future release
+                element.innerHTML = (await item.getDescription()).value;
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+            return;
         }
 
         // Handle everything else
@@ -163,14 +184,6 @@ class ChatCards {
                         }
                     }
                     return;
-                }
-                case "expand-description": {
-                    const element = htmlClosest(button, ".description");
-                    if (element) {
-                        element.innerHTML = (await item.getDescription()).value;
-                        element.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }
-                    break;
                 }
                 case "elemental-blast-damage": {
                     if (!actor.isOfType("character")) return;

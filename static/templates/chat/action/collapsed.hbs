@@ -2,14 +2,9 @@
     <div class="notification warning">{{localize "PF2E.Item.Ability.CraftedItem.CraftedWithoutResources"}}</div>
 {{/if}}
 
-{{#if description.full~}}
-    <div class="description">{{{description.full}}}</div>
-{{~else if description.preview~}}
-    <div class="description" data-tooltip-class="pf2e">
-        <a class="preview" data-action="expand-description" data-tooltip="{{localize "PF2E.Action.ExpandDescription"}}">{{description.preview}}</a>
-        <div class="shadow"></div>
-    </div>
-{{~/if}}
+<div class="description" data-auto-collapse>
+    {{{description}}}
+</div>
 
 {{#if (or selfEffect craftedItem)}}
     <div class="message-buttons">
