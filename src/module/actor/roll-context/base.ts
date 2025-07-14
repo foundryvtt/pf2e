@@ -38,6 +38,10 @@ abstract class RollContext<
     isMeleeAttack: boolean;
 
     constructor(params: RollContextConstructorParams<TSelf, TStatistic, TItem>) {
+        this.viewOnly = !!params.viewOnly;
+        this.domains = params.domains;
+        this.rollOptions = params.options;
+        this.isAttack = ["attack", "attack-roll", "attack-damage"].some((d) => this.domains.includes(d));
         const origin = {
             actor: params.origin?.actor ?? params.origin?.token?.actor ?? null,
             statistic: params.origin?.statistic ?? null,
@@ -60,13 +64,8 @@ abstract class RollContext<
                   }
                 : null;
         this.unresolved = { origin, target };
-        this.domains = params.domains;
-        this.rollOptions = params.options;
-        this.viewOnly = !!params.viewOnly;
-        this.isAttack = ["attack", "attack-roll", "attack-damage"].some((d) => this.domains.includes(d));
 
         const item = this.item;
-
         this.traits = params.traits ?? [];
         if (this.traits.length === 0 && item?.isOfType("action", "spell")) {
             this.traits = [...item.system.traits.value];
@@ -242,10 +241,11 @@ abstract class RollContext<
 
             const originMark = originUuid ? (targetActor?.synthetics.tokenMarks.get(originUuid) ?? []) : [];
             const targetMark = targetUuid ? (originActor?.synthetics.tokenMarks.get(targetUuid) ?? []) : [];
+            const [originPrefix, targetPrefix] = which === "target" ? ["origin", "self"] : ["self", "target"];
 
             return [
-                ...originMark.map((mark) => `origin:mark:${mark}`),
-                ...targetMark.map((mark) => `target:mark:${mark}`),
+                ...originMark.map((mark) => `${originPrefix}:mark:${mark}`),
+                ...targetMark.map((mark) => `${targetPrefix}:mark:${mark}`),
             ];
         })();
 
