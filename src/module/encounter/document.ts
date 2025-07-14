@@ -342,7 +342,7 @@ class EncounterPF2e extends Combat {
 
     protected override async _onEndTurn(combatant: fd.Combatant<this>): Promise<void> {
         await super._onEndTurn(combatant);
-        await combatant.clearMovementHistory();
+        await this.clearMovementHistories();
     }
 }
 

@@ -186,7 +186,6 @@ export default class Combat extends ClientBaseCombat {
 
     /**
      * Clear the movement history of the Combatants' Tokens.
-     * @overload
      * @param combatants The combatants whose movement history is cleared
      */
     clearMovementHistories(combatants?: Iterable<Combatant<this>>): Promise<void>;
