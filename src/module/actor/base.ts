@@ -961,6 +961,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             { pf2e: { linkToActorSize: SIZE_LINKABLE_ACTOR_TYPES.has(this.type) } },
             this.prototypeToken.flags,
         );
+        // Set as a reference rather than used directly for setting placed token dimensions
+        if (this.prototypeToken.flags.pf2e.linkToActorSize && this.system.traits?.size) {
+            const tokenDimensions = this.system.traits.size.tokenDimensions;
+            this.prototypeToken.width = tokenDimensions.width;
+            this.prototypeToken.height = tokenDimensions.height;
+        }
         TokenDocumentPF2e.prepareScale(this.prototypeToken);
     }
 
