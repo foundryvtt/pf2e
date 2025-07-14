@@ -10,8 +10,9 @@ import Document from "@common/abstract/document.mjs";
 import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
 import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
 import BaseCombat from "@common/documents/combat.mjs";
+import { Combatant, TokenDocument, User } from "./_module.mjs";
+import { CombatTurnEventContext } from "./_types.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
-import Combatant from "./combatant.mjs";
 
 type BaseCombatStatic = typeof BaseCombat;
 interface ClientBaseCombatStatic extends BaseCombatStatic, ClientDocumentStatic {}
@@ -68,8 +69,7 @@ export default class Combat extends ClientBaseCombat {
      */
     activate(): Promise<[this]>;
 
-    /** Display a dialog querying the GM whether they wish to end the combat encounter and empty the tracker */
-    endCombat(): Promise<this>;
+    override prepareDerivedData(): void;
 
     /**
      * Get a Combatant using its Token id
@@ -82,6 +82,19 @@ export default class Combat extends ClientBaseCombat {
      * @param actorId The id of the Actor for which to acquire the combatant
      */
     getCombatantByActor(actorId: string): Combatant<this> | undefined;
+
+    /**
+     * Calculate the time delta between two turns.
+     * @param fromRound The from-round
+     * @param fromTurn The from-turn
+     * @param toRound The to-round
+     * @param toTurn The to-turn
+     * @returns The time delta
+     */
+    getTimeDelta(fromRound: number, fromTurn: number | null, toRound: number, toTurn: number | null): number;
+
+    /** Begin the combat encounter, advancing to round 1 and turn 1 */
+    startCombat(): Promise<this>;
 
     /** Advance the combat to the next round */
     nextRound(): Promise<this>;
@@ -96,6 +109,9 @@ export default class Combat extends ClientBaseCombat {
 
     /** Rewind the combat to the previous turn */
     previousTurn(): Promise<this>;
+
+    /** Display a dialog querying the GM whether they wish to end the combat encounter and empty the tracker */
+    endCombat(): Promise<this>;
 
     /** Toggle whether this combat is linked to the scene or globally available. */
     toggleSceneLink(): Promise<this>;
@@ -137,8 +153,23 @@ export default class Combat extends ClientBaseCombat {
     /** Return the Array of combatants sorted into initiative order, breaking ties alphabetically by name. */
     setupTurns(): Combatant<this>[];
 
-    /** Begin the combat encounter, advancing to round 1 and turn 1 */
-    startCombat(): Promise<this>;
+    /**
+     * Debounce changes to the composition of the Combat encounter to de-duplicate multiple concurrent Combatant changes.
+     * If this is the currently viewed encounter, re-render the CombatTracker application.
+     */
+    debounceSetup: () => void;
+
+    /**
+     * Update active effect durations for all actors present in this Combat encounter.
+     */
+    updateCombatantActors(): void;
+
+    /**
+     * Loads the registered Combat Theme (if any) and plays the requested type of sound.
+     * If multiple exist for that type, one is chosen at random.
+     * @param announcement The announcement that should be played: "startEncounter", "nextUp", or "yourTurn".
+     */
+    protected _playCombatSound(announcement: string): void;
 
     /**
      * Define how the array of Combatants is sorted in the displayed list of the tracker.
@@ -146,6 +177,19 @@ export default class Combat extends ClientBaseCombat {
      * By default sort by initiative, next falling back to name, lastly tie-breaking by combatant id.
      */
     protected _sortCombatants(a: Combatant<this>, b: Combatant<this>): number;
+
+    /**
+     * Refresh the Token HUD under certain circumstances.
+     * @param documents  A list of Combatant documents that were added or removed.
+     */
+    protected _refreshTokenHUD(documents: Combatant<this>[]): void;
+
+    /**
+     * Clear the movement history of the Combatants' Tokens.
+     * @overload
+     * @param combatants The combatants whose movement history is cleared
+     */
+    clearMovementHistories(combatants?: Iterable<Combatant<this>>): Promise<void>;
 
     /* -------------------------------------------- */
     /*  Event Handlers                              */
@@ -160,6 +204,10 @@ export default class Combat extends ClientBaseCombat {
     ): void;
 
     protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Combatant Management Workflows              */
+    /* -------------------------------------------- */
 
     protected override _onCreateDescendantDocuments(
         parent: this,
@@ -211,6 +259,33 @@ export default class Combat extends ClientBaseCombat {
         options: DatabaseDeleteOperation<TParent>,
         userId: string,
     ): void;
+
+    /**
+     * This workflow occurs after a Combatant is added to the Combat.
+     * This can be overridden to implement system-specific combat tracking behaviors.
+     * The default implementation of this function does nothing.
+     * This method only executes for one designated GM user. If no GM users are present this method will not be called.
+     * @param combatant The Combatant that entered the Combat
+     */
+    protected _onEnter(combatant: Combatant): Promise<void>;
+
+    /**
+     * This workflow occurs after a Combatant is removed from the Combat.
+     * This can be overridden to implement system-specific combat tracking behaviors.
+     * The default implementation of this function does nothing.
+     * This method only executes for one designated GM user. If no GM users are present this method will not be called.
+     * @param combatant The Combatant that exited the Combat
+     */
+    protected _onExit(combatant: Combatant<this>): Promise<void>;
+
+    /**
+     * Called after {@link Combat#_onExit} and takes care of clearing the movement history of the
+     * Combatant's Token.
+     * This function is not called for Combatants that don't have a Token.
+     * The default implementation clears the movement history always.
+     * @param combatant The Combatant that exited the Combat
+     */
+    protected _clearMovementHistoryOnExit(combatant: Combatant<this>): Promise<void>;
 
     /**
      * Get the current history state of the Combat encounter.
@@ -267,6 +342,28 @@ export default class Combat extends ClientBaseCombat {
      * @param combatant The Combatant whose turn just started
      */
     protected _onStartTurn(combatant: Combatant<this>): Promise<void>;
+
+    /**
+     * Called after {@link Combat#_onStartTurn} and takes care of clearing the movement history of the
+     * Combatant's Token.
+     * This function is not called for Combatants that don't have a Token.
+     * The default implementation clears the movement history always.
+     * @param combatant The Combatant whose turn just started
+     * @param context The context of the turn that just started
+     */
+    protected _clearMovementHistoryOnStartTurn(
+        combatant: Combatant<this>,
+        context: CombatTurnEventContext,
+    ): Promise<void>;
+
+    /**
+     * When Tokens are deleted, handle actions to update/delete Combatants of these Tokens.
+     * @param tokens An array of Tokens which have been deleted
+     * @param operation The operation that deleted the Tokens
+     * @param user The User that deleted the Tokens
+     * @internal
+     */
+    static _onDeleteTokens(tokens: TokenDocument[], operation: DatabaseDeleteCallbackOptions, user: User): void;
 }
 
 export default interface Combat extends ClientBaseCombat {

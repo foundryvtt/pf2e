@@ -339,6 +339,11 @@ class EncounterPF2e extends Combat {
         // Clear encounter-related roll options and any scene behavior that depends on it
         this.resetActors();
     }
+
+    protected override async _onEndTurn(combatant: fd.Combatant<this>): Promise<void> {
+        await super._onEndTurn(combatant);
+        await combatant.clearMovementHistory();
+    }
 }
 
 interface EncounterPF2e extends Combat {
