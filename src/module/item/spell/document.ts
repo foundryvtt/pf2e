@@ -471,7 +471,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     loadVariant(options: SpellVariantOptions = {}): SpellPF2e | null {
         if (this.original) {
             const entryId = this.system.location.value;
-            const overlayIds = Array.from(this.appliedOverlays?.values() ?? []);
+            const overlayIds = this.appliedOverlays?.values().toArray() ?? [];
             return this.original.loadVariant({ entryId, overlayIds, ...options });
         }
         const { castRank, overlayIds } = options;
