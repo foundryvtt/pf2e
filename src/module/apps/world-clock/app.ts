@@ -17,6 +17,11 @@ interface WorldClockData {
 }
 
 export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
+    constructor() {
+        super();
+        this.#initialize();
+    }
+
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         id: "world-clock",
         position: {
@@ -81,11 +86,6 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
             advanceOrRetract.innerText = game.i18n.localize(retractTime ? Retract : Advance);
         }
     };
-
-    constructor() {
-        super();
-        this.#initialize();
-    }
 
     /** Setting: the date theme (Imperial Calendar not yet supported) */
     get dateTheme(): "AR" | "IC" | "AD" | "CE" {
@@ -267,7 +267,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     static createSyncedMessage(): HTMLSpanElement {
         const managedBy = document.createElement("span");
         managedBy.classList.add("managed");
-        managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.SETTINGS.WorldClock.SyncDarknessScene.ManagedBy"));
+        managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.Scene.SyncDarkness.ManagedBy"));
         // Create a link to open world clock settings
         const anchor = document.createElement("a");
         const wtLink = managedBy.querySelector("wt");
