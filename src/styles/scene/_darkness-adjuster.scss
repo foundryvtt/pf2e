@@ -95,48 +95,48 @@
                 display: none;
             }
         }
-    }
 
-    .synchronized .slider {
-        .noUi-base {
-            cursor: not-allowed;
-        }
-
-        .message {
-            display: flex;
-            justify-content: center;
-            position: relative;
-            top: 0.5em;
-            width: 100%;
-
-            span {
-                color: var(--color-text-primary);
-                text-shadow: 1px 1px var(--color-dark-1);
-                z-index: 1;
+        &.synchronized {
+            .noUi-base {
+                cursor: not-allowed;
             }
-        }
 
-        .noUi-origin .noUi-handle {
-            cursor: not-allowed;
+            .message {
+                display: flex;
+                justify-content: center;
+                position: relative;
+                top: 0.5em;
+                width: 100%;
 
-            &.darkness-level {
-                background: var(--color-disabled);
-                border: none;
-                box-shadow: none;
+                span {
+                    color: var(--color-text-primary);
+                    text-shadow: 1px 1px var(--color-dark-1);
+                    z-index: 1;
+                }
+            }
 
-                .noUi-touch-area,
-                &:active .noUi-touch-area {
+            .noUi-origin .noUi-handle {
+                cursor: not-allowed;
+
+                &.darkness-level {
+                    background: var(--color-disabled);
+                    border: none;
+                    box-shadow: none;
+
+                    .noUi-touch-area,
+                    &:active .noUi-touch-area {
+                        cursor: inherit;
+                    }
+                }
+
+                i.fa-solid {
                     cursor: inherit;
                 }
             }
 
-            i.fa-solid {
-                cursor: inherit;
+            .noUi-pips {
+                visibility: hidden;
             }
-        }
-
-        .noUi-pips {
-            visibility: hidden;
         }
     }
 }

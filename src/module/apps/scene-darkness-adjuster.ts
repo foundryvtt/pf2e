@@ -68,6 +68,7 @@ export class SceneDarknessAdjuster extends fa.api.ApplicationV2 {
             synchronized.className = "message";
             const message = WorldClock.createSyncedMessage();
             synchronized.append(message);
+            result.classList.add("synchronized");
             result.append(synchronized);
         }
     }
