@@ -337,30 +337,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
     }
 
-    /** Ensure that actors that don't allow synthetics are linked */
-    protected override _preCreate(
-        data: this["_source"],
-        options: DatabaseCreateCallbackOptions,
-        user: fd.BaseUser,
-    ): Promise<boolean | void> {
-        if (this.actor?.allowSynthetics === false && data.actorLink === false) {
-            this._source.actorLink = true;
-        }
-        return super._preCreate(data, options, user);
-    }
-
-    /** Ensure that actors that don't allow synthetics stay linked */
-    protected override _preUpdate(
-        data: Record<string, unknown>,
-        options: TokenUpdateCallbackOptions,
-        user: fd.BaseUser,
-    ): Promise<boolean | void> {
-        if (this.actor?.allowSynthetics === false && (data.actorLink ?? this.actorLink) === false) {
-            data.actorLink = true;
-        }
-        return super._preUpdate(data, options, user);
-    }
-
     /** Synchronize the token image with the actor image if the token does not currently have an image */
     static assignDefaultImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
         const actor = token.actor;
@@ -479,6 +455,30 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
+
+    /** Ensure that actors that don't allow synthetics are linked */
+    protected override _preCreate(
+        data: this["_source"],
+        options: DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
+    ): Promise<boolean | void> {
+        if (this.actor?.allowSynthetics === false && data.actorLink === false) {
+            this._source.actorLink = true;
+        }
+        return super._preCreate(data, options, user);
+    }
+
+    /** Ensure that actors that don't allow synthetics stay linked */
+    protected override _preUpdate(
+        data: Record<string, unknown>,
+        options: TokenUpdateCallbackOptions,
+        user: fd.BaseUser,
+    ): Promise<boolean | void> {
+        if (this.actor?.allowSynthetics === false && (data.actorLink ?? this.actorLink) === false) {
+            data.actorLink = true;
+        }
+        return super._preUpdate(data, options, user);
+    }
 
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void {

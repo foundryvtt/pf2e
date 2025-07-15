@@ -200,7 +200,7 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
         protected processFormData(data: Record<string, unknown>, form: HTMLFormElement): Record<string, unknown> {
             // Readd scale property to form data if input is disabled: necessary for mirroring checkboxes to function
             const scaleInput = form.elements.namedItem("scale");
-            if (scaleInput instanceof HTMLElement && scaleInput.getAttribute("disabled") === "true") {
+            if (scaleInput instanceof fa.elements.HTMLRangePickerElement && scaleInput.disabled) {
                 data["scale"] = Math.abs(this.token._source.texture.scaleX);
             }
             // Change `null` disposition (not secret) back to numeric value
