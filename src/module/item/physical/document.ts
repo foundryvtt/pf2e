@@ -12,9 +12,10 @@ import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
 import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
-import { ErrorPF2e, isObject, tupleHasValue } from "@util";
+import { ErrorPF2e, isObject, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk } from "./bulk.ts";
@@ -138,18 +139,15 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     get isAlchemical(): boolean {
-        return this.traits.has("alchemical");
+        return this.system.traits.value.includes("alchemical");
     }
 
     get isMagical(): boolean {
-        const traits: Set<string> = this.traits;
-        const magicTraits = ["magical", "arcane", "primal", "divine", "occult"] as const;
-        return magicTraits.some((t) => traits.has(t));
+        return this.system.traits.value.some((t) => t === "magical" || setHasElement(MAGIC_TRADITIONS, t));
     }
 
     get isInvested(): boolean | null {
-        const traits: Set<string> = this.traits;
-        if (!traits.has("invested")) return null;
+        if (!this.system.traits.value.includes("invested")) return null;
         return (
             (this.isEquipped || this.system.usage.type !== "worn") &&
             !this.isStowed &&
@@ -159,7 +157,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     get isCursed(): boolean {
-        return this.traits.has("cursed");
+        return this.system.traits.value.includes("cursed");
     }
 
     get isTemporary(): boolean {

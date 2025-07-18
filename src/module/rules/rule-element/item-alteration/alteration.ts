@@ -3,11 +3,10 @@ import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
-import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import type { ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
-import { objectHasKey, setHasElement } from "@util";
+import { objectHasKey } from "@util";
 import { Duration } from "luxon";
 import * as R from "remeda";
 import { AELikeChangeMode, AELikeRuleElement } from "../ae-like.ts";
@@ -391,22 +390,14 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     4,
                 ) as ZeroToFour;
 
-                if (data.item instanceof ItemPF2e && data.item.system.runes.potency > 0) {
+                if (data.item instanceof ItemPF2e && data.item.system.runes.potency !== previousValue) {
                     // If a weapon or armor gains a potency rune, it becomes magical
-                    const traits = data.item.system.traits.value;
-                    const isMagical = traits.some((t) => t === "magical" || setHasElement(MAGIC_TRADITIONS, t));
-                    if (!isMagical && data.item.system.runes.potency > previousValue) {
-                        traits.push("magical");
+                    if (!data.item.isMagical && data.item.system.runes.potency > previousValue) {
+                        data.item.system.traits.value.push("magical");
                     }
 
-                    // If a suit of armor has any runes, it has the invested trait,
-                    // requiring you to invest it to get its magical benefits. - GM Core 224
-                    if (data.item.isOfType("armor")) {
-                        if (!traits.includes("invested")) traits.push("invested");
-                        if (data.item.isInvested) {
-                            data.item.system.acBonus =
-                                data.item._source.system.acBonus + data.item.system.runes.potency;
-                        }
+                    if (data.item.isOfType("armor") && data.item.isInvested !== false) {
+                        data.item.system.acBonus += data.item.system.runes.potency - previousValue;
                     }
 
                     // If this is a constructed item, have the displayed name reflect the new rune
@@ -427,13 +418,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 ) as ZeroToFour;
 
                 // If this is a constructed item, have the displayed name reflect the new rune
-                // If a suit of armor has any runes, it has the invested trait - GM Core 224
-                const traits = data.item.system.traits.value;
                 if (data.item instanceof ItemPF2e && data.item.system.runes.resilient !== previousValue) {
                     data.item.name = game.pf2e.system.generateItemName(data.item);
-                    if (data.item.system.runes.resilient && !traits.includes("invested")) {
-                        traits.push("invested");
-                    }
                 }
 
                 return;
