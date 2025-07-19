@@ -4,7 +4,7 @@
     "name": "Effect: Dueling Parry",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Extravagant Parry] or @UUID[Compendium.pf2e.feats-srd.Item.Dueling Parry]</p>\n<p>You gain a circumstance bonus to AC.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Dueling Parry]</p>\n<p>You gain a circumstance bonus to AC.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,6 +23,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
+                "predicate": [
+                    "hands-free:but-really:1"
+                ],
                 "selector": "ac",
                 "type": "circumstance",
                 "value": 2
