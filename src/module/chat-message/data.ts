@@ -21,7 +21,7 @@ export interface ItemOriginFlag {
     uuid: string;
     castRank?: number;
     messageId?: string;
-    variant?: { overlays: string[] };
+    variant?: { overlays: string[] } | null;
     rollOptions?: string[];
 }
 

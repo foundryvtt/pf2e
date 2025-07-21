@@ -1099,10 +1099,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override getOriginData(): ItemOriginFlag {
         const flag = super.getOriginData();
         flag.castRank = this.rank;
-        if (this.isVariant && this.appliedOverlays) {
-            flag.variant = { overlays: [...this.appliedOverlays.values()] };
-        }
-
+        flag.variant = this.isVariant && this.appliedOverlays ? { overlays: [...this.appliedOverlays.values()] } : null;
         return flag;
     }
 
