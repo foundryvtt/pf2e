@@ -1,9 +1,19 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { AMMO_STACK_GROUPS } from "@item/consumable/values.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { setHasElement } from "@util";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
+
+const AMMO_STACK_GROUPS = new Set([
+    "arrows",
+    "blowgunDarts",
+    "bolts",
+    "rounds5",
+    "rounds10",
+    "slingBullets",
+    "sprayPellets",
+    "woodenTaws",
+] as const);
 
 /** Limit `stackGroup` property to consumables and treasure */
 export class Migration906LimitStackGroup extends MigrationBase {
@@ -33,4 +43,9 @@ export class Migration906LimitStackGroup extends MigrationBase {
     }
 }
 
-type MaybeWithToBeDeletedStackGroup = ItemSourcePF2e & { system: { "-=stackGroup"?: null } };
+type MaybeWithToBeDeletedStackGroup = ItemSourcePF2e & {
+    system: {
+        stackGroup?: SetElement<typeof AMMO_STACK_GROUPS> | "coins" | "gems" | null;
+        "-=stackGroup"?: null;
+    };
+};

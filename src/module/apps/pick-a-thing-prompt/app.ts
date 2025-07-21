@@ -83,7 +83,7 @@ class PickAThingPrompt<TThing extends string | number | object> extends SvelteAp
     }
 
     /** Return early if there is only one choice */
-    async resolveSelection(): Promise<PickableThing<string | number | object> | null> {
+    async resolveSelection(): Promise<PickableThing<TThing> | null> {
         const firstChoice = this.choices.at(0);
         if (!this.allowedDrops && firstChoice && this.choices.length === 1) {
             return firstChoice;
@@ -108,7 +108,7 @@ interface PickAThingPromptConfiguration<TThing extends string | number | object 
     title: string;
     containsItems?: boolean;
     choices: PickableThing<TThing>[];
-    allowedDrops: { label: string | null; predicate: Predicate } | null;
+    allowedDrops?: { label: string | null; predicate: Predicate } | null;
     allowNoSelection?: boolean;
 }
 
@@ -116,8 +116,9 @@ interface PickableThing<T extends string | number | object = string | number | o
     value: T;
     label: string;
     img?: string;
-    domain?: string[];
     predicate?: Predicate;
+    /** The select option group to put this under if the control used is a select */
+    group?: string;
 }
 
 interface PickAThingRenderContext<T extends string | number | object = string | number | object>

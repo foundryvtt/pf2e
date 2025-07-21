@@ -1411,7 +1411,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Show the ammo list if the weapon requires ammo
-        if (weapon.system.expend) {
+        // Built in ammo will require special handling, and isn't supported yet
+        if (weapon.system.expend && !weapon.system.ammo?.builtIn) {
             const compatible = ammos
                 .filter((a) => a.isAmmoFor(weapon))
                 .map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` }));
@@ -1472,7 +1473,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                         ? configuredAmmo.uses.value
                         : configuredAmmo.quantity
                     : (configuredAmmo?.quantity ?? 0);
-                params.consumeAmmo ??= expend > 0;
+                params.consumeAmmo = weapon.system.ammo?.builtIn ? false : (params.consumeAmmo ?? expend > 0);
 
                 if (params.consumeAmmo && expend > ammoRemaining) {
                     ui.notifications.warn(

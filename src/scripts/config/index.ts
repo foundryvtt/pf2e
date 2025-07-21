@@ -30,9 +30,11 @@ import {
 } from "@item";
 import { ArmorCategory, ArmorGroup } from "@item/armor/types.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
+import { AmmoBehavior, AmmoCategory } from "@item/consumable/types.ts";
 import { CONSUMABLE_CATEGORIES } from "@item/consumable/values.ts";
 import { DeityDomain } from "@item/deity/types.ts";
 import { FeatOrFeatureCategory } from "@item/feat/index.ts";
+import { STACK_DEFINITIONS } from "@item/physical/bulk.ts";
 import { PreciousMaterialGrade } from "@item/physical/types.ts";
 import { MeleeWeaponGroup, WeaponCategory, WeaponGroup, WeaponReloadTime } from "@item/weapon/types.ts";
 import { Size, ZeroToThree } from "@module/data.ts";
@@ -312,6 +314,180 @@ const grades = {
     paragon: "PF2E.Item.Physical.Grade.paragon",
 };
 
+const ammoCategories = {
+    ...R.mapToObj(
+        [
+            "arrow",
+            "blowgun-dart",
+            "bolt",
+            "cutlery",
+            "round",
+            "sling-bullet",
+            "spray-pellet",
+            "wooden-taw",
+            "projectile",
+        ] as const,
+        (slug) => [slug, { behavior: "single", label: `PF2E.Item.Consumable.AmmoCategory.${slug}` }],
+    ),
+    ...R.mapToObj(["magazine", "battery", "chem"] as const, (slug) => [
+        slug,
+        { behavior: "magazine", label: `PF2E.Item.Consumable.AmmoCategory.${slug}` },
+    ]),
+    weapon: {
+        label: "PF2E.Item.Consumable.AmmoCategory.weapon",
+        behavior: "weapon",
+    },
+} satisfies Record<string, { label: string; behavior: AmmoBehavior }>;
+
+type BaseWeaponType = keyof typeof baseWeaponTypes;
+
+const round5Firearms = [
+    "dwarven-scattergun",
+    "explosive-dogslicer",
+    "flingflenser",
+    "harmona-gun",
+] as const satisfies BaseWeaponType[];
+
+const round10Firearms = [
+    // Round 10
+    "arquebus",
+    "axe-musket",
+    "black-powder-knuckle-dusters",
+    "blunderbuss",
+    "cane-pistol",
+    "clan-pistol",
+    "coat-pistol",
+    "dagger-pistol",
+    "double-barreled-musket",
+    "double-barreled-pistol",
+    "dragon-mouth-pistol",
+    "dueling-pistol",
+    "fire-lance",
+    "flintlock-musket",
+    "flintlock-pistol",
+    "gnome-amalgam-musket",
+    "gun-sword",
+    "hammer-gun",
+    "hand-cannon",
+    "jezail",
+    "mace-multipistol",
+    "mithral-tree",
+    "pepperbox",
+    "piercing-wind",
+    "rapier-pistol",
+    "shield-pistol",
+    "shobhad-longrifle",
+    "slide-pistol",
+    "three-peaked-tree",
+    "triggerbrand",
+] satisfies BaseWeaponType[];
+
+// Beast guns aren't loaded with the same ammunition as other guns, but they do still use ammunition, ...
+// This ammunition comes as specially designed rounds, such as miniature tentacles fired from the tentacle gun or javelin-like spikes from the spike gun.
+// Unless otherwise stated, these rounds come in packs of 10 that cost 1 sp and have light Bulk.
+// - Guns & Gears pg 154
+// Hydrocannon does not use ammo, and growth gun is....uncertain
+const beastGuns = [
+    "alicorn-trigger",
+    "breath-blaster",
+    "drake-rifle",
+    "fulmination-fang",
+    "howler-pistol",
+    "leydroth-spellbreaker",
+    "nightmares-lament",
+    "petrification-cannon",
+    "screech-shooter",
+    "spider-gun",
+    "spike-launcher",
+    "tentacle-cannon",
+] as const;
+
+const magazineWeapons = [
+    "barricade-buster",
+    "air-repeater",
+    "long-air-repeater",
+    "repeating-crossbow",
+    "repeating-hand-crossbow",
+    "repeating-heavy-crossbow",
+] satisfies BaseWeaponType[];
+
+const DEFAULT_AMMO_STACK_GROUPS: Partial<Record<AmmoCategory, keyof typeof STACK_DEFINITIONS>> = {
+    arrow: "arrows",
+    round: "rounds10",
+    bolt: "bolts",
+    "sling-bullet": "slingBullets",
+    "blowgun-dart": "blowgunDarts",
+    "wooden-taw": "woodenTaws",
+};
+
+interface BaseAmmoTypeData {
+    label: string;
+    stackGroup: keyof typeof STACK_DEFINITIONS | null;
+    category: keyof typeof ammoCategories;
+    weapon: string | null; // The associated base weapon or weapon slug (if any)
+}
+
+// Despite usually being bespoke, magazines and rounds have their own ammo types
+// to support data fallbacks and looser table rules.
+const ammoTypes = {
+    ...R.mapValues(
+        R.omit(ammoCategories, ["round"]),
+        (_, category): BaseAmmoTypeData => ({
+            label: `PF2E.Item.Consumable.AmmoType.${category}`,
+            stackGroup: DEFAULT_AMMO_STACK_GROUPS[category] ?? null,
+            category,
+            weapon: null,
+        }),
+    ),
+    round: {
+        label: "PF2E.Item.Consumable.AmmoType.round",
+        stackGroup: "rounds10",
+        category: "round",
+        weapon: null,
+    },
+    // Include all rounds
+    ...R.mapToObj(round5Firearms, (baseWeapon) => [
+        `round-${baseWeapon}`,
+        {
+            label: `PF2E.Item.Consumable.AmmoType.round-${baseWeapon}`,
+            stackGroup: "rounds5",
+            category: "round",
+            weapon: baseWeapon,
+        },
+    ]),
+    ...R.mapToObj([...round10Firearms, ...beastGuns], (baseWeapon) => [
+        `round-${baseWeapon}`,
+        {
+            label: `PF2E.Item.Consumable.AmmoType.round-${baseWeapon}`,
+            stackGroup: "rounds10",
+            category: "round",
+            weapon: baseWeapon,
+        },
+    ]),
+    // Include all magazines
+    ...R.mapToObj(magazineWeapons, (baseWeapon) => [
+        `magazine-${baseWeapon}`,
+        {
+            label: `PF2E.Item.Consumable.AmmoType.magazine-${baseWeapon}`,
+            stackGroup: null,
+            category: "magazine",
+            weapon: baseWeapon,
+        },
+    ]),
+    "backpack-catapult-stone": {
+        label: "PF2E.Item.Consumable.AmmoType.backpack-catapult-stone",
+        stackGroup: null,
+        category: "sling-bullet",
+        weapon: "backpack-catapult",
+    },
+    "weapon-dart": {
+        label: "PF2E.Item.Consumable.AmmoType.weapon-dart",
+        stackGroup: null,
+        category: "weapon",
+        weapon: "dart",
+    },
+} satisfies Record<string, BaseAmmoTypeData>;
+
 export const PF2ECONFIG = {
     defaultPartyId: "xxxPF2ExPARTYxxx",
     chatDamageButtonShieldToggle: false,
@@ -404,16 +580,8 @@ export const PF2ECONFIG = {
     resistanceTypes,
 
     stackGroups: {
-        arrows: "PF2E.StackGroupArrows",
-        blowgunDarts: "PF2E.StackGroupBlowgunDarts",
-        bolts: "PF2E.StackGroupBolts",
         coins: "PF2E.StackGroupCoins",
         gems: "PF2E.StackGroupGems",
-        rounds5: "PF2E.StackGroupRounds5",
-        rounds10: "PF2E.StackGroupRounds10",
-        slingBullets: "PF2E.StackGroupSlingBullets",
-        sprayPellets: "PF2E.StackGroupSprayPellets",
-        woodenTaws: "PF2E.StackGroupWoodenTaws",
     },
 
     weaknessTypes,
@@ -611,6 +779,9 @@ export const PF2ECONFIG = {
         friendly: "PF2E.Attitudes.Friendly",
         helpful: "PF2E.Attitudes.Helpful",
     },
+
+    ammoCategories,
+    ammoTypes,
 
     skills: Object.freeze({
         acrobatics: { label: "PF2E.Skill.Acrobatics", attribute: "dex" },
