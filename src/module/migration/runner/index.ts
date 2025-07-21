@@ -10,6 +10,7 @@ import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { Progress } from "@system/progress.ts";
+import * as R from "remeda";
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {
@@ -101,8 +102,31 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
+    /**
+     * Remove special keys from object with side-effects without applying them.
+     * Sometimes data may be persisted with special keys and not removing them causes issues.
+     * Remove once https://github.com/foundryvtt/foundryvtt/issues/13201 is complete if it also covers saved documents
+     */
+    #removeSpecialKeys<T>(data: T) {
+        if (Array.isArray(data)) {
+            for (const value of data) {
+                this.#removeSpecialKeys(value);
+            }
+        } else if (R.isPlainObject(data)) {
+            for (const key of Object.keys(data)) {
+                if (key.startsWith("-=")) {
+                    delete data[key];
+                } else {
+                    this.#removeSpecialKeys(data[key]);
+                }
+            }
+        }
+
+        return data;
+    }
+
     async #migrateItem(migrations: MigrationBase[], item: ItemPF2e): Promise<ItemSourcePF2e | null> {
-        const baseItem = item.toObject();
+        const baseItem = this.#removeSpecialKeys(item.toObject());
 
         try {
             return await this.getUpdatedItem(baseItem, migrations);
@@ -120,7 +144,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         options: { pack?: Maybe<string> } = {},
     ): Promise<ActorSourcePF2e | null> {
         const pack = options.pack;
-        const baseActor = actor.toObject();
+        const baseActor = this.#removeSpecialKeys(actor.toObject());
 
         const updatedActor = await (async () => {
             try {
