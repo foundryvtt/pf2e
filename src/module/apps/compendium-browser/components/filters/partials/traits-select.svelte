@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Svelecte from "svelecte";
     import type { Snippet } from "svelte";
     import type { Action } from "svelte/action";
     import type { TraitData } from "../../../tabs/data.ts";
+    import SvelectePf2e from "@module/sheet/components/svelecte-pf2e.svelte";
 
     type TraitOption = TraitData["options"][number];
 
@@ -44,7 +44,7 @@
 </script>
 
 <div class="traits-select">
-    <Svelecte {...props} {i18n} />
+    <SvelectePf2e {...props} {i18n} />
 </div>
 
 <style lang="scss">
@@ -55,37 +55,6 @@
 
     :global {
         #compendium-browser {
-            --sv-color: var(--color-dark-1);
-            --sv-item-btn-color: var(--color-text-trait);
-            --sv-item-btn-color-hover: var(--color-text-trait);
-            --sv-control-bg: rgba(0, 0, 0, 0.1);
-            --sv-icon-color: var(--color-dark-6);
-            --sv-item-selected-bg: var(--color-bg-trait);
-            --sv-item-btn-bg: var(--color-bg-trait);
-
-            --sv-selection-multi-wrap-padding: 0.15em;
-            --sv-selection-gap: 0.2em;
-
-            .sv-input--text {
-                width: auto;
-                height: unset;
-                line-height: unset;
-                padding: 0 0.25em;
-                background: none;
-                border: none;
-                border-radius: unset;
-                outline: unset;
-                color: var(--input-text-color);
-                user-select: unset;
-                font-size: unset;
-                transition: unset;
-
-                &:focus {
-                    box-shadow: none;
-                    outline: unset;
-                }
-            }
-
             .sv-control {
                 cursor: text;
 
@@ -130,14 +99,6 @@
                     }
                 }
             }
-        }
-
-        .theme-dark #compendium-browser {
-            --sv-color: var(--color-light-3);
-            --sv-control-bg: var(--color-cool-4);
-            --sv-icon-color: var(--color-light-3);
-            --sv-dropdown-bg: var(--color-dark-2);
-            --sv-dropdown-active-bg: #553d3d;
         }
     }
 </style>
