@@ -15,11 +15,17 @@ import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import type { Coins } from "@item/physical/data.ts";
-import { detachSubitem, sizeItemForActor } from "@item/physical/helpers.ts";
+import { sizeItemForActor } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
-import { createSheetTags, eventToRollMode, eventToRollParams, maintainFocusInRender } from "@module/sheet/helpers.ts";
+import {
+    createSheetTags,
+    eventToRollMode,
+    eventToRollParams,
+    isControlDown,
+    maintainFocusInRender,
+} from "@module/sheet/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
@@ -708,7 +714,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             },
             "detach-subitem": (event) => {
                 const subitem = inventoryItemFromDOM(event);
-                return detachSubitem(subitem, event.ctrlKey);
+                return subitem.detach({ skipConfirm: isControlDown(event) });
             },
             "increase-quantity": (event) => {
                 const item = inventoryItemFromDOM(event);

@@ -4,6 +4,7 @@ import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_module.d.m
 import type { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e, checkPhysicalItemSystemChange, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { ARMOR_UPGRADES } from "@scripts/config/usage.ts";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
@@ -73,6 +74,17 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         );
 
         return rollOptions;
+    }
+
+    override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {
+        if (candidate === this) return false;
+
+        const usage = candidate.system.usage;
+        if (usage.type === "installed" && usage.value in ARMOR_UPGRADES) {
+            return true;
+        }
+
+        return false;
     }
 
     override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {

@@ -5,7 +5,7 @@ import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
-import { ErrorPF2e, createHTMLElement, localizer, tupleHasValue } from "@util";
+import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
@@ -312,44 +312,6 @@ function prepareBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData {
         : data;
 }
 
-/**
- * Detach a subitem from another physical item, either creating it as a new, independent item or incrementing the
- * quantity of aan existing stack.
- */
-async function detachSubitem(subitem: PhysicalItemPF2e, skipConfirm: boolean): Promise<void> {
-    const parentItem = subitem.parentItem;
-    if (!parentItem) throw ErrorPF2e("Subitem has no parent item");
-
-    const localize = localizer("PF2E.Item.Physical.Attach.Detach");
-    const confirmed =
-        skipConfirm ||
-        (await foundry.applications.api.DialogV2.confirm({
-            window: { title: localize("Label") },
-            content: createHTMLElement("p", { children: [localize("Prompt", { attachable: subitem.name })] }).outerHTML,
-            yes: { default: true },
-        }));
-
-    if (confirmed) {
-        const deletePromise = subitem.delete();
-        const createPromise = (async (): Promise<unknown> => {
-            // Find a stack match, cloning the subitem as worn so the search won't fail due to it being equipped
-            const stack = subitem.isOfType("consumable")
-                ? parentItem.actor?.inventory.findStackableItem(subitem.clone({ "system.equipped.carryType": "worn" }))
-                : null;
-            const keepId = !!parentItem.actor && !parentItem.actor.items.has(subitem.id);
-            return (
-                stack?.update({ "system.quantity": stack.quantity + 1 }) ??
-                Item.implementation.create(
-                    fu.mergeObject(subitem.toObject(), { "system.containerId": parentItem.system.containerId }),
-                    { parent: parentItem.actor, keepId },
-                )
-            );
-        })();
-
-        await Promise.all([deletePromise, createPromise]);
-    }
-}
-
 /** Clone an item, sizing it appropriately for the actor. For larger PCs, set the price's sensitity to false.  */
 function sizeItemForActor<TItem extends PhysicalItemPF2e>(item: TItem, actor: ActorPF2e): TItem {
     if (item.isOfType("treasure") || !actor.isOfType("creature")) return item.clone();
@@ -378,7 +340,6 @@ export {
     CoinsPF2e,
     checkPhysicalItemSystemChange,
     computeLevelRarityPrice,
-    detachSubitem,
     generateItemName,
     getDefaultEquipStatus,
     handleHPChange,

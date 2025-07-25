@@ -22,6 +22,7 @@ import {
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { RangeData } from "@item/types.ts";
 import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
+import { WEAPON_UPGRADES } from "@scripts/config/usage.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -195,15 +196,24 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {
-        return (
-            candidate !== this &&
-            candidate.isOfType("weapon") &&
-            candidate.system.traits.value.some((t) => t === "attached-to-crossbow-or-firearm") &&
-            ["crossbow", "firearm"].includes(this.group ?? "") &&
-            !this.isAttachable &&
-            !this.system.traits.value.includes("combination") &&
-            !this.subitems.some((i) => i.isOfType("weapon"))
-        );
+        if (candidate === this) return false;
+
+        if (candidate.isOfType("weapon")) {
+            return (
+                candidate.system.traits.value.some((t) => t === "attached-to-crossbow-or-firearm") &&
+                ["crossbow", "firearm"].includes(this.group ?? "") &&
+                !this.isAttachable &&
+                !this.system.traits.value.includes("combination") &&
+                !this.subitems.some((i) => i.isOfType("weapon"))
+            );
+        }
+
+        const usage = candidate.system.usage;
+        if (usage.type === "installed" && usage.value in WEAPON_UPGRADES) {
+            return true;
+        }
+
+        return false;
     }
 
     override isStackableWith(item: PhysicalItemPF2e): boolean {

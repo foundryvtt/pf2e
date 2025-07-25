@@ -10,6 +10,11 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         return CONFIG.PF2E.equipmentTraits;
     }
 
+    /** Whether the item has an attached (or affixed, applied, etc.) usage */
+    override get isAttachable(): boolean {
+        return this.system.usage.type === "installed";
+    }
+
     override async getChatData(
         this: EquipmentPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptionsPF2e = {},

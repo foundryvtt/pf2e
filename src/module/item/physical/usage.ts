@@ -21,6 +21,13 @@ interface AttachedUsage {
     hands?: 0;
 }
 
+interface InstalledUsage {
+    value: string;
+    type: "installed";
+    where: string;
+    hands?: 0;
+}
+
 interface CarriedUsage {
     value: "carried";
     type: "carried";
@@ -35,7 +42,7 @@ interface ImplantedUsage {
     hands?: 0;
 }
 
-type UsageDetails = HeldUsage | WornUsage | AttachedUsage | CarriedUsage | ImplantedUsage;
+type UsageDetails = HeldUsage | WornUsage | AttachedUsage | InstalledUsage | CarriedUsage | ImplantedUsage;
 
 type UsageType = UsageDetails["type"];
 
@@ -54,6 +61,16 @@ function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean {
 }
 
 function getUsageDetails(usage: string): UsageDetails {
+    if (usage.startsWith("attached-to")) {
+        const where = usage.replace(/^attached-to-/, "");
+        return { value: usage, type: "attached", where };
+    }
+
+    if (usage.startsWith("installed-in")) {
+        const where = usage.replace(/^installed-in-/, "");
+        return { value: usage, type: "installed", where };
+    }
+
     switch (usage) {
         case "carried":
         case "":
@@ -70,16 +87,6 @@ function getUsageDetails(usage: string): UsageDetails {
             return { value: usage, type: "worn" };
         case "implanted":
             return { value: usage, type: "implanted" };
-
-        case "attached-to-a-thrown-weapon":
-        case "attached-to-crossbow-or-firearm":
-        case "attached-to-crossbow-or-firearm-firing-mechanism":
-        case "attached-to-crossbow-or-firearm-scope":
-        case "attached-to-firearm":
-        case "attached-to-firearm-scope":
-        case "attached-to-melee-weapon":
-        case "attached-to-ships-bow":
-            return { value: usage, type: "attached", where: usage.replace(/^attached-to-/, "") };
 
         default:
             if (usage.startsWith("worn") && usage.length > 4) {

@@ -147,8 +147,12 @@ function eventToRollParams(event: Maybe<Event>, rollType: { type: "check" | "dam
 /** Set roll mode from a user's input: used for messages that are not actually rolls. */
 function eventToRollMode(event: Maybe<Event>): RollMode | "roll" {
     if (!isRelevantEvent(event)) return "roll";
-    const ctrlDown = fh.interaction.KeyboardManager.CONTROL_KEY_STRING === "⌘" ? event?.metaKey : event?.ctrlKey;
-    return ctrlDown ? (game.user.isGM ? "gmroll" : "blindroll") : "roll";
+    return isControlDown(event) ? (game.user.isGM ? "gmroll" : "blindroll") : "roll";
+}
+
+/** Returns true if the control key is held down, handling mac */
+function isControlDown(event: MouseEvent | KeyboardEvent | TouchEvent): boolean {
+    return fh.interaction.KeyboardManager.CONTROL_KEY_STRING === "⌘" ? event.metaKey : event.ctrlKey;
 }
 
 /** Given a uuid, loads the item and sends it to chat, potentially recontextualizing it with a given actor */
@@ -245,6 +249,7 @@ export {
     getAdjustedValue,
     getAdjustment,
     getItemFromDragEvent,
+    isControlDown,
     maintainFocusInRender,
     sendItemToChat,
 };
