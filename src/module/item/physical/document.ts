@@ -149,7 +149,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     get isInvested(): boolean | null {
         if (!this.system.traits.value.includes("invested")) return null;
         return (
-            (this.isEquipped || this.system.usage.type !== "worn") &&
+            (this.isEquipped || !["implanted", "worn"].includes(this.system.usage.type)) &&
             !this.isStowed &&
             this.isIdentified &&
             this.system.equipped.invested === true

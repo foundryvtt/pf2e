@@ -28,7 +28,14 @@ interface CarriedUsage {
     hands?: 0;
 }
 
-type UsageDetails = HeldUsage | WornUsage | AttachedUsage | CarriedUsage;
+interface ImplantedUsage {
+    value: string;
+    type: "implanted";
+    where?: never;
+    hands?: 0;
+}
+
+type UsageDetails = HeldUsage | WornUsage | AttachedUsage | CarriedUsage | ImplantedUsage;
 
 type UsageType = UsageDetails["type"];
 
@@ -61,6 +68,8 @@ function getUsageDetails(usage: string): UsageDetails {
 
         case "worn":
             return { value: usage, type: "worn" };
+        case "implanted":
+            return { value: usage, type: "implanted" };
 
         case "attached-to-a-thrown-weapon":
         case "attached-to-crossbow-or-firearm":
