@@ -10,6 +10,7 @@ import { AbilitySheetPF2e } from "@item/ability/sheet.ts";
 import { AfflictionSheetPF2e } from "@item/affliction/sheet.ts";
 import { AncestrySheetPF2e } from "@item/ancestry/sheet.ts";
 import { ArmorSheetPF2e } from "@item/armor/sheet.ts";
+import { AugmentationSheetPF2e } from "@item/augmentation/sheet.ts";
 import { BackgroundSheetPF2e } from "@item/background/sheet.ts";
 import { ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { BookSheetPF2e } from "@item/book/sheet.ts";
@@ -130,6 +131,7 @@ export function registerSheets(): void {
         ["affliction", AfflictionSheetPF2e],
         ["ancestry", AncestrySheetPF2e],
         ["armor", ArmorSheetPF2e],
+        ["augmentation", AugmentationSheetPF2e],
         ["background", BackgroundSheetPF2e],
         ["backpack", ContainerSheetPF2e],
         ["book", BookSheetPF2e],

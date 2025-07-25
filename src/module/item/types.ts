@@ -6,6 +6,7 @@ interface ItemInstances<TParent extends ActorPF2e | null> {
     affliction: ItemInstance.AfflictionPF2e<TParent>;
     ancestry: ItemInstance.AncestryPF2e<TParent>;
     armor: ItemInstance.ArmorPF2e<TParent>;
+    augmentation: ItemInstance.AugmentationPF2e<TParent>;
     background: ItemInstance.BackgroundPF2e<TParent>;
     backpack: ItemInstance.ContainerPF2e<TParent>;
     book: ItemInstance.BookPF2e<TParent>;

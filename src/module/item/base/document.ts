@@ -592,9 +592,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         options.types ??= Object.keys(game.system.documentTypes.Item);
 
         // Figure out the types to omit
+        const isStarfinderEnabled = game.modules.get("sf2e-anachronism")?.active;
         const omittedTypes: ItemType[] = ["condition", "spellcastingEntry", "lore"];
         if (BUILD_MODE === "production") omittedTypes.push("affliction", "book");
         if (game.settings.get("pf2e", "campaignType") !== "kingmaker") omittedTypes.push("campaignFeature");
+        if (!isStarfinderEnabled) omittedTypes.push("augmentation");
 
         for (const type of omittedTypes) {
             options.types.findSplice((t) => t === type);

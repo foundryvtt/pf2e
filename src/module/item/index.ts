@@ -13,6 +13,7 @@ export { EffectPF2e } from "./effect/document.ts";
 
 // Physical Items
 export { ArmorPF2e } from "./armor/document.ts";
+export { AugmentationPF2e } from "./augmentation/document.ts";
 export { BookPF2e } from "./book/document.ts";
 export { ConsumablePF2e } from "./consumable/document.ts";
 export { ContainerPF2e } from "./container/document.ts";

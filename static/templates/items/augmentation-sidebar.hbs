@@ -1,0 +1,68 @@
+<div class="inventory-details">
+    {{#unless item.parentItem}}
+        <div class="form-group quantity">
+            <label for="{{fieldIdPrefix}}quantity">{{localize "PF2E.QuantityLabel"}}</label>
+            <input type="number" name="system.quantity" id="{{fieldIdPrefix}}quantity" value="{{data.quantity}}" />
+        </div>
+    {{/unless}}
+
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}size">{{localize "PF2E.Size"}}</label>
+        <select id="{{fieldIdPrefix}}size" data-property="system.size">
+            {{selectOptions sizes selected=data.size localize=true}}
+        </select>
+    </div>
+
+    <div class="form-group price">
+        <label for="{{fieldIdPrefix}}price">
+            {{localize "PF2E.PriceLabel"}}
+            {{#if adjustedPriceHint}}<i class="fa-solid fa-circle-info" data-tooltip="{{adjustedPriceHint}}"></i>{{/if}}
+        </label>
+        <div class="form-fields">
+            <input
+                type="text"
+                {{#if priceAdjustment}}class="{{priceAdjustment}}"{{/if}}
+                id="{{fieldIdPrefix}}price"
+                value="{{item.system.price.value}}"
+                data-property="system.price.value"
+                data-value-base="{{basePrice}}"
+                spellcheck="false"
+            />
+            {{#if (eq item.type "consumable")}}
+                <span class="slash">/</span>
+                <input type="number" class="per" name="system.price.per" value="{{item.system.price.per}}" />
+            {{/if}}
+        </div>
+    </div>
+
+    {{#if data.subitems}}
+        <div class="form-group subitems">
+            <label>{{localize "PF2E.Item.Physical.Attachments"}}</label>
+            <ul data-subitems>
+                {{#each data.subitems as |subitem|}}
+                    <li data-subitem-id="{{subitem._id}}">
+                        <span class="name"><img src="{{subitem.img}}" /> {{subitem.name}}</span>
+                        <span class="controls">
+                            <a class="detach" data-action="detach-subitem">
+                                <span class="fa-stack fa-fw fa-2xs">
+                                    <i class="fa-solid fa-paperclip fa-stack-2x"></i>
+                                    <i class="fa-solid fa-slash fa-stack-2x"></i>
+                                </span>
+                            </a>
+                            <a data-action="edit-subitem"><i class="fa-solid fa-fw fa-edit"></i></a>
+                            <a data-action="delete-subitem"><i class="fa-solid fa-fw fa-trash"></i></a>
+                        </span>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
+
+    {{#if otherTags}}
+        <ol class="item-tags tags">
+            {{#each otherTags as |tag|}}
+                <li class="tag tag_transparent">{{tag.label}}</li>
+            {{/each}}
+        </ol>
+    {{/if}}
+</div>
