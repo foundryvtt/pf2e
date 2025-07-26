@@ -5,7 +5,7 @@ import { ZeroToFour } from "@module/data.ts";
 import { sluggify } from "@util";
 
 class LorePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    generateSlug(): string {
+    override get slug(): string {
         const rawLoreSlug = sluggify(this.name);
         return /\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`;
     }
