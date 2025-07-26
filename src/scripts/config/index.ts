@@ -656,6 +656,9 @@ export const PF2ECONFIG = {
     consumableCategories,
     identification: configFromLocalization(EN_JSON.PF2E.identification, "PF2E.identification"),
 
+    /** Base weapons that should always be treated as thrown */
+    thrownBaseWeapons: ["alchemical-bomb"] as const,
+
     preparationType: {
         prepared: "PF2E.PreparationTypePrepared",
         spontaneous: "PF2E.PreparationTypeSpontaneous",

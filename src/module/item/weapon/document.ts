@@ -135,7 +135,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Whether the weapon in its current usage is thrown: a thrown-only weapon or a thrown usage of a melee weapon */
     get isThrown(): boolean {
-        return this.isRanged && (this.baseType === "alchemical-bomb" || this.system.traits.value.includes("thrown"));
+        const isThrownBaseType = tupleHasValue(CONFIG.PF2E.thrownBaseWeapons, this.baseType);
+        return this.isRanged && (isThrownBaseType || this.system.traits.value.includes("thrown"));
     }
 
     /** Whether the weapon is _can be_ thrown: a thrown-only weapon or one that has a throwable usage */
