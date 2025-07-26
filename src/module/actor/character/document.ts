@@ -886,7 +886,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         });
 
         // Assemble lore items, key'd by a normalized slug
-        const loreItems = R.mapToObj(this.itemTypes.lore, (loreItem) =>  [loreItem.generateSlug(), loreItem]);
+        const loreItems = R.mapToObj(this.itemTypes.lore, (loreItem) => [loreItem.generateSlug(), loreItem]);
 
         // Add Lore skills to skill statistics
         for (const [slug, loreItem] of Object.entries(loreItems)) {
