@@ -651,6 +651,36 @@ export const PF2ECONFIG = {
         5: "-5/-10",
     },
 
+    grades: {
+        commercial: "PF2E.Item.Physical.Grade.commercial",
+        tactical: "PF2E.Item.Physical.Grade.tactical",
+        advanced: "PF2E.Item.Physical.Grade.advanced",
+        superior: "PF2E.Item.Physical.Grade.superior",
+        elite: "PF2E.Item.Physical.Grade.elite",
+        ultimate: "PF2E.Item.Physical.Grade.ultimate",
+        paragon: "PF2E.Item.Physical.Grade.paragon",
+    },
+
+    weaponImprovements: {
+        commercial: { level: 0, tracking: 0, dice: 1, credits: 0 },
+        tactical: { level: 2, tracking: 1, dice: 1, credits: 350 },
+        advanced: { level: 4, tracking: 1, dice: 2, credits: 1000 },
+        superior: { level: 10, tracking: 2, dice: 2, credits: 10000 },
+        elite: { level: 12, tracking: 2, dice: 3, credits: 20000 },
+        ultimate: { level: 16, tracking: 3, dice: 3, credits: 100000 },
+        paragon: { level: 19, tracking: 3, dice: 4, credits: 400000 },
+    },
+
+    armorImprovements: {
+        commercial: { level: 0, bonus: 0, resilient: 0, credits: 0 },
+        tactical: { level: 5, bonus: 1, resilient: 0, credits: 1600 },
+        advanced: { level: 8, bonus: 1, resilient: 1, credits: 5000 },
+        superior: { level: 11, bonus: 2, resilient: 1, credits: 14000 },
+        elite: { level: 14, bonus: 2, resilient: 2, credits: 45000 },
+        ultimate: { level: 18, bonus: 3, resilient: 2, credits: 240000 },
+        paragon: { level: 20, bonus: 3, resilient: 3, credits: 700000 },
+    },
+
     weaponReload,
     armorCategories,
     armorGroups,

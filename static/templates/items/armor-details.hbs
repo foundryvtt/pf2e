@@ -138,7 +138,14 @@
     </div>
 
     {{#unless item.isBarding}}
-        {{#unless abpEnabled}}
+        {{#if data.grade}}
+            <div class="form-group">
+                <label for="{{fieldIdPrefix}}grade">{{localize "PF2E.Item.Physical.FIELDS.grade.label"}}</label>
+                <select data-property="system.grade" id="{{fieldIdPrefix}}grade">
+                    {{selectOptions grades selected=data.grade}}
+                </select>
+            </div>
+        {{else if (not abpEnabled)}}
             <div class="form-group">
                 <label for="{{fieldIdPrefix}}rune-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
                 <select data-property="system.runes.potency" id="{{fieldIdPrefix}}rune-potency" data-dtype="Number">
@@ -153,7 +160,7 @@
                     {{selectOptions (omit runeTypes.resilient 0) selected=data.runes.resilient labelAttr="name" localize=true}}
                 </select>
             </div>
-        {{/unless}}
+        {{/if}}
 
         {{#each propertyRuneSlots as |slot index|}}
             <div class="form-group">

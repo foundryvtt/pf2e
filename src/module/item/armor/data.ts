@@ -7,6 +7,7 @@ import {
     PhysicalSystemData,
     PhysicalSystemSource,
 } from "@item/physical/data.ts";
+import type { Grade } from "@item/physical/types.ts";
 import { WornUsage } from "@item/physical/usage.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { ArmorCategory, ArmorGroup, ArmorPropertyRuneType, ArmorTrait, BaseArmorType, OtherArmorTag } from "./index.ts";
@@ -23,6 +24,7 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     dexCap: number;
     checkPenalty: number;
     speedPenalty: number;
+    grade: Grade | null;
     runes: ArmorRuneSource;
     /** Details of specific magic armor, storing the material and rune state when toggled on */
     specific: SpecificArmorData | null;

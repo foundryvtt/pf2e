@@ -92,9 +92,18 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         const maxPropertySlots = getPropertyRuneSlots(this);
         this.system.runes.property.length = Math.min(this.system.runes.property.length, maxPropertySlots);
 
-        // Add traits from fundamental runes
         const abpEnabled = ABP.isEnabled(this.actor);
         const baseTraits = this.system.traits.value;
+
+        // Determine if this weapon uses runes or CTASEUP and clear the opposing data
+        const isSF2e = baseTraits.some((v) => v === "tech" || v === "analog");
+        this.system.grade = isSF2e ? (this.system.grade ?? "commercial") : null;
+        if (isSF2e) {
+            this.system.runes.potency = 0;
+            this.system.runes.resilient = 0;
+        }
+
+        // Add traits from fundamental runes
         const investedTrait =
             this.system.runes.potency ||
             this.system.runes.resilient ||
@@ -110,9 +119,16 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        const potencyRune = this.isInvested && !ABP.isEnabled(this.actor) ? this.system.runes.potency : 0;
-        const baseArmor = Number(this.system.acBonus) || 0;
-        this.system.acBonus = baseArmor + potencyRune;
+        if (!ABP.isEnabled(this.actor)) {
+            this.system.acBonus = Number(this.system.acBonus);
+            if (this.system.grade) {
+                const improvements = CONFIG.PF2E.armorImprovements;
+                const gradeData = improvements[this.system.grade ?? "commercial"] ?? improvements.commercial;
+                this.system.acBonus += gradeData.bonus;
+            } else {
+                this.system.acBonus += this.isInvested ? this.system.runes.potency : 0;
+            }
+        }
     }
 
     override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {
@@ -176,6 +192,17 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (!changed.system) return super._preUpdate(changed, options, user);
+
+        // Clear runes or grade based on tech/analog traits
+        const traits = changed.system.traits ?? {};
+        if ("value" in traits && Array.isArray(traits.value)) {
+            if (traits.value.some((t) => t === "tech" || t === "analog")) {
+                changed.system.runes = { potency: 0, resilient: 0 };
+                changed.system.grade ??= this._source.system.grade ?? "commercial";
+            } else {
+                changed.system.grade = null;
+            }
+        }
 
         if (changed.system.acBonus !== undefined) {
             const integerValue = Math.floor(Number(changed.system.acBonus)) || 0;
