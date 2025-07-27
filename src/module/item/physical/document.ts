@@ -739,6 +739,55 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     ): Promise<boolean | void> {
         if (!changed.system) return super._preUpdate(changed, operation, user);
 
+        // If this weapon is gaining traits that change between PF2E/SF2e mechanics, warn before continuing
+        // The actual subclasses handle the deletion itself
+        const newTraits: string[] | undefined = changed.system.traits?.value;
+        if (this.isOfType("weapon", "armor") && newTraits) {
+            const beforeSF2eTraits = this._source.system.traits.value.filter((t) => t === "tech" || t === "analog");
+            const wasSF2e = !!beforeSF2eTraits.length;
+            const becomingSF2e = newTraits.some((t) => t === "tech" || t === "analog");
+            const runes = this._source.system.runes;
+            const hasRunes =
+                ("potency" in runes && runes.potency) ||
+                ("striking" in runes && runes.striking) ||
+                ("resilient" in runes && runes.resilient) ||
+                runes.property.length > 0;
+            const hasGrade = this.system.grade && this.system.grade !== "commercial";
+            if (wasSF2e !== becomingSF2e && (hasRunes || hasGrade)) {
+                const key = `PF2E.Item.Physical.ChangeEquipmentSystem.${becomingSF2e ? "ToStarfinder" : "ToPathfinder"}`;
+                const removedTrait = beforeSF2eTraits.find((t) => !newTraits.includes(t));
+                const otherTrait = removedTrait === "tech" ? "analog" : "tech";
+                const newTrait = newTraits.find((t) => t === "tech" || t === "analog");
+                const otherTraitLabel = otherTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[otherTrait]);
+                const result = await foundry.applications.api.DialogV2.wait({
+                    window: { title: "PF2E.Item.Physical.ChangeEquipmentSystem.Title" },
+                    position: { width: 400 },
+                    modal: true,
+                    content: game.i18n.format(key, {
+                        type: game.i18n.localize(`TYPES.Item.${this.type}`),
+                        newTrait: newTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[newTrait]),
+                        removedTrait: removedTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[removedTrait]),
+                        otherTrait: otherTraitLabel,
+                    }),
+                    buttons: [
+                        { action: "yes", label: "Yes", icon: "fa-solid fa-check", callback: () => true },
+                        !becomingSF2e && {
+                            action: "change",
+                            label: otherTraitLabel,
+                            icon: "fa-solid fa-plus",
+                        },
+                        { action: "no", label: "No", icon: "fa-solid fa-xmark", default: true, callback: () => false },
+                    ].filter(R.isTruthy),
+                });
+                if (!result) {
+                    this.sheet.render(false); // tagify is optimistic, so we need to re-render
+                    return false;
+                } else if (result === "change") {
+                    newTraits.push(otherTrait);
+                }
+            }
+        }
+
         for (const property of ["quantity", "hardness"] as const) {
             if (changed.system[property] !== undefined) {
                 const max = property === "quantity" ? 999_999 : 999;

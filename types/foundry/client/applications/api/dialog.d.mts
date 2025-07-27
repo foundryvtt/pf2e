@@ -73,7 +73,7 @@ export default class DialogV2<
         ...options
     }: {
         ok: Partial<DialogV2Button>;
-    } & Partial<DialogV2Configuration & DialogV2WaitOptions>): Promise<unknown>;
+    } & DeepPartial<DialogV2Configuration & DialogV2WaitOptions>): Promise<unknown>;
 
     /**
      * Spawn a dialog and wait for it to be dismissed or submitted.
@@ -92,10 +92,10 @@ export default class DialogV2<
         render,
         ...options
     }: {
-        rejectClose: boolean;
-        close: DialogV2CloseCallback;
-        render: DialogV2RenderCallback;
-    } & Partial<DialogV2Configuration>): Promise<unknown>;
+        rejectClose?: boolean;
+        close?: DialogV2CloseCallback;
+        render?: DialogV2RenderCallback;
+    } & DeepPartial<DialogV2Configuration>): Promise<unknown>;
 }
 
 export interface DialogV2Button {
