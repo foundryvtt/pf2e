@@ -557,6 +557,7 @@ interface ResolveValueParams {
 }
 
 interface RuleElementOptions extends DataModelConstructionContext<ItemPF2e<ActorPF2e>> {
+    parent: ItemPF2e<ActorPF2e>;
     /** If created from an item, the index in the source data */
     sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */
