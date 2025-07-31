@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor";
+import { ResourceData } from "@actor/creature/types.ts";
 import { TraitViewData } from "@actor/data/base.ts";
 import { CheckModifier } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
@@ -41,7 +42,7 @@ import { CheckCheckContext } from "./types.ts";
 interface RerollOptions {
     /** @deprecated Use `resource: "hero-points"` instead. */
     heroPoint?: boolean;
-    resource?: "hero-points" | "mythic-points";
+    resource?: string;
     keep?: "new" | "higher" | "lower";
 }
 
@@ -443,10 +444,7 @@ class CheckPF2e {
     }
 
     /** Reroll a rolled check given a chat message. */
-    static async rerollFromMessage(
-        message: ChatMessagePF2e,
-        { heroPoint = false, keep = "new", resource }: RerollOptions = {},
-    ): Promise<void> {
+    static async rerollFromMessage(message: ChatMessagePF2e, options: RerollOptions = {}): Promise<void> {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorCantDelete"));
             return;
@@ -458,14 +456,19 @@ class CheckPF2e {
             return;
         }
 
-        let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
+        let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${options.keep}`);
 
-        if (heroPoint && !resource) {
+        if (options.heroPoint) {
             fu.logCompatibilityWarning('The heroPoint option is deprecated. Use resource: "hero-points" instead.', {
                 since: "7.3",
                 until: "7.4",
             });
-            resource = "hero-points";
+        }
+        const resourceKey = options.resource ?? (options.heroPoint ? "hero-points" : "");
+        const resource = actor.getResource(resourceKey);
+
+        if (resource && resource.slug !== "hero-points" && resource.slug !== "mythic-points") {
+            console.warn(`${resource.label} is not a supported resource. Using it might lead to unexpected results.`);
         }
 
         if (resource) {
@@ -473,18 +476,17 @@ class CheckPF2e {
 
             // If the reroll costs a hero or mythic point, first check if the actor has one to spare and spend it
             if (rerollingActor?.isOfType("character")) {
-                const points = rerollingActor.getResource(resource);
-                if (points && points.value > 0) {
-                    await rerollingActor.updateResource(resource, points.value - 1);
+                if (resource && resource.value > 0) {
+                    await rerollingActor.updateResource(resource.slug, resource.value - 1);
                     rerollFlavor = game.i18n.localize(
-                        `PF2E.RerollMenu.Message${sluggify(resource, { camel: "bactrian" })}`,
+                        `PF2E.RerollMenu.Message${sluggify(resource.slug, { camel: "bactrian" })}`,
                     );
                 } else {
                     ui.notifications.warn("PF2E.RerollMenu.WarnNoResource", {
                         localize: true,
                         format: {
                             name: rerollingActor.name,
-                            resource: points.label,
+                            resource: resource.label,
                         },
                     });
                     return;
@@ -499,9 +501,9 @@ class CheckPF2e {
         context.skipDialog = true;
         context.isReroll = true;
         context.options.push("check:reroll");
-        if (resource) context.options.push(`check:reroll:${resource}`);
+        if (resource) context.options.push(`check:reroll:${resource.slug}`);
         // For backwards compatibility. Remove once the `heroPoint` option is removed.
-        if (resource === "hero-points") context.options.push(`check:hero-point`);
+        if (options.heroPoint) context.options.push(`check:hero-point`);
 
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
@@ -510,7 +512,7 @@ class CheckPF2e {
         // Clone the old roll and call a hook allowing the clone to be altered.
         // Tampering with the old roll is disallowed.
         const unevaluatedNewRoll = ((): CheckRoll => {
-            if (resource !== "mythic-points" || !actor.isOfType("character")) return oldRoll.clone();
+            if (resource?.slug !== "mythic-points" || !actor.isOfType("character")) return oldRoll.clone();
             // Create a new CheckRoll in case of a mythic point reroll
             const proficiencyModifier = (systemFlags.modifiers ?? []).find((m) => m.slug === "proficiency");
             if (!proficiencyModifier) {
@@ -531,12 +533,12 @@ class CheckPF2e {
             );
         })();
         unevaluatedNewRoll.options.isReroll = true;
-        Hooks.callAll("pf2e.preReroll", Roll.fromJSON(oldRollJSON), unevaluatedNewRoll, resource, keep);
+        Hooks.callAll("pf2e.preReroll", Roll.fromJSON(oldRollJSON), unevaluatedNewRoll, resource, options.keep);
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
         const allowInteractive = context.rollMode !== "blindroll";
         const newRoll = await unevaluatedNewRoll.evaluate({ allowInteractive });
-        Hooks.callAll("pf2e.reroll", Roll.fromJSON(oldRollJSON), newRoll, resource, keep);
+        Hooks.callAll("pf2e.reroll", Roll.fromJSON(oldRollJSON), newRoll, resource, options.keep);
 
         // Keep the new roll by default; Old roll is discarded
         let keptRoll = newRoll;
@@ -544,8 +546,8 @@ class CheckPF2e {
 
         // Check if we should keep the old roll instead.
         if (
-            (keep === "higher" && oldRoll.total > newRoll.total) ||
-            (keep === "lower" && oldRoll.total < newRoll.total)
+            (options.keep === "higher" && oldRoll.total > newRoll.total) ||
+            (options.keep === "lower" && oldRoll.total < newRoll.total)
         ) {
             // If so, switch the css classes and keep the old roll.
             [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
@@ -583,7 +585,13 @@ class CheckPF2e {
             new: await CheckPF2e.renderReroll(newRoll, { isOld: false, resource }),
         };
 
-        const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
+        const rerollIcon = fontAwesomeIcon(
+            resource?.slug === "hero-points"
+                ? "hospital-symbol"
+                : resource?.slug === "mythic-points"
+                  ? "circle-m"
+                  : "dice",
+        );
         rerollIcon.classList.add("reroll-indicator");
         rerollIcon.dataset.tooltip = rerollFlavor;
 
@@ -601,7 +609,7 @@ class CheckPF2e {
                   }
 
                   // Add mythic proficiency tag
-                  if (resource === "mythic-points") {
+                  if (resource?.slug === "mythic-points") {
                       const proficiencyTag = htmlQuery(parsedFlavor, "span[data-slug=proficiency]");
                       if (proficiencyTag) {
                           const mythicTag = proficiencyTag.cloneNode() as HTMLElement;
@@ -668,7 +676,7 @@ class CheckPF2e {
      */
     static async renderReroll(
         roll: Rolled<Roll>,
-        { isOld, resource }: { isOld: boolean; resource?: RerollOptions["resource"] },
+        { isOld, resource }: { isOld: boolean; resource?: ResourceData | null },
     ): Promise<string> {
         const die = roll.dice.find((d): d is Die => d instanceof foundry.dice.terms.Die && d.faces === 20);
         if (typeof die?.total !== "number") throw ErrorPF2e("Unexpected error inspecting d20 term");
@@ -678,10 +686,10 @@ class CheckPF2e {
 
         // Handle roll formula visibility
         const formulaElement = htmlQuery(element, ".dice-formula");
-        if (formulaElement && !isOld && resource !== "mythic-points") {
+        if (formulaElement && !isOld && resource?.slug !== "mythic-points") {
             // Hide rerolled formula for everything except mythic point rerolls
             formulaElement.classList.add("hidden");
-        } else if (formulaElement && isOld && resource === "mythic-points") {
+        } else if (formulaElement && isOld && resource?.slug === "mythic-points") {
             // Fade out the old formula element for mythic point rerolls
             formulaElement.style.opacity = "0.3";
         }

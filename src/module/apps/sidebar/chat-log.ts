@@ -383,10 +383,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             const message = game.messages.get(li.dataset.messageId, { strict: true });
             const actor = message.actor;
             return (
-                message.isRerollable &&
-                !!actor?.isOfType("character") &&
-                actor.system.resources.mythicPoints.value > 0 &&
-                actor.itemTypes.action.some((a) => a.slug === "rewrite-fate")
+                message.isRerollable && !!actor?.isOfType("character") && actor.system.resources.mythicPoints.value > 0
             );
         };
 
