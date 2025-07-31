@@ -455,6 +455,7 @@ class CheckPF2e {
             ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
             return;
         }
+        const rerollingActor = actor.isOfType("familiar") ? actor.master : actor;
 
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${options.keep}`);
 
@@ -465,15 +466,13 @@ class CheckPF2e {
             });
         }
         const resourceKey = options.resource ?? (options.heroPoint ? "hero-points" : "");
-        const resource = actor.getResource(resourceKey);
+        const resource = rerollingActor?.getResource(resourceKey);
 
         if (resource && resource.slug !== "hero-points" && resource.slug !== "mythic-points") {
             console.warn(`${resource.label} is not a supported resource. Using it might lead to unexpected results.`);
         }
 
         if (resource) {
-            const rerollingActor = actor.isOfType("familiar") ? actor.master : actor;
-
             // If the reroll costs a hero or mythic point, first check if the actor has one to spare and spend it
             if (rerollingActor?.isOfType("character")) {
                 if (resource && resource.value > 0) {
