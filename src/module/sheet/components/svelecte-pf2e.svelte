@@ -44,7 +44,7 @@
     const className = $derived((props.class ?? "" + " pf2e").trim());
 </script>
 
-<Svelecte {...props} class={className} {positionResolver} />
+<Svelecte {...props} {value} class={className} {positionResolver} />
 
 <style>
     :global {
