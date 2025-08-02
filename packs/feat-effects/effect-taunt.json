@@ -122,28 +122,19 @@
                 "key": "AdjustModifier",
                 "mode": "downgrade",
                 "predicate": [
-                    "bodyguard-taunt"
+                    "bodyguard-taunt",
+                    {
+                        "or": [
+                            "penalty:slug:taunt-attack-roll",
+                            "penalty:slug:taunt-dc"
+                        ]
+                    }
                 ],
                 "selectors": [
                     "attack-roll",
                     "inline-dc",
                     "spell-dc"
                 ],
-                "slug": "taunt-attack-roll",
-                "value": -2
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "downgrade",
-                "predicate": [
-                    "bodyguard-taunt"
-                ],
-                "selectors": [
-                    "attack-roll",
-                    "inline-dc",
-                    "spell-dc"
-                ],
-                "slug": "taunt-dc",
                 "value": -2
             },
             {

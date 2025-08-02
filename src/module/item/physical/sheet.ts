@@ -5,7 +5,7 @@ import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { getAdjustment } from "@module/sheet/helpers.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, localizer, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, localizer, sortStringRecord, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { detachSubitem } from "./helpers.ts";
 import { CoinsPF2e, MaterialValuationData } from "./index.ts";
@@ -91,7 +91,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
             sizes: R.omit(CONFIG.PF2E.actorSizes, ["sm"]),
-            usages: CONFIG.PF2E.usages,
+            usages: sortStringRecord(CONFIG.PF2E.usages),
             usageOptions: [
                 { label: "0", value: "worngloves" },
                 { label: "1", value: "held-in-one-hand" },

@@ -4,7 +4,7 @@
     "name": "Effect: Titan's Standard",
     "system": {
         "description": {
-            "value": "<p>You become Large for 1 round. Your equipment grows with you but returns to its natural size afterwards. While Large, you are @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and your reach increases by 5 feet (or by 10 feet if you started out Tiny).</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Titan's Standard]</p>\n<p>You become Large and your equipment grows with you. While Large, you are clumsy 1, and your reach increases by 5 feet (or by 10 feet if you started out Tiny).</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,9 +23,49 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeTiny",
+                        "predicate": [
+                            "self:size:tiny"
+                        ],
+                        "value": "tiny"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "self:size:medium",
+                                    "self:size:small"
+                                ]
+                            }
+                        ],
+                        "value": "medium-or-small"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "titans-standard-initial-size"
+            },
+            {
                 "key": "CreatureSize",
+                "predicate": [
+                    "titans-standard-initial-size:tiny"
+                ],
                 "reach": {
-                    "override": "10"
+                    "add": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "titans-standard-initial-size:medium-or-small"
+                ],
+                "reach": {
+                    "add": 5
                 },
                 "resizeEquipment": true,
                 "value": "large"

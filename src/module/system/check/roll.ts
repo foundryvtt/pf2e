@@ -87,6 +87,10 @@ interface CheckRollDataPF2e extends DiceRollOptionsPF2e {
     /** Whether the check is part of a damaging action */
     damaging?: boolean;
     domains?: string[];
+    /** The d20 roll expression including fortune/misfortune effects */
+    dice?: string;
+    /** The total modifier for the roll, after applying stacking rules. */
+    totalModifier?: number;
 }
 
 export { CheckRoll, StrikeAttackRoll, type CheckRollDataPF2e };

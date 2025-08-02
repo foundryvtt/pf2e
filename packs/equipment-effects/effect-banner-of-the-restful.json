@@ -4,7 +4,7 @@
     "name": "Effect: Banner of the Restful",
     "system": {
         "description": {
-            "value": "<p>You gain a +1 item bonus to Perception DCs and protection from severe cold and heat.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Banner of the Restful], @UUID[Compendium.pf2e.equipment-srd.Item.Banner of the Restful (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Banner of the Restful (Major)]</p>\n<p>You gain an item bonus to Perception DCs.</p>"
         },
         "duration": {
             "expiry": null,
@@ -24,9 +24,27 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "perception",
+                "selector": "perception-dc",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:greater-banner-of-the-restful"
+                ],
+                "selector": "perception-dc",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:major-banner-of-the-restful"
+                ],
+                "selector": "perception-dc",
+                "value": 3
             }
         ],
         "start": {

@@ -4,7 +4,7 @@
     "name": "Effect: Blazing Banner",
     "system": {
         "description": {
-            "value": "<p>Whenever you critically succeeds with a Strike, the Strike deals an additional @Damage[1d4[persistent,fire]] damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Blazing Banner], @UUID[Compendium.pf2e.equipment-srd.Item.Blazing Banner (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Blazing Banner (Major)]</p>\n<p>Whenever you critically succeeds with a Strike, the Strike deals additional persistent fire damage.</p>"
         },
         "duration": {
             "expiry": null,
@@ -28,8 +28,36 @@
                 "damageType": "fire",
                 "diceNumber": 1,
                 "dieSize": "d4",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
-                "selector": "strike-damage"
+                "selector": "strike-damage",
+                "slug": "blazing-banner"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:greater-blazing-banner"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "blazing-banner",
+                "value": 6
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:major-blazing-banner"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "blazing-banner",
+                "value": 8
             }
         ],
         "start": {

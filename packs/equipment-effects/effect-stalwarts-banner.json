@@ -4,7 +4,7 @@
     "name": "Effect: Stalwart's Banner",
     "system": {
         "description": {
-            "value": "<p>You gain 5 temporary Hit Points and a +1 status bonus to your Fortitude DC and Reflex DC against any effect that would move you or knock you @UUID[Compendium.pf2e.conditionitems.Item.Prone]. These effects last for 1 round.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Stalwart's Banner], @UUID[Compendium.pf2e.equipment-srd.Item.Stalwart's Banner (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Stalwart's Banner (Major)]</p>\n<p>You gain temporary Hit Points and a status bonus to your Fortitude DC and Reflex DC against any effect that would move you or knock you prone.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,8 +23,71 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:stalwarts-banner",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Stalwart's Banner"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:stalwarts-banner-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Stalwart's Banner (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:stalwarts-banner-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Stalwart's Banner (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "stalwarts-banner"
+            },
+            {
                 "key": "TempHP",
+                "predicate": [
+                    "stalwarts-banner:stalwarts-banner"
+                ],
                 "value": 5
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "stalwarts-banner:stalwarts-banner-greater"
+                ],
+                "value": 10
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "stalwarts-banner:stalwarts-banner-major"
+                ],
+                "value": 15
             },
             {
                 "key": "FlatModifier",
@@ -35,16 +98,44 @@
                             "action:trip",
                             "action:reposition",
                             "action:shove",
-                            "would-knock-prone"
+                            "inflicts:prone",
+                            "forced-movement"
                         ]
                     }
                 ],
                 "selector": [
-                    "fortitude",
-                    "reflex"
+                    "fortitude-dc",
+                    "reflex-dc"
                 ],
+                "slug": "stalwarts-banner",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "stalwarts-banner:stalwarts-banner-greater"
+                ],
+                "selectors": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "slug": "stalwarts-banner",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "stalwarts-banner:stalwarts-banner-major"
+                ],
+                "selectors": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "slug": "stalwarts-banner",
+                "value": 3
             }
         ],
         "start": {

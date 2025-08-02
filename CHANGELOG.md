@@ -1,3 +1,79 @@
+## 7.3.0
+
+### System Improvements
+
+- (In3luki) Implement rerolling checks with a mythic point
+- (In3luki) Restore wheel rotation for unlocked measured template previews and add a tooltip explaining the new placement workflow
+- (stwlam) Clear everyone's movement history at end of anyone's turn
+- (Supe) Add other-tags section to details tab of ability sheet
+- (Supe) Add usage for the implanted item carry type used by grafts and starfinder augmentations
+- (Supe) Collapsed actions now crop instead of doing a text-only replacement
+- (Supe) Sort usages list in item sheet
+
+### Bugfixes
+
+- (stwlam) Fix "managed by" message in scene darkness adjuster
+- (stwlam) Fix deity favored weapons not being visible in the proficiencies tab
+- (stwlam) Fix prefixing of token-mark roll options
+- (stwlam) Fix prototypeToken width/height when viewing compendium items
+- (stwlam) Fix token mirroring from `TokenConfigPF2e`
+- (Supe) Fix badge reset overriding formula value
+- (Supe) Fix certain items not being detected as consumables in the crafting tab
+- (Supe) Fix spacing between strike tag rows in chat messages
+- (Supe) Strip special keys when migrating to avoid errors
+
+### Data Updates
+
+- (Ambrose, DocSchlock, Mecha Maya, Rigo, Tikael) Add data from Battlecry!
+- (Ambrose) Add automation and effect to Flynkett's Kettle Up ability
+- (Ambrose) Add automation to Cornered Fury
+- (Ambrose) Add effect for Singing Shortbow's ability Song of Soothing and Sporescout's Cloak of Subversion action
+- (Ambrose) Add effect to Humanoid Form, Inescapable Grasp, and Outcast's Curse
+- (Ambrose) Add Produce Flame to the Remaster Journal changes
+- (Ambrose) Add The Scourge of Sheerleaf pregens
+- (Ambrose) Automate Sky Dragon's Divine Lightning
+- (Ambrose) Condense several Demon Form effects
+- (Ambrose) Convert Retrieval Belt into container items
+- (Ambrose) Fix Moonlight Ray's predicate and Pocket Library's effect description
+- (Ambrose) Update additional Treasure Vault wands to spell wands
+- (Ambrose) Update automation for Chromatic Armor's effect, Wand of Shardstorm, Wand of Choking Mist and Wand of Chromatic Burst
+- (Ambrose) Update automation for select War of Immortals bestiary actors
+- (Ambrose) Update automation to Conspirator Dragon's Conjure Disguise
+- (Ambrose) Update Dedication trait to match Pathfinder Player Core text
+- (Ambrose) Update Wand of Dazzling Lights wand type
+- (Dire Weasel) Add alchemical trait to Blisterwort
+- (Dire Weasel) Add effect for Oil of Potency
+- (Dire Weasel) Brush up some NPC Core actors
+- (Dire Weasel) Fix category of Hydrocannon
+- (Dire Weasel) Fix routine action cost for Bee-Induced Panic
+- (Dire Weasel) Fix some missing spell sources
+- (Dire Weasel) Standardize routine action cost for Bee-Induced Panic
+- (Drental) allow the hydra heads effect on alkoasha to go to 0
+- (HavocsCall) Fix the category of Neophyte's Fipple and Bargainer's Instrument
+- (jfn4th) Fix Osprey Spellcaster language grant
+- (kromko) Add link to source to Overclock Senses effect
+- (kromko) Correct some area-effect and area-damage options
+- (kromko) Fix some lore localization keys
+- (kromko) Update Gunslinger dedication description in journal to Remaster
+- (Phill101) Fix wyrm's wingspan price
+- (rectulo) change envision for (concentration) in druid's crown
+- (rectulo) Fix description of aura trait (remaster)
+- (rectulo) Update theatrical mutagen (lesser) to remaster
+- (reyzor1991) Fix Effect: A Challenge for Heroes
+- (Rigo) Automate Instinct Crown
+- (Rigo) Explicitly label condition flat checks
+- (Rigo) Fix scaling of Improved Elemental Blast
+- (Rigo) Update Debilitating Bomb automation to account for Greater and True Debilitating Bomb
+- (Rigo) Upgrade Energy Emanation damage with Energy Blessed along with a description addendum
+
+### Under the Hood
+
+- (Supe) Add weapon and armor fundamental rune item alterations
+- (Supe) Preserve certain changes when chaining spell.loadVariant()
+- (Supe) Add ability to configure which base weapons are always thrown
+- (Supe) Modules can now declare homebrew class traits, and they're available in feat subfeatures
+- (Supe) Fix message.item not returning the base spell after clicking "select other variant"
+
 ## 7.2.3
 
 ### System Improvements

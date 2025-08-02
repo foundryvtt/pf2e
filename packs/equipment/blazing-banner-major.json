@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This magical banner shimmers in a fiery array of reds, oranges, and yellows. The rampant threads catch light in the wind and give the appearance of a blazing flame. Whenever you or an ally within the banner's aura critically succeeds with a Strike, the Strike deals an additional @Damage[1d8[persistent,fire]] damage.</p>"
+            "value": "<p>This magical banner shimmers in a fiery array of reds, oranges, and yellows. The rampant threads catch light in the wind and give the appearance of a blazing flame. Whenever you or an ally within the banner's aura critically succeeds with a Strike, the Strike deals an additional 1d8 persistent fire damage.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -42,11 +42,18 @@
                 "effects": [
                     {
                         "affects": "allies",
-                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Blazing Banner (Major)"
+                        "alterations": [
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "major-blazing-banner"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Blazing Banner"
                     }
                 ],
                 "key": "Aura",
-                "level": 10,
+                "level": 19,
                 "radius": 30,
                 "traits": []
             }

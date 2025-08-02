@@ -4,7 +4,7 @@
     "name": "Effect: Timepiece Standard",
     "system": {
         "description": {
-            "value": "<p>You gain 5 temporary Hit Points that last for 1 minute and then become immune to this effect for 10 minutes.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Timepiece Standard], @UUID[Compendium.pf2e.equipment-srd.Item.Timepiece Standard (Major)]</p>\n<p>You gain temporary Hit Points.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,8 +23,51 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:timepiece-standard",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Timepiece Standard"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:timepiece-standard-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Timepiece Standard (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "timepiece-standard"
+            },
+            {
                 "key": "TempHP",
+                "predicate": [
+                    "timepiece-standard:timepiece-standard"
+                ],
                 "value": 5
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "timepiece-standard:timepiece-standard-major"
+                ],
+                "value": 10
             }
         ],
         "start": {
