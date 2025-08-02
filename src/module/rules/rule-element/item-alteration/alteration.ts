@@ -374,7 +374,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "name": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (validator.isValid(data)) {
-                    data.item.name = data.alteration.value;
+                    data.item.name = game.i18n.localize(data.alteration.value);
                 }
                 return;
             }
