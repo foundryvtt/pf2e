@@ -121,7 +121,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
         const roll = await new Roll(formula).evaluate();
         await roll.toMessage(
             {
-                flavor: game.i18n.localize("PF2E.Kingmaker.Kingdom.Resources.Points"),
+                flavor: game.i18n.localize("PF2E.Kingmaker.Kingdom.CollectDialog.NewResourcePoints"),
                 speaker: {
                     ...ChatMessagePF2e.getSpeaker(this.actor),
                     alias: this.name,

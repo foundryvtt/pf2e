@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { handleKingdomChatMessageEvent } from "@actor/party/kingdom/chat.ts";
+import { Kingdom } from "@actor/party/kingdom/model.ts";
 import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
 import type { ContextMenuCondition, ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type { Rolled } from "@client/dice/_module.d.mts";
@@ -13,7 +13,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { createHTMLElement, ErrorPF2e, htmlClosest, htmlQuery, objectHasKey } from "@util";
+import { createHTMLElement, ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
 
 class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
@@ -21,7 +21,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             applyDamage: ChatLogPF2e.#onClickApplyDamage,
             applyEffect: ChatLogPF2e.#onClickApplyEffect,
             findToken: ChatLogPF2e.#onClickFindToken,
-            kingdomAction: ChatLogPF2e.#onClickKingdomAction,
+            kingdomCollect: ChatLogPF2e.#onClickKingdomAction,
             revertDamage: ChatLogPF2e.#onClickRevertDamage,
             recoverPersistentDamage: ChatLogPF2e.#onClickRecoverPersistent,
             setAsInitiative: ChatLogPF2e.#onClickSetAsInitiative,
@@ -193,7 +193,24 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
 
     static async #onClickKingdomAction(this: ChatLogPF2e, event: PointerEvent): Promise<void> {
         const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
-        if (message && messageEl) return handleKingdomChatMessageEvent({ event, message, messageEl });
+        if (!message || !messageEl) return;
+
+        const party = message.actor ?? game.actors.party;
+        if (!party?.isOfType("party") || !party?.isOwner || !(party?.campaign instanceof Kingdom)) {
+            return;
+        }
+
+        const kingdom = party.campaign;
+        await kingdom.collect();
+
+        const content = createHTMLElement("div", { innerHTML: message.content });
+        htmlQuery(content, "[data-action=kingdomCollect]")?.replaceWith(
+            createHTMLElement("div", {
+                classes: ["confirmation"],
+                children: [fontAwesomeIcon("fa-check"), "Resources Collected"],
+            }),
+        );
+        await message.update({ content: content.innerHTML });
     }
 
     static async #onClickRevertDamage(this: ChatLogPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
