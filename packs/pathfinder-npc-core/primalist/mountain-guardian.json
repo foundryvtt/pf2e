@@ -33,7 +33,9 @@
                 "slug": null,
                 "traits": {
                     "value": [
+                        "concentrate",
                         "earth",
+                        "impulse",
                         "primal",
                         "versatile-p"
                     ]
@@ -109,7 +111,9 @@
                 "slug": null,
                 "traits": {
                     "value": [
+                        "concentrate",
                         "earth",
+                        "impulse",
                         "primal",
                         "range-increment-30",
                         "versatile-p"
@@ -119,10 +123,48 @@
             "type": "melee"
         },
         {
+            "_id": "HZEpXjD71c5PniJl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 to Reflex vs. Damaging Effects",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "damaging-effect"
+                        ],
+                        "selector": "reflex",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "z2fATEv95c5CeRid",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Kinetic Aura",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -147,7 +189,6 @@
                     },
                     {
                         "key": "Aura",
-                        "level": 6,
                         "predicate": [
                             "kinetic-earth"
                         ],
@@ -173,7 +214,7 @@
             "_id": "8vsZl6kXGembKqhs",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Weight of Stone",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -183,7 +224,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The mountain guardian calls down boulders in a cylinder 20 feet in diameter and 80 feet high within 120 feet. Each creature in the area takes @Damage[4d8[bludgeoning]] damage with a @Check[reflex|dc:24|basic] save. A creature that fails is also pushed downward 40 feet (80 feet on a critical failure) without taking falling damage and can't leave the ground for 1 round.</p>"
+                    "value": "<p>The mountain guardian calls down boulders in a cylinder @Template[cylinder|distance:10]{20 feet in diameter} and 80 feet high within 120 feet. Each creature in the area takes @Damage[4d8[bludgeoning]|options:area-damage] damage with a @Check[reflex|dc:24|basic|options:area-effect,inflicts:forced-movement] save. A creature that fails is also pushed downward 40 feet (80 feet on a critical failure) without taking falling damage and can't leave the ground for 1 round.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -208,7 +249,7 @@
             "_id": "bebHn8ZDmnBLO13f",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Base Kinesis",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -237,7 +278,7 @@
             "_id": "fAsNDMMG3uBqks6s",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Channel Elements",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -268,7 +309,7 @@
             "_id": "qVBAufS6c7TZAqDU",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Empowered Blast",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -294,10 +335,9 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "empowered-blast",
-                            "item:slug:elemental-blast"
+                            "empowered-blast"
                         ],
-                        "selector": "attack-damage",
+                        "selector": "elemental-blast-damage",
                         "type": "status",
                         "value": 4
                     }
@@ -313,7 +353,7 @@
             "_id": "HLSb3Hxa9yNvAbbN",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Tremor",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -323,7 +363,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The mountain guardian stomps on natural earth or stone, causing a localized tremor. All creatures in a @Template[type:burst|distance:10] within 30 feet take @Damage[3d10[bludgeoning]|options:area-damage] damage with a @Check[fortitude|dc:24|basic|options:area-effect] save. A creature that critically fails is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. Earth and stone in the area is difficult terrain until the start of the mountain guardian's next turn.</p>"
+                    "value": "<p>The mountain guardian stomps on natural earth or stone, causing a localized tremor. All creatures in a @Template[type:burst|distance:10] within 30 feet take @Damage[3d10[bludgeoning]|options:area-damage] damage with a @Check[fortitude|dc:24|basic|options:area-effect,inflicts:prone] save. A creature that critically fails is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. Earth and stone in the area is difficult terrain until the start of the mountain guardian's next turn.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -373,7 +413,7 @@
                 "value": 24
             },
             "allSaves": {
-                "value": "+13 vs. damaging effects"
+                "value": "+13 Reflex vs. damaging effects"
             },
             "hp": {
                 "details": "",
@@ -426,7 +466,13 @@
         "perception": {
             "details": "",
             "mod": 9,
-            "senses": []
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 10,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {},
         "saves": {

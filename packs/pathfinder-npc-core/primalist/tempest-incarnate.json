@@ -224,7 +224,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.kUSShxXzY1sPtJA0"
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
-            "name": "Detonate Magic (items that grant flight only)",
+            "name": "Detonate Magic (Items That Grant Flight Only)",
             "sort": 300000,
             "system": {
                 "area": {
@@ -1917,7 +1917,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
-            "name": "Handwraps of Mighty Blows",
+            "name": "+2 Greater Striking Handwraps of Mighty Blows",
             "sort": 2600000,
             "system": {
                 "baseItem": null,
@@ -2165,7 +2165,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A tempest incarnate who is hit by or fails a saving throw against an effect that prevents them from flying (such as earthbind or Felling Strike) takes @Damage[20[mental]] damage in addition to the usual effects.</p>"
+                    "value": "<p>A tempest incarnate who is hit by or fails a saving throw against an effect that prevents them from flying (such as @UUID[Compendium.pf2e.spells-srd.Item.Earthbind] or Felling Strike) takes @Damage[20[mental]] damage in addition to the usual effects.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2204,7 +2204,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>10 feet. A creature that enters the area must succeed at a @Check[athletics|dc:38] check (if on the ground) or Acrobatics check to Maneuver in Flight (if flying) or end its movement. A creature that critically fails is also knocked back 5 feet and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]. Creatures making ranged projectile and thrown attacks that pass through the area must succeed on a @Check[flat|dc:5] or the attack fails. Massive projectiles, such as thrown boulders, are not affected. A tempest incarnate can activate or deactivate this ability with a single action that has the concentrate trait.</p>"
+                    "value": "<p>10 feet. A creature that enters the area must succeed at a @Check[athletics|dc:38] check (if on the ground) or Acrobatics check to [[/act maneuver-in-flight dc=38]] (if flying) or end its movement. A creature that critically fails is also knocked back 5 feet and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]. Creatures making ranged projectile and thrown attacks that pass through the area must succeed on a @Check[flat|dc:5] or the attack fails. Massive projectiles, such as thrown boulders, are not affected. A tempest incarnate can activate or deactivate this ability with a single action that has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2213,8 +2213,21 @@
                 },
                 "rules": [
                     {
+                        "key": "RollOption",
+                        "option": "hurricane-cloak",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
                         "key": "Aura",
-                        "radius": 10
+                        "predicate": [
+                            "hurricane-cloak"
+                        ],
+                        "radius": 10,
+                        "traits": [
+                            "air",
+                            "primal"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -2242,14 +2255,34 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature that fails a saving throw against a cataclysm or wrathful storm spell cast by the tempest incarnate becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). A creature can only be frightened once by each casting of wrathful storm.</p>"
+                    "value": "<p>A creature that fails a saving throw against a @UUID[Compendium.pf2e.spells-srd.Item.Cataclysm] or @UUID[Compendium.pf2e.spells-srd.Item.Wrathful Storm] spell cast by the tempest incarnate becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). A creature can only be frightened once by each casting of <em>wrathful storm</em>.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:cataclysm",
+                                    "item:slug:wrathful-storm"
+                                ]
+                            }
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

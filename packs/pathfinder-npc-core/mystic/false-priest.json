@@ -59,7 +59,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": 60,
@@ -143,7 +143,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -222,7 +222,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -243,72 +243,13 @@
             "type": "armor"
         },
         {
-            "_id": "11lHNwFvX3hxSXQ3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
-            },
-            "img": "icons/containers/bags/pack-leather-white-tan.webp",
-            "name": "Backpack",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "backpack",
-                "stowing": true,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "wornbackpack"
-                }
-            },
-            "type": "equipment"
-        },
-        {
             "_id": "64r9RgELkr6OXrX7",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4ftXXUCBHcf4b0MH"
             },
             "img": "icons/tools/laboratory/vials-blue-pink.webp",
             "name": "Alchemist's Tools (Used as \"Blessed Items\" to Fool Marks)",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -316,7 +257,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks.</p>"
+                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks. If you wear your alchemist's toolkit, you can draw and replace it as part of the action that uses it.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -343,12 +284,12 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "alchemists-tools",
+                "slug": "alchemists-toolkit",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -366,7 +307,7 @@
             },
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/clandestine-cloak.webp",
             "name": "Cloak",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -401,7 +342,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -424,7 +365,7 @@
             },
             "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
             "name": "Religious Symbol (Wooden)",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -432,7 +373,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -459,10 +400,16 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
                 "size": "med",
                 "slug": "religious-symbol-wooden",
                 "traits": {
@@ -470,7 +417,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "other"
                 }
             },
             "type": "equipment"
@@ -482,7 +429,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -519,7 +466,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 20,
                 "rules": [],
@@ -545,7 +492,7 @@
             "_id": "zEyJJyZtRmrTwf2n",
             "img": "systems/pf2e/icons/equipment/treasure/art-objects/minor-art-object/silver-religious-symbol.webp",
             "name": "Collection of Fake Relics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -590,6 +537,68 @@
                 }
             },
             "type": "treasure"
+        },
+        {
+            "_id": "xke66LJHjgMY1Upo",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
+            },
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
+            "name": "Backpack",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "capacity": 4,
+                    "heldOrStowed": 0.1,
+                    "ignored": 2,
+                    "value": 0
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "backpack",
+                "stowing": true,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornbackpack"
+                }
+            },
+            "type": "backpack"
         },
         {
             "_id": "22PsMMGp8JINhVoi",
