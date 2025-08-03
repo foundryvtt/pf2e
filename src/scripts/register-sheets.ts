@@ -33,6 +33,8 @@ import { SpellSheetPF2e } from "@item/spell/sheet.ts";
 import { TreasureSheetPF2e } from "@item/treasure/sheet.ts";
 import { WeaponSheetPF2e } from "@item/weapon/sheet.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
+import { JournalPageSheetPF2e } from "@module/journal-page/sheet.ts";
+import { NoteConfigPF2e } from "@module/note/sheet.ts";
 import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
@@ -172,6 +174,22 @@ export function registerSheets(): void {
     Journal.registerSheet("pf2e", JournalSheetPF2e, {
         label: () =>
             game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.JournalEntry") }),
+        makeDefault: true,
+    });
+
+    // JOURNAL PAGE
+    DocumentSheetConfig.unregisterSheet(JournalEntryPage, "core", JournalPageSheet);
+    DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalPageSheetPF2e, {
+        label: () =>
+            game.i18n.format("SHEETS.DefaultDocumentSheet", {
+                document: game.i18n.localize("DOCUMENT.JournalEntryPage"),
+            }),
+        makeDefault: true,
+    });
+
+    DocumentSheetConfig.unregisterSheet(NoteDocument, "core", NoteConfig);
+    DocumentSheetConfig.registerSheet(NoteDocument, "pf2e", NoteConfigPF2e, {
+        label: () => game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize(`DOCUMENT.Note`) }),
         makeDefault: true,
     });
 
