@@ -28,7 +28,10 @@ class TokenImageForm extends RuleElementForm<RuleElementSource, TokenImageRuleEl
 
         for (const fieldName of ["alpha", "scale"] as const) {
             const checkbox = htmlQuery<HTMLInputElement>(html, `input[data-action=toggle-${fieldName}]`);
-            const input = htmlQuery<HTMLInputElement>(html, `range-picker[name="system.rules.${this.index}.${fieldName}"]`);
+            const input = htmlQuery<HTMLInputElement>(
+                html,
+                `range-picker[name="system.rules.${this.index}.${fieldName}"]`,
+            );
             if (!(checkbox && input)) continue;
             input.id = `${this.fieldIdPrefix}-${fieldName}`;
             input.disabled = this.object[fieldName] === null;
