@@ -1,6 +1,6 @@
 {
     "_id": "YhDjKTWPwoXPVOyv",
-    "img": "icons/skills/melee/hand-grip-sword-white-brown.webp",
+    "img": "icons/skills/melee/blade-tips-double-blue.webp",
     "name": "Effect: Extravagant Parry",
     "system": {
         "description": {
@@ -53,7 +53,12 @@
                 "predicate": [
                     {
                         "or": [
-                            "hands-free:but-really:1",
+                            {
+                                "gte": [
+                                    "hands-free",
+                                    1
+                                ]
+                            },
                             "extravagant-parry:yes"
                         ]
                     }
