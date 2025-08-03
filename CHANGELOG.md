@@ -1,3 +1,31 @@
+## 7.3.1
+
+### Bugfixes
+
+- (In3luki) Fix traits in compendium browser being empty after opening with a filter
+- (Supe) Fix collecting kingdom resources
+- (Supe) Fix drag drop after changing active party
+
+### Data Updates
+- (Ambrose) Add area-effect, area-damage, damage-effect, and inflicts: options to additional select items and NPC abilities
+- (Ambrose) Add effects for Mantle of the Frozen/Melting Heart
+- (Ambrose) Condense Devil Form spell effect
+- (Ambrose) Convert Wand of Dumbfounding Doom to proper magic wand type
+- (Dire Weasel) Brush up some NPC Core actors
+- (kromko) Update effect links in the static language file
+- (Phill101) Fix jabali's rarity
+- (rectulo) Fix the rune in the major version of the jyoti's feather
+- (Rigo) Add class description to Battlecry! iconics and fix path to token texture
+- (Rigo) Add effect for Plant Banner temporary Hit Points
+- (Rigo) Add effects for Naval and Mountaineering Training Tactics
+- (Rigo) Add inline healing roll to Rallying Banner
+- (Rigo) Add spell effect for Shielding Formation
+- (Rigo) Fix Major Knave's Standard aura alteration tag
+
+### Under the Hood
+
+- (websterguy) Localize name alteration value in item alteration
+
 ## 7.3.0
 
 ### System Improvements
