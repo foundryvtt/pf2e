@@ -631,7 +631,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             }
 
             const incomingData = expanded.system?.rules?.[idx];
-            if (incomingData?.key) {
+            if (incomingData) {
                 ruleForm.updateObject(incomingData as RuleElementSource);
                 itemRules[idx] = ruleForm.rule;
                 this.item.update({ "system.rules": itemRules });
