@@ -150,8 +150,7 @@ class WeaponAuxiliaryAction {
                 case "retrieve": {
                     const { container } = weapon;
                     if (container?.isHeld) return [1, "held", `${annotation}${hands}H`];
-                    const usage = container?.system.usage;
-                    const actionCost = usage?.type === "held" || usage?.where === "backpack" ? 2 : 1;
+                    const actionCost = weapon.drawActions;
                     return [actionCost, "held", `${annotation}${hands}H`];
                 }
                 case "grip":

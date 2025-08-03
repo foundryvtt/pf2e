@@ -3,7 +3,7 @@ import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
 import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
-import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
+import type { Rarity, Size, ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, tupleHasValue } from "@util";
@@ -194,6 +194,14 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     get isStowed(): boolean {
         const container = this.container;
         return !!container && (container.system.stowing || container.isStowed);
+    }
+
+    get drawActions(): ZeroToThree {
+        const { container } = this;
+        if (!container) return 1;
+        if (container?.isHeld) return 1;
+        const usage = container?.system.usage;
+        return usage?.type === "held" || usage?.where === "backpack" ? 2 : 1;
     }
 
     /** Get this item's container, returning null if it is not in a container */
