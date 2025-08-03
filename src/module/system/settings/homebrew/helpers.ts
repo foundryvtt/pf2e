@@ -84,6 +84,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         weaponCategories: new Set([...Object.keys(CONFIG.PF2E.weaponCategories), ...universalReservedTerms]),
         weaponGroups: new Set([...Object.keys(CONFIG.PF2E.weaponGroups), ...universalReservedTerms]),
         baseWeapons: new Set([...Object.keys(CONFIG.PF2E.baseWeaponTypes), ...universalReservedTerms]),
+        classTraits: new Set(universalReservedTerms),
         creatureTraits: new Set([...Object.keys(CONFIG.PF2E.creatureTraits), ...universalReservedTerms]),
         damageTypes: universalReservedTerms,
         equipmentTraits: new Set([
@@ -114,7 +115,9 @@ function readModuleHomebrewSettings(): ModuleHomebrewData {
     const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
 
     for (const [key, foundryModule] of activeModules) {
-        const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
+        const flags = foundryModule.flags[key];
+        if (!R.isPlainObject(flags)) continue;
+        const homebrew = flags["pf2e-homebrew"];
         if (!R.isPlainObject(homebrew)) continue;
 
         for (const [recordKey, elements] of Object.entries(homebrew)) {
