@@ -158,7 +158,7 @@ export class ActorDeltaField<
 > extends fields.EmbeddedDocumentField<TDocument> {
     override initialize(
         value: fields.MaybeSchemaProp<TDocument["_source"], true, true, true>,
-        model?: ConstructorOf<TDocument>,
+        model?: TDocument | null,
         options?: object,
     ): fields.MaybeSchemaProp<TDocument, true, true, true>;
 }

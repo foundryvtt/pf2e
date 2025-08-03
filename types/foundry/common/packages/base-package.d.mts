@@ -84,7 +84,7 @@ export class PackageCompendiumPacks<TSchema extends PackageCompendiumSchema> ext
 
     override initialize(
         value: fields.SourceFromSchema<TSchema>[],
-        model: ConstructorOf<DataModel>,
+        model: DataModel,
         options?: Record<string, unknown>,
     ): Set<fields.ModelPropsFromSchema<TSchema>>;
 

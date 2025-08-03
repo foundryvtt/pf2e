@@ -47,7 +47,7 @@ export default abstract class Document<
 
     protected override _initialize(options?: Record<string, unknown>): void;
 
-    protected static override _initializationOrder(): Generator<[string, DataField], void>;
+    static override _initializationOrder(): Generator<[string, DataField], void>;
 
     /* -------------------------------------------- */
     /*  Model Configuration                         */

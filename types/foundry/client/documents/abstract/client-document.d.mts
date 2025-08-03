@@ -350,17 +350,17 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * @param options.context  Additional render context to provide to the template.
      * @returns A Promise which resolves to the created Document, or null if the dialog was closed.
      */
-    static createDialog<T extends typeof Document>(
-        this: T,
+    static createDialog<T extends ClientDocument>(
+        this: ConstructorOf<T>,
         data?: object,
-        createOptions?: DatabaseCreateOperation<Document | null>,
+        createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
         options?: {
             folders?: { id: string; name: string }[];
             types?: string[];
             template?: string;
             context?: object;
-        } & object,
-    ): Promise<InstanceType<T>>;
+        },
+    ): Promise<T | null>;
 
     /**
      * Present a Dialog form to confirm deletion of this Document.
@@ -394,7 +394,11 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * @returns The resolved Document
      * @throws If a Document could not be retrieved from the provided data.
      */
-    static fromDropData<T extends typeof Document>(this: T, data: object, options?: object): Promise<InstanceType<T>>;
+    static fromDropData<T extends ClientDocument>(
+        this: ConstructorOf<T>,
+        data: object,
+        options?: object,
+    ): Promise<T | null>;
 
     /**
      * Create the Document from the given source with migration applied to it.
@@ -552,7 +556,7 @@ export interface ClientDocumentStatic {
      * @param options.context  Additional render context to provide to the template.
      * @returns A Promise which resolves to the created Document, or null if the dialog was closed.
      */
-    createDialog<T extends Document>(
+    createDialog<T extends ClientDocument>(
         this: ConstructorOf<T>,
         data?: object,
         createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
@@ -564,5 +568,5 @@ export interface ClientDocumentStatic {
         },
     ): Promise<T | null>;
 
-    fromDropData<T extends Document>(this: ConstructorOf<T>, data: object, options?: object): Promise<T | null>;
+    fromDropData<T extends ClientDocument>(this: ConstructorOf<T>, data: object, options?: object): Promise<T | null>;
 }

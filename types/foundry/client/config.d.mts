@@ -1,6 +1,6 @@
 import { DataSchema, Document, TypeDataModel } from "@common/abstract/_module.mjs";
 import { AudioFilePath, ImageFilePath, RollMode } from "@common/constants.mjs";
-import { DocumentConstructionContext } from "../common/_types.mjs";
+import { DocumentConstructionContext, Point } from "../common/_types.mjs";
 import { ActiveEffectSource } from "../common/documents/active-effect.mjs";
 import { applications, dice, documents } from "./_module.mjs";
 import DocumentSheetV2 from "./applications/api/document-sheet.mjs";
@@ -18,9 +18,16 @@ import JournalSheet from "./appv1/sheets/journal-sheet.mjs";
 import { CanvasAnimationAttribute } from "./canvas/animation/_types.mjs";
 import ChatBubbles from "./canvas/animation/chat-bubbles.mjs";
 import { DoorControl, ParticleEffect } from "./canvas/containers/_module.mjs";
+import { PointSourcePolygon } from "./canvas/geometry/_module.mjs";
+import { PointSourcePolygonConfig } from "./canvas/geometry/_types.mjs";
 import ClockwiseSweepPolygon from "./canvas/geometry/clockwise-sweep.mjs";
-import EffectsCanvasGroup from "./canvas/groups/effects.mjs";
-import InterfaceCanvasGroup from "./canvas/groups/interface.mjs";
+import {
+    EffectsCanvasGroup,
+    EnvironmentCanvasGroup,
+    HiddenCanvasGroup,
+    InterfaceCanvasGroup,
+    PrimaryCanvasGroup,
+} from "./canvas/groups/_module.mjs";
 import { AlertPing, ArrowPing, ChevronPing, PulsePing, Ruler } from "./canvas/interaction/_module.mjs";
 import * as layers from "./canvas/layers/_module.mjs";
 import * as perception from "./canvas/perception/_module.mjs";
@@ -481,11 +488,11 @@ export default interface Config<
         lightSourceClass: typeof PointLightSource;
         globalLightSourceClass: typeof GlobalLightSource;
         rulerClass: typeof Ruler;
-        visionSourceClass: typeof PointVisionSource;
+        visionSourceClass: ConstructorOf<PointVisionSource<NonNullable<TTokenDocument["object"]>>>;
         soundSourceClass: typeof PointSoundSource;
         groups: {
             hidden: {
-                groupClass: typeof PIXI.Container;
+                groupClass: typeof HiddenCanvasGroup;
                 parent: "stage";
             };
             rendered: {
@@ -493,11 +500,11 @@ export default interface Config<
                 parent: "stage";
             };
             environment: {
-                groupClass: typeof PIXI.Container;
+                groupClass: typeof EnvironmentCanvasGroup;
                 parent: "rendered";
             };
             primary: {
-                groupClass: typeof PIXI.Container;
+                groupClass: typeof PrimaryCanvasGroup;
                 parent: "environment";
             };
             effects: {
@@ -561,7 +568,13 @@ export default interface Config<
         polygonBackends: {
             sight: typeof ClockwiseSweepPolygon;
             light: typeof ClockwiseSweepPolygon;
-            sound: typeof ClockwiseSweepPolygon;
+            sound: ConstructorOf<ClockwiseSweepPolygon> & {
+                create<C extends PointSourcePolygonConfig, T extends PointSourcePolygon<C>>(
+                    this: ConstructorOf<T>,
+                    origin: Point,
+                    config?: C,
+                ): T;
+            };
             move: typeof ClockwiseSweepPolygon;
         };
         dragSpeedModifier: number;

@@ -115,7 +115,7 @@ export default class DocumentSheetConfig extends HandlebarsApplicationMixin(Docu
      * @param options        Sheet registration configuration options.
      */
     static registerSheet(
-        documentClass: typeof ClientDocument,
+        documentClass: ConstructorOf<ClientDocument>,
         scope: string,
         sheetClass: AbstractConstructorOf<Application> | AbstractConstructorOf<ApplicationV2>,
         options?: SheetRegistrationOptions,
@@ -130,9 +130,9 @@ export default class DocumentSheetConfig extends HandlebarsApplicationMixin(Docu
      * @param options.types  The sub-types this sheet should be removed for, otherwise all sub-types are unregistered.
      */
     static unregisterSheet(
-        documentClass: typeof ClientDocument,
+        documentClass: ConstructorOf<ClientDocument>,
         scope: string,
-        sheetClass: typeof Application | typeof ApplicationV2,
+        sheetClass: ConstructorOf<Application> | ConstructorOf<ApplicationV2>,
         options?: { types: string[] },
     ): void;
 

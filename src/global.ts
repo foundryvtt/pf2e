@@ -334,7 +334,8 @@ declare global {
             Hotbar<MacroPF2e>
         >;
 
-        const AutomaticBonusProgression: typeof ABP;
+        // eslint-disable-next-line no-var
+        var AutomaticBonusProgression: typeof ABP;
 
         // Add functions to the `Math` namespace for use in `Roll` formulas
         interface Math {
