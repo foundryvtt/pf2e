@@ -31,7 +31,7 @@ function getUuidRedirects(): Record<CompendiumUUID, CompendiumUUID> {
         const filename = `${sluggify(name)}.json`;
         const jsonPath = fs.existsSync(path.resolve(dirPath, filename))
             ? path.resolve(dirPath, filename)
-            : globSync(path.resolve(dirPath, "**", filename)).at(0);
+            : globSync(path.resolve(dirPath, "**", filename), { windowsPathsNoEscape: true }).at(0);
         if (!jsonPath) throw new Error(`Failure looking up pack JSON for ${to}`);
         const docJSON = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
         const id = docJSON._id;
