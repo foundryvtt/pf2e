@@ -429,9 +429,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             });
             closeBtn?.removeAttribute("disabled");
 
-            html
-                .querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")
-                ?.addEventListener("click", () => {
+            html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")?.addEventListener(
+                "click",
+                () => {
                     const value = view.state.doc.toString();
 
                     // Close early if the editing index is invalid
@@ -455,7 +455,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                             throw error;
                         }
                     }
-                });
+                },
+            );
         }
 
         // Activate rule element sub forms
@@ -630,8 +631,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             }
 
             const incomingData = expanded.system?.rules?.[idx];
-            if (incomingData) {
-                ruleForm.updateObject(incomingData);
+            if (incomingData?.key) {
+                ruleForm.updateObject(incomingData as RuleElementSource);
                 itemRules[idx] = ruleForm.rule;
                 this.item.update({ "system.rules": itemRules });
             }

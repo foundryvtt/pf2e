@@ -4,7 +4,7 @@ import { svelte as sveltePlugin } from "@sveltejs/vite-plugin-svelte";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
-import Glob from "glob";
+import { globSync } from "glob";
 import path from "path";
 import Peggy from "peggy";
 import * as Vite from "vite";
@@ -31,7 +31,7 @@ function getUuidRedirects(): Record<CompendiumUUID, CompendiumUUID> {
         const filename = `${sluggify(name)}.json`;
         const jsonPath = fs.existsSync(path.resolve(dirPath, filename))
             ? path.resolve(dirPath, filename)
-            : Glob.sync(path.resolve(dirPath, "**", filename)).at(0);
+            : globSync(path.resolve(dirPath, "**", filename)).at(0);
         if (!jsonPath) throw new Error(`Failure looking up pack JSON for ${to}`);
         const docJSON = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
         const id = docJSON._id;
@@ -212,11 +212,11 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 external: new RegExp(
                     [
                         "(?:",
-                        reEscape("../../icons/weapons/"),
+                        reEscape("../icons/weapons/"),
                         "[-a-z/]+",
                         reEscape(".webp"),
                         "|",
-                        reEscape("../ui/parchment.jpg"),
+                        reEscape("ui/parchment.jpg"),
                         ")$",
                     ].join(""),
                 ),
