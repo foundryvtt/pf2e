@@ -334,7 +334,9 @@ abstract class RollContext<
         if (unresolvedStatistic instanceof StatisticModifier) {
             const matchingStrike = strikeActions.find((action): boolean => {
                 // Find the matching weapon or melee item
-                if (unclonedItem?.id !== action.item.id || unclonedItem.name !== action.item.name) return false;
+                const hasNameMatch =
+                    unclonedItem?.name === action.item.name || unclonedItem?._source.name === action.item._source.name;
+                if (!hasNameMatch || unclonedItem?.id !== action.item.id) return false;
                 if (unclonedItem.isOfType("melee") && action.item.isOfType("melee")) return true;
 
                 // Discriminate between melee/thrown usages by checking that both are either melee or ranged
