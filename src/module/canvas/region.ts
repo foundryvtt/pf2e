@@ -1,6 +1,5 @@
 import type { PlaceablesLayerPointerEvent } from "@client/canvas/layers/base/placeables-layer.d.mts";
 import type { Point } from "@common/_types.d.mts";
-import type { RegionSource } from "@common/documents/region.d.mts";
 import type { RegionDocumentPF2e } from "@scene/region-document/document.ts";
 
 /** Add support for drag/drop repositioning of regions. */
@@ -37,8 +36,8 @@ class RegionPF2e<TDocument extends RegionDocumentPF2e = RegionDocumentPF2e> exte
             clone.document.x = position.x;
             clone.document.y = position.y;
             clone._onUpdate(
-                { shapes: clone.document.shapes.map((s) => s.toObject(false)) } as DeepPartial<RegionSource>,
-                { broadcast: false, updates: [] },
+                { shapes: clone.document.shapes.map((s) => s.toObject(false)) } as DeepPartial<TDocument["_source"]>,
+                { broadcast: false },
                 game.user.id,
             );
             Promise.resolve().then(() => {

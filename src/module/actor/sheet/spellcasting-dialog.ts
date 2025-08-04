@@ -176,7 +176,7 @@ async function createSpellcastingDialog(
 ): Promise<SpellcastingCreateAndEditDialog> {
     const item =
         "prototypeToken" in object
-            ? new SpellcastingEntryPF2e(
+            ? (new SpellcastingEntryPF2e(
                   {
                       name: "Untitled",
                       type: "spellcastingEntry",
@@ -188,7 +188,7 @@ async function createSpellcastingDialog(
                       },
                   },
                   { parent: object },
-              )
+              ) as SpellcastingEntryPF2e<CreaturePF2e>)
             : object;
     return new SpellcastingCreateAndEditDialog(item).render(true);
 }

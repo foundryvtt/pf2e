@@ -118,7 +118,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Rule elements drawn from owned items */
     declare rules: RuleElementPF2e[];
 
-    declare synthetics: RuleElementSynthetics<this>;
+    declare synthetics: RuleElementSynthetics;
 
     /** Saving throw statistics */
     declare saves?: { [K in SaveType]?: Statistic };
@@ -315,7 +315,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const fromEffects = this.itemTypes.effect
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
             .map((e) => ActiveEffectPF2e.fromEffect(e));
-        const allEffects: fd.ActiveEffect<Actor | Item>[] = [
+        const allEffects = [
             super.temporaryEffects,
             fromConditions,
             fromEffects,

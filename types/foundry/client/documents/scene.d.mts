@@ -22,6 +22,7 @@ import {
     NoteSource,
     RegionDocument,
     RegionSource,
+    SceneSource,
     TileDocument,
     TokenDocument,
     TokenSource,
@@ -164,6 +165,8 @@ export default class Scene extends ClientBaseScene {
 }
 
 export default interface Scene extends ClientBaseScene {
+    readonly _source: SceneSource;
+
     readonly drawings: EmbeddedCollection<DrawingDocument<this>>;
     readonly lights: EmbeddedCollection<AmbientLightDocument<this>>;
     readonly notes: EmbeddedCollection<NoteDocument<this>>;
@@ -174,7 +177,7 @@ export default interface Scene extends ClientBaseScene {
     readonly tiles: EmbeddedCollection<TileDocument<this>>;
     readonly walls: EmbeddedCollection<WallDocument<this>>;
 
-    get sheet(): SceneConfig<this> | null;
+    get sheet(): SceneConfig<this>;
 
     getEmbeddedCollection(embeddedName: "Token"): this["tokens"];
 

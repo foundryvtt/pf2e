@@ -81,16 +81,13 @@ export interface TextEditorEnricherConfig {
 /**
  * A light source animation configuration object.
  */
-export type LightSourceAnimationConfig = Record<
-    string,
-    {
-        label: string;
-        animation: Function;
-        backgroundShader?: typeof AdaptiveBackgroundShader;
-        illuminationShader?: typeof AdaptiveIlluminationShader;
-        colorationShader: typeof AdaptiveColorationShader;
-    }
->;
+export interface LightSourceAnimationConfig {
+    label: string;
+    animation: Function;
+    backgroundShader?: typeof AdaptiveBackgroundShader;
+    illuminationShader?: typeof AdaptiveIlluminationShader;
+    colorationShader: typeof AdaptiveColorationShader;
+}
 
 /**
  * Available Weather Effects implementations

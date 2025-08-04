@@ -157,7 +157,7 @@ export interface DialogV2WaitOptions {
 export type DialogV2ButtonCallback = (
     event: PointerEvent | SubmitEvent,
     button: HTMLButtonElement,
-    dialog: HTMLDialogElement,
+    dialog: DialogV2,
 ) => void | Promise<void> | Promise<unknown>;
 
 /**

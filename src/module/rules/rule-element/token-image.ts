@@ -1,5 +1,5 @@
 import type { TextureTransitionType } from "@client/canvas/rendering/filters/transition.d.mts";
-import { HexColorString, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
+import type { HexColorString, ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import { isImageOrVideoPath } from "@util";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";

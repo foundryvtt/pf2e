@@ -1,4 +1,5 @@
 import type { BoostFlawState } from "@actor/character/apps/attribute-builder.ts";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { SocketMessage } from "@scripts/socket.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";

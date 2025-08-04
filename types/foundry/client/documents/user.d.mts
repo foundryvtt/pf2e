@@ -3,7 +3,16 @@ import { UserPermission } from "@common/constants.mjs";
 import Token from "../canvas/placeables/token.mjs";
 import UserTargets from "../canvas/placeables/tokens/targets.mjs";
 import { BaseUser, Macro, TokenDocument, UserUUID } from "./_module.mjs";
-import ClientDocumentMixin from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
+
+type BaseUserStatic = typeof BaseUser;
+interface ClientBaseUserStatic extends BaseUserStatic, ClientDocumentStatic {}
+
+declare const ClientBaseUser: {
+    new (...args: any): BaseUser & ClientDocument<null>;
+} & ClientBaseUserStatic;
+
+interface ClientBaseUser extends InstanceType<typeof ClientBaseUser> {}
 
 /**
  * The client-side User document which extends the common BaseUser model.
@@ -12,7 +21,7 @@ import ClientDocumentMixin from "./abstract/client-document.mjs";
  * @see {@link Users}       The world-level collection of User documents
  * @see {@link UserConfig} The User configuration application
  */
-export default class User extends ClientDocumentMixin(BaseUser) {
+export default class User extends ClientBaseUser {
     /**
      * Track whether the user is currently active in the game
      */

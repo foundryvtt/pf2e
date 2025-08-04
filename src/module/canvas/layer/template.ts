@@ -1,6 +1,6 @@
-import type { InteractionLayer } from "@client/canvas/layers/_module.mjs";
-import type { PlaceablesLayerPointerEvent } from "@client/canvas/layers/base/placeables-layer.mjs";
-import type { Point } from "@common/_types.mjs";
+import type { InteractionLayer } from "@client/canvas/layers/_module.d.mts";
+import type { PlaceablesLayerPointerEvent } from "@client/canvas/layers/base/placeables-layer.d.mts";
+import type { Point } from "@common/_types.d.mts";
 import type { MeasuredTemplatePF2e } from "../measured-template.ts";
 
 class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplatePF2e> extends fc.layers

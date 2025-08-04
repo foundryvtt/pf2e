@@ -1,9 +1,9 @@
 import { ActorPF2e } from "@actor";
+import type { ActorUpdateCallbackOptions } from "@actor/base.ts";
 import type {
     DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
     DatabaseDeleteOperation,
-    DatabaseUpdateCallbackOptions,
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
 import type { UserAction } from "@common/constants.d.mts";
@@ -100,7 +100,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateCallbackOptions,
+        options: ActorUpdateCallbackOptions,
         userId: string,
     ): void {
         if (game.user.id === userId && changed.system?.hiddenWhenEmpty !== undefined) this.toggleTokenHiding();

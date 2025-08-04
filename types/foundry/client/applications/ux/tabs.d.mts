@@ -6,7 +6,7 @@ export interface TabsConfiguration {
     /** The CSS selector used to target the content container for these tabs */
     contentSelector: string;
     /** The tab name of the initially active tab */
-    initial: string;
+    initial?: string;
     /** An optional callback function that executes when the active tab is changed */
     callback?: ((arg0: null, tabs: Tabs, tabName: string) => void) | null;
 }

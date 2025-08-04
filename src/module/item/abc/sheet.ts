@@ -103,7 +103,7 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
 
             if (itemUUID) {
                 htmlQuery(li, "a.name")?.addEventListener("click", async () => {
-                    const item = await fromUuid(itemUUID);
+                    const item = await fromUuid<ItemPF2e>(itemUUID);
                     item?.sheet.render(true);
                 });
             }

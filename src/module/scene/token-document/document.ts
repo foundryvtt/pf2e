@@ -36,7 +36,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (this.actor?.isOfType("party")) {
             return this.actor.members.every((a) => game.combat?.getCombatantByActor(a.id));
         }
-
         return super.inCombat;
     }
 

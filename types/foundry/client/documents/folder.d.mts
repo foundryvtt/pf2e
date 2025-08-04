@@ -1,10 +1,22 @@
-import { DatabaseCreateCallbackOptions, DatabaseDeleteCallbackOptions } from "@common/abstract/_types.mjs";
-import Collection from "@common/utils/collection.mjs";
-import { FormApplicationOptions } from "../appv1/api/form-application-v1.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseCreateOperation,
+    DatabaseDeleteCallbackOptions,
+} from "@common/abstract/_types.mjs";
+import Document from "@common/abstract/document.mjs";
 import { Actor, BaseFolder, BaseUser, Item, JournalEntry, Macro, RollTable, Scene } from "./_module.mjs";
-import ClientDocumentMixin from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import WorldCollection from "./abstract/world-collection.mjs";
 import CompendiumCollection from "./collections/compendium-collection.mjs";
+
+type BaseFolderStatic = typeof BaseFolder;
+interface ClientBaseFolderStatic extends BaseFolderStatic, ClientDocumentStatic {}
+
+declare const ClientBaseFolder: {
+    new (...args: any): BaseFolder & ClientDocument<null>;
+} & ClientBaseFolderStatic;
+
+interface ClientBaseFolder extends InstanceType<typeof ClientBaseFolder> {}
 
 /**
  * The client-side Folder document which extends the common BaseFolder model.
@@ -12,9 +24,7 @@ import CompendiumCollection from "./collections/compendium-collection.mjs";
  * @see {@link Folders}                     The world-level collection of Folder documents
  * @see {@link FolderConfig}                The Folder configuration application
  */
-export default class Folder<TDocument extends EnfolderableDocument = EnfolderableDocument> extends ClientDocumentMixin(
-    BaseFolder,
-) {
+export default class Folder<TDocument extends EnfolderableDocument = EnfolderableDocument> extends ClientBaseFolder {
     /** The depth of this folder in its sidebar tree */
     depth: number;
 
@@ -72,14 +82,17 @@ export default class Folder<TDocument extends EnfolderableDocument = Enfolderabl
      * @param options Initial positioning and sizing options for the dialog form
      * @return An active FolderConfig instance for creating the new Folder entity
      */
-    static createDialog<TDocument extends foundry.abstract.Document>(
-        this: ConstructorOf<TDocument>,
-        data?: Record<string, unknown>,
-        context?: {
-            parent?: TDocument["parent"];
-            pack?: Collection<string, TDocument> | null;
-        } & Partial<FormApplicationOptions>,
-    ): Promise<TDocument | null>;
+    static override createDialog<T extends ClientDocument>(
+        this: ConstructorOf<T>,
+        data?: object,
+        createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
+        options?: {
+            folders?: { id: string; name: string }[];
+            types?: string[];
+            template?: string;
+            context?: object;
+        },
+    ): Promise<T | null>;
 
     /**
      * Export all Documents contained in this Folder to a given Compendium pack.

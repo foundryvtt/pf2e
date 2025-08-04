@@ -1,4 +1,4 @@
-import type BaseEffectSource from "@client/canvas/sources/base-effect-source.d.mts";
+import type { PointEffectSource } from "@client/canvas/sources/point-effect-source.d.mts";
 import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
 import { measureDistanceCuboid } from "@module/canvas/helpers.ts";
 import { TokenDocumentPF2e } from "@scene";
@@ -52,7 +52,7 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
 
     const pointSource = (() => {
         const sources = foundry.canvas.sources;
-        const PointSource: ConstructorOf<BaseEffectSource<TokenPF2e>> = {
+        const PointSource: ConstructorOf<PointEffectSource> = {
             sight: sources.PointVisionSource,
             sound: sources.PointSoundSource,
             move: sources.PointMovementSource,

@@ -33,7 +33,7 @@ function showEarnIncomePopup(actor: ActorPF2e | undefined): void {
                     localStorage.setItem("earnIncomeDays", days.toString());
                     localStorage.setItem("earnIncomeSkillAcronym", skillAcronym);
 
-                    runEarnIncome({ actor, event, skill, level, days });
+                    runEarnIncome({ actor, event: event?.originalEvent, skill, level, days });
                 },
             },
         },

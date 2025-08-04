@@ -1251,7 +1251,7 @@ export class IntegerSortField<
  * A subclass of {@link foundry.data.fields.TypedObjectField} that is used specifically for the Document "flags" field.
  */
 export class DocumentFlagsField extends TypedObjectField<
-    ObjectField<Record<string, JSONValue | undefined>, Record<string, unknown>, true, false, true>
+    ObjectField<Record<string, unknown>, Record<string, unknown>, true, false, true>
 > {
     /**
      * @param options Options which configure the behavior of the field
@@ -1275,7 +1275,7 @@ export class DocumentStatsField<TDocumentUUID extends DocumentUUID = DocumentUUI
     constructor(options?: ObjectFieldOptions<DocumentStatsSchema, true, false, true>, context?: DataFieldContext);
 }
 
-type DocumentStatsSchema<TDocumentUUID extends DocumentUUID = DocumentUUID> = {
+export type DocumentStatsSchema<TDocumentUUID extends DocumentUUID = DocumentUUID> = {
     /** The package name of the system the Document was created in. */
     systemId: StringField<string, string, true, false, true>;
     /** The version of the system the Document was created or last modified in. */

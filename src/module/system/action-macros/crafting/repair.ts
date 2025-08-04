@@ -1,4 +1,4 @@
-import { PhysicalItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
@@ -10,8 +10,11 @@ async function repair(options: RepairActionOptions): Promise<void> {
     // resolve item
     const item = options.item ?? (await (options.uuid ? fromUuid(options.uuid) : SelectItemDialog.getItem("repair")));
 
-    // ensure specified item is a valid crafting target
-    if (!(item instanceof PhysicalItemPF2e)) {
+    // ensure specified item is a valid repair target
+    if (!(item instanceof ItemPF2e)) {
+        console.warn("PF2e System | No item selected to repair: aborting");
+        return;
+    } else if (!(item instanceof PhysicalItemPF2e)) {
         ui.notifications.warn(
             game.i18n.format("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item?.name ?? "" }),
         );

@@ -353,9 +353,7 @@ export class InlineRollLinks {
             }
         }
 
-        const flags: { pf2e: Record<string, unknown> } = {
-            pf2e: {},
-        };
+        const flags: { pf2e: Record<string, JSONValue> } = { pf2e: {} };
 
         const normalSize = (Math.ceil(data.distance) / 5) * 5 || 5;
         if (tupleHasValue(EFFECT_AREA_SHAPES, pf2EffectArea) && data.distance === normalSize) {

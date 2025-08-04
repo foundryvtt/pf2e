@@ -67,7 +67,7 @@ interface SimpleRollActionCheckOptions<TItem extends ItemPF2e<ActorPF2e>> {
     content?: (title: string) => Promise<string | null | undefined | void> | string | null | undefined | void;
     item?: (actor: ActorPF2e) => TItem | undefined;
     traits: string[];
-    event?: JQuery.TriggeredEvent | Event | null;
+    event?: Event | null;
     /**
      * A DC can be represented as a preassembled `CheckDC` object, a slug referencing a `Statistic`, or a function that
      * returns a `CheckDC` or `null`.
@@ -84,7 +84,7 @@ interface SimpleRollActionCheckOptions<TItem extends ItemPF2e<ActorPF2e>> {
 type UnresolvedCheckDC = CheckDC | DCSlug | ((actor: ActorPF2e | null) => CheckDC | null);
 
 interface ActionDefaultOptions {
-    event?: JQuery.TriggeredEvent | Event | null;
+    event?: Event | null;
     actors?: ActorPF2e | ActorPF2e[];
     glyph?: ActionGlyph;
     modifiers?: ModifierPF2e[];

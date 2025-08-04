@@ -1,4 +1,4 @@
-import { ActorProxyPF2e } from "@actor";
+import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import type { DataField, SourceFromSchema } from "@common/data/fields.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { isBracketedValue } from "@module/rules/helpers.ts";
@@ -59,7 +59,7 @@ class RuleElementForm<
                 const actor = new ActorProxyPF2e({ _id: fu.randomID(), name: "temp", type: "character" });
                 const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor });
                 return new RuleElementClass(fu.deepClone(this.rule), {
-                    parent: item,
+                    parent: item as ItemPF2e<ActorPF2e>,
                     strict: false,
                     suppressWarnings: true,
                 }) as TObject;

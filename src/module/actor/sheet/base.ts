@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { StrikeData } from "@actor/data/base.ts";
 import { iterateAllItems } from "@actor/helpers.ts";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
+import type Tabs from "@client/applications/ux/tabs.d.mts";
 import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
@@ -119,7 +120,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
         for (const item of [...actor.itemTypes.action, ...this.actor.itemTypes.feat]) {
             if (item.system.selfEffect) {
-                item.system.selfEffect.img ??= fromUuidSync(item.system.selfEffect.uuid)?.img ?? null;
+                item.system.selfEffect.img ??= fromUuidSync<ItemPF2e>(item.system.selfEffect.uuid)?.img ?? null;
             }
         }
 

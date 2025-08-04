@@ -1,10 +1,10 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import type { ApplicationConfiguration, ApplicationRenderContext } from "@client/applications/_types.d.mts";
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
-import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
+import type { ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
 import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
-import { ItemPF2e } from "@item";
+import type { ItemPF2e } from "@item";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery } from "@util";
 import MiniSearch from "minisearch";
 import { CompendiumMigrationStatus } from "../compendium-migration-status.ts";

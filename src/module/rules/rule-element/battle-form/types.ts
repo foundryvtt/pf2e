@@ -1,5 +1,6 @@
 import type { CreatureTrait, SenseAcuity, SenseType } from "@actor/creature/index.ts";
 import type { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import type { WeaponDamage } from "@item/weapon/data.ts";
 import type { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types.ts";
 import type { Size } from "@module/data.ts";

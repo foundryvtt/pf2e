@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
-import type { DataModelConstructionContext } from "@common/abstract/_module.mjs";
+import type { DataModelConstructionContext } from "@common/abstract/_module.d.mts";
 import type {
     ChatMessageCreateCallbackOptions,
     ChatMessageCreateOperation,

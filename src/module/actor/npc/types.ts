@@ -2,6 +2,7 @@ import type { CreatureSheetData } from "@actor/creature/sheet.ts";
 import type { HitPointsStatistic, TraitViewData } from "@actor/data/base.ts";
 import type { AbilityViewData } from "@actor/sheet/data-types.ts";
 import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
+import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import type { ItemPF2e } from "@item";
 import type { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import type { ZeroToFour } from "@module/data.ts";
@@ -101,7 +102,7 @@ interface NPCSpeedSheetData {
     adjustedLower: boolean;
 }
 
-type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = Omit<RawObject<TItem>, "traits"> & {
+type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = Omit<TItem["_source"], "traits"> & {
     glyph: string;
     traits: {
         label: string;

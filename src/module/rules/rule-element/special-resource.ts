@@ -1,11 +1,11 @@
-import type { ActorType, CreaturePF2e } from "@actor";
+import type { ActorPF2e, ActorType, CreaturePF2e } from "@actor";
 import type { CharacterResources } from "@actor/character/data.ts";
 import { CORE_RESOURCES } from "@actor/character/values.ts";
 import { applyActorGroupUpdate, createActorGroupUpdate } from "@actor/helpers.ts";
 import type { ActorGroupUpdate } from "@actor/types.ts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type Document from "@common/abstract/document.d.mts";
-import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import { AnyChoiceField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
@@ -136,7 +136,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
             } else if (!existingItem && uuid) {
                 const source = await this.#createItem(uuid, level);
                 if (source) {
-                    const item = new ItemProxyPF2e(fu.deepClone(source), { parent: this.actor });
+                    const item = new ItemProxyPF2e(fu.deepClone(source), { parent: this.actor }) as ItemPF2e<ActorPF2e>;
                     tempItems.push(item);
                     pendingItems.push(source);
                 }

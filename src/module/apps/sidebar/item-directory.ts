@@ -5,7 +5,7 @@ import { fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
 import { ItemAttacher } from "../item-attacher.ts";
 
 /** Extend ItemDirectory to show more information */
-export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends fa.sidebar.tabs.ItemDirectory<TItem> {
+export class ItemDirectoryPF2e extends fa.sidebar.tabs.ItemDirectory<ItemPF2e<null>> {
     protected static override _entryPartial = "systems/pf2e/templates/sidebar/item-document-partial.hbs";
 
     static override DEFAULT_OPTIONS: Partial<fa.sidebar.DocumentDirectoryConfiguration> = {

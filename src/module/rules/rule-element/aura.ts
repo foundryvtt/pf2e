@@ -2,7 +2,7 @@ import { userColorForActor } from "@actor/helpers.ts";
 import type { AuraAppearanceData, AuraData, AuraEffectData, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { HexColorString, ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
-import { ItemUUID } from "@common/documents/_module.mjs";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { DataUnionField, LaxArrayField, PredicateField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { isImageOrVideoPath, sluggify } from "@util";

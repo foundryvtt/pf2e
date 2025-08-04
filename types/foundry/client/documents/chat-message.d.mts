@@ -1,4 +1,4 @@
-import Roll, { Rolled } from "@client/dice/roll.mjs";
+import Roll, { Rolled, RollJSON } from "@client/dice/roll.mjs";
 import { DocumentConstructionContext } from "@common/_types.mjs";
 import {
     DatabaseCreateCallbackOptions,
@@ -164,17 +164,19 @@ declare class ChatMessage<TUser extends User | null = User | null> extends Clien
 declare namespace ChatMessage {
     function create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        data: DeepPartial<TDocument["_source"]>,
+        data: DeepPartial<TDocument["_source"] & { rolls: (string | RollJSON)[] }>,
         operation?: Partial<ChatMessageCreateOperation>,
     ): Promise<TDocument | undefined>;
     function create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        data: DeepPartial<TDocument["_source"]>[],
+        data: DeepPartial<TDocument["_source"] & { rolls: (string | RollJSON)[] }>[],
         operation?: Partial<ChatMessageCreateOperation>,
     ): Promise<TDocument[]>;
     function create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        data: DeepPartial<TDocument["_source"]> | PreCreate<TDocument["_source"]>[],
+        data:
+            | DeepPartial<TDocument["_source"] & { rolls: (string | RollJSON)[] }>
+            | DeepPartial<TDocument["_source"] & { rolls: (string | RollJSON)[] }>[],
         operation?: Partial<ChatMessageCreateOperation>,
     ): Promise<TDocument[] | TDocument | undefined>;
 }

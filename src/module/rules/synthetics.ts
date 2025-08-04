@@ -13,7 +13,7 @@ import type { MovementType } from "@actor/types.ts";
 import type { TokenDocumentUUID } from "@client/documents/_module.d.mts";
 import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import type { TokenSource } from "@common/documents/token.d.mts";
-import type { MeleePF2e, WeaponPF2e } from "@item";
+import type { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/index.ts";
 import type { ConditionSource, EffectSource } from "@item/base/data/index.ts";
 import type { WeaponRuneSource } from "@item/weapon/data.ts";
@@ -31,7 +31,7 @@ import type { Suboption } from "./rule-element/roll-option/data.ts";
 import { SpecialResourceRuleElement } from "./rule-element/special-resource.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
-interface RuleElementSynthetics<TActor extends ActorPF2e = ActorPF2e> {
+interface RuleElementSynthetics {
     criticalSpecializations: {
         standard: CritSpecSynthetic[];
         alternate: CritSpecSynthetic[];
@@ -59,7 +59,7 @@ interface RuleElementSynthetics<TActor extends ActorPF2e = ActorPF2e> {
     strikes: Record<string, DeferredStrike>;
     striking: Record<string, StrikingSynthetic[]>;
     toggles: Record<string, Record<string, RollOptionToggle>>;
-    tokenEffectIcons: ActiveEffectPF2e<TActor>[];
+    tokenEffectIcons: ActiveEffectPF2e<ItemPF2e>[];
     tokenMarks: Map<TokenDocumentUUID, string[]>;
     tokenOverrides: DeepPartial<Pick<TokenSource, "light" | "name">> & {
         alpha?: number | null;

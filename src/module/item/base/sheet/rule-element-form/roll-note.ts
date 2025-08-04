@@ -29,7 +29,7 @@ class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
         tagify(optionsEl, { whitelist: [...DEGREE_OF_SUCCESS_STRINGS], maxTags: 3 });
     }
 
-    override updateObject(ruleData: Partial<Record<string, JSONValue>>): void {
+    override updateObject(ruleData: { key: string } & Partial<Record<string, JSONValue>>): void {
         const shouldBeHidden = htmlQuery<HTMLInputElement>(this.element, ".hidden-value")?.checked;
         const isHidden = ["gm", "owner"].includes(String(this.rule.visibility));
         if (shouldBeHidden !== isHidden) {

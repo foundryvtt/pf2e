@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { AttackPopout } from "@actor/character/apps/attack-popout.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { ActorUUID } from "@client/documents/_module.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { ItemPF2e, type ConditionPF2e, type EffectPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -166,7 +167,7 @@ export async function rollActionMacro({
 
     const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/strike-card.hbs", templateData);
     const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;
-    const chatData: PreCreate<foundry.documents.ChatMessageSource> = {
+    const chatData: DeepPartial<foundry.documents.ChatMessageSource> = {
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         content,
         style: CONST.CHAT_MESSAGE_STYLES.OTHER,

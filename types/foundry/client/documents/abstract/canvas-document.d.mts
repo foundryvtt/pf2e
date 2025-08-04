@@ -70,4 +70,8 @@ export class CanvasDocument<TParent extends Document | null = Document | null> e
     protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 }
 
+export interface CanvasDocument<TParent extends Document | null = Document | null> extends ClientDocument<TParent> {
+    hidden: boolean;
+}
+
 export interface CanvasDocumentStatic extends ClientDocumentStatic {}

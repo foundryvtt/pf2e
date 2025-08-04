@@ -59,8 +59,8 @@ type ChoiceSetSchema = RuleElementSchema & {
     /** A predicate indicating valid dropped item selections */
     allowedDrops: fields.SchemaField<
         AllowedDropsSchema,
-        SourceFromSchema<AllowedDropsSchema>,
-        ModelPropsFromSchema<AllowedDropsSchema>,
+        fields.SourceFromSchema<AllowedDropsSchema>,
+        fields.ModelPropsFromSchema<AllowedDropsSchema>,
         false,
         true,
         false
@@ -74,7 +74,7 @@ type AllowedDropsSchema = {
     predicate: PredicateField;
 };
 
-type AllowedDropsData = ModelPropsFromSchema<AllowedDropsSchema>;
+type AllowedDropsData = fields.ModelPropsFromSchema<AllowedDropsSchema>;
 
 type ChoiceSetObject = ChoiceSetOwnedItems | ChoiceSetAttacks | ChoiceSetPackQuery | ChoiceSetConfig;
 type UninflatedChoiceSet = string | PickableThing[] | ChoiceSetObject;

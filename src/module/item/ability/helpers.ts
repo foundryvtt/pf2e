@@ -67,7 +67,7 @@ function getActionCostRollOptions(prefix: string, item: { actionCost?: ActionCos
 function createSelfEffectSheetData(data: Maybe<SelfEffectReference>): SelfEffectSheetReference | null {
     if (!data) return null;
 
-    type MaybeIndexData = ((ClientDocument | CompendiumIndexData) & { img?: unknown }) | null;
+    type MaybeIndexData = ((ClientDocument | CompendiumIndexData) & { name?: string; img?: unknown }) | null;
     const indexEntry: MaybeIndexData = fromUuidSync(data.uuid);
     if (indexEntry?.name && isImageFilePath(indexEntry.img)) {
         data.name = indexEntry.name;

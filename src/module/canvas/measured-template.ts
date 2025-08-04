@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { Point } from "@common/_types.mjs";
+import type { Point } from "@common/_types.d.mts";
 import type { ItemPF2e } from "@item";
 import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";

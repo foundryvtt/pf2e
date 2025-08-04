@@ -1,5 +1,5 @@
-import { ApplicationRenderContext } from "@client/applications/_types.mjs";
-import { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.mjs";
+import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
+import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
 import { combatantAndTokenDoc } from "@module/doc-helpers.ts";
 import type { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";

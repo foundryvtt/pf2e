@@ -102,7 +102,10 @@ export function getDocumentClass(documentName: string): typeof Document | undefi
  * @param options Options which modify the sort behavior
  * @returns An Array of updates for the caller of the helper function to perform
  */
-export function performIntegerSort<TObject extends object>(source: TObject, options?: SortOptions<TObject>): TObject[];
+export function performIntegerSort<TObject extends object>(
+    source: TObject,
+    options?: SortOptions<TObject>,
+): { target: TObject; update: Record<string, number> }[];
 
 declare interface SortOptions<TObject extends object> {
     /** The target object relative which to sort */

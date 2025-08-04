@@ -1,5 +1,5 @@
 import { renderCraftingInline } from "@actor/character/crafting/helpers.ts";
-import { PhysicalItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
@@ -12,7 +12,7 @@ export async function craft(options: CraftActionOptions): Promise<void> {
     const item = options.item ?? (await (options.uuid ? fromUuid(options.uuid) : SelectItemDialog.getItem("craft")));
 
     // ensure item is a valid crafting target
-    if (!item) {
+    if (!(item instanceof ItemPF2e)) {
         console.warn("PF2e System | No item selected to craft: aborting");
         return;
     } else if (!(item instanceof PhysicalItemPF2e)) {

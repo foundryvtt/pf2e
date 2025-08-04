@@ -44,17 +44,13 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
             for (let sort = stack.length - 1; sort >= 0; sort--) {
                 const token = stack[sort];
                 token.document.sort = sort;
-                token._onUpdate(
-                    { _id: token.document.id, sort },
-                    { broadcast: false, parent: token.document.scene, updates: [] },
-                    game.user.id,
-                );
+                token._onUpdate({ _id: token.document.id, sort }, { broadcast: false }, game.user.id);
             }
         }
 
         // Update which token is hovered after rotating the stack
         const newTop = stack.at(-1);
-        this.hover = newTop ?? null;
+        this.hover = (newTop ?? null) as TObject;
         for (const token of stack) {
             token.hover = token === newTop;
         }

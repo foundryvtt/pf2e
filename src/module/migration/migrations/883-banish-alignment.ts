@@ -19,7 +19,9 @@ export class Migration883BanishAlignment extends MigrationBase {
 
     #ALIGNMENTS = new Set(["good", "evil", "lawful", "chaotic"]);
 
-    #migrateRule(rule: DeepPartial<RuleElementSource>): DeepPartial<RuleElementSource> | never[] {
+    #migrateRule(
+        rule: DeepPartial<RuleElementSource> & { key: string },
+    ): (DeepPartial<RuleElementSource> & { key: string }) | never[] {
         // Remove school traits from aura REs
         if ("traits" in rule && Array.isArray(rule.traits)) {
             rule.traits = rule.traits.filter((t) => !this.#ALIGNMENTS.has(t));
@@ -27,7 +29,6 @@ export class Migration883BanishAlignment extends MigrationBase {
         if (Array.isArray(rule.predicate)) {
             rule.predicate = rule.predicate.filter((s) => !this.#ALIGNMENTS.has(s));
         }
-
         return rule;
     }
 

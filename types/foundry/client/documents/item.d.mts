@@ -6,7 +6,7 @@ import {
 import Document from "@common/abstract/document.mjs";
 import { DocumentSheetV1Options } from "../appv1/api/document-sheet-v1.mjs";
 import ItemSheet from "../appv1/sheets/item-sheet.mjs";
-import { Actor, BaseItem, BaseUser, ItemUUID } from "./_module.mjs";
+import { Actor, BaseItem, BaseUser, ItemSource, ItemUUID } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
 interface ClientBaseItemStatic extends Omit<typeof BaseItem, "new">, ClientDocumentStatic {}
@@ -70,6 +70,8 @@ declare class Item<TParent extends Actor | null = Actor | null> extends ClientBa
 }
 
 declare interface Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
+    readonly _source: ItemSource;
+
     get uuid(): ItemUUID;
     get sheet(): ItemSheet<this, DocumentSheetV1Options>;
 }

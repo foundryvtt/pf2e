@@ -213,6 +213,7 @@ export default class ActiveEffect<
 }
 
 export default interface ActiveEffect<TParent extends Actor | Item | null = Actor | Item | null> {
+    readonly _source: ActiveEffectSource;
     duration: PreparedEffectDurationData;
 }
 

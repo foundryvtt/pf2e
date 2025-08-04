@@ -259,7 +259,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         }
 
         for (const overlay of Object.values(system?.overlays ?? {})) {
-            if (overlay.overlayType === "override") {
+            if (overlay?.overlayType === "override") {
                 await this.updateItem(
                     {
                         name: overlay.name ?? source.name,

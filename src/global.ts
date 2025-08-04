@@ -29,6 +29,7 @@ import type {
     ChatLogPF2e,
     CompendiumDirectoryPF2e,
     EncounterTracker,
+    ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
 import type { WorldClock } from "@module/apps/world-clock/app.ts";
 import type { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas/index.ts";
@@ -327,7 +328,7 @@ declare global {
 
         const ui: FoundryUI<
             ActorDirectoryPF2e,
-            fa.sidebar.tabs.ItemDirectory<ItemPF2e<null>>,
+            ItemDirectoryPF2e,
             ChatLogPF2e,
             CompendiumDirectoryPF2e,
             EncounterTracker<EncounterPF2e | null>,

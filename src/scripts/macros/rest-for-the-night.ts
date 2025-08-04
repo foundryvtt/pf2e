@@ -35,7 +35,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         return [];
     }
 
-    const messages: PreCreate<ChatMessageSourcePF2e>[] = [];
+    const messages: DeepPartial<ChatMessageSourcePF2e>[] = [];
 
     for (const actor of characters) {
         const actorUpdates: ActorUpdates = {
@@ -115,7 +115,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
 
         // Perform all built in actor recharges, such as spellcasting and frequencies
         const recharges = await actor.recharge({ duration: "day", commit: false });
-        if (recharges.actorUpdates?.system?.resources) {
+        if (recharges.actorUpdates?.system && "resources" in recharges.actorUpdates.system) {
             actorUpdates.resources = fu.mergeObject(actorUpdates.resources, recharges.actorUpdates.system.resources);
         }
         itemCreates.push(...recharges.itemCreates);

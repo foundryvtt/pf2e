@@ -490,11 +490,14 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const parentRollOptions = this.item.getRollOptions("parent");
         const filteredItems = indexData
             .flatMap((d): { name: string; type: string; uuid: string }[] => d.contents)
-            .filter((s): s is PreCreate<ItemSourcePF2e> & { uuid: DocumentUUID } => s.type === itemType)
+            .filter(
+                (s): s is DeepPartial<ItemSourcePF2e> & { name: string; type: string; uuid: DocumentUUID } =>
+                    s.type === itemType,
+            )
             .map((source) => {
                 const parsedUUID = fu.parseUuid(source.uuid);
                 const pack =
-                    parsedUUID.collection instanceof fd.collections.CompendiumCollection
+                    parsedUUID?.collection instanceof fd.collections.CompendiumCollection
                         ? parsedUUID.collection.metadata.id
                         : null;
                 return new ItemProxyPF2e(fu.deepClone(source), { pack });
