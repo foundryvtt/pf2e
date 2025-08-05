@@ -268,7 +268,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "group": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (validator.isValid(data)) {
-                    data.item.system.group = data.alteration.value;
+                    const system: { group: string | null } = data.item.system;
+                    system.group = data.alteration.value;
                 }
                 return;
             }

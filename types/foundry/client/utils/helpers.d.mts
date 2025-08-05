@@ -70,12 +70,12 @@ export type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUI
  */
 export function fromUuidSync<
     TResult extends (Document & { name?: string }) | CompendiumIndexData =
-        | (Document & { name?: string })
+        | (ClientDocument & { name?: string })
         | CompendiumIndexData,
 >(
     uuid: string,
     options?: {
-        relative?: Document;
+        relative?: ClientDocument;
         invalid?: boolean;
         strict?: boolean;
     },
