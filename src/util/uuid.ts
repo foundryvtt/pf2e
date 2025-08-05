@@ -8,6 +8,7 @@ import type {
     TokenDocumentUUID,
     WorldItemUUID,
 } from "@client/documents/_module.d.mts";
+import type { ClientDocument } from "@client/documents/abstract/_module.d.mts";
 import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
 import type Document from "@common/abstract/document.d.mts";
@@ -35,7 +36,7 @@ class UUIDUtils {
             .filter(R.isTruthy);
 
         const worldDocsAndCacheHits = documentsAndIndexData.filter(
-            (d): d is Document => d instanceof foundry.abstract.Document,
+            (d): d is ClientDocument => d instanceof foundry.abstract.Document,
         );
         const indexEntries = documentsAndIndexData.filter(
             (d): d is CompendiumIndexData => !(d instanceof foundry.abstract.Document),
