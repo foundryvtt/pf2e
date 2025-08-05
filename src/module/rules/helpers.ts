@@ -107,17 +107,18 @@ async function extractEphemeralEffects({
     )
         .filter(R.isNonNull)
         .map((effect) => {
-            effect.system.context = {
-                origin: {
-                    actor: effectsFrom.uuid,
-                    token: null,
-                    item: null,
-                    spellcasting: null,
-                },
-                target: { actor: effectsTo.uuid, token: null },
-                roll: null,
-            };
             if (effect.type === "effect") {
+                effect.system.context = {
+                    origin: {
+                        actor: effectsFrom.uuid,
+                        token: null,
+                        item: null,
+                        spellcasting: null,
+                        rollOptions: [],
+                    },
+                    target: { actor: effectsTo.uuid, token: null },
+                    roll: null,
+                };
                 effect.system.duration = { value: -1, unit: "unlimited", expiry: null, sustained: false };
             }
             return effect;
