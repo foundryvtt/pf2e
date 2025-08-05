@@ -36,12 +36,15 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         if (this.level !== null && !this.itemUUID) {
             this.failValidation("level can only be set if itemUUID is set");
         }
+
+        // If unset, set to 0 for now. It'll gain an actual value during beforeCreateData()
+        this.value ??= 0;
     }
 
     static override defineSchema(): SpecialResourceSchema {
         return {
             ...super.defineSchema(),
-            value: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
+            value: new fields.NumberField({ required: true, nullable: true, initial: null }),
             max: new ResolvableValueField({ required: true, nullable: false }),
             itemUUID: new fields.DocumentUUIDField({
                 required: false,
@@ -181,8 +184,8 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
             this.max = existing.max = max;
             const rawValue = this.itemUUID
                 ? (this.actor.inventory.find((i) => i.sourceId === this.itemUUID)?.quantity ?? 0)
-                : this.value;
-            this.value = existing.value = Math.min(rawValue ?? max, max);
+                : (this._source.value ?? max);
+            this.value = existing.value = Math.min(rawValue, max);
         } else {
             this.failValidation(`Missing resource system data for resource ${this.slug}`);
         }
@@ -219,6 +222,7 @@ interface SpecialResourceRuleElement
         ModelPropsFromRESchema<SpecialResourceSchema> {
     slug: string;
     max: number;
+    value: number;
     get actor(): CreaturePF2e;
 }
 
@@ -232,7 +236,7 @@ type SpecialResourceSource = RuleElementSource & {
 
 type SpecialResourceSchema = RuleElementSchema & {
     /** Current value. If not set, defaults to null */
-    value: fields.NumberField<number, number, false, false>;
+    value: fields.NumberField<number, number, true, true, true>;
     /** The maximum value attainable for this resource. */
     max: ResolvableValueField<true, false>;
     /** If this represents a physical resource, the UUID of the item to create */
