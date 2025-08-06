@@ -2,12 +2,13 @@ import type { DataFieldOptions } from "@common/data/_types.d.mts";
 import type { ItemPF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import type { ItemTrait } from "@item/base/types.ts";
+import type { PersistentDamageValueSchema } from "@item/condition/data.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 import { RARITIES } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import type { DamageDiceFaces, DamageType } from "@system/damage/types.ts";
+import type { DamageDiceFaces } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { PredicateField, SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
 import { objectHasKey, setHasElement, tupleHasValue } from "@util";
@@ -433,6 +434,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                         nullable: false,
                         initial: 15,
                     }),
+                    criticalHit: new fields.BooleanField({ required: true, nullable: false, initial: false }),
                 },
                 { nullable: false } as const,
             ),
@@ -620,12 +622,6 @@ type AlterationSchema = {
     itemType: fields.StringField<ItemType, ItemType, true, false, false>;
     mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     value: fields.DataField<Exclude<JSONValue, undefined>, Exclude<JSONValue, undefined>, true, boolean, boolean>;
-};
-
-type PersistentDamageValueSchema = {
-    formula: fields.StringField<string, string, true, false, false>;
-    damageType: fields.StringField<DamageType, DamageType, true, false, false>;
-    dc: fields.NumberField<number, number, true, false, true>;
 };
 
 type DescriptionValueField = fields.ArrayField<
