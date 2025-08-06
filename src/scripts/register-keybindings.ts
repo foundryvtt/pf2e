@@ -1,4 +1,5 @@
 import type { PartyPF2e } from "@actor";
+import { htmlQuery, objectHasKey } from "@util";
 
 export function registerKeybindings(): void {
     game.keybindings.register("pf2e", "cycle-token-stack", {
@@ -53,10 +54,10 @@ export function registerKeybindings(): void {
                 if (cb.minimized) {
                     cb.maximize();
                 } else {
-                    previousCompendiumBrowserTab = cb.element.querySelector("nav .active")?.dataset.tabName ?? "";
+                    previousCompendiumBrowserTab = htmlQuery(cb.element, "nav .active")?.dataset.tabName ?? "";
                     cb.close();
                 }
-            } else if (previousCompendiumBrowserTab) {
+            } else if (objectHasKey(cb.tabs, previousCompendiumBrowserTab)) {
                 cb.tabs[previousCompendiumBrowserTab].open();
             } else {
                 cb.render({ force: true });
