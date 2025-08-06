@@ -72,6 +72,7 @@ import {
 import { CharacterPF2e } from "./document.ts";
 import { ElementalBlast, ElementalBlastConfig } from "./elemental-blast.ts";
 import type { FeatBrowserFilterProps, FeatGroup } from "./feats/index.ts";
+import { getItemProficiencyRank } from "./helpers.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
 
@@ -523,10 +524,16 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         data.isInvestable = !item.isStowed && item.isIdentified && item.isInvested !== null;
 
         // If armor is equipped, and can be invested, hint at the user that it should be invested
-        const invested = this.actor.inventory.invested;
+        const actor = this.actor;
+        const invested = actor.inventory.invested;
         const canInvest = invested && invested.value < invested.max;
-        if (item.isOfType("armor") && item.isEquipped && !item.isInvested && data.isInvestable && canInvest) {
-            data.notifyInvestment = true;
+        if (item.isOfType("armor") && getItemProficiencyRank(actor, item) > 0) {
+            const isWearingArmor = !!actor.wornArmor;
+            if ((item.isEquipped || !isWearingArmor) && !item.isInvested && data.isInvestable && canInvest) {
+                data.notifyInvest = true;
+            } else if (!isWearingArmor) {
+                data.notifyEquip = true;
+            }
         }
 
         return data;

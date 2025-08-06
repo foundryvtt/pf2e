@@ -3,17 +3,18 @@ import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import type { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
 import { EffectPF2e, ItemProxyPF2e } from "@item";
-import { ItemCarryType } from "@item/physical/index.ts";
+import type { ItemCarryType } from "@item/physical/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
+import type { ZeroToFour, ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
+import type { RuleElementSource } from "@module/rules/index.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { Predicate } from "@system/predication.ts";
 import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
+import type { MartialProficiency } from "./data.ts";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
 class PCAttackTraitHelpers extends AttackTraitHelpers {
@@ -326,6 +327,45 @@ interface CreateAttackModifiersParams {
     domains: string[];
 }
 
+/** Get the proficiency rank of of a weapon or armor for a PC. */
+function getItemProficiencyRank(
+    actor: CharacterPF2e,
+    item: ArmorPF2e | WeaponPF2e,
+    itemOptions = new Set(item.getRollOptions("item")),
+): ZeroToFour {
+    if (item.isOfType("armor")) return getArmorProficiencyRank(actor, item, itemOptions);
+    return getWeaponProficiencyRank(actor, item, itemOptions);
+}
+
+function getArmorProficiencyRank(actor: CharacterPF2e, armor: ArmorPF2e, itemOptions: Set<string>): ZeroToFour {
+    return Object.entries(actor.system.proficiencies.defenses as Record<string, MartialProficiency>)
+        .filter(([key, proficiency]) => {
+            if (!armor) return key === "unarmored";
+            if (armor.category === key) return true;
+            return proficiency.definition?.test(itemOptions) ?? false;
+        })
+        .map(([_k, v]) => v)
+        .reduce((best, p) => (p.rank > best.rank ? p : best), { rank: 0 as ZeroToFour }).rank;
+}
+
+function getWeaponProficiencyRank(actor: CharacterPF2e, weapon: WeaponPF2e, itemOptions: Set<string>): ZeroToFour {
+    // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
+    // certain criteria also count as weapon of different category
+    const proficiencies = actor.system.proficiencies;
+    const categoryRank = proficiencies.attacks[weapon.category]?.rank ?? 0;
+    const groupRank = proficiencies.attacks[`weapon-group-${weapon.group}`]?.rank ?? 0;
+
+    // Weapons that are interchangeable for all rules purposes (e.g., longbow and composite longbow)
+    const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+    const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
+    const baseWeaponRank = proficiencies.attacks[`weapon-base-${baseWeapon}`]?.rank ?? 0;
+    const syntheticRanks = Object.values(proficiencies.attacks)
+        .filter((p): p is MartialProficiency => !!p?.definition?.test(itemOptions))
+        .map((p) => p.rank);
+
+    return Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
+}
+
 /** Create a penalty for attempting to Force Open without a crowbar or equivalent tool */
 function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): ModifierPF2e {
     const slug = "no-crowbar";
@@ -406,5 +446,6 @@ export {
     createHinderingPenalty,
     createPonderousPenalty,
     createShoddyPenalty,
+    getItemProficiencyRank,
     imposeOversizedWeaponCondition,
 };

@@ -23,7 +23,8 @@ interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
     isSellable: boolean;
     hasCharges: boolean;
     heldItems?: InventoryItem[] | null;
-    notifyInvestment?: boolean;
+    notifyEquip?: boolean;
+    notifyInvest?: boolean;
     /** Whether the item should be hidden if the user isn't the owner */
     hidden: boolean;
 }
