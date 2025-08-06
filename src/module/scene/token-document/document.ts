@@ -513,7 +513,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         super._onRelatedUpdate(update, operation);
 
         const { actor, scene } = this;
-        if (!actor?.isOwner || !(scene instanceof ScenePF2e)) return;
+        if (!actor || !(scene instanceof ScenePF2e)) return;
 
         // Follow up any actor (or descendant document thereof) modification with a size synchronization
         const activeGM = game.users.activeGM; // Let the active GM take care of updates if available
