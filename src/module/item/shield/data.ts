@@ -21,7 +21,7 @@ interface ShieldSystemSource extends PhysicalSystemSource {
     speedPenalty: number;
     /** Data stored at the time of marking a shield as specific */
     specific: SpecificShieldData | null;
-    grade: Grade;
+    grade: Grade | null;
     /** Currently supports reinforcing runes */
     runes: ShieldRuneData;
     /** Usage for shields isn't stored. */

@@ -2,10 +2,10 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
     CoinsPF2e,
-    type Grade,
+    Grade,
     MATERIAL_DATA,
-    type MaterialSheetData,
-    type PhysicalItemSheetData,
+    MaterialSheetData,
+    PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
     RUNE_DATA,
     getPropertyRuneSlots,

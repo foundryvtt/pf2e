@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_module.d.mts";
 import type { RawItemChatData } from "@item/base/data/index.ts";
-import { PhysicalItemPF2e, getPropertyRuneSlots } from "@item/physical/index.ts";
+import { PhysicalItemPF2e, checkPhysicalItemSystemChange, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util";
@@ -95,8 +95,8 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         const abpEnabled = ABP.isEnabled(this.actor);
         const baseTraits = this.system.traits.value;
 
-        // Determine if this weapon uses runes or CTASEUP and clear the opposing data
-        const isSF2e = baseTraits.some((v) => v === "tech" || v === "analog");
+        // Determine if this armor uses runes or CTASEUP and clear the opposing data
+        const isSF2e = baseTraits.some((v) => ["tech", "analog"].includes(v));
         this.system.grade = isSF2e ? (this.system.grade ?? "commercial") : null;
         if (isSF2e) {
             this.system.runes.potency = 0;
@@ -194,14 +194,14 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Clear runes or grade based on tech/analog traits
-        const traits = changed.system.traits ?? {};
-        if ("value" in traits && Array.isArray(traits.value)) {
-            if (traits.value.some((t) => t === "tech" || t === "analog")) {
-                changed.system.runes = { potency: 0, resilient: 0 };
-                changed.system.grade ??= this._source.system.grade ?? "commercial";
-            } else {
-                changed.system.grade = null;
-            }
+        const result = await checkPhysicalItemSystemChange(this, changed);
+        if (result === "cancel") {
+            return false;
+        } else if (result === "sf2e") {
+            changed.system.runes = { potency: 0, resilient: 0, property: [] };
+            changed.system.grade ??= this._source.system.grade ?? "commercial";
+        } else if (result === "pf2e") {
+            changed.system.grade = null;
         }
 
         if (changed.system.acBonus !== undefined) {

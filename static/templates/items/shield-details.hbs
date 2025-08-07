@@ -81,13 +81,22 @@
         </select>
     </div>
 
-    <div class="form-group">
-        <label for="{{fieldIdPrefix}}runes-reinforcing">{{localize "PF2E.Item.Shield.Rune.Reinforcing.Label"}}</label>
-        <select name="system.runes.reinforcing" id="{{fieldIdPrefix}}runes-reinforcing" data-dtype="Number">
-            <option value="0"></option>
-            {{selectOptions (omit reinforcing 0) selected=data.runes.reinforcing localize=true}}
-        </select>
-    </div>
+    {{#if data.grade}}
+        <div class="form-group">
+            <label for="{{fieldIdPrefix}}grade">{{localize "PF2E.Item.Physical.FIELDS.grade.label"}}</label>
+            <select name="system.grade" id="{{fieldIdPrefix}}grade">
+                {{selectOptions grades selected=data.grade}}
+            </select>
+        </div>
+    {{else}}
+        <div class="form-group">
+            <label for="{{fieldIdPrefix}}runes-reinforcing">{{localize "PF2E.Item.Shield.Rune.Reinforcing.Label"}}</label>
+            <select name="system.runes.reinforcing" id="{{fieldIdPrefix}}runes-reinforcing" data-dtype="Number">
+                <option value="0"></option>
+                {{selectOptions (omit reinforcing 0) selected=data.runes.reinforcing localize=true}}
+            </select>
+        </div>
+    {{/if}}
 
     {{#if weaponRunes}}
         <div class="form-group">
@@ -134,4 +143,3 @@
         <input type="checkbox" id="{{fieldIdPrefix}}specific" data-action="toggle-specific" {{checked data.specific}} />
     </div>
 </fieldset>
-

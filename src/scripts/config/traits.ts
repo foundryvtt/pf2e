@@ -995,6 +995,7 @@ const shieldTraits = {
     ...damageTraits,
     ...magicTraditions,
     alchemical: "PF2E.TraitAlchemical",
+    analog: "PF2E.TraitAnalog",
     apex: "PF2E.TraitApex",
     artifact: "PF2E.TraitArtifact",
     aura: "PF2E.TraitAura",
@@ -1016,6 +1017,7 @@ const shieldTraits = {
     relic: "PF2E.TraitRelic",
     "shield-throw-20": "PF2E.TraitShieldThrow20",
     "shield-throw-30": "PF2E.TraitShieldThrow30",
+    tech: "PF2E.TraitTech",
 };
 
 const armorTraits = {

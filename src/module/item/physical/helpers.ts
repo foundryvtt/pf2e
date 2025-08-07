@@ -5,7 +5,7 @@ import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
-import { ErrorPF2e, createHTMLElement, localizer } from "@util";
+import { ErrorPF2e, createHTMLElement, localizer, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
@@ -75,14 +75,84 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
 
 /** Get price and level from starfinder grade. Returns 0 for non-SF2e weapons */
 function getGradeData(item: PhysicalItemPF2e) {
-    const gradeData =
-        item.isOfType("weapon") && item.system.grade
-            ? CONFIG.PF2E.weaponImprovements[item.system.grade]
-            : item.isOfType("armor") && item.system.grade
-              ? CONFIG.PF2E.weaponImprovements[item.system.grade]
-              : null;
-    const price = (gradeData?.credits ?? 0) / 10; // convert to gp
-    return { level: gradeData?.level ?? 0, price };
+    if (!item.isOfType("weapon", "armor", "shield") || item.system.grade === null) {
+        return { level: 0, price: 0 };
+    }
+
+    const gradeData = item.isOfType("weapon")
+        ? CONFIG.PF2E.weaponImprovements[item.system.grade]
+        : item.isOfType("armor")
+          ? CONFIG.PF2E.weaponImprovements[item.system.grade]
+          : CONFIG.PF2E.shieldImprovements[item.system.grade];
+    const price = gradeData.credits / 10; // convert to gp
+    return { level: gradeData?.level, price };
+}
+
+/**
+ * Checks if a change in traits leads to the item converting to sf2e or pf2e.
+ * If so, it prompts for confirmation, and allows the user to cancel.
+ * @returns false if no change, "cancel" if the update was aborted, or pf2e or sf2e based on the new traits.
+ */
+async function checkPhysicalItemSystemChange(
+    item: PhysicalItemPF2e,
+    changed: DeepPartial<PhysicalItemSource>,
+): Promise<false | "cancel" | "pf2e" | "sf2e"> {
+    const newTraits: string[] | undefined = changed.system?.traits?.value;
+    if (!item.isOfType("weapon", "armor", "shield") || !newTraits) return false;
+
+    const sf2eTraits = ["tech", "analog"] as const;
+    const beforeSF2eTraits = item._source.system.traits.value.filter((t) => tupleHasValue(sf2eTraits, t));
+    const wasSF2e = !!beforeSF2eTraits.length;
+    const becomingSF2e = newTraits.some((t) => tupleHasValue(sf2eTraits, t));
+    const runes = item._source.system.runes;
+    const hasPotency = "potency" in runes && runes.potency > 0;
+    const hasRunes =
+        hasPotency ||
+        ("striking" in runes && runes.striking > 0) ||
+        ("reinforcing" in runes && runes.reinforcing > 0) ||
+        (hasPotency && "property" in runes && runes.property.length > 0);
+    const hasGrade = item.system.grade && item.system.grade !== "commercial";
+    if (wasSF2e === becomingSF2e || !(hasRunes || hasGrade)) {
+        return false;
+    }
+
+    const key = `PF2E.Item.Physical.ChangeEquipmentSystem.${becomingSF2e ? "ToStarfinder" : "ToPathfinder"}`;
+    const removedTrait = beforeSF2eTraits.find((t) => !newTraits.includes(t));
+    const otherTrait = removedTrait === "tech" ? "analog" : "tech";
+    const newTrait = newTraits.find((t) => tupleHasValue(sf2eTraits, t));
+    const otherTraitLabel = otherTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[otherTrait]);
+    const result = await foundry.applications.api.DialogV2.wait({
+        window: { title: "PF2E.Item.Physical.ChangeEquipmentSystem.Title" },
+        position: { width: 400 },
+        modal: true,
+        content: game.i18n.format(key, {
+            type: game.i18n.localize(`TYPES.Item.${item.type}`),
+            newTrait: newTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[newTrait]),
+            removedTrait: removedTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[removedTrait]),
+            otherTrait: otherTraitLabel,
+        }),
+        buttons: [
+            { action: "yes", label: "Yes", icon: "fa-solid fa-check", callback: () => true },
+            !becomingSF2e && {
+                action: "change",
+                label: otherTraitLabel,
+                icon: "fa-solid fa-robot",
+            },
+            { action: "no", label: "No", icon: "fa-solid fa-xmark", default: true, callback: () => false },
+        ].filter(R.isTruthy),
+    });
+
+    if (!result) {
+        item.sheet.render(false); // tagify is optimistic, so we need to re-render
+        return "cancel";
+    } else if (result === "change") {
+        // If the change button is pressed, we are staying as sf2e but swapping the trait used
+        // To the caller of this function, this is a no change
+        newTraits.push(otherTrait);
+        return false;
+    }
+
+    return becomingSF2e ? "sf2e" : "pf2e";
 }
 
 /**
@@ -306,6 +376,7 @@ function getDefaultEquipStatus(item: PhysicalItemPF2e): EquippedData {
 export { coinCompendiumIds } from "./coins.ts";
 export {
     CoinsPF2e,
+    checkPhysicalItemSystemChange,
     computeLevelRarityPrice,
     detachSubitem,
     generateItemName,

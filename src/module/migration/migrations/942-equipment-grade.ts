@@ -8,7 +8,7 @@ export class Migration942EquipmentGrade extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "weapon" && source.type !== "armor") return;
-        const isSF2eItem = source.system.traits.value.some((t) => t === "tech" || t === "analog");
+        const isSF2eItem = source.system.traits.value.some((t) => ["tech", "analog"].includes(t));
         if (source.system.grade || !isSF2eItem) return;
 
         const grade =

@@ -681,6 +681,16 @@ export const PF2ECONFIG = {
         paragon: { level: 20, bonus: 3, resilient: 3, credits: 700000 },
     },
 
+    shieldImprovements: {
+        commercial: { level: 0, hardness: 0, maxHP: 0, credits: 0 },
+        tactical: { level: 5, hardness: 3, maxHP: 46, credits: 750 },
+        advanced: { level: 8, hardness: 3, maxHP: 56, credits: 3000 },
+        superior: { level: 11, hardness: 3, maxHP: 68, credits: 9000 },
+        elite: { level: 14, hardness: 5, maxHP: 80, credits: 25000 },
+        ultimate: { level: 18, hardness: 6, maxHP: 100, credits: 800000 },
+        paragon: { level: 20, hardness: 7, maxHP: 120, credits: 320000 },
+    },
+
     weaponReload,
     armorCategories,
     armorGroups,
