@@ -511,7 +511,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         operation?: Partial<DatabaseOperation<Document | null>>,
     ): void {
         super._onRelatedUpdate(update, operation);
-        if (!(this.scene instanceof TokenDocumentPF2e)) return;
+        if (!(this.scene instanceof ScenePF2e)) return;
 
         // Simulate update to detect and fulfill canvas-affecting actor changes
         const updates = Array.isArray(update) ? update : [update];
