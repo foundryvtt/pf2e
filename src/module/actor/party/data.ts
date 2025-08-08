@@ -85,4 +85,4 @@ interface PartyDetails extends ModelPropFromDataField<PartySystemSchema["details
 type PartyCampaignSource = { type: string } & Record<string, JSONValue>;
 
 export { PartySystemData };
-export type { PartyCampaignSource, PartySource };
+export type { PartyAttributes, PartyCampaignSource, PartySource };

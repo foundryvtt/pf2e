@@ -60,12 +60,11 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
         const tokenObject = data.token instanceof TokenDocumentPF2e ? data.token.object : data.token;
         return new PointSource({ object: tokenObject });
     })();
-
     const tokenCenterPolygons = tokenCenters.map((c) =>
         CONFIG.Canvas.polygonBackends[collisionType].create(c, {
             type: collisionType,
             source: pointSource,
-            boundaryShape: [data.bounds],
+            boundaryShapes: [data.bounds],
         }),
     );
 

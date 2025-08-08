@@ -1,4 +1,4 @@
-import type { ClockwiseSweepPolygon, ClockwiseSweepPolygonConfig } from "@client/canvas/geometry/_module.d.mts";
+import type { ClockwiseSweepPolygon } from "@client/canvas/geometry/_module.d.mts";
 import type { TokenPF2e } from "../token/index.ts";
 
 /** Subclassed to include hearing detection */
@@ -10,7 +10,7 @@ class PointVisionSourcePF2e<TObject extends TokenPF2e = TokenPF2e> extends found
         super._createShapes();
 
         // todo: consider wallDirectionMode: PointSourcePolygon.WALL_DIRECTION_MODES.REVERSED,
-        this.hearing = CONFIG.Canvas.polygonBackends.sound.create<ClockwiseSweepPolygonConfig, ClockwiseSweepPolygon>(
+        this.hearing = CONFIG.Canvas.polygonBackends.sound.create(
             { x: this.data.x, y: this.data.y },
             {
                 type: "sound",

@@ -15,10 +15,10 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { PartySource, PartySystemData } from "./data.ts";
+import type { PartyAttributes, PartySource, PartySystemData } from "./data.ts";
 import { Kingdom } from "./kingdom/model.ts";
 import type { PartySheetRenderOptions } from "./sheet.ts";
-import { PartyCampaign } from "./types.ts";
+import type { PartyCampaign } from "./types.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -96,7 +96,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     override prepareBaseData(): void {
         // Provide base structure for parent method
         this.system.details.level = { value: 0 };
-        const partialSystem: DeepPartial<PartySystemData> = this.system;
+        interface PartialSystemData extends Omit<Partial<PartySystemData>, "attributes"> {
+            attributes: Partial<PartyAttributes>;
+        }
+        const partialSystem: PartialSystemData = this.system;
         partialSystem.attributes = {};
         super.prepareBaseData();
 
