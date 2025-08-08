@@ -435,15 +435,12 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         const variant = action.variants.get(params.variant?.trim() ?? "");
 
         const text = document.createElement("span");
-        text.innerText = (() => {
-            // label
-            const trimmed = label?.trim();
-            if (trimmed) return trimmed;
-            // name
-            return variant?.name
-                ? `${game.i18n.localize(action.name)} - ${game.i18n.localize(variant.name)}`
-                : game.i18n.localize(action.name);
-        })();
+        const trimmedLabel = label?.trim();
+        text.innerText = trimmedLabel
+            ? trimmedLabel
+            : variant?.name
+              ? `${game.i18n.localize(action.name)} - ${game.i18n.localize(variant.name)}`
+              : game.i18n.localize(action.name);
         element.appendChild(text);
 
         // difficulty class
