@@ -40,7 +40,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     }
 
     /** This should be in Foundry core, but ... */
-    get scene(): this["parent"] {
+    get scene(): TParent {
         return this.parent;
     }
 
