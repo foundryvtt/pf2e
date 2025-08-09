@@ -544,7 +544,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Generate a clone of this thrown melee weapon with its thrown usage overlain, or `null` if not applicable */
     private toThrownUsage(): this | null {
-        const traits = this._source.system.traits.value;
+        const traits = this._source.system.traits.value.concat(
+            this.system.traits.toggles.modularConfigData?.traits ?? [],
+        );
         const thrownTrait = traits.find((t) => /^thrown-\d{1,3}$/.test(t));
         if (this.isRanged || !thrownTrait) return null;
 
