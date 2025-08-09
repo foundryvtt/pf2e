@@ -33,7 +33,7 @@ class WeaponTraitToggles {
         const weapon = this.parent;
         const modulars = weapon.system.traits.value.filter((trait) => trait.startsWith("modular"));
         if (modulars.length === 0) return {};
-        const configs = modulars.map((trait) => CONFIG.PF2E.modularConfigs[trait]);
+        const configs = modulars.map((trait) => CONFIG.PF2E.modularConfigurations[trait]);
         if (configs.length === 0) return {};
         if (configs.length > 1) {
             throw ErrorPF2e("weapon with multiple valid modular traits found");

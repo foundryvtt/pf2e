@@ -692,7 +692,7 @@ export const PF2ECONFIG = {
         paragon: { level: 20, hardness: 7, maxHP: 120, credits: 320000 },
     },
 
-    modularConfigs,
+    modularConfigurations: modularConfigs,
 
     weaponReload,
     armorCategories,
