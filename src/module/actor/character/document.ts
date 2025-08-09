@@ -1125,7 +1125,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Process again (first done during weapon data preparation) in case of late-arriving strike adjustment
         processTwoHandTrait(weapon);
         const weaponTraits = weapon.traits;
-        const weaponRollOptions = new Set(weapon.getRollOptions("item"));
+                const weaponRollOptions = new Set(weapon.getRollOptions("item"));
         const proficiencyRank = getItemProficiencyRank(this, weapon, weaponRollOptions);
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
         const baseOptions = [

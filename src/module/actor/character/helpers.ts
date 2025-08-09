@@ -196,10 +196,7 @@ class WeaponAuxiliaryAction {
     get options(): SheetOptions | null {
         if (this.annotation === "modular") {
             const toggles = this.weapon.system.traits.toggles;
-            return createSheetOptions(
-                R.pick(CONFIG.PF2E.damageTypes, toggles.modular.options),
-                [toggles.modular.selected ?? []].flat(),
-            );
+            return createSheetOptions(toggles.modularTraitConfigs, [toggles.modular.selected ?? []].flat());
         }
         return null;
     }
@@ -214,7 +211,7 @@ class WeaponAuxiliaryAction {
 
         if (this.carryType) {
             await actor.changeCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
-        } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
+        } else if (selection && weapon.system.traits.toggles.modular.options.includes(selection)) {
             const updated = await weapon.system.traits.toggles.update({ trait: "modular", selected: selection });
             if (!updated) return;
         } else if (this.action === "raise-a-shield") {

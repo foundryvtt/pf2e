@@ -2,8 +2,9 @@ import type { ActorPF2e } from "@actor";
 import type { WeaponPF2e } from "@item";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import type { DamageType } from "@system/damage/types.ts";
-import { objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
 import { upgradeWeaponTrait } from "./helpers.ts";
+import { ModularConfig } from "@scripts/config/modular.ts";
 
 /** A helper class to handle toggleable weapon traits */
 class WeaponTraitToggles {
@@ -27,18 +28,51 @@ class WeaponTraitToggles {
         return { selected };
     }
 
-    get modular(): { options: DamageType[]; selected: DamageType | null } {
+    /** Gets all the valid configurations for the weapon's modular trait */
+    get modularTraitConfigs(): Record<string, ModularConfig> {
         const weapon = this.parent;
-        const options = this.#resolveOptions("modular");
+        const modulars = weapon.system.traits.value.filter((trait) => trait.startsWith("modular"));
+        if (modulars.length === 0) return {};
+        const configs = modulars.map((trait) => CONFIG.PF2E.modularConfigs[trait]);
+        if (configs.length === 0) return {};
+        if (configs.length > 1) {
+            throw ErrorPF2e("weapon with multiple valid modular traits found");
+        }
+
+        return configs[0];
+    }
+
+    get modular(): { options: string[]; selected: string | null } {
+        const weapon = this.parent;
+
+        const configs = this.modularTraitConfigs;
+
         const sourceSelection = weapon._source.system.traits.toggles?.modular?.selected;
-        const selected = tupleHasValue(options, sourceSelection)
-            ? sourceSelection
-            : // If the weapon's damage type is represented among the modular options, set the selection to it
-              options.includes(weapon.system.damage.damageType)
-              ? weapon.system.damage.damageType
-              : null;
+        const selected = this.#resolveChosenModularConfig(sourceSelection);
+        const options = Object.keys(configs);
 
         return { options, selected };
+    }
+
+    /** Gets the selected modular configuration's data */
+    get modularConfigData(): ModularConfig | null {
+        return this.modular.selected ? this.modularTraitConfigs[this.modular.selected] : null;
+    }
+
+    /** Chooses a modular config based on selection, or default damage type if applicable */
+    #resolveChosenModularConfig(selection: string | null | undefined): string | null {
+        const configs = this.modularTraitConfigs;
+        if (selection && configs[selection]) return selection;
+
+        const defaultDamageType = this.parent.system.damage.damageType;
+        for (const configKey in configs) {
+            if (Object.prototype.hasOwnProperty.call(configs, configKey)) {
+                const element = configs[configKey];
+                if (element.damageType && element.damageType === defaultDamageType) return configKey;
+            }
+        }
+
+        return null;
     }
 
     get versatile(): { options: DamageType[]; selected: DamageType | null } {
@@ -50,13 +84,11 @@ class WeaponTraitToggles {
     }
 
     /** Collect selectable damage types among a list of toggleable weapon traits */
-    #resolveOptions(toggle: "modular" | "versatile"): DamageType[] {
+    #resolveOptions(toggle: "versatile"): DamageType[] {
         const weapon = this.parent;
         const types = weapon.system.traits.value
             .filter((t) => t.startsWith(toggle))
             .flatMap((trait): DamageType | DamageType[] => {
-                if (trait === "modular") return ["bludgeoning", "piercing", "slashing"];
-
                 const damageType = /^versatile-(\w+)$/.exec(trait)?.at(1);
                 switch (damageType) {
                     case "b":
@@ -72,14 +104,18 @@ class WeaponTraitToggles {
             });
 
         const allOptions = Array.from(new Set(types));
-        return toggle === "modular"
-            ? allOptions
-            : // Filter out any versatile options that are the same as the weapon's base damage type
-              allOptions.filter((t) => weapon.system.damage.damageType !== t);
+        // Filter out any versatile options that are the same as the weapon's base damage type
+        return allOptions.filter((t) => weapon.system.damage.damageType !== t);
     }
 
     applyChanges(): void {
         const weapon = this.parent;
+
+        if (this.modular.selected) {
+            const traits = weapon.system.traits;
+            traits.value = traits.value.concat(this.modularConfigData?.traits as typeof traits.value);
+        }
+
         if (this.doubleBarrel.selected && !weapon.flags.pf2e.damageFacesUpgraded) {
             weapon.system.damage.die &&= nextDamageDieSize({ upgrade: weapon.system.damage.die });
             const traits = weapon.system.traits;
@@ -125,11 +161,16 @@ interface ToggleDoubleBarrelParams {
     selected: boolean;
 }
 
-interface ToggleModularVersatileParams {
-    trait: "modular" | "versatile";
+interface ToggleVersatileParams {
+    trait: "versatile";
     selected: DamageType | null;
 }
 
-type ToggleWeaponTraitParams = ToggleDoubleBarrelParams | ToggleModularVersatileParams;
+interface ToggleModularParams {
+    trait: "modular";
+    selected: string;
+}
+
+type ToggleWeaponTraitParams = ToggleDoubleBarrelParams | ToggleVersatileParams | ToggleModularParams;
 
 export { WeaponTraitToggles };

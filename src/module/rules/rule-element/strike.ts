@@ -409,7 +409,7 @@ interface StrikeSource extends RuleElementSource {
 
 interface UpdateToggleParams {
     trait: "modular" | "versatile";
-    selected: DamageType | null;
+    selected: string | null;
 }
 
 export { StrikeRuleElement };

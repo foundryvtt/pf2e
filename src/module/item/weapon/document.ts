@@ -169,7 +169,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             // add options
             damageType:
                 this.system.traits.toggles.versatile.selected ??
-                this.system.traits.toggles.modular.selected ??
+                this.system.traits.toggles.modularConfigData?.damageType ??
                 this.system.damage.damageType,
         };
     }

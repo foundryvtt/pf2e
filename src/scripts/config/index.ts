@@ -75,6 +75,7 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits.ts";
+import { modularConfigs } from "./modular.ts";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -690,6 +691,8 @@ export const PF2ECONFIG = {
         ultimate: { level: 18, hardness: 6, maxHP: 100, credits: 800000 },
         paragon: { level: 20, hardness: 7, maxHP: 120, credits: 320000 },
     },
+
+    modularConfigs,
 
     weaponReload,
     armorCategories,

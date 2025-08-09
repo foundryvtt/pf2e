@@ -471,6 +471,7 @@ const weaponTraits = {
     magical: "PF2E.TraitMagical",
     mental: "PF2E.TraitMental",
     modular: "PF2E.TraitModular",
+    "modular-p-grapple-s-sweep": "PF2E.TraitModularPGrappleSSweep",
     monk: "PF2E.TraitMonk",
     mythic: "PF2E.TraitMythic",
     nonlethal: "PF2E.TraitNonlethal",

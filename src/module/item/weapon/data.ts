@@ -96,7 +96,7 @@ interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
     otherTags: OtherWeaponTag[];
     toggles?: {
         doubleBarrel?: { selected: boolean };
-        modular?: { selected: DamageType | null };
+        modular?: { selected: string | null };
         versatile?: { selected: DamageType | null };
     };
 }
@@ -181,7 +181,7 @@ interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: DamageDieSize };
     group: MeleeWeaponGroup;
     traits?: WeaponTrait[];
-    traitToggles?: { modular: DamageType | null; versatile: DamageType | null };
+    traitToggles?: { modular: string | null; versatile: DamageType | null };
 }
 
 export type {
