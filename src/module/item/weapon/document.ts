@@ -21,6 +21,7 @@ import {
 } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { RangeData } from "@item/types.ts";
+import { OneToThree } from "@module/data.ts";
 import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import { WEAPON_UPGRADES } from "@scripts/config/usage.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
@@ -443,12 +444,18 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // Add traits from fundamental runes
         const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
         const magicTrait = hasRunes && !traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
-        traits.value = R.unique([...traits.value, magicTrait] as const)
-            .filter(R.isTruthy)
-            .sort();
+        if (magicTrait) traits.value.push(magicTrait);
 
+        // Add traits from weapon grade
+        if (gradeData.tracking > 0) {
+            traits.value.push(`tracking-${gradeData.tracking as OneToThree}`);
+        }
+
+        // Keep traits sorted and add logged values
+        traits.value = traits.value.sort();
         this.flags.pf2e.attackItemBonus =
             this.system.runes.potency || gradeData.tracking || this.system.bonus.value || 0;
+        this.flags.pf2e.tracking = gradeData.tracking;
 
         if (this.system.usage.canBeAmmo && !this.isThrowable) {
             this.system.usage.canBeAmmo = false;

@@ -14,7 +14,7 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
+import { CritSpecEffect, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
@@ -97,7 +97,7 @@ class WeaponDamagePF2e {
         actor,
         damageDice = [],
         modifiers = [],
-        weaponPotency = null,
+        weaponPotency = 0,
         context,
     }: WeaponDamageCalculateParams): Promise<WeaponDamageTemplate | null> {
         const unprocessedBaseDamage = weapon.baseDamage;
@@ -182,9 +182,6 @@ class WeaponDamagePF2e {
             }
         }
 
-        // Potency rune
-        const potency = weaponPotency?.bonus ?? 0;
-
         // Critical specialization effects
         const critSpecEffect = ((): CritSpecEffect => {
             // If an alternate critical specialization effect is available, apply it only if there is also a
@@ -226,7 +223,7 @@ class WeaponDamagePF2e {
             const modifier = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
                 slug: "backstabber",
-                modifier: potency > 2 ? 2 : 1,
+                modifier: weaponPotency > 2 ? 2 : 1,
                 damageCategory: "precision",
             });
             modifiers.push(modifier);
@@ -548,7 +545,7 @@ interface ConvertedNPCDamage extends WeaponDamage {
 interface WeaponDamageCalculateParams {
     weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>;
     actor: ActorPF2e;
-    weaponPotency?: PotencySynthetic | null;
+    weaponPotency?: number;
     damageDice?: DamageDicePF2e[];
     modifiers?: ModifierPF2e[];
     context: DamageDamageContext;

@@ -16,6 +16,7 @@ import { ActorInitiative } from "@actor/initiative.ts";
 import {
     CheckModifier,
     ModifierPF2e,
+    ModifierType,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
     adjustModifiers,
@@ -1169,44 +1170,66 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
         }
 
-        // Get best weapon potency
-        const weaponPotency = (() => {
-            const potency = attackDomains
-                .flatMap((key) => fu.deepClone(synthetics.weaponPotency[key] ?? []))
-                .filter((wp) => wp.predicate.test(initialRollOptions));
+        // Handle item or potency bonus to attack rolls
+        {
+            const grade = weapon.system.grade;
+            const potencyRune = weapon.system.runes.potency;
 
-            if (weapon.system.runes.potency > 0) {
-                potency.push({
-                    label: "PF2E.Item.Weapon.Rune.Potency",
-                    bonus: weapon.system.runes.potency,
-                    type: "item",
-                    predicate: new Predicate(),
+            // Get all weapon potency synthetics. These don't work for sf2e unless the type is potency (ABP)
+            const potencySynthetics = attackDomains
+                .flatMap((key) => fu.deepClone(synthetics.weaponPotency[key] ?? []))
+                .filter((wp) => wp.predicate.test(initialRollOptions) && (!grade || wp.type === "potency"));
+            const bestSynthetic = potencySynthetics.length
+                ? potencySynthetics.reduce((highest, current) => (highest.bonus > current.bonus ? highest : current))
+                : null;
+
+            // Handle weapon attack from the tracking trait (which isn't specific to tech/analog)
+            // If found, filter out inferior tracking traits from the weapon in case there are duplicates
+            const trackingTraits = ["tracking-1", "tracking-2", "tracking-3"] as const;
+            const tracking = trackingTraits.findLastIndex((t) => weapon.system.traits.value.includes(t)) + 1;
+            weapon.flags.pf2e.tracking = tracking;
+            if (tracking > 0) {
+                weapon.system.traits.value = weapon.system.traits.value.filter(
+                    (t) => t === `tracking-${tracking}` || !t.startsWith("tracking-"),
+                );
+            }
+
+            // Calculate the best choice between rune/tracking/synthetics. Potency synthetics add the magical trait.
+            // The potency rune already adds the magical trait during data preparation.
+            type Choice = { slug: string; label: string; type: ModifierType; modifier: number; magical?: boolean };
+            const choices: Choice[] = [
+                { slug: "weapon-potency", label: "PF2E.Item.Weapon.Rune.Potency", type: "item", modifier: potencyRune },
+                { slug: "tracking", label: "PF2E.Item.Weapon.Tracking", type: "item", modifier: tracking },
+            ];
+            if (bestSynthetic) {
+                choices.push({
+                    slug: bestSynthetic.type === "item" ? "weapon-potency" : "attack-potency",
+                    label: bestSynthetic.label,
+                    type: bestSynthetic.type,
+                    modifier: bestSynthetic.bonus,
+                    magical: true,
                 });
             }
-
-            return potency.length > 0
-                ? potency.reduce((highest, current) => (highest.bonus > current.bonus ? highest : current))
-                : null;
-        })();
-
-        if (weaponPotency) {
-            const slug = weaponPotency.type === "item" ? "weapon-potency" : "attack-potency";
-            modifiers.push(
-                new ModifierPF2e({
-                    slug,
-                    type: weaponPotency.type,
-                    label: weaponPotency.label,
-                    modifier: weaponPotency.bonus,
-                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, attackDomains, slug),
-                }),
+            const bestChoice = choices.reduce((result, current) =>
+                result.modifier >= current.modifier ? result : current,
             );
-            // In case of a WeaponPotency RE, add traits to establish the weapon as being magical
-            if (!weapon.isMagical && (weaponPotency.type === "item" || !ABP.isEnabled(weapon.actor))) {
-                weapon.system.traits.value.push("magical");
-            }
 
-            // Update logged value in case a rule element has changed it
-            weapon.flags.pf2e.attackItemBonus = weaponPotency.bonus;
+            if (bestChoice.modifier > 0) {
+                const { slug, type } = bestChoice;
+                modifiers.push(
+                    new ModifierPF2e({
+                        ...R.pick(bestChoice, ["slug", "type", "label", "modifier"]),
+                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, attackDomains, slug),
+                    }),
+                );
+
+                // In case of a WeaponPotency RE, add traits to establish the weapon as being magical
+                if (!weapon.isMagical && bestChoice.magical && (type === "item" || !ABP.isEnabled(weapon.actor))) {
+                    weapon.system.traits.value.push("magical");
+                }
+
+                weapon.flags.pf2e.attackItemBonus = bestChoice.modifier;
+            }
         }
 
         const shoddyPenalty = createShoddyPenalty(this, weapon, attackDomains);
@@ -1622,7 +1645,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const damage = await WeaponDamagePF2e.calculate({
                     weapon: weaponClone,
                     actor: context.origin.actor,
-                    weaponPotency,
+                    weaponPotency: weapon.flags.pf2e.attackItemBonus,
                     context: damageContext,
                 });
                 if (!damage) return null;
