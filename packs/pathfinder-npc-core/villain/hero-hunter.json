@@ -284,7 +284,7 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "quantity": 15,
+                "quantity": 20,
                 "rules": [],
                 "size": "med",
                 "slug": "bolts",
@@ -316,7 +316,9 @@
             "sort": 500000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "hunters-precision"
+                    ]
                 },
                 "bonus": {
                     "value": 27
@@ -348,15 +350,14 @@
         },
         {
             "_id": "pgnPfHWixj9WNEqX",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 600000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "hunters-precision"
+                    ]
                 },
                 "bonus": {
                     "value": 26
@@ -380,7 +381,6 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "finesse",
                         "nonlethal",
                         "unarmed"
                     ]
@@ -400,7 +400,9 @@
             "sort": 700000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "hunters-precision"
+                    ]
                 },
                 "bonus": {
                     "value": 26
@@ -433,7 +435,7 @@
         },
         {
             "_id": "ITGU0HjcVWJDtXYk",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Prepared Trapper",
             "sort": 800000,
             "system": {
@@ -462,12 +464,12 @@
         },
         {
             "_id": "ezv8OjHHct0qzog2",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Nimble Dodge",
             "sort": 900000,
             "system": {
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": null
@@ -539,7 +541,7 @@
         },
         {
             "_id": "bMXbZXdH5Fh7k4jX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Deadly Snares",
             "sort": 1100000,
             "system": {
@@ -570,7 +572,7 @@
         },
         {
             "_id": "ipvH91SSeasZXlNH",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Felling Shot",
             "sort": 1200000,
             "system": {
@@ -599,7 +601,7 @@
         },
         {
             "_id": "XztcVUSuRZBMTcYy",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hunter's Precision",
             "sort": 1300000,
             "system": {
@@ -611,7 +613,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hero hunter knows how to hunt and kill any game. While in this stance, all the hero hunter's Strikes deal an additional 2d8 precision damage, and the range increment for their ranged weapon Strikes is 20 feet longer than normal. If the hunter gets a critical hit with a weapon Strike, the target also takes @Damage[2d6[persistent,bleed]] damage.</p>"
+                    "value": "<p>The hero hunter knows how to hunt and kill any game. While in this stance, all the hero hunter's Strikes deal an additional 2d8 precision damage, and the range increment for their ranged weapon Strikes is 20 feet longer than normal. If the hunter gets a critical hit with a weapon Strike, the target also takes 2d6 persistent bleed damage.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -646,7 +648,7 @@
                 "mod": 4
             },
             "int": {
-                "mod": 0
+                "mod": 3
             },
             "str": {
                 "mod": 5
@@ -670,7 +672,12 @@
                 "value": 230
             },
             "speed": {
-                "otherSpeeds": [],
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 10
+                    }
+                ],
                 "value": 25
             }
         },
@@ -678,7 +685,9 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common"
+                ]
             },
             "level": {
                 "value": 13

@@ -1238,16 +1238,16 @@
             "type": "weapon"
         },
         {
-            "_id": "QT162hKvunvpuni5",
+            "_id": "KB3KXraI3RJFTPRs",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
-            "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
-            "name": "Chain Shirt",
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
             "sort": 1900000,
             "system": {
-                "acBonus": 2,
-                "baseItem": "chain-shirt",
+                "acBonus": 1,
+                "baseItem": "leather-armor",
                 "bulk": {
                     "value": 1
                 },
@@ -1255,16 +1255,16 @@
                 "checkPenalty": -1,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chain mail. However, it is much lighter than chain mail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
                 },
-                "dexCap": 3,
+                "dexCap": 4,
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
-                "group": "chain",
+                "group": "leather",
                 "hardness": 0,
                 "hp": {
                     "max": 0,
@@ -1279,7 +1279,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 5
+                        "gp": 2
                     }
                 },
                 "publication": {
@@ -1295,15 +1295,12 @@
                     "resilient": 0
                 },
                 "size": "med",
-                "slug": "chain-shirt",
+                "slug": "leather-armor",
                 "speedPenalty": 0,
-                "strength": 1,
+                "strength": 0,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "flexible",
-                        "noisy"
-                    ]
+                    "value": []
                 }
             },
             "type": "armor"
@@ -1468,7 +1465,8 @@
                         "key": "RollOption",
                         "label": "PF2E.TraitVersatileS",
                         "option": "versatile-s-shortsword",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": true
                     },
                     {
                         "key": "DamageAlteration",
@@ -1497,9 +1495,6 @@
         },
         {
             "_id": "uIlZMbbMIb5xfie3",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 2300000,
@@ -1556,7 +1551,7 @@
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "1d6+3",
+                        "damage": "1d6+6",
                         "damageType": "piercing"
                     }
                 },
@@ -1581,7 +1576,7 @@
         },
         {
             "_id": "WPfgNQXR7Zw6gYO5",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+7 to Sense Motive",
             "sort": 2500000,
             "system": {
@@ -1619,7 +1614,7 @@
         },
         {
             "_id": "36ET5jV2rkhYn3A0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Manipulation Specialist",
             "sort": 2600000,
             "system": {
@@ -1677,26 +1672,41 @@
         },
         {
             "_id": "v3VQfpzwMQ3vAQCU",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Scoundrel's Feint",
             "sort": 2800000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the mastermind successfully Feints, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the mastermind's melee attacks until the end of the mastermind's next turn. On a critical success, the target is off-guard against all melee attacks for that time, not just the mastermind's.</p>"
+                    "value": "<p>When the mastermind successfully [[/act feint]]{Feints}, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the mastermind's melee attacks until the end of the mastermind's next turn. On a critical success, the target is off-guard against all melee attacks for that time, not just the mastermind's.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:feint"
+                        ],
+                        "selector": "skill-check",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1721,7 +1731,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The creature's Strikes deal an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": "<p>The mastermind deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "publication": {
                     "license": "ORC",

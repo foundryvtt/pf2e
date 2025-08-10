@@ -5,7 +5,7 @@
     "items": [
         {
             "_id": "5eNFXUwgvwkzlFgK",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Irrational",
             "sort": 100000,
             "system": {
@@ -98,7 +98,7 @@
         },
         {
             "_id": "TtcgXNBYc4EFepM0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Victim Complex",
             "sort": 400000,
             "system": {
@@ -129,6 +129,7 @@
                             }
                         ],
                         "selector": "will",
+                        "slug": "victim-complex",
                         "type": "circumstance",
                         "value": 2
                     },
@@ -157,7 +158,7 @@
         },
         {
             "_id": "cVkvmZHTd8VjFwYT",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
             "name": "Flail Desperately",
             "sort": 500000,
             "system": {
@@ -169,7 +170,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The deluded mob uses their fists, wooden planks, and anything else they can pick up to attack each enemy in a @Template[type:emanation|distance:5] with fervor, if not coordination (@Check[reflex|dc:18|basic|options:area-effect] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d8[piercing]|options:area-damage] or @Damage[1d8[bludgeoning]|options:area-damage]{bludgeoning damage}</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(1d8+6)[piercing]|options:area-damage,action:cost:2] or @Damage[(1d8+6)[bludgeoning]|options:area-damage,action:cost:2]{bludgeoning damage}</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(2d8+6)[piercing]|options:area-damage,action:cost:3] or @Damage[(2d8+6)[bludgeoning]|options:area-damage,action:cost:3]{bludgeoning damage}</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The deluded mob uses their fists, wooden planks, and anything else they can pick up to attack each enemy in a @Template[type:emanation|distance:5] with fervor, if not coordination (@Check[reflex|dc:18|basic|options:area-effect] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d8[untyped]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(1d8+6)[untyped]|options:area-damage,action:cost:2] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(2d8+6)[untyped]|options:area-damage,action:cost:3] damage</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -180,7 +181,34 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "flail-desperately",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.flailDesperately}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -190,7 +218,7 @@
         },
         {
             "_id": "93wHXWZVtAn5Jm53",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Surrounded",
             "sort": 600000,
             "system": {
@@ -274,7 +302,7 @@
         },
         {
             "_id": "aEZR3IjhkqAzFTzg",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Throw Detritus",
             "sort": 700000,
             "system": {
@@ -356,7 +384,7 @@
                 "value": 19
             },
             "allSaves": {
-                "value": ""
+                "value": "victim complex"
             },
             "hp": {
                 "details": "",
@@ -365,6 +393,7 @@
                 "value": 75
             },
             "speed": {
+                "details": "troop movement",
                 "otherSpeeds": [],
                 "value": 25
             },

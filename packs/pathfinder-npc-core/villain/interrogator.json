@@ -118,7 +118,7 @@
                     "die": "d4"
                 },
                 "description": {
-                    "value": "<p>A war razor is an exaggerated version of the barbers' tool. It is a brittle but extremely sharp weapon that is very easy to slip into a pocket or sleeve.</p>"
+                    "value": "<p>A war razor is an exaggerated version of the barbers' tool. It's a brittle but extremely sharp weapon that is very easy to slip into a pocket or sleeve.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -147,7 +147,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Lost Omens Gods & Magic"
+                    "title": "Pathfinder Treasure Vault (Remastered)"
                 },
                 "quantity": 1,
                 "range": null,
@@ -186,7 +186,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Apron",
+            "name": "Leather Apron (Functions as Leather Armor)",
             "sort": 300000,
             "system": {
                 "acBonus": 1,
@@ -198,7 +198,7 @@
                 "checkPenalty": -1,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Functions as leather armor.</p>"
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
                 },
                 "dexCap": 4,
                 "equipped": {
@@ -317,10 +317,12 @@
             "sort": 500000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "torment"
+                    ]
                 },
                 "bonus": {
-                    "value": 16
+                    "value": 15
                 },
                 "damageRolls": {
                     "U0qX1UZFYbKLYePu": {
@@ -359,7 +361,9 @@
             "sort": 600000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "torment"
+                    ]
                 },
                 "bonus": {
                     "value": 17
@@ -394,15 +398,14 @@
         },
         {
             "_id": "uh1Q19dqb6ZkWpOw",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 700000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "torment"
+                    ]
                 },
                 "bonus": {
                     "value": 16
@@ -426,7 +429,6 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "finesse",
                         "nonlethal",
                         "unarmed"
                     ]
@@ -436,7 +438,7 @@
         },
         {
             "_id": "KWh3flz7jjTYz2Rb",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Blood and Fear",
             "sort": 800000,
             "system": {
@@ -448,7 +450,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The interrogator Strikes with a slashing melee weapon. If they hit and deal damage, the target takes an additional 1d4 persistent bleed damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or 2d4 persistent bleed damage and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit).</p>\n<p>Each of the interrogator's other enemies in a @Template[type:emanation|distance:30] around the target that witnesses the bloodshed must succeed at a @Check[will|dc:19|traits:emotion,fear,mental,visual] save or be frightened 1. The frightened part of this ability is an emotion, fear, mental, and visual effect.</p>"
+                    "value": "<p>The interrogator Strikes with a slashing melee weapon. If they hit and deal damage, the target takes an additional 1d4 persistent bleed damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or 2d4 persistent bleed damage and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit).</p>\n<p>Each of the interrogator's other enemies in a @Template[type:emanation|distance:30] around the target that witnesses the bloodshed must succeed at a @Check[will|dc:19|options:area-effect,inflicts:frightened|traits:emotion,fear,mental,visual] save or be frightened 1. The frightened part of this ability is an emotion, fear, mental, and visual effect.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -511,7 +513,7 @@
         },
         {
             "_id": "5lWzxa4oDKBEY6Bv",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hobble",
             "sort": 900000,
             "system": {
@@ -540,7 +542,7 @@
         },
         {
             "_id": "9sEjcGcCgW3dkPKD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Torment",
             "sort": 1000000,
             "system": {
@@ -560,6 +562,12 @@
                     "title": ""
                 },
                 "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.Frightened",
+                        "option": "target:condition:frightened",
+                        "toggleable": "totm"
+                    },
                     {
                         "damageType": "mental",
                         "diceNumber": 1,
