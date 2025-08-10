@@ -1,4 +1,4 @@
-<li class="strike item ready"
+<li class="strike item {{#if action.ready}} ready{{/if}}"
     data-element="{{action.element}}"
     data-damage-type={{action.damageType}}
     data-item-id="{{action.item.id}}"
@@ -19,12 +19,21 @@
             </h4>
         {{/unless}}
 
-        {{#> attackDamage action=action melee=true}}{{/attackDamage}}
+        {{#if action.ready}}
+            {{#> attackDamage action=action melee=true}}{{/attackDamage}}
 
-        <div class="alt-usage" data-tooltip-direction="UP">
-            <i class="fa-regular fa-meteor fa-rotate-180 alt-usage-icon" data-tooltip="{{action.range.label}}"></i>
-            {{#> attackDamage action=action melee=false}}{{/attackDamage}}
-        </div>
+            <div class="alt-usage" data-tooltip-direction="UP">
+                <i class="fa-regular fa-meteor fa-rotate-180 alt-usage-icon" data-tooltip="{{action.range.label}}"></i>
+                {{#> attackDamage action=action melee=false}}{{/attackDamage}}
+            </div>
+        {{else}}
+            <div class="auxiliary-actions">
+                <button type="button" class="use-action" data-action="channel-elements">
+                    <span>{{localize "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Channel"}}</span>
+                    <span class="action-glyph">1</span>
+                </button>
+            </div>
+        {{/if}}
     </section>
     <div class="item-summary" hidden="hidden"></div>
 </li>

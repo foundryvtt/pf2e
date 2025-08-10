@@ -146,8 +146,9 @@ function eventToRollParams(event: Maybe<Event>, rollType: { type: "check" | "dam
 
 /** Set roll mode from a user's input: used for messages that are not actually rolls. */
 function eventToRollMode(event: Maybe<Event>): RollMode | "roll" {
-    if (!isRelevantEvent(event) || !(event.ctrlKey || event.metaKey)) return "roll";
-    return game.user.isGM ? "gmroll" : "blindroll";
+    if (!isRelevantEvent(event)) return "roll";
+    const ctrlDown = fh.interaction.KeyboardManager.CONTROL_KEY_STRING === "⌘" ? event?.metaKey : event?.ctrlKey;
+    return ctrlDown ? (game.user.isGM ? "gmroll" : "blindroll") : "roll";
 }
 
 /** Given a uuid, loads the item and sends it to chat, potentially recontextualizing it with a given actor */

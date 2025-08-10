@@ -155,7 +155,7 @@ class ElementalBlast {
         if (!item || !statistic) return [];
         const kineticist = this.actor.flags.pf2e.kineticist;
         if (!R.isPlainObject(kineticist) || !R.isPlainObject(kineticist.elementalBlast)) {
-            return [];
+            return [this.#getDisabledBlast(statistic, item.name)];
         }
         const schema = ElementalBlast.#blastConfigSchema;
         const damageTypeSelections = ((): Record<string, unknown> => {
@@ -233,8 +233,8 @@ class ElementalBlast {
             return {
                 ...blast,
                 statistic,
+                ready: true,
                 maps,
-                item,
                 actionCost,
                 damageTypes,
                 range,
@@ -263,6 +263,21 @@ class ElementalBlast {
         }
 
         return config;
+    }
+
+    #getDisabledBlast(statistic: Statistic, label: string): ElementalBlastConfig {
+        return {
+            ready: false,
+            statistic,
+            img: "icons/magic/sonic/projectile-shock-wave-blue.webp",
+            element: "fire",
+            dieFaces: 6,
+            label,
+            maps: { melee: { map0: "", map1: "", map2: "" }, ranged: { map0: "", map1: "", map2: "" } },
+            actionCost: this.actionCost,
+            damageTypes: [{ value: "fire", label: "", icon: "", selected: true }],
+            range: { increment: null, max: 30, label: "" },
+        };
     }
 
     #createModifiedItem({
@@ -607,6 +622,7 @@ interface ElementalBlastConfig extends Omit<fields.ModelPropsFromSchema<BlastCon
     range: RangeData & { label: string };
     statistic: Statistic;
     actionCost: 1 | 2;
+    ready: boolean;
     maps: {
         melee: { map0: string; map1: string; map2: string };
         ranged: { map0: string; map1: string; map2: string };
