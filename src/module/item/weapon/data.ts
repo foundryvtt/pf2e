@@ -45,8 +45,6 @@ type WeaponFlags = ItemFlagsPF2e & {
         fixedAttack?: number | null;
         /** A logging of this weapon's attack item bonus, whatever the source (rune, bomb innate item bonus, etc.) */
         attackItemBonus: number;
-        /** A logging of this weapon's tracking trait item bonus, whatever the source */
-        tracking: number;
         /** A tracking property of whether the damage die size has been upgraded */
         damageFacesUpgraded: boolean;
     };

@@ -451,11 +451,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             traits.value.push(`tracking-${gradeData.tracking as OneToThree}`);
         }
 
-        // Keep traits sorted and add logged values
         traits.value = traits.value.sort();
         this.flags.pf2e.attackItemBonus =
             this.system.runes.potency || gradeData.tracking || this.system.bonus.value || 0;
-        this.flags.pf2e.tracking = gradeData.tracking;
 
         if (this.system.usage.canBeAmmo && !this.isThrowable) {
             this.system.usage.canBeAmmo = false;

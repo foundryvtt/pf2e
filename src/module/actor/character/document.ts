@@ -1186,11 +1186,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             // Handle weapon attack from the tracking trait (which isn't specific to tech/analog)
             // If found, filter out inferior tracking traits from the weapon in case there are duplicates
             const trackingTraits = ["tracking-1", "tracking-2", "tracking-3"] as const;
-            const tracking = trackingTraits.findLastIndex((t) => weapon.system.traits.value.includes(t)) + 1;
-            weapon.flags.pf2e.tracking = tracking;
-            if (tracking > 0) {
+            const trackingMod = trackingTraits.findLastIndex((t) => weapon.system.traits.value.includes(t)) + 1;
+            if (trackingMod > 0) {
                 weapon.system.traits.value = weapon.system.traits.value.filter(
-                    (t) => t === `tracking-${tracking}` || !t.startsWith("tracking-"),
+                    (t) => t === `tracking-${trackingMod}` || !t.startsWith("tracking-"),
                 );
             }
 
@@ -1199,7 +1198,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             type Choice = { slug: string; label: string; type: ModifierType; modifier: number; magical?: boolean };
             const choices: Choice[] = [
                 { slug: "weapon-potency", label: "PF2E.Item.Weapon.Rune.Potency", type: "item", modifier: potencyRune },
-                { slug: "tracking", label: "PF2E.Item.Weapon.Tracking", type: "item", modifier: tracking },
+                { slug: "tracking", label: "PF2E.Item.Weapon.Tracking", type: "item", modifier: trackingMod },
             ];
             if (bestSynthetic) {
                 choices.push({
