@@ -18,14 +18,8 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
     /** Overriden to snap according to the dragged template's type */
     override getSnappedPoint(point: Point): Point {
         const template = this.preview?.children.at(0);
-        if (!template || !canvas.grid.isSquare) {
-            return super.getSnappedPoint(point);
-        }
-
-        return canvas.grid.getSnappedPoint(point, {
-            mode: template.snappingMode,
-            resolution: 1,
-        });
+        if (!template || !canvas.grid.isSquare) return super.getSnappedPoint(point);
+        return canvas.grid.getSnappedPoint(point, { mode: template.snappingMode, resolution: 1 });
     }
 
     /* -------------------------------------------- */

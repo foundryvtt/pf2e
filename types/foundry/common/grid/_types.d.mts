@@ -102,16 +102,50 @@ export interface GridMeasurePathWaypointData3D {
     cost?: number | GridMeasurePathCostFunction3D;
 }
 
-/**
- * A waypoint of {@link GridMeasurePathResult}.
- */
-export interface GridMeasurePathResult {
-    waypoints: GridMeasurePathResultWaypoint[];
-    segments: GridMeasurePathResultSegment[];
+/** The measurements of a waypoint. */
+export interface GridMeasurePathResultWaypoint {
+    /** The segment from the previous waypoint to this waypoint. */
+    backward: GridMeasurePathResultSegment | null;
+    /** The segment from this waypoint to the next waypoint. */
+    forward: GridMeasurePathResultSegment | null;
+    /** The total distance travelled along the path up to this waypoint. */
     distance: number;
-    cost: number;
+    /** The total number of spaces moved along a direct path up to this waypoint. */
     spaces: number;
-    diagonals: number;
+    /** The total cost of the direct path ({@link BaseGrid#getDirectPath}) up to this waypoint. */
+    cost: number;
+}
+
+/** The measurements of a segment. */
+export interface GridMeasurePathResultSegment {
+    /** The waypoint that this segment starts from. */
+    from: GridMeasurePathResultWaypoint;
+    /** The waypoint that this segment goes to. */
+    to: GridMeasurePathResultWaypoint;
+    /** Is teleporation? */
+    teleport: boolean;
+    /** The distance travelled in grid units along this segment. */
+    distance: number;
+    /** The number of spaces moved along this segment. */
+    spaces: number;
+    /** The cost of the direct path ({@link BaseGrid#getDirectPath}) between the two waypoints. */
+    cost: number;
+}
+
+/** The measurements result of {@link BaseGrid#measurePath}. */
+export interface GridMeasurePathResult {
+    /** The measurements at each waypoint. */
+    waypoints: GridMeasurePathResultWaypoint[];
+    /** The measurements at each segment. */
+    segments: GridMeasurePathResultSegment[];
+    /** The total distance travelled along the path through all waypoints. */
+    distance: number;
+    /** The total number of spaces moved along a direct path through all waypoints.
+     *  Moving from a grid space to any of its neighbors counts as 1 step.
+     *  Always 0 in gridless grids. */
+    spaces: number;
+    /** The total cost of the direct path ({@link BaseGrid#getDirectPath}) through all waypoints. */
+    cost: number;
 }
 
 /**

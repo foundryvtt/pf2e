@@ -1,6 +1,7 @@
 import type { TokenAnimationOptions, TokenResourceData, TokenShape } from "@client/canvas/placeables/token.d.mts";
 import type { TokenUpdateCallbackOptions } from "@client/documents/token.d.mts";
 import type { Point } from "@common/_types.d.mts";
+import type { GridOffset2D } from "@common/grid/_types.d.mts";
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
@@ -50,10 +51,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** The grid offsets representing this token's shape */
-    get footprint(): GridOffset[] {
+    get footprint(): GridOffset2D[] {
         const shape = this.isTiny ? this.mechanicalBounds : this.localShape;
         const seen = new Set<number>();
-        const offsets: GridOffset[] = [];
+        const offsets: GridOffset2D[] = [];
         const [i0, j0, i1, j1] = canvas.grid.getOffsetRange(this.mechanicalBounds);
         for (let i = i0; i < i1; i++) {
             for (let j = j0; j < j1; j++) {
@@ -477,24 +478,22 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      */
     distanceTo(target: TokenOrPoint, { reach = null }: { reach?: number | null } = {}): number {
         if (!canvas.ready) return NaN;
-
         if (this === target) return 0;
 
+        const selfElevation = this.document.elevation;
+        const targetElevation = target.document?.elevation ?? selfElevation;
         if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-            const waypoints: GridMeasurePathWaypoint[] = [
-                { x: this.x, y: this.y },
-                { x: target.x, y: target.y },
+            const waypoints = [
+                { x: this.x, y: this.y, elevation: selfElevation },
+                { x: target.x, y: target.y, elevation: targetElevation },
             ];
             return canvas.grid.measurePath(waypoints).distance;
         }
 
-        const selfElevation = this.document.elevation;
-        const targetElevation = target.document?.elevation ?? selfElevation;
         const targetBounds = target.bounds ?? squareAtPoint(target);
         if (selfElevation === targetElevation || !this.actor || !target.bounds || !target.actor) {
             return measureDistanceCuboid(this.bounds, targetBounds, { reach });
         }
-
         return measureDistanceCuboid(this.bounds, targetBounds, { reach, token: this, target });
     }
 

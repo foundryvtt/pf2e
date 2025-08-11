@@ -1,6 +1,19 @@
 import { GridType, MovementDirection } from "@common/constants.mjs";
-import { Color, ColorSource } from "pixi.js";
-import { Point, Rectangle } from "../_types.mjs";
+import { Color } from "pixi.js";
+import { ElevatedPoint, Point, Rectangle } from "../_types.mjs";
+import {
+    GridConfiguration,
+    GridCoordinates2D,
+    GridCoordinates3D,
+    GridMeasurePathCostFunction2D,
+    GridMeasurePathCostFunction3D,
+    GridMeasurePathResult,
+    GridMeasurePathWaypointData2D,
+    GridMeasurePathWaypointData3D,
+    GridOffset2D,
+    GridOffset3D,
+    GridSnappingBehavior,
+} from "./_types.mjs";
 
 /** The base grid class. */
 export abstract class BaseGrid {
@@ -33,7 +46,7 @@ export abstract class BaseGrid {
 
     /**
      * The base grid constructor.
-     * @param {GridConfiguration} config        The grid configuration
+     * @param config The grid configuration
      */
     constructor(config: GridConfiguration);
 
@@ -67,7 +80,8 @@ export abstract class BaseGrid {
      * @param    coords    The coordinates
      * @returns            The offset
      */
-    abstract getOffset(coords: GridCoordinates): GridOffset;
+    abstract getOffset(coords: GridCoordinates2D): GridOffset2D;
+    abstract getOffset(coords: GridCoordinates3D): GridOffset3D;
 
     /**
      * Returns the smallest possible range containing the offsets of all grid spaces that intersect the given bounds.
@@ -93,7 +107,8 @@ export abstract class BaseGrid {
      * @param     coords    The coordinates
      * @returns             The adjacent offsets
      */
-    abstract getAdjacentOffsets(coords: GridCoordinates): GridOffset[];
+    abstract getAdjacentOffsets(coords: GridCoordinates2D): GridOffset2D[];
+    abstract getAdjacentOffsets(coords: GridCoordinates3D): GridOffset3D[];
 
     /**
      * Returns true if the grid spaces corresponding to the given coordinates are adjacent to each other.
@@ -102,7 +117,8 @@ export abstract class BaseGrid {
      * @param    coords1    The first coordinates
      * @param    coords2    The second coordinates
      */
-    abstract testAdjacency(coords1: GridCoordinates, coords2: GridCoordinates): boolean;
+    abstract testAdjacency(coords1: GridCoordinates2D, coords2: GridCoordinates2D): boolean;
+    abstract testAdjacency(coords1: GridCoordinates3D, coords2: GridCoordinates3D): boolean;
 
     /**
      * Returns the offset of the grid space corresponding to the given coordinates
@@ -113,7 +129,8 @@ export abstract class BaseGrid {
      * @param direction The direction (see {@link CONST.MOVEMENT_DIRECTIONS})
      * @returns The offset
      */
-    abstract getShiftedOffset(coords: GridCoordinates, direction: MovementDirection): GridOffset;
+    abstract getShiftedOffset(coords: GridCoordinates2D, direction: MovementDirection): GridOffset2D;
+    abstract getShiftedOffset(coords: GridCoordinates3D, direction: MovementDirection): GridOffset3D;
 
     /**
      * Returns the point shifted by the difference between the grid space corresponding to the given coordinates
@@ -125,6 +142,7 @@ export abstract class BaseGrid {
      * @returns The shifted point
      */
     abstract getShiftedPoint(point: Point, direction: MovementDirection): Point;
+    abstract getShiftedPoint(point: ElevatedPoint, direction: MovementDirection): ElevatedPoint;
 
     /**
      * Returns the top-left point of the grid space corresponding to the given coordinates.
@@ -133,7 +151,8 @@ export abstract class BaseGrid {
      * @param coords The coordinates
      * @returns The top-left point
      */
-    abstract getTopLeftPoint(coords: GridCoordinates): Point;
+    abstract getTopLeftPoint(coords: GridCoordinates2D): Point;
+    abstract getTopLeftPoint(coords: GridCoordinates3D): ElevatedPoint;
 
     /**
      * Returns the center point of the grid space corresponding to the given coordinates.
@@ -142,13 +161,14 @@ export abstract class BaseGrid {
      * @param coords The coordinates
      * @returns The center point
      */
-    abstract getCenterPoint(coords: GridCoordinates): Point;
+    abstract getCenterPoint(coords: GridCoordinates2D): Point;
+    abstract getCenterPoint(coords: GridCoordinates3D): ElevatedPoint;
 
     /**
      * Returns the points of the grid space shape relative to the center point.
      * The points are returned in the same order as in {@link BaseGrid#getVertices}.
      * In gridless grids an empty array is returned.
-     * @returns   The points of the polygon
+     * @returns The points of the polygon
      */
     abstract getShape(): Point[];
 
@@ -158,18 +178,19 @@ export abstract class BaseGrid {
      * being the top-left vertex in square grids, the top vertex in row-oriented
      * hexagonal grids, and the left vertex in column-oriented hexagonal grids.
      * In gridless grids an empty array is returned.
-     * @param   coords    The coordinates
-     * @returns           The vertices
+     * @param coords The coordinates
+     * @returns The vertices
      */
-    abstract getVertices(coords: GridCoordinates): Point[];
+    abstract getVertices(coords: GridCoordinates2D): Point[];
 
     /**
      * Snaps the given point to the grid.
-     * @param   point    The point that is to be snapped
-     * @param   behavior The snapping behavior
+     * @param point The point that is to be snapped
+     * @param behavior The snapping behavior
      * @returns The snapped point
      */
     abstract getSnappedPoint(point: Point, behavior: GridSnappingBehavior): Point;
+    abstract getSnappedPoint(point: ElevatedPoint, behavior: GridSnappingBehavior): ElevatedPoint;
 
     /**
      * Measure a shortest, direct path through the given waypoints.
@@ -180,8 +201,12 @@ export abstract class BaseGrid {
      * @returns                 The measurements a shortest, direct path through the given waypoints.
      */
     measurePath(
-        waypoints: GridMeasurePathWaypoint[],
-        options?: { cost?: GridMeasurePathCostFunction },
+        waypoints: (GridCoordinates2D & Partial<GridMeasurePathWaypointData2D>)[],
+        options?: { cost?: GridMeasurePathCostFunction2D },
+    ): GridMeasurePathResult;
+    measurePath(
+        waypoints: GridMeasurePathWaypointData3D[],
+        options?: { cost?: GridMeasurePathCostFunction3D },
     ): GridMeasurePathResult;
 
     /**
@@ -194,8 +219,13 @@ export abstract class BaseGrid {
      * @param result            The measurement result that the measurements need to be written to
      */
     protected abstract _measurePath(
-        waypoints: GridMeasurePathWaypoint[],
-        options: { cost?: GridMeasurePathCostFunction },
+        waypoints: GridMeasurePathWaypointData2D[],
+        options: { cost?: GridMeasurePathCostFunction2D },
+        result: GridMeasurePathResult,
+    ): void;
+    protected abstract _measurePath(
+        waypoints: GridMeasurePathWaypointData3D[],
+        options: { cost?: GridMeasurePathCostFunction3D },
         result: GridMeasurePathResult,
     ): void;
 
@@ -204,7 +234,8 @@ export abstract class BaseGrid {
      * @param waypoints The waypoints the path must pass through
      * @returns The sequence of grid offsets of a shortest, direct path
      */
-    abstract getDirectPath(waypoints: GridMeasurePathWaypoint[]): GridOffset[];
+    abstract getDirectPath(waypoints: GridCoordinates2D[]): GridOffset2D[];
+    abstract getDirectPath(waypoints: GridCoordinates3D[]): GridOffset3D[];
 
     /**
      * Get the point translated in a direction by a distance.
@@ -236,101 +267,4 @@ export abstract class BaseGrid {
      * @returns              The points of the cone polygon.
      */
     getCone(origin: Point, radius: number, direction: number, angle: number): Point[];
-}
-
-declare global {
-    interface GridConfiguration {
-        /** The size of a grid space in pixels (a positive number) */
-        size: number;
-        /** The distance of a grid space in units (a positive number) */
-        distance?: number;
-        /** The units of measurement */
-        units?: string;
-        /** The style of the grid */
-        style?: string;
-        /** The color of the grid */
-        color?: ColorSource;
-        /** The alpha of the grid */
-        alpha?: number;
-        /** The line thickness of the grid */
-        thickness?: number;
-    }
-
-    /** A pair of row and column coordinates of a grid space. */
-    interface GridOffset {
-        /** The row coordinate */
-        i: number;
-        /** The column coordinate */
-        j: number;
-    }
-
-    /** An offset of a grid space or a point with pixel coordinates. */
-    type GridCoordinates = GridOffset | Point;
-
-    /** Snapping behavior is defined by the snapping mode at the given resolution of the grid. */
-    interface GridSnappingBehavior {
-        /** The snapping mode (a union of {@link CONST.GRID_SNAPPING_MODES}) */
-        mode: number;
-        /** The resolution (a positive integer) */
-        resolution?: number;
-    }
-
-    type GridMeasurePathWaypoint = GridCoordinates & { teleport?: boolean };
-
-    /** The measurements of a waypoint. */
-    interface GridMeasurePathResultWaypoint {
-        /** The segment from the previous waypoint to this waypoint. */
-        backward: GridMeasurePathResultSegment | null;
-        /** The segment from this waypoint to the next waypoint. */
-        forward: GridMeasurePathResultSegment | null;
-        /** The total distance travelled along the path up to this waypoint. */
-        distance: number;
-        /** The total number of spaces moved along a direct path up to this waypoint. */
-        spaces: number;
-        /** The total cost of the direct path ({@link BaseGrid#getDirectPath}) up to this waypoint. */
-        cost: number;
-    }
-
-    /** The measurements of a segment. */
-    interface GridMeasurePathResultSegment {
-        /** The waypoint that this segment starts from. */
-        from: GridMeasurePathResultWaypoint;
-        /** The waypoint that this segment goes to. */
-        to: GridMeasurePathResultWaypoint;
-        /** Is teleporation? */
-        teleport: boolean;
-        /** The distance travelled in grid units along this segment. */
-        distance: number;
-        /** The number of spaces moved along this segment. */
-        spaces: number;
-        /** The cost of the direct path ({@link BaseGrid#getDirectPath}) between the two waypoints. */
-        cost: number;
-    }
-
-    /** The measurements result of {@link BaseGrid#measurePath}. */
-    interface GridMeasurePathResult {
-        /** The measurements at each waypoint. */
-        waypoints: GridMeasurePathResultWaypoint[];
-        /** The measurements at each segment. */
-        segments: GridMeasurePathResultSegment[];
-        /** The total distance travelled along the path through all waypoints. */
-        distance: number;
-        /** The total number of spaces moved along a direct path through all waypoints.
-         *  Moving from a grid space to any of its neighbors counts as 1 step.
-         *  Always 0 in gridless grids. */
-        spaces: number;
-        /** The total cost of the direct path ({@link BaseGrid#getDirectPath}) through all waypoints. */
-        cost: number;
-    }
-
-    /**
-     * A function that returns the cost for a given move between grid spaces.
-     * In square and hexagonal grids the grid spaces are always adjacent unless teleported.
-     * The distance is 0 if and only if teleported. The function is never called with the same offsets.
-     * @param    from      The offset that is moved from.
-     * @param    to        The offset that is moved to.
-     * @param    distance  The distance between the grid spaces, or 0 if teleported.
-     * @returns            The cost of the move between the grid spaces.
-     */
-    type GridMeasurePathCostFunction = (from: GridOffset, to: GridOffset, distance: number) => number;
 }
