@@ -96,10 +96,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // Items with embed-type usages are equipped if they have a parent that is equipped
         // @todo do the same for non-weapon attachments and affixed.
         // subitem carryType is overriden to match the parent during prep, and weapons rely on that behavior.
-        if (this.system.usage.type === "installed") {
-            return !!this.parentItem?.isEquipped;
-        }
-
+        if (this.system.usage.type === "installed") return !!this.parentItem?.isEquipped;
         return isEquipped(this.system.usage, this.system.equipped);
     }
 
