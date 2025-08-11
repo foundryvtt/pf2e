@@ -71,9 +71,7 @@ export default class DialogV2<
     static prompt({
         ok,
         ...options
-    }: {
-        ok: Partial<DialogV2Button>;
-    } & DeepPartial<DialogV2Configuration & DialogV2WaitOptions>): Promise<unknown>;
+    }: { ok: Partial<DialogV2Button> } & DeepPartial<DialogV2Configuration & DialogV2WaitOptions>): Promise<unknown>;
 
     /**
      * Spawn a dialog and wait for it to be dismissed or submitted.

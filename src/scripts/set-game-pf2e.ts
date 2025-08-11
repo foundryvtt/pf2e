@@ -5,7 +5,6 @@ import { CheckModifier, ModifierPF2e, StatisticModifier } from "@actor/modifiers
 import { CoinsPF2e, generateItemName } from "@item/physical/helpers.ts";
 import { CompendiumBrowser } from "@module/apps/compendium-browser/browser.ts";
 import { EffectsPanel } from "@module/apps/effects-panel.ts";
-import { LicenseViewer } from "@module/apps/license-viewer/app.ts";
 import { WorldClock } from "@module/apps/world-clock/index.ts";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
@@ -97,7 +96,6 @@ export const SetGamePF2e = {
                 stealthForSelected,
                 xpFromEncounter,
             },
-            licenseViewer: new LicenseViewer(),
             rollActionMacro,
             rollItemMacro,
             system: { generateItemName, moduleArt: new ModuleArt(), remigrate, sluggify },

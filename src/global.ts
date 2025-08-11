@@ -23,7 +23,6 @@ import type {
     CompendiumBrowserSources,
 } from "@module/apps/compendium-browser/browser.ts";
 import type { EffectsPanel } from "@module/apps/effects-panel.ts";
-import type { LicenseViewer } from "@module/apps/license-viewer/app.ts";
 import type {
     ActorDirectoryPF2e,
     ChatLogPF2e,
@@ -170,7 +169,6 @@ interface GamePF2e
         // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         actions: Record<string, Function> & Collection<string, Action>;
         compendiumBrowser: CompendiumBrowser;
-        licenseViewer: LicenseViewer;
         worldClock: WorldClock;
         effectPanel: EffectsPanel;
         effectTracker: EffectTracker;
