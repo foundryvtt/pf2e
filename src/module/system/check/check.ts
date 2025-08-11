@@ -507,6 +507,7 @@ class CheckPF2e {
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
         const oldRollJSON = JSON.stringify(oldRoll.toJSON());
+        const pwolVariant = game.pf2e.settings.variants.pwol.enabled;
 
         // Clone the old roll and call a hook allowing the clone to be altered.
         // Tampering with the old roll is disallowed.
@@ -518,7 +519,7 @@ class CheckPF2e {
                 throw ErrorPF2e(`Failed to reroll check with a mythic point. Check is missing a proficiency modifier!`);
             }
             // Set flag proficiency modifier to mythic modifier value
-            const mythicModifierValue = 10 + actor.level;
+            const mythicModifierValue = 10 + (pwolVariant ? 0 : actor.level);
             const proficiencyModifierValue = proficiencyModifier.modifier;
             proficiencyModifier.modifier = mythicModifierValue;
             proficiencyModifier.label = game.i18n.localize("PF2E.TraitMythic");
@@ -613,7 +614,10 @@ class CheckPF2e {
                       if (proficiencyTag) {
                           const mythicTag = proficiencyTag.cloneNode() as HTMLElement;
                           proficiencyTag.style.textDecorationLine = "line-through";
-                          mythicTag.innerHTML = `${game.i18n.localize("PF2E.TraitMythic")} ${signedInteger(10 + actor.level, { emptyStringZero: true })}`;
+                          const mythicValue = signedInteger(10 + (pwolVariant ? 0 : actor.level), {
+                              emptyStringZero: true,
+                          });
+                          mythicTag.innerHTML = `${game.i18n.localize("PF2E.TraitMythic")} ${mythicValue}`;
                           proficiencyTag.after(mythicTag);
                       }
                   }
