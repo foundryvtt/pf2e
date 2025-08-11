@@ -22,6 +22,7 @@ interface ActionCost {
 
 interface ValuedTraits {
     volley?: number;
+    tracking?: number;
     [key: string]: number | undefined;
 }
 
