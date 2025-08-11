@@ -25,39 +25,19 @@ export default class Token<TDocument extends TokenDocument = TokenDocument> exte
     static override embeddedName: "Token";
 
     static override RENDER_FLAGS: {
-        redraw: { propagate: ["refresh"] };
+        redraw: { propagate: string[] };
         redrawEffects: object;
-        refresh: {
-            propagate: [
-                "refreshState",
-                "refreshTransform",
-                "refreshMesh",
-                "refreshNameplate",
-                "refreshElevation",
-                "refreshRingVisuals",
-            ];
-            alias: true;
-        };
-        refreshState: { propagate: ["refreshVisibility", "refreshTarget"] };
+        refresh: { propagate: string[]; alias: true };
+        refreshState: { propagate: string[] };
         refreshVisibility: object;
-        refreshTransform: { propagate: ["refreshPosition", "refreshRotation", "refreshSize"]; alias: true };
+        refreshTransform: { propagate: string[]; alias: true };
         refreshPosition: object;
         refreshRotation: object;
-        refreshSize: {
-            propagate: [
-                "refreshPosition",
-                "refreshShape",
-                "refreshBars",
-                "refreshEffects",
-                "refreshNameplate",
-                "refreshTarget",
-                "refreshTooltip",
-            ];
-        };
+        refreshSize: { propagate: string[] };
         refreshElevation: object;
-        refreshMesh: { propagate: ["refreshShader"] };
+        refreshMesh: { propagate: string[] };
         refreshShader: object;
-        refreshShape: { propagate: ["refreshVisibility", "refreshPosition", "refreshBorder", "refreshEffects"] };
+        refreshShape: { propagate: string[] };
         refreshBorder: object;
         refreshBars: object;
         refreshEffects: object;

@@ -12,18 +12,26 @@ import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends fc.placeables.Token<TDocument> {
+    constructor(document: TDocument) {
+        super(document);
+        this.auras = new AuraRenderers(this);
+        Object.defineProperty(this, "auras", { configurable: false, writable: false });
+    }
+
+    static override RENDER_FLAGS = (() => {
+        const flags = Object.assign(super.RENDER_FLAGS, { refreshDistanceText: {} });
+        flags.refreshState.propagate.push("refreshDistanceText");
+        return flags;
+    })();
+
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
 
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
-    readonly flankingHighlight: FlankingHighlightRenderer;
+    readonly flankingHighlight = new FlankingHighlightRenderer(this);
 
-    constructor(document: TDocument) {
-        super(document);
-        this.auras = new AuraRenderers(this);
-        Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
-        this.flankingHighlight = new FlankingHighlightRenderer(this);
-    }
+    /** A text plate showing the distance from a controlled token to this one */
+    readonly #distanceText = new fc.containers.PreciseText();
 
     get isTiny(): boolean {
         return this.document.height < 1 || this.document.width < 1;
@@ -126,7 +134,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Bounds used for mechanics, such as flanking and drawing auras */
     get mechanicalBounds(): PIXI.Rectangle {
-        const bounds = super.bounds;
+        const bounds = this.bounds;
         if (this.isTiny) {
             const position = canvas.grid.getTopLeftPoint(bounds);
             return new PIXI.Rectangle(
@@ -138,6 +146,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
 
         return bounds;
+    }
+
+    /** Can the current user see the distance of this token from a controlled token? */
+    get #canSeeDistance(): boolean {
+        if (!this.visible || this.isPreview || this.document.isSecret || this.controlled) return false;
+        const isHover = this.hover || this.layer.highlightObjects;
+        return isHover && canvas.tokens.controlled.length === 1;
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -274,6 +289,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     protected override _applyRenderFlags(flags: Record<string, boolean>): void {
         super._applyRenderFlags(flags);
         if (flags.refreshPosition) this.auras.refreshPositions();
+        if (flags.refreshDistanceText) this.#refreshDistanceText();
     }
 
     /** Draw auras and flanking highlight lines if certain conditions are met */
@@ -281,6 +297,33 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         super._refreshVisibility();
         this.auras.draw();
         this.flankingHighlight.draw();
+    }
+
+    protected override _refreshState(): void {
+        super._refreshState();
+        this.#distanceText.visible = this.#canSeeDistance;
+    }
+
+    #refreshDistanceText(): void {
+        if (!this.#canSeeDistance) return;
+        const controlledToken = canvas.tokens.controlled[0];
+        const distanceText = this.#distanceText;
+        distanceText.text = game.i18n.format("PF2E.Token.Distance", { distance: controlledToken.distanceTo(this) });
+        const nameplate = this.nameplate;
+        const nameOffset = nameplate.visible ? nameplate.position.y + nameplate.height - 2 : 0;
+        this.#distanceText.position.set(nameplate.position.x, nameOffset);
+    }
+
+    /** Set the basic, unchanging visual parameters of the distance `PreciseText`. */
+    #drawDistanceText(): void {
+        const uiScale = canvas.dimensions.uiScale;
+        const text = this.#distanceText;
+        text.anchor.set(0.5, 0);
+        text.scale.set(uiScale, uiScale);
+        text.style = this._getTextStyle();
+        text.style.fontSize = 20;
+        text.style.fill = "#f0f0f0";
+        this.addChild(text);
     }
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
@@ -544,6 +587,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.flankingHighlight.destroy();
     }
 
+    protected override async _draw(options?: object): Promise<void> {
+        await super._draw(options);
+        this.#drawDistanceText();
+    }
+
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
@@ -578,6 +626,19 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (["undetected", "unnoticed"].includes(statusId)) {
             canvas.perception.update({ refreshVision: true, refreshLighting: true });
         }
+    }
+
+    protected override _onHoverIn(
+        event: PIXI.FederatedPointerEvent,
+        options?: { hoverOutOthers?: boolean },
+    ): boolean | void {
+        this.renderFlags.set({ refreshDistanceText: true });
+        return super._onHoverIn(event, options);
+    }
+
+    protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean | void {
+        this.renderFlags.set({ refreshDistanceText: true });
+        return super._onHoverOut(event);
     }
 
     /** Reset aura renders when token size or GM hidden changes. */
