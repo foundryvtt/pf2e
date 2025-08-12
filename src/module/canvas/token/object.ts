@@ -311,7 +311,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const distanceText = this.#distanceText;
         distanceText.text = game.i18n.format("PF2E.Token.Distance", { distance: controlledToken.distanceTo(this) });
         const nameplate = this.nameplate;
-        const nameOffset = nameplate.visible ? nameplate.position.y + nameplate.height - 2 : 0;
+        const nameOffset = nameplate.visible ? nameplate.position.y + nameplate.height - 2 : nameplate.position.y;
         this.#distanceText.position.set(nameplate.position.x, nameOffset);
     }
 
