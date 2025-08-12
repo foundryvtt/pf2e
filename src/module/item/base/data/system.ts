@@ -20,26 +20,35 @@ interface ActionCost {
     value: OneToThree | null;
 }
 
+interface ValuedTraits {
+    volley?: number;
+    [key: string]: number | undefined;
+}
+
 interface ItemTraits<T extends ItemTrait = ItemTrait> {
     value: T[];
     rarity: Rarity;
     otherTags: string[];
+    config?: ValuedTraits;
 }
 
 interface ItemTraitsNoRarity<T extends ItemTrait = ItemTrait> extends Omit<ItemTraits<T>, "rarity"> {
     rarity?: never;
+    config?: ValuedTraits;
 }
 
 interface RarityTraitAndOtherTags {
-    readonly value?: never;
+    value?: never;
     rarity: Rarity;
     otherTags: string[];
+    config?: never;
 }
 
 interface OtherTagsOnly {
-    readonly value?: never;
+    value?: never;
     rarity?: never;
     otherTags: string[];
+    config?: never;
 }
 
 type ItemFlagsPF2e = DocumentFlags & {
@@ -162,4 +171,5 @@ export type {
     ItemTraitsNoRarity,
     OtherTagsOnly,
     RarityTraitAndOtherTags,
+    ValuedTraits,
 };

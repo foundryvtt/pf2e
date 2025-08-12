@@ -1,6 +1,6 @@
 import { AttributeString } from "@actor/types.ts";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
-import { ItemFlagsPF2e } from "@item/base/data/system.ts";
+import { ItemFlagsPF2e, ValuedTraits } from "@item/base/data/system.ts";
 import type {
     BasePhysicalItemSource,
     Grade,
@@ -167,6 +167,7 @@ type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;
 interface WeaponTraits extends WeaponTraitsSource {
     otherTags: OtherWeaponTag[];
     toggles: WeaponTraitToggles;
+    config: ValuedTraits;
 }
 
 interface WeaponMaterialData extends ItemMaterialData {

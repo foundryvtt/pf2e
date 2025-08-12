@@ -15,7 +15,7 @@ import type {
 import type { ImageFilePath, RollMode } from "@common/constants.d.mts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { itemIsOfType, markdownToHTML } from "@item/helpers.ts";
+import { itemIsOfType, markdownToHTML, wrapItemTraits } from "@item/helpers.ts";
 import type { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
@@ -277,14 +277,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.system.description.addenda = [];
         this.system.description.override = null;
         this.system.description.initialized = false;
+        this.system.traits = wrapItemTraits(this, this.system.traits);
 
         const flags = this.flags;
         flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
-
-        const traits = this.system.traits;
-        if (traits.value) {
-            traits.value = traits.value.filter((t) => t in this.constructor.validTraits);
-        }
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         if (isObject(flags.pf2e.grantedBy)) {
