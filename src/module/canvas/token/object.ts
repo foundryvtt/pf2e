@@ -186,14 +186,15 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param flankee   Potentially flanked token
      */
     protected onOppositeSides(flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean {
-        const [centerA, centerB] = [flankerA.center, flankerB.center];
-        const { bounds } = flankee;
-
-        const Ray = fc.geometry.Ray;
-        const left = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
-        const right = new Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
-        const top = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
-        const bottom = new Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
+        const boundsA = flankerA.mechanicalBounds;
+        const centerA = { x: flankerA.document.x + boundsA.width / 2, y: flankerA.document.y + boundsA.height / 2 };
+        const boundsB = flankerB.mechanicalBounds;
+        const centerB = { x: flankerB.document.x + boundsB.width / 2, y: flankerB.document.y + boundsB.height / 2 };
+        const bounds = flankee.mechanicalBounds;
+        const left = new fc.geometry.Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
+        const right = new fc.geometry.Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
+        const top = new fc.geometry.Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
+        const bottom = new fc.geometry.Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
         const intersectsSide = (side: fc.geometry.Ray): boolean =>
             fu.lineSegmentIntersects(centerA, centerB, side.A, side.B);
 
@@ -490,11 +491,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             return canvas.grid.measurePath(waypoints).distance;
         }
 
-        const targetBounds = target.bounds ?? squareAtPoint(target);
-        if (selfElevation === targetElevation || !this.actor || !target.bounds || !target.actor) {
-            return measureDistanceCuboid(this.bounds, targetBounds, { reach });
+        const targetBounds = target.mechanicalBounds ?? squareAtPoint(target);
+        if (selfElevation === targetElevation || !this.actor || !target.mechanicalBounds || !target.actor) {
+            return measureDistanceCuboid(this.mechanicalBounds, targetBounds, { reach });
         }
-        return measureDistanceCuboid(this.bounds, targetBounds, { reach, token: this, target });
+        return measureDistanceCuboid(this.mechanicalBounds, targetBounds, { reach, token: this, target });
     }
 
     override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptionsPF2e): Promise<void> {
@@ -620,7 +621,7 @@ type TokenOrPoint =
     | (Point & {
           actor?: never;
           document?: never;
-          bounds?: never;
+          mechanicalBounds?: never;
       });
 
 export { TokenPF2e };
