@@ -209,7 +209,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         }
 
         const usage = candidate.system.usage;
-        if (usage.type === "installed" && usage.value in WEAPON_UPGRADES) {
+        if (this.system.grade && usage.type === "installed" && usage.value in WEAPON_UPGRADES) {
             return true;
         }
 

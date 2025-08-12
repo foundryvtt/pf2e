@@ -80,7 +80,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         if (candidate === this) return false;
 
         const usage = candidate.system.usage;
-        if (usage.type === "installed" && usage.value in ARMOR_UPGRADES) {
+        if (this.system.grade && usage.type === "installed" && usage.value in ARMOR_UPGRADES) {
             return true;
         }
 
