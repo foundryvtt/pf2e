@@ -1,6 +1,8 @@
+import { ApplicationRenderContext, ApplicationRenderOptions } from "@client/applications/_module.mjs";
 import type { DialogV2 } from "@client/applications/api/_module.mjs";
 import type { CombatTrackerConfig } from "@client/applications/apps/_module.mjs";
 import SettingsConfig from "@client/applications/settings/config.mjs";
+import ChatPopout from "@client/applications/sidebar/apps/chat-popout.mjs";
 import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
 import Canvas from "@client/canvas/board.mjs";
 import LightingLayer from "@client/canvas/layers/lighting.mjs";
@@ -74,6 +76,10 @@ type HookParamsRender<T extends Application | ApplicationV2, N extends string> =
         : [T, HTMLElement, T extends ApplicationV2<infer _First, infer _Second, infer U> ? U : never]
 >;
 type HookParamsRenderChatMessageHTML = HookParameters<"renderChatMessageHTML", [ChatMessage, string, object]>;
+type HookParamsRenderChatPopout = HookParameters<
+    "renderChatPopout",
+    [ChatPopout, HTMLElement, ApplicationRenderContext, ApplicationRenderOptions]
+>;
 type HookParamsTargetToken = HookParameters<"targetToken", [User, Token<TokenDocument<Scene>>, boolean]>;
 type HookParamsUpdate<T extends foundry.abstract.Document, N extends string> = HookParameters<
     `update${N}`,
@@ -119,6 +125,8 @@ export default class Hooks {
     static on(...args: HookParamsRender<SettingsConfig, "SettingsConfig">): number;
     static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
     static on(...args: HookParamsRenderChatMessageHTML): number;
+    static on(...args: HookParamsRenderChatPopout): number;
+
     static on(
         ...args: HookParamsRender<JournalPageSheet<JournalEntryPage<JournalEntry | null>>, "JournalPageSheet">
     ): number;
@@ -170,6 +178,7 @@ export default class Hooks {
     static once(...args: HookParamsRender<SettingsConfig, "SettingsConfig">): number;
     static once(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
     static once(...args: HookParamsRenderChatMessageHTML): number;
+    static once(...args: HookParamsRenderChatPopout): number;
     static once(...args: HookParamsTargetToken): number;
     static once(...args: HookParamsUpdate<Combat, "Combat">): number;
     static once(...args: HookParamsUpdate<Scene, "Scene">): number;

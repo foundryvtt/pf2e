@@ -11,6 +11,7 @@ import { Init } from "./init.ts";
 import { LightingRefresh } from "./lighting-refresh.ts";
 import { Load } from "./load.ts";
 import { Ready } from "./ready.ts";
+import { RenderChatPopout } from "./render-chat-popout.ts";
 import { RenderCombatTrackerConfig } from "./render-combat-tracker-config.ts";
 import { RenderDialog } from "./render-dialog.ts";
 import { RenderRegionLegend } from "./render-region-legend.ts";
@@ -37,6 +38,7 @@ export const HooksPF2e = {
             Init,
             LightingRefresh,
             Ready,
+            RenderChatPopout,
             RenderCombatTrackerConfig,
             RenderDialog,
             RenderRegionLegend,

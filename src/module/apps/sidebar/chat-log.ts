@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { Kingdom } from "@actor/party/kingdom/model.ts";
-import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
+import type { ApplicationRenderContext, ApplicationRenderOptions } from "@client/applications/_types.d.mts";
+import type ChatPopout from "@client/applications/sidebar/apps/chat-popout.d.mts";
 import type { ContextMenuCondition, ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type { ChatMessageSource, ChatSpeakerData } from "@common/documents/chat-message.d.mts";
@@ -14,9 +15,10 @@ import { CheckPF2e } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { createHTMLElement, ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
+import * as R from "remeda";
 
 class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
-    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+    static override DEFAULT_OPTIONS = {
         actions: {
             applyDamage: ChatLogPF2e.#onClickApplyDamage,
             applyEffect: ChatLogPF2e.#onClickApplyEffect,
@@ -45,7 +47,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         log.addEventListener("dblclick", async (event): Promise<void> => {
             const { message } = ChatLogPF2e.#messageFromEvent(event);
             const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
-            if (senderEl && message) return ChatLogPF2e.#onClickFindToken(event);
+            if (senderEl && message) return ChatLogPF2e.#onClickFindToken.call(this, event as PointerEvent);
         });
     }
 
@@ -105,7 +107,27 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         return element && message ? { element, message } : { element: null, message: null };
     }
 
-    static async #onClickApplyDamage(this: ChatLogPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
+    static async onRenderChatPopout(popout: ChatPopout, options: ApplicationRenderOptions): Promise<void> {
+        if (!options.isFirstRender) return;
+        Object.assign(
+            popout.options.actions,
+            R.pick(this.DEFAULT_OPTIONS.actions, [
+                "applyDamage",
+                "applyEffect",
+                "findToken",
+                "revertDamage",
+                "recoverPersistentDamage",
+                "setAsInitiative",
+                "shieldBlock",
+            ]),
+        );
+    }
+
+    static async #onClickApplyDamage(
+        this: ChatLogPF2e | ChatPopout,
+        event: PointerEvent,
+        button: HTMLElement,
+    ): Promise<void> {
         const { message } = ChatLogPF2e.#messageFromEvent(event);
         if (!message) throw ErrorPF2e("Unexpected failure to acquire message");
         const multiplier = Number(button.dataset.multiplier);
@@ -119,7 +141,11 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         });
     }
 
-    static async #onClickApplyEffect(this: ChatLogPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
+    static async #onClickApplyEffect(
+        this: ChatLogPF2e | ChatPopout,
+        event: PointerEvent,
+        button: HTMLElement,
+    ): Promise<void> {
         if (!(button instanceof HTMLButtonElement)) return;
         button.disabled = true;
         const target = fromUuidSync(button.dataset.targets ?? "");
@@ -172,7 +198,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         }
     }
 
-    static async #onClickSetAsInitiative(this: ChatLogPF2e, event: PointerEvent): Promise<void> {
+    static async #onClickSetAsInitiative(this: ChatLogPF2e | ChatPopout, event: PointerEvent): Promise<void> {
         const { message } = ChatLogPF2e.#messageFromEvent(event);
         if (!message) return;
         const { speakerActor: actor, token } = message ?? {};
@@ -213,7 +239,11 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         await message.update({ content: content.innerHTML });
     }
 
-    static async #onClickRevertDamage(this: ChatLogPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
+    static async #onClickRevertDamage(
+        this: ChatLogPF2e | ChatPopout,
+        event: PointerEvent,
+        button: HTMLElement,
+    ): Promise<void> {
         const { message, element } = ChatLogPF2e.#messageFromEvent(event);
         const appliedDamage = message?.flags.pf2e.appliedDamage;
         if (!appliedDamage) return;
@@ -234,7 +264,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         });
     }
 
-    static async #onClickRecoverPersistent(event: PointerEvent): Promise<void> {
+    static async #onClickRecoverPersistent(this: ChatLogPF2e | ChatPopout, event: PointerEvent): Promise<void> {
         const message = ChatLogPF2e.#messageFromEvent(event).message;
         const actor = message?.speakerActor;
         const roll = message?.rolls.find((r): r is Rolled<DamageRoll> => r instanceof DamageRoll);
@@ -255,7 +285,11 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         await condition.rollRecovery();
     }
 
-    static async #onClickShieldBlock(event: PointerEvent, button: HTMLElement): Promise<void> {
+    static async #onClickShieldBlock(
+        this: ChatLogPF2e | ChatPopout,
+        event: PointerEvent,
+        button: HTMLElement,
+    ): Promise<void> {
         const { element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
         const getTokens = (): TokenDocumentPF2e[] => {
             const tokens = game.user.getActiveTokens();
@@ -358,7 +392,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         }
     }
 
-    static async #onClickFindToken(event: MouseEvent): Promise<void> {
+    static async #onClickFindToken(this: ChatLogPF2e | ChatPopout, event: PointerEvent): Promise<void> {
         if (!canvas.ready) return;
         const { message } = ChatLogPF2e.#messageFromEvent(event);
         const token = message?.token?.object;
@@ -511,7 +545,6 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
         );
-
         return options;
     }
 }
