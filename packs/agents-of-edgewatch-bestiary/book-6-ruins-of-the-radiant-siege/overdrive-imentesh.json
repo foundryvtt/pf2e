@@ -1291,7 +1291,7 @@
         {
             "_id": "I23rYMszuvKL97k7",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Protean Anatomy",
+            "name": "Protean Anatomy 19",
             "sort": 2300000,
             "system": {
                 "actionType": {
@@ -1302,14 +1302,21 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A overdrive imentesh's vital organs shift and change shape and position constantly.</p>\n<p>Immediately after the hegessik takes acid, electricity, or sonic damage, it gains the listed amount of resistance to that damage type. This lasts for 1 hour or until the next time the protean takes damage of one of the other types (in which case its resistance changes to match that type), whichever comes first.</p>\n<p>The overdrive imentesh is immune to polymorph effects unless it is a willing target. If @UUID[Compendium.pf2e.conditionitems.Item.Blinded] or @UUID[Compendium.pf2e.conditionitems.Item.Deafened], the overdrive imentesh automatically recovers at the end of its next turn as new sensory organs grow to replace the compromised ones.</p>"
+                    "value": "<p>A overdrive imentesh's vital organs shift and change shape and position constantly.</p>\n<p>Immediately after the hegessik takes acid, electricity, or sonic damage, it gains the listed amount of resistance to that damage type. This lasts for 1 hour or until the next time the protean takes damage of one of the other types (in which case its resistance changes to match that type), whichever comes first.</p>\n<p>The overdrive imentesh is immune to polymorph effects unless it is a willing target. If @UUID[Compendium.pf2e.conditionitems.Item.Blinded] or @UUID[Compendium.pf2e.conditionitems.Item.Deafened], the overdrive imentesh automatically recovers at the end of its next turn as new sensory organs grow to replace the compromised ones.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Protean Anatomy]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "flags.pf2e.proteanResistance",
+                        "value": 19
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
