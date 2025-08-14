@@ -1,3 +1,4 @@
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import { setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorDimensions } from "@actor/types.ts";
@@ -6,7 +7,7 @@ import { extractModifierAdjustments, extractModifiers } from "@module/rules/help
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ArmorStatistic, HitPointsStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { ActorPF2e, ActorUpdateCallbackOptions, HitPointsSummary } from "../base.ts";
-import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data.ts";
+import { VehicleSource, VehicleSystemData } from "./data.ts";
 
 class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
@@ -36,13 +37,6 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
             : !!game.combats.active?.started && game.combats.active.combatants.some((c) => c.actor === this);
     }
 
-    getTokenDimensions(dimensions: Omit<ActorDimensions, "height"> = this.dimensions): TokenDimensions {
-        return {
-            width: Math.max(Math.round(dimensions.width / 5), 1),
-            height: Math.max(Math.round(dimensions.length / 5), 1),
-        };
-    }
-
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -54,7 +48,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
 
         // Set the prototype token's dimensions according to the vehicle dimensions
         if (this.prototypeToken.flags?.pf2e?.linkToActorSize) {
-            const { width, height } = this.getTokenDimensions();
+            const { width, height } = size.tokenDimensions;
             this.prototypeToken.width = width;
             this.prototypeToken.height = height;
         }
@@ -140,12 +134,14 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         if (result === false) return result;
 
         if (this.prototypeToken.flags?.pf2e?.linkToActorSize) {
-            const { space } = this.system.details;
+            const currentSpace = this.system.details.space;
             const spaceUpdates = {
-                width: changed.system?.details?.space?.wide ?? space.wide,
-                length: changed.system?.details?.space?.long ?? space.long,
+                wide: changed.system?.details?.space?.wide ?? currentSpace.wide,
+                long: changed.system?.details?.space?.long ?? currentSpace.long,
             };
-            const tokenDimensions = this.getTokenDimensions(spaceUpdates);
+            const sizeCategory = changed.system?.traits?.size?.value ?? this.size;
+            const size = new ActorSizePF2e({ value: sizeCategory, ...spaceUpdates });
+            const tokenDimensions = size.tokenDimensions;
             changed.prototypeToken = fu.mergeObject(changed.prototypeToken ?? {}, tokenDimensions);
 
             if (canvas.scene) {

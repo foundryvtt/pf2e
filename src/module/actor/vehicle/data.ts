@@ -40,7 +40,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                 integer: true,
                 min: 5,
                 step: 5,
-                max: 50,
+                max: 300,
                 initial: 5,
             });
         const immunityTypes: Record<ImmunityType, string> = CONFIG.PF2E.immunityTypes;
