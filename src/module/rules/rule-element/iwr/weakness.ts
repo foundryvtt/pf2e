@@ -17,10 +17,9 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
         };
     }
 
-    static override validateJoint(source: SourceFromSchema<WeaknessRuleSchema>): void {
+    static override validateJoint(source: fields.SourceFromSchema<WeaknessRuleSchema>): void {
         super.validateJoint(source);
-
-        if (typeof source.applyOnce === "boolean" && !source.type.some((t) => t === "custom")) {
+        if (typeof source.applyOnce === "boolean" && !source.type.every((t) => t === "custom")) {
             throw new foundry.data.validation.DataModelValidationError(
                 "applyOnce can only be specified for custom weakness types",
             );
@@ -67,7 +66,7 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
                     value,
                     exceptions: this.exceptions,
                     source: this.item.name,
-                    applyOnce: this.applyOnce, // maybe be undefined
+                    applyOnce: this.applyOnce,
                 }),
         );
     }
