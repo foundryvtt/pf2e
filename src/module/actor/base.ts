@@ -993,23 +993,16 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Backward compatibility
         value = typeof itemId === "boolean" ? itemId : (value ?? !this.rollOptions[domain]?.[option]);
 
-        type MaybeRollOption = { key: string; domain?: unknown; option?: unknown };
-        if (typeof itemId === "string") {
-            // An item ID is provided: find the rule on the item
-            const item = this.items.get(itemId, { strict: true });
-            const rule = item.rules.find(
-                (r: MaybeRollOption): r is RollOptionRuleElement =>
-                    r.key === "RollOption" && r.domain === domain && r.option === option,
-            );
-            return rule?.toggle(value, suboption) ?? null;
-        } else {
-            // Less precise: no item ID is provided, so find the rule on the actor
-            const rule = this.rules.find(
-                (r: MaybeRollOption): r is RollOptionRuleElement =>
-                    r.key === "RollOption" && r.domain === domain && r.option === option,
-            );
-            return rule?.toggle(value, suboption) ?? null;
-        }
+        // Find the rule on the actor. The item id provided may be for a sub item, so we search instead of retrieving outright
+        type MaybeRollOption = RuleElementPF2e & { domain?: unknown; option?: unknown };
+        const rule = this.rules.find(
+            (r: MaybeRollOption): r is RollOptionRuleElement =>
+                r.key === "RollOption" &&
+                r.domain === domain &&
+                r.option === option &&
+                (typeof itemId !== "string" || itemId === r.item.id),
+        );
+        return rule?.toggle(value, suboption) ?? null;
     }
 
     /** Ensure newly-created tokens have dimensions matching this actor's size category */
