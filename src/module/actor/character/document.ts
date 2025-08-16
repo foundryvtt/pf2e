@@ -1174,7 +1174,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         {
             const grade = weapon.system.grade;
             const potencyRune = weapon.system.runes.potency;
-            const trackingMod = weapon.system.traits.config.tracking ?? 0;
+            const trackingMod = weapon.system.grade ? CONFIG.PF2E.weaponImprovements[weapon.system.grade].tracking : 0;
 
             // Get all weapon potency synthetics. These don't work for sf2e unless the type is potency (ABP)
             const potencySynthetics = attackDomains
