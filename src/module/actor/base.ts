@@ -957,17 +957,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken(): void {
-        this.prototypeToken.flags = fu.mergeObject(
-            { pf2e: { linkToActorSize: SIZE_LINKABLE_ACTOR_TYPES.has(this.type) } },
-            this.prototypeToken.flags,
-        );
-        // Set as a reference rather than used directly for setting placed token dimensions
-        if (this.prototypeToken.flags.pf2e.linkToActorSize && this.system.traits?.size) {
+        const prototypeToken = this.prototypeToken;
+        const flags = fu.mergeObject(prototypeToken.flags, { pf2e: {} });
+        flags.pf2e.linkToActorSize ??= SIZE_LINKABLE_ACTOR_TYPES.has(this.type);
+        const settingEnabled = game.pf2e.settings.tokens.autoscale;
+        flags.pf2e.autoscale = settingEnabled && flags.pf2e.linkToActorSize ? (flags.pf2e.autoscale ?? true) : false;
+        if (flags.pf2e.linkToActorSize && this.system.traits?.size) {
             const tokenDimensions = this.system.traits.size.tokenDimensions;
-            this.prototypeToken.width = tokenDimensions.width;
-            this.prototypeToken.height = tokenDimensions.height;
+            prototypeToken.width = tokenDimensions.width;
+            prototypeToken.height = tokenDimensions.height;
         }
-        TokenDocumentPF2e.prepareScale(this.prototypeToken);
+        TokenDocumentPF2e.prepareScale(prototypeToken);
     }
 
     /* -------------------------------------------- */
