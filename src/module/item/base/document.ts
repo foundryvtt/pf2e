@@ -16,6 +16,7 @@ import type { ImageFilePath, RollMode } from "@common/constants.d.mts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { itemIsOfType, markdownToHTML } from "@item/helpers.ts";
+import { addOrUpgradeTrait } from "@item/weapon/helpers.ts";
 import type { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
@@ -277,11 +278,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.system.description.addenda = [];
         this.system.description.override = null;
         this.system.description.initialized = false;
-
-        const traits = this.system.traits;
-        traits.value?.forEach((trait, index) => {
-            if (!(trait in this.constructor.validTraits)) traits.value.splice(index, 1);
-        });
+        this.system.traits.value &&= this.system.traits.value.filter((t) => t in this.constructor.validTraits);
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         const flags = this.flags;
@@ -870,15 +867,17 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             changed.system.slug = sluggify(changed.system.slug) || null;
         }
 
-        // Sort traits for easier visual scanning in breakpoints
+        // Validate and deduplicate traits and other-tags
         if (changed.system?.traits) {
-            if (Array.isArray(changed.system.traits.value)) {
-                changed.system.traits.value.sort();
+            const traits: { value?: string[]; otherTags?: string[] } = changed.system.traits;
+            if (traits.value && Array.isArray(traits.value)) {
+                const validTraits: string[] = [];
+                for (const trait of traits.value) {
+                    if (trait in this.constructor.validTraits) addOrUpgradeTrait(validTraits, trait);
+                }
+                traits.value = validTraits.sort();
             }
-
-            if (Array.isArray(changed.system.traits.otherTags)) {
-                changed.system.traits.otherTags = changed.system.traits.otherTags.map((t) => sluggify(t)).sort();
-            }
+            if (Array.isArray(traits.otherTags)) traits.otherTags = traits.otherTags.map((t) => sluggify(t)).sort();
         }
 
         // Run preUpdateItem rule element callbacks

@@ -33,13 +33,13 @@ interface ItemTraitsNoRarity<T extends ItemTrait = ItemTrait> extends Omit<ItemT
 interface RarityTraitAndOtherTags {
     rarity: Rarity;
     otherTags: string[];
-    readonly value?: never;
+    value?: never;
 }
 
 interface OtherTagsOnly {
     otherTags: string[];
-    readonly value?: never;
-    readonly rarity?: never;
+    value?: never;
+    rarity?: never;
 }
 
 type ItemFlagsPF2e = DocumentFlags & {

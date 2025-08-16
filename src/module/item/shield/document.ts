@@ -295,14 +295,16 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Clear runes or grade based on tech/analog traits
-        const result = await checkPhysicalItemSystemChange(this, changed);
-        if (result === "cancel") {
+        try {
+            const result = await checkPhysicalItemSystemChange(this, changed);
+            if (result === "sf2e") {
+                changed.system.runes = { reinforcing: 0 };
+                changed.system.grade ??= this._source.system.grade ?? "commercial";
+            } else if (result === "pf2e") {
+                changed.system.grade = null;
+            }
+        } catch {
             return false;
-        } else if (result === "sf2e") {
-            changed.system.runes = { reinforcing: 0 };
-            changed.system.grade ??= this._source.system.grade ?? "commercial";
-        } else if (result === "pf2e") {
-            changed.system.grade = null;
         }
 
         if (changed.system.acBonus !== undefined) {

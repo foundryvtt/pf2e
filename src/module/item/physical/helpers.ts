@@ -91,14 +91,15 @@ function getGradeData(item: PhysicalItemPF2e) {
 /**
  * Checks if a change in traits leads to the item converting to sf2e or pf2e.
  * If so, it prompts for confirmation, and allows the user to cancel.
- * @returns false if no change, "cancel" if the update was aborted, or pf2e or sf2e based on the new traits.
+ * @returns pf2e or sf2e based on the new traits, or `null` if no change is to be made.
+ * @throws an error if the user does not make a selection
  */
 async function checkPhysicalItemSystemChange(
     item: PhysicalItemPF2e,
     changed: DeepPartial<PhysicalItemSource>,
-): Promise<false | "cancel" | "pf2e" | "sf2e"> {
+): Promise<"pf2e" | "sf2e" | null> {
     const newTraits: string[] | undefined = changed.system?.traits?.value;
-    if (!item.isOfType("weapon", "armor", "shield") || !newTraits) return false;
+    if (!item.isOfType("weapon", "armor", "shield") || !newTraits) return null;
 
     const sf2eTraits = ["tech", "analog"] as const;
     const beforeSF2eTraits = item._source.system.traits.value.filter((t) => tupleHasValue(sf2eTraits, t));
@@ -112,9 +113,7 @@ async function checkPhysicalItemSystemChange(
         ("reinforcing" in runes && runes.reinforcing > 0) ||
         (hasPotency && "property" in runes && runes.property.length > 0);
     const hasGrade = item.system.grade && item.system.grade !== "commercial";
-    if (wasSF2e === becomingSF2e || !(hasRunes || hasGrade)) {
-        return false;
-    }
+    if (wasSF2e === becomingSF2e || !(hasRunes || hasGrade)) return null;
 
     const key = `PF2E.Item.Physical.ChangeEquipmentSystem.${becomingSF2e ? "ToStarfinder" : "ToPathfinder"}`;
     const removedTrait = beforeSF2eTraits.find((t) => !newTraits.includes(t));
@@ -143,13 +142,13 @@ async function checkPhysicalItemSystemChange(
     });
 
     if (!result) {
-        item.sheet.render(false); // tagify is optimistic, so we need to re-render
-        return "cancel";
+        item.render(); // tagify is optimistic, so we need to re-render
+        throw Error;
     } else if (result === "change") {
         // If the change button is pressed, we are staying as sf2e but swapping the trait used
         // To the caller of this function, this is a no change
         newTraits.push(otherTrait);
-        return false;
+        return null;
     }
 
     return becomingSF2e ? "sf2e" : "pf2e";

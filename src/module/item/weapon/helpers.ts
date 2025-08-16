@@ -1,7 +1,6 @@
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { tupleHasValue } from "@util";
-import * as R from "remeda";
 import { WeaponPF2e } from "./document.ts";
 
 /** Upgrade a trait with a dice annotation, if possible, or otherwise return the original trait. */
@@ -18,25 +17,26 @@ function upgradeWeaponTrait(trait: string): string {
 
 /**
  * Add a trait to an array of traits--unless it matches an existing trait except by annotation. Replace the trait if
- * the new trait is an upgrade, or otherwise do nothing.
+ * the new trait is an upgrade, or otherwise do nothing. Note: the array is mutated as part of this process.
  */
 function addOrUpgradeTrait<TTrait extends string>(traits: TTrait[], newTrait: TTrait): TTrait[] {
     const annotatedTraitMatch = newTrait.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
-    if (!annotatedTraitMatch) return R.unique([...traits, newTrait]);
-
+    if (!annotatedTraitMatch) {
+        if (!traits.includes(newTrait)) traits.push(newTrait);
+        return traits;
+    }
     const traitBase = annotatedTraitMatch[1];
     const upgradeAnnotation = annotatedTraitMatch[2];
     const traitPattern = new RegExp(String.raw`${traitBase}-(\d*d?\d*)`);
     const existingTrait = traits.find((t) => traitPattern.test(t));
     const existingAnnotation = existingTrait?.match(traitPattern)?.at(1);
     if (!(existingTrait && existingAnnotation)) {
-        return R.unique([...traits, newTrait]);
+        if (!traits.includes(newTrait)) traits.push(newTrait);
+        return traits;
     }
-
     if (_expectedValueOf(upgradeAnnotation) > _expectedValueOf(existingAnnotation)) {
         traits.splice(traits.indexOf(existingTrait), 1, newTrait);
     }
-
     return traits;
 }
 
