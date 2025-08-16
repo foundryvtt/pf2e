@@ -38,6 +38,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "brawling",
                 "hardness": 0,
                 "hp": {
@@ -57,9 +58,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -125,6 +126,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "sling",
                 "hardness": 0,
                 "hp": {
@@ -144,9 +146,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": 80,
@@ -162,7 +164,7 @@
                 "size": "med",
                 "slug": "halfling-sling-staff",
                 "splashDamage": {
-                    "value": null
+                    "value": 0
                 },
                 "traits": {
                     "rarity": "uncommon",
@@ -204,6 +206,7 @@
                     "inSlot": true,
                     "invested": false
                 },
+                "grade": null,
                 "group": "leather",
                 "hardness": 0,
                 "hp": {
@@ -266,7 +269,7 @@
                     "type": "fire"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[burst|distance:10], dealing [[/r10d6]] fire damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:30|basic|name:Greater Explosive Ammunition] save.</p>"
+                    "value": "<p><strong>Ammunition</strong> any</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>greater explosive ammunition</em> hits a target, the missile explodes in a @Template[burst|distance:10], dealing @Damage[10d6[fire]|options:area-damage] damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:30|basic|options:area-effect] save.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -285,17 +288,25 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 520
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.AmmunitionNotes.ExplosiveAmmunition.Greater.Text",
+                        "title": "PF2E.AmmunitionNotes.ExplosiveAmmunition.Greater.Title"
+                    }
+                ],
                 "size": "med",
                 "slug": "explosive-ammunition-greater",
                 "traits": {
@@ -359,9 +370,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 20,
                 "rules": [],
@@ -394,11 +405,7 @@
             "name": "Gauntlet",
             "sort": 600000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
-                    "custom": "",
                     "value": [
                         "improved-grab"
                     ]
@@ -423,15 +430,11 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "agile",
                         "free-hand",
                         "magical"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -470,7 +473,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -503,7 +505,6 @@
                 "rules": [],
                 "slug": "attack-of-opportunity",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -533,7 +534,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -566,7 +566,6 @@
                 "rules": [],
                 "slug": "constrict",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -596,7 +595,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -631,7 +629,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "certain-kill"
                     ]
@@ -663,7 +660,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -698,7 +694,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -731,7 +726,6 @@
                 "rules": [],
                 "slug": "improved-grab",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -758,7 +752,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -813,7 +808,7 @@
             }
         },
         "details": {
-            "blurb": "",
+            "blurb": "Male frost goblin wrestler",
             "languages": {
                 "details": "",
                 "value": [

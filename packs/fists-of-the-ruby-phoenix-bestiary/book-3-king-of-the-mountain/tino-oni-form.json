@@ -38,6 +38,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "club",
                 "hardness": 0,
                 "hp": {
@@ -57,9 +58,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -97,9 +98,6 @@
             "name": "Head",
             "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
                     "value": []
                 },
@@ -123,16 +121,12 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "reach-10",
                         "sweep",
                         "unholy"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -143,9 +137,6 @@
             "name": "Fist",
             "sort": 300000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
                     "value": []
                 },
@@ -169,7 +160,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -178,9 +168,6 @@
                         "unarmed",
                         "unholy"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -196,9 +183,6 @@
             "name": "Kanabo",
             "sort": 400000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
                     "value": []
                 },
@@ -222,49 +206,15 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "backswing",
                         "reach-15",
                         "shove",
                         "unholy"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "3hpsCGuCLcySWA7D",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Toughest Teamwork: Catapult Ally",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally using a move action moves within reach of Tino's kanabo</p>\n<hr />\n<p><strong>Effect</strong> Tino scoops his ally with his kanabo and flings them 30 feet in any direction. They can continue any remainder of their movement from their landing location</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         },
         {
             "_id": "xyaQCek6PhhvGzLk",
@@ -273,7 +223,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Ferocity",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -294,7 +244,6 @@
                 "rules": [],
                 "slug": "ferocity",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -307,7 +256,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Retributive Strike",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -327,7 +276,35 @@
                 "rules": [],
                 "slug": "retributive-strike",
                 "traits": {
-                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3hpsCGuCLcySWA7D",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Toughest Teamwork: Catapult Ally",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An ally using a move action moves within reach of Tino's kanabo</p>\n<hr />\n<p><strong>Effect</strong> Tino scoops his ally with his kanabo and flings them 30 feet in any direction. They can continue any remainder of their movement from their landing location</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
                     "value": []
                 }
             },
@@ -372,7 +349,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -399,10 +375,24 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "kanabo-to-oni",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "kanabo-to-oni"
+                        ],
+                        "selector": "kanabo-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -432,7 +422,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -462,7 +451,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "flourish"
                     ]
@@ -494,7 +482,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -521,7 +508,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -568,7 +556,7 @@
             }
         },
         "details": {
-            "blurb": "",
+            "blurb": "Dimensional superposition form of Tino Tung",
             "languages": {
                 "details": "(can't speak any language)",
                 "value": [

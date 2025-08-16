@@ -27,6 +27,9 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
                 "slots": {},
                 "slug": null,
                 "spelldc": {
@@ -36,7 +39,8 @@
                 },
                 "tradition": {
                     "value": "primal"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -457,6 +461,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "sword",
                 "hardness": 0,
                 "hp": {
@@ -519,11 +524,7 @@
             "name": "Greatsword",
             "sort": 800000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
-                    "custom": "",
                     "value": [
                         "frostbite"
                     ]
@@ -552,15 +553,11 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-10",
                         "versatile-p"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -571,11 +568,7 @@
             "name": "Fist",
             "sort": 900000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
-                    "custom": "",
                     "value": [
                         "frostbite",
                         "improved-grab"
@@ -605,15 +598,11 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-10",
                         "unarmed"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -642,7 +631,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "primal"
                     ]
@@ -677,7 +665,6 @@
                 "rules": [],
                 "slug": "attack-of-opportunity",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -707,7 +694,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "cold"
                     ]
@@ -749,7 +735,6 @@
                 ],
                 "slug": "negative-healing",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -789,7 +774,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "aura",
                         "cold",
@@ -823,7 +807,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -856,7 +839,6 @@
                 "rules": [],
                 "slug": "improved-grab",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -925,7 +907,14 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "blurb": "",
@@ -967,7 +956,7 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 29
+                "value": 39
             },
             "reflex": {
                 "saveDetail": "",
