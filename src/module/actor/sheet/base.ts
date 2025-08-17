@@ -595,11 +595,33 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
     protected activateClickListener(html: HTMLElement): SheetClickActionHandlers {
-        const inventoryItemFromDOM = (event: MouseEvent): PhysicalItemPF2e<TActor> => {
-            const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-            const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
-            const parentItem = this.actor.inventory.get(itemId, { strict: true });
-            return subitemId ? parentItem.subitems.get(subitemId, { strict: true }) : parentItem;
+        const itemFromDOM = async (event: MouseEvent): Promise<ItemPF2e<TActor>> => {
+            const actor = this.actor;
+            const itemUuid = htmlClosest(event.target, "[data-uuid]")?.dataset.uuid;
+            const itemEl = htmlClosest(event.target, "[data-item-id]");
+            const itemId = itemEl?.dataset.itemId;
+            const collectionId = itemEl?.dataset.entryId;
+            const collection = collectionId
+                ? (actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? null)
+                : null;
+            if (collection) {
+                return collection.get(itemId, { strict: true });
+            }
+
+            const item = (await fromUuid<ItemPF2e>(itemUuid ?? "")) ?? this.actor.items.get(itemId, { strict: true });
+            if (!item?.actor) {
+                const subphrase = itemUuid || !itemId ? `uuid ${itemUuid}` : `id ${itemId}`;
+                throw ErrorPF2e(`Failed to retrieve owned item with ${subphrase}`);
+            }
+            return item as ItemPF2e<TActor>;
+        };
+
+        const inventoryItemFromDOM = async (event: MouseEvent): Promise<PhysicalItemPF2e<TActor>> => {
+            const item = await itemFromDOM(event);
+            if (!item?.isOfType("physical")) {
+                throw ErrorPF2e(`Attempted to retrieve item, but it is not a physical item`);
+            }
+            return item as PhysicalItemPF2e<TActor>;
         };
 
         const handlers: SheetClickActionHandlers = {
@@ -613,11 +635,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 this.#onClickCreateItem(anchor);
             },
             "edit-item": async (event) => {
-                const itemUuid = htmlClosest(event.target, "[data-uuid]")?.dataset.uuid;
-                const item = await fromUuid<ItemPF2e>(itemUuid ?? "");
-                if (!item) {
-                    throw ErrorPF2e(`Failed to edit item with uuid ${itemUuid}`);
-                }
+                const item = await itemFromDOM(event);
                 return item.sheet.render(true);
             },
             "effect-toggle-unidentified": (event): Promise<unknown> | void => {
@@ -629,30 +647,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 }
             },
             "delete-item": async (event) => {
-                const itemUuid = htmlClosest(event.target, "[data-uuid]")?.dataset.uuid;
-                const item = await fromUuid<ItemPF2e>(itemUuid ?? "");
-                if (!item) {
-                    throw ErrorPF2e(`Failed to delete item with uuid ${itemUuid}`);
-                }
-                return this.deleteItem(item, event);
+                return this.deleteItem(await itemFromDOM(event), event);
             },
-            "item-to-chat": (event, anchor): Promise<unknown> | void => {
-                const actor = this.actor;
-                const itemEl = htmlClosest(anchor, "[data-item-id]");
-                const collectionId = itemEl?.dataset.entryId;
-                const collection: { get: Collection<string, ItemPF2e>["get"] } = collectionId
-                    ? (actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items)
-                    : actor.items;
-
-                const itemId = itemEl?.dataset.itemId;
-                const item = collection.get(itemId, { strict: true });
+            "item-to-chat": async (event): Promise<unknown | void> => {
+                const item = await itemFromDOM(event);
                 if (item.isOfType("spell")) {
-                    const castRank = Number(itemEl?.dataset.castRank ?? NaN);
+                    const castRank = Number(htmlClosest(event.target, "[data-cast-rank]")?.dataset.castRank ?? NaN);
                     return item.toMessage(event, { data: { castRank } });
-                } else if (item.isOfType("physical")) {
-                    const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
-                    const actualItem = subitemId ? item.subitems.get(subitemId, { strict: true }) : item;
-                    return actualItem.toMessage(event);
                 }
 
                 return item.toMessage(event);
@@ -701,8 +702,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             "add-coins": () => {
                 return new AddCoinsPopup(this.actor).render(true);
             },
-            "decrease-quantity": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "decrease-quantity": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 if (item.quantity > 0) {
                     const subtrahend = Math.min(item.quantity, event.ctrlKey ? 10 : event.shiftKey ? 5 : 1);
                     return item.update({ "system.quantity": item.quantity - subtrahend });
@@ -710,30 +711,26 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 return;
             },
             "detach-subitem": async (event) => {
-                const itemUuid = htmlClosest(event.target, "[data-uuid]")?.dataset.uuid;
-                const subitem = await fromUuid<ItemPF2e>(itemUuid ?? "");
-                if (!subitem?.isOfType("physical")) {
-                    throw ErrorPF2e(`Failed to retrieve item with uuid ${itemUuid}`);
-                }
+                const subitem = await inventoryItemFromDOM(event);
                 return subitem.detach({ skipConfirm: isControlDown(event) });
             },
-            "increase-quantity": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "increase-quantity": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 const addend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
                 return item.update({ "system.quantity": item.quantity + addend });
             },
             "remove-coins": () => {
                 return new RemoveCoinsPopup(this.actor).render(true);
             },
-            "repair-item": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "repair-item": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 return game.pf2e.actions.repair({ event, item });
             },
             "sell-all-treasure": () => {
                 return this.#onClickSellAllTreasure();
             },
-            "sell-treasure": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "sell-treasure": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 const sellItem = async (): Promise<void> => {
                     if (item?.isOfType("treasure") && !item.isCoinage) {
                         await item.delete();
@@ -762,14 +759,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                     default: "Yes",
                 }).render(true);
             },
-            "toggle-container": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "toggle-container": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 if (!item.isOfType("backpack")) return;
                 const isCollapsed = item.system.collapsed ?? false;
                 return item.update({ "system.collapsed": !isCollapsed });
             },
-            "toggle-identified": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "toggle-identified": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 if (item.isIdentified) {
                     item.setIdentificationStatus("unidentified");
                 } else {
