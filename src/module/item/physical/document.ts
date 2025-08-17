@@ -506,7 +506,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // Calculate new quantity for the existing item, and apply updates
         const newQuantity = item.quantity - quantity;
         const actor = this.actor;
-        if (actor && actor.uuid === item.actor?.uuid && this.id) {
+        if (actor && actor.uuid === item.actor?.uuid && this.id && !this.parentItem) {
             // Do an update that minimizes updates and rerendering if its all the same actor
             const updates = createActorGroupUpdate({
                 itemUpdates: [{ _id: this.id, "system.subitems": subitems }],

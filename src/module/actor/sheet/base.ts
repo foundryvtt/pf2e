@@ -709,8 +709,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 }
                 return;
             },
-            "detach-subitem": (event) => {
-                const subitem = inventoryItemFromDOM(event);
+            "detach-subitem": async (event) => {
+                const itemUuid = htmlClosest(event.target, "[data-uuid]")?.dataset.uuid;
+                const subitem = await fromUuid<ItemPF2e>(itemUuid ?? "");
+                if (!subitem?.isOfType("physical")) {
+                    throw ErrorPF2e(`Failed to retrieve item with uuid ${itemUuid}`);
+                }
                 return subitem.detach({ skipConfirm: isControlDown(event) });
             },
             "increase-quantity": (event) => {
