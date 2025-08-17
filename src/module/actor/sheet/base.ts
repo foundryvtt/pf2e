@@ -604,9 +604,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             const collection = collectionId
                 ? (actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? null)
                 : null;
-            if (collection) {
-                return collection.get(itemId, { strict: true });
-            }
+            if (collection) return collection.get(itemId, { strict: true });
 
             const item = (await fromUuid<ItemPF2e>(itemUuid ?? "")) ?? this.actor.items.get(itemId, { strict: true });
             if (!item?.actor) {
