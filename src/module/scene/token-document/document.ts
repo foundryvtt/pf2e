@@ -220,7 +220,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
-
         const flags = fu.mergeObject(this.flags, { pf2e: {} });
         const actor = this.actor;
         if (!actor) return;
@@ -449,9 +448,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    /** Ensure that actors that don't allow synthetics are linked */
+    /** Ensure that actors that don't allow synthetics are linked. */
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
@@ -461,7 +460,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super._preCreate(data, options, user);
     }
 
-    /** Ensure that actors that don't allow synthetics stay linked */
+    /** Ensure that actors that don't allow synthetics stay linked. */
     protected override _preUpdate(
         data: Record<string, unknown>,
         options: TokenUpdateCallbackOptions,

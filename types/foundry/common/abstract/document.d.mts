@@ -521,7 +521,7 @@ export default abstract class Document<
      * @returns A return value of false indicates the creation operation should be cancelled.
      */
     protected _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;

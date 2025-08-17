@@ -149,10 +149,11 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     /** Log whether this effect originated from a spell */
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
+        data.system ??= {};
         data.system.fromSpell ??= ((): boolean => {
             const slug = this.slug ?? sluggify(this.name);
             if (slug.startsWith("spell-effect-")) return true;
@@ -163,7 +164,6 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
                     (originItem.isOfType("affliction", "condition", "effect") && originItem.fromSpell))
             );
         })();
-
         return super._preCreate(data, options, user);
     }
 

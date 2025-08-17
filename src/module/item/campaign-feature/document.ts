@@ -108,19 +108,18 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
+    /** In case this was copied from an actor, clear the location if there's no parent. */
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        // In case this was copied from an actor, clear the location if there's no parent.
         if (!this.parent) {
             this.updateSource({ "system.location": null });
             if (this._source.system.frequency) {
                 this.updateSource({ "system.frequency.-=value": null });
             }
         }
-
         return super._preCreate(data, options, user);
     }
 

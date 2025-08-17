@@ -138,7 +138,7 @@ declare class ChatMessage<TUser extends User | null = User | null> extends Clien
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;

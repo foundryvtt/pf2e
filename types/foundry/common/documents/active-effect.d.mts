@@ -44,7 +44,7 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;

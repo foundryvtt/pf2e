@@ -14,6 +14,7 @@ import {
 import Document from "@common/abstract/document.mjs";
 import { ImageFilePath } from "@common/constants.mjs";
 import { SchemaField } from "@common/data/fields.mjs";
+import { GridMeasurePathResult } from "@common/grid/_types.mjs";
 import Collection from "@common/utils/collection.mjs";
 import Token, { TokenAnimationOptions, TokenResourceData } from "../canvas/placeables/token.mjs";
 import {

@@ -51,7 +51,7 @@ declare class Item<TParent extends Actor | null = Actor | null> extends ClientBa
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;

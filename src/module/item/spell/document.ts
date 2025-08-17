@@ -1119,13 +1119,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (!this.actor) {
-            this._source.system.location = { value: null };
-        }
+        if (!this.actor) this._source.system.location = { value: null };
 
         if (this._source.system.ritual) {
             this._source.system.damage = {};

@@ -54,7 +54,7 @@ export class CanvasDocument<TParent extends Document | null = Document | null> e
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: Record<string, unknown>,
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;
