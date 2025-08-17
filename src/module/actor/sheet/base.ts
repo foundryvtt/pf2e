@@ -612,12 +612,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             "create-item": (_, anchor) => {
                 this.#onClickCreateItem(anchor);
             },
-            "edit-item": (event) => {
-                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-                const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
-                const item = this.actor.items.get(itemId, { strict: true });
-                if (item.isOfType("physical") && subitemId) {
-                    return item.subitems.get(subitemId, { strict: true }).sheet.render(true);
+            "edit-item": async (event) => {
+                const itemUuid = htmlClosest(event.target, "[data-uuid]")?.dataset.uuid;
+                const item = await fromUuid<ItemPF2e>(itemUuid ?? "");
+                if (!item) {
+                    throw ErrorPF2e(`Failed to edit item with uuid ${itemUuid}`);
                 }
                 return item.sheet.render(true);
             },
@@ -629,13 +628,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                     return effect.update({ "system.unidentified": !isUnidentified });
                 }
             },
-            "delete-item": (event) => {
-                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-                const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
-                const item = this.actor.items.get(itemId, { strict: true });
-                if (item.isOfType("physical") && subitemId) {
-                    const subitem = item.subitems.get(subitemId, { strict: true });
-                    return this.deleteItem(subitem, event);
+            "delete-item": async (event) => {
+                const itemUuid = htmlClosest(event.target, "[data-uuid]")?.dataset.uuid;
+                const item = await fromUuid<ItemPF2e>(itemUuid ?? "");
+                if (!item) {
+                    throw ErrorPF2e(`Failed to delete item with uuid ${itemUuid}`);
                 }
                 return this.deleteItem(item, event);
             },
