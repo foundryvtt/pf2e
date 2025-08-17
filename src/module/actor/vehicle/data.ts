@@ -313,8 +313,8 @@ interface VehicleAttributes extends ActorAttributes, Omit<VehicleAttributesSourc
     ac: ArmorClassTraceData;
     hp: VehicleHitPoints;
     immunities: Immunity[];
-    weaknesses: Weakness[];
-    resistances: Resistance[];
+    weaknesses: Weakness[] & { get highest(): Weakness | { type: null; value: 0 } };
+    resistances: Resistance[] & { get highest(): Resistance | { type: null; value: 0 } };
     initiative?: never;
     shield?: never;
 }

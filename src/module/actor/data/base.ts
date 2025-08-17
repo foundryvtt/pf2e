@@ -84,8 +84,8 @@ interface ActorAttributes extends ActorAttributesSource {
     hp?: ActorHitPoints;
     ac?: { value: number };
     immunities: Immunity[];
-    weaknesses: Weakness[];
-    resistances: Resistance[];
+    weaknesses: Weakness[] & { get highest(): Weakness | { type: null; value: 0 } };
+    resistances: Resistance[] & { get highest(): Resistance | { type: null; value: 0 } };
     shield?: {
         raised: boolean;
         broken: boolean;

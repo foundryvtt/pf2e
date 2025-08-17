@@ -65,8 +65,8 @@ interface LootDetails extends fields.ModelPropFromDataField<LootSystemSchema["de
 
 interface LootAttributes {
     immunities: never[];
-    weaknesses: never[];
-    resistances: never[];
+    weaknesses: never[] & { get highest(): { type: null; value: 0 } };
+    resistances: never[] & { get highest(): { type: null; value: 0 } };
     flanking: FlankingData;
 }
 
