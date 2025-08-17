@@ -11,6 +11,7 @@ import { VehicleSystemData } from "@actor/vehicle/data.ts";
 import { ItemProxyPF2e } from "@item";
 import { AbilitySystemData } from "@item/ability/index.ts";
 import { AfflictionSystemData } from "@item/affliction/data.ts";
+import { AugmentationSystemData } from "@item/augmentation/data.ts";
 import { CampaignFeatureSystemData } from "@item/campaign-feature/data.ts";
 import { ClassSystemData } from "@item/class/data.ts";
 import { ConditionSystemData } from "@item/condition/data.ts";
@@ -107,6 +108,7 @@ export const Load = {
             CONFIG.Item.dataModels.affliction = AfflictionSystemData;
         }
         CONFIG.Item.dataModels.action = AbilitySystemData;
+        CONFIG.Item.dataModels.augmentation = AugmentationSystemData;
         CONFIG.Item.dataModels.campaignFeature = CampaignFeatureSystemData;
         CONFIG.Item.dataModels.class = ClassSystemData;
         CONFIG.Item.dataModels.condition = ConditionSystemData;
