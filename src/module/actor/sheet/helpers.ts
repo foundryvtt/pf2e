@@ -54,15 +54,13 @@ function createBulkPerLabel(item: PhysicalItemPF2e): string {
 
 /** Returns a sense list with all redundant senses removed (such as low light vision on actors with darkvision) */
 function condenseSenses(senses: Sense[]): Sense[] {
-    const senseTypes = new Set(senses.map((s) => s.type));
-    if (senseTypes.has("darkvision") || senseTypes.has("greater-darkvision")) {
-        senseTypes.delete("low-light-vision");
+    const senseTypes = senses.map((s) => s.type);
+    if (senseTypes.includes("greater-darkvision")) {
+        senseTypes.findSplice((t) => t === "low-light-vision");
+        senseTypes.findSplice((t) => t === "darkvision");
     }
-    if (senseTypes.has("greater-darkvision")) {
-        senseTypes.delete("darkvision");
-    }
-
-    return senses.filter((r) => senseTypes.has(r.type));
+    if (senseTypes.includes("darkvision")) senseTypes.findSplice((t) => t === "low-light-vision");
+    return senses.filter((r) => senseTypes.includes(r.type));
 }
 
 /** Creates ability or feat view data for actor sheet actions rendering */
