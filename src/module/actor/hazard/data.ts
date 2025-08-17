@@ -283,8 +283,8 @@ interface HazardAttributes extends ActorAttributes, Omit<HazardAttributesSource,
     hasHealth: boolean;
     stealth: HazardStealthTraceData;
     immunities: Immunity[];
-    weaknesses: Weakness[] & { get highest(): Weakness | { type: null; value: 0 } };
-    resistances: Resistance[] & { get highest(): Resistance | { type: null; value: 0 } };
+    weaknesses: Weakness[];
+    resistances: Resistance[];
     shield?: never;
 }
 

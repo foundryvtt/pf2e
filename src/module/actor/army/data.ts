@@ -137,8 +137,8 @@ interface ArmySystemData
             details: string;
         };
         immunities: Immunity[];
-        weaknesses: Weakness[] & { get highest(): Weakness | { type: null; value: 0 } };
-        resistances: Resistance[] & { get highest(): Resistance | { type: null; value: 0 } };
+        weaknesses: Weakness[];
+        resistances: Resistance[];
         flanking: never;
     };
     initiative: InitiativeTraceData;

@@ -75,8 +75,8 @@ interface PartyDetailsSource extends SourceFromDataField<PartySystemSchema["deta
 
 interface PartyAttributes extends Omit<ActorAttributes, "initiative" | "ac" | "hp"> {
     immunities: never[];
-    weaknesses: never[] & { get highest(): { type: null; value: 0 } };
-    resistances: never[] & { get highest(): { type: null; value: 0 } };
+    weaknesses: never[];
+    resistances: never[];
     speed: { total: number };
 }
 

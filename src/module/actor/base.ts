@@ -853,28 +853,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const { attributes, details } = this.system;
         attributes.hp &&= fu.mergeObject(attributes.hp, { negativeHealing: false, unrecoverable: 0 });
         attributes.immunities = attributes.immunities?.map((i) => new Immunity(i)) ?? [];
-        attributes.weaknesses = (attributes.weaknesses?.map((w) => new Weakness(w)) ?? []) as Weakness[] & {
-            get highest(): Weakness | { type: null; value: 0 };
-        };
-        Object.defineProperty(attributes.weaknesses, "highest", {
-            get: (): { value: number } =>
-                this.system.attributes.weaknesses.reduce(
-                    (highest: Weakness | { type: null; value: 0 }, candidate) =>
-                        candidate.value > highest.value ? candidate : highest,
-                    { type: null, value: 0 },
-                ),
-        });
-        attributes.resistances = (attributes.resistances?.map((r) => new Resistance(r)) ?? []) as Resistance[] & {
-            get highest(): Resistance | { type: null; value: 0 };
-        };
-        Object.defineProperty(attributes.resistances, "highest", {
-            get: (): { value: number } =>
-                this.system.attributes.resistances.reduce(
-                    (highest: Resistance | { type: null; value: 0 }, candidate) =>
-                        candidate.value > highest.value ? candidate : highest,
-                    { type: null, value: 0 },
-                ),
-        });
+        attributes.weaknesses = attributes.weaknesses?.map((w) => new Weakness(w)) ?? [];
+        attributes.resistances = attributes.resistances?.map((r) => new Resistance(r)) ?? [];
         details.level.value = Math.floor(details.level.value) || 0;
 
         const traits: ActorTraitsData<string> | undefined = this.system.traits;
