@@ -215,7 +215,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     get traits(): Set<string> {
-        return new Set(this.system.traits?.value ?? []);
+        return new Set(this.system.traits?.value);
     }
 
     get level(): number {
@@ -262,13 +262,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     get modeOfBeing(): ModeOfBeing {
-        const { traits } = this;
-
+        const traits = this.system.traits?.value ?? [];
         const isPC = isReallyPC(this);
-
-        return traits.has("undead") && !traits.has("eidolon") // Undead eidolons aren't undead
+        return traits.includes("undead") && !traits.includes("eidolon") // Undead eidolons aren't undead
             ? "undead"
-            : traits.has("construct") && !isPC && !traits.has("eidolon") // Construct eidolons aren't constructs
+            : traits.includes("construct") && !isPC && !traits.includes("eidolon") // Construct eidolons aren't constructs
               ? "construct"
               : "living";
     }
@@ -360,19 +358,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
               : null;
 
         if (!setHasElement(UNAFFECTED_TYPES, damageType)) return true;
-
-        const { traits } = this;
+        const traits = this.system.traits?.value ?? [];
         const damageIsApplicable: Record<UnaffectedType, boolean> = {
-            good: traits.has("evil"),
-            evil: traits.has("good"),
-            lawful: traits.has("chaotic"),
-            chaotic: traits.has("lawful"),
+            good: traits.includes("evil"),
+            evil: traits.includes("good"),
+            lawful: traits.includes("chaotic"),
+            chaotic: traits.includes("lawful"),
             vitality: !!this.attributes.hp?.negativeHealing,
             void: !(this.modeOfBeing === "construct" || this.attributes.hp?.negativeHealing),
             bleed: this.modeOfBeing === "living",
             spirit: !this.itemTypes.effect.some((e) => e.traits.has("possession")),
         };
-
         return damageIsApplicable[damageType];
     }
 
@@ -949,9 +945,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Set traits as roll options */
     override prepareDerivedData(): void {
-        const rollOptions = this.flags.pf2e.rollOptions;
-        for (const trait of this.traits) {
-            rollOptions.all[`self:trait:${trait}`] = true;
+        const rollOptionsAll = this.flags.pf2e.rollOptions.all;
+        for (const trait of this.system.traits?.value ?? []) {
+            rollOptionsAll[`self:trait:${trait}`] = true;
         }
     }
 

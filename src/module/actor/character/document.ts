@@ -727,7 +727,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Upgrade light barding proficiency to trained if this PC is somehow an animal
         this.system.proficiencies.defenses["light-barding"].rank ||=
-            this.traits.has("animal") && !isReallyPC(this)
+            this.system.traits.value.includes("animal") && !isReallyPC(this)
                 ? (Math.max(this.system.proficiencies.defenses["light-barding"].rank, 1) as ZeroToFour)
                 : 0;
 

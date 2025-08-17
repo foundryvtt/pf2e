@@ -252,8 +252,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             flanking.canGangUp.includes("animal-companion") &&
             flankingBuddies.some((b) => {
                 if (!b.actor?.isOfType("character")) return false;
-                const traits = b.actor.traits;
-                return traits.has("minion") && !traits.has("construct") && b.isAdjacentTo(flankee);
+                const traits = b.actor.system.traits.value;
+                return traits.includes("minion") && !traits.includes("construct") && b.isAdjacentTo(flankee);
             });
         if (sideBySide) return true;
 
@@ -263,8 +263,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             flanking.canGangUp.includes("eidolon") &&
             flankingBuddies.some((b) => {
                 if (!b.actor?.isOfType("character")) return false;
-                const traits = b.actor.traits;
-                return traits.has("eidolon") && b.isAdjacentTo(flankee);
+                const traits = b.actor.system.traits.value;
+                return traits.includes("eidolon") && b.isAdjacentTo(flankee);
             });
         if (kindredFlank) return true;
 
@@ -352,7 +352,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         const numBars = temp > 0 ? 2 : 1;
         const barHeight = h / numBars;
-
         bar.clear();
 
         // Draw background
@@ -384,10 +383,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override async _drawEffects(): Promise<void> {
         await super._drawEffects();
         await this.animation;
-
-        if (this.auras.size === 0) {
-            return this.auras.reset();
-        }
+        if (this.auras.size === 0) return this.auras.reset();
 
         // Determine whether a redraw is warranted by comparing current and updated radius/appearance data
         const changedAndDeletedAuraSlugs = Array.from(this.auras.entries())
@@ -409,7 +405,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** Emulate a pointer hover ("pointerover") event */
-    emitHoverIn(nativeEvent: MouseEvent | PointerEvent): void {
+    emitHoverIn(nativeEvent: MouseEvent): void {
         const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
         event.type = "pointerover";
         event.nativeEvent = nativeEvent;
@@ -417,7 +413,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** Emulate a pointer hover ("pointerout") event */
-    emitHoverOut(nativeEvent: MouseEvent | PointerEvent): void {
+    emitHoverOut(nativeEvent: MouseEvent): void {
         const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
         event.type = "pointerout";
         event.nativeEvent = nativeEvent;
@@ -541,8 +537,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return measureDistanceCuboid(this.mechanicalBounds, targetBounds, { reach, token: this, target });
     }
 
+    /** Handle system "spin" animation option */
     override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptionsPF2e): Promise<void> {
-        // Handle system "spin" animation option
         if (options?.spin) {
             let attributeAdded = false;
             const currentRotation = this.document.rotation;
@@ -561,8 +557,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 }
             };
         }
-
-        await super.animate(updateData, options);
+        return super.animate(updateData, options);
     }
 
     /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
@@ -623,7 +618,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
     override _onApplyStatusEffect(statusId: string, active: boolean): void {
         super._onApplyStatusEffect(statusId, active);
-
         if (["undetected", "unnoticed"].includes(statusId)) {
             canvas.perception.update({ refreshVision: true, refreshLighting: true });
         }
@@ -649,7 +643,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
-
         if (changed.width || "hidden" in changed) {
             if (this.animation) {
                 this.animation.then(() => {

@@ -46,7 +46,6 @@ import {
 } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import type {
-    CreatureTrait,
     CreatureType,
     CreatureUpdateCallbackOptions,
     CreatureUpdateOperation,
@@ -895,8 +894,6 @@ abstract class CreaturePF2e<
 interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: CreatureSource;
     system: CreatureSystemData;
-
-    get traits(): Set<CreatureTrait>;
 
     get hitPoints(): HitPointsSummary;
 

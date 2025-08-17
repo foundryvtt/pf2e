@@ -718,8 +718,8 @@ function calculateRangePenalty(
 
 /** Whether this actor is of a the "character" type, excluding those from the PF2E Companion Compendia module */
 function isReallyPC(actor: ActorPF2e): boolean {
-    const traits = actor.traits;
-    return actor.isOfType("character") && !(traits.has("minion") || traits.has("eidolon"));
+    const traits = actor.system.traits?.value ?? [];
+    return actor.isOfType("character") && !["eidolon", "minion"].some((t) => traits.includes(t));
 }
 
 /** Recursive generator function to iterate over all items and their sub items */

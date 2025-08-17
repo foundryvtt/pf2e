@@ -184,7 +184,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             totalCoinageGold,
             totalWealth,
             totalWealthGold,
-            traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
+            traits: createSheetTags(traitsMap, { value: this.actor.system.traits?.value ?? [] }),
             user: { isGM: game.user.isGM },
             publicationLicenses: [
                 { label: "PF2E.Publication.License.OGL", value: "OGL" },
