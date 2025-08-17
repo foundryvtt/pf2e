@@ -607,7 +607,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             if (collection) return collection.get(itemId, { strict: true });
 
             const item = (await fromUuid<ItemPF2e>(itemUuid ?? "")) ?? this.actor.items.get(itemId, { strict: true });
-            if (!item?.actor) {
+            if (item.actor !== actor) {
                 const subphrase = itemUuid || !itemId ? `uuid ${itemUuid}` : `id ${itemId}`;
                 throw ErrorPF2e(`Failed to retrieve owned item with ${subphrase}`);
             }

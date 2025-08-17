@@ -68,7 +68,7 @@ function condenseSenses(senses: Sense[]): Sense[] {
 /** Creates ability or feat view data for actor sheet actions rendering */
 function createAbilityViewData(item: AbilityItemPF2e | FeatPF2e): AbilityViewData {
     return {
-        ...R.pick(item, ["id", "img", "name", "actionCost", "frequency"]),
+        ...R.pick(item, ["id", "uuid", "img", "name", "actionCost", "frequency"]),
         glyph: getActionGlyph(item.actionCost),
         usable: !!item.system.selfEffect || !!item.system?.frequency || !!item.crafting,
         traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
