@@ -18,7 +18,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This concave lens has a drifting crimson cloud resembling slowly swirling blood within it. While you have the <em>Crimson Fulcrum Lens</em> invested, you seethe with malevolent fury you can barely contain. You gain a +2 item bonus to saving throws against fear effects and a +2 item bonus to your melee Strike damage (this increases to a +4 item bonus to damage if the melee Strike is a jaws attack). You can also activate the lens in the following ways.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Crimson Fulcrum Lens]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You grasp the <em>Crimson Fulcrum Lens</em> in one hand and make a Strike that doesn't require that hand. The Strike deals an additional 1d8 precision damage (or 2d8 precision damage if you make a jaws Strike) and doesn't count toward your multiple attack penalty.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (attack, possession)</p>\n<p><strong>Effect</strong> While grasping the lens, make a melee spell attack roll with a modifier of [[/r 1d20+18]]{+18}. On a hit, you force the splinter of Nhimbaloth's essence from the lens to possess the target. You're no longer invested in the lens, and the target gains the benefits as though it had invested the lens but can't activate the lens's other abilities. This effect is permanent, but it can be ended by any effect that removes a possession effect. The lens doesn't have any magical abilities until the possession effect ends; when it does, the essence returns to the lens.</p>"
+                    "value": "<p>This concave lens has a drifting crimson cloud resembling slowly swirling blood within it. While you have the <em>Crimson Fulcrum Lens</em> invested, you seethe with malevolent fury you can barely contain. You gain a +2 item bonus to saving throws against fear effects and a +2 item bonus to your melee Strike damage (this increases to a +4 item bonus to damage if the melee Strike is a jaws attack). You can also activate the lens in the following ways.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Crimson Fulcrum Lens]</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You grasp the <em>Crimson Fulcrum Lens</em> in one hand and make a Strike that doesn't require that hand. The Strike deals an additional 1d8 precision damage (or 2d8 precision damage if you make a jaws Strike) and doesn't count toward your multiple attack penalty.</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (attack, possession)</p>\n<p><strong>Effect</strong> While grasping the lens, make a melee spell attack roll with a modifier of @Check[crimson-fulcrum-lens|against:ac]{+18}. On a hit, you force the splinter of Nhimbaloth's essence from the lens to possess the target. You're no longer invested in the lens, and the target gains the benefits as though it had invested the lens but can't activate the lens's other abilities. This effect is permanent, but it can be ended by any effect that removes a possession effect. The lens doesn't have any magical abilities until the possession effect ends; when it does, the essence returns to the lens.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -51,7 +51,7 @@
                     {
                         "domain": "damage",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.ItemStrike",
+                        "label": "PF2E.SpecificRule.FulcrumLens.Crimson.Strike",
                         "option": "crimson-fulcrum-lens-strike",
                         "toggleable": true
                     },
@@ -78,6 +78,18 @@
                             "item:base:jaws"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "key": "SpecialStatistic",
+                        "label": "PF2E.SpecificRule.FulcrumLens.StatisticLabel",
+                        "slug": "crimson-fulcrum-lens",
+                        "type": "attack-roll"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "crimson-fulcrum-lens",
+                        "slug": "crimson-fulcrum-len-bonus",
+                        "value": 18
                     }
                 ],
                 "slug": "crimson-fulcrum-lens",
