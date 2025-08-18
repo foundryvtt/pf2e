@@ -152,7 +152,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     get #canSeeDistance(): boolean {
         if (!this.visible || this.isPreview || this.document.isSecret || this.controlled) return false;
         const isHover = this.hover || this.layer.highlightObjects;
-        return isHover && canvas.tokens.controlled.length === 1;
+        return isHover && (canvas.tokens.controlled.length === 1 || !!game.user.character?.getActiveTokens().length);
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -307,9 +307,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     #refreshDistanceText(): void {
         if (!this.#canSeeDistance) return;
-        const controlledToken = canvas.tokens.controlled[0];
+        const controlledToken = canvas.tokens.controlled[0] ?? game.user.character?.getActiveTokens()[0];
+        if (!controlledToken) return;
         const distanceText = this.#distanceText;
-        distanceText.text = game.i18n.format("PF2E.Token.Distance", { distance: controlledToken.distanceTo(this) });
+        const unit = canvas.scene?.grid.units ?? "";
+        const formatArgs = { distance: controlledToken.distanceTo(this), unit };
+        distanceText.text = game.i18n.format("PF2E.Token.Distance", formatArgs).trim();
         const nameplate = this.nameplate;
         const nameOffset = nameplate.visible ? nameplate.position.y + nameplate.height - 2 : nameplate.position.y;
         this.#distanceText.position.set(nameplate.position.x, nameOffset);
