@@ -35,7 +35,7 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0) - reinforcingRuneValue;
 
     const basePrice = materialValue > 0 || runeValue > 0 ? new CoinsPF2e() : item.price.value;
-    const gradeValue = getGradeData(item).price;
+    const gradeValue = item.isSpecific ? 0 : getGradeData(item).price;
     const afterMaterialAndRunes = runeValue
         ? new CoinsPF2e({ gp: runeValue + materialValue })
         : basePrice.plus({ gp: gradeValue + materialValue });
