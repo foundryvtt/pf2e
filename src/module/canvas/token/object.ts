@@ -151,8 +151,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Can the current user see the distance of this token from a controlled token? */
     get #canSeeDistance(): boolean {
         if (!this.visible || this.isPreview || this.document.isSecret || this.controlled) return false;
-        const isHover = this.hover || this.layer.highlightObjects;
-        return isHover && (canvas.tokens.controlled.length === 1 || !!game.user.character?.getActiveTokens().length);
+        return this.hover && (canvas.tokens.controlled.length === 1 || !!game.user.character?.getActiveTokens().length);
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
