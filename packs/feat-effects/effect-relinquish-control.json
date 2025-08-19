@@ -1,0 +1,57 @@
+{
+    "_id": "6M6JRjWjJy0rwtX2",
+    "img": "icons/creatures/magical/spirit-mischief-fire-ice-blue.webp",
+    "name": "Effect: Relinquish Control",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Relinquish Control]</p>\n<p>You gain a +4 status bonus on saves against spells and effects that give you the controlled condition or attempt to influence your actions.</p>\n<p>You gain a +2 circumstance bonus on all Recall Knowledge checks made using Lore skills granted by your attuned apparitions.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "inflicts:controlled"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "attuned-apparition-lore"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
