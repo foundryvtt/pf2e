@@ -5,7 +5,7 @@ import type ChatPopout from "@client/applications/sidebar/apps/chat-popout.d.mts
 import type { ContextMenuCondition, ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type { ChatMessageSource, ChatSpeakerData } from "@common/documents/chat-message.d.mts";
-import { EffectPF2e, type ShieldPF2e } from "@item";
+import { EffectPF2e, ItemPF2e, type ShieldPF2e } from "@item";
 import { EffectSource } from "@item/effect/data.ts";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -20,6 +20,7 @@ import * as R from "remeda";
 class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
     static override DEFAULT_OPTIONS = {
         actions: {
+            activate: ChatLogPF2e.#onClickActivate,
             applyDamage: ChatLogPF2e.#onClickApplyDamage,
             applyEffect: ChatLogPF2e.#onClickApplyEffect,
             findToken: ChatLogPF2e.#onClickFindToken,
@@ -112,6 +113,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         Object.assign(
             popout.options.actions,
             R.pick(this.DEFAULT_OPTIONS.actions, [
+                "activate",
                 "applyDamage",
                 "applyEffect",
                 "findToken",
@@ -121,6 +123,24 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 "shieldBlock",
             ]),
         );
+    }
+
+    static async #onClickActivate(
+        this: ChatLogPF2e | ChatPopout,
+        event: PointerEvent,
+        button: HTMLElement,
+    ): Promise<void> {
+        const { message } = ChatLogPF2e.#messageFromEvent(event);
+        if (!message) throw ErrorPF2e("Unexpected failure to acquire message");
+        const uuid = button.dataset.uuid ?? "";
+        const item = await fromUuid<ItemPF2e>(uuid);
+        if (!item?.isOfType("physical") || item.quantity === 0) {
+            ui.notifications.warn("PF2E.Item.Activation.Warning.ItemDoesNotExist", { localize: true });
+            return;
+        }
+
+        // Consumables don't have a proper activation flow yet, change implementation when they do
+        await item.toMessage();
     }
 
     static async #onClickApplyDamage(
