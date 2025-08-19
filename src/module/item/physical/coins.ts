@@ -90,6 +90,8 @@ class CoinsPF2e implements Coins {
 
     /** Parses a price string such as "5 gp" and returns a new CoinsPF2e object */
     static fromString(coinString: string, quantity = 1): CoinsPF2e {
+        if (/^\s*\d+\s*$/.test(coinString)) coinString = `${coinString.trim()} gp`;
+
         // This requires preprocessing, as large gold values contain , for their value
         const priceTag = DENOMINATIONS.reduce(
             (s, denomination) => {
@@ -140,4 +142,4 @@ const coinCompendiumIds = {
     cp: "lzJ8AVhRcbFul5fh",
 };
 
-export { CoinsPF2e, coinCompendiumIds };
+export { coinCompendiumIds, CoinsPF2e };
