@@ -21,7 +21,7 @@ function measureDistanceCuboid(
     } = {},
 ): number {
     if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-        return Math.round(canvas.grid.measurePath([r0, r1]).distance);
+        return canvas.grid.measurePath([r0, r1]).distance;
     }
 
     const gridWidth = canvas.grid.sizeX;

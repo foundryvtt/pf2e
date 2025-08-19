@@ -1,4 +1,4 @@
-import type { TokenAnimationOptions, TokenResourceData, TokenShape } from "@client/canvas/placeables/token.d.mts";
+import type { TokenResourceData, TokenShape } from "@client/canvas/placeables/token.d.mts";
 import type { TokenUpdateCallbackOptions } from "@client/documents/token.d.mts";
 import type { Point } from "@common/_types.d.mts";
 import type { GridOffset2D } from "@common/grid/_types.d.mts";
@@ -99,7 +99,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** A reference to an animation that is currently in progress for this Token, if any */
-    get animation(): Promise<boolean> | null {
+    get animation(): Promise<void> | null {
         return (
             this.animationContexts.get(this.animationName)?.promise ??
             this.animationContexts.get(this.movementAnimationName)?.promise ??
@@ -530,7 +530,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 { x: this.x, y: this.y, elevation: selfElevation },
                 { x: target.x, y: target.y, elevation: targetElevation },
             ];
-            return canvas.grid.measurePath(waypoints).distance;
+            return Math.round(canvas.grid.measurePath(waypoints).distance);
         }
 
         const targetBounds = target.mechanicalBounds ?? squareAtPoint(target);
@@ -538,29 +538,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             return measureDistanceCuboid(this.mechanicalBounds, targetBounds, { reach });
         }
         return measureDistanceCuboid(this.mechanicalBounds, targetBounds, { reach, token: this, target });
-    }
-
-    /** Handle system "spin" animation option */
-    override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptionsPF2e): Promise<void> {
-        if (options?.spin) {
-            let attributeAdded = false;
-            const currentRotation = this.document.rotation;
-            const rotationAngle = this.x <= this.document.x ? 360 : -360;
-            options.ontick = (_frame, data) => {
-                if (!attributeAdded && data.attributes.length > 0) {
-                    const duration = (data.duration ?? 1000) / 1000;
-                    data.attributes.push({
-                        attribute: "rotation",
-                        parent: data.attributes[0].parent,
-                        from: currentRotation,
-                        to: currentRotation + duration * rotationAngle,
-                        delta: data.attributes[0].delta,
-                    });
-                    attributeAdded = true;
-                }
-            };
-        }
-        return super.animate(updateData, options);
     }
 
     /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
@@ -669,10 +646,6 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-interface TokenAnimationOptionsPF2e extends TokenAnimationOptions {
-    spin?: boolean;
-}
-
 type TokenOrPoint =
     | TokenPF2e
     | (Point & {
@@ -682,4 +655,4 @@ type TokenOrPoint =
       });
 
 export { TokenPF2e };
-export type { ShowFloatyEffectParams, TokenAnimationOptionsPF2e };
+export type { ShowFloatyEffectParams };

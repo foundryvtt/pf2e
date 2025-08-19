@@ -1,17 +1,22 @@
-import { TokenPlannedMovement } from "@client/_types.mjs";
+import {
+    ReticuleOptions,
+    TokenAnimationContext,
+    TokenAnimationData,
+    TokenAnimationOptions,
+    TokenPlannedMovement,
+} from "@client/_types.mjs";
 import { TokenDocument, User } from "@client/documents/_module.mjs";
 import { TokenUpdateCallbackOptions } from "@client/documents/token.mjs";
 import { ColorSource, Point } from "@common/_types.mjs";
 import { DatabaseCreateCallbackOptions } from "@common/abstract/_types.mjs";
 import { TokenDisplayMode, WallRestrictionType } from "@common/constants.mjs";
 import Color from "@common/utils/color.mjs";
-import { CanvasAnimationAttribute, CanvasAnimationOptions } from "../animation/_types.mjs";
+import { CanvasAnimationAttribute } from "../animation/_types.mjs";
 import { PreciseText } from "../containers/_module.mjs";
 import PolygonVertex from "../geometry/edges/vertex.mjs";
 import { TokenLayer } from "../layers/_module.mjs";
 import { PlaceablesLayerPointerEvent } from "../layers/base/placeables-layer.mjs";
 import PrimarySpriteMesh from "../primary/primary-sprite-mesh.mjs";
-import { TextureTransitionType } from "../rendering/filters/transition.mjs";
 import { PointLightSource, PointVisionSource, VisionSourceData } from "../sources/_module.mjs";
 import { LightSourceData } from "../sources/base-light-source.mjs";
 import PlaceableObject, { PlaceableShape } from "./placeable-object.mjs";
@@ -734,95 +739,4 @@ interface TokenPointerEvent<T extends Token> extends PlaceablesLayerPointerEvent
     interactionData: PlaceablesLayerPointerEvent<T>["interactionData"] & {
         clones?: T[];
     };
-}
-
-interface TokenAnimationOptions extends Omit<CanvasAnimationOptions, "context"> {
-    /** A desired token movement speed in grid spaces per second */
-    movementSpeed?: number;
-    /** The desired texture transition type */
-    transition?: TextureTransitionType;
-}
-
-interface ReticuleOptions {
-    /**
-     * The amount of margin between the targeting arrows and the token's bounding
-     * box, expressed as a fraction of an arrow's size.
-     */
-    margin?: number;
-    /** The alpha value of the arrows. */
-    alpha?: number;
-    /** The size of the arrows as a proportion of grid size. */
-    size?: number;
-    /** The color of the arrows. */
-    color?: number;
-    /** The arrows' border style configuration. */
-    border?: {
-        /** The border color. */
-        color?: number;
-        /** The border width. */
-        width?: number;
-    };
-}
-
-interface TokenAnimationData {
-    /** The x position in pixels */
-    x: number;
-    /** The y position in pixels */
-    y: number;
-    /** The width in grid spaces */
-    width: number;
-    /** The height in grid spaces */
-    height: number;
-    /** The alpha value */
-    alpha: number;
-    /** The rotation in degrees */
-    rotation: number;
-    /** The texture data */
-    texture: {
-        /** The texture file path */
-        src: string;
-        /** The texture anchor X */
-        anchorX: number;
-        /** The texture anchor Y */
-        anchorY: number;
-        /** The texture scale X */
-        scaleX: number;
-        /** The texture scale Y */
-        scaleY: number;
-        /** The texture tint */
-        tint: Color;
-    };
-    /** The ring data */
-    ring: {
-        /** The ring subject data */
-        subject: {
-            /** The ring subject texture */
-            texture: string;
-            /** The ring subject scale */
-            scale: number;
-        };
-    };
-}
-
-export interface TokenAnimationContext {
-    /** The name of the animation */
-    name: string | symbol;
-    /** The final animation state */
-    to: Partial<TokenAnimationData>;
-    /** The duration of the animation */
-    duration: number;
-    /** The current time of the animation */
-    time: number;
-    /** Asynchronous functions that are executed before the animation starts */
-    preAnimate: ((context: TokenAnimationContext) => Promise<void>)[];
-    /** Synchronous functions that are executed after the animation ended.
-     *  They may be executed before the preAnimate functions have finished  if the animation is terminated.
-     */
-    postAnimate: ((context: TokenAnimationContext) => void)[];
-    /**
-     *  The promise of the animation, which resolves to true if the animation
-     *  completed, to false if it was terminated, and rejects if an error occurred.
-     *  Undefined in the first frame (at time 0) of the animation.
-     */
-    promise?: Promise<boolean>;
 }

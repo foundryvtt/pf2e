@@ -1,7 +1,6 @@
 import type { PartyPF2e } from "@actor";
 import type { Rectangle } from "@common/_types.d.mts";
 import { getAreaSquares } from "@module/canvas/token/aura/util.ts";
-import type { TokenAnimationOptionsPF2e } from "@module/canvas/token/object.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
@@ -41,12 +40,10 @@ class PartyClownCar {
     async #retrieve(): Promise<void> {
         const tokens = this.memberTokens;
         const updates = tokens.map((t) => ({ _id: t.id, ...R.pick(this.token, ["x", "y"]) }));
-        const animation: TokenAnimationOptionsPF2e = { spin: true };
-        await this.scene.updateEmbeddedDocuments("Token", updates, { animation });
-
+        await this.scene.updateEmbeddedDocuments("Token", updates);
         await Promise.all(
             tokens.map(async (token) => {
-                await token.object?.animation;
+                await token.object?.animationContexts.get(token.object.movementAnimationName)?.promise;
                 return token.delete();
             }),
         );
