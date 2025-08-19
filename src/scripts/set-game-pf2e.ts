@@ -107,6 +107,7 @@ export const SetGamePF2e = {
         game.pf2e.settings = {
             automation: {
                 flanking: game.settings.get("pf2e", "automation.flankingDetection"),
+                reachEnforcement: game.settings.get("pf2e", "automation.reachEnforcement"),
                 removeEffects: game.settings.get("pf2e", "automation.removeExpiredEffects"),
             },
             campaign: {

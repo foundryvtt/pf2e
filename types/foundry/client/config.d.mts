@@ -474,7 +474,7 @@ export default interface Config<
             CONTROLLED: number;
             SECRET: number;
         };
-        doorControlsClass: DoorControl;
+        doorControlClass: typeof DoorControl;
         exploredColor: number;
         unexploredColor: number;
         darknessToDaylightAnimationMS: number;

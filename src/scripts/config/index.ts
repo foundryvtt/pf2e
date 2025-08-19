@@ -755,35 +755,6 @@ export const PF2ECONFIG = {
     },
 
     SETTINGS: {
-        automation: {
-            rulesBasedVision: {
-                name: "PF2E.SETTINGS.Automation.RulesBasedVision.Name",
-                hint: "PF2E.SETTINGS.Automation.RulesBasedVision.Hint",
-            },
-            iwr: {
-                name: "PF2E.SETTINGS.Automation.IWR.Name",
-                hint: "PF2E.SETTINGS.Automation.IWR.Hint",
-            },
-            removeExpiredEffects: {
-                name: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Name",
-                hint: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Hint",
-            },
-            flankingDetection: {
-                name: "PF2E.SETTINGS.Automation.FlankingDetection.Name",
-                hint: "PF2E.SETTINGS.Automation.FlankingDetection.Hint",
-            },
-            actorsDeadAtZero: {
-                name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
-                hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
-                neither: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Neither",
-                npcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.NPCsOnly",
-                both: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Both",
-            },
-            lootableNPCs: {
-                name: "PF2E.SETTINGS.Automation.LootableNPCs.Name",
-                hint: "PF2E.SETTINGS.Automation.LootableNPCs.Hint",
-            },
-        },
         CampaignFeats: {
             name: "PF2E.SETTINGS.CampaignFeats.Name",
             hint: "PF2E.SETTINGS.CampaignFeats.Hint",

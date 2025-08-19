@@ -1,9 +1,8 @@
 import type { SettingRegistration } from "@client/helpers/client-settings.d.mts";
 import { htmlClosest, htmlQuery } from "@util";
 import * as R from "remeda";
-import appv1 = foundry.appv1;
 
-abstract class SettingsMenuPF2e extends appv1.api.FormApplication {
+abstract class SettingsMenuPF2e extends fav1.api.FormApplication {
     static readonly namespace: string;
 
     protected cache: Record<string, unknown> & { clear(): void } = (() => {
@@ -18,7 +17,7 @@ abstract class SettingsMenuPF2e extends appv1.api.FormApplication {
         return data;
     })();
 
-    static override get defaultOptions(): appv1.api.FormApplicationOptions {
+    static override get defaultOptions(): fav1.api.FormApplicationOptions {
         const options = super.defaultOptions;
         options.classes.push("settings-menu", "sheet");
 
@@ -104,13 +103,12 @@ abstract class SettingsMenuPF2e extends appv1.api.FormApplication {
         for (const key of this.constructor.SETTINGS) {
             const setting = this.constructor.settings[key];
             const settingKey = `${setting.prefix ?? ""}${key}`;
-            const value = data[key];
+            const value = data[key] instanceof Set ? data[key].values().toArray() : data[key];
             this.cache[key] = value;
             if (event.type === "submit") {
                 await game.settings.set("pf2e", settingKey, value);
             }
         }
-
         if (event.type === "submit") {
             this.close();
         } else {
@@ -132,7 +130,7 @@ abstract class SettingsMenuPF2e extends appv1.api.FormApplication {
     }
 }
 
-interface SettingsMenuPF2e extends appv1.api.FormApplication {
+interface SettingsMenuPF2e extends fav1.api.FormApplication {
     constructor: typeof SettingsMenuPF2e;
     options: SettingsMenuOptions;
 }
@@ -145,15 +143,16 @@ interface PartialSettingsData extends Omit<SettingRegistration, "scope" | "confi
 interface SettingsTemplateData extends PartialSettingsData {
     key: string;
     value: unknown;
+    isDataField: boolean;
     isSelect: boolean;
     isCheckbox: boolean;
 }
 
-interface MenuTemplateData extends appv1.api.FormApplicationData {
+interface MenuTemplateData extends fav1.api.FormApplicationData {
     settings: Record<string, SettingsTemplateData>;
 }
 
-interface SettingsMenuOptions extends appv1.api.FormApplicationOptions {
+interface SettingsMenuOptions extends fav1.api.FormApplicationOptions {
     highlightSetting?: string;
 }
 
@@ -161,19 +160,18 @@ function settingsToSheetData(
     settings: Record<string, PartialSettingsData>,
     cache: Record<string, unknown> = {},
 ): Record<string, SettingsTemplateData> {
-    return Object.entries(settings).reduce((result: Record<string, SettingsTemplateData>, [key, setting]) => {
+    return R.mapValues(settings, (setting, key) => {
         const lookupKey = `${setting.prefix ?? ""}${key}`;
         const value = key in cache ? cache[key] : game.settings.get("pf2e", lookupKey);
-        result[key] = {
+        return {
             ...setting,
             key,
             value,
+            isDataField: setting.type instanceof foundry.data.fields.DataField,
             isSelect: !!setting.choices,
             isCheckbox: setting.type === Boolean,
         };
-
-        return result;
-    }, {});
+    });
 }
 
 export { SettingsMenuPF2e, settingsToSheetData };

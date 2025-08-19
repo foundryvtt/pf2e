@@ -90,6 +90,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(module: "pf2e", setting: "automation.flankingDetection"): boolean;
     get(module: "pf2e", setting: "automation.iwr"): boolean;
     get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
+    get(module: "pf2e", setting: "automation.reachEnforcement"): Set<"doors" | "corpses" | "loot" | "merchants">;
     get(module: "pf2e", setting: "automation.removeExpiredEffects"): boolean;
     get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
 
@@ -211,6 +212,7 @@ interface GamePF2e
             automation: {
                 /** Flanking detection */
                 flanking: boolean;
+                reachEnforcement: Set<"doors" | "corpses" | "loot" | "merchants">;
                 removeEffects: boolean;
             };
             /** Campaign feat slots */

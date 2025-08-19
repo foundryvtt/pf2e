@@ -615,6 +615,34 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return super._onHoverOut(event);
     }
 
+    /** Require that a loot actor or dead creature is in reach for a player to view its sheet. */
+    protected override _onClickLeft2(event: PIXI.FederatedPointerEvent): void {
+        const actor = this.actor;
+        const requiresReach = game.pf2e.settings.automation.reachEnforcement.has(
+            actor?.isOfType("loot") ? (actor.isLoot ? "loot" : "merchants") : "corpses",
+        );
+        if (!requiresReach || this.document.isOwner || !actor?.isLootableBy(game.user) || !canvas.grid.isSquare) {
+            return super._onClickLeft2(event);
+        }
+        const isInReach = R.unique(
+            [canvas.tokens.controlled, game.user.character?.getActiveTokens(true, false) ?? []].flat(),
+        ).some(
+            (t) =>
+                t.actor?.isOwner &&
+                t.actor.isOfType("creature") &&
+                t.distanceTo(this) <= t.actor.attributes.reach.manipulate,
+        );
+        if (isInReach) {
+            return super._onClickLeft2(event);
+        } else {
+            const thisIsCreature = actor.isOfType("creature");
+            const name = this.document.playersCanSeeName
+                ? this.document.name
+                : game.i18n.localize(`PF2E.Token.Mystified.The${thisIsCreature ? "Creature" : "Object"}`);
+            ui.notifications.warn("PF2E.Token.OutOfReach", { format: { token: name } });
+        }
+    }
+
     /** Reset aura renders when token size or GM hidden changes. */
     override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,

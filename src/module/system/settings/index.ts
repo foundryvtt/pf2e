@@ -208,7 +208,8 @@ export function registerSettings(): void {
         restricted: true,
     });
     game.settings.register("pf2e", "automation.actorsDeadAtZero", {
-        name: CONFIG.PF2E.SETTINGS.automation.actorsDeadAtZero.name,
+        name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
+        hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
         scope: "world",
         config: false,
         choices: {

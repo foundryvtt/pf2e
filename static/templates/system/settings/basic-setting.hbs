@@ -1,13 +1,17 @@
 <div class="form-group">
-    <label for="{{setting.key}}">{{localize setting.name}}</label>
+    <label for="automation-settings-{{setting.key}}">{{localize setting.name}}</label>
     <div class="form-fields">
         {{#if setting.isSelect}}
-            <select name="{{setting.key}}">
+            <select name="{{setting.key}}" id="automation-settings-{{setting.key}}">
                 {{selectOptions setting.choices selected=setting.value localize=true}}
             </select>
         {{else if setting.isCheckbox}}
-            <input type="checkbox" name="{{setting.key}}" {{checked setting.value}} />
+            <input type="checkbox" name="{{setting.key}}" id="automation-settings-{{setting.key}}"
+                   {{checked setting.value}} />
+        {{else if setting.isDataField}}
+            {{formInput setting.type name=setting.key id=(concat "automation-settings-" setting.key)
+                        value=setting.value localize=true}}
         {{/if}}
     </div>
-    <p class="notes">{{localize setting.hint}}</p>
+    <p class="hint">{{localize setting.hint}}</p>
 </div>
