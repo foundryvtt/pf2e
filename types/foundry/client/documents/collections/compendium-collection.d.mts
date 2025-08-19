@@ -25,7 +25,7 @@ export default abstract class CompendiumCollection<
     metadata: CompendiumMetadata<TDocument>;
 
     /** A subsidiary collection which contains the more minimal index of the pack */
-    index: CompendiumIndex;
+    index: Collection<string, CompendiumIndexData>;
 
     /** A debounced function which will clear the contents of the Compendium pack if it is not accessed frequently. */
     protected _flush: () => unknown;
@@ -76,7 +76,9 @@ export default abstract class CompendiumCollection<
     override delete(id: string): boolean;
 
     /** Load the Compendium index and cache it as the keys and values of the Collection. */
-    getIndex(options?: { fields: string[] }): Promise<CompendiumIndex>;
+    getIndex<T extends CompendiumIndexData = CompendiumIndexData>(options?: {
+        fields: string[];
+    }): Promise<Collection<string, T>>;
 
     /**
      * Get a single Document from this Compendium by ID.
@@ -207,5 +209,3 @@ export interface CompendiumIndexData {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
 }
-
-export type CompendiumIndex = Collection<string, CompendiumIndexData>;

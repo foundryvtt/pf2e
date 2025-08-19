@@ -13,6 +13,7 @@ export { default as Scenes } from "./scenes.mjs";
 export { default as Users } from "./users.mjs";
 export { default as WorldSettings } from "./world-settings.mjs";
 
+export * from "./compendium-collection.mjs";
 export { default as CompendiumCollection } from "./compendium-collection.mjs";
 export { default as CompendiumFolderCollection } from "./compendium-folders.mjs";
 export { default as CompendiumPacks } from "./compendium-packs.mjs";

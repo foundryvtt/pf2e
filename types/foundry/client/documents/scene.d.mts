@@ -1,5 +1,4 @@
-import { SceneDimensions } from "@client/_types.mjs";
-import { TokenAnimationOptions } from "@client/canvas/placeables/token.mjs";
+import { SceneDimensions, TokenAnimationOptions } from "@client/_types.mjs";
 import {
     DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,

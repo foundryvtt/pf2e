@@ -3,7 +3,7 @@ import { StrikeData } from "@actor/data/base.ts";
 import { iterateAllItems } from "@actor/helpers.ts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
-import type { CompendiumIndex } from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import type { DocumentUUID } from "@client/utils/_module.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
@@ -458,7 +458,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const increment = 1 / packs.length;
         const localize = localizer("PF2E.ProgressBar");
         // Retrieve index fields from matching compendiums and use them for predicate testing
-        const indexData: CompendiumIndex[] = [];
+        const indexData: Collection<string, CompendiumIndexData>[] = [];
         for (const pack of packs) {
             progress.update({
                 message: localize("LoadingPack", { pack: pack.metadata.label }),

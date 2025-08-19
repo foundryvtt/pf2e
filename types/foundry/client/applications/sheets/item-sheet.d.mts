@@ -5,7 +5,7 @@ import DocumentSheetV2, { DocumentSheetConfiguration } from "../api/document-she
 export default abstract class ItemSheetV2<TDocument extends Item> extends DocumentSheetV2<
     DocumentSheetConfiguration<TDocument>
 > {
-    static override DEFAULT_OPTIONS: Partial<DocumentSheetConfiguration>;
+    static override DEFAULT_OPTIONS: DeepPartial<DocumentSheetConfiguration>;
 
     /** The Item document managed by this sheet. */
     get item(): TDocument;

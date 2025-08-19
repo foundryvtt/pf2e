@@ -1,6 +1,6 @@
 import type { CompendiumDocument } from "@client/documents/_module.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
-import type { CompendiumIndex, CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import { localizer, sluggify } from "@util";
 import type { CompendiumBrowserSources } from "./browser.ts";
 
@@ -16,7 +16,11 @@ class PackLoader {
         documentType: "Actor" | "Item",
         packs: string[],
         indexFields: string[],
-    ): AsyncGenerator<{ pack: CompendiumCollection<CompendiumDocument>; index: CompendiumIndex }, void, unknown> {
+    ): AsyncGenerator<
+        { pack: CompendiumCollection<CompendiumDocument>; index: Collection<string, CompendiumIndexData> },
+        void,
+        unknown
+    > {
         const localize = localizer("PF2E.ProgressBar");
         const sources = this.#getSources();
 
@@ -49,7 +53,7 @@ class PackLoader {
     }
 
     /** Set art provided by a module if any is available */
-    #setModuleArt(packName: string, index: CompendiumIndex): void {
+    #setModuleArt(packName: string, index: Collection<string, CompendiumIndexData>): void {
         if (!packName.startsWith("pf2e.")) return;
         for (const record of index) {
             const uuid = `Compendium.${packName}.Actor.${record._id}` as const;
@@ -68,7 +72,10 @@ class PackLoader {
         return sources;
     }
 
-    #createFilteredIndex(index: CompendiumIndex, sources: Set<string>): CompendiumIndex {
+    #createFilteredIndex(
+        index: Collection<string, CompendiumIndexData>,
+        sources: Set<string>,
+    ): Collection<string, CompendiumIndexData> {
         if (sources.size === 0) {
             // Make sure everything works as before as long as the settings are not yet defined
             return index;
