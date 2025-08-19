@@ -29,7 +29,27 @@
             "remaster": false,
             "title": "Pathfinder Kingmaker"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "action:trip",
+                    {
+                        "gt": [
+                            "target:size",
+                            "self:size"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "rare",
             "value": [
