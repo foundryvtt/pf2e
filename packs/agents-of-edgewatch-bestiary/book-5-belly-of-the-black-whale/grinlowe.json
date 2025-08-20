@@ -457,7 +457,9 @@
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "occult"
+                    ]
                 }
             },
             "type": "action"
@@ -476,7 +478,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hag gazes upon a creature, afflicting it with intense distress and a gnawing sense of impending doom, with a result depending on its Will save (DC 37). The target does not need to be able to see the sea hag.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round. If the target was dying, it remains unconscious for 1 day. At the end of the day, it must attempt a Fortitude save against the same DC; if it fails, it dies.</p>\n<p><strong>Critical Failure</strong> @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute. If the target was dying, it remains unconscious for 1 day. At the end of the day, it must attempt a Fortitude save against the same DC; if it fails, it dies.</p>"
+                    "value": "<p>The hag gazes upon a creature, afflicting it with intense distress and a gnawing sense of impending doom, with a result depending on its @Check[will|dc:37] save. The target does not need to be able to see the sea hag.</p><hr /><p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> Frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round. If the target was @UUID[Compendium.pf2e.conditionitems.Item.Dying], it remains @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] for 1 day. At the end of the day, it must attempt a @Check[fortitude|dc:37] save against the same DC; if it fails, it dies.</p>\n<p><strong>Critical Failure</strong> @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and slowed 1 for 1 minute. If the target was dying, it remains unconscious for 1 day. At the end of the day, it must attempt a Fortitude save against the same DC; if it fails, it dies.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -487,7 +489,13 @@
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "curse",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
                 }
             },
             "type": "action"
