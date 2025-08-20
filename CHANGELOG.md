@@ -1,3 +1,32 @@
+## 7.4.1
+
+### System Improvements
+
+- (Dire Weasel) Show DC for /act inlines with custom label
+- (stwlam) Add configurable support for checking character reach when opening doors and looting
+- (stwlam) Refine token distance text and refrain from showing on all when holding alt
+- (Supe) Add activate button for consumables created via quick alchemy
+
+### Bugfixes
+
+- (kromko) Fix some localization keys
+- (stwlam) Fix distance text rounding
+- (stwlam) Fix issues with party deposit tokens button and remove token spin retrieval for now
+- (stwlam) Fix editing price of kit items
+- (Supe) Don't auto adjust price for tech and analog specific magic weapons
+
+### Data Updates
+
+- (Ambrose) Convert Wand of Toxic Blades to magic wand equipment type
+- (Dire Weasel) Add automation for Relinquish Control and Instinctive Maneuvers
+- (Dire Weasel) Add automation for The Harder They Fall
+- (Tikael) Remove duplicate prompts for Wellspring Mage
+
+
+### Under the Hood
+
+- (stwlam) Have `PricePF2e.fromString` accept unitless numeric strings
+
 ## 7.4.0
 
 ### System Improvements
