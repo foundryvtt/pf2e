@@ -1,4 +1,4 @@
-import { ActorPF2e, PartyPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import { createFirstParty } from "@actor/party/helpers.ts";
 import { MigrationSummary } from "@module/apps/migration-summary.ts";
@@ -139,13 +139,9 @@ export const Ready = {
                     inEnvironments.push(token.actor);
                 }
             }
-            const parties = game.actors.filter((a): a is PartyPF2e<null> => a.isOfType("party"));
             const actorsToReprepare: Set<ActorPF2e> = new Set([
                 ...game.combats.contents.flatMap((e) => e.combatants.contents).flatMap((c) => c.actor ?? []),
-                ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
                 ...inEnvironments.filter((a) => !a.isOfType("familiar", "hazard", "loot", "party")),
-                ...game.actors.filter((a) => a.type === "familiar"),
-                ...parties,
             ]);
             resetActors(actorsToReprepare, { sheets: false, tokens: inEnvironments.length > 0 });
             ui.actors.render({ parts: ["directory", "parties"] });

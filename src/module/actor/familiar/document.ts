@@ -29,7 +29,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     /** The familiar's master, if selected */
     get master(): CharacterPF2e | null {
         // The Actors world collection needs to be initialized for data preparation
-        if (!game.ready || !this.system.master.id) return null;
+        if (!this.system.master.id) return null;
 
         const master = game.actors.get(this.system.master.id);
         if (master?.isOfType("character")) {

@@ -144,7 +144,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        if (!game.ready) return; // exit early if game isn't ready yet
 
         // Compute travel speed. Creature travel speed isn't implemented yet
         const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));

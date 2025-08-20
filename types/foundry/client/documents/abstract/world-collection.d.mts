@@ -39,10 +39,10 @@ export default abstract class WorldCollection<
     apps: (Application | ApplicationV2)[];
 
     /**
-     * Initialize the WorldCollection object by constructing its contained Document instances
+     * Initialize the DocumentCollection by constructing any initially provided Document instances
      * @param data
      */
-    protected _initialize(data: TDocument["_source"][]): void;
+    protected _initialize(): void;
 
     /* -------------------------------------------- */
     /*  Directory Collection Mixin                  */
