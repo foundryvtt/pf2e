@@ -1,13 +1,11 @@
 import type { ActorPF2e } from "@actor";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_module.d.mts";
 import type { ItemUUID } from "@common/documents/_module.d.mts";
 import { ItemPF2e, type PhysicalItemPF2e } from "@item";
 import type { ClassTrait } from "@item/class/types.ts";
 import { Price } from "@item/physical/data.ts";
-import { DENOMINATIONS } from "@item/physical/values.ts";
 import { Size } from "@module/data.ts";
-import { ErrorPF2e, isObject } from "@util";
+import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { KitSource, KitSystemData, type KitEntryData } from "./data.ts";
 
@@ -65,26 +63,6 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
             },
             [],
         );
-    }
-
-    protected override async _preUpdate(
-        changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateCallbackOptions,
-        user: fd.BaseUser,
-    ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
-
-        // Clear 0 price denominations
-        if (isObject<Record<string, unknown>>(changed.system.price)) {
-            const price: Record<string, unknown> = changed.system.price;
-            for (const denomination of DENOMINATIONS) {
-                if (price[denomination] === 0) {
-                    price[`-=denomination`] = null;
-                }
-            }
-        }
-
-        return super._preUpdate(changed, options, user);
     }
 }
 

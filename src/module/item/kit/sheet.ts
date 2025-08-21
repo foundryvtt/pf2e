@@ -60,7 +60,8 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         if (!index) return this.item;
 
         const containerId = target.closest<HTMLElement>("[data-container-id]")?.dataset.containerId;
-        const path = containerId ? `${containerId}.items.-=${index}` : `-=${target.dataset.index}`;
+        const path =
+            containerId && containerId !== index ? `${containerId}.items.-=${index}` : `-=${target.dataset.index}`;
         const update = await this.item.update({ [`system.items.${path}`]: null });
         return update ?? null;
     }
@@ -78,7 +79,7 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Convert price from a string to an actual object
         const priceString = String(formData["system.price.value"] ?? "").trim();
-        formData["==system.price.value"] = CoinsPF2e.fromString(priceString).toObject();
+        formData["system.price.==value"] = CoinsPF2e.fromString(priceString).toObject();
         delete formData["system.price.value"];
         return super._updateObject(event, formData);
     }
