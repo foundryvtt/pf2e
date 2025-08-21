@@ -629,8 +629,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         ).some(
             (t) =>
                 t.actor?.isOwner &&
-                t.actor.isOfType("creature") &&
-                t.distanceTo(this) <= t.actor.attributes.reach.manipulate,
+                t.actor.isOfType("creature", "party") &&
+                t.distanceTo(this) <= t.actor.system.attributes.reach.manipulate,
         );
         if (isInReach) {
             return super._onClickLeft2(event);

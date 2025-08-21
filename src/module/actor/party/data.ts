@@ -1,3 +1,4 @@
+import { CreatureReach } from "@actor/creature/index.ts";
 import type { ActorAttributes, ActorDetails, BaseActorSourcePF2e } from "@actor/data/base.ts";
 import { ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
 import type {
@@ -74,10 +75,11 @@ interface PartyDetailsSource extends SourceFromDataField<PartySystemSchema["deta
 }
 
 interface PartyAttributes extends Omit<ActorAttributes, "initiative" | "ac" | "hp"> {
+    speed: { total: number };
+    reach: CreatureReach;
     immunities: never[];
     weaknesses: never[];
     resistances: never[];
-    speed: { total: number };
 }
 
 interface PartyDetails extends ModelPropFromDataField<PartySystemSchema["details"]>, ActorDetails {}

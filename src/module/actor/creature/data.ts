@@ -129,6 +129,13 @@ interface SaveData extends AttributeBasedTraceData {
 
 type CreatureSaves = Record<SaveType, SaveData>;
 
+interface CreatureReach {
+    /** The default reach for all actions requiring one */
+    base: number;
+    /** Its reach for the purpose of manipulate actions, usually the same as its base reach */
+    manipulate: number;
+}
+
 /** Miscallenous but mechanically relevant creature attributes.  */
 interface CreatureAttributes extends ActorAttributes {
     hp: ActorHitPoints;
@@ -136,12 +143,7 @@ interface CreatureAttributes extends ActorAttributes {
     hardness: { value: number };
 
     /** The creature's natural reach in feet */
-    reach: {
-        /** The default reach for all actions requiring one */
-        base: number;
-        /** Its reach for the purpose of manipulate actions, usually the same as its base reach */
-        manipulate: number;
-    };
+    reach: CreatureReach;
 
     shield?: HeldShieldData;
     speed: CreatureSpeeds;
@@ -235,6 +237,7 @@ export type {
     CreatureInitiativeSource,
     CreatureLanguagesData,
     CreaturePerceptionData,
+    CreatureReach,
     CreatureResources,
     CreatureResourcesSource,
     CreatureSaves,
