@@ -198,7 +198,7 @@
         },
         {
             "_id": "UU6qI4GCsFm43RGI",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "+2 Circumstance Bonus to Initiative Checks",
             "sort": 400000,
             "system": {
@@ -234,7 +234,7 @@
         },
         {
             "_id": "LNzvRHSX7HlXA2ZC",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Adroit Duelist",
             "sort": 500000,
             "system": {
@@ -246,7 +246,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Vorens is adept at exploiting an opponent's weaknesses in a duel. If he wins initiative in a duel round, he deals an extra 2d6 precision damage with Strikes made before the beginning of his next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Adroit Duelist]</p>"
+                    "value": "<p>Vorens is adept at exploiting an opponent's weaknesses in a duel. If he wins initiative in a duel round, he deals an extra 2d6 precision damage with Strikes made before the beginning of his next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -255,11 +255,26 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "selector": "initiative",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "adroit-duelist",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "adroit-duelist",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": null,
@@ -271,7 +286,7 @@
         },
         {
             "_id": "jNsIS3QER0JDIqyC",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Dueling Dance",
             "sort": 600000,
             "system": {
@@ -304,7 +319,7 @@
         },
         {
             "_id": "ZqeQGPmWGp44TEZg",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Dueling Riposte",
             "sort": 700000,
             "system": {
