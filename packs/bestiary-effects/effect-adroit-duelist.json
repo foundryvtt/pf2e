@@ -1,10 +1,10 @@
 {
-    "_id": "lWciVCnKhwp8cF6E",
-    "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
-    "name": "Effect: Dueling Dance",
+    "_id": "z3dRShEr5iu8BVxa",
+    "img": "icons/skills/melee/strike-sword-gray.webp",
+    "name": "Effect: Adroit Duelist",
     "system": {
         "description": {
-            "value": "<p>You gain a +2 circumstance bonus to your AC.</p>"
+            "value": "<p>You deal an extra 2d6 precision damage with Strikes.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -12,6 +12,7 @@
             "unit": "rounds",
             "value": 1
         },
+        "fromSpell": false,
         "level": {
             "value": 14
         },
@@ -22,10 +23,11 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "ac",
-                "type": "circumstance",
-                "value": 2
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
             }
         ],
         "start": {
@@ -36,7 +38,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

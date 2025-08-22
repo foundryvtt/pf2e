@@ -198,7 +198,7 @@
         },
         {
             "_id": "UU6qI4GCsFm43RGI",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Circumstance Bonus to Initiative Checks",
             "sort": 400000,
             "system": {
@@ -234,7 +234,7 @@
         },
         {
             "_id": "LNzvRHSX7HlXA2ZC",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Adroit Duelist",
             "sort": 500000,
             "system": {
@@ -246,14 +246,22 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Vorens is adept at exploiting an opponent's weaknesses in a duel. If he wins initiative in a duel round, he deals an extra 2d6 precision damage with Strikes made before the beginning of his next turn.</p>"
+                    "value": "<p>Vorens is adept at exploiting an opponent's weaknesses in a duel. If he wins initiative in a duel round, he deals an extra 2d6 precision damage with Strikes made before the beginning of his next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Adroit Duelist]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -263,7 +271,7 @@
         },
         {
             "_id": "jNsIS3QER0JDIqyC",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Dueling Dance",
             "sort": 600000,
             "system": {
@@ -296,7 +304,7 @@
         },
         {
             "_id": "ZqeQGPmWGp44TEZg",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Dueling Riposte",
             "sort": 700000,
             "system": {
@@ -308,7 +316,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature critically fails a Strike against Vorens</p><hr /><p><strong>Effect</strong> Vorens makes a melee Strike against or attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature critically fails a Strike against Vorens</p><hr /><p><strong>Effect</strong> Vorens makes a melee Strike against or attempts to [[/act disarm]] the triggering creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
