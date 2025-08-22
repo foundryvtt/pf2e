@@ -1,3 +1,27 @@
+## 7.4.2
+
+### System Improvements
+
+- (stwlam) Define a party actor's manipulate "reach", use with reach enforcement
+
+### Bugfixes
+
+- (stwlam) Fix various issues preventing saving of kit-item updates from sheet
+- (stwlam) Fix issue preventing familiars with canvas-altering effects from appearing on initial load
+- (stwlam) Make sidebar of familiar sheet scrollable
+- (Supe) Fix rendering of damage buttons from attack-roll messages
+- (websterguy) Fix Token Image ring background color input
+
+### Data Updates
+
+- (Ambrose) Convert Wand of Crackling Lightning, Traitorous Thoughts, and Wand of Wearying Dance to magic wands
+- (Ambrose) Correct Deity Choice Set on Mortal Dedication dedication feat
+- (Daomephsta) Add missing colon in inline damage for Sword Bash of Arboreal Copse
+- (Dire Weasel) Add missing inline saving throw links to Dread Gaze and Feral Possession
+- (Dire Weasel) Fix reach distance for Cosmic Form fist Strike
+- (kromko) Add missing link to Aura of Sophistry localization
+- (Rigo) Fix Munitions Crafter allowing any ammunition to be created
+
 ## 7.4.1
 
 ### System Improvements
@@ -21,7 +45,6 @@
 - (Dire Weasel) Add automation for Relinquish Control and Instinctive Maneuvers
 - (Dire Weasel) Add automation for The Harder They Fall
 - (Tikael) Remove duplicate prompts for Wellspring Mage
-
 
 ### Under the Hood
 
