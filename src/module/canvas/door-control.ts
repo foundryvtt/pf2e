@@ -24,7 +24,7 @@ export class DoorControlPF2e extends fc.containers.DoorControl {
             const actor = token.actor;
             return (
                 actor?.isOwner &&
-                actor.isOfType("creature") &&
+                actor.isOfType("creature", "party") &&
                 testPoints.some((p) => token.distanceTo(p) <= actor.attributes.reach.manipulate)
             );
         });
