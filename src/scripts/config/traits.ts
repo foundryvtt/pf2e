@@ -908,6 +908,7 @@ const vehicleTraits = {
     artifact: "PF2E.TraitArtifact",
     clockwork: "PF2E.TraitClockwork",
     magical: "PF2E.TraitMagical",
+    tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
 };
 
