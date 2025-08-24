@@ -233,6 +233,7 @@ class ElementalBlast {
             return {
                 ...blast,
                 statistic,
+                item,
                 ready: true,
                 maps,
                 actionCost,
@@ -266,9 +267,11 @@ class ElementalBlast {
     }
 
     #getDisabledBlast(statistic: Statistic, label: string): ElementalBlastConfig {
+        if (!this.item) throw ErrorPF2e("Unexpected missing Elemental Blast item");
         return {
             ready: false,
             statistic,
+            item: this.item,
             img: "icons/magic/sonic/projectile-shock-wave-blue.webp",
             element: "fire",
             dieFaces: 6,
@@ -621,6 +624,7 @@ interface ElementalBlastConfig extends Omit<fields.ModelPropsFromSchema<BlastCon
     damageTypes: BlastConfigDamageType[];
     range: RangeData & { label: string };
     statistic: Statistic;
+    item: AbilityItemPF2e<CharacterPF2e>;
     actionCost: 1 | 2;
     ready: boolean;
     maps: {
