@@ -22,11 +22,13 @@ export class DoorControlPF2e extends fc.containers.DoorControl {
             [canvas.tokens.controlled, game.user.character?.getActiveTokens(true, false) ?? []].flat(),
         ).some((token) => {
             const actor = token.actor;
-            return (
-                actor?.isOwner &&
-                actor.isOfType("creature", "party") &&
-                testPoints.some((p) => token.distanceTo(p) <= actor.attributes.reach.manipulate)
-            );
+            if (!actor?.isOwner || !actor.isOfType("creature", "party")) return false;
+            const reach = actor.system.attributes.reach;
+            // Treat zero-reach creatures as having a reach of five feet to avoid issues with legal grid spaces,
+            // such as a wall positioned at an adjacent square's edge with no way for a familiar to move within reach
+            // of the door).
+            const manipulate = Math.max(reach.manipulate, 5);
+            return testPoints.some((p) => token.distanceTo(p) <= manipulate);
         });
         if (isInReach) return super._onMouseDown(event);
         else ui.notifications.warn("PF2E.Wall.Door.OutOfReach", { localize: true });

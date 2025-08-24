@@ -1,7 +1,7 @@
 import { CreaturePF2e, type CharacterPF2e } from "@actor";
 import type { ActorPF2e } from "@actor/base.ts";
-import { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
-import { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
+import type { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
+import type { CreatureReach, CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
@@ -89,7 +89,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             attributes: {
                 speed: { value: number; total: number; label?: string; otherSpeeds: LabeledSpeed[] };
                 flanking: { canFlank: boolean };
-                reach: { base: number; manipulate: number };
+                reach: CreatureReach;
             };
             perception: object;
             skills: object;
