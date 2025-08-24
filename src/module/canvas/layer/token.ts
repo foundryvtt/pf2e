@@ -19,12 +19,13 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
         return super._onClickLeft(event);
     }
 
-    /** Cycle Z indices of a hovered token stack */
+    /** Cycle Z indices of a hovered token stack. */
     cycleStack(): boolean {
         const hovered = this.hover;
         if (!hovered) return false;
-
-        const stack = [...this.quadtree.getObjects(hovered.bounds)]
+        const bounds = hovered.mechanicalBounds;
+        const rectangle = new PIXI.Rectangle(bounds.x + 1, bounds.y + 1, bounds.width - 2, bounds.height - 2);
+        const stack = [...this.quadtree.getObjects(rectangle)]
             .filter((t) => !t.document.isSecret && hovered.document.elevation === t.document.elevation)
             .sort((a, b) => a.document.sort - b.document.sort);
         if (stack.length < 2) return false;
