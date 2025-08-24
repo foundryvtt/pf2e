@@ -329,6 +329,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         }
 
         this.system.bulk = prepareBulkData(this);
+        this.system.temporary ??= false;
 
         // Normalize apex data
         if (this.system.apex) {
