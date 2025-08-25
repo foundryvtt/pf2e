@@ -11,7 +11,7 @@
         "containerId": null,
         "damage": null,
         "description": {
-            "value": "<p>You rig tree branches, thin strands of bark, or other plant matter to close in on a creature that enters the snare's square. The first creature to enter the square must attempt a @Check[reflex|dc:19] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 1d4 slashing damage.</p>\n<p><strong>Failure</strong> As success, plus the target is off-guard.</p>\n<p><strong>Critical Failure</strong> The target takes 2d4 slashing damage and is immobilized until it destroys the snare (AC 16, HP 25) or Escapes (DC 19).</p>"
+            "value": "<p>You rig tree branches, thin strands of bark, or other plant matter to close in on a creature that enters the snare's square. The first creature to enter the square must attempt a @Check[reflex|showDC:all|dc:19|options:damaging-effect,inflicts:off-guard,inflicts:immobilized] saving throw.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes @Damage[1d4[slashing]] damage.</p>\n<p><strong>Failure</strong> As success, plus the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</p>\n<p><strong>Critical Failure</strong> The target takes @Damage[2d4[slashing]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until it destroys the snare (AC 16, HP 25) or [[/act escape show-dc=all dc=19]]{Escapes}.</p>"
         },
         "hardness": 0,
         "hp": {
