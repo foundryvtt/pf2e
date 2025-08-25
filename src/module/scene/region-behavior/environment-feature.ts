@@ -1,4 +1,5 @@
-import { ZeroToTwo } from "@module/data.ts";
+import type { ZeroToTwo } from "@module/data.ts";
+import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { RegionBehaviorPF2e } from "./document.ts";
 import fields = foundry.data.fields;
 
@@ -28,6 +29,15 @@ class EnvironmentFeatureBehaviorType extends foundry.data.regionBehaviors.Region
             ),
         };
     }
+
+    protected override _getTerrainEffects(
+        _token: TokenDocumentPF2e,
+        segment: fd.TokenMovementSegmentData,
+    ): DifficultTerrainEffectData[] {
+        // Todo: Handle other actions
+        if (segment.action !== "walk") return [];
+        return [{ name: "difficultTerrainPF2e", difficultTerrain: this.terrain.difficult }];
+    }
 }
 
 interface EnvironmentFeatureBehaviorType
@@ -40,4 +50,10 @@ type EnvironmentFeatureTypeSchema = {
     }>;
 };
 
+interface DifficultTerrainEffectData {
+    name: "difficultTerrainPF2e";
+    difficultTerrain: number;
+}
+
 export { EnvironmentFeatureBehaviorType };
+export type { DifficultTerrainEffectData };

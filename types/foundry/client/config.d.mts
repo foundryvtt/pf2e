@@ -46,6 +46,7 @@ import type {
     PointVisionSource,
 } from "./canvas/sources/_module.mjs";
 import ClientDatabaseBackend from "./data/client-backend.mjs";
+import { TerrainData } from "./data/terrain-data.mjs";
 import WorldCollection from "./documents/abstract/world-collection.mjs";
 import * as collections from "./documents/collections/_module.mjs";
 
@@ -442,6 +443,9 @@ export default interface Config<
     /** Configuration for the Token embedded document type and its representation on the game Canvas */
     Token: {
         documentClass: ConstructorOf<TTokenDocument>;
+        movement: {
+            TerrainData: ConstructorOf<TerrainData>;
+        };
         objectClass: ConstructorOf<NonNullable<TTokenDocument["object"]>>;
         prototypeSheetClass: ConstructorOf<PrototypeTokenConfig>;
         ring: TokenRingConfig;

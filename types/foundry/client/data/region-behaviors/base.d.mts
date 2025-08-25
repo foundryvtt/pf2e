@@ -1,5 +1,7 @@
+import { TokenMovementSegmentData } from "@client/documents/_types.mjs";
 import RegionBehavior from "@client/documents/region-behavior.mjs";
 import { RegionEvent } from "@client/documents/region.mjs";
+import TokenDocument from "@client/documents/token.mjs";
 import { DataSchema } from "@common/abstract/_types.mjs";
 import TypeDataModel from "@common/abstract/type-data.mjs";
 import { REGION_EVENTS } from "@common/constants.mjs";
@@ -47,6 +49,18 @@ export abstract class RegionBehaviorType<
      * @internal
      */
     protected _handleRegionEvent(event: RegionEvent): Promise<void>;
+
+    /**
+     * Get the terrain effects of this behavior for the movement of the given token.
+     * This function is called only for behaviors that are not disabled.
+     * The terrain data is created from the terrain effects
+     * ({@link CONFIG.Token.movement.TerrainData.resolveTerrainEffects}).
+     * Returns an empty array by default.
+     * @param token The token being or about to be moved within the region of this behavior
+     * @param segment The segment data of the token's movement
+     * @returns The terrain effects that apply to this token's movement
+     */
+    protected _getTerrainEffects(token: TokenDocument, segment: TokenMovementSegmentData): object[];
 }
 
 /** Run in the context of a {@link RegionBehaviorType} */

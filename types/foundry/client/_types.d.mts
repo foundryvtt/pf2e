@@ -11,6 +11,7 @@ import { PingData } from "./canvas/interaction/_types.mjs";
 import AmbientLight from "./canvas/placeables/light.mjs";
 import Token, { TokenShape } from "./canvas/placeables/token.mjs";
 import PointVisionSource from "./canvas/sources/point-vision-source.mjs";
+import { BaseTerrainData } from "./data/terrain-data.mjs";
 import Roll from "./dice/roll.mjs";
 import { TableResult, TokenDocument, User } from "./documents/_module.mjs";
 import { Color } from "./utils/_module.mjs";
@@ -65,7 +66,7 @@ export interface RulerWaypoint {
     next: RulerWaypoint | null;
 }
 
-export interface TokenMeasuredMovementWaypoint {
+export interface TokenMeasuredMovementWaypoint<TTerrainData extends BaseTerrainData = BaseTerrainData> {
     /** The top-left x-coordinate in pixels (integer). */
     x: number;
 
@@ -94,7 +95,7 @@ export interface TokenMeasuredMovementWaypoint {
     forced: boolean;
 
     /** The terrain data from the previous to this waypoint. */
-    terrain: DataModel | null;
+    terrain: TTerrainData | null;
 
     /** Was this waypoint snapped to the grid? */
     snapped: boolean;
@@ -169,13 +170,14 @@ export interface TokenMeasureMovementPathWaypoint {
     cost?: number | TokenMovementCostFunction;
 }
 
-export interface TokenMovementSegmentData
+export interface TokenMovementSegmentData<TTerrainData extends BaseTerrainData = BaseTerrainData>
     extends Pick<
-        TokenMeasuredMovementWaypoint,
+        TokenMeasuredMovementWaypoint<TTerrainData>,
         "width" | "height" | "shape" | "action" | "teleport" | "forced" | "terrain"
     > {}
 
-export type TokenMovementCostFunction = GridMeasurePathCostFunction3D<TokenMovementSegmentData>;
+export type TokenMovementCostFunction<TTerrainData extends BaseTerrainData = BaseTerrainData> =
+    GridMeasurePathCostFunction3D<TokenMovementSegmentData<TTerrainData>>;
 
 export interface TokenGetCompleteMovementPathWaypoint {
     /**

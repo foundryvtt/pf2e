@@ -18,7 +18,7 @@ export abstract class BaseTerrainData<TSchema extends DataSchema = DataSchema> e
      * @param effects An array of terrain effects
      * @returns The terrain data or null
      */
-    static resolveTerrainEffects(effects: object[]): BaseTerrainData;
+    static resolveTerrainEffects(effects: object[]): BaseTerrainData | null;
 
     /**
      * Create the terrain movement cost function for the given token.
@@ -53,9 +53,12 @@ export abstract class BaseTerrainData<TSchema extends DataSchema = DataSchema> e
 export class TerrainData extends BaseTerrainData {
     static override defineSchema(): TerrainDataSchema;
 
-    static override resolveTerrainEffects(effects: Partial<TerrainDataSource>[]): TerrainData;
+    static override resolveTerrainEffects(effects: object[]): TerrainData | null;
 
-    static override getMovementCostFunction(token: TokenDocument): TokenMovementCostFunction;
+    static override getMovementCostFunction(
+        token: TokenDocument,
+        options?: TokenMeasureMovementPathOptions,
+    ): TokenMovementCostFunction;
 
     prepareBaseData(): void;
 
