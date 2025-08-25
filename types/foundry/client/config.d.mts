@@ -31,6 +31,7 @@ import * as layers from "./canvas/layers/_module.mjs";
 import * as perception from "./canvas/perception/_module.mjs";
 import * as placeables from "./canvas/placeables/_module.mjs";
 import TokenRingConfig from "./canvas/placeables/tokens/ring-config.mjs";
+import TokenRuler from "./canvas/placeables/tokens/ruler.mjs";
 import {
     AbstractWeatherShader,
     AdaptiveBackgroundShader,
@@ -463,6 +464,7 @@ export default interface Config<
         };
         adjectivesPrefix: string;
         ring: TokenRingConfig;
+        rulerClass: ConstructorOf<TokenRuler>;
     };
 
     /** Configuration for the Wall embedded document type and its representation on the game Canvas */

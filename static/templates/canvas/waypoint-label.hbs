@@ -1,0 +1,33 @@
+<div class="waypoint-label {{cssClass}}">
+    {{#if action.img}}
+        <div class="img" style="background-image: url('{{ action.img }}');"></div>
+    {{else if action.icon}}
+        <i class="icon {{action.icon}}"></i>
+    {{else if action.label}}
+        <label class="action-label">{{localize action.label}}</label>
+    {{/if}}
+    {{#if cost}}
+        <span class="total-measurement">{{cost.total}} {{cost.units}}</span>
+        {{#if cost.delta}}
+            <span class="delta-measurement">({{cost.delta}})</span>
+        {{/if}}
+        {{#if pf2e.actionGlyph}}
+            <span class="pf2e-action-glyph">{{pf2e.actionGlyph}}{{#if (gt pf2e.actionCost 3)}} +{{/if}}</span>
+        {{/if}}
+    {{else}}
+        <span class="total-measurement">{{distance.total}} {{units}}</span>
+        {{#if distance.delta}}
+            <span class="delta-measurement">({{distance.delta}})</span>
+        {{/if}}
+    {{/if}}
+    {{#if (and elevation (not elevation.hidden))}}
+        <i class="icon {{elevation.icon}}"></i>
+        <span class="total-elevation">{{elevation.total}} {{units}}</span>
+        {{#if elevation.delta}}
+        <span class="delta-elevation">({{elevation.delta}})</span>
+        {{/if}}
+    {{/if}}
+    {{#if secret}}
+        <i class="icon fa-solid fa-eye-slash"></i>
+    {{/if}}
+</div>
