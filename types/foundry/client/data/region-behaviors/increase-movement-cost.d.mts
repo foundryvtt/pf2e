@@ -31,8 +31,6 @@ export default class ModifyMovementCostRegionBehaviorType extends RegionBehavior
     ): { name: "difficulty"; difficulty: number }[];
 }
 
-type ModifyMovementCostBehaviorSchema = {
+export type ModifyMovementCostBehaviorSchema = {
     difficulties: fields.SchemaField<Record<string, fields.NumberField<number, number, true, true, true>>>;
 };
-
-export {};
