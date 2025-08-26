@@ -4,14 +4,14 @@ import { ElevatedPoint, TokenPosition } from "@common/_types.mjs";
 import DataModel from "@common/abstract/data.mjs";
 import { RegionMovementSegmentType, TokenShapeType } from "@common/constants.mjs";
 import { EffectDurationData } from "@common/documents/active-effect.mjs";
-import { GridMeasurePathCostFunction3D } from "@common/grid/_types.mjs";
+import { GridMeasurePathCostFunction3D, GridOffset3D } from "@common/grid/_types.mjs";
 import { Combat, Combatant, RegionDocument, TableResult, TokenDocument, User } from "./_module.mjs";
 
 /**
  * The data that is planned to be imported for the adventure, categorized into new documents that will be created and
  * existing documents that will be updated.
  */
-interface AdventureImportData {
+export interface AdventureImportData {
     /** Arrays of document data to create, organized by document name */
     toCreate: Record<string, object[]>;
 
@@ -26,13 +26,13 @@ interface AdventureImportData {
  * A callback function that is invoked and awaited during import data preparation before the adventure import proceeds.
  * This can be used to perform custom pre-processing on the import data.
  */
-type AdventurePreImportCallback = (data: AdventureImportData, options: AdventureImportOptions) => Promise<void>;
+export type AdventurePreImportCallback = (data: AdventureImportData, options: AdventureImportOptions) => Promise<void>;
 
 /**
  * Options which customize how the adventure import process is orchestrated.
  * Modules can use the preImportAdventure hook to extend these options by adding preImport or postImport callbacks.
  */
-interface AdventureImportOptions {
+export interface AdventureImportOptions {
     /** Display a warning dialog if existing documents would be overwritten */
     dialog?: boolean;
 
@@ -49,7 +49,7 @@ interface AdventureImportOptions {
 /**
  * A report of the world Document instances that were created or updated during the import process.
  */
-interface AdventureImportResult {
+export interface AdventureImportResult {
     /** Documents created as a result of the import, grouped by document name */
     created: Record<string, Document[]>;
 
@@ -61,9 +61,12 @@ interface AdventureImportResult {
  * A callback function that is invoked and awaited after import but before the overall import workflow concludes.
  * This can be used to perform additional custom adventure setup steps.
  */
-type AdventurePostImportCallback = (result: AdventureImportResult, options: AdventureImportOptions) => Promise<void>;
+export type AdventurePostImportCallback = (
+    result: AdventureImportResult,
+    options: AdventureImportOptions,
+) => Promise<void>;
 
-interface ActiveEffectDuration extends EffectDurationData {
+export interface ActiveEffectDuration extends EffectDurationData {
     /**
      * The duration type, either "seconds", "turns", or "none"
      */
@@ -92,22 +95,22 @@ interface ActiveEffectDuration extends EffectDurationData {
     _combatTime?: number;
 }
 
-interface CombatHistoryData {
+export interface CombatHistoryData {
     round: number;
     turn: number | null;
     tokenId: string | null;
     combatantId: string | null;
 }
 
-interface CombatTurnEventContext {
+export interface CombatTurnEventContext {
     round: number;
     turn: number;
     skipped: boolean;
 }
 
-type CombatRoundEventContext = Omit<CombatTurnEventContext, "turn">;
+export type CombatRoundEventContext = Omit<CombatTurnEventContext, "turn">;
 
-interface RegionEvent<TData extends object = object> {
+export interface RegionEvent<TData extends object = object> {
     /** The name of the event */
     name: string;
 
@@ -121,13 +124,13 @@ interface RegionEvent<TData extends object = object> {
     user: User;
 }
 
-type RegionRegionBoundaryEvent = RegionEvent;
-type RegionBehaviorActivatedEvent = RegionEvent;
-type RegionBehaviorDeactivatedEvent = RegionEvent;
-type RegionBehaviorViewedEvent = RegionEvent;
-type RegionBehaviorUnviewedEvent = RegionEvent;
+export type RegionRegionBoundaryEvent = RegionEvent;
+export type RegionBehaviorActivatedEvent = RegionEvent;
+export type RegionBehaviorDeactivatedEvent = RegionEvent;
+export type RegionBehaviorViewedEvent = RegionEvent;
+export type RegionBehaviorUnviewedEvent = RegionEvent;
 
-interface RegionTokenEnterExitEventData {
+export interface RegionTokenEnterExitEventData {
     /** The Token that entered/exited the Region */
     token: TokenDocument;
     /**
@@ -136,10 +139,10 @@ interface RegionTokenEnterExitEventData {
     movement: TokenMovementOperation | null;
 }
 
-type RegionTokenEnterExitEvent = RegionEvent<RegionTokenEnterExitEventData>;
-type RegionTokenEnterEvent = RegionTokenEnterExitEvent;
-type RegionTokenExitEvent = RegionTokenEnterExitEvent;
-type RegionTokenMoveEventData = {
+export type RegionTokenEnterExitEvent = RegionEvent<RegionTokenEnterExitEventData>;
+export type RegionTokenEnterEvent = RegionTokenEnterExitEvent;
+export type RegionTokenExitEvent = RegionTokenEnterExitEvent;
+export type RegionTokenMoveEventData = {
     /**
      * The Token that moved into/out of/within the Region
      */
@@ -150,11 +153,11 @@ type RegionTokenMoveEventData = {
     movement: TokenMovementOperation;
 };
 
-type RegionTokenMoveEvent = RegionEvent<RegionTokenMoveEventData>;
-type RegionTokenMoveInEvent = RegionTokenMoveEvent;
-type RegionTokenMoveOutEvent = RegionTokenMoveEvent;
-type RegionTokenMoveWithinEvent = RegionTokenMoveEvent;
-interface RegionTokenAnimateEventData {
+export type RegionTokenMoveEvent = RegionEvent<RegionTokenMoveEventData>;
+export type RegionTokenMoveInEvent = RegionTokenMoveEvent;
+export type RegionTokenMoveOutEvent = RegionTokenMoveEvent;
+export type RegionTokenMoveWithinEvent = RegionTokenMoveEvent;
+export interface RegionTokenAnimateEventData {
     /**
      * The Token that animated into/out of the Region
      */
@@ -165,11 +168,11 @@ interface RegionTokenAnimateEventData {
     position: TokenPosition;
 }
 
-type RegionTokenAnimateEvent = RegionEvent<RegionTokenAnimateEventData>;
-type RegionTokenAnimateInEvent = RegionTokenAnimateEvent;
-type RegionTokenAnimateOutEvent = RegionTokenAnimateEvent;
+export type RegionTokenAnimateEvent = RegionEvent<RegionTokenAnimateEventData>;
+export type RegionTokenAnimateInEvent = RegionTokenAnimateEvent;
+export type RegionTokenAnimateOutEvent = RegionTokenAnimateEvent;
 
-interface RegionTokenTurnEventData {
+export interface RegionTokenTurnEventData {
     /** The Token that started/ended its Combat turn */
     token: TokenDocument;
 
@@ -189,11 +192,11 @@ interface RegionTokenTurnEventData {
     skipped: boolean;
 }
 
-type RegionTokenTurnEvent = RegionEvent<RegionTokenTurnEventData>;
-type RegionTokenTurnStartEvent = RegionTokenTurnEvent;
-type RegionTokenTurnEndEvent = RegionTokenTurnEvent;
+export type RegionTokenTurnEvent = RegionEvent<RegionTokenTurnEventData>;
+export type RegionTokenTurnStartEvent = RegionTokenTurnEvent;
+export type RegionTokenTurnEndEvent = RegionTokenTurnEvent;
 
-interface RegionTokenRoundEventData {
+export interface RegionTokenRoundEventData {
     /** The Token */
     token: TokenDocument;
 
@@ -210,11 +213,11 @@ interface RegionTokenRoundEventData {
     skipped: boolean;
 }
 
-type RegionTokenRoundEvent = RegionEvent<RegionTokenRoundEventData>;
-type RegionTokenRoundStartEvent = RegionTokenRoundEvent;
-type RegionTokenRoundEndEvent = RegionTokenRoundEvent;
+export type RegionTokenRoundEvent = RegionEvent<RegionTokenRoundEventData>;
+export type RegionTokenRoundStartEvent = RegionTokenRoundEvent;
+export type RegionTokenRoundEndEvent = RegionTokenRoundEvent;
 
-interface RegionMovementSegment {
+export interface RegionMovementSegment {
     /**
      * The type of this segment (see {@link CONST.REGION_MOVEMENT_SEGMENTS}).
      */
@@ -233,7 +236,7 @@ interface RegionMovementSegment {
     teleport: boolean;
 }
 
-interface RegionSegmentizeMovementPathWaypoint {
+export interface RegionSegmentizeMovementPathWaypoint {
     /**
      * The x-coordinate in pixels (integer).
      */
@@ -255,7 +258,7 @@ interface RegionSegmentizeMovementPathWaypoint {
 /**
  * An object containing the executed Roll and the produced results
  */
-interface RollTableDraw {
+export interface RollTableDraw {
     /**
      * The Dice roll which generated the draw
      */
@@ -266,7 +269,7 @@ interface RollTableDraw {
     results: TableResult[];
 }
 
-interface SceneDimensions {
+export interface SceneDimensions {
     /**
      * The width of the canvas.
      */
@@ -333,7 +336,7 @@ interface SceneDimensions {
     columns: number;
 }
 
-interface TrackedAttributesDescription {
+export interface TrackedAttributesDescription {
     /**
      * A list of property path arrays to attributes with both a value and a max property.
      */
@@ -344,7 +347,7 @@ interface TrackedAttributesDescription {
     value: string[][];
 }
 
-interface TokenMeasuredMovementWaypoint {
+export interface TokenMeasuredMovementWaypoint {
     /**
      * The top-left x-coordinate in pixels (integer).
      */
@@ -407,10 +410,10 @@ interface TokenMeasuredMovementWaypoint {
     cost: number;
 }
 
-interface TokenMovementWaypoint
+export interface TokenMovementWaypoint
     extends Omit<TokenMeasuredMovementWaypoint, "terrain" | "intermediate" | "userId" | "movementId" | "cost"> {}
 
-type TokenMovementSegmentData = Pick<
+export type TokenMovementSegmentData = Pick<
     TokenMeasuredMovementWaypoint,
     "width" | "height" | "shape" | "action" | "terrain"
 > & {
@@ -418,7 +421,7 @@ type TokenMovementSegmentData = Pick<
     teleport: boolean;
 };
 
-interface TokenMeasureMovementPathWaypoint {
+export interface TokenMeasureMovementPathWaypoint {
     /** The top-left x-coordinate in pixels (integer). Default: the previous or source x-coordinate. */
     x?: number;
     /**
@@ -460,14 +463,21 @@ interface TokenMeasureMovementPathWaypoint {
     cost?: number | TokenMovementCostFunction;
 }
 
-interface TokenMeasureMovementPathOptions {
+export interface TokenMeasureMovementPathOptions {
     /** Measure a preview path? Default: `false`. */
     preview?: boolean;
 }
 
-type TokenMovementCostFunction = GridMeasurePathCostFunction3D<TokenMovementSegmentData>;
+export type TokenMovementCostFunction = GridMeasurePathCostFunction3D<TokenMovementSegmentData>;
 
-interface TokenGetCompleteMovementPathWaypoint {
+export type TokenMovementCostAggregator = (
+    /** The results of the cost function calls */
+    results: Array<DeepReadonly<{ from: GridOffset3D; to: GridOffset3D; cost: number }>>,
+    distance: number,
+    segment: DeepReadonly<TokenMovementSegmentData>,
+) => number;
+
+export interface TokenGetCompleteMovementPathWaypoint {
     /**
      * The top-left x-coordinate in pixels (integer).
      *                        Default: the previous or source x-coordinate.
@@ -525,9 +535,10 @@ interface TokenGetCompleteMovementPathWaypoint {
     intermediate?: boolean;
 }
 
-interface TokenCompleteMovementWaypoint extends Omit<TokenMeasuredMovementWaypoint, "userId" | "movementId" | "cost"> {}
+export interface TokenCompleteMovementWaypoint
+    extends Omit<TokenMeasuredMovementWaypoint, "userId" | "movementId" | "cost"> {}
 
-interface TokenSegmentizeMovementWaypoint {
+export interface TokenSegmentizeMovementWaypoint {
     /**
      * The x-coordinate in pixels (integer).
      *                        Default: the previous or source x-coordinate.
@@ -573,9 +584,9 @@ interface TokenSegmentizeMovementWaypoint {
     snapped?: boolean;
 }
 
-type TokenRegionMovementWaypoint = TokenPosition;
+export type TokenRegionMovementWaypoint = TokenPosition;
 
-interface TokenRegionMovementSegment {
+export interface TokenRegionMovementSegment {
     /**
      * The type of this segment (see {@link CONST.REGION_MOVEMENT_SEGMENTS}).
      */
@@ -602,7 +613,7 @@ interface TokenRegionMovementSegment {
     snapped: boolean;
 }
 
-interface TokenMovementSectionData {
+export interface TokenMovementSectionData {
     /**
      * The waypoints of the movement path
      */
@@ -625,7 +636,7 @@ interface TokenMovementSectionData {
     diagonals: number;
 }
 
-interface TokenMovementHistoryData {
+export interface TokenMovementHistoryData {
     /**
      * The recorded waypoints of the movement path
      */
@@ -651,10 +662,10 @@ interface TokenMovementHistoryData {
      */
     diagonals: number;
 }
-type TokenMovementMethod = "api" | "config" | "dragging" | "keyboard" | "undo";
-type TokenMovementState = "completed" | "paused" | "pending" | "stopped";
+export type TokenMovementMethod = "api" | "config" | "dragging" | "keyboard" | "undo";
+export type TokenMovementState = "completed" | "paused" | "pending" | "stopped";
 
-interface TokenMovementData {
+export interface TokenMovementData {
     /** The ID of the movement */
     id: string;
 
@@ -701,9 +712,9 @@ interface TokenMovementData {
     updateOptions: object;
 }
 
-interface TokenMovementOperation extends Omit<TokenMovementData, "user" | "state" | "updateOptions"> {}
+export interface TokenMovementOperation extends Omit<TokenMovementData, "user" | "state" | "updateOptions"> {}
 
-interface TokenMovementContinuationData {
+export interface TokenMovementContinuationData {
     /** The movement ID */
     movementId: string;
 
@@ -743,4 +754,4 @@ export interface TokenMovementContinuationHandle {
     continuePromise: Promise<boolean> | undefined;
 }
 
-type TokenResumeMovementCallback = () => Promise<boolean>;
+export type TokenResumeMovementCallback = () => Promise<boolean>;

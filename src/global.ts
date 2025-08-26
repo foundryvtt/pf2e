@@ -6,12 +6,12 @@ import type { AutomaticBonusProgression as ABP } from "@actor/character/automati
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { FeatGroupData } from "@actor/character/feats/index.ts";
 import type { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
+import type { SettingConfig } from "@client/_types.d.mts";
 import type Hotbar from "@client/applications/ui/hotbar.d.mts";
 import type Config from "@client/config.d.mts";
 import type WallDocument from "@client/documents/wall.d.mts";
 import type { FoundryUI } from "@client/ui.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
-import type { SettingConfig } from "@common/_types.d.mts";
 import type { ImageFilePath, RollMode, UserRole } from "@common/constants.d.mts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";

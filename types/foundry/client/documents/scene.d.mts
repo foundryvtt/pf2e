@@ -1,4 +1,4 @@
-import { SceneDimensions, TokenAnimationOptions } from "@client/_types.mjs";
+import { TokenAnimationOptions } from "@client/_types.mjs";
 import {
     DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
@@ -21,6 +21,7 @@ import {
     NoteSource,
     RegionDocument,
     RegionSource,
+    SceneDimensions,
     SceneSource,
     TileDocument,
     TokenDocument,
