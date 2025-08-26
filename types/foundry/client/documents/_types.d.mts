@@ -1,4 +1,5 @@
 import { TokenConstrainMovementPathOptions, TokenMovementActionConfig } from "@client/_types.mjs";
+import { TerrainData } from "@client/data/terrain-data.mjs";
 import Roll from "@client/dice/roll.mjs";
 import { ElevatedPoint, TokenPosition } from "@common/_types.mjs";
 import DataModel from "@common/abstract/data.mjs";
@@ -379,7 +380,7 @@ export interface TokenMeasuredMovementWaypoint {
     /**
      * The terrain data from the previous to this waypoint.
      */
-    terrain: DataModel | null;
+    terrain: TerrainData | null;
     /**
      * Was this waypoint snapped to the grid?
      */
@@ -426,22 +427,22 @@ export interface TokenMeasureMovementPathWaypoint {
     x?: number;
     /**
      * The top-left y-coordinate in pixels (integer).
-     *                                  Default: the previous or source y-coordinate.
+     * Default: the previous or source y-coordinate.
      */
     y?: number;
     /**
      * The elevation in grid units.
-     *                          Default: the previous or source elevation.
+     * Default: the previous or source elevation.
      */
     elevation?: number;
     /**
      * The width in grid spaces (positive).
-     *                              Default: the previous or source width.
+     * Default: the previous or source width.
      */
     width?: number;
     /**
      * The height in grid spaces (positive).
-     *                             Default: the previous or source height.
+     * Default: the previous or source height.
      */
     height?: number;
 
@@ -449,7 +450,7 @@ export interface TokenMeasureMovementPathWaypoint {
     shape?: TokenShapeType;
     /**
      * The movement action from the previous to this waypoint.
-     *                             Default: the previous or prepared movement action.
+     * Default: the previous or prepared movement action.
      */
     action?: string;
     /**
@@ -457,8 +458,7 @@ export interface TokenMeasureMovementPathWaypoint {
      */
     terrain?: DataModel | null;
     /**
-     * A predetermined cost (nonnegative) or cost function
-     *     to be used instead of `options.cost`.
+     * A predetermined cost (nonnegative) or cost function to be used instead of `options.cost`.
      */
     cost?: number | TokenMovementCostFunction;
 }
@@ -480,37 +480,37 @@ export type TokenMovementCostAggregator = (
 export interface TokenGetCompleteMovementPathWaypoint {
     /**
      * The top-left x-coordinate in pixels (integer).
-     *                        Default: the previous or source x-coordinate.
+     * Default: the previous or source x-coordinate.
      */
     x?: number;
     /**
      * The top-left y-coordinate in pixels (integer).
-     *                        Default: the previous or source y-coordinate.
+     * Default: the previous or source y-coordinate.
      */
     y?: number;
     /**
      * The elevation in grid units.
-     *                Default: the previous or source elevation.
+     * Default: the previous or source elevation.
      */
     elevation?: number;
     /**
      * The width in grid spaces (positive).
-     *                    Default: the previous or source width.
+     * Default: the previous or source width.
      */
     width?: number;
     /**
      * The height in grid spaces (positive).
-     *                   Default: the previous or source height.
+     * Default: the previous or source height.
      */
     height?: number;
     /**
      * The shape type (see {@link CONST.TOKEN_SHAPES}).
-     *            Default: the previous or source shape.
+     * Default: the previous or source shape.
      */
     shape?: TokenShapeType;
     /**
      * The movement action from the previous to this waypoint.
-     *                   Default: the previous or prepared movement action.
+     * Default: the previous or prepared movement action.
      */
     action?: string;
     /**

@@ -56,12 +56,17 @@ export class TerrainData extends BaseTerrainData {
 
     static override resolveTerrainEffects(effects: Partial<TerrainDataSource>[]): TerrainData;
 
-    static override getMovementCostFunction(token: TokenDocument): TokenMovementCostFunction;
+    static override getMovementCostFunction(
+        token: TokenDocument,
+        options?: TokenMeasureMovementPathOptions,
+    ): TokenMovementCostFunction;
 
     prepareBaseData(): void;
 
     override equals(other: BaseTerrainData): boolean;
 }
+
+export interface TerrainData extends BaseTerrainData, fields.ModelPropsFromSchema<TerrainDataSchema> {}
 
 type TerrainDataSchema = {
     /** The difficulty of the terrain (the movement cost multiplier) */
@@ -69,3 +74,5 @@ type TerrainDataSchema = {
 };
 
 type TerrainDataSource = fields.SourceFromSchema<TerrainDataSchema>;
+
+export {};

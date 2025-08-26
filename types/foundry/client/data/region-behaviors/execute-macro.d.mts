@@ -1,12 +1,12 @@
 import * as fields from "@common/data/fields.mjs";
-import { EventsField, RegionBehaviorType } from "./base.mjs";
+import RegionBehaviorType, { EventsField } from "./base.mjs";
 
 /** The data model a behavior that executes a Macro. */
-export class ExecuteMacroRegionBehaviorType extends RegionBehaviorType<ExecuteMacroRegionBehaviorTypeSchema> {
+export default class ExecuteMacroRegionBehaviorType extends RegionBehaviorType<ExecuteMacroRegionBehaviorTypeSchema> {
     static override defineSchema(): ExecuteMacroRegionBehaviorTypeSchema;
 }
 
-export interface ExecuteMacroRegionBehaviorType
+export default interface ExecuteMacroRegionBehaviorType
     extends RegionBehaviorType<ExecuteMacroRegionBehaviorTypeSchema>,
         fields.ModelPropsFromSchema<ExecuteMacroRegionBehaviorTypeSchema> {}
 

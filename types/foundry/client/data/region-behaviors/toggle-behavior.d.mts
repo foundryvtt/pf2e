@@ -1,12 +1,12 @@
 import type * as fields from "@common/data/fields.mjs";
-import { EventsField, RegionBehaviorType } from "./base.mjs";
+import RegionBehaviorType, { EventsField } from "./base.mjs";
 
 /** The data model for a behavior that toggles Region Behaviors when one of the subscribed events occurs. */
-export class ToggleBehaviorRegionBehaviorType extends RegionBehaviorType<ToggleBehaviorRegionBehaviorTypeSchema> {
+export default class ToggleBehaviorRegionBehaviorType extends RegionBehaviorType<ToggleBehaviorRegionBehaviorTypeSchema> {
     static override defineSchema(): ToggleBehaviorRegionBehaviorTypeSchema;
 }
 
-export interface ToggleBehaviorRegionBehaviorType
+export default interface ToggleBehaviorRegionBehaviorType
     extends RegionBehaviorType<ToggleBehaviorRegionBehaviorTypeSchema>,
         fields.ModelPropsFromSchema<ToggleBehaviorRegionBehaviorTypeSchema> {}
 
