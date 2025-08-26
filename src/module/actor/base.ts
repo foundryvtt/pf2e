@@ -31,7 +31,6 @@ import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { CoinsPF2e } from "@item/physical/coins.ts";
 import { getDefaultEquipStatus } from "@item/physical/helpers.ts";
-import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -804,7 +803,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Those that don't may be extending special statistics and need to run afterwards
         // NOTE: Later on special statistics should have support for phases (with class/spell dc defaulting to last)
         const spellcasting = this.itemTypes.spellcastingEntry;
-        const traditionBased = spellcasting.filter((s) => setHasElement(MAGIC_TRADITIONS, s.system.proficiency.slug));
+        const traditionBased = spellcasting.filter((s) => s.system.proficiency.slug === "base-spellcasting");
         const nonTraditionBased = spellcasting.filter((s) => !traditionBased.includes(s));
         for (const entry of traditionBased) {
             entry.prepareStatistic();
