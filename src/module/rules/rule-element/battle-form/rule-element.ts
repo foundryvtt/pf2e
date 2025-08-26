@@ -380,6 +380,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         const strikes = this.overrides.strikes;
         for (const strike of Object.values(strikes)) {
             strike.ownIfHigher ??= true;
+            strike.damage.modifier = Number(this.resolveValue(strike.damage.modifier)) || 0;
         }
 
         const ruleData = Object.entries(strikes).map(([slug, strikeData]) => ({
