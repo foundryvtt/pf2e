@@ -402,11 +402,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
-
-        // If there are no parties, clear the exploration activities list
-        if (!this.parties.size) {
-            this.system.exploration = [];
-        }
     }
 
     /** After AE-likes have been applied, set numeric roll options */

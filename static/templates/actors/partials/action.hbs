@@ -41,7 +41,7 @@
         </div>
     {{/if}}
 
-    {{#if (and action.exploration @root.document.parties.size)}}
+    {{#if (and action.exploration (or action.exploration.active @root.document.parties.size))}}
         <button type="button" class="activate {{#if action.exploration.active}}active{{/if}}" data-action="toggle-exploration">
             {{localize "PF2E.Actor.Character.Active"}}
         </button>
