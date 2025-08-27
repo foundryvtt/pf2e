@@ -243,6 +243,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         );
         flags.pf2e.showBasicUnarmed ??= true;
         flags.pf2e.featLimits ??= {};
+        flags.pf2e.treatWoundsSkills ??= [];
 
         // Build selections: boosts and skill trainings
         const isGradual = game.pf2e.settings.variants.gab;

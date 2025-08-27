@@ -43,11 +43,16 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
         return;
     }
 
+    const skills = ["medicine"].concat(...(<[]>actor.flags.pf2e.treatWoundsSkills)).sort();
     const medicineName = game.i18n.localize("PF2E.Skill.Medicine");
-    const chirurgeon = CheckFeat(actor, "chirurgeon");
-    const naturalMedicine = CheckFeat(actor, "natural-medicine");
     const domIdAppend = fu.randomID(); // Attached to element id attributes for DOM uniqueness
     const riskySurgeryChecked = actor.getRollOptions(["medicine"]).includes("risky-surgery") ? " checked" : "";
+    const skillSelectOptions = skills
+        .map(
+            (skill) =>
+                `<option value="${skill}">${game.i18n.localize("PF2E.Skill." + game.pf2e.system.sluggify(skill, { camel: "bactrian" }))}</option>`,
+        )
+        .join();
     const dialog = new foundry.appv1.api.Dialog({
         title: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
         content: `
@@ -56,10 +61,8 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
 <form>
 <div class="form-group">
 <label for="skill-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
-<select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
-  ${chirurgeon ? `<option value="crafting">${game.i18n.localize("PF2E.Skill.Crafting")}</option>` : ``}
-  ${naturalMedicine ? `<option value="nature">${game.i18n.localize("PF2E.Skill.Nature")}</option>` : ``}
-  <option value="medicine">${medicineName}</option>
+<select id="skill-${domIdAppend}"${skills.length === 1 ? " disabled" : ""}>
+    ${skillSelectOptions}
 </select>
 </div>
 <div class="form-group">

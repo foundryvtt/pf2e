@@ -62,6 +62,8 @@ type CharacterFlags = ActorFlagsPF2e & {
         showBasicUnarmed: boolean;
         /** The limit for each feat group that supports a custom limit. */
         featLimits: Record<string, number>;
+        /** The alternative skills available to use in Treat Wounds */
+        treatWoundsSkills: string[];
     };
 };
 
