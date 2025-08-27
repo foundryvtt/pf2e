@@ -43,11 +43,11 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
         return;
     }
 
-    const skills = ["medicine"].concat(...(<[]>actor.flags.pf2e.treatWoundsSkills)).sort();
+    const skills = new Set(["medicine"].concat(...(<[]>actor.flags.pf2e.treatWoundsSkills)).sort());
     const medicineName = game.i18n.localize("PF2E.Skill.Medicine");
     const domIdAppend = fu.randomID(); // Attached to element id attributes for DOM uniqueness
     const riskySurgeryChecked = actor.getRollOptions(["medicine"]).includes("risky-surgery") ? " checked" : "";
-    const skillSelectOptions = skills
+    const skillSelectOptions = [...skills]
         .map(
             (skill) =>
                 `<option value="${skill}">${game.i18n.localize("PF2E.Skill." + game.pf2e.system.sluggify(skill, { camel: "bactrian" }))}</option>`,
@@ -61,7 +61,7 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
 <form>
 <div class="form-group">
 <label for="skill-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
-<select id="skill-${domIdAppend}"${skills.length === 1 ? " disabled" : ""}>
+<select id="skill-${domIdAppend}"${skills.size === 1 ? " disabled" : ""}>
     ${skillSelectOptions}
 </select>
 </div>
