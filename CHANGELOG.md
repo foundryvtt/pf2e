@@ -1,3 +1,45 @@
+## 7.4.3
+
+### System Improvements
+
+- (stwlam) Convert core modify region behavior to difficult terrain
+- (stwlam) Allow familiars and other zero-reach creatures to operate doors within five feet
+
+### Bugfixes
+
+- (In3luki) Fix special statistics not correctly extending basic spellcasting
+- (stwlam) Fix opening Elemental Blast item from PC sheet
+- (stwlam) Include party actor in door reach checks as well
+- (stwlam) Prevent grabbing adjacent tokens in keybound `cycleStack` operation
+- (stwlam) Remove flipping of initial `unconstrainedMovement` scene control value
+- (Supe) Fix exploration activities getting cleared on refresh
+
+### Data Updates
+
+- (Ambrose, Dire Weasel, Tikael) Convert multiple inline rolls to `/act`
+- (Ambrose) Add automation to `Drilled in Formations` for select troop actors and the Change Formation bestiary action
+- (Ambrose) Add Commander trait to Reactive Strike
+- (Ambrose) Condense Ooze Form spell effects
+- (Ambrose) Convert several wand items to the correct item type
+- (Ambrose) Correct Animate Dream's spell list and resistances (Gatewalkers version)
+- (Ambrose) Remove errant traits and `GrantItem`'s from select items
+- (Ambrose) Remove Quetz Couatl actor from Pathfinder Bestiary 2 Compendium and redirect to Monster Core actor equivalent
+- (Ambrose) Update Umbral Journey's publication source
+- (Daomephsta) Cleanup NPC `system.skills` data entry/migration mistakes
+- (Dire Weasel) Add automation for Vorens' Adroit Duelist
+- (Dire Weasel) Brush up Paskis Nine-Knives
+- (Dire Weasel) Convert some inline `line` templates to `square`, and some `burst` to `cylinder`
+- (Dire Weasel) Correct some publication titles
+- (kromko) Add Lich Legion's Frightful Presence DC
+- (kromko) Add statistics to Xulgath Dinosaur Cavalry's Trample ability
+- (mechamaya) Add tech trait option to vehicles
+- (Mose) fix data for arrow-catching shield
+- (Tikael) Remove duration from Daze
+
+### Under the Hood
+
+- (In3luki) Resolve strike damage modifier value in `BattleFormRuleElement`
+
 ## 7.4.2
 
 ### System Improvements
