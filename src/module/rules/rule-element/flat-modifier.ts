@@ -117,6 +117,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                 ],
                 { required: false, nullable: false, initial: false },
             ),
+            battleForm: new fields.BooleanField(),
         };
     }
 
@@ -157,6 +158,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                     }
                     return null;
                 }
+                if (this.battleForm && !this.predicate.includes("battle-form")) this.predicate.push("battle-form");
 
                 const modifier = new ModifierPF2e({
                     slug,
@@ -252,6 +254,8 @@ type FlatModifierSchema = RuleElementSchema & {
         false,
         true
     >;
+    /** Whether this rule element is for use with battle forms */
+    battleForm: fields.BooleanField;
 };
 
 interface FlatModifierSource extends RuleElementSource {

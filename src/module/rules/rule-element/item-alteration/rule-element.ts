@@ -34,6 +34,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
                 choices: itemTypeChoices,
                 initial: undefined,
             }),
+            battleForm: new fields.BooleanField(),
             ...ItemAlteration.defineSchema(),
         };
     }
@@ -93,7 +94,11 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     override onApplyActiveEffects(): void {
-        this.actor.synthetics.itemAlterations.push(this);
+        const actor = this.actor;
+        if (this.ignored) return;
+        if (this.battleForm && !this.predicate.includes("battle-form")) this.predicate.push("battle-form");
+
+        actor.synthetics.itemAlterations.push(this);
         const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
         if (!this.isLazy && !isDelayed) {
             this.applyAlteration();
@@ -101,6 +106,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     override afterPrepareData(): void {
+        if (this.ignored) return;
         const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
         if (!this.isLazy && isDelayed) {
             this.applyAlteration();
@@ -181,6 +187,8 @@ type ItemAlterationRuleSchema = RuleElementSchema &
         itemType: fields.StringField<ItemType, ItemType, false, false, false>;
         /** As an alternative to specifying item types, an exact item ID can be provided */
         itemId: fields.StringField<string, string, false, false, false>;
+        /** Whether this rule element is compatible with battle forms */
+        battleForm: fields.BooleanField;
     };
 
 interface ApplyAlterationOptions {

@@ -26,22 +26,18 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
         const bounds = hovered.mechanicalBounds;
         const rectangle = new PIXI.Rectangle(bounds.x + 1, bounds.y + 1, bounds.width - 2, bounds.height - 2);
         const stack = [...this.quadtree.getObjects(rectangle)]
-            .filter((t) => !t.document.isSecret && hovered.document.elevation === t.document.elevation)
-            .sort((a, b) => a.document.sort - b.document.sort);
+            .filter((t) => t.visible && !t.document.isSecret && t.document.elevation === hovered.document.elevation)
+            .sort((a, b) => b.document.sort - a.document.sort);
         if (stack.length < 2) return false;
 
         const first = stack.shift();
         if (first) stack.push(first);
 
-        if (stack.every((t) => t.document.canUserModify(game.user, "update"))) {
-            const updates: { _id: string; sort: number }[] = [];
-            for (let sort = stack.length - 1; sort >= 0; sort--) {
-                const token = stack[sort];
-                updates.push({ _id: token.document.id, sort });
-            }
+        if (game.user.isGM || stack.every((t) => t.document.canUserModify(game.user, "update"))) {
+            const updates = stack.map((t, i) => ({ _id: t.document.id, sort: stack.length - (1 + i) }));
             hovered.scene?.updateEmbeddedDocuments("Token", updates);
         } else {
-            // The user isn't able to update every token: perform the resorting locally
+            // The user isn't able to update every token: perform the cycling locally
             for (let sort = stack.length - 1; sort >= 0; sort--) {
                 const token = stack[sort];
                 token.document.sort = sort;

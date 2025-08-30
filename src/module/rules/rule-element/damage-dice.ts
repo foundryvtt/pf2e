@@ -53,6 +53,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
             }),
             override: new fields.ObjectField({ required: false, nullable: true, initial: undefined }),
             hideIfDisabled: new fields.BooleanField({ required: false }),
+            battleForm: new fields.BooleanField(),
         };
     }
 
@@ -68,6 +69,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
 
                 // If this rule element's predicate would have passed without all fields being resolvable, send out a
                 // warning.
+                if (this.battleForm && !this.predicate.includes("battle-form")) this.predicate.push("battle-form");
                 const testPassed =
                     this.predicate.length === 0 ||
                     this.resolveInjectedProperties(this.predicate).test([
@@ -236,6 +238,8 @@ type DamageDiceRuleSchema = RuleElementSchema & {
     override: fields.ObjectField<DamageDiceOverride, DamageDiceOverride, false, true, false>;
     /** Hide this dice change from breakdown tooltips if it is disabled */
     hideIfDisabled: fields.BooleanField<boolean, boolean, false, false, true>;
+    /** Whether this rule element is for use with battle forms */
+    battleForm: fields.BooleanField;
 };
 
 export { DamageDiceRuleElement };

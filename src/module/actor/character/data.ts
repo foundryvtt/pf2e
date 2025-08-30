@@ -62,6 +62,10 @@ type CharacterFlags = ActorFlagsPF2e & {
         showBasicUnarmed: boolean;
         /** The limit for each feat group that supports a custom limit. */
         featLimits: Record<string, number>;
+        /** Whether this actor is under a polymorph effect */
+        polymorphed?: boolean;
+        /** Whether this actor is under a battle form polymorph effect */
+        battleForm?: boolean;
     };
 };
 
@@ -482,12 +486,6 @@ interface CharacterAttributes extends Omit<CharacterAttributesSource, Attributes
      * allow for the shield health to be shown on an actor shield and token.
      */
     shield: HeldShieldData;
-
-    /** Whether this actor is under a polymorph effect */
-    polymorphed: boolean;
-
-    /** Whether this actor is under a battle form polymorph effect */
-    battleForm: boolean;
 }
 type AttributesSourceOmission = "immunities" | "weaknesses" | "resistances";
 

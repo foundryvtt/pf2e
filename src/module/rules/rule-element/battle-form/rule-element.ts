@@ -4,7 +4,6 @@ import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
-import type { ImageFilePath } from "@common/constants.d.mts";
 import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { Predicate } from "@system/predication.ts";
@@ -14,6 +13,7 @@ import * as R from "remeda";
 import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { CreatureSizeRuleElement } from "../creature-size.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
+import { ItemAlterationRuleElement } from "../item-alteration/rule-element.ts";
 import { ImmunityRuleElement } from "../iwr/immunity.ts";
 import { ResistanceRuleElement } from "../iwr/resistance.ts";
 import { WeaknessRuleElement } from "../iwr/weakness.ts";
@@ -22,6 +22,7 @@ import { StrikeRuleElement } from "../strike.ts";
 import { TempHPRuleElement } from "../temp-hp.ts";
 import { BattleFormRuleOverrideSchema, BattleFormRuleSchema } from "./schema.ts";
 import { BattleFormSource, BattleFormStrike, BattleFormStrikeQuery } from "./types.ts";
+import { BATTLE_FORM_DEFAULT_ICONS } from "./values.ts";
 import fields = foundry.data.fields;
 
 class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
@@ -118,49 +119,6 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         };
     }
 
-    static #defaultIcons: Record<string, ImageFilePath | undefined> = [
-        "antler",
-        "beak",
-        "body",
-        "bone-shard",
-        "branch",
-        "claw",
-        "cube-face",
-        "fangs",
-        "fire-mote",
-        "fist",
-        "foot",
-        "foreleg",
-        "gust",
-        "horn",
-        "jaws",
-        "lighting-lash",
-        "mandibles",
-        "piercing-hymn",
-        "pincer",
-        "pseudopod",
-        "rock",
-        "spikes",
-        "stinger",
-        "tail",
-        "talon",
-        "tendril",
-        "tentacle",
-        "tongue",
-        "trunk",
-        "tusk",
-        "vine",
-        "water-spout",
-        "wave",
-        "wing",
-    ].reduce((accumulated: Record<string, ImageFilePath | undefined>, slug) => {
-        const path =
-            slug === "fist"
-                ? "icons/skills/melee/unarmed-punch-fist.webp"
-                : (`systems/pf2e/icons/unarmed-attacks/${slug}.webp` as const);
-        return { ...accumulated, [slug]: path };
-    }, {});
-
     override async preCreate({ itemSource, ruleSource }: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (!this.test()) {
             ruleSource.ignored = true;
@@ -168,11 +126,10 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         }
 
         // Pre-clear other rule elements on this item as being compatible with the battle form
-        const rules = (itemSource.system?.rules ?? []) as RuleElementSource[];
+        const rules: (RuleElementSource & { battleForm?: boolean })[] = itemSource.system?.rules ?? [];
         for (const rule of rules) {
-            if (["DamageDice", "FlatModifier", "Note"].includes(String(rule.key))) {
-                const predicate = (rule.predicate ??= []);
-                if (Array.isArray(predicate)) predicate.push("battle-form");
+            if (["DamageDice", "FlatModifier", "ItemAlteration", "Note"].includes(String(rule.key))) {
+                rule.battleForm = true;
             }
         }
 
@@ -195,13 +152,13 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         if (this.ignored) return;
 
         const actor = this.actor;
-        const attributes = actor.attributes;
-        if (attributes.polymorphed) {
+        const flags = actor.flags;
+        if (flags.pf2e.polymorphed) {
             this.ignored = true;
             return;
         }
-        attributes.polymorphed = true;
-        attributes.battleForm = true;
+        flags.pf2e.polymorphed = true;
+        flags.pf2e.battleForm = true;
 
         this.#setRollOptions();
         this.#prepareSenses();
@@ -390,7 +347,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
             slug,
             predicate: strikeData.predicate ?? [],
-            img: strikeData.img ?? BattleFormRuleElement.#defaultIcons[slug] ?? this.item.img,
+            img: strikeData.img ?? BATTLE_FORM_DEFAULT_ICONS[slug] ?? this.item.img,
             category: strikeData.category,
             group: strikeData.group,
             baseItem: strikeData.baseType,
@@ -403,15 +360,20 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         }));
 
         // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true
-        const strikeRules = actor.rules.filter((r): r is StrikeRuleElement => r.key === "Strike");
+        const strikeAndItemAlterationRules = actor.rules.filter(
+            (r): r is ItemAlterationRuleElement | StrikeRuleElement => ["ItemAlteration", "Strike"].includes(r.key),
+        );
         if (this.ownUnarmed) {
+            const strikeRules = strikeAndItemAlterationRules.filter((r): r is StrikeRuleElement => r.key === "Strike");
             for (const rule of strikeRules) {
                 if (rule.category !== "unarmed") rule.ignored = true;
             }
             actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
         } else {
-            for (const rule of strikeRules) {
-                if (!rule.battleForm) rule.ignored = true;
+            for (const rule of strikeAndItemAlterationRules) {
+                if (!rule.battleForm && (rule.key === "Strike" || ("type" in rule && rule.type === "weapon"))) {
+                    rule.ignored = true;
+                }
             }
             for (const striking of Object.values(synthetics.striking).flat()) {
                 const predicate = (striking.predicate ??= new Predicate());
@@ -502,7 +464,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         if (this.ownUnarmed) return;
 
         for (const modifier of modifiers) {
-            if (modifier.predicate.some((s) => s instanceof Object && "not" in s && s.not === "battle-form")) {
+            if (modifier.predicate.some((s) => R.isPlainObject(s) && "not" in s && s.not === "battle-form")) {
                 continue;
             }
 

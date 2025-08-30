@@ -326,8 +326,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Attributes
         const attributes: Partial<CharacterAttributes> = this.system.attributes;
-        attributes.polymorphed = false;
-        attributes.battleForm = false;
         attributes.classDC = null;
         attributes.spellDC = null;
         attributes.classOrSpellDC = { rank: 0, value: 0 };

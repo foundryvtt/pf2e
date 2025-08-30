@@ -33,12 +33,13 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
                 ],
                 { required: true, nullable: false },
             ),
+            battleForm: new fields.BooleanField({ required: false }),
         };
     }
 
     override beforePrepareData(): void {
         if (this.ignored) return;
-
+        if (this.battleForm && !this.predicate.includes("battle-form")) this.predicate.push("battle-form");
         for (const selector of this.resolveInjectedProperties(this.selector)) {
             if (selector === "null") continue;
 
@@ -46,7 +47,6 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
             const text = this.resolveInjectedProperties(
                 String(this.resolveValue(this.text, "", { evaluate: false })),
             ).trim();
-
             if (!text) return this.failValidation("text field resolved empty");
 
             const note = new RollNotePF2e({
@@ -86,6 +86,8 @@ type RollNoteSchema = RuleElementSchema & {
     text: DataUnionField<
         StrictStringField<string, string, true, false, false> | ResolvableValueField<true, false, false>
     >;
+    /** Whether this rule element is for use with battle forms */
+    battleForm: fields.BooleanField<boolean, boolean, false, false, true>;
 };
 
 interface NoteRESource extends RuleElementSource {
