@@ -15,38 +15,6 @@ function upgradeWeaponTrait(trait: string): string {
     return trait;
 }
 
-/**
- * Add a trait to an array of traits--unless it matches an existing trait except by annotation. Replace the trait if
- * the new trait is an upgrade, or otherwise do nothing. Note: the array is mutated as part of this process.
- */
-function addOrUpgradeTrait<TTrait extends string>(traits: TTrait[], newTrait: TTrait): TTrait[] {
-    const annotatedTraitMatch = newTrait.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
-    if (!annotatedTraitMatch) {
-        if (!traits.includes(newTrait)) traits.push(newTrait);
-        return traits;
-    }
-    const traitBase = annotatedTraitMatch[1];
-    const upgradeAnnotation = annotatedTraitMatch[2];
-    const traitPattern = new RegExp(String.raw`${traitBase}-(\d*d?\d*)`);
-    const existingTrait = traits.find((t) => traitPattern.test(t));
-    const existingAnnotation = existingTrait?.match(traitPattern)?.at(1);
-    if (!(existingTrait && existingAnnotation)) {
-        if (!traits.includes(newTrait)) traits.push(newTrait);
-        return traits;
-    }
-    if (_expectedValueOf(upgradeAnnotation) > _expectedValueOf(existingAnnotation)) {
-        traits.splice(traits.indexOf(existingTrait), 1, newTrait);
-    }
-    return traits;
-}
-
-function _expectedValueOf(annotation: string): number {
-    const traitValueMatch = annotation.match(/(\d*)d(\d+)/);
-    return traitValueMatch
-        ? Number(traitValueMatch[1] || 1) * ((Number(traitValueMatch[2]) + 1) / 2)
-        : Number(annotation);
-}
-
 /** Apply a two-hand trait to a weapon's damage dice. */
 function processTwoHandTrait(weapon: WeaponPF2e): void {
     const traits = weapon.system.traits;
@@ -57,4 +25,4 @@ function processTwoHandTrait(weapon: WeaponPF2e): void {
     }
 }
 
-export { addOrUpgradeTrait, processTwoHandTrait, upgradeWeaponTrait };
+export { processTwoHandTrait, upgradeWeaponTrait };

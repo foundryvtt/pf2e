@@ -1169,7 +1169,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         {
             const grade = weapon.system.grade;
             const potencyRune = weapon.system.runes.potency;
-            const trackingMod = Number(weaponTraits.find((t) => /^tracking-[123]$/.test(t))?.slice(-1)) || 0;
+            const trackingMod = weapon.system.traits.config.tracking || 0;
 
             // Get all weapon potency synthetics. These don't work for sf2e unless the type is potency (ABP)
             const potencySynthetics = attackDomains

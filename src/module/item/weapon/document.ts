@@ -8,7 +8,7 @@ import type { ConsumablePF2e, MeleePF2e, ShieldPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import type { ItemSourcePF2e, MeleeSource, RawItemChatData } from "@item/base/data/index.ts";
-import { performLatePreparation } from "@item/helpers.ts";
+import { addOrUpgradeTrait, performLatePreparation } from "@item/helpers.ts";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
 import type { PhysicalItemConstructionContext } from "@item/physical/document.ts";
@@ -465,22 +465,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (magicTrait) traits.value.push(magicTrait);
 
         // Add traits from weapon grade
-        if (gradeData.tracking > 0) traits.value.push(`tracking-${gradeData.tracking as OneToThree}`);
-        // Ensure presence of only one tracking trait
-        const trackingPattern = /^tracking-\d$/;
-        const highestTracking =
-            traits.value
-                .filter((t) => trackingPattern.test(t))
-                .map((t) => Number(t.slice(-1)))
-                .sort((a, b) => b - a)
-                .at(0) ?? 0;
-        if (highestTracking > 0) {
-            for (const trait of [...traits.value]) {
-                if (trackingPattern.test(trait) && trait !== `tracking-${highestTracking}`) {
-                    traits.value.splice(traits.value.indexOf(trait), 1);
-                }
-            }
-        }
+        if (gradeData.tracking > 0) addOrUpgradeTrait(traits, `tracking-${gradeData.tracking as OneToThree}`);
+        const highestTracking = traits.config.tracking || 0;
 
         traits.value = R.unique(traits.value).sort();
         this.flags.pf2e.attackItemBonus = Math.max(runes.potency, highestTracking, this.system.bonus.value, 0);

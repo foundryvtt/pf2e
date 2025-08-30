@@ -3,10 +3,9 @@ import { ItemPF2e, WeaponPF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import type { ItemTrait } from "@item/base/types.ts";
 import { PersistentDamageValueSchema } from "@item/condition/data.ts";
-import { itemIsOfType } from "@item/helpers.ts";
+import { addOrUpgradeTrait, itemIsOfType, removeTrait } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
-import { addOrUpgradeTrait } from "@item/weapon/helpers.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 import { RARITIES, ZeroToFour, ZeroToThree } from "@module/data.ts";
@@ -994,12 +993,12 @@ const ITEM_ALTERATION_HANDLERS = {
             if (newValue instanceof validation.DataModelValidationFailure) {
                 throw newValue.asError();
             }
-            const traits: string[] = data.item.system.traits.value ?? [];
-            if (data.alteration.mode === "add") {
-                addOrUpgradeTrait(traits, newValue);
-            } else if (["subtract", "remove"].includes(data.alteration.mode)) {
-                const index = traits.indexOf(newValue);
-                if (index >= 0) traits.splice(index, 1);
+            if (data.item.system.traits.value) {
+                if (data.alteration.mode === "add") {
+                    addOrUpgradeTrait(data.item.system.traits, newValue);
+                } else if (["subtract", "remove"].includes(data.alteration.mode)) {
+                    removeTrait(data.item.system.traits, newValue);
+                }
             }
         },
     }),

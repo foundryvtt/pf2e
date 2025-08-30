@@ -15,8 +15,7 @@ import type {
 import type { ImageFilePath, RollMode } from "@common/constants.d.mts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { itemIsOfType, markdownToHTML } from "@item/helpers.ts";
-import { addOrUpgradeTrait } from "@item/weapon/helpers.ts";
+import { addOrUpgradeTrait, itemIsOfType, markdownToHTML } from "@item/helpers.ts";
 import type { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
@@ -32,6 +31,7 @@ import {
     htmlClosest,
     isObject,
     localizer,
+    objectHasKey,
     setHasElement,
     sluggify,
     tupleHasValue,
@@ -278,7 +278,19 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.system.description.addenda = [];
         this.system.description.override = null;
         this.system.description.initialized = false;
-        this.system.traits.value &&= this.system.traits.value.filter((t) => t in this.constructor.validTraits);
+
+        // If this item has traits, filter for valid traits and check for annotations
+        if (this.system.traits.value) {
+            this.system.traits.value = this.system.traits.value.filter((t) => t in this.constructor.validTraits);
+            this.system.traits.config = {};
+            for (const trait of this.system.traits.value) {
+                const annotatedTraitMatch = trait.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
+                if (annotatedTraitMatch) {
+                    const [_, traitBase, annotation] = annotatedTraitMatch;
+                    this.system.traits.config[traitBase] = Number(annotation);
+                }
+            }
+        }
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         const flags = this.flags;
@@ -871,9 +883,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (changed.system?.traits) {
             const traits: { value?: string[]; otherTags?: string[] } = changed.system.traits;
             if (traits.value && Array.isArray(traits.value)) {
-                const validTraits: string[] = [];
+                const validTraits: ItemTrait[] = [];
                 for (const trait of traits.value) {
-                    if (trait in this.constructor.validTraits) addOrUpgradeTrait(validTraits, trait);
+                    if (objectHasKey(this.constructor.validTraits, trait)) {
+                        addOrUpgradeTrait(validTraits, trait);
+                    }
                 }
                 traits.value = validTraits.sort();
             }
