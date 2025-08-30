@@ -320,7 +320,7 @@ export default class TextEditor {
      * Handle left-mouse clicks on an inline roll, dispatching the formula or displaying the tooltip
      * @param event The initiating click event
      */
-    protected static _onClickInlineRoll(event: MouseEvent): Promise<ChatMessage | undefined>;
+    protected static _onClickInlineRoll(event: PointerEvent): Promise<ChatMessage | undefined>;
 
     /**
      * Extract JSON data from a drag/drop event.

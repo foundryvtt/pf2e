@@ -63,7 +63,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     }
 
     /** Opens the spell preparation sheet, but only if its a prepared entry */
-    #openSpellPreparation(collectionId: string, event?: DragEvent | MouseEvent): void {
+    #openSpellPreparation(collectionId: string, event?: DragEvent | PointerEvent): void {
         const entry = this.actor.items.get(collectionId, { strict: true });
         if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
             const referenceEl = htmlClosest(event?.target, "[data-action=open-spell-preparation]");

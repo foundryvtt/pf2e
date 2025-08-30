@@ -47,7 +47,7 @@ class DicePF2e {
         rollMode = game.settings.get("core", "rollMode"),
         rollType = "",
     }: {
-        event: MouseEvent | JQuery.TriggeredEvent;
+        event: PointerEvent | JQuery.TriggeredEvent;
         item?: ItemPF2e<ActorPF2e> | null;
         parts: (string | number)[];
         actor?: ActorPF2e;

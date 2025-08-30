@@ -59,7 +59,7 @@ abstract class PickAThingPrompt<
         this.close();
     }
 
-    protected getSelection(event: MouseEvent): PickableThing<TThing> | null {
+    protected getSelection(event: PointerEvent): PickableThing<TThing> | null {
         const valueElement =
             htmlClosest(event.target, ".window-content")?.querySelector<HTMLElement>("tag") ??
             htmlClosest(event.target, "button[data-action=pick]") ??

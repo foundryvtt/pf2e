@@ -280,7 +280,7 @@ export default abstract class Application<TOptions extends ApplicationV1Options 
      * @param tabs      The TabsV2 controller
      * @param active    The new active tab name
      */
-    protected _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void;
+    protected _onChangeTab(event: PointerEvent, tabs: Tabs, active: string): void;
 
     /**
      * Handle changes to search filtering controllers which are bound to the Application

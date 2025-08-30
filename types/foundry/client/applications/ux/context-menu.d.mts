@@ -19,7 +19,7 @@ export type ContextMenuCallback = (target: HTMLElement) => unknown;
 export interface ContextMenuOptions {
     /**
      * Optionally override the triggering event which can spawn the menu. If the menu is using fixed positioning, this
-     * event must be a MouseEvent.
+     * event must be a PointerEvent.
      */
     eventName?: string;
 

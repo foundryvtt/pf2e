@@ -54,7 +54,7 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         await this.item.update({ [`${pathPrefix}.${id}`]: entry });
     }
 
-    async removeItem(event: MouseEvent): Promise<KitPF2e | null> {
+    async removeItem(event: PointerEvent): Promise<KitPF2e | null> {
         const target = htmlClosest(event.currentTarget ?? null, "li");
         const index = target?.dataset.index;
         if (!index) return this.item;

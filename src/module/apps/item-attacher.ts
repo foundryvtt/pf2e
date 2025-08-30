@@ -37,7 +37,7 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
         return game.i18n.format("PF2E.Item.Physical.Attach.PromptTitle", { item: this.item.name });
     }
 
-    protected override getSelection(event: MouseEvent): PickableThing<PhysicalItemPF2e> | null {
+    protected override getSelection(event: PointerEvent): PickableThing<PhysicalItemPF2e> | null {
         const selection = super.getSelection(event);
         if (selection) this.#attach(selection.value);
         return selection;

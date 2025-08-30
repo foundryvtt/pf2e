@@ -565,7 +565,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // Recheck for the presence of an encounter in case the button state has somehow fallen out of sync
         const rollInitiativeLink = htmlQuery(html, ".sidebar a[data-action=roll-initiative]");
-        rollInitiativeLink?.addEventListener("mouseenter", () => {
+        rollInitiativeLink?.addEventListener("pointerenter", () => {
             this.toggleInitiativeLink();
         });
 
@@ -1125,7 +1125,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         };
 
-        const adjustCraftQuantity = async (_: MouseEvent, anchor: HTMLElement) => {
+        const adjustCraftQuantity = async (_: PointerEvent, anchor: HTMLElement) => {
             const row = htmlClosest(anchor, "li");
             const quantityInput = htmlQuery<HTMLInputElement>(row, "input[data-craft-quantity]");
             const formula = this.#knownFormulas[row?.dataset.itemUuid ?? ""];

@@ -418,7 +418,7 @@ export default class Canvas<
      * Pan the canvas view when the cursor position gets close to the edge of the frame
      * @param event The originating mouse movement event
      */
-    _onDragCanvasPan(event: MouseEvent): void;
+    _onDragCanvasPan(event: PointerEvent): void;
 }
 
 export interface CanvasPerformanceSettings {

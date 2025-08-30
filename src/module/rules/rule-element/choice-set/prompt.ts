@@ -221,7 +221,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
 }
 
 interface ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | number | object> {
-    getSelection(event: MouseEvent): ChoiceSetChoice | null;
+    getSelection(event: PointerEvent): ChoiceSetChoice | null;
 }
 
 interface ChoiceSetPromptData extends PickAThingConstructorArgs<ItemPF2e<ActorPF2e>, string | number | object> {

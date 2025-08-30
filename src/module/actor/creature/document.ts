@@ -582,10 +582,9 @@ abstract class CreaturePF2e<
     }
 
     /**
-     * Roll a Recovery Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     * Roll a Dying Recovery Check
      */
-    async rollRecovery(event?: MouseEvent): Promise<Rolled<CheckRoll> | null> {
+    async rollRecovery(event?: PointerEvent): Promise<Rolled<CheckRoll> | null> {
         const { dying } = this.attributes;
 
         if (!dying?.value) return null;

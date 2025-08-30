@@ -595,7 +595,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
     protected activateClickListener(html: HTMLElement): SheetClickActionHandlers {
-        const itemFromDOM = async (event: MouseEvent): Promise<ItemPF2e<TActor>> => {
+        const itemFromDOM = async (event: PointerEvent): Promise<ItemPF2e<TActor>> => {
             const actor = this.actor;
             const itemUuid = htmlClosest(event.target, "[data-uuid]")?.dataset.uuid;
             const itemEl = htmlClosest(event.target, "[data-item-id]");
@@ -614,7 +614,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             return item as ItemPF2e<TActor>;
         };
 
-        const inventoryItemFromDOM = async (event: MouseEvent): Promise<PhysicalItemPF2e<TActor>> => {
+        const inventoryItemFromDOM = async (event: PointerEvent): Promise<PhysicalItemPF2e<TActor>> => {
             const item = await itemFromDOM(event);
             if (!item?.isOfType("physical")) {
                 throw ErrorPF2e(`Attempted to retrieve item, but it is not a physical item`);
@@ -780,7 +780,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             };
         }
 
-        const sheetHandler = async (event: MouseEvent): Promise<void> => {
+        const sheetHandler = async (event: PointerEvent): Promise<void> => {
             const actionTarget = htmlClosest(event.target, "a[data-action], button[data-action]");
             const handler = handlers[actionTarget?.dataset.action ?? ""];
             if (handler && actionTarget) {
@@ -924,7 +924,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         await this.actor.updateEmbeddedDocuments("Item", sortingUpdates);
     }
 
-    protected deleteItem<TItem extends ItemPF2e>(item: TItem, event?: MouseEvent): Promise<TItem | undefined> {
+    protected deleteItem<TItem extends ItemPF2e>(item: TItem, event?: PointerEvent): Promise<TItem | undefined> {
         return event?.ctrlKey ? item.delete() : item.deleteDialog();
     }
 
@@ -1267,7 +1267,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     /**
      * Update the aria-selected attribute on each tab after finishing the normal logic on tab change.
      */
-    protected override _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void {
+    protected override _onChangeTab(event: PointerEvent, tabs: Tabs, active: string): void {
         super._onChangeTab(event, tabs, active);
         for (const tab of htmlQueryAll(tabs._nav, "[data-tab][role=tab]:not([aria-selected=undefined])")) {
             tab.setAttribute("aria-selected", String(tab.dataset.tab === active));
@@ -1498,7 +1498,7 @@ interface ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.ActorShee
 
 type SheetClickActionHandlers = Record<
     string,
-    ((event: MouseEvent, actionTarget: HTMLElement) => Promise<void | unknown> | void | unknown) | undefined
+    ((event: PointerEvent, actionTarget: HTMLElement) => Promise<void | unknown> | void | unknown) | undefined
 >;
 
 export { ActorSheetPF2e, type SheetClickActionHandlers };

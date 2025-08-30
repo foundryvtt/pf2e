@@ -803,7 +803,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override async toMessage(
-        event?: Maybe<MouseEvent>,
+        event?: Maybe<PointerEvent>,
         { create = true, data, rollMode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
@@ -993,7 +993,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     async rollAttack(
         this: SpellPF2e<ActorPF2e>,
-        event: MouseEvent,
+        event: PointerEvent,
         attackNumber = 1,
         context: StatisticRollParameters = {},
     ): Promise<Rolled<CheckRoll> | null> {
@@ -1017,7 +1017,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     async rollDamage(
         this: SpellPF2e<ActorPF2e>,
-        event: MouseEvent,
+        event: PointerEvent,
         mapIncreases?: ZeroToTwo,
     ): Promise<Rolled<DamageRoll> | null> {
         const element = htmlClosest(event.target, "[data-cast-rank]");
@@ -1050,7 +1050,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     /** Roll counteract check */
-    async rollCounteract(event?: MouseEvent): Promise<Rolled<CheckRoll> | null> {
+    async rollCounteract(event?: PointerEvent): Promise<Rolled<CheckRoll> | null> {
         const actor: ActorPF2e | null = this.actor;
         if (!actor?.isOfType("character", "npc")) {
             return null;

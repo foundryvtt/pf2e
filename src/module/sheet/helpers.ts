@@ -126,7 +126,7 @@ async function getItemFromDragEvent(event: DragEvent): Promise<ItemPF2e | null> 
 /** Returns statistic dialog roll parameters based on held keys */
 type ParamsFromEvent = { skipDialog: boolean; rollMode?: RollMode | "roll" };
 
-function isRelevantEvent(event: Maybe<Event>): event is MouseEvent | TouchEvent | KeyboardEvent | WheelEvent {
+function isRelevantEvent(event: Maybe<Event>): event is PointerEvent | TouchEvent | KeyboardEvent | WheelEvent {
     return !!event && "ctrlKey" in event && "metaKey" in event && "shiftKey" in event;
 }
 
@@ -151,7 +151,7 @@ function eventToRollMode(event: Maybe<Event>): RollMode | "roll" {
 }
 
 /** Returns true if the control key is held down, handling mac */
-function isControlDown(event: MouseEvent | KeyboardEvent | TouchEvent): boolean {
+function isControlDown(event: PointerEvent | KeyboardEvent | TouchEvent | WheelEvent): boolean {
     return fh.interaction.KeyboardManager.CONTROL_KEY_STRING === "⌘" ? event.metaKey : event.ctrlKey;
 }
 
