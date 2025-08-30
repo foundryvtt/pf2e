@@ -309,6 +309,12 @@ class DataUnionField<
         // Attempt to determine which error is the most relevant based on simple heuristics
         if (Array.isArray(value)) {
             return errors.findLast((e) => e.field instanceof fields.ArrayField)?.result ?? lastError;
+        } else if (typeof value === "object") {
+            // This is not exhaustive, but it only needs to catch the most common cases
+            return (
+                errors.findLast((e) => e.field instanceof fields.ObjectField || e.field instanceof fields.SchemaField)
+                    ?.result ?? lastError
+            );
         } else {
             return lastError;
         }

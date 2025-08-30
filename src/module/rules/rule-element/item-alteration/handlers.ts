@@ -1,7 +1,6 @@
 import type { DataFieldOptions } from "@common/data/_types.d.mts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
-import type { ItemTrait } from "@item/base/types.ts";
 import { PersistentDamageValueSchema } from "@item/condition/data.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
@@ -14,11 +13,17 @@ import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageDiceFaces } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
-import { PredicateField, SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
+import {
+    DataUnionField,
+    PredicateField,
+    SlugField,
+    StrictNumberField,
+    StrictStringField,
+} from "@system/schema-data-fields.ts";
 import { objectHasKey, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
-import { RuleElementPF2e } from "../index.ts";
+import { ResolvableValueField, RuleElementPF2e } from "../index.ts";
 import { adjustCreatureShieldData, getNewInterval, itemHasCounterBadge } from "./helper.ts";
 import fields = foundry.data.fields;
 import validation = foundry.data.validation;
@@ -49,7 +54,11 @@ class ItemAlterationHandler<TSchema extends AlterationSchema> extends fields.Sch
      * A type-safe affirmation of full validity of an alteration _and_ its applicable to a particular item
      * Errors will bubble all the way up to the originating parent rule element
      */
-    isValid(data: { item: ItemPF2e | ItemSourcePF2e; alteration: MaybeAlterationData }): data is {
+    isValid(data: {
+        item: ItemPF2e | ItemSourcePF2e;
+        rule: RuleElementPF2e;
+        alteration: MaybeAlterationData;
+    }): data is {
         item: ItemOrSource<fields.SourceFromSchema<TSchema>["itemType"]>;
         rule: RuleElementPF2e;
         alteration: fields.SourceFromSchema<TSchema>;
@@ -966,29 +975,43 @@ const ITEM_ALTERATION_HANDLERS = {
                 required: true,
                 choices: ["add", "remove", "subtract"],
             }),
-            value: new fields.StringField<ItemTrait, ItemTrait, true, false, false>({
-                required: true,
-                nullable: false,
-                initial: undefined,
-            }),
+            value: new DataUnionField<TraitsValueField, true, false>(
+                [
+                    new fields.SchemaField({
+                        trait: new fields.StringField({ required: true, nullable: false }),
+                        annotation: new ResolvableValueField({ required: true, nullable: false }),
+                    }) satisfies TraitsValueConfigField,
+                    new StrictStringField<string, string, true, false>({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                ],
+                { required: true, nullable: false },
+            ),
         },
-
-        validateForItem: (item, alteration): validation.DataModelValidationFailure | void => {
-            const documentClasses: Record<string, typeof ItemPF2e> = CONFIG.PF2E.Item.documentClasses;
-            const validTraits = documentClasses[item.type].validTraits;
-            const value = alteration.value;
-            if (typeof value !== "string" || !(value in validTraits)) {
+        validateForItem: (_item, alteration): validation.DataModelValidationFailure | void => {
+            if (alteration.mode !== "add" && typeof alteration.value === "object") {
                 return new validation.DataModelValidationFailure({
-                    message: `${alteration.value} is not a valid choice`,
+                    message: `cannot be an object when mode is ${alteration.mode}`,
                 });
             }
         },
         handle: function (data: AlterationApplicationData) {
             if (!this.isValid(data)) return;
+            const resolvedTrait = R.isPlainObject(data.alteration.value)
+                ? `${data.alteration.value.trait}-${data.rule.resolveValue(data.alteration.value.annotation)}`
+                : data.alteration.value;
+            const documentClasses: Record<string, typeof ItemPF2e> = CONFIG.PF2E.Item.documentClasses;
+            const validTraits = documentClasses[data.item.type].validTraits;
+            if (!objectHasKey(validTraits, resolvedTrait)) {
+                throw new validation.DataModelValidationError(`${resolvedTrait} is not a valid choice`);
+            }
+
             const newValue = AELikeRuleElement.getNewValue(
                 data.alteration.mode,
                 data.item.system.traits.value,
-                data.alteration.value,
+                resolvedTrait,
             );
             if (!newValue) return;
             if (newValue instanceof validation.DataModelValidationFailure) {
@@ -1041,5 +1064,11 @@ type DescriptionElementField = fields.SchemaField<{
     predicate: PredicateField<false>;
 }>;
 
+type TraitsValueField = TraitsValueConfigField | StrictStringField<string, string, true, false>;
+
+type TraitsValueConfigField = fields.SchemaField<{
+    trait: fields.StringField<string, string, true, false>;
+    annotation: ResolvableValueField<true, false>;
+}>;
 export { ITEM_ALTERATION_HANDLERS, ItemAlterationHandler };
 export type { AlterationApplicationData, AlterationFieldOptions, AlterationSchema };
