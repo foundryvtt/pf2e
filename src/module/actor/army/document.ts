@@ -79,14 +79,6 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.rollOptions.all["self:under-rout-threshold"] = this.underRoutThreshold;
     }
 
-    /** Run rule elements */
-    override prepareEmbeddedDocuments(): void {
-        super.prepareEmbeddedDocuments();
-        for (const rule of this.rules) {
-            rule.onApplyActiveEffects?.();
-        }
-    }
-
     override prepareDerivedData(): void {
         super.prepareDerivedData();
         this.prepareSynthetics();
