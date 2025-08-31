@@ -2,7 +2,6 @@ import { ActorPF2e } from "@actor/base.ts";
 import type { CraftingAbility } from "@actor/character/crafting/ability.ts";
 import { CharacterPF2e } from "@actor/character/document.ts";
 import { ResourceData } from "@actor/creature/index.ts";
-import type { ApplicationConfiguration, ApplicationRenderOptions } from "@client/applications/_types.d.mts";
 import type ApplicationV2 from "@client/applications/api/application.d.mts";
 import type { ItemUUID } from "@common/documents/_module.d.mts";
 import { AbilityItemPF2e, FeatPF2e, PhysicalItemPF2e } from "@item";
@@ -13,7 +12,7 @@ import MiniSearch from "minisearch";
 import * as R from "remeda";
 import Root from "./app.svelte";
 
-interface FormulaPickerConfiguration extends ApplicationConfiguration {
+interface FormulaPickerConfiguration extends fa.ApplicationConfiguration {
     actor: CharacterPF2e;
     ability: CraftingAbility;
     item?: FeatPF2e | AbilityItemPF2e;
@@ -23,7 +22,7 @@ interface FormulaPickerConfiguration extends ApplicationConfiguration {
 /** Creates a formula picker dialog that resolves with the selected item */
 class FormulaPicker extends SvelteApplicationMixin<
     AbstractConstructorOf<ApplicationV2> & { DEFAULT_OPTIONS: DeepPartial<FormulaPickerConfiguration> }
->(foundry.applications.api.ApplicationV2) {
+>(fa.api.ApplicationV2) {
     static override DEFAULT_OPTIONS = {
         id: "{id}-formula-picker",
         position: {
@@ -63,8 +62,11 @@ class FormulaPicker extends SvelteApplicationMixin<
     }
 
     /** Overriden to re-render when the actor re-renders */
-    override _onFirstRender(context: object, options: ApplicationRenderOptions): void {
-        super._onFirstRender(context, options);
+    protected override async _onFirstRender(
+        context: fa.ApplicationRenderContext,
+        options: fa.ApplicationRenderOptions,
+    ): Promise<void> {
+        await super._onFirstRender(context, options);
         this.options.actor.apps[this.id] = this;
     }
 
