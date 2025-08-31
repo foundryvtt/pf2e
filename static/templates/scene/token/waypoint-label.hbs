@@ -10,6 +10,9 @@
     {{#if distance.delta}}
         <span class="delta-measurement">({{distance.delta}})</span>
     {{/if}}
+    {{#if pf2e.actionGlyph}}
+        <span class="pf2e-action-glyph">{{pf2e.actionGlyph}}{{#if (gt pf2e.actionCost 3)}} +{{/if}}</span>
+    {{/if}}
     {{#if (and elevation (not elevation.hidden))}}
         <i class="icon {{elevation.icon}}" inert></i>
         <span class="total-elevation">{{elevation.total}} {{units}}</span>
