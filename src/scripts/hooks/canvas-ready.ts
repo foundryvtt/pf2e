@@ -1,3 +1,4 @@
+import { TokenRulerPF2e } from "@module/canvas/token/ruler.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
 
 /** This runs after game data has been requested and loaded from the servers, so entities exist */
@@ -46,6 +47,8 @@ export const CanvasReady = {
             for (const message of game.messages.contents.slice((-1 * CONFIG.ChatMessage.batchSize) / 2)) {
                 toggleClearTemplatesButton(message);
             }
+
+            TokenRulerPF2e.observeHudContainer();
         });
     },
 };
