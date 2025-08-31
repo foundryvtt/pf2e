@@ -513,6 +513,14 @@ export interface TokenPlannedMovement {
 
 export interface TokenRulerWaypointData {
     /**
+     * The config of the movement action
+     */
+    actionConfig: TokenMovementActionConfig;
+    /**
+     * The ID of movement, or null if planned movement.
+     */
+    movementId: string | null;
+    /**
      * The index of the waypoint, which is equal to the number of
      * explicit waypoints from the first to this waypoint.
      */
@@ -560,7 +568,7 @@ export interface TokenRulerWaypointData {
     next: TokenRulerWaypoint | null;
 }
 
-export interface TokenRulerWaypoint extends TokenMeasuredMovementWaypoint, TokenRulerWaypointData {}
+export interface TokenRulerWaypoint extends Omit<TokenMeasuredMovementWaypoint, "movementId">, TokenRulerWaypointData {}
 
 export interface TokenDragContext {
     token: Token;

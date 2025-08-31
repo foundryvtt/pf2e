@@ -34,6 +34,7 @@ import {
 import { TokenLayerPF2e } from "@module/canvas/layer/token.ts";
 import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
 import { TerrainDataPF2e } from "@module/canvas/token/movement/terrain-data.ts";
+import { TokenRulerPF2e } from "@module/canvas/token/ruler.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActorsPF2e } from "@module/collection/actors.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
@@ -100,6 +101,7 @@ export const Load = {
         CONFIG.Token.movement.TerrainData = TerrainDataPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.Token.prototypeSheetClass = PrototypeTokenConfigPF2e;
+        CONFIG.Token.rulerClass = TokenRulerPF2e;
 
         CONFIG.User.documentClass = UserPF2e;
 

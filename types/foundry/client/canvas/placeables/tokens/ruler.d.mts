@@ -1,4 +1,4 @@
-import { TokenRulerData, TokenRulerWaypoint } from "@client/_module.mjs";
+import { TokenMovementActionConfig, TokenRulerData, TokenRulerWaypoint } from "@client/_module.mjs";
 import { GridOffset3D } from "@common/grid/_types.mjs";
 import { Token } from "../_module.mjs";
 import BaseTokenRuler from "./base-ruler.mjs";
@@ -6,8 +6,8 @@ import BaseTokenRuler from "./base-ruler.mjs";
 /**
  * The default implementation of the Token ruler.
  */
-export default class TokenRuler extends BaseTokenRuler {
-    constructor(token: Token);
+export default class TokenRuler<TObject extends Token> extends BaseTokenRuler<TObject> {
+    constructor(token: TObject);
 
     /**
      * A handlebars template used to render each waypoint label.
@@ -76,4 +76,13 @@ export default class TokenRuler extends BaseTokenRuler {
         waypoint: DeepReadonly<Omit<TokenRulerWaypoint, "index" | "center" | "size" | "ray">>,
         offset: DeepReadonly<GridOffset3D>,
     ): { color?: PIXI.ColorSource; alpha?: number; texture?: PIXI.Texture; matrix?: PIXI.Matrix | null };
+}
+
+export interface WaypointRenderContext {
+    action: TokenMovementActionConfig;
+    cssClass: string;
+    secret: boolean;
+    units: string;
+    uiScale: number;
+    position: { x: number; y: number };
 }

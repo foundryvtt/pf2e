@@ -448,7 +448,10 @@ export default interface Config<
     Token: {
         documentClass: ConstructorOf<TTokenDocument>;
         objectClass: ConstructorOf<NonNullable<TTokenDocument["object"]>>;
+        layerClass: ConstructorOf<layers.TokenLayer>;
         prototypeSheetClass: ConstructorOf<PrototypeTokenConfig>;
+        hudClass: ConstructorOf<applications.hud.TokenHUD>;
+        rulerClass: ConstructorOf<placeables.tokens.TokenRuler<NonNullable<TTokenDocument["object"]>>>;
         movement: {
             TerrainData: typeof foundry.data.TerrainData;
             /** The movement cost aggregator. */
