@@ -544,10 +544,7 @@ export interface TokenRulerWaypointData {
     /**
      * The size of the Token in pixels at this waypoint.
      */
-    size: {
-        width: number;
-        height: number;
-    };
+    size: { width: number; height: number };
     /**
      * The ray from the center point of previous to the center
      * point of this waypoint, or null if there is no previous

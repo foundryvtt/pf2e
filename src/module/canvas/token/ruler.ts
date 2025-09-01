@@ -89,7 +89,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     ): WaypointLabelRenderContext | void {
         const context: WaypointRenderContextPF2e | void = super._getWaypointLabelContext(waypoint, state);
         if (!context || !canvas.grid.isSquare) return;
-        const speed = this.#getSpeed();
+        const speed = this.#getSpeed(waypoint.action);
         if (!speed) return context;
         if (waypoint.measurement.cost % speed === 0) {
             const actionsSpent = waypoint.measurement.cost / speed;
@@ -109,8 +109,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     }
 
     /** Retrieve the actor's speed of a certain movement type, if any. */
-    #getSpeed(rulerAction: string | null = this.token.document.movementAction): number | null {
-        if (!rulerAction) return null;
+    #getSpeed(rulerAction: string): number | null {
         const actor = this.token.actor;
         if (!actor?.isOfType("creature")) return null;
         const speeds = actor.system.attributes.speed;
@@ -128,7 +127,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     #logGlyphMarkedPoint(waypoint: DeepReadonly<Omit<TokenRulerWaypoint, "index" | "center" | "size" | "ray">>): void {
         const path = this.#path;
         if (!path || !waypoint.intermediate || !this.isVisible || !canvas.grid.isSquare) return;
-        const speed = this.#getSpeed();
+        const speed = this.#getSpeed(waypoint.action);
         if (!speed) return;
         const measurement = waypoint.measurement;
         const remainder = measurement.cost % speed;
