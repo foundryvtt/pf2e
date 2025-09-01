@@ -28,7 +28,16 @@ import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
-import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, DeityPF2e, FeatPF2e, HeritagePF2e } from "@item";
+import type {
+    AncestryPF2e,
+    BackgroundPF2e,
+    ClassPF2e,
+    ConsumablePF2e,
+    DeityPF2e,
+    FeatPF2e,
+    HeritagePF2e,
+    ItemPF2e,
+} from "@item";
 import { WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
@@ -167,7 +176,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** Retrieve lore skills, class statistics, and tradition-specific spellcasting */
     override getStatistic(slug: GuaranteedGetStatisticSlug): Statistic<this>;
-    override getStatistic(slug: string): Statistic<this> | null;
+    override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic<this> | null;
     override getStatistic(slug: string): Statistic | null {
         switch (slug) {
             case "class":

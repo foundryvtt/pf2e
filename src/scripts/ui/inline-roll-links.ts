@@ -206,7 +206,10 @@ export class InlineRollLinks {
             : extraRollOptions.filter((t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits);
 
         // Pre-emptively grab statistics to visibly error if the statistic is missing from all of them
-        const actorStatistics = actors.map((actor) => ({ actor, statistic: actor.getStatistic(pf2Check) }));
+        const actorStatistics = actors.map((actor) => {
+            const relatedItem = itemFromDoc?.actor?.uuid === actor.uuid ? itemFromDoc : null;
+            return { actor, statistic: actor.getStatistic(pf2Check, { item: relatedItem }) };
+        });
         if (!actorStatistics.some(({ statistic }) => !!statistic)) {
             ui.notifications.error(
                 game.i18n.format("PF2E.ErrorMessage.MissingStatisticSelected", { statistic: pf2Check }),

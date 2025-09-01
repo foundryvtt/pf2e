@@ -387,7 +387,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Get (almost) any statistic by slug: handling expands in `ActorPF2e` subclasses */
-    getStatistic(slug: string): Statistic<this> | null;
+    getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic<this> | null;
     getStatistic(slug: string): Statistic | null {
         if (["armor", "ac"].includes(slug)) {
             return this.armorClass?.parent ?? null;
