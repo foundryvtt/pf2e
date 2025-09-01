@@ -1,6 +1,25 @@
 #measurement {
     --counter-scale: 1;
     .waypoint-label {
+        .action-glyph {
+            color: var(--color-text-primary);
+            font-size: var(--font-size-18);
+        }
+    }
+    .action-marker {
+        color: var(--color-dark-1);
+        font-size: var(--font-size-32);
+        left: var(--position-x);
+        position: absolute;
+        text-shadow: 0 0 6px var(--color-light-1);
+        top: var(--position-y);
+    }
+    .waypoint-label,
+    .action-marker {
         transform: scale(calc(var(--ui-scale) / var(--counter-scale))) translate(var(--transformX), var(--transformY));
+        .overage {
+            color: red;
+            font-weight: bold;
+        }
     }
 }

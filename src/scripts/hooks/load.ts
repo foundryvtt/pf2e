@@ -102,6 +102,10 @@ export const Load = {
         CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.Token.prototypeSheetClass = PrototypeTokenConfigPF2e;
         CONFIG.Token.rulerClass = TokenRulerPF2e;
+        const movementActions = CONFIG.Token.movement.actions;
+        for (const key of ["crawl", "climb", "jump"]) {
+            delete movementActions[key]?.getCostFunction;
+        }
 
         CONFIG.User.documentClass = UserPF2e;
 

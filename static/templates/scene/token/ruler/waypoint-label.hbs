@@ -10,12 +10,19 @@
     {{#if distance.delta}}
         <span class="delta-measurement">({{distance.delta}})</span>
     {{/if}}
+
     {{#if (and elevation (not elevation.hidden))}}
         <i class="icon {{elevation.icon}}" inert></i>
         <span class="total-elevation">{{elevation.total}} {{units}}</span>
         {{#if elevation.delta}}
             <span class="delta-elevation">({{elevation.delta}})</span>
         {{/if}}
+    {{/if}}
+    {{#if actionCost}}
+    <span class="action-glyph">
+        {{~actionCost.actions~}}
+        {{~#if actionCost.overage}}<span class="overage">!</span>{{/if~}}
+    </span>
     {{/if}}
     {{#if secret}}
         <i class="icon fa-solid fa-eye-slash" inert></i>

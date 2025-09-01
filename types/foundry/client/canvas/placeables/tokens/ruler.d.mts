@@ -36,7 +36,7 @@ export default class TokenRuler<TObject extends Token> extends BaseTokenRuler<TO
 
     override destroy(): void;
 
-    override refresh(ruleData: DeepReadonly<TokenRulerData>): void;
+    override refresh(rulerData: DeepReadonly<TokenRulerData>): void;
 
     /**
      * Get the context used to render a ruler waypoint label.
@@ -44,7 +44,7 @@ export default class TokenRuler<TObject extends Token> extends BaseTokenRuler<TO
     protected _getWaypointLabelContext(
         waypoint: DeepReadonly<TokenRulerWaypoint>,
         state: object,
-    ): WaypointRenderContext | void;
+    ): WaypointLabelRenderContext | void;
 
     /**
      * Get the style of the waypoint at the given waypoint.
@@ -81,7 +81,7 @@ export default class TokenRuler<TObject extends Token> extends BaseTokenRuler<TO
     ): { color?: PIXI.ColorSource; alpha?: number; texture?: PIXI.Texture; matrix?: PIXI.Matrix | null };
 }
 
-export interface WaypointRenderContext {
+export interface WaypointLabelRenderContext {
     action: TokenMovementActionConfig;
     cssClass: string;
     secret: boolean;

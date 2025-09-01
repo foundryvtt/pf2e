@@ -196,6 +196,14 @@ type TokenSchema = {
             texture: fields.FilePathField<ImageFilePath>;
         }>;
     }>;
+    turnMarker: fields.SchemaField<{
+        mode: fields.NumberField<number, number, true, true, true>;
+        animation: fields.StringField<string, string, true, true, true>;
+        src: fields.FilePathField<ImageFilePath | VideoFilePath>;
+        disposition: fields.BooleanField;
+    }>;
+    movementAction: fields.StringField<string, string, true, true, true>;
+
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
 };
