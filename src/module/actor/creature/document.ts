@@ -91,28 +91,17 @@ abstract class CreaturePF2e<
      */
     override getReach({ action = "interact", weapon = null }: GetReachParameters = {}): number {
         const baseReach = this.attributes.reach.base;
-        const weaponReach = weapon?.isOfType("melee") ? weapon.reach : null;
 
         if (action === "interact" || this.type === "familiar") {
-            return baseReach;
-        } else if (typeof weaponReach === "number") {
-            return weaponReach;
+            return this.attributes.reach.base;
+        } else if (weapon?.isOfType("melee", "weapon")) {
+            return weapon.reach ?? baseReach;
         } else {
-            const attacks: { item: ItemPF2e<ActorPF2e>; ready: boolean }[] = weapon
-                ? [{ item: weapon, ready: true }]
-                : (this.system.actions ?? []);
-            const readyAttacks = attacks.filter((a) => a.ready);
-            const traitsFromItems = readyAttacks.map((a) => new Set(a.item.system.traits?.value ?? []));
-            if (traitsFromItems.length === 0) return baseReach;
-
-            const reaches = traitsFromItems.map((traits): number => {
-                if (setHasElement(traits, "reach")) return baseReach + 5;
-
-                const reachNPattern = /^reach-\d{1,3}$/;
-                return Number([...traits].find((t) => reachNPattern.test(t))?.replace("reach-", "")) || baseReach;
-            });
-
-            return Math.max(...reaches);
+            const readiedItems = this.system.actions?.filter((a) => a.ready).map((a) => a.item) ?? [];
+            return Math.max(
+                baseReach,
+                ...readiedItems.map((i) => i.reach).filter((r): r is number => typeof r === "number"),
+            );
         }
     }
 

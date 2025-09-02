@@ -22,22 +22,24 @@ import {
 } from "@system/schema-data-fields.ts";
 import { objectHasKey, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
+import { AELikeDataPrepPhase, AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
 import { ResolvableValueField, RuleElement } from "../index.ts";
 import { adjustCreatureShieldData, getNewInterval, itemHasCounterBadge } from "./helper.ts";
 import fields = foundry.data.fields;
 import validation = foundry.data.validation;
 
-/** A `SchemaField` reappropriated for validation of specific item alterations */
+/**
+ * A `SchemaField` reappropriated for validation of specific item alterations.
+ * Each modifiable ItemAlteration property is a different instance of this class, which is delegated to by ItemAlteration.
+ */
 class ItemAlterationHandler<TSchema extends AlterationSchema> extends fields.SchemaField<TSchema> {
     #validateForItem?: (
         item: ItemPF2e | ItemSourcePF2e,
         alteration: MaybeAlterationData,
     ) => validation.DataModelValidationFailure | void;
 
-    operableOnInstances: boolean;
-
-    operableOnSource: boolean;
+    /** Valid AELike prep phases for this alteration. By default its "applyAEs" only */
+    supportedPhases: ItemAlterationPrepPhase[];
 
     /** A registered handler function for the item alteration. The validation should be performed inside */
     handle: (data: AlterationApplicationData) => void;
@@ -46,8 +48,7 @@ class ItemAlterationHandler<TSchema extends AlterationSchema> extends fields.Sch
         super(options.fields, R.omit(options, ["fields"]));
         if (options.validateForItem) this.#validateForItem = options.validateForItem;
         this.handle = options.handle.bind(this);
-        this.operableOnInstances = options.operableOnInstances ?? true;
-        this.operableOnSource = options.operableOnSource ?? true;
+        this.supportedPhases = options.supportedPhases ?? ["applyAEs"];
     }
 
     /**
@@ -73,14 +74,6 @@ class ItemAlterationHandler<TSchema extends AlterationSchema> extends fields.Sch
         if (item.type !== alteration.itemType) return false;
         const forItemFailure = this.#validateForItem?.(item, alteration);
         if (forItemFailure) throw new validation.DataModelValidationError(forItemFailure);
-
-        if (!this.operableOnInstances && item instanceof foundry.abstract.Document) {
-            throw new validation.DataModelValidationError("may only be applied to source data");
-        }
-
-        if (!this.operableOnSource && !(item instanceof foundry.abstract.Document)) {
-            throw new validation.DataModelValidationError("may only be applied to existing items");
-        }
 
         return true;
     }
@@ -668,6 +661,7 @@ const ITEM_ALTERATION_HANDLERS = {
                 initial: undefined,
             } as const),
         },
+        supportedPhases: ["afterDerived"],
         validateForItem(item): validation.DataModelValidationFailure | void {
             if (item.system.slug !== "persistent-damage") {
                 return new validation.DataModelValidationFailure({
@@ -1042,6 +1036,7 @@ const ITEM_ALTERATION_HANDLERS = {
                 { required: true, nullable: false },
             ),
         },
+        supportedPhases: ["applyAEs", "beforeDerived"],
         validateForItem: (_item, alteration): validation.DataModelValidationFailure | void => {
             if (alteration.mode !== "add" && typeof alteration.value === "object") {
                 return new validation.DataModelValidationFailure({
@@ -1051,29 +1046,26 @@ const ITEM_ALTERATION_HANDLERS = {
         },
         handle: function (data: AlterationApplicationData) {
             if (!this.isValid(data)) return;
-            const resolvedTrait = R.isPlainObject(data.alteration.value)
-                ? `${data.alteration.value.trait}-${data.rule.resolveValue(data.alteration.value.annotation)}`
-                : data.alteration.value;
+            const { item, rule, alteration } = data;
+            const resolvedTrait = R.isPlainObject(alteration.value)
+                ? `${alteration.value.trait}-${rule.resolveValue(alteration.value.annotation, null, { resolvables: { targetItem: item } })}`
+                : alteration.value;
             const documentClasses: Record<string, typeof ItemPF2e> = CONFIG.PF2E.Item.documentClasses;
-            const validTraits = documentClasses[data.item.type].validTraits;
+            const validTraits = documentClasses[item.type].validTraits;
             if (!objectHasKey(validTraits, resolvedTrait)) {
                 throw new validation.DataModelValidationError(`${resolvedTrait} is not a valid choice`);
             }
 
-            const newValue = AELikeRuleElement.getNewValue(
-                data.alteration.mode,
-                data.item.system.traits.value,
-                resolvedTrait,
-            );
+            const newValue = AELikeRuleElement.getNewValue(alteration.mode, item.system.traits.value, resolvedTrait);
             if (!newValue) return;
             if (newValue instanceof validation.DataModelValidationFailure) {
                 throw newValue.asError();
             }
-            if (data.item.system.traits.value) {
-                if (data.alteration.mode === "add") {
-                    addOrUpgradeTrait(data.item.system.traits, newValue);
-                } else if (["subtract", "remove"].includes(data.alteration.mode)) {
-                    removeTrait(data.item.system.traits, newValue);
+            if (item.system.traits.value) {
+                if (alteration.mode === "add") {
+                    addOrUpgradeTrait(item.system.traits, newValue);
+                } else if (["subtract", "remove"].includes(alteration.mode)) {
+                    removeTrait(item.system.traits, newValue);
                 }
             }
         },
@@ -1088,10 +1080,9 @@ interface AlterationFieldOptions<
         item: ItemPF2e | ItemSourcePF2e,
         alteration: MaybeAlterationData,
     ) => validation.DataModelValidationFailure | void;
-    /** Whether this alteration can be used with an `ItemPF2e` instance */
-    operableOnInstances?: boolean;
-    /** Whether this alteration can be used with item source data */
-    operableOnSource?: boolean;
+    /** Valid AELike prep phases for this alteration. By default its "applyAEs" only */
+    supportedPhases?: ItemAlterationPrepPhase[];
+    /** Handler function that applies the alteration to a given item or source */
     handle: (this: ItemAlterationHandler<TSchema>, data: AlterationApplicationData) => void;
 }
 
@@ -1122,5 +1113,8 @@ type TraitsValueConfigField = fields.SchemaField<{
     trait: fields.StringField<string, string, true, false>;
     annotation: ResolvableValueField<true, false>;
 }>;
+
+type ItemAlterationPrepPhase = Exclude<AELikeDataPrepPhase, "beforeRoll">;
+
 export { ITEM_ALTERATION_HANDLERS, ItemAlterationHandler };
-export type { AlterationApplicationData, AlterationFieldOptions, AlterationSchema };
+export type { AlterationApplicationData, AlterationFieldOptions, AlterationSchema, ItemAlterationPrepPhase };

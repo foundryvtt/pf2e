@@ -54,7 +54,9 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElement, ItemAlterat
             alteration: {
                 mode: this.mode,
                 itemType: item.type,
-                value: (this.value = this.parent.resolveValue(this.value, fallbackValue)),
+                value: (this.value = this.parent.resolveValue(this.value, fallbackValue, {
+                    resolvables: { targetItem: item },
+                })),
             },
         });
     }

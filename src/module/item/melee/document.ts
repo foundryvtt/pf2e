@@ -49,6 +49,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return Number(this.system.bonus.value) || 0;
     }
 
+    /** The reach of this attack if melee */
     get reach(): number | null {
         if (this.isRanged) return null;
         const reachTrait = this.system.traits.value.find((t) => /^reach-\d+$/.test(t));
