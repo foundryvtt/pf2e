@@ -396,7 +396,8 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             if (!thisSource) return null;
             thisSource.value = value;
             if (selection) thisSource.selection = selection;
-            return !!(await this.item.update({ "system.rules": ruleSources }));
+            const updated = await this.item.update({ "system.rules": ruleSources });
+            return updated ? value : null;
         }
     }
 
