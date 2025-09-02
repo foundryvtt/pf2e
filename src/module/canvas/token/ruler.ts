@@ -126,7 +126,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     /** If the provided waypoint should have an action glyph, track it for later rendering. */
     #logGlyphMarkedPoint(waypoint: DeepReadonly<Omit<TokenRulerWaypoint, "index" | "center" | "size" | "ray">>): void {
         const path = this.#path;
-        if (!path || !waypoint.intermediate || !this.isVisible || !canvas.grid.isSquare) return;
+        if (!path || !waypoint.intermediate || waypoint.hidden || waypoint.cost === 0) return;
         const speed = this.#getSpeed(waypoint.action);
         if (!speed) return;
         const measurement = waypoint.measurement;
