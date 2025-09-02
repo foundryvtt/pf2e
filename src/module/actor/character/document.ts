@@ -177,7 +177,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /** Retrieve lore skills, class statistics, and tradition-specific spellcasting */
     override getStatistic(slug: GuaranteedGetStatisticSlug): Statistic<this>;
     override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic<this> | null;
-    override getStatistic(slug: string): Statistic | null {
+    override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic | null {
         switch (slug) {
             case "class":
             case "class-dc":
@@ -202,7 +202,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 return this.spellcasting.base;
         }
 
-        return this.classDCs[slug] ?? super.getStatistic(slug);
+        return this.classDCs[slug] ?? super.getStatistic(slug, options);
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
