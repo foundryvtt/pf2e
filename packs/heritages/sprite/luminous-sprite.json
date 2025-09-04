@@ -21,25 +21,63 @@
             {
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Sprite.LuminousSprite.Light",
-                "option": "luminous",
+                "option": "luminous-sprite-lit",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Color.Blue",
+                        "value": "#0000FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Cyan",
+                        "value": "#43D6D6"
+                    },
+                    {
+                        "label": "PF2E.Color.Green",
+                        "value": "#00FF00"
+                    },
+                    {
+                        "label": "PF2E.Color.Indigo",
+                        "value": "#4B0082"
+                    },
+                    {
+                        "label": "PF2E.Color.Magenta",
+                        "value": "#FF00FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Orange",
+                        "value": "#FFA400"
+                    },
+                    {
+                        "label": "PF2E.Color.Red",
+                        "value": "#FF0000"
+                    },
+                    {
+                        "label": "PF2E.Color.Violet",
+                        "value": "#9400D3"
+                    },
+                    {
+                        "label": "PF2E.Color.White",
+                        "value": "#AAAAAA"
+                    },
+                    {
+                        "label": "PF2E.Color.Yellow",
+                        "value": "#FAFA00"
+                    }
+                ],
                 "toggleable": true
             },
             {
                 "key": "TokenLight",
                 "predicate": [
-                    "luminous"
+                    "luminous-sprite-lit"
                 ],
                 "value": {
-                    "animation": {
-                        "intensity": 4,
-                        "speed": 1,
-                        "type": "torch"
-                    },
+                    "alpha": 0.1,
+                    "animation": {},
                     "bright": 20,
-                    "color": "#9b7337",
+                    "color": "{item|flags.pf2e.rulesSelections.luminousSpriteLit}",
                     "dim": 40,
-                    "luminosity": 0.4,
-                    "shadows": 0.2
+                    "luminosity": 0.15
                 }
             }
         ],
