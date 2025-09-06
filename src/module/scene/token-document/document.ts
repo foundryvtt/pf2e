@@ -12,6 +12,7 @@ import type {
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
 import type { ImageFilePath, TokenDisplayMode, VideoFilePath } from "@common/constants.d.mts";
+import type { GridMeasurePathResult } from "@common/grid/_types.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
@@ -102,6 +103,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         return bounds;
+    }
+
+    get isTiny(): boolean {
+        return this.height < 1 || this.width < 1;
     }
 
     /** The pixel-coordinate pair constituting this token's center */
@@ -209,6 +214,21 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         return attribute;
+    }
+
+    /** Recalculate measurements of tiny-token movement to avoid upstream's partial square calculations. */
+    override measureMovementPath(
+        waypoints: fd.TokenMeasureMovementPathWaypoint[],
+        options?: { cost?: fd.TokenMovementCostFunction },
+    ): GridMeasurePathResult {
+        if (!canvas.grid.isSquare || !this.isTiny) return super.measureMovementPath(waypoints, options);
+        const normalized = waypoints.map((p) => ({
+            ...p,
+            ...canvas.grid.getTopLeftPoint({ x: p.x ?? 0, y: p.y ?? 0 }),
+            width: 1,
+            height: 1,
+        }));
+        return super.measureMovementPath(normalized, options);
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {

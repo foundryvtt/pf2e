@@ -33,10 +33,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** A text plate showing the distance from a controlled token to this one */
     readonly #distanceText = new fc.containers.PreciseText();
 
-    get isTiny(): boolean {
-        return this.document.height < 1 || this.document.width < 1;
-    }
-
     /** This token's shape at its canvas position */
     get localShape(): TokenShape {
         switch (this.shape.type) {
@@ -60,7 +56,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** The grid offsets representing this token's shape */
     get footprint(): GridOffset2D[] {
-        const shape = this.isTiny ? this.mechanicalBounds : this.localShape;
+        const shape = this.document.isTiny ? this.mechanicalBounds : this.localShape;
         const seen = new Set<number>();
         const offsets: GridOffset2D[] = [];
         const [i0, j0, i1, j1] = canvas.grid.getOffsetRange(this.mechanicalBounds);
@@ -135,7 +131,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Bounds used for mechanics, such as flanking and drawing auras */
     get mechanicalBounds(): PIXI.Rectangle {
         const bounds = this.bounds;
-        if (this.isTiny) {
+        if (this.document.isTiny) {
             const position = canvas.grid.getTopLeftPoint(bounds);
             return new PIXI.Rectangle(
                 position.x,

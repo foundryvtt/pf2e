@@ -1,6 +1,8 @@
 import type { TokenRulerData, TokenRulerWaypoint } from "@client/_types.d.mts";
 import type { WaypointLabelRenderContext } from "@client/canvas/placeables/tokens/ruler.d.mts";
+import { Rectangle } from "@common/_types.mjs";
 import { ErrorPF2e } from "@util";
+import * as R from "remeda";
 import type { TokenPF2e } from "./index.ts";
 
 export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<TokenPF2e> {
@@ -27,7 +29,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     /** The value of the parent class's own #path property */
     #path: PIXI.Graphics | null = null;
 
-    readonly #glyphMarkedPoints: { x: number; y: number; actionsSpent: number }[] = [];
+    readonly #glyphMarkedPoints: (Rectangle & { actionsSpent: number })[] = [];
 
     #labelsObserver: MutationObserver | null = null;
 
@@ -88,11 +90,11 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         state: object,
     ): WaypointLabelRenderContext | void {
         const context: WaypointRenderContextPF2e | void = super._getWaypointLabelContext(waypoint, state);
-        if (!context || !canvas.grid.isSquare) return;
+        if (!context || !canvas.grid.isSquare) return context;
         const speed = this.#getSpeed(waypoint.action);
         if (!speed) return context;
-        if (waypoint.measurement.cost % speed === 0) {
-            const actionsSpent = waypoint.measurement.cost / speed;
+        if (waypoint.cost > 0 && waypoint.cost % speed === 0) {
+            const actionsSpent = waypoint.cost / speed;
             const cost = Math.clamp(actionsSpent, 1, 3);
             context.actionCost = { actions: cost, overage: actionsSpent - cost > 0 };
         }
@@ -132,15 +134,16 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         const measurement = waypoint.measurement;
         const remainder = measurement.cost % speed;
         const markedPoints = this.#glyphMarkedPoints;
+        const tokenRect = R.pick(waypoint, ["x", "y", "width", "height"]);
         if (remainder === 0) {
-            markedPoints.push({ x: waypoint.x, y: waypoint.y, actionsSpent: measurement.cost / speed });
+            markedPoints.push(Object.assign(tokenRect, { actionsSpent: measurement.cost / speed }));
         } else if (remainder === speed - 5 && measurement.diagonals > 0 && measurement.diagonals % 2 === 1) {
             // The movement cost of reaching this square wouldn't increasing the action cost, but reaching the next
             // would increase the cost and move an additional 5 feet due to diagonals.
             const totalCost = measurement.cost + 5;
             const nextCost = waypoint.next?.measurement.cost ?? NaN;
             const actionsSpent = totalCost / speed;
-            if (nextCost % speed !== 0) markedPoints.push({ x: waypoint.x, y: waypoint.y, actionsSpent });
+            if (nextCost % speed !== 0) markedPoints.push(Object.assign(tokenRect, { actionsSpent }));
         }
     }
 
@@ -149,16 +152,15 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         const labelsEl = this.#labelsEl;
         labelsEl.dataset.glyphMarked = "";
         const templatePath = TokenRulerPF2e.ACTION_MARKER_TEMPLATE;
-        const tokenBounds = this.token.mechanicalBounds;
         const uiScale = canvas.dimensions.uiScale;
         for (const point of this.#glyphMarkedPoints) {
-            const { x, y, actionsSpent } = point;
-            const cost = Math.clamp(actionsSpent, 1, 3);
-            const overage = actionsSpent - cost > 0;
-            const offset = { x: 4 * (cost + 3 * Number(overage) - 1), y: 4 };
+            const center = canvas.grid.getCenterPoint(point);
+            const cost = Math.clamp(point.actionsSpent, 1, 3);
+            const overage = point.actionsSpent - cost > 0;
+            const offset = { x: 4 * (cost + 3 * Number(overage) - 1) + 14, y: 20 };
             const position = {
-                x: Math.round(x + tokenBounds.width / 2 - (16 + offset.x) * uiScale),
-                y: Math.round(y + tokenBounds.height / 2 - (16 + offset.y) * uiScale),
+                x: Math.round(center.x + point.width / 2 - offset.x * uiScale),
+                y: Math.round(center.y + point.height / 2 - offset.y * uiScale),
             };
             const html = await fa.handlebars.renderTemplate(templatePath, { cost, overage, position });
             labelsEl.insertAdjacentHTML("beforeend", html);
