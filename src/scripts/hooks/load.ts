@@ -28,6 +28,7 @@ import {
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
     RegionPF2e,
+    RulerPF2e,
     TemplateLayerPF2e,
     TokenPF2e,
 } from "@module/canvas/index.ts";
@@ -139,6 +140,7 @@ export const Load = {
         CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
         CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
         CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
+        CONFIG.Canvas.rulerClass = RulerPF2e;
         CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
 
         CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll, DamageInstance);

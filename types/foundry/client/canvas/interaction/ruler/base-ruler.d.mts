@@ -138,14 +138,14 @@ export default abstract class BaseRuler extends RenderFlagsObject {
      * Handle the beginning of a new Ruler measurement workflow.
      * @param event The drag start event
      */
-    protected _onDragStart(event: DragEvent): void;
+    protected _onDragStart(event: PIXI.FederatedPointerEvent): void;
 
     /**
      * Handle the end of the Ruler measurement workflow
      * @param event The drag cancel event
      * @returns If false, the cancellation of the drag workflow is prevented
      */
-    protected _onDragCancel(event: DragEvent): false | void;
+    protected _onDragCancel(event: PIXI.FederatedPointerEvent): false | void;
 
     /**
      * Handle left-click events on the Canvas during Ruler measurement.
@@ -175,5 +175,5 @@ export default abstract class BaseRuler extends RenderFlagsObject {
      * Adjust the elevation of Ruler waypoints by scrolling up/down.
      * @param event The mousewheel event
      */
-    protected _onMouseWheel(event: WheelEvent): void;
+    protected _onMouseWheel(event: PIXI.FederatedWheelEvent): void;
 }

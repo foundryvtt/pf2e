@@ -24,6 +24,7 @@ export type CanvasPF2e = foundry.canvas.Canvas<
 >;
 
 export * from "./helpers.ts";
+export { RulerPF2e } from "./ruler.ts";
 export {
     AmbientLightPF2e,
     EffectsCanvasGroupPF2e,

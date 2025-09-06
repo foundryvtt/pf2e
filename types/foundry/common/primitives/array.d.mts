@@ -38,6 +38,14 @@ declare global {
         findSplice(find: (element: T) => boolean, replace?: T): T | null;
     }
 
+    interface ReadonlyArray<T> {
+        /**
+         * Test equality of the values of this array against the values of some other Array
+         * @param other Some other array against which to test equality
+         */
+        equals(other: T[]): boolean;
+    }
+
     interface ArrayConstructor {
         /**
          * Create and initialize an array of length n with integers from 0 to n-1
