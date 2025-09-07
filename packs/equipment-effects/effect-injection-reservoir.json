@@ -1,0 +1,63 @@
+{
+    "_id": "e7daHsBH36bDwmMu",
+    "img": "icons/commodities/materials/liquid-droplet-blue.webp",
+    "name": "Effect: Injection Reservoir",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Injection Reservoir]</p>\n<p>The multiple attack penalty with the weapon is one greater than usual.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "actorFlag": true,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:melee"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "injectionReservoirWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "subtract",
+                "predicate": [
+                    "item:id:{actor|flags.pf2e.injectionReservoirWeapon}"
+                ],
+                "selector": "strike-attack-roll",
+                "slug": "multiple-attack-penalty",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
