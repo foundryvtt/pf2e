@@ -1,7 +1,7 @@
 import { TokenRulerPF2e } from "@module/canvas/token/ruler.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
+import { createHTMLElement } from "@util";
 
-/** This runs after game data has been requested and loaded from the servers, so entities exist */
 export const CanvasReady = {
     listen: (): void => {
         Hooks.once("canvasReady", () => {
@@ -48,7 +48,20 @@ export const CanvasReady = {
                 toggleClearTemplatesButton(message);
             }
 
+            // Observe changes to the HeadsUpDisplayContainer's element attributes
             TokenRulerPF2e.observeHudContainer();
+
+            // Create a distance label to show above hovered tokens
+            document.getElementById("measurement")?.append(
+                createHTMLElement("div", {
+                    id: "token-hover-distance",
+                    classes: ["waypoint-label"],
+                    children: [
+                        fa.fields.createFontAwesomeIcon("ruler"),
+                        createHTMLElement("span", { classes: ["total-measurement"] }),
+                    ],
+                }),
+            );
         });
     },
 };

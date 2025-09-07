@@ -1,9 +1,12 @@
 #measurement {
     --counter-scale: 1;
     .waypoint-label {
+        i:first-of-type {
+            font-size: var(--font-size-16);
+        }
         .action-glyph {
             color: var(--color-text-primary);
-            font-size: var(--font-size-24);
+            font-size: 1.5em;
         }
     }
     .action-marker {
@@ -27,4 +30,8 @@
             font-weight: bold;
         }
     }
+}
+
+#token-hover-distance {
+    --transformY: calc(-62px * var(--ui-scale));
 }

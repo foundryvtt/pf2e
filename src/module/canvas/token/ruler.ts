@@ -154,13 +154,13 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         const templatePath = TokenRulerPF2e.ACTION_MARKER_TEMPLATE;
         const uiScale = canvas.dimensions.uiScale;
         for (const point of this.#glyphMarkedPoints) {
-            const center = canvas.grid.getCenterPoint(point);
+            const center = { x: (point.width * canvas.grid.size) / 2, y: (point.height * canvas.grid.size) / 2 };
             const cost = Math.clamp(point.actionsSpent, 1, 3);
             const overage = point.actionsSpent - cost > 0;
             const offset = { x: 4 * (cost + 3 * Number(overage) - 1) + 14, y: 20 };
             const position = {
-                x: Math.round(center.x + point.width / 2 - offset.x * uiScale),
-                y: Math.round(center.y + point.height / 2 - offset.y * uiScale),
+                x: Math.round(point.x + center.x - offset.x * uiScale),
+                y: Math.round(point.y + center.y - offset.y * uiScale),
             };
             const html = await fa.handlebars.renderTemplate(templatePath, { cost, overage, position });
             labelsEl.insertAdjacentHTML("beforeend", html);

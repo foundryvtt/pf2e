@@ -5,6 +5,7 @@ import type { GridOffset2D } from "@common/grid/_types.d.mts";
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
+import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 import type { CanvasPF2e, TokenLayerPF2e } from "../index.ts";
 import { measureDistanceCuboid, squareAtPoint } from "../index.ts";
@@ -19,8 +20,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     static override RENDER_FLAGS = (() => {
-        const flags = Object.assign(super.RENDER_FLAGS, { refreshDistanceText: {} });
-        flags.refreshState.propagate.push("refreshDistanceText");
+        const flags = Object.assign(super.RENDER_FLAGS, { refreshDistanceLabel: {} });
+        flags.refreshState.propagate.push("refreshDistanceLabel");
         return flags;
     })();
 
@@ -29,9 +30,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
     readonly flankingHighlight = new FlankingHighlightRenderer(this);
-
-    /** A text plate showing the distance from a controlled token to this one */
-    readonly #distanceText = new fc.containers.PreciseText();
 
     /** This token's shape at its canvas position */
     get localShape(): TokenShape {
@@ -285,7 +283,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     protected override _applyRenderFlags(flags: Record<string, boolean>): void {
         super._applyRenderFlags(flags);
         if (flags.refreshPosition) this.auras.refreshPositions();
-        if (flags.refreshDistanceText) this.#refreshDistanceText();
+        if (flags.refreshDistanceLabel) this.#refreshDistanceLabel();
     }
 
     /** Draw auras and flanking highlight lines if certain conditions are met */
@@ -297,32 +295,26 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     protected override _refreshState(): void {
         super._refreshState();
-        this.#distanceText.visible = this.#canSeeDistance;
+        const distanceLabelEl = document.getElementById("token-hover-distance");
+        if (distanceLabelEl) distanceLabelEl.hidden = !this.#canSeeDistance;
     }
 
-    #refreshDistanceText(): void {
-        if (!this.#canSeeDistance) return;
+    #refreshDistanceLabel(): void {
+        const labelEl = document.getElementById("token-hover-distance");
+        if (!this.#canSeeDistance || !labelEl) {
+            if (labelEl) labelEl.hidden = true;
+            return;
+        }
         const controlledToken = canvas.tokens.controlled[0] ?? game.user.character?.getActiveTokens()[0];
-        if (!controlledToken) return;
-        const distanceText = this.#distanceText;
-        const unit = canvas.scene?.grid.units ?? "";
-        const formatArgs = { distance: controlledToken.distanceTo(this), unit };
-        distanceText.text = game.i18n.format("PF2E.Token.Distance", formatArgs).trim();
-        const nameplate = this.nameplate;
-        const nameOffset = nameplate.visible ? nameplate.position.y + nameplate.height - 2 : nameplate.position.y;
-        this.#distanceText.position.set(nameplate.position.x, nameOffset);
-    }
-
-    /** Set the basic, unchanging visual parameters of the distance `PreciseText`. */
-    #drawDistanceText(): void {
-        const uiScale = canvas.dimensions.uiScale;
-        const text = this.#distanceText;
-        text.anchor.set(0.5, 0);
-        text.scale.set(uiScale, uiScale);
-        text.style = this._getTextStyle();
-        text.style.fontSize = 20;
-        text.style.fill = "#f0f0f0";
-        this.addChild(text);
+        if (!controlledToken) throw ErrorPF2e("Unexpected failure to retrieve controlled token");
+        const totalEl = labelEl.querySelector(".total-measurement");
+        if (!totalEl) throw ErrorPF2e("Unexpected failure to retrieve measurement HTML element");
+        const label = [controlledToken.distanceTo(this), canvas.scene?.grid.units ?? ""].join(" ").trim();
+        totalEl.textContent = label;
+        labelEl.dataset.tokenId = this.document.id;
+        labelEl.style.setProperty("--position-y", `${this.y}px`);
+        labelEl.style.setProperty("--position-x", `${this.center.x}px`);
+        labelEl.hidden = false;
     }
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
@@ -558,11 +550,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.flankingHighlight.destroy();
     }
 
-    protected override async _draw(options?: object): Promise<void> {
-        await super._draw(options);
-        this.#drawDistanceText();
-    }
-
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
@@ -602,12 +589,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         event: PIXI.FederatedPointerEvent,
         options?: { hoverOutOthers?: boolean },
     ): boolean | void {
-        this.renderFlags.set({ refreshDistanceText: true });
+        this.renderFlags.set({ refreshDistanceLabel: true });
         return super._onHoverIn(event, options);
     }
 
     protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean | void {
-        this.renderFlags.set({ refreshDistanceText: true });
+        this.renderFlags.set({ refreshDistanceLabel: true });
         return super._onHoverOut(event);
     }
 
