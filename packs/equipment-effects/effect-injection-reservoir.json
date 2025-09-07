@@ -23,7 +23,6 @@
         },
         "rules": [
             {
-                "actorFlag": true,
                 "choices": {
                     "ownedItems": true,
                     "predicate": [
@@ -33,17 +32,14 @@
                         "weapon"
                     ]
                 },
-                "flag": "injectionReservoirWeapon",
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "AdjustModifier",
                 "mode": "subtract",
-                "predicate": [
-                    "item:id:{actor|flags.pf2e.injectionReservoirWeapon}"
-                ],
-                "selector": "strike-attack-roll",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
                 "slug": "multiple-attack-penalty",
                 "value": 1
             }
