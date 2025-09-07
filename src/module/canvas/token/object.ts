@@ -144,8 +144,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Can the current user see the distance of this token from a controlled token? */
     get #canSeeDistance(): boolean {
-        if (!this.visible || this.isPreview || this.document.isSecret || this.controlled) return false;
-        return this.hover && (canvas.tokens.controlled.length === 1 || !!game.user.character?.getActiveTokens().length);
+        if (!this.visible || this.isPreview || this.document.isSecret || this.controlled || this.animation) {
+            return false;
+        }
+        return this.hover && (this.layer.controlled.length === 1 || !!game.user.character?.getActiveTokens().length);
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -222,7 +224,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         // Finds all possible allies that are allowed to flank, to test their positioning later
         // A linked actor can flank with another token of itself (ex: a Thaumaturge with a mirror implement)
-        const flankingBuddies = canvas.tokens.placeables.filter(
+        const flankingBuddies = this.layer.placeables.filter(
             (t) =>
                 (t.actor?.isAllyOf(thisActor) ||
                     (this.document.isLinked && t.actor === thisActor && t.id !== this.id)) &&
@@ -274,9 +276,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     buddiesFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): TokenPF2e[] {
         if (!this.canFlank(flankee, context)) return [];
         const ignoreFlankable = !!context.ignoreFlankable;
-        return canvas.tokens.placeables
-            .filter((t) => t !== this && t.canFlank(flankee, { ignoreFlankable }))
-            .filter((b) => this.onOppositeSides(this, b, flankee));
+        return this.layer.placeables.filter(
+            (t) => t !== this && t.canFlank(flankee, { ignoreFlankable }) && this.onOppositeSides(this, t, flankee),
+        );
     }
 
     /** Reposition aura textures after this token has moved. */
@@ -299,22 +301,29 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (distanceLabelEl) distanceLabelEl.hidden = !this.#canSeeDistance;
     }
 
+    /**
+     * Render a label showing the distance between a controlled token and a hovered (this) token. Also draw a line
+     * between the two.
+     */
     #refreshDistanceLabel(): void {
+        this.layer.clearDistanceLine();
         const labelEl = document.getElementById("token-hover-distance");
         if (!this.#canSeeDistance || !labelEl) {
             if (labelEl) labelEl.hidden = true;
             return;
         }
-        const controlledToken = canvas.tokens.controlled[0] ?? game.user.character?.getActiveTokens()[0];
-        if (!controlledToken) throw ErrorPF2e("Unexpected failure to retrieve controlled token");
+        const controlledToken = this.layer.controlled[0] ?? game.user.character?.getActiveTokens()[0];
+        if (!controlledToken || controlledToken.isPreview || controlledToken.animation) return;
         const totalEl = labelEl.querySelector(".total-measurement");
         if (!totalEl) throw ErrorPF2e("Unexpected failure to retrieve measurement HTML element");
         const label = [controlledToken.distanceTo(this), canvas.scene?.grid.units ?? ""].join(" ").trim();
         totalEl.textContent = label;
+        const center = this.center;
         labelEl.dataset.tokenId = this.document.id;
         labelEl.style.setProperty("--position-y", `${this.y}px`);
-        labelEl.style.setProperty("--position-x", `${this.center.x}px`);
+        labelEl.style.setProperty("--position-x", `${center.x}px`);
         labelEl.hidden = false;
+        this.layer.renderDistanceLine(controlledToken, this);
     }
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
@@ -608,9 +617,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             return super._onClickLeft2(event);
         }
         const isInReach = R.unique(
-            [canvas.tokens.controlled, game.user.character?.getActiveTokens(true, false) ?? []].flat(),
+            [this.layer.controlled, game.user.character?.getActiveTokens(true, false) ?? []].flat(),
         ).some(
-            (t) =>
+            (t: TokenPF2e) =>
                 t.actor?.isOwner &&
                 t.actor.isOfType("creature", "party") &&
                 t.distanceTo(this) <= t.actor.system.attributes.reach.manipulate,

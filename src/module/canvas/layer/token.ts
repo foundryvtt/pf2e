@@ -1,7 +1,11 @@
 import type { PlaceablesLayerPointerEvent } from "@client/canvas/layers/base/placeables-layer.d.mts";
+import { Point } from "@common/_types.mjs";
 import type { TokenPF2e } from "../index.ts";
 
 class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TObject> {
+    /** A line drawn between two tokens when checking distance */
+    #hoverDistanceLine = new PIXI.Graphics();
+
     /** Prevent redirection of event to `Ruler` when ctrl key is pressed. */
     protected override _onClickLeft(event: PlaceablesLayerPointerEvent<TObject>): void {
         // @todo fixme
@@ -53,6 +57,70 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
         }
 
         return true;
+    }
+
+    clearDistanceLine(): void {
+        const line = this._rulerPaths.removeChild(this.#hoverDistanceLine) ?? this.#hoverDistanceLine;
+        line.clear();
+    }
+
+    renderDistanceLine(from: TObject, to: TObject): void {
+        const centers = { from: from.center, to: to.center };
+        const footprints = {
+            from: from.footprint
+                .map((o) => canvas.grid.getCenterPoint(o))
+                .sort(
+                    (a, b) =>
+                        Math.sqrt(Math.pow(a.x - centers.to.x, 2) + Math.pow(a.y - centers.to.y, 2)) -
+                        Math.sqrt(Math.pow(b.x - centers.to.x, 2) + Math.pow(b.y - centers.to.y, 2)),
+                ),
+            to: to.footprint
+                .map((o) => canvas.grid.getCenterPoint(o))
+                .sort(
+                    (a, b) =>
+                        Math.sqrt(Math.pow(a.x - centers.from.x, 2) + Math.pow(a.y - centers.from.y, 2)) -
+                        Math.sqrt(Math.pow(b.x - centers.from.x, 2) + Math.pow(b.y - centers.from.y, 2)),
+                ),
+        };
+        const closest = { from: footprints.from[0], to: footprints.to[0] };
+        const line = this.#hoverDistanceLine;
+        const colors = { outline: 0, fill: 0x999999 };
+        line.moveTo(closest.from.x, closest.from.y)
+            .lineStyle({
+                width: 6 * canvas.dimensions.uiScale,
+                color: colors.outline,
+                join: PIXI.LINE_JOIN.ROUND,
+                cap: PIXI.LINE_CAP.ROUND,
+            })
+            .lineTo(closest.to.x, closest.to.y)
+            .moveTo(closest.from.x, closest.from.y)
+            .lineStyle({
+                width: 4 * canvas.dimensions.uiScale,
+                color: colors.fill,
+                join: PIXI.LINE_JOIN.ROUND,
+                cap: PIXI.LINE_CAP.ROUND,
+            })
+            .lineTo(closest.to.x, closest.to.y);
+        this.#drawCap(line, closest.from, colors);
+        this.#drawCap(line, closest.to, colors);
+        this._rulerPaths.addChild(line);
+    }
+
+    #drawCap(line: PIXI.Graphics, p: Point, colors: { outline: number; fill: number }): PIXI.Graphics {
+        const radius = 6;
+        return line
+            .beginFill(colors.outline)
+            .drawCircle(p.x, p.y, radius + 1)
+            .endFill()
+            .beginFill(colors.fill)
+            .drawCircle(p.x, p.y, radius)
+            .endFill()
+            .lineStyle(0);
+    }
+
+    protected override _tearDown(options?: object): Promise<void> {
+        this.#hoverDistanceLine.destroy();
+        return super._tearDown(options);
     }
 }
 
