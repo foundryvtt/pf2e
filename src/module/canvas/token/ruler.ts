@@ -93,10 +93,11 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         if (!context || !canvas.grid.isSquare) return context;
         const speed = this.#getSpeed(waypoint.action);
         if (!speed) return context;
-        if (waypoint.cost > 0 && waypoint.cost % speed === 0) {
-            const actionsSpent = waypoint.cost / speed;
-            const cost = Math.clamp(actionsSpent, 1, 3);
-            context.actionCost = { actions: cost, overage: actionsSpent - cost > 0 };
+        const accruedCost = waypoint.measurement.cost;
+        if (accruedCost > 0 && accruedCost % speed === 0) {
+            const actionsSpent = accruedCost / speed;
+            const clampedCost = Math.clamp(actionsSpent, 1, 3);
+            context.actionCost = { actions: clampedCost, overage: actionsSpent - accruedCost > 0 };
         }
         return context;
     }
