@@ -8,8 +8,6 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
 
     /** Prevent redirection of event to `Ruler` when ctrl key is pressed. */
     protected override _onClickLeft(event: PlaceablesLayerPointerEvent<TObject>): void {
-        // @todo fixme
-        // Following a z-cycle (see below), token click listeners sometimes aren't available until mouse movement.
         const localPosition = event.getLocalPosition(this);
         if (
             !canvas.controls.ruler?.active &&
@@ -109,13 +107,13 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
     #drawCap(line: PIXI.Graphics, p: Point, colors: { outline: number; fill: number }): PIXI.Graphics {
         const radius = 6;
         return line
+            .lineStyle(0)
             .beginFill(colors.outline)
             .drawCircle(p.x, p.y, radius + 1)
             .endFill()
             .beginFill(colors.fill)
             .drawCircle(p.x, p.y, radius)
-            .endFill()
-            .lineStyle(0);
+            .endFill();
     }
 
     protected override _tearDown(options?: object): Promise<void> {

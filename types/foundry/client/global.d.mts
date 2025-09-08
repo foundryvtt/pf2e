@@ -1,4 +1,5 @@
 import * as constants from "@common/constants.mjs";
+import * as PixiGraphicsSmooth from "@pixi/graphics-smooth";
 import * as PixiParticles from "@pixi/particle-emitter";
 import "gsap";
 import "handlebars";
@@ -11,6 +12,7 @@ import * as globalFoundry from "./client.mjs";
 
 declare module "pixi.js" {
     export import LegacyGraphics = PixiJS.Graphics;
+    export import smooth = PixiGraphicsSmooth;
     export import particles = PixiParticles;
 }
 
