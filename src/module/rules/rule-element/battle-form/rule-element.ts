@@ -47,71 +47,49 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: false, initial: undefined }),
-            overrides: new fields.SchemaField(
-                {
-                    traits: new fields.ArrayField(new fields.StringField()),
-                    armorClass: new fields.SchemaField(
-                        {
-                            modifier: new ResolvableValueField({
-                                required: false,
-                                nullable: false,
-                                initial: 0,
-                            }),
-                            ignoreCheckPenalty: new fields.BooleanField({
-                                required: false,
-                                nullable: false,
-                                initial: true,
-                            }),
-                            ignoreSpeedPenalty: new fields.BooleanField({
-                                required: false,
-                                nullable: false,
-                                initial: true,
-                            }),
-                            ownIfHigher: new fields.BooleanField({
-                                required: false,
-                                nullable: false,
-                                initial: false,
-                            }),
-                        },
-                        { required: false },
-                    ),
-                    tempHP: new ResolvableValueField({ required: false, nullable: true, initial: null }),
-                    senses: new RecordField(
-                        new fields.StringField({
-                            required: true,
+            overrides: new fields.SchemaField({
+                traits: new fields.ArrayField(new fields.StringField()),
+                armorClass: new fields.SchemaField({
+                    modifier: new ResolvableValueField({ required: false, nullable: false, initial: 0 }),
+                    ignoreCheckPenalty: new fields.BooleanField({ initial: true }),
+                    ignoreSpeedPenalty: new fields.BooleanField({ initial: true }),
+                    ownIfHigher: new fields.BooleanField(),
+                }),
+                tempHP: new ResolvableValueField({ required: false, nullable: true, initial: null }),
+                senses: new RecordField(
+                    new fields.StringField({
+                        required: true,
+                        blank: false,
+                        choices: () => ({
+                            ...CONFIG.PF2E.senses,
+                            ...R.mapKeys(CONFIG.PF2E.senses, (k) => sluggify(k, { camel: "dromedary" })),
+                        }),
+                    }),
+                    new fields.SchemaField({
+                        acuity: new fields.StringField({
+                            choices: () => CONFIG.PF2E.senseAcuities,
+                            required: false,
                             blank: false,
-                            choices: () => ({
-                                ...CONFIG.PF2E.senses,
-                                ...R.mapKeys(CONFIG.PF2E.senses, (k) => sluggify(k, { camel: "dromedary" })),
-                            }),
+                            initial: undefined,
                         }),
-                        new fields.SchemaField({
-                            acuity: new fields.StringField({
-                                choices: () => CONFIG.PF2E.senseAcuities,
-                                required: false,
-                                blank: false,
-                                initial: undefined,
-                            }),
-                            range: new fields.NumberField({
-                                required: false,
-                                nullable: true,
-                                positive: true,
-                                integer: true,
-                                initial: undefined,
-                            }),
+                        range: new fields.NumberField({
+                            required: false,
+                            nullable: true,
+                            positive: true,
+                            integer: true,
+                            initial: undefined,
                         }),
-                        { required: false, initial: () => ({}) },
-                    ),
-                    size: new fields.StringField({ required: false, blank: false, initial: undefined }),
-                    speeds: new fields.ObjectField({ required: false, initial: () => ({}) }),
-                    skills: new fields.ObjectField({ required: false, initial: () => ({}) }),
-                    strikes: new fields.ObjectField({ required: false, initial: () => ({}) }),
-                    immunities: new fields.ArrayField(new fields.ObjectField()),
-                    weaknesses: new fields.ArrayField(new fields.ObjectField()),
-                    resistances: new fields.ArrayField(new fields.ObjectField()),
-                },
-                { required: true, nullable: false },
-            ),
+                    }),
+                    { required: false, initial: () => ({}) },
+                ),
+                size: new fields.StringField({ required: false, blank: false, initial: undefined }),
+                speeds: new fields.ObjectField({ required: false, initial: () => ({}) }),
+                skills: new fields.ObjectField({ required: false, initial: () => ({}) }),
+                strikes: new fields.ObjectField({ required: false, initial: () => ({}) }),
+                immunities: new fields.ArrayField(new fields.ObjectField()),
+                weaknesses: new fields.ArrayField(new fields.ObjectField()),
+                resistances: new fields.ArrayField(new fields.ObjectField()),
+            }),
             ownUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             canCast: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             canSpeak: new fields.BooleanField({ required: false, nullable: false, initial: false }),
