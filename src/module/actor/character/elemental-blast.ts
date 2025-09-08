@@ -401,6 +401,10 @@ class ElementalBlast {
         const actionCost = Math.clamp(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
         const actionSlug = "elemental-blast";
         const domains = ["damage", "attack-damage", "impulse-damage", `${actionSlug}-damage`];
+
+        // Data issue: a lot of abilities that affect ranged strike damage are using the "melee-damage" selector
+        if (melee) domains.push("melee-damage");
+
         const targetToken = game.user.targets.first()?.document ?? null;
         const damageCategory = DamageCategorization.fromDamageType(params.damageType);
         item.flags.pf2e.attackItemBonus =

@@ -335,13 +335,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             damageKinds.map((k) => `spell-${k}`),
             damageKinds.map((k) => `${this.id}-${k}`),
             isAttack ? ["attack-damage", "attack-spell-damage"] : null,
+            this.isMelee ? "melee-damage" : null,
             checkStatistic.base ? damageKinds.map((k) => `${checkStatistic.base?.slug}-${k}`) : null,
         ]
             .flat()
-            .filter(R.isTruthy);
+            .filter(R.isNonNull);
 
         const spellTraits = R.unique([...this.system.traits.value, spellcasting.tradition])
-            .filter(R.isTruthy)
+            .filter(R.isNonNull)
             .sort();
         const actionAndTraitOptions = new Set(["action:cast-a-spell", "self:action:slug:cast-a-spell", ...spellTraits]);
         const contextData = await new DamageContext({
