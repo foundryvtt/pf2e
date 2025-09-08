@@ -355,6 +355,18 @@ function registerTrackingSettings(): void {
         default: false,
         type: Boolean,
     });
+
+    // Experimental difficult-terrain measurement bumps
+    game.settings.register("pf2e", "bumpities", {
+        name: "",
+        scope: "world",
+        config: false,
+        default: false,
+        type: Boolean,
+        onChange: (value) => {
+            game.pf2e.settings.bumpities = !!value;
+        },
+    });
 }
 
 function registerWorldSchemaVersion(): void {

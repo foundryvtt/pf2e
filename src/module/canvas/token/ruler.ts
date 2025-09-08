@@ -127,7 +127,7 @@ class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<TokenPF
         for (let i = 0; i < max; i++) {
             const projected = bumpsSegment.project((i + 1) / (max + 1));
             const angle = bumpsSegment.angle + (Math.PI / 2) * (i % 2 === 0 ? 1 : -1);
-            const distance = [0, max - 1].includes(i) ? 0 : Math.floor(twister.rnd() * (canvas.grid.size / 8));
+            const distance = [0, max - 1].includes(i) ? 0 : Math.floor(twister.rnd() * (canvas.grid.size / 10));
             const point = Ray.fromAngle(projected.x, projected.y, angle, distance).B;
             bumps.push(this.#createBump(prior, point));
         }

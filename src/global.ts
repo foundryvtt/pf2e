@@ -85,6 +85,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(module: "core", key: "noCanvas"): boolean;
     get(module: "core", key: "rollMode"): RollMode;
     get(module: "core", key: "uiConfig"): { colorScheme: { applications: string; interface: string } };
+
     get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
     get(module: "pf2e", setting: "automation.encumbrance"): boolean;
     get(module: "pf2e", setting: "automation.flankingDetection"): boolean;
@@ -135,6 +136,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(module: "pf2e", setting: "homebrew.damageTypes"): CustomDamageData[];
     get(module: "pf2e", setting: "homebrew.languageRarities"): LanguageSettings;
 
+    get(module: "pf2e", setting: "bumpities"): boolean;
     get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
     get(module: "pf2e", setting: "compendiumBrowserSources"): CompendiumBrowserSources;
     get(module: "pf2e", setting: "critFumbleButtons"): boolean;
