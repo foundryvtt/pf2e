@@ -3,6 +3,7 @@ import type { PrototypeTokenPF2e } from "@actor/data/base.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { TokenAnimationOptions, TrackedAttributesDescription } from "@client/_types.d.mts";
 import type { TokenResourceData } from "@client/canvas/placeables/token.d.mts";
+import type { TokenMovementCostFunction } from "@client/documents/_types.d.mts";
 import type { TokenUpdateCallbackOptions } from "@client/documents/token.d.mts";
 import type { Point } from "@common/_types.d.mts";
 import type {
@@ -14,6 +15,7 @@ import type Document from "@common/abstract/document.d.mts";
 import type { ImageFilePath, TokenDisplayMode, VideoFilePath } from "@common/constants.d.mts";
 import type { GridMeasurePathResult } from "@common/grid/_types.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
+import type { TokenMovementBump } from "@module/canvas/token/ruler.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { DifficultTerrainGrade, EnvironmentFeatureRegionBehavior, RegionDocumentPF2e } from "@scene";
@@ -216,19 +218,44 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return attribute;
     }
 
-    /** Recalculate measurements of tiny-token movement to avoid upstream's partial square calculations. */
     override measureMovementPath(
-        waypoints: fd.TokenMeasureMovementPathWaypoint[],
-        options?: { cost?: fd.TokenMovementCostFunction },
+        waypoints: TokenMovementBump[],
+        options?: { cost?: TokenMovementCostFunction },
     ): GridMeasurePathResult {
-        if (!canvas.grid.isSquare || !this.isTiny) return super.measureMovementPath(waypoints, options);
-        const normalized = waypoints.map((p) => ({
-            ...p,
-            ...canvas.grid.getTopLeftPoint({ x: p.x ?? 0, y: p.y ?? 0 }),
-            width: 1,
-            height: 1,
-        }));
-        return super.measureMovementPath(normalized, options);
+        if (!canvas.grid.isSquare) return super.measureMovementPath(waypoints, options);
+
+        // Recalculate measurements of tiny-token movement to avoid upstream's partial square calculations
+        const normalized = this.isTiny
+            ? waypoints.map((p) => ({
+                  ...p,
+                  ...canvas.grid.getTopLeftPoint({ x: p.x ?? 0, y: p.y ?? 0 }),
+                  width: 1,
+                  height: 1,
+              }))
+            : waypoints;
+
+        // Avoid measurement of terrain-bump waypoints
+        const bumps: TokenMovementBump[] = [];
+        const nonBumps: TokenMovementBump[] = [];
+        for (const waypoint of normalized) {
+            if (waypoint.bump) bumps.push(waypoint);
+            else nonBumps.push(waypoint);
+        }
+        const measured = super.measureMovementPath(nonBumps, options);
+        const resultFields = {
+            backward: null,
+            forward: null,
+            cost: 0,
+            diagonals: 0,
+            distance: 0,
+            euclidean: 0,
+            spaces: 0,
+        };
+        for (const bump of bumps) {
+            const index = normalized.indexOf(bump);
+            measured.waypoints.splice(index, 0, { ...bump, ...resultFields });
+        }
+        return measured;
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {

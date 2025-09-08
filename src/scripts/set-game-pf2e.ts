@@ -110,6 +110,7 @@ export const SetGamePF2e = {
                 reachEnforcement: game.settings.get("pf2e", "automation.reachEnforcement"),
                 removeEffects: game.settings.get("pf2e", "automation.removeExpiredEffects"),
             },
+            bumpities: false,
             campaign: {
                 feats: {
                     enabled: game.settings.get("pf2e", "campaignFeats"),

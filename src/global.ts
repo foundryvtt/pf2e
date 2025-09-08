@@ -244,6 +244,8 @@ interface GamePF2e
             };
             /** Rules-based vision */
             rbv: boolean;
+            /** Experimental difficult-terrain bumps */
+            bumpities: boolean;
             tokens: {
                 /** Automatic scaling of tokens belong to small actor */
                 autoscale: boolean;

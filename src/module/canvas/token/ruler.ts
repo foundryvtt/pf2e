@@ -1,11 +1,12 @@
 import type { TokenRulerData, TokenRulerWaypoint } from "@client/_types.d.mts";
 import type { WaypointLabelRenderContext } from "@client/canvas/placeables/tokens/ruler.d.mts";
-import { Rectangle } from "@common/_types.mjs";
+import { TokenMeasuredMovementWaypoint } from "@client/documents/_types.mjs";
+import { Point, Rectangle } from "@common/_types.mjs";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 import type { TokenPF2e } from "./index.ts";
 
-export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<TokenPF2e> {
+class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<TokenPF2e> {
     static override WAYPOINT_LABEL_TEMPLATE = "systems/pf2e/templates/scene/token/ruler/waypoint-label.hbs";
 
     static ACTION_MARKER_TEMPLATE = "systems/pf2e/templates/scene/token/ruler/action-marker.hbs";
@@ -27,7 +28,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     }
 
     /** The value of the parent class's own #path property */
-    #path: PIXI.Graphics | null = null;
+    #renderedPath: PIXI.Graphics | null = null;
 
     readonly #glyphMarkedPoints: (Rectangle & { actionsSpent: number })[] = [];
 
@@ -51,25 +52,9 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     override async draw(): Promise<void> {
         await super.draw();
         if (!canvas.grid.isSquare) return;
-        const path = this.token.layer._rulerPaths.children.at(-1);
-        this.#path = path instanceof PIXI.Graphics ? path : null;
+        const path = canvas.tokens._rulerPaths.children.at(-1);
+        this.#renderedPath = path instanceof PIXI.Graphics ? path : null;
         await fa.handlebars.getTemplate(TokenRulerPF2e.ACTION_MARKER_TEMPLATE);
-    }
-
-    /** Start observing the measurement container to append action glyphs after ruler labels are drawn. */
-    override refresh(rulerData: DeepReadonly<TokenRulerData>): void {
-        this.#glyphMarkedPoints.length = 0;
-        super.refresh(rulerData);
-        if (canvas.ready && canvas.grid.isSquare) {
-            const labelsEl = this.#labelsEl;
-            delete labelsEl.dataset.glyphMarked;
-            if (!this.#labelsObserver) {
-                this.#labelsObserver = new MutationObserver(() => {
-                    if (!("glyphMarked" in labelsEl.dataset)) this.#renderActionGlyphs();
-                });
-                this.#labelsObserver.observe(labelsEl, { childList: true });
-            }
-        }
     }
 
     override clear(): void {
@@ -84,11 +69,91 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         this.#labelsObserver = null;
     }
 
+    /** Start observing the measurement container to append action glyphs after ruler labels are drawn. */
+    override refresh(rulerData: DeepReadonly<TokenRulerData>): void {
+        if (!canvas.grid.isSquare) return super.refresh(rulerData);
+        this.#glyphMarkedPoints.length = 0;
+        const maybeWithBumps = game.pf2e.settings.bumpities ? this.#spliceTerrainBumps(rulerData) : rulerData;
+        super.refresh(maybeWithBumps);
+        if (canvas.ready && canvas.grid.isSquare) {
+            const labelsEl = this.#labelsEl;
+            delete labelsEl.dataset.glyphMarked;
+            if (!this.#labelsObserver) {
+                this.#labelsObserver = new MutationObserver(() => {
+                    if (!("glyphMarked" in labelsEl.dataset)) this.#renderActionGlyphs();
+                });
+                this.#labelsObserver.observe(labelsEl, { childList: true });
+            }
+        }
+    }
+
+    /** Add erratically-placed, unmeasured waypoints to indicate difficult terrain. */
+    #spliceTerrainBumps(rulerData: DeepReadonly<TokenRulerData>): DeepReadonly<TokenRulerData> {
+        const planned = { ...rulerData.plannedMovement };
+        for (const [key, movement] of Object.entries(planned)) {
+            const foundPath = [...movement.foundPath];
+            for (let i = 1; i < movement.foundPath.length; i++) {
+                const waypoint = movement.foundPath[i];
+                const difficulty = waypoint.terrain?.difficulty ?? 1;
+                if (difficulty > 1)
+                    foundPath.splice(
+                        foundPath.indexOf(waypoint),
+                        0,
+                        ...this.#createTerrainBumps(waypoint, foundPath[i - 1]),
+                    );
+            }
+            planned[key] = { ...movement, foundPath };
+        }
+        return { ...rulerData, plannedMovement: planned };
+    }
+
+    /** Create a sequence of terrain bumps between two standard waypoints. */
+    #createTerrainBumps(
+        waypoint: DeepReadonly<TokenMovementBump>,
+        prior: DeepReadonly<TokenMovementBump>,
+    ): DeepReadonly<TokenMovementBump>[] {
+        const halfGrid = canvas.grid.size / 2;
+        const toNearestHalfGrid = (point: Point): Point => {
+            const x = Math.round(point.x / halfGrid) * halfGrid;
+            const y = Math.round(point.y / halfGrid) * halfGrid;
+            return { x, y };
+        };
+        const Ray = fc.geometry.Ray;
+        const waypointSegment = new Ray(toNearestHalfGrid(prior), toNearestHalfGrid(waypoint));
+        const bumpsSegment = new Ray(waypointSegment.A, waypointSegment.project(1));
+        const bumps: DeepReadonly<TokenMeasuredMovementWaypoint>[] = [];
+        const twister = new foundry.dice.MersenneTwister(Number(`${waypoint.x}${waypoint.y}`));
+        const max = Math.round(12 * (waypointSegment.distance / canvas.grid.size));
+        for (let i = 0; i < max; i++) {
+            const projected = bumpsSegment.project((i + 1) / (max + 1));
+            const angle = bumpsSegment.angle + (Math.PI / 2) * (i % 2 === 0 ? 1 : -1);
+            const distance = [0, max - 1].includes(i) ? 0 : Math.floor(twister.rnd() * (canvas.grid.size / 8));
+            const point = Ray.fromAngle(projected.x, projected.y, angle, distance).B;
+            bumps.push(this.#createBump(prior, point));
+        }
+        return bumps;
+    }
+
+    /** Create a single bump waypoint. */
+    #createBump(waypoint: DeepReadonly<TokenMeasuredMovementWaypoint>, point: Point): DeepReadonly<TokenMovementBump> {
+        return Object.assign(fu.deepClone(waypoint), {
+            x: Math.round(point.x),
+            y: Math.round(point.y),
+            bump: true,
+            cost: 0,
+            intermediate: false,
+            checkpoint: false,
+            explicit: false,
+            terrain: null,
+        });
+    }
+
     /** Include action-cost information for showing a glyph. */
     protected override _getWaypointLabelContext(
-        waypoint: DeepReadonly<TokenRulerWaypoint>,
+        waypoint: DeepReadonly<TokenRulerWaypoint & { bump?: boolean }>,
         state: object,
     ): WaypointLabelRenderContext | void {
+        if (waypoint.bump) return undefined;
         const context: WaypointRenderContextPF2e | void = super._getWaypointLabelContext(waypoint, state);
         if (!context || !canvas.grid.isSquare) return context;
         const speed = this.#getSpeed(waypoint.action);
@@ -114,7 +179,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     /** Retrieve the actor's speed of a certain movement type, if any. */
     #getSpeed(rulerAction: string): number | null {
         const actor = this.token.actor;
-        if (!actor?.isOfType("creature")) return null;
+        if (!actor?.isOfType("creature") || !actor.isOwner || actor.alliance !== "party") return null;
         const speeds = actor.system.attributes.speed;
         switch (rulerAction) {
             case "walk":
@@ -128,7 +193,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
 
     /** If the provided waypoint should have an action glyph, track it for later rendering. */
     #logGlyphMarkedPoint(waypoint: DeepReadonly<Omit<TokenRulerWaypoint, "index" | "center" | "size" | "ray">>): void {
-        const path = this.#path;
+        const path = this.#renderedPath;
         if (!path || !waypoint.intermediate || waypoint.hidden || waypoint.cost === 0) return;
         const speed = this.#getSpeed(waypoint.action);
         if (!speed) return;
@@ -172,3 +237,9 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
 interface WaypointRenderContextPF2e extends WaypointLabelRenderContext {
     actionCost?: { actions: number; overage: boolean };
 }
+
+interface TokenMovementBump extends TokenMeasuredMovementWaypoint {
+    bump?: boolean;
+}
+
+export { TokenRulerPF2e, type TokenMovementBump };
