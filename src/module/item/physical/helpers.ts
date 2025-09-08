@@ -82,7 +82,7 @@ function getGradeData(item: PhysicalItemPF2e) {
     const gradeData = item.isOfType("weapon")
         ? CONFIG.PF2E.weaponImprovements[item.system.grade]
         : item.isOfType("armor")
-          ? CONFIG.PF2E.weaponImprovements[item.system.grade]
+          ? CONFIG.PF2E.armorImprovements[item.system.grade]
           : CONFIG.PF2E.shieldImprovements[item.system.grade];
     const price = gradeData.credits / 10; // convert to gp
     return { level: gradeData?.level, price };
