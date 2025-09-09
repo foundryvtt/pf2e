@@ -56,10 +56,12 @@ class ItemAlterationHandler<TSchema extends AlterationSchema> extends fields.Sch
     isValid(data: {
         item: ItemPF2e | ItemSourcePF2e;
         rule: RuleElementPF2e;
+        fromEquipment: boolean;
         alteration: MaybeAlterationData;
     }): data is {
         item: ItemOrSource<fields.SourceFromSchema<TSchema>["itemType"]>;
         rule: RuleElementPF2e;
+        fromEquipment: boolean;
         alteration: fields.SourceFromSchema<TSchema>;
     } {
         const alteration = (data.alteration = fu.mergeObject(this.getInitialValue(), data.alteration));
@@ -92,6 +94,7 @@ type MaybeAlterationData = { mode: string; itemType: string; value: unknown };
 interface AlterationApplicationData {
     item: ItemPF2e | ItemSourcePF2e;
     rule: RuleElementPF2e;
+    fromEquipment: boolean;
     alteration: MaybeAlterationData;
 }
 
@@ -830,7 +833,7 @@ const ITEM_ALTERATION_HANDLERS = {
         },
         handle: function (data: AlterationApplicationData) {
             const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(data.rule.actor);
-            if (abpEnabled || !this.isValid(data)) return;
+            if ((abpEnabled && data.fromEquipment) || !this.isValid(data)) return;
 
             const mode = data.alteration.mode;
             const runes = data.item.system.runes;
@@ -864,7 +867,7 @@ const ITEM_ALTERATION_HANDLERS = {
         },
         handle: function (data: AlterationApplicationData) {
             const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(data.rule.actor);
-            if (abpEnabled || !this.isValid(data)) return;
+            if ((abpEnabled && data.fromEquipment) || !this.isValid(data)) return;
 
             const previousValue = data.item.system.runes.resilient;
             data.item.system.runes.resilient = Math.clamp(
@@ -944,7 +947,7 @@ const ITEM_ALTERATION_HANDLERS = {
         },
         handle: function (data: AlterationApplicationData) {
             const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(data.rule.actor);
-            if (abpEnabled || !this.isValid(data)) return;
+            if ((abpEnabled && data.fromEquipment) || !this.isValid(data)) return;
 
             const previousValue = data.item.system.runes.striking;
             data.item.system.runes.striking = Math.clamp(

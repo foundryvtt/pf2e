@@ -4,12 +4,22 @@ import type { ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import * as R from "remeda";
 import { AELikeRuleElement } from "../ae-like.ts";
-import { RuleElementPF2e } from "../base.ts";
-import type { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
-import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
+import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import type { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource } from "../data.ts";
+import { ItemAlteration, ItemAlterationProperty, ItemAlterationSchema } from "./alteration.ts";
 import fields = foundry.data.fields;
 
 class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
+        super(data, options);
+
+        // Force false if there is no way this RE is relevant to ABP. This doesn't lead to any runtime changes
+        const abpRelevantProperties: ItemAlterationProperty[] = ["potency", "striking", "resilient"];
+        if (!this.item.isOfType("physical") && !abpRelevantProperties.includes(this.property)) {
+            this.fromEquipment = false;
+        }
+    }
+
     static override defineSchema(): ItemAlterationRuleSchema {
         // Set a default priority according to AE mode yet still later than AE-likes
         const baseSchema = super.defineSchema();
@@ -78,9 +88,8 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         );
         const updates = itemsToAlter.flatMap((item): { _id: string; "system.hp.value": number } | never[] => {
             const source = item.toObject();
-            const alteration = new ItemAlteration(R.pick(this, ["mode", "property", "value"] as const), {
-                parent: this,
-            });
+            const alterationData = R.pick(this, ["mode", "property", "value", "fromEquipment"] as const);
+            const alteration = new ItemAlteration(alterationData, { parent: this });
             alteration.applyTo(source);
             alteration.applyTo(item);
             const newHP = source.system.hp;
@@ -137,7 +146,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
                 const itemRollOptions = predicate.length > 0 ? item.getRollOptions("item") : [];
                 const rollOptions = [actorRollOptions, parentRollOptions, itemRollOptions].flat();
                 if (predicate.test(rollOptions)) {
-                    const data = R.pick(this, ["mode", "property", "value"]);
+                    const data = R.pick(this, ["mode", "property", "value", "fromEquipment"]);
                     const alteration = new ItemAlteration(data, { parent: this });
                     alteration.applyTo(item);
                 }

@@ -29,6 +29,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         super(source, options);
         if (this.invalid) return;
 
+        // Force false if there is no way this RE is relevant to ABP
         if (!this.item.isOfType("physical") && this.type !== "item") {
             this.fromEquipment = false;
         }
