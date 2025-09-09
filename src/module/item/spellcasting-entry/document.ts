@@ -94,7 +94,6 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         this.spells = null;
         this.system.prepared.flexible ??= false;
         this.system.prepared.validItems ||= null;
-        this.system.proficiency.slug ||= "base-spellcasting";
 
         if (this.isPrepared) {
             const isFlexible = this.isFlexible;
@@ -165,7 +164,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         // NPCs prepare spellcasting with explicit values.
         if (actor.isOfType("character")) {
             // Spellcasting entries extend other statistics, usually a tradition, but sometimes class dc
-            const baseStat = actor.getStatistic(this.system.proficiency.slug);
+            const baseStat = actor.getStatistic(this.system.proficiency.slug || "base-spellcasting");
             if (!baseStat) return;
 
             this.system.ability.value = baseStat.attribute ?? this.system.ability.value;
