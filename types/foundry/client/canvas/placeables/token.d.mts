@@ -80,7 +80,7 @@ export default class Token<TDocument extends TokenDocument = TokenDocument> exte
     /**
      * The ruler of this Token.
      */
-    ruler: BaseTokenRuler | null;
+    ruler: BaseTokenRuler<this> | null;
 
     /**
      * The ruler data.

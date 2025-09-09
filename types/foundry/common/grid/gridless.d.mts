@@ -16,7 +16,7 @@ import { BaseGrid } from "./base.mjs";
 
 /** The gridless grid class. */
 export class GridlessGrid extends BaseGrid {
-    override type: typeof CONST.GRID_TYPES.GRIDLESS;
+    override readonly type: typeof CONST.GRID_TYPES.GRIDLESS;
 
     override calculateDimensions(
         sceneWidth: number,
@@ -80,4 +80,6 @@ export interface GridlessGrid extends BaseGrid {
     get isGridless(): true;
     get isHexagonal(): false;
     get isSquare(): false;
+
+    diagonals?: never;
 }

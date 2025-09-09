@@ -1,4 +1,4 @@
-import { MovementDirection } from "@common/constants.mjs";
+import { GridDiagonalRule, MovementDirection } from "@common/constants.mjs";
 import { ElevatedPoint, Point, Rectangle } from "../_types.mjs";
 import {
     GridConfiguration,
@@ -17,10 +17,10 @@ import { BaseGrid } from "./base.mjs";
 
 /** The square grid class. */
 export class SquareGrid extends BaseGrid {
-    override type: typeof CONST.GRID_TYPES.SQUARE;
+    override readonly type: typeof CONST.GRID_TYPES.SQUARE;
 
     /** The rule for diagonal measurement (see {@link CONST.GRID_DIAGONALS}). */
-    diagonals: number;
+    diagonals: GridDiagonalRule;
 
     /** The square grid constructor. */
     constructor(config: GridConfiguration);

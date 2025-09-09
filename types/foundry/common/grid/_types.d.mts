@@ -1,4 +1,4 @@
-import { GridDiagonal, GridSnappingMode } from "@common/constants.mjs";
+import { GridDiagonalRule, GridSnappingMode } from "@common/constants.mjs";
 import { ColorSource, DeepReadonly, ElevatedPoint, Point } from "../_types.mjs";
 
 /**
@@ -233,7 +233,7 @@ interface SquareGridConfiguration extends GridConfiguration {
      * The rule for diagonal measurement (see {@link CONST.GRID_DIAGONALS}).
      * @default CONST.GRID_DIAGONALS.EQUIDISTANT
      */
-    diagonals?: GridDiagonal;
+    diagonals?: GridDiagonalRule;
 }
 
 interface HexagonalGridConfiguration extends SquareGridConfiguration {

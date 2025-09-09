@@ -51,7 +51,7 @@ export abstract class BaseGrid {
     constructor(config: GridConfiguration);
 
     /** The grid type (see {@link CONST.GRID_TYPES}). */
-    type: GridType;
+    abstract readonly type: GridType;
 
     /** Is this a gridless grid? */
     get isGridless(): boolean;

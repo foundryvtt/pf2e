@@ -1,5 +1,5 @@
 import type { PlaceablesLayerPointerEvent } from "@client/canvas/layers/base/placeables-layer.d.mts";
-import { Point } from "@common/_types.mjs";
+import type { Point } from "@common/_types.d.mts";
 import type { TokenPF2e } from "../index.ts";
 
 class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TObject> {

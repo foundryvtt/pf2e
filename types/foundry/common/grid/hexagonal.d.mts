@@ -1,5 +1,5 @@
 import { ElevatedPoint, Point, Rectangle } from "@common/_types.mjs";
-import { MovementDirection } from "@common/constants.mjs";
+import { GridDiagonalRule, MovementDirection } from "@common/constants.mjs";
 import {
     GridCoordinates2D,
     GridCoordinates3D,
@@ -21,7 +21,7 @@ import { BaseGrid } from "./base.mjs";
 
 /** The hexagonal grid class. */
 export class HexagonalGrid extends BaseGrid {
-    override type:
+    override readonly type:
         | typeof CONST.GRID_TYPES.HEXEVENQ
         | typeof CONST.GRID_TYPES.HEXODDQ
         | typeof CONST.GRID_TYPES.HEXEVENR
@@ -32,6 +32,11 @@ export class HexagonalGrid extends BaseGrid {
 
     /** Is this grid even or odd? */
     even: boolean;
+
+    /**
+     * The rule for diagonal measurement (see {@link CONST.GRID_DIAGONALS}).
+     */
+    readonly diagonals: GridDiagonalRule;
 
     /** The hexagonal grid constructor. */
     constructor(config: HexagonalGridConfiguration);

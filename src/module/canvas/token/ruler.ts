@@ -27,7 +27,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     }
 
     /** The value of the parent class's own #path property */
-    #path: PIXI.Graphics | null = null;
+    #renderedPath: PIXI.Graphics | null = null;
 
     readonly #glyphMarkedPoints: (Rectangle & { actionsSpent: number })[] = [];
 
@@ -51,25 +51,9 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     override async draw(): Promise<void> {
         await super.draw();
         if (!canvas.grid.isSquare) return;
-        const path = this.token.layer._rulerPaths.children.at(-1);
-        this.#path = path instanceof PIXI.Graphics ? path : null;
+        const path = canvas.tokens._rulerPaths.children.at(-1);
+        this.#renderedPath = path instanceof PIXI.Graphics ? path : null;
         await fa.handlebars.getTemplate(TokenRulerPF2e.ACTION_MARKER_TEMPLATE);
-    }
-
-    /** Start observing the measurement container to append action glyphs after ruler labels are drawn. */
-    override refresh(rulerData: DeepReadonly<TokenRulerData>): void {
-        this.#glyphMarkedPoints.length = 0;
-        super.refresh(rulerData);
-        if (canvas.ready && canvas.grid.isSquare) {
-            const labelsEl = this.#labelsEl;
-            delete labelsEl.dataset.glyphMarked;
-            if (!this.#labelsObserver) {
-                this.#labelsObserver = new MutationObserver(() => {
-                    if (!("glyphMarked" in labelsEl.dataset)) this.#renderActionGlyphs();
-                });
-                this.#labelsObserver.observe(labelsEl, { childList: true });
-            }
-        }
     }
 
     override clear(): void {
@@ -82,6 +66,23 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         this.#glyphMarkedPoints.length = 0;
         this.#labelsObserver?.disconnect();
         this.#labelsObserver = null;
+    }
+
+    /** Start observing the measurement container to append action glyphs after ruler labels are drawn. */
+    override refresh(rulerData: DeepReadonly<TokenRulerData>): void {
+        if (!canvas.grid.isSquare) return super.refresh(rulerData);
+        this.#glyphMarkedPoints.length = 0;
+        super.refresh(rulerData);
+        if (canvas.ready && canvas.grid.isSquare) {
+            const labelsEl = this.#labelsEl;
+            delete labelsEl.dataset.glyphMarked;
+            if (!this.#labelsObserver) {
+                this.#labelsObserver = new MutationObserver(() => {
+                    if (!("glyphMarked" in labelsEl.dataset)) this.#renderActionGlyphs();
+                });
+                this.#labelsObserver.observe(labelsEl, { childList: true });
+            }
+        }
     }
 
     /** Include action-cost information for showing a glyph. */
@@ -114,7 +115,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     /** Retrieve the actor's speed of a certain movement type, if any. */
     #getSpeed(rulerAction: string): number | null {
         const actor = this.token.actor;
-        if (!actor?.isOfType("creature")) return null;
+        if (!actor?.isOfType("creature") || !actor.isOwner || actor.alliance !== "party") return null;
         const speeds = actor.system.attributes.speed;
         switch (rulerAction) {
             case "walk":
@@ -128,7 +129,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
 
     /** If the provided waypoint should have an action glyph, track it for later rendering. */
     #logGlyphMarkedPoint(waypoint: DeepReadonly<Omit<TokenRulerWaypoint, "index" | "center" | "size" | "ray">>): void {
-        const path = this.#path;
+        const path = this.#renderedPath;
         if (!path || !waypoint.intermediate || waypoint.hidden || waypoint.cost === 0) return;
         const speed = this.#getSpeed(waypoint.action);
         if (!speed) return;

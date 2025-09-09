@@ -221,13 +221,15 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         waypoints: fd.TokenMeasureMovementPathWaypoint[],
         options?: { cost?: fd.TokenMovementCostFunction },
     ): GridMeasurePathResult {
-        if (!canvas.grid.isSquare || !this.isTiny) return super.measureMovementPath(waypoints, options);
-        const normalized = waypoints.map((p) => ({
-            ...p,
-            ...canvas.grid.getTopLeftPoint({ x: p.x ?? 0, y: p.y ?? 0 }),
-            width: 1,
-            height: 1,
-        }));
+        if (!canvas.grid.isSquare) return super.measureMovementPath(waypoints, options);
+        const normalized = this.isTiny
+            ? waypoints.map((p) => ({
+                  ...p,
+                  ...canvas.grid.getTopLeftPoint({ x: p.x ?? 0, y: p.y ?? 0 }),
+                  width: 1,
+                  height: 1,
+              }))
+            : waypoints;
         return super.measureMovementPath(normalized, options);
     }
 
