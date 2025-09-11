@@ -9,7 +9,7 @@ import PointSourcePolygon from "./shapes/source-polygon.mjs";
  * Sweep around the origin, accumulating collision points based on the set of active walls.
  * This algorithm was created with valuable contributions from https://github.com/caewok
  */
-export default class ClockwiseSweepPolygon extends PointSourcePolygon<ClockwiseSweepPolygonConfig> {
+declare class ClockwiseSweepPolygon extends PointSourcePolygon<ClockwiseSweepPolygonConfig> {
     /**
      * A mapping of vertices which define potential collision points
      */
@@ -128,3 +128,13 @@ export default class ClockwiseSweepPolygon extends PointSourcePolygon<ClockwiseS
      */
     addPoint({ x, y }: Point): this;
 }
+
+declare namespace ClockwiseSweepPolygon {
+    function create<T extends PointSourcePolygon>(
+        this: ConstructorOf<T>,
+        origin: Point,
+        config?: ClockwiseSweepPolygonConfig,
+    ): T;
+}
+
+export default ClockwiseSweepPolygon;

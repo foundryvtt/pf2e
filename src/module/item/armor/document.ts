@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_module.d.mts";
 import type { RawItemChatData } from "@item/base/data/index.ts";
-import { PhysicalItemPF2e, getPropertyRuneSlots } from "@item/physical/index.ts";
+import { PhysicalItemPF2e, checkPhysicalItemSystemChange, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util";
@@ -92,9 +92,18 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         const maxPropertySlots = getPropertyRuneSlots(this);
         this.system.runes.property.length = Math.min(this.system.runes.property.length, maxPropertySlots);
 
-        // Add traits from fundamental runes
         const abpEnabled = ABP.isEnabled(this.actor);
         const baseTraits = this.system.traits.value;
+
+        // Determine if this armor uses runes or CTASEUP and clear the opposing data
+        const isSF2e = baseTraits.some((v) => ["tech", "analog"].includes(v));
+        this.system.grade = isSF2e ? (this.system.grade ?? "commercial") : null;
+        if (isSF2e) {
+            this.system.runes.potency = 0;
+            this.system.runes.resilient = 0;
+        }
+
+        // Add traits from fundamental runes
         const investedTrait =
             this.system.runes.potency ||
             this.system.runes.resilient ||
@@ -110,9 +119,16 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        const potencyRune = this.isInvested && !ABP.isEnabled(this.actor) ? this.system.runes.potency : 0;
-        const baseArmor = Number(this.system.acBonus) || 0;
-        this.system.acBonus = baseArmor + potencyRune;
+        if (!ABP.isEnabled(this.actor)) {
+            this.system.acBonus = Number(this.system.acBonus);
+            if (this.system.grade) {
+                const improvements = CONFIG.PF2E.armorImprovements;
+                const gradeData = improvements[this.system.grade ?? "commercial"] ?? improvements.commercial;
+                this.system.acBonus += gradeData.bonus;
+            } else {
+                this.system.acBonus += this.isInvested ? this.system.runes.potency : 0;
+            }
+        }
     }
 
     override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {
@@ -176,6 +192,17 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (!changed.system) return super._preUpdate(changed, options, user);
+
+        // Clear runes or grade based on tech/analog traits
+        const result = await checkPhysicalItemSystemChange(this, changed);
+        if (result === "cancel") {
+            return false;
+        } else if (result === "sf2e") {
+            changed.system.runes = { potency: 0, resilient: 0, property: [] };
+            changed.system.grade ??= this._source.system.grade ?? "commercial";
+        } else if (result === "pf2e") {
+            changed.system.grade = null;
+        }
 
         if (changed.system.acBonus !== undefined) {
             const integerValue = Math.floor(Number(changed.system.acBonus)) || 0;

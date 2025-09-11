@@ -51,6 +51,7 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
             propertyRuneSlots,
             reinforcing: R.mapToObj(REINFORCING_RUNE_LOC_PATHS, (value, index) => [index, value]),
             weaponRunes: weaponRunes ? RUNE_DATA.weapon : null,
+            grades: R.mapValues(CONFIG.PF2E.grades, (v) => game.i18n.localize(v)),
         };
     }
 
@@ -100,6 +101,7 @@ interface ShieldSheetData extends PhysicalItemSheetData<ShieldPF2e> {
     }[];
     reinforcing: Record<number, string | null>;
     weaponRunes: typeof RUNE_DATA.weapon | null;
+    grades: Record<string, string>;
 }
 
 export { ShieldSheetPF2e };

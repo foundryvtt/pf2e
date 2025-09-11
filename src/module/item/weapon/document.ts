@@ -12,7 +12,13 @@ import { performLatePreparation } from "@item/helpers.ts";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
 import type { PhysicalItemConstructionContext } from "@item/physical/document.ts";
-import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
+import {
+    IdentificationStatus,
+    MystifiedData,
+    RUNE_DATA,
+    checkPhysicalItemSystemChange,
+    getPropertyRuneSlots,
+} from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { RangeData } from "@item/types.ts";
 import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
@@ -400,7 +406,19 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         }
         runes.property.length = Math.min(runes.property.length, getPropertyRuneSlots(this));
 
-        // Set damage dice according to striking rune
+        // Determine if this weapon uses runes or CTASEUP and clear the opposing data
+        const isSF2e = traits.value.some((v) => ["tech", "analog"].includes(v));
+        this.system.grade = isSF2e ? (this.system.grade ?? "commercial") : null;
+        if (isSF2e) {
+            runes.potency = 0;
+            runes.striking = 0;
+        }
+
+        // Get SF2e grade. For PF2e this resolves as commercial, which is equal to no runes.
+        const improvements = CONFIG.PF2E.weaponImprovements;
+        const gradeData = improvements[this.system.grade ?? "commercial"] ?? improvements.commercial;
+
+        // Set damage dice according to striking rune or grade
         // Only increase damage dice from ABP if the dice number is 1
         // Striking Rune: "A striking rune [...], increasing the weapon damage dice it deals to two instead of one"
         // Devastating Attacks: "At 4th level, your weapon and unarmed Strikes deal two damage dice instead of one."
@@ -409,7 +427,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const strikingDice = ABP.isEnabled(actor) ? ABP.getStrikingDice(actor?.level ?? 0) : this.system.runes.striking;
         this.system.damage.dice =
             inherentDiceNumber === 1 && !this.flags.pf2e.battleForm
-                ? inherentDiceNumber + strikingDice
+                ? Math.max(gradeData.dice, inherentDiceNumber + strikingDice)
                 : this.system.damage.dice;
 
         // Add traits from fundamental runes
@@ -419,7 +437,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             .filter(R.isTruthy)
             .sort();
 
-        this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
+        this.flags.pf2e.attackItemBonus =
+            this.system.runes.potency || gradeData.tracking || this.system.bonus.value || 0;
 
         if (this.system.usage.canBeAmmo && !this.isThrowable) {
             this.system.usage.canBeAmmo = false;
@@ -751,7 +770,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _preUpdate(
+    protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DatabaseUpdateCallbackOptions,
         user: fd.BaseUser,
@@ -761,6 +780,17 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const traits = changed.system.traits ?? {};
         if ("value" in traits && Array.isArray(traits.value)) {
             traits.value = traits.value.filter((t) => t in CONFIG.PF2E.weaponTraits);
+        }
+
+        // Clear runes or grade based on tech/analog traits
+        const result = await checkPhysicalItemSystemChange(this, changed);
+        if (result === "cancel") {
+            return false;
+        } else if (result === "sf2e") {
+            changed.system.runes = { potency: 0, striking: 0, property: [] };
+            changed.system.grade ??= this._source.system.grade ?? "commercial";
+        } else if (result === "pf2e") {
+            changed.system.grade = null;
         }
 
         for (const key of ["group", "range", "selectedAmmoId"] as const) {

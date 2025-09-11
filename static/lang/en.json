@@ -1830,6 +1830,7 @@
                     "heavy-barding": "Heavy Barding",
                     "light-barding": "Light Barding"
                 },
+                "GradeOption": "{grade} (+{bonus}; resilient +{resilient})",
                 "Rune": {
                     "Resilient": {
                         "Label": "Resilient Rune"
@@ -2460,6 +2461,11 @@
                 "Hint": "Additional tags beyond traits to help classify an item"
             },
             "Physical": {
+                "FIELDS": {
+                    "grade": {
+                        "label": "Grade"
+                    }
+                },
                 "Attach": {
                     "CraftingCheck": "Crafting Check",
                     "Detach": {
@@ -2496,6 +2502,11 @@
                     "NLight": "{light}L",
                     "WithLight": "{bulk}, {light}L"
                 },
+                "ChangeEquipmentSystem": {
+                    "Title": "Change System",
+                    "ToPathfinder": "Removing the {removedTrait} trait changes this {type} from Starfinder to Pathfinder. Your grade will be lost. Are you sure? Alternatively, you could swap it to {otherTrait}.",
+                    "ToStarfinder": "Adding the {newTrait} trait changes this {type} from Pathfinder to Starfinder. All runes will be lost. Are you sure?"
+                },
                 "Destroyed": "Destroyed",
                 "FromSpell": {
                     "CantripDeck5": "Cantrip Deck of {name} (5-pack)",
@@ -2511,6 +2522,8 @@
                     "Material": "{material} {base}",
                     "OneProperty": "{property1} {base}",
                     "OnePropertyMaterial": "{property1} {material} {base}",
+                    "Grade": "{grade} {base}",
+                    "GradeMaterial": "{grade} {material} {base}",
                     "Potency": "+{potency} {base}",
                     "PotencyFourProperties": "+{potency} {property1} {property2} {property3} {property4} {base}",
                     "PotencyFourPropertiesMaterial": "+{potency} {property1} {property2} {property3} {property4} {material} {base}",
@@ -2537,6 +2550,15 @@
                     "ThreePropertiesMaterial": "{property1} {property2} {property3} {material} {base}",
                     "TwoProperties": "{property1} {property2} {base}",
                     "TwoPropertiesMaterial": "{property1} {property2} {material} {base}"
+                },
+                "Grade": {
+                    "commercial": "Commercial",
+                    "tactical": "Tactical",
+                    "advanced": "Advanced",
+                    "superior": "Superior",
+                    "elite": "Elite",
+                    "ultimate": "Ultimate",
+                    "paragon": "Paragon"
                 },
                 "LevelLabel": "Item {level}",
                 "OtherTag": {
@@ -2748,6 +2770,7 @@
                 },
                 "FromABP": "Automatic bonus progression has adjusted this weapon's {property} to {value}.",
                 "FromMaterialAndRunes": "Precious materials and runes on this item have adjusted its {property} to {value}.",
+                "GradeOption": "{grade} (+{tracking}; {dice} damage dice)",
                 "HandsLabel": "Hands",
                 "MandatoryMelee": "This weapon has a trait that can only be used with melee weapons.",
                 "MaterialAndRunes": {
@@ -4025,6 +4048,7 @@
         "TraitAmp": "Amp",
         "TraitAmphibious": "Amphibious",
         "TraitAnadi": "Anadi",
+        "TraitAnalog": "Analog",
         "TraitAndroid": "Android",
         "TraitAngel": "Angel",
         "TraitAnimal": "Animal",
@@ -4191,6 +4215,7 @@
         "TraitDescriptionAmp": "An amp is a special thoughtform that modifies the properties of your psi cantrips. Psi cantrips each have their own amp, and feats with the amp trait provide different amps you can apply to psi cantrips in place of their normal amps.",
         "TraitDescriptionAmphibious": "An amphibious creature can breathe in water and in air, even outside of its preferred environment, usually indefinitely but at least for hours. These creatures often have a swim Speed. Their bludgeoning and slashing unarmed Strikes don't take the usual –2 penalty for being underwater.",
         "TraitDescriptionAnadi": "A reclusive people from Garund who resemble spiders and can assume human forms.",
+        "TraitDescriptionAnalog": "This weapon eschews advanced electronics, computers systems, and electric power sources, but was manufactured and calibrated using advanced technology. This weapon is immune to abilities that target technology. Weapon runes don't function on this weapon unless this weapon also has the archaic trait.",
         "TraitDescriptionAndroid": "A synthetic humanoid ancestry created by artificial means. Most common in Numeria.",
         "TraitDescriptionAngel": "This family of celestials are messengers and warriors. Most angels are holy, have darkvision, and have a weakness to unholy.",
         "TraitDescriptionAnimal": "An animal is a creature with a relatively low intelligence. It typically doesn't have an Intelligence attribute modifier over –4, can't speak languages, and can't be trained in Intelligence-based skills.",
@@ -4578,7 +4603,7 @@
         "TraitDescriptionTattoo": "A tattoo is a type of item that is drawn or cut into a creature's skin and usually takes the form of images or symbols.",
         "TraitDescriptionTea": "<p>Magic tea is a type of potion. It activates when you drink it, which uses it up. Magic tea has the potion and tea traits. When you craft a dose of magic tea, the raw materials you supply are in the form of unusual and costly tea leaves. The process of crafting magic tea includes infusing the leaves with magical reagents, purifying the water, and steeping the tea in the water, resulting in what's essentially a particularly delicious-tasting potion. You can activate magic tea with an Interact action as you drink it or feed it to another creature, as if it were a potion. You can also activate magic tea with a 10-minute activity that requires sterling tea ware (these artisan's tools can be shared by up to four people who take this activity simultaneously) to prepare the tea and then consume it or present it to someone during a short tea ceremony, after which the magic tea's effects begin; activating magic tea in this way enhances its effect, as detailed in each entry's Tea Ceremony.</p><p>Once you drink a dose of magic tea, you're temporarily immune to that particular type of magic tea for 24 hours.</p>",
         "TraitDescriptionTearing": "This weapon is edged with curved teeth that leave bleeding wounds. When you hit a creature with this weapon, it deals an additional 1 persistent bleed damage. This increases to 2 persistent bleed damage if the weapon has a greater striking rune.",
-        "TraitDescriptionTech": "Items with this trait are associated with the technology of Numeria.",
+        "TraitDescriptionTech": "Items with the tech trait can be crafted by anyone, but if they also have the magical trait, they are hybrid items and require the Machine Magic feat to craft.",
         "TraitDescriptionTelepathy": "A creature with telepathy can communicate mentally with creatures. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.",
         "TraitDescriptionTeleportation": "Teleportation effects allow you to instantaneously move from one point in space to another. Teleportation does not usually trigger reactions based on movement.",
         "TraitDescriptionTengu": "A creature with this trait is a member of the tengu ancestry. Tengus are humanoids who resemble crows. An ability with this trait can be used or selected only by tengus. An item with this trait is created and used by tengus.",

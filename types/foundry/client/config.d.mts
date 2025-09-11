@@ -1,6 +1,6 @@
 import { DataSchema, Document, TypeDataModel } from "@common/abstract/_module.mjs";
 import { AudioFilePath, ImageFilePath, RollMode } from "@common/constants.mjs";
-import { DocumentConstructionContext, Point } from "../common/_types.mjs";
+import { DocumentConstructionContext } from "../common/_types.mjs";
 import { ActiveEffectSource } from "../common/documents/active-effect.mjs";
 import { applications, dice, documents } from "./_module.mjs";
 import DocumentSheetV2 from "./applications/api/document-sheet.mjs";
@@ -18,8 +18,6 @@ import JournalSheet from "./appv1/sheets/journal-sheet.mjs";
 import { CanvasAnimationAttribute } from "./canvas/animation/_types.mjs";
 import ChatBubbles from "./canvas/animation/chat-bubbles.mjs";
 import { DoorControl, ParticleEffect } from "./canvas/containers/_module.mjs";
-import { PointSourcePolygon } from "./canvas/geometry/_module.mjs";
-import { PointSourcePolygonConfig } from "./canvas/geometry/_types.mjs";
 import ClockwiseSweepPolygon from "./canvas/geometry/clockwise-sweep.mjs";
 import {
     EffectsCanvasGroup,
@@ -565,13 +563,7 @@ export default interface Config<
         polygonBackends: {
             sight: typeof ClockwiseSweepPolygon;
             light: typeof ClockwiseSweepPolygon;
-            sound: ConstructorOf<ClockwiseSweepPolygon> & {
-                create<C extends PointSourcePolygonConfig, T extends PointSourcePolygon<C>>(
-                    this: ConstructorOf<T>,
-                    origin: Point,
-                    config?: C,
-                ): T;
-            };
+            sound: typeof ClockwiseSweepPolygon;
             move: typeof ClockwiseSweepPolygon;
         };
         dragSpeedModifier: number;

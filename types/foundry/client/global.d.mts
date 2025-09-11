@@ -23,7 +23,5 @@ declare global {
         export import TinyMCE = tinymce;
         export import foundry = globalFoundry;
         export import io = SocketIO;
-
-        // const showdown: typeof Showdown;
     }
 }

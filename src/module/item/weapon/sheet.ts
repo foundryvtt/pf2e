@@ -2,9 +2,10 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
+    type Grade,
     MATERIAL_DATA,
-    MaterialSheetData,
-    PhysicalItemSheetData,
+    type MaterialSheetData,
+    type PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
     RUNE_DATA,
     getPropertyRuneSlots,
@@ -124,6 +125,11 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                     .map((p) => ({ slug: p.slug, name: game.i18n.localize(p.name) }))
                     .sort((a, b) => a.name.localeCompare(b.name)),
             },
+            grades: R.mapValues(CONFIG.PF2E.grades, (v, slug) => {
+                const label = game.i18n.localize(v);
+                const data = CONFIG.PF2E.weaponImprovements[slug];
+                return game.i18n.format("PF2E.Item.Weapon.GradeOption", { grade: label, ...data });
+            }),
             specificMagicData,
             weaponMAP: CONFIG.PF2E.weaponMAP,
             weaponRanges,
@@ -238,6 +244,7 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     preciousMaterials: MaterialSheetData;
     propertyRuneSlots: PropertyRuneSheetSlot[];
     runeTypes: Omit<typeof RUNE_DATA.weapon, "property"> & { property: { slug: string; name: string }[] };
+    grades: Record<Grade, string>;
     specificMagicData: SpecificWeaponData;
     weaponMAP: typeof CONFIG.PF2E.weaponMAP;
     weaponRanges: Record<number, string>;

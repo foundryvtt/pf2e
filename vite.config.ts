@@ -73,7 +73,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     };
 
     const plugins = [
-        checker({ typescript: false }),
+        checker({ typescript: true }),
         tsconfigPaths({ loose: true }),
         sveltePlugin({
             preprocess: command === "serve" ? hmrPreprocess : undefined,

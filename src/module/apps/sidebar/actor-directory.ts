@@ -12,7 +12,7 @@ import * as R from "remeda";
 
 /** Extend ActorDirectory to show more information */
 class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>> {
-    static override DEFAULT_OPTIONS: Partial<fa.sidebar.DocumentDirectoryConfiguration> = {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.sidebar.DocumentDirectoryConfiguration> = {
         actions: {
             togglePartyFolder: ActorDirectoryPF2e.#togglePartyFolder,
             openPartySheet: ActorDirectoryPF2e.#openPartySheet,

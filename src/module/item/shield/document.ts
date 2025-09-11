@@ -2,7 +2,12 @@ import type { ActorPF2e } from "@actor";
 import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ItemProxyPF2e, type WeaponPF2e } from "@item";
 import type { RawItemChatData } from "@item/base/data/index.ts";
-import { PhysicalItemPF2e, RUNE_DATA, getMaterialValuationData } from "@item/physical/index.ts";
+import {
+    PhysicalItemPF2e,
+    RUNE_DATA,
+    checkPhysicalItemSystemChange,
+    getMaterialValuationData,
+} from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { WeaponMaterialSource, WeaponSource, WeaponSystemSource, WeaponTraitsSource } from "@item/weapon/data.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
@@ -110,23 +115,30 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             );
         }
 
+        // Determine if this shield uses runes or CTASEUP and clear the opposing data
+        const isSF2e = this.system.traits.value.some((v) => ["tech", "analog"].includes(v));
+        this.system.grade = isSF2e ? (this.system.grade ?? "commercial") : null;
+        this.system.runes.reinforcing = !isSF2e ? this.system.runes.reinforcing : 0;
+
         const materialData = getMaterialValuationData(this);
         const reinforcingRune = this.system.runes.reinforcing;
-        const adjustFromMaterialAndRune = (property: "hardness" | "maxHP", base: number): number => {
+        const adjustFromUpgrades = (property: "hardness" | "maxHP", base: number): number => {
             const fromMaterial = this.isSpecific
                 ? Math.max(base, materialData?.[property] ?? base)
                 : (materialData?.[property] ?? base);
-            const additionalFromRune = reinforcingRune
-                ? RUNE_DATA.shield.reinforcing[reinforcingRune]?.[property]
-                : null;
-            const sumFromRune = fromMaterial + (additionalFromRune?.increase ?? 0);
-            return additionalFromRune && sumFromRune > additionalFromRune.max
-                ? Math.max(fromMaterial, additionalFromRune.max)
+            const additionalFromRuneOrGrade = this.system.grade
+                ? { increase: CONFIG.PF2E.shieldImprovements[this.system.grade][property], max: Infinity }
+                : reinforcingRune
+                  ? RUNE_DATA.shield.reinforcing[reinforcingRune]?.[property]
+                  : null;
+            const sumFromRune = fromMaterial + (additionalFromRuneOrGrade?.increase ?? 0);
+            return additionalFromRuneOrGrade && sumFromRune > additionalFromRuneOrGrade.max
+                ? Math.max(fromMaterial, additionalFromRuneOrGrade.max)
                 : sumFromRune;
         };
 
-        this.system.hardness = adjustFromMaterialAndRune("hardness", this.system.hardness);
-        this.system.hp.max = adjustFromMaterialAndRune("maxHP", this.system.hp.max);
+        this.system.hardness = adjustFromUpgrades("hardness", this.system.hardness);
+        this.system.hp.max = adjustFromUpgrades("maxHP", this.system.hp.max);
         this.system.hp.brokenThreshold = Math.floor(this.system.hp.max / 2);
 
         // Add traits from fundamental runes
@@ -275,12 +287,23 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return new ItemProxyPF2e(baseData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
     }
 
-    protected override _preUpdate(
+    protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DatabaseUpdateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (!changed.system) return super._preUpdate(changed, options, user);
+
+        // Clear runes or grade based on tech/analog traits
+        const result = await checkPhysicalItemSystemChange(this, changed);
+        if (result === "cancel") {
+            return false;
+        } else if (result === "sf2e") {
+            changed.system.runes = { reinforcing: 0 };
+            changed.system.grade ??= this._source.system.grade ?? "commercial";
+        } else if (result === "pf2e") {
+            changed.system.grade = null;
+        }
 
         if (changed.system.acBonus !== undefined) {
             const integerValue = Math.floor(Number(changed.system.acBonus)) || 0;

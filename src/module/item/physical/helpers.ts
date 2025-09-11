@@ -5,7 +5,7 @@ import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
-import { ErrorPF2e, createHTMLElement, localizer } from "@util";
+import { ErrorPF2e, createHTMLElement, localizer, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
@@ -35,9 +35,10 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0) - reinforcingRuneValue;
 
     const basePrice = materialValue > 0 || runeValue > 0 ? new CoinsPF2e() : item.price.value;
+    const gradeValue = getGradeData(item).price;
     const afterMaterialAndRunes = runeValue
         ? new CoinsPF2e({ gp: runeValue + materialValue })
-        : basePrice.plus({ gp: materialValue });
+        : basePrice.plus({ gp: gradeValue + materialValue });
     const higher = afterMaterialAndRunes.copperValue > basePrice.copperValue ? afterMaterialAndRunes : basePrice;
     const afterReinforcingRune = higher.plus(new CoinsPF2e({ gp: reinforcingRuneValue }));
     const afterShoddy = item.isShoddy ? afterReinforcingRune.scale(0.5) : afterReinforcingRune;
@@ -50,16 +51,13 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
     // Stop here if this weapon is not a magical or precious-material item, or if it is a specific magic weapon
     const materialData = getMaterialValuationData(item);
     const price = computePrice(item);
-    if (!(item.isMagical || materialData) || item.isSpecific) {
+    const gradeData = getGradeData(item);
+    if (!(item.isMagical || materialData || gradeData.level) || item.isSpecific) {
         return { ...R.pick(item, ["level", "rarity"]), price };
     }
 
     const runesData = getRuneValuationData(item);
-    const level = runesData
-        .map((r) => r.level)
-        .concat(materialData?.level ?? 0)
-        .reduce((highest, level) => (level > highest ? level : highest), item.level);
-
+    const level = Math.max(...runesData.map((r) => r.level), materialData?.level ?? 0, gradeData.level, item.level);
     const rarityOrder = {
         common: 0,
         uncommon: 1,
@@ -73,6 +71,88 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
         .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
 
     return { level, rarity, price };
+}
+
+/** Get price and level from starfinder grade. Returns 0 for non-SF2e weapons */
+function getGradeData(item: PhysicalItemPF2e) {
+    if (!item.isOfType("weapon", "armor", "shield") || item.system.grade === null) {
+        return { level: 0, price: 0 };
+    }
+
+    const gradeData = item.isOfType("weapon")
+        ? CONFIG.PF2E.weaponImprovements[item.system.grade]
+        : item.isOfType("armor")
+          ? CONFIG.PF2E.weaponImprovements[item.system.grade]
+          : CONFIG.PF2E.shieldImprovements[item.system.grade];
+    const price = gradeData.credits / 10; // convert to gp
+    return { level: gradeData?.level, price };
+}
+
+/**
+ * Checks if a change in traits leads to the item converting to sf2e or pf2e.
+ * If so, it prompts for confirmation, and allows the user to cancel.
+ * @returns false if no change, "cancel" if the update was aborted, or pf2e or sf2e based on the new traits.
+ */
+async function checkPhysicalItemSystemChange(
+    item: PhysicalItemPF2e,
+    changed: DeepPartial<PhysicalItemSource>,
+): Promise<false | "cancel" | "pf2e" | "sf2e"> {
+    const newTraits: string[] | undefined = changed.system?.traits?.value;
+    if (!item.isOfType("weapon", "armor", "shield") || !newTraits) return false;
+
+    const sf2eTraits = ["tech", "analog"] as const;
+    const beforeSF2eTraits = item._source.system.traits.value.filter((t) => tupleHasValue(sf2eTraits, t));
+    const wasSF2e = !!beforeSF2eTraits.length;
+    const becomingSF2e = newTraits.some((t) => tupleHasValue(sf2eTraits, t));
+    const runes = item._source.system.runes;
+    const hasPotency = "potency" in runes && runes.potency > 0;
+    const hasRunes =
+        hasPotency ||
+        ("striking" in runes && runes.striking > 0) ||
+        ("reinforcing" in runes && runes.reinforcing > 0) ||
+        (hasPotency && "property" in runes && runes.property.length > 0);
+    const hasGrade = item.system.grade && item.system.grade !== "commercial";
+    if (wasSF2e === becomingSF2e || !(hasRunes || hasGrade)) {
+        return false;
+    }
+
+    const key = `PF2E.Item.Physical.ChangeEquipmentSystem.${becomingSF2e ? "ToStarfinder" : "ToPathfinder"}`;
+    const removedTrait = beforeSF2eTraits.find((t) => !newTraits.includes(t));
+    const otherTrait = removedTrait === "tech" ? "analog" : "tech";
+    const newTrait = newTraits.find((t) => tupleHasValue(sf2eTraits, t));
+    const otherTraitLabel = otherTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[otherTrait]);
+    const result = await foundry.applications.api.DialogV2.wait({
+        window: { title: "PF2E.Item.Physical.ChangeEquipmentSystem.Title" },
+        position: { width: 400 },
+        modal: true,
+        content: game.i18n.format(key, {
+            type: game.i18n.localize(`TYPES.Item.${item.type}`),
+            newTrait: newTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[newTrait]),
+            removedTrait: removedTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[removedTrait]),
+            otherTrait: otherTraitLabel,
+        }),
+        buttons: [
+            { action: "yes", label: "Yes", icon: "fa-solid fa-check", callback: () => true },
+            !becomingSF2e && {
+                action: "change",
+                label: otherTraitLabel,
+                icon: "fa-solid fa-robot",
+            },
+            { action: "no", label: "No", icon: "fa-solid fa-xmark", default: true, callback: () => false },
+        ].filter(R.isTruthy),
+    });
+
+    if (!result) {
+        item.sheet.render(false); // tagify is optimistic, so we need to re-render
+        return "cancel";
+    } else if (result === "change") {
+        // If the change button is pressed, we are staying as sf2e but swapping the trait used
+        // To the caller of this function, this is a no change
+        newTraits.push(otherTrait);
+        return false;
+    }
+
+    return becomingSF2e ? "sf2e" : "pf2e";
 }
 
 /**
@@ -112,53 +192,68 @@ function generateItemName(item: PhysicalItemPF2e): string {
         return item.name;
     }
 
-    const { runes, material } = item.system;
-    const potency = "potency" in runes ? runes.potency : null;
-    const fundamental2 = "resilient" in runes ? runes.resilient : "striking" in runes ? runes.striking : null;
-    const reinforcing =
-        "reinforcing" in runes ? game.i18n.localize(REINFORCING_RUNE_LOC_PATHS[runes.reinforcing] ?? "") || null : null;
+    const { runes, material, grade } = item.system;
+    const baseLabel = baseType
+        ? material.type && ["hide-armor", "steel-shield", "wooden-shield"].includes(baseType)
+            ? game.i18n.localize(`TYPES.Item.${item.type}`)
+            : game.i18n.localize(baseItemDictionary[baseType] ?? "")
+        : item.name;
+    const materialLabel = material.type && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]);
 
-    const params: Record<string, string | number | null> = {
-        base: baseType
-            ? material.type && ["hide-armor", "steel-shield", "wooden-shield"].includes(baseType)
-                ? game.i18n.localize(`TYPES.Item.${item.type}`)
-                : game.i18n.localize(baseItemDictionary[baseType] ?? "")
-            : item.name,
-        material: material.type && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]),
-        potency,
-        reinforcing,
-        fundamental2:
-            fundamental2 && fundamentalTwoDictionary
-                ? game.i18n.localize(fundamentalTwoDictionary[fundamental2]?.name ?? "") || null
-                : null,
-    };
-    if ("property" in runes && propertyDictionary) {
-        for (const index of [0, 1, 2, 3] as const) {
-            params[`property${index + 1}`] =
-                game.i18n.localize(propertyDictionary[runes.property[index]]?.name ?? "") || null;
+    if (grade) {
+        const params: Record<string, string | number | null> = {
+            base: baseLabel,
+            material: materialLabel,
+            grade: game.i18n.localize(CONFIG.PF2E.grades[grade]),
+        };
+
+        const formatString = ["Grade", params.material && "Material"].filter(R.isTruthy).join("");
+        return game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params);
+    } else {
+        const potency = "potency" in runes ? runes.potency : null;
+        const fundamental2 = "resilient" in runes ? runes.resilient : "striking" in runes ? runes.striking : null;
+        const reinforcing =
+            "reinforcing" in runes
+                ? game.i18n.localize(REINFORCING_RUNE_LOC_PATHS[Number(runes.reinforcing)] ?? "") || null
+                : null;
+        const params: Record<string, string | number | null> = {
+            base: baseLabel,
+            material: materialLabel,
+            potency,
+            reinforcing,
+            fundamental2:
+                fundamental2 && fundamentalTwoDictionary
+                    ? game.i18n.localize(fundamentalTwoDictionary[fundamental2]?.name ?? "") || null
+                    : null,
+        };
+        if ("property" in runes && propertyDictionary) {
+            for (const index of [0, 1, 2, 3] as const) {
+                params[`property${index + 1}`] =
+                    game.i18n.localize(propertyDictionary[runes.property[index]]?.name ?? "") || null;
+            }
         }
+
+        // Construct a localization key from material and runes
+        const formatString = (() => {
+            const potency = params.potency ? "Potency" : null;
+            const reinforcing = params.reinforcing ? "Reinforcing" : null;
+            const fundamental2 = params.fundamental2 && "Fundamental2";
+            const properties = params.property4
+                ? "FourProperties"
+                : params.property3
+                  ? "ThreeProperties"
+                  : params.property2
+                    ? "TwoProperties"
+                    : params.property1
+                      ? "OneProperty"
+                      : null;
+            const material = params.material && "Material";
+            const key = [potency, reinforcing, fundamental2, properties, material].filter(R.isTruthy).join("") || null;
+            return key && game.i18n.localize(key);
+        })();
+
+        return formatString ? game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params) : item.name;
     }
-
-    // Construct a localization key from material and runes
-    const formatString = (() => {
-        const potency = params.potency ? "Potency" : null;
-        const reinforcing = params.reinforcing ? "Reinforcing" : null;
-        const fundamental2 = params.fundamental2 && "Fundamental2";
-        const properties = params.property4
-            ? "FourProperties"
-            : params.property3
-              ? "ThreeProperties"
-              : params.property2
-                ? "TwoProperties"
-                : params.property1
-                  ? "OneProperty"
-                  : null;
-        const material = params.material && "Material";
-        const key = [potency, reinforcing, fundamental2, properties, material].filter(R.isTruthy).join("") || null;
-        return key && game.i18n.localize(key);
-    })();
-
-    return formatString ? game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params) : item.name;
 }
 
 /** Validate HP changes to a physical item and also adjust current HP when max HP changes */
@@ -281,6 +376,7 @@ function getDefaultEquipStatus(item: PhysicalItemPF2e): EquippedData {
 export { coinCompendiumIds } from "./coins.ts";
 export {
     CoinsPF2e,
+    checkPhysicalItemSystemChange,
     computeLevelRarityPrice,
     detachSubitem,
     generateItemName,

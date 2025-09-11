@@ -2,6 +2,7 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
     CoinsPF2e,
+    Grade,
     MATERIAL_DATA,
     MaterialSheetData,
     PhysicalItemSheetData,
@@ -51,6 +52,11 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
                     .map((p) => ({ slug: p.slug, name: game.i18n.localize(p.name) }))
                     .sort((a, b) => a.name.localeCompare(b.name)),
             },
+            grades: R.mapValues(CONFIG.PF2E.grades, (v, slug) => {
+                const label = game.i18n.localize(v);
+                const data = CONFIG.PF2E.armorImprovements[slug];
+                return game.i18n.format("PF2E.Item.Armor.GradeOption", { grade: label, ...data });
+            }),
             specificMagicData,
         };
     }
@@ -83,6 +89,7 @@ interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
     preciousMaterials: MaterialSheetData;
     propertyRuneSlots: PropertyRuneSheetSlot[];
     runeTypes: Omit<typeof RUNE_DATA.armor, "property"> & { property: { slug: string; name: string }[] };
+    grades: Record<Grade, string>;
     specificMagicData: SpecificArmorData;
 }
 
