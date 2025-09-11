@@ -1,5 +1,6 @@
-import type { PhysicalItemPF2e } from "@item";
-import { PickAThingPrompt, PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
+import { iterateAllItems } from "@actor/helpers.ts";
+import type { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { PickAThingPrompt, PickableThing, PromptTemplateData } from "@module/apps/pick-a-thing-prompt.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import { ErrorPF2e } from "@util";
@@ -21,10 +22,10 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
         if (!item.isAttachable) {
             throw ErrorPF2e("Not an attachable item");
         }
-        const collection =
-            item.actor?.inventory.contents ??
-            game.items.filter((i): i is PhysicalItemPF2e<null> => i.isOfType("physical"));
+        const actor = item.actor;
+        const collection: ItemPF2e[] = actor ? [...iterateAllItems(actor)] : game.items.contents;
         const choices = collection
+            .filter((i): i is PhysicalItemPF2e => i.isOfType("physical"))
             .filter((i) => i.quantity > 0 && i.acceptsSubitem(item))
             .map((i) => ({ value: i, img: i.img, label: i.name }))
             .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
@@ -36,7 +37,7 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
         return game.i18n.format("PF2E.Item.Physical.Attach.PromptTitle", { item: this.item.name });
     }
 
-    protected override getSelection(event: MouseEvent): PickableThing<PhysicalItemPF2e> | null {
+    protected override getSelection(event: PointerEvent): PickableThing<PhysicalItemPF2e> | null {
         const selection = super.getSelection(event);
         if (selection) this.#attach(selection.value);
         return selection;
@@ -51,6 +52,14 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
         }
 
         return super.resolveSelection();
+    }
+
+    override async _prepareContext(): Promise<ItemAttacherContext> {
+        const data = await super._prepareContext();
+        return {
+            ...data,
+            requiresCrafting: !!this.item.actor?.skills?.crafting && this.item.system.usage.type !== "installed",
+        };
     }
 
     protected override async _onRender(context: object, options: fa.ApplicationRenderOptions): Promise<void> {
@@ -75,27 +84,7 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
     async #attach(attachmentTarget: PhysicalItemPF2e): Promise<boolean> {
         const checkRequested = !!this.element?.querySelector<HTMLInputElement>("input[data-crafting-check]")?.checked;
         if (checkRequested && !(await this.#craftingCheck(attachmentTarget))) return false;
-
-        const targetSource = attachmentTarget.toObject();
-        if (!targetSource.system.subitems) {
-            throw ErrorPF2e("This item does not accept attachments");
-        }
-        const subitems = targetSource.system.subitems;
-        const attachmentSource = this.item.toObject();
-        attachmentSource.system.quantity = 1;
-        attachmentSource.system.equipped = { carryType: "attached", handsHeld: 0 };
-        if (subitems.some((s) => s._id === attachmentSource._id)) {
-            attachmentSource._id = fu.randomID();
-        }
-        subitems.push(attachmentSource);
-
-        const newQuantity = this.item.quantity - 1;
-        const updated = await Promise.all([
-            newQuantity <= 0 ? this.item.delete() : this.item.update({ "system.quantity": newQuantity }),
-            attachmentTarget.update({ "system.subitems": subitems }),
-        ]);
-
-        return updated.every((u) => !!u);
+        return attachmentTarget.attach(this.item);
     }
 
     async #craftingCheck(attachmentTarget: PhysicalItemPF2e): Promise<boolean> {
@@ -132,6 +121,10 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
 
         return (roll?.total ?? 0) >= dc.value;
     }
+}
+
+interface ItemAttacherContext extends PromptTemplateData {
+    requiresCrafting: boolean;
 }
 
 export { ItemAttacher };

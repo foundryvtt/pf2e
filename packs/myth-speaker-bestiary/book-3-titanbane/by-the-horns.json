@@ -1,0 +1,96 @@
+{
+    "_id": "VIhf46k8XKQfP2KB",
+    "folder": "H9CJ9F8U83kU0CYj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "3EcGDYjcm9kmVWLu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Toss",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature reaches the Granite Ox's head or attempts a skill check to disable the hazard</p><hr /><p><strong>Effect</strong> The Granite Ox tosses its head. Creatures in the area @Damage[(2d12+13)[bludgeoning]] damage must attempt a @Check[fortitude|dc:29] saving throw. The hazard rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is knocked prone, and takes @Damage[1d12[persistent,bleed]] damage as it scrapes across the Ox's scales.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "By the Horns",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 22
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The head of the Granite Ox tosses back and forth as the creature charges toward Dhuraxilis.</p>",
+            "disable": "<p>@Check[athletics|dc:27] (master) to tug one of the ox's ears, @Check[arcana|dc:32], @Check[nature|dc:32], @Check[occultism|dc:32], or @Check[religion|dc:32] (expert) to distract the Ox with a display of magic, or @Check[acrobatics|dc:35] (expert) to dangle in front of the Ox's eyes and obscure its vision; three successes are required to disable the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 10
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #218: Titanbane"
+            },
+            "reset": "<p>The hazard ends automatically after 5 rounds or once all PCs are thrown from the Ox's back, whichever comes first.</p>",
+            "routine": "<p>(1 action) The Granite Ox bucks. Each creature on the Ox's head must attempt a @Check[reflex|dc:33] save. Prone creatures gain a +2 circumstance bonus to the save. On a failure, the creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]. On a critical failure, the creature flies from the Ox's back, falling 120 feet to the ground or into Kardaji Bay.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "mythic"
+            ]
+        }
+    },
+    "type": "hazard"
+}

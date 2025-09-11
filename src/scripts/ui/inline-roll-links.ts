@@ -95,7 +95,7 @@ export class InlineRollLinks {
         return (flavor ? `<span data-visibility="${showDC}">${flavor}</span> ` : "") + `${target.outerHTML}`.trim();
     }
 
-    static #onClickInlineAction(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
+    static #onClickInlineAction(event: PointerEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
         const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill, pf2Options, pf2Traits } = link.dataset;
 
         const slug = sluggify(pf2Action ?? "");
@@ -131,7 +131,7 @@ export class InlineRollLinks {
         }
     }
 
-    static async #onClickInlineCheck(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): Promise<void> {
+    static async #onClickInlineCheck(event: PointerEvent, link: HTMLAnchorElement | HTMLSpanElement): Promise<void> {
         const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment, pf2Roller, pf2RollOptions } = link.dataset;
         const against = link.dataset.against || link.dataset.pf2Defense; // pf2Defense is only checked for backwards compat
         const overrideTraits = "overrideTraits" in link.dataset;
@@ -206,7 +206,10 @@ export class InlineRollLinks {
             : extraRollOptions.filter((t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits);
 
         // Pre-emptively grab statistics to visibly error if the statistic is missing from all of them
-        const actorStatistics = actors.map((actor) => ({ actor, statistic: actor.getStatistic(pf2Check) }));
+        const actorStatistics = actors.map((actor) => {
+            const relatedItem = itemFromDoc?.actor?.uuid === actor.uuid ? itemFromDoc : null;
+            return { actor, statistic: actor.getStatistic(pf2Check, { item: relatedItem }) };
+        });
         if (!actorStatistics.some(({ statistic }) => !!statistic)) {
             ui.notifications.error(
                 game.i18n.format("PF2E.ErrorMessage.MissingStatisticSelected", { statistic: pf2Check }),
@@ -311,7 +314,7 @@ export class InlineRollLinks {
         }
     }
 
-    static #onClickInlineTemplate(_event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
+    static #onClickInlineTemplate(_event: PointerEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
         if (!canvas.ready) return;
 
         const templateConversion: Record<string, MeasuredTemplateType> = {

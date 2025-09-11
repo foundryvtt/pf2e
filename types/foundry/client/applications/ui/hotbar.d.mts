@@ -38,7 +38,7 @@ export default class Hotbar<TMacro extends Macro = Macro> extends HandlebarsAppl
 
     protected override _prepareContext(options: object): Promise<object>;
 
-    protected override _onFirstRender(): void;
+    protected override _onFirstRender(): Promise<void>;
 
     protected override _onRender(): Promise<void>;
 

@@ -15,11 +15,17 @@ import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import type { Coins } from "@item/physical/data.ts";
-import { detachSubitem, sizeItemForActor } from "@item/physical/helpers.ts";
+import { sizeItemForActor } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
-import { createSheetTags, eventToRollMode, eventToRollParams, maintainFocusInRender } from "@module/sheet/helpers.ts";
+import {
+    createSheetTags,
+    eventToRollMode,
+    eventToRollParams,
+    isControlDown,
+    maintainFocusInRender,
+} from "@module/sheet/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
@@ -178,7 +184,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             totalCoinageGold,
             totalWealth,
             totalWealthGold,
-            traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
+            traits: createSheetTags(traitsMap, { value: this.actor.system.traits?.value ?? [] }),
             user: { isGM: game.user.isGM },
             publicationLicenses: [
                 { label: "PF2E.Publication.License.OGL", value: "OGL" },
@@ -589,11 +595,31 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
     protected activateClickListener(html: HTMLElement): SheetClickActionHandlers {
-        const inventoryItemFromDOM = (event: MouseEvent): PhysicalItemPF2e<TActor> => {
-            const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-            const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
-            const parentItem = this.actor.inventory.get(itemId, { strict: true });
-            return subitemId ? parentItem.subitems.get(subitemId, { strict: true }) : parentItem;
+        const itemFromDOM = async (event: PointerEvent): Promise<ItemPF2e<TActor>> => {
+            const actor = this.actor;
+            const itemUuid = htmlClosest(event.target, "[data-uuid]")?.dataset.uuid;
+            const itemEl = htmlClosest(event.target, "[data-item-id]");
+            const itemId = itemEl?.dataset.itemId;
+            const collectionId = itemEl?.dataset.entryId;
+            const collection = collectionId
+                ? (actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? null)
+                : null;
+            if (collection) return collection.get(itemId, { strict: true });
+
+            const item = (await fromUuid<ItemPF2e>(itemUuid ?? "")) ?? this.actor.items.get(itemId, { strict: true });
+            if (item.actor !== actor) {
+                const subphrase = itemUuid || !itemId ? `uuid ${itemUuid}` : `id ${itemId}`;
+                throw ErrorPF2e(`Failed to retrieve owned item with ${subphrase}`);
+            }
+            return item as ItemPF2e<TActor>;
+        };
+
+        const inventoryItemFromDOM = async (event: PointerEvent): Promise<PhysicalItemPF2e<TActor>> => {
+            const item = await itemFromDOM(event);
+            if (!item?.isOfType("physical")) {
+                throw ErrorPF2e(`Attempted to retrieve item, but it is not a physical item`);
+            }
+            return item as PhysicalItemPF2e<TActor>;
         };
 
         const handlers: SheetClickActionHandlers = {
@@ -606,13 +632,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             "create-item": (_, anchor) => {
                 this.#onClickCreateItem(anchor);
             },
-            "edit-item": (event) => {
-                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-                const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
-                const item = this.actor.items.get(itemId, { strict: true });
-                if (item.isOfType("physical") && subitemId) {
-                    return item.subitems.get(subitemId, { strict: true }).sheet.render(true);
-                }
+            "edit-item": async (event) => {
+                const item = await itemFromDOM(event);
                 return item.sheet.render(true);
             },
             "effect-toggle-unidentified": (event): Promise<unknown> | void => {
@@ -623,33 +644,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                     return effect.update({ "system.unidentified": !isUnidentified });
                 }
             },
-            "delete-item": (event) => {
-                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-                const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
-                const item = this.actor.items.get(itemId, { strict: true });
-                if (item.isOfType("physical") && subitemId) {
-                    const subitem = item.subitems.get(subitemId, { strict: true });
-                    return this.deleteItem(subitem, event);
-                }
-                return this.deleteItem(item, event);
+            "delete-item": async (event) => {
+                return this.deleteItem(await itemFromDOM(event), event);
             },
-            "item-to-chat": (event, anchor): Promise<unknown> | void => {
-                const actor = this.actor;
-                const itemEl = htmlClosest(anchor, "[data-item-id]");
-                const collectionId = itemEl?.dataset.entryId;
-                const collection: { get: Collection<string, ItemPF2e>["get"] } = collectionId
-                    ? (actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items)
-                    : actor.items;
-
-                const itemId = itemEl?.dataset.itemId;
-                const item = collection.get(itemId, { strict: true });
+            "item-to-chat": async (event): Promise<unknown | void> => {
+                const item = await itemFromDOM(event);
                 if (item.isOfType("spell")) {
-                    const castRank = Number(itemEl?.dataset.castRank ?? NaN);
+                    const castRank = Number(htmlClosest(event.target, "[data-cast-rank]")?.dataset.castRank ?? NaN);
                     return item.toMessage(event, { data: { castRank } });
-                } else if (item.isOfType("physical")) {
-                    const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
-                    const actualItem = subitemId ? item.subitems.get(subitemId, { strict: true }) : item;
-                    return actualItem.toMessage(event);
                 }
 
                 return item.toMessage(event);
@@ -698,35 +700,35 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             "add-coins": () => {
                 return new AddCoinsPopup(this.actor).render(true);
             },
-            "decrease-quantity": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "decrease-quantity": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 if (item.quantity > 0) {
                     const subtrahend = Math.min(item.quantity, event.ctrlKey ? 10 : event.shiftKey ? 5 : 1);
                     return item.update({ "system.quantity": item.quantity - subtrahend });
                 }
                 return;
             },
-            "detach-subitem": (event) => {
-                const subitem = inventoryItemFromDOM(event);
-                return detachSubitem(subitem, event.ctrlKey);
+            "detach-subitem": async (event) => {
+                const subitem = await inventoryItemFromDOM(event);
+                return subitem.detach({ skipConfirm: isControlDown(event) });
             },
-            "increase-quantity": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "increase-quantity": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 const addend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
                 return item.update({ "system.quantity": item.quantity + addend });
             },
             "remove-coins": () => {
                 return new RemoveCoinsPopup(this.actor).render(true);
             },
-            "repair-item": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "repair-item": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 return game.pf2e.actions.repair({ event, item });
             },
             "sell-all-treasure": () => {
                 return this.#onClickSellAllTreasure();
             },
-            "sell-treasure": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "sell-treasure": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 const sellItem = async (): Promise<void> => {
                     if (item?.isOfType("treasure") && !item.isCoinage) {
                         await item.delete();
@@ -755,14 +757,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                     default: "Yes",
                 }).render(true);
             },
-            "toggle-container": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "toggle-container": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 if (!item.isOfType("backpack")) return;
                 const isCollapsed = item.system.collapsed ?? false;
                 return item.update({ "system.collapsed": !isCollapsed });
             },
-            "toggle-identified": (event) => {
-                const item = inventoryItemFromDOM(event);
+            "toggle-identified": async (event) => {
+                const item = await inventoryItemFromDOM(event);
                 if (item.isIdentified) {
                     item.setIdentificationStatus("unidentified");
                 } else {
@@ -778,7 +780,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             };
         }
 
-        const sheetHandler = async (event: MouseEvent): Promise<void> => {
+        const sheetHandler = async (event: PointerEvent): Promise<void> => {
             const actionTarget = htmlClosest(event.target, "a[data-action], button[data-action]");
             const handler = handlers[actionTarget?.dataset.action ?? ""];
             if (handler && actionTarget) {
@@ -922,7 +924,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         await this.actor.updateEmbeddedDocuments("Item", sortingUpdates);
     }
 
-    protected deleteItem<TItem extends ItemPF2e>(item: TItem, event?: MouseEvent): Promise<TItem | undefined> {
+    protected deleteItem<TItem extends ItemPF2e>(item: TItem, event?: PointerEvent): Promise<TItem | undefined> {
         return event?.ctrlKey ? item.delete() : item.deleteDialog();
     }
 
@@ -1265,7 +1267,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     /**
      * Update the aria-selected attribute on each tab after finishing the normal logic on tab change.
      */
-    protected override _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void {
+    protected override _onChangeTab(event: PointerEvent, tabs: Tabs, active: string): void {
         super._onChangeTab(event, tabs, active);
         for (const tab of htmlQueryAll(tabs._nav, "[data-tab][role=tab]:not([aria-selected=undefined])")) {
             tab.setAttribute("aria-selected", String(tab.dataset.tab === active));
@@ -1496,7 +1498,7 @@ interface ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.ActorShee
 
 type SheetClickActionHandlers = Record<
     string,
-    ((event: MouseEvent, actionTarget: HTMLElement) => Promise<void | unknown> | void | unknown) | undefined
+    ((event: PointerEvent, actionTarget: HTMLElement) => Promise<void | unknown> | void | unknown) | undefined
 >;
 
 export { ActorSheetPF2e, type SheetClickActionHandlers };

@@ -1,5 +1,7 @@
+import * as R from "remeda";
 import { CoinsPF2e } from "./coins.ts";
 import type { Price } from "./index.ts";
+import { DENOMINATIONS } from "./values.ts";
 import fields = foundry.data.fields;
 
 class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema<PriceSchema>, Price> {
@@ -9,16 +11,8 @@ class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema
         super(
             {
                 value: new fields.SchemaField(
-                    {
-                        cp: denominationField(),
-                        sp: denominationField(),
-                        gp: denominationField(),
-                        pp: denominationField(),
-                    },
-                    {
-                        required: true,
-                        nullable: false,
-                    },
+                    R.mapToObj(DENOMINATIONS.toReversed(), (d) => [d, denominationField()]),
+                    { required: true, nullable: false },
                 ),
                 per: new fields.NumberField({
                     required: true,
@@ -29,20 +23,7 @@ class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema
                 }),
                 sizeSensitive: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             },
-            {
-                required: true,
-                nullable: false,
-                initial: () => ({
-                    value: {
-                        cp: undefined,
-                        sp: undefined,
-                        gp: undefined,
-                        pp: undefined,
-                    },
-                    per: 1,
-                    sizeSensitive: undefined,
-                }),
-            },
+            { required: true, nullable: false },
         );
     }
 

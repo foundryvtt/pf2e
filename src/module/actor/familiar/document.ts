@@ -1,7 +1,7 @@
 import { CreaturePF2e, type CharacterPF2e } from "@actor";
 import type { ActorPF2e } from "@actor/base.ts";
-import { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
-import { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
+import type { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
+import type { CreatureReach, CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
@@ -29,7 +29,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     /** The familiar's master, if selected */
     get master(): CharacterPF2e | null {
         // The Actors world collection needs to be initialized for data preparation
-        if (!game.ready || !this.system.master.id) return null;
+        if (!this.system.master.id) return null;
 
         const master = game.actors.get(this.system.master.id);
         if (master?.isOfType("character")) {
@@ -89,7 +89,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             attributes: {
                 speed: { value: number; total: number; label?: string; otherSpeeds: LabeledSpeed[] };
                 flanking: { canFlank: boolean };
-                reach: { base: number; manipulate: number };
+                reach: CreatureReach;
             };
             perception: object;
             skills: object;
@@ -155,9 +155,9 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 : new ModifierPF2e(`PF2E.Actor.Familiar.MinimumAttributeModifier`, 3, "untyped");
 
         // Ensure uniqueness of traits
-        traits.value = [...this.traits].sort();
-        const masterLevel = game.pf2e.settings.variants.pwol.enabled ? 0 : level;
+        traits.value = R.unique(traits.value).sort();
 
+        const masterLevel = game.pf2e.settings.variants.pwol.enabled ? 0 : level;
         const speeds = (attributes.speed = this.prepareSpeed("land"));
         speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
@@ -176,7 +176,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                       .reduce((total, modifier) => total + modifier.value, 0),
               })
             : null;
-
         const statistic = new ArmorStatistic(this, { modifiers: [masterModifier].filter(R.isTruthy) });
         this.armorClass = statistic.dc;
         system.attributes.ac = fu.mergeObject(statistic.getTraceData(), { attribute: statistic.attribute ?? "dex" });

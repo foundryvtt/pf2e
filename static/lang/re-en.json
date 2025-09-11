@@ -88,9 +88,21 @@
         },
         "BattleForm": {
             "AberrantForm": {
+                "ChoiceSet": {
+                    "Chuul": "Chuul",
+                    "Gogiteth": "Gogiteth",
+                    "Gug": "Gug",
+                    "Otyugh": "Otyugh"
+                },
                 "GugSqueezeNote": "Your multiple joints allow you to fit through tight spaces as if you were a Medium creature."
             },
             "AngelForm": {
+                "ChoiceSet": {
+                    "Balisse": "Balisse",
+                    "Choral": "Choral",
+                    "Kuribu": "Kuribu",
+                    "Tennin": "Tennin"
+                },
                 "DeafenedNote": "@UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 round on a critical hit"
             },
             "Attack": {
@@ -170,10 +182,18 @@
                 "Wrap": "Wrap"
             },
             "CosmicForm": {
+                "Moon": "Moon",
                 "MoonNote": "The target is @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 2} for 1 round.",
+                "Sun": "Sun",
                 "SunNote": "The target is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round."
             },
             "DaemonForm": {
+                "ChoiceSet": {
+                    "Lacridaemon": "Lacridaemon",
+                    "Leukodaemon": "Leukodaemon",
+                    "Meladaemon": "Meladaemon",
+                    "Venedaemon": "Venedaemon"
+                },
                 "Note": {
                     "CeustodaemonDamage": "Any successful jaws or claw Strike deals an additional @Damage[1d6[untyped]] damage, and you take the same amount of damage"
                 }
@@ -217,6 +237,11 @@
                 "SpiderWebNote": "A successful Web attack entangles the target for 1 round, but deals no damage"
             },
             "MonstrosityForm": {
+                "ChoiceSet": {
+                    "CaveWorm": "Cave Worm",
+                    "Phoenix": "Phoenix",
+                    "SeaSerpent": "Sea Serpent"
+                },
                 "ShroudOfFlame": "Shroud of Flame"
             },
             "NatureIncarnate": {
@@ -232,6 +257,12 @@
                 "Shove": "You can spend an action immediately after a hit to push the target 5 feet with the effects of a successful @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove}"
             },
             "OozeForm": {
+                "ChoiceSet": {
+                    "BlackPudding": "Black Pudding",
+                    "GelatinousCube": "Gelatinous Cube",
+                    "GrayOoze": "Gray Ooze",
+                    "OchreJelly": "Ochre Jelly"
+                },
                 "GelatinousCubeNote": "A creature hit by your cube face Strike must succeed at a @Check[fortitude|against:spell|traits:incapacitation] save against your spell DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{Paralyzed} for 1 round on a critical failure); this save has the incapacitation trait."
             },
             "WormForm": {
@@ -735,6 +766,7 @@
                 "AdamantineBludgeoning": "adamantine bludgeoning",
                 "AlchemicalItems": "alchemical items",
                 "AllDamageFromArcaneSpells": "all damage from arcane spells",
+                "AllDamageFromDivineSpells": "all damage from divine spells",
                 "AllDamageFromFungus": "all damage from fungus",
                 "AllDamageFromSpells": "all damage from spells",
                 "AllDamageFromUndead": "all damage from undead",
@@ -775,7 +807,8 @@
                 "Spirits": "spirits",
                 "Treerazer": "Treerazer",
                 "UnholyBludgeoningPiercingSlashing": "unholy bludgeoning, piercing and slashing damage",
-                "VoidZonKuthonFollowers": "void from followers of Zon-Kuthon"
+                "VoidZonKuthonFollowers": "void from followers of Zon-Kuthon",
+                "WispVulnerabilities": "wisp vulnerabilities"
             }
         },
         "Mutagens": {
@@ -986,6 +1019,21 @@
                     "Zombie": "Zombie"
                 },
                 "Label": "Current Form"
+            },
+            "ChangeFormation": {
+                "Loose": {
+                    "Drawback": "Enemies' saving throws against the troop's damaging effects are one degree of success better than they roll.",
+                    "Label": "Loose"
+                },
+                "MarchingColumn": {
+                    "Label": "Marching Column"
+                },
+                "TurtleShell": {
+                    "Label": "Turtle Shell"
+                },
+                "Wedge": {
+                    "Label": "Wedge"
+                }
             },
             "Charge": {
                 "AtLeastTen": "Moved at Least 10 feet"
@@ -1207,6 +1255,11 @@
                 "ImpactDriver": "Impact Driver",
                 "SpinningBlade": "Spinning Blade"
             },
+            "Murschen": {
+                "RedRuinStance": {
+                    "RedClawLabel": "Red Claw"
+                }
+            },
             "Necrohulk": {
                 "AlchemicalCartridgeRuptured": "Alchemical Cartridge Ruptured"
             },
@@ -1236,6 +1289,9 @@
             "PaleStranger": {
                 "TargetMurderedPaleStranger": "Target Murdered Pale Stranger",
                 "TargetNeverKilled": "Target has Never Killed"
+            },
+            "PhantasmalProtagonist": {
+                "AbilityLabel": "Phantasmal Protagonist"
             },
             "PlanarScion": {
                 "Duskwalker": {
@@ -1287,7 +1343,7 @@
                 }
             },
             "Pyrkaion": {
-                "AuraOfSophistryNote": "<p>You become @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} and gain weakness 4 to mental damage for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p><p>Compendium.pf2e.bestiary-effects.Item.Rr4stNn2zqzspjQu</p>"
+                "AuraOfSophistryNote": "<p>You become @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} and gain weakness 4 to mental damage for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p><p>@UUID[Compendium.pf2e.bestiary-effects.Item.Rr4stNn2zqzspjQu]</p>"
             },
             "RaptorGuardWight": {
                 "TerrorMaster": "The Raptor Guard is wearing their dinosaur-skull helm."
@@ -3011,10 +3067,10 @@
                     }
                 },
                 "SimpleWeaponExpertise": {
-                    "animist":  {
+                    "animist": {
                         "Description": "Training and magical assistance from your spiritual companions have improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
                     },
-                    "summoner":  {
+                    "summoner": {
                         "Description": "Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
                     }
                 },
@@ -3031,7 +3087,7 @@
                     },
                     "druid": {
                         "Expert": "Your command of primal forces has deepened, empowering your spells. Your proficiency ranks for spell attack modifier and spell DC increase to expert.",
-                         "Legendary": "You have developed an unparalleled rapport with the magic of nature. Your proficiency ranks for spell attack modifier and spell DC increase to legendary.",
+                        "Legendary": "You have developed an unparalleled rapport with the magic of nature. Your proficiency ranks for spell attack modifier and spell DC increase to legendary.",
                         "Master": "Primal magic answers your command. Your proficiency ranks for spell attack modifier and spell DC increase to master."
                     },
                     "magus": {
@@ -3225,6 +3281,9 @@
                 }
             },
             "Conditions": {
+                "Concealed": {
+                    "Ignore": "You ignore the target's concealed condition."
+                },
                 "Sickened": {
                     "AllowEatOrDrink": "You can eat and drink things when you're sickened.",
                     "Reduce": {
@@ -3480,6 +3539,9 @@
             "DubiousKnowledge": {
                 "Note": "When you fail (but don't critically fail) a Recall Knowledge check using any skill, you learn the correct answer and an erroneous answer, but you don't have any way to differentiate which is which."
             },
+            "Duel": {
+                "Dueling": "Dueling"
+            },
             "Dwarf": {
                 "BlastResistance": {
                     "RollOptionLabel": "Blast Resistance — Saving against dazzled or deafened"
@@ -3544,13 +3606,13 @@
             "Elementalist": {
                 "Wizard": {
                     "ElementalSchool": {
-                        "Prompt":"Choose which element your elemental school follows."
+                        "Prompt": "Choose which element your elemental school follows."
                     }
                 },
                 "Philosophy": {
                     "ElementalCycle": "Elemental Cycle",
                     "InnerSea": "Inner Sea Elementalism",
-                    "Prompt":"Choose an elemental philosophy."
+                    "Prompt": "Choose an elemental philosophy."
                 }
             },
             "Elf": {
@@ -3849,7 +3911,7 @@
                     "ReactiveStrikeNote": "On a successful @UUID[Compendium.pf2e.actionspf2e.Item.KAVf7AmRnbCAHrkT]{Reactive Strike}, add one charge: @UUID[Compendium.pf2e.equipment-effects.Item.nLwtvyLZZTZgFmKq]{Effect: Tactician's Helm Charges}"
                 },
                 "TalentedTapShoes": {
-                    "Note":  "When you succeed or critically succeed at a Reflex save to avoid a damaging effect, you can Stride half your Speed as a reaction."
+                    "Note": "When you succeed or critically succeed at a Reflex save to avoid a damaging effect, you can Stride half your Speed as a reaction."
                 },
                 "TalonstrikeBlade": {
                     "DefenseOfLiberty": "Defense of Liberty"
@@ -4305,6 +4367,12 @@
             "FrenziedRevelry": {
                 "Note": "Whenever someone benefitting from this bonus critically succeeds at a saving throw against an enemy's mental effect, its revelry increases, granting it a +1 status bonus to attack rolls and damage rolls for 1 round. @UUID[Compendium.pf2e.spell-effects.Item.ldl1aU5ovTQMUHJ2]{Spell Effect: Frenzied Revelry (Critical)}"
             },
+            "FulcrumLens": {
+                "Crimson": {
+                    "Strike": "Crimson Fulcrum Lens Strike"
+                },
+                "StatisticLabel": "Fulcrum Lens Spell Attack Roll"
+            },
             "FuneralFlames": {
                 "DismissLabel": "Dismiss Funeral Flames"
             },
@@ -4564,9 +4632,9 @@
             "HuntPrey": {
                 "FirstHitDamage": "First Hit on Hunted Prey",
                 "FirstHitSwitch": "Hitting Hunted Prey for the First Time This Round",
-                "SeekHuntedPrey": "To Seek hunted prey",
+                "SeekHuntedPrey": "To Seek Hunted Prey",
                 "TargetHuntedPrey": "Target is your Hunted Prey",
-                "TrackHuntedPrey": "To Track hunted prey"
+                "TrackHuntedPrey": "To Track Hunted Prey"
             },
             "Ifrit": {
                 "Lavasoul": {
@@ -4733,6 +4801,7 @@
                         "Wood": "If the target of the critical hit is adjacent to a surface, roots entangle it. The target is @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} and must spend an Interact action to attempt a @Check[athletics|dc:10] check to pull itself free. The target doesn't become stuck if it is incorporeal, is liquid, or could otherwise escape without effort."
                     },
                     "ElementalBlast": {
+                        "Channel": "Channel",
                         "Label": {
                             "Air": "Elemental Blast (Air)",
                             "Earth": "Elemental Blast (Earth)",
@@ -4856,11 +4925,11 @@
                 }
             },
             "LostInTheCrowd": {
-              "CrowdSize": {
-                "Ten": "At least 10 creatures",
-                "Hundred": "At least 100 creatures"
-              },
-              "Prompt": "Select a crowd size."
+                "CrowdSize": {
+                    "Ten": "At least 10 creatures",
+                    "Hundred": "At least 100 creatures"
+                },
+                "Prompt": "Select a crowd size."
             },
             "MagicalExperiment": {
                 "EnhancedSenses": "Enhanced Senses",
@@ -5171,6 +5240,11 @@
                 "Four": "Four",
                 "Nine": "Nine",
                 "One": "One",
+                "Ordinals": {
+                    "First": "First",
+                    "Second": "Second",
+                    "Third": "Third"
+                },
                 "Seven": "Seven",
                 "Six": "Six",
                 "Ten": "Ten",
@@ -5253,6 +5327,9 @@
             },
             "PackAttack": {
                 "Label": "Target is Within Range of At Least Two Allies"
+            },
+            "Parry": {
+                "Prompt": "Are you wielding a weapon with the parry trait?"
             },
             "PathfinderAgentDedication": {
                 "ThoroughReports": "Thorough Reports"
@@ -5531,9 +5608,31 @@
                 },
                 "HuntersEdge": {
                     "FirstAttack": "First attack on hunted prey this round",
+                    "Flurry": {
+                        "Label": "Flurry"
+                    },
+                    "Outwit": {
+                        "Label": "Outwit"
+                    },
+                    "Precision": {
+                        "Label": "Precision",
+                        "ToggleLabel": "Precision — Hit against Hunted Prey"
+                    },
                     "Prompt": "Select a hunter's edge."
                 },
+                "MasterfulHunter": {
+                    "Flurry": "If you have master proficiency with your weapon, your multiple attack penalty for attacks against your hunted prey is –2 (–1 with an agile weapon) on your second attack of the turn, and –4 (–2 with an agile weapon) on your third and subsequent attacks of the turn.",
+                    "Label": "Masterful Hunter",
+                    "Outwit": "Your mastery of skills allows you to overwhelm your prey. If you have master proficiency in Deception, Intimidation, Stealth, or the skill you use to Recall Knowledge about your prey, increase the circumstance bonus against the prey with that skill from +2 to +4. If you have master proficiency with your armor, increase the circumstance bonus to AC against the prey from +1 to +2.",
+                    "Precision": "Your weapon mastery allows you to hit your prey's vital areas multiple times. The second time in a round you hit your hunted prey, you also deal 1d8 precision damage. At 19th level, your second hit in a round against your hunted prey deals 2d8 precision damage, and your third hit in a round against your hunted prey deals 1d8 precision damage."
+                },
+                "TheHarderTheyFall": {
+                    "CriticalSuccess": "On a critical success, your target takes @Damage[(ternary(gte(@actor.system.skills.athletics.rank,3),4,2))d8[bludgeoning]] damage.",
+                    "Success": "On a success, your target takes @Damage[(ternary(gte(@actor.system.skills.athletics.rank,3),2,1))d8[bludgeoning]] damage."
+                },
                 "Vindicator": {
+                    "BenefitsAddendum": "You gain a +1 status bonus to your spell attack rolls against your hunted prey, and they take a –1 status penalty to their saving throws against divine spells you cast.",
+                    "SpellPenaltyAddendum": "Your hunted prey takes a status penalty to their saving throws against divine spells you cast.",
                     "Edge": "Vindication Edge",
                     "Interrogate": "Against same religion members or undead/werecreatures pretending"
                 }
@@ -5666,6 +5765,10 @@
                 },
                 "Racket": {
                     "Prompt": "Select a racket."
+                },
+                "TheHarderTheyFall": {
+                    "CriticalSuccess": "On a critical success, your target takes @Damage[1d6[bludgeoning],(((@actor.flags.pf2e.sneakAttackDamage.number)d(@actor.flags.pf2e.sneakAttackDamage.faces))[precision])[bludgeoning]] damage.",
+                    "Success": "On a success, your target takes @Damage[1d6[bludgeoning]] damage."
                 },
                 "TrainSkill": {
                     "Prompt": "Select a skill to become trained in."
@@ -5909,36 +6012,36 @@
                 "ToggleLabel": "Kgalaserke's Axes — Damaged by target"
             },
             "SpellEffectMantle": {
-                "DamageNote": {
-                    "HeartOfIce": "The attacker takes @Damage[2d6[cold]] damage"
-                },
                 "FrozenHeart": {
-                   "Label": {
-                       "ChillingIce": "Chilling Ice",
-                       "HeartOfIce": "Heart of Ice",
-                       "IceGlide": "Ice Glide",
-                       "IceGlideSurface": "Moving along a smooth surface",
-                       "IcyClaws": "Icy Claws"
-                   },
-                   "RollOptionLabel": {
-                    "First": "Mantle of the Frozen Heart — First ability",
-                    "Second": "Mantle of the Frozen Heart — Second ability"
-                   }
+                    "DamageNote": {
+                        "HeartOfIce": "The attacker takes @Damage[2d6[cold]] damage"
+                    },
+                    "Label": {
+                        "ChillingIce": "Chilling Ice",
+                        "HeartOfIce": "Heart of Ice",
+                        "IceGlide": "Ice Glide",
+                        "IceGlideSurface": "Moving along a smooth surface",
+                        "IcyClaws": "Icy Claws"
+                    },
+                    "RollOptionLabel": {
+                        "First": "Mantle of the Frozen Heart — First ability",
+                        "Second": "Mantle of the Frozen Heart — Second ability"
+                    }
                 },
                 "MagmaHeart": {
                     "DamageNote": {
                         "HeartOfFire": "The attacker takes @Damage[2d6[fire]] damage"
                     },
                     "Label": {
-                       "EnlargingEruption": "Enlarging Eruption",
-                       "FieryGrasp": "Fiery Grasp",
-                       "HeartOfFire": "Heart of Fire",
-                       "WarmingFlames": "Warming Flames"
-                   },
-                   "RollOptionLabel": {
-                    "First": "Mantle of the Magma Heart — First ability",
-                    "Second": "Mantle of the Magma Heart — Second ability"
-                   }
+                        "EnlargingEruption": "Enlarging Eruption",
+                        "FieryGrasp": "Fiery Grasp",
+                        "HeartOfFire": "Heart of Fire",
+                        "WarmingFlames": "Warming Flames"
+                    },
+                    "RollOptionLabel": {
+                        "First": "Mantle of the Magma Heart — First ability",
+                        "Second": "Mantle of the Magma Heart — Second ability"
+                    }
                 },
                 "MeltingHeart": {
                     "CabledFist": {
@@ -5954,9 +6057,9 @@
                         "DamageNote": "Any metal that touches you takes @Damage[2d6[acid]] damage that bypasses Hardness."
                     },
                     "RollOptionLabel": {
-                    "First": "Mantle of the Melting Heart — First ability",
-                    "Second": "Mantle of the Melting Heart — Second ability"
-                   }
+                        "First": "Mantle of the Melting Heart — First ability",
+                        "Second": "Mantle of the Melting Heart — Second ability"
+                    }
                 }
             },
             "SpellEffectMentalMap": {
@@ -6676,6 +6779,9 @@
             "WarriorOfLegend": {
                 "CursedWeakness": {
                     "Prompt": "Select a cursed weakness."
+                },
+                "GriefsFury": {
+                    "Toggle": "Grief's Fury — Target dealt damage to your bonded partner"
                 }
             },
             "Wayang": {
@@ -6801,28 +6907,28 @@
                             "Title": "Familiar of Stalking Night"
                         },
                         "BolsteringAid": {
-                            "Description":"Your familiar knows all manner of tricks that can help! When you Cast or Sustain a hex, and your familiar is adjacent to an ally, that ally gains a +2 status bonus to the next non-attack skill check that ally attempts before the start of your next turn.",
+                            "Description": "Your familiar knows all manner of tricks that can help! When you Cast or Sustain a hex, and your familiar is adjacent to an ally, that ally gains a +2 status bonus to the next non-attack skill check that ally attempts before the start of your next turn.",
                             "Title": "Familiar of Bolstering Aid"
                         },
                         "EnticingNegotiation": {
-                            "Description":"When you Cast or Sustain a hex and your familiar is within 10 feet of an enemy, the enemy becomes @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn. Your familiar can only distract a single enemy per round in this way.",
+                            "Description": "When you Cast or Sustain a hex and your familiar is within 10 feet of an enemy, the enemy becomes @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn. Your familiar can only distract a single enemy per round in this way.",
                             "Title": "Familiar of Enticing Negotiation"
                         },
                         "ObscuringSnowfall": {
-                            "Description":"When you Cast or Sustain a hex, you can cause clinging snow to fall in a @Template[type:burst|distance:5] centered on a square of your familiar's space. This snowfall remains until the start of your next turn, and enemies that enter these squares during that period are @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn.",
+                            "Description": "When you Cast or Sustain a hex, you can cause clinging snow to fall in a @Template[type:burst|distance:5] centered on a square of your familiar's space. This snowfall remains until the start of your next turn, and enemies that enter these squares during that period are @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn.",
                             "Title": "Familiar of Obscuring Snowfall"
                         },
                         "PairedPerplexity": {
-                            "Description":"When you Cast or Sustain a hex, your familiar seems to double and be in two places at once. One creature you choose within 20 feet of it is @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} until the start of your next turn; this is a visual effect.",
+                            "Description": "When you Cast or Sustain a hex, your familiar seems to double and be in two places at once. One creature you choose within 20 feet of it is @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} until the start of your next turn; this is a visual effect.",
                             "Title": "Familiar of Paired Perplexity"
                         },
                         "SwarmsHeart": {
-                            "Description":"When you Cast or Sustain a hex, the insects swarm to protect you and your allies. Until the start of your next turn, your familiar grants concealment to you or any ally while sharing the same space.",
+                            "Description": "When you Cast or Sustain a hex, the insects swarm to protect you and your allies. Until the start of your next turn, your familiar grants concealment to you or any ally while sharing the same space.",
                             "Title": "Familiar of Swarm's Heart"
                         }
                     },
                     "Prompt": "Select a patron.",
-                    "Theme":{
+                    "Theme": {
                         "BabaYaga": "Baba Yaga",
                         "ChoirPolitic": "Choir Politic",
                         "Cobyslarni": "Cobyslarni",
@@ -6840,6 +6946,9 @@
                         "WhisperOfWings": "Whisper of Wings",
                         "WildingSteward": "Wilding Steward"
                     }
+                },
+                "Seneschal": {
+                    "AdjustmentsAddendum": "Instead of your patron's lesson, you gain the @UUID[Compendium.pf2e.spells-srd.Item.IqBfoUaWDennHYoZ]{Manifest Will} hex cantrip and your familiar learns one common 1st-rank spell of your choice from your spell list."
                 },
                 "SympatheticStrike": {
                     "Note": "Until the beginning of your next turn, the target takes a –1 circumstance penalty to its saves against your hexes, or a –2 penalty if the triggering Strike was a critical hit. @UUID[Compendium.pf2e.feat-effects.Item.qBTJYpopY3AwFFUJ]{Effect: Sympathetic Strike}"

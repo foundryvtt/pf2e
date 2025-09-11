@@ -9,7 +9,7 @@ export class RenderTokenHUD {
             game.pf2e.StatusEffects.onRenderTokenHUD(html, data);
 
             const token = canvas.scene?.tokens.get(data._id ?? "")?.object;
-            this.addClownCarButton(html, token);
+            RenderTokenHUD.#addClownCarButton(html, token);
 
             // Remove conditions hud from army. Once Foundry supports replacing these by actor type we'll add them back in
             if (token?.actor?.isOfType("army")) {
@@ -19,46 +19,35 @@ export class RenderTokenHUD {
     }
 
     /** Replace the token HUD's status effects button with one for depositing/retrieving party-member tokens.  */
-    static addClownCarButton(
+    static #addClownCarButton(
         html: HTMLElement,
         token: TokenPF2e<TokenDocumentPF2e<ScenePF2e>> | null | undefined,
     ): void {
         if (!token?.actor?.isOfType("party")) return;
-
-        const { actor } = token;
-        const actionIcon = ((): HTMLImageElement => {
-            const imgElement = document.createElement("img");
-            imgElement.src = "systems/pf2e/icons/other/enter-exit.svg";
-            const willRetrieve = actor.members.some((m) => m.getActiveTokens(true, true).length > 0);
-            imgElement.className = willRetrieve ? "retrieve" : "deposit";
-            imgElement.title = game.i18n.localize(
-                willRetrieve ? "PF2E.Actor.Party.ClownCar.Retrieve" : "PF2E.Actor.Party.ClownCar.Deposit",
-            );
-
-            return imgElement;
-        })();
-
-        const controlButton = createHTMLElement("div", {
-            classes: ["control-icon"],
-            dataset: { action: "clown-car" },
-            children: [actionIcon],
+        const willRetrieve = token.actor.members.some((m) => m.getActiveTokens(true, true).length > 0);
+        const img = document.createElement("img");
+        img.src = "systems/pf2e/icons/other/enter-exit.svg";
+        img.className = willRetrieve ? "retrieve" : "deposit";
+        const button = createHTMLElement("button", {
+            classes: ["control-icon", "clown-car"],
+            dataset: { tooltip: "" },
+            aria: { label: game.i18n.localize(`PF2E.Actor.Party.ClownCar.${willRetrieve ? "Retrieve" : "Deposit"}`) },
+            children: [img],
         });
-
-        controlButton.addEventListener("click", async () => {
-            if (controlButton.dataset.disabled) return;
-            controlButton.dataset.disabled = "true";
+        button.type = "button";
+        button.addEventListener("click", async () => {
+            if (button.disabled) return;
+            button.disabled = true;
             try {
                 await new PartyClownCar(token.document).toggleState();
-                const switchToDeposit = actionIcon.className === "retrieve";
-                actionIcon.className = switchToDeposit ? "deposit" : "retrieve";
-                actionIcon.title = game.i18n.localize(
-                    switchToDeposit ? "PF2E.Actor.Party.ClownCar.Deposit" : "PF2E.Actor.Party.ClownCar.Retrieve",
-                );
+                const switchToDeposit = img.className === "retrieve";
+                img.className = switchToDeposit ? "deposit" : "retrieve";
+                const locPath = `PF2E.Actor.Party.ClownCar.${switchToDeposit ? "Deposit" : "Retrieve"}`;
+                button.ariaLabel = game.i18n.localize(locPath);
             } finally {
-                delete controlButton.dataset.disabled;
+                button.disabled = false;
             }
         });
-
-        htmlQuery(html, "[data-palette=effects]")?.replaceWith(controlButton);
+        html.querySelector("[data-palette=effects]")?.replaceWith(button);
     }
 }

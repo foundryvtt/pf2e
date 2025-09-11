@@ -1,0 +1,203 @@
+{
+    "_id": "JJKzV6jrGnYpXa8r",
+    "folder": "kER9W9tgG8uPsj8o",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "9T4b5Mvz91zxdIbO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hellfire",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>All orts within 30 feet have +1 status bonus to hit and deal 1d4 extra fire damage on a hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Hellfire"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": []
+                    },
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "px9jiv09J9tnjJFv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bubble",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The trap receives a critical hit or critically fails a saving throw</p><hr /><p><strong>Effect</strong> One ort emerges adjacent.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RkxE5OMukTbfxsOw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Planar Breach",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The magic circle is broken</p><hr /><p><strong>Effect</strong> The pile disgorges orts and then rolls initiative</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Pile of Orts",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 28,
+                "temp": 0,
+                "value": 28
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                },
+                {
+                    "exceptions": [],
+                    "type": "mental"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 3
+                },
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 3
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A rift to Hell crackles with unstable energy from the broken summoning circle as a squirming mass of fiends struggles to emerge A blood mist projection of a Hellknight angrily commands them.</p>",
+            "disable": "<p>@Check[arcana|dc:16], @Check[nature|dc:16], @Check[occultism|dc:16], or @Check[religion|dc:16] (2 actions) (trained) while within 15 feet to weaken the rift, dealing @Damage[2d4[untyped]|traits:holy] holy damage to it</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #7-01: Intro to the Year of Battle's Spark: Enough is Enough"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The Hellknight commands the orts, and the trap lashes out at each enemy creature in its space and adjacent, dealing @Damage[(1d6+3)[slashing]] damage (@Check[reflex|dc:15|basic] save) If no enemy is in reach, an ort emerges in an adjacent square.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 11
+            },
+            "reflex": {
+                "value": 6
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}

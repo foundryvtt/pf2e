@@ -2125,10 +2125,10 @@
         {
             "_id": "p8SDP40rvwqlltzJ",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.f2Pl5dWEL9ZvEyI1"
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.1JnERVwnPtX620f2"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Animal Companion",
+            "name": "Animal Companion (Ranger)",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -2139,7 +2139,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>You gain the service of a young animal companion that travels with you on your adventure and obeys any simple commands you give it to the best of your abilities.</p>"
+                    "value": "<p>You gain the service of a young animal companion that travels with you and obeys simple commands. When you @UUID[Compendium.pf2e.actionspf2e.Item.Hunt Prey], your animal companion gains the action's benefits and your hunter's edge benefit if you have one.</p>"
                 },
                 "level": {
                     "taken": 2,
@@ -2147,11 +2147,7 @@
                 },
                 "location": "class-2",
                 "prerequisites": {
-                    "value": [
-                        {
-                            "value": "animal order"
-                        }
-                    ]
+                    "value": []
                 },
                 "publication": {
                     "license": "OGL",
@@ -2159,11 +2155,13 @@
                     "title": "Pathfinder Core Rulebook"
                 },
                 "rules": [],
-                "slug": "animal-companion",
+                "slug": "animal-companion-ranger",
                 "traits": {
+                    "otherTags": [
+                        "hunters-edge-sharing"
+                    ],
                     "rarity": "common",
                     "value": [
-                        "druid",
                         "ranger"
                     ]
                 }
@@ -2999,20 +2997,75 @@
                 },
                 "rules": [
                     {
+                        "disabledIf": [
+                            {
+                                "not": "self:effect:hunt-prey"
+                            }
+                        ],
+                        "disabledValue": false,
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
-                        "option": "first-attack",
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Precision.ToggleLabel",
+                        "mergeable": true,
+                        "option": "precision-hunters-edge",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Ordinals.First",
+                                "value": "first-hit"
+                            }
+                        ],
                         "toggleable": true
                     },
                     {
                         "category": "precision",
-                        "diceNumber": "ternary(lt(@actor.level, 11), 1, ternary(lt(@actor.level, 19), 2, 3))",
+                        "diceNumber": "ternary(lt(@actor.level,11),1,ternary(lt(@actor.level,19),2,3))",
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "first-attack"
+                            "precision-hunters-edge",
+                            "target:mark:hunted-prey"
                         ],
-                        "selector": "strike-damage"
+                        "selector": "strike-damage",
+                        "slug": "precision-hunters-edge"
+                    },
+                    {
+                        "itemType": "feat",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:tag:hunters-edge-sharing"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            },
+                            {
+                                "predicate": [
+                                    {
+                                        "nand": [
+                                            "item:slug:animal-companion-ranger",
+                                            "feat:masterful-companion"
+                                        ]
+                                    }
+                                ],
+                                "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Precision)]"
+                            },
+                            {
+                                "predicate": [
+                                    "feat:masterful-companion",
+                                    "item:slug:animal-companion-ranger"
+                                ],
+                                "text": "PF2E.SpecificRule.Ranger.MasterfulHunter.Precision",
+                                "title": "PF2E.SpecificRule.Ranger.MasterfulHunter.Label"
+                            },
+                            {
+                                "predicate": [
+                                    "feat:masterful-companion",
+                                    "item:slug:animal-companion-ranger"
+                                ],
+                                "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Precision, Masterful)]"
+                            }
+                        ]
                     }
                 ],
                 "slug": "precision",
@@ -3059,17 +3112,11 @@
                 },
                 "rules": [
                     {
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                        "option": "hunted-prey",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
                         "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                         "predicate": [
                             "action:seek",
-                            "hunted-prey"
+                            "target:mark:hunted-prey"
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -3080,7 +3127,7 @@
                         "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                         "predicate": [
                             "action:track",
-                            "hunted-prey"
+                            "target:mark:hunted-prey"
                         ],
                         "selector": "survival",
                         "type": "circumstance",
@@ -3091,10 +3138,14 @@
                         "key": "RollOption",
                         "option": "ignore-range-penalty:2",
                         "predicate": [
-                            "hunted-prey"
+                            "target:mark:hunted-prey"
                         ]
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Hunt Prey",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Hunt Prey"
+                },
                 "slug": "hunt-prey",
                 "traits": {
                     "rarity": "common",
@@ -3190,6 +3241,7 @@
         "name": "Ekundayo"
     },
     "system": {
+        "abilities": null,
         "attributes": {
             "hp": {
                 "temp": 0,

@@ -41,6 +41,9 @@
         },
         {
             "_id": "HtObAvlkwMg0OWFb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH"
+            },
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement (Constant)",
@@ -147,78 +150,10 @@
             "type": "effect"
         },
         {
-            "_id": "9izQUlyhIAzmZz6c",
-            "img": "icons/commodities/claws/claws-plain-brown-orange.webp",
-            "name": "Effect: Adaptive Strike (Adamantine)",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": "<p>The creature's melee strikes count either as adamantine, cold iron or silver.</p>"
-                },
-                "duration": {
-                    "expiry": "turn-start",
-                    "sustained": false,
-                    "unit": "minutes",
-                    "value": 1
-                },
-                "fromSpell": false,
-                "level": {
-                    "value": 7
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "choices": [
-                            {
-                                "label": "PF2E.PreciousMaterialAdamantine",
-                                "value": "adamantine"
-                            },
-                            {
-                                "label": "PF2E.PreciousMaterialColdIron",
-                                "value": "cold-iron"
-                            },
-                            {
-                                "label": "PF2E.PreciousMaterialSilver",
-                                "value": "silver"
-                            }
-                        ],
-                        "flag": "material",
-                        "key": "ChoiceSet",
-                        "selection": "adamantine"
-                    },
-                    {
-                        "definition": [
-                            "item:melee"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "{item|flags.pf2e.rulesSelections.material}"
-                    }
-                ],
-                "slug": "effect-adaptive-strike",
-                "start": {
-                    "initiative": null,
-                    "value": 6
-                },
-                "tokenIcon": {
-                    "show": true
-                },
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "effect"
-        },
-        {
             "_id": "R96622IFQ9P9kEle",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Entropy Sense",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -228,7 +163,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A protean tumult can anticipate the most likely presence of a creature through a supernatural insight into chaotic probabilities and chance. This grants it the ability to sense creatures within the listed range. Veil of privacy prevents a creature from being detected via entropy sense automatically (without a counteract check).</p>"
+                    "value": "<p>A protean tumult can anticipate the most likely presence of a creature through a supernatural insight into chaotic probabilities and chance. This grants it the ability to sense creatures within the listed range. @UUID[Compendium.pf2e.spells-srd.Item.Veil of Privacy] prevents a creature from being detected via entropy sense automatically (without a counteract check).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -250,7 +185,7 @@
             "_id": "scu5Bs8DD8FihPK7",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -288,8 +223,8 @@
         {
             "_id": "NsbD0XXJd9rWTG6K",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fast Healing",
-            "sort": 700000,
+            "name": "Fast Healing 8",
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -309,7 +244,7 @@
                 "rules": [
                     {
                         "key": "FastHealing",
-                        "value": 5
+                        "value": 8
                     }
                 ],
                 "slug": "fast-healing",
@@ -323,8 +258,8 @@
             "_id": "e8XD5kcvG2Bx7SOy",
             "folder": "ux1bQjL8l72wbqSb",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Protean Anatomy",
-            "sort": 800000,
+            "name": "Protean Anatomy 12",
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -362,7 +297,7 @@
             "_id": "icFtpyk3vKrnSxKV",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Troop Defenses",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -391,7 +326,7 @@
             "_id": "i5jWmQ8e6h6E4QoP",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Troop Movement",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -420,7 +355,7 @@
             "_id": "xySnVB7sWVdq7l75",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Chaos Flux",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -430,7 +365,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A protean tumult is less organized and more vicious than most troops. It can move into other creatures' spaces, and other creatures can move into its spaces. Its spaces are difficult terrain to non-protean creatures. A creature that willingly moves into a protean tumult's space takes @Damage[(1d12+1)[bludgeoning]] damage (@Check[reflex|dc:29|basic|options:area-effect] save); a creature takes this damage only once per round.</p>"
+                    "value": "<p>A protean tumult is less organized and more vicious than most troops. It can move into other creatures' spaces, and other creatures can move into its spaces. Its spaces are difficult terrain to non-protean creatures. A creature that willingly moves into a protean tumult's space takes @Damage[(1d12+1)[untyped]] damage (@Check[reflex|dc:29|basic|options:area-effect] save); a creature takes this damage only once per round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -449,7 +384,7 @@
             "_id": "JSA3xmys0kWwH0A1",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Chaos Strike",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -485,7 +420,7 @@
             "_id": "sCHb6Krue4UHWMqU",
             "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
             "name": "Claws, Jaws, and Tails",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -495,7 +430,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The tumult viciously attacks each enemy within a @Template[type:emanation|distance:5] (@Check[reflex|dc:29|basic|options:area-effect] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d12+1)[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d12+10)[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d12+11)[bludgeoning]] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p><hr /><p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The tumult viciously attacks each enemy within a @Template[type:emanation|distance:5] (@Check[reflex|dc:29|basic|options:area-effect] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d12+1)[untyped]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d12+10)[untyped]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d12+11)[untyped]|options:area-damage] damage</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -510,7 +445,7 @@
                     {
                         "alwaysActive": true,
                         "key": "RollOption",
-                        "label": "Protean Tumult Attack Damage Type",
+                        "label": "PF2E.NPCAbility.Troop.DamageType.Label",
                         "option": "claws-jaws-tails",
                         "suboptions": [
                             {
@@ -551,7 +486,7 @@
             "_id": "JegdZ0GZYtjq4SH8",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Stupefying Swipe",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -561,7 +496,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The protean tumult makes their way across the battlefield. It Strides. At the end of this movement, they lash out at the enemy with tentacles and other blunt body parts, dealing @Damage[(2d12+10)[bludgeoning]|options:area-damage] damage in a @Template[type:emanation|distance:5] (@Check[reflex|dc:29|basic|options:area-effect] save). A creature who fails this save is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 2 rounds (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} on a critical failure).</p>"
+                    "value": "<p>The protean tumult makes their way across the battlefield. It Strides. At the end of this movement, they lash out at the enemy with tentacles and other blunt body parts, dealing @Damage[(2d12+10)[bludgeoning]|options:area-damage] damage in a @Template[type:emanation|distance:5] (@Check[reflex|dc:29|basic|options:area-effect,inflicts:stupefied] save). A creature who fails this save is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 2 rounds (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -609,7 +544,7 @@
                 "value": 32
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "(4 segments); Thresholds 140 (3 segments), 70 (2 segments)",
@@ -623,6 +558,12 @@
                     "exceptions": [],
                     "type": "precision",
                     "value": 8
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "protean-anatomy",
+                    "value": 12
                 }
             ],
             "speed": {

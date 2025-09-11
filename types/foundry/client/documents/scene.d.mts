@@ -1,5 +1,4 @@
-import { SceneDimensions } from "@client/_types.mjs";
-import { TokenAnimationOptions } from "@client/canvas/placeables/token.mjs";
+import { TokenAnimationOptions } from "@client/_types.mjs";
 import {
     DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
@@ -22,6 +21,7 @@ import {
     NoteSource,
     RegionDocument,
     RegionSource,
+    SceneDimensions,
     SceneSource,
     TileDocument,
     TokenDocument,
@@ -89,7 +89,7 @@ export default class Scene extends ClientBaseScene {
     getDimensions(): SceneDimensions;
 
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;

@@ -4,7 +4,7 @@
     "name": "Stance: Hunter's Precision",
     "system": {
         "description": {
-            "value": "<p>Your Strikes deal an additional 2d8 precision damage, and the range increment for your ranged weapon Strikes is 20 feet longer than normal. On a critical hit, the target also takes 2d6 persistent bleed damage.</p>"
+            "value": "<p>Your Strikes deal an additional 2d8 precision damage, and the range increment for your ranged weapon Strikes is 20 feet longer than normal. On a critical hit with a weapon Strike, the target also takes 2d6 persistent bleed damage.</p>"
         },
         "duration": {
             "expiry": null,
@@ -29,11 +29,25 @@
                 "selector": "strike-damage"
             },
             {
+                "definition": [
+                    "item:ranged"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "range-increment",
+                "value": 20
+            },
+            {
                 "critical": true,
                 "damageType": "bleed",
                 "diceNumber": 2,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": [
+                    {
+                        "not": "item:category:unarmed"
+                    }
+                ],
                 "selector": "strike-damage"
             }
         ],

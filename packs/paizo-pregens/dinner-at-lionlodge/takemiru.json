@@ -132,7 +132,7 @@
                 },
                 "category": "skill",
                 "description": {
-                    "value": "<p>You can <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"1\">Demoralize</span> with a mere glare. When you do, Demoralize loses the auditory trait and gains the visual trait, and you don't take a penalty if the creature doesn't understand your language.</p>"
+                    "value": "<p>You can @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] with a mere glare. When you do, Demoralize loses the auditory trait and gains the visual trait, and you don't take a penalty if the creature doesn't understand your language.</p>"
                 },
                 "level": {
                     "taken": 1,
@@ -147,12 +147,17 @@
                     ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "slug": "intimidating-glare",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1966,8 +1971,8 @@
                     {
                         "key": "MultipleAttackPenalty",
                         "predicate": [
-                            "agile",
-                            "hunted-prey"
+                            "item:trait:agile",
+                            "target:mark:hunted-prey"
                         ],
                         "selector": "attack",
                         "value": -2
@@ -1975,13 +1980,53 @@
                     {
                         "key": "MultipleAttackPenalty",
                         "predicate": [
-                            "hunted-prey",
+                            "target:mark:hunted-prey",
                             {
-                                "not": "agile"
+                                "not": "item:trait:agile"
                             }
                         ],
                         "selector": "attack",
                         "value": -3
+                    },
+                    {
+                        "itemType": "feat",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:tag:hunters-edge-sharing"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            },
+                            {
+                                "predicate": [
+                                    {
+                                        "nand": [
+                                            "item:slug:animal-companion-ranger",
+                                            "feat:masterful-companion"
+                                        ]
+                                    }
+                                ],
+                                "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Flurry)]"
+                            },
+                            {
+                                "predicate": [
+                                    "feat:masterful-companion",
+                                    "item:slug:animal-companion-ranger"
+                                ],
+                                "text": "PF2E.SpecificRule.Ranger.MasterfulHunter.Flurry",
+                                "title": "PF2E.SpecificRule.Ranger.MasterfulHunter.Label"
+                            },
+                            {
+                                "predicate": [
+                                    "feat:masterful-companion",
+                                    "item:slug:animal-companion-ranger"
+                                ],
+                                "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Flurry, Masterful)]"
+                            }
+                        ]
                     }
                 ],
                 "slug": "flurry",
@@ -2028,17 +2073,11 @@
                 },
                 "rules": [
                     {
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                        "option": "hunted-prey",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
                         "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                         "predicate": [
                             "action:seek",
-                            "hunted-prey"
+                            "target:mark:hunted-prey"
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -2049,7 +2088,7 @@
                         "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                         "predicate": [
                             "action:track",
-                            "hunted-prey"
+                            "target:mark:hunted-prey"
                         ],
                         "selector": "survival",
                         "type": "circumstance",
@@ -2060,7 +2099,7 @@
                         "key": "RollOption",
                         "option": "ignore-range-penalty:2",
                         "predicate": [
-                            "hunted-prey"
+                            "target:mark:hunted-prey"
                         ]
                     }
                 ],

@@ -22,7 +22,7 @@
                 "damageRolls": {
                     "0": {
                         "damage": "3d10 + 11",
-                        "damageType": "force"
+                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -69,7 +69,7 @@
                 "damageRolls": {
                     "0": {
                         "damage": "2d10+11",
-                        "damageType": "force"
+                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -150,7 +150,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The protosoul takes @Damage[10[force]|options:area-damage] damage as it releases a burst of uncontained void energy in a @Template[type:emanation|distance:30]. Creatures in the area take @Damage[5d8[void]|options:area-damage] damage (@Check[fortitude|dc:30|basic] save).</p>"
+                    "value": "<p>The protosoul takes @Damage[10[force]|options:area-damage] damage as it releases a burst of uncontained void energy in a @Template[type:emanation|distance:30]. Creatures in the area take @Damage[5d8[void]|options:area-damage] damage (@Check[fortitude|dc:30|basic|options:area-effect] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -160,7 +160,10 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": []
+                    "value": [
+                        "divine",
+                        "void"
+                    ]
                 }
             },
             "type": "action"
@@ -191,16 +194,16 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 31
+                "value": 28
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "void healing",
-                "max": 190,
+                "max": 245,
                 "temp": 0,
-                "value": 190
+                "value": 245
             },
             "immunities": [
                 {
@@ -256,7 +259,7 @@
                 "value": 11
             },
             "privateNotes": "",
-            "publicNotes": "<p>Though many spellcasters can harness the forces of magic in a consistent manner, such power can't always be controlled, especially in the hands of reckless researchers, megalomaniacal villains, or untested novices. When magical accidents result in large-scale property damage and the loss of life, these forces sometimes take on lives of their own, forming a dangerous amalgamation of ongoing magical energy known as a roiling incant.</p>\n<p>A roiling incant's appearance depends on the type of magic it sprang forth from, though it always carries with it an echo of the destruction it has caused. A fiery evocation roiling incant might look like a storm of burning ashes echoing with the sounds of crackling timber, while a necromancy roiling incant could be mistaken for ghostly tendrils puppeteering shambling corpses. No matter what it looks like, a roiling incant roams mindlessly, attacking everything it encounters, heedless of further carnage it causes.</p>",
+            "publicNotes": "",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -271,6 +274,8 @@
             "mod": 19,
             "senses": [
                 {
+                    "acuity": "precise",
+                    "range": 120,
                     "type": "lifesense"
                 }
             ]

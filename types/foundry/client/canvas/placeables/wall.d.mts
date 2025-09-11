@@ -151,13 +151,13 @@ export default class Wall<
     /** Handle mouse-hover events on the line segment itself, pulling the Wall to the front of the container stack */
     protected _onMouseOverLine(event: PIXI.FederatedPointerEvent): void;
 
-    protected override _onClickLeft(event: PIXI.FederatedPointerEvent): boolean;
+    protected override _onClickLeft(event: PIXI.FederatedPointerEvent): boolean | void;
 
-    protected override _onClickLeft2(event: PIXI.FederatedPointerEvent): boolean;
+    protected override _onClickLeft2(event: PIXI.FederatedPointerEvent): boolean | void;
 
-    protected override _onClickRight2(event: PIXI.FederatedPointerEvent): boolean;
+    protected override _onClickRight2(event: PIXI.FederatedPointerEvent): boolean | void;
 
-    protected override _onDragLeftStart(event: PIXI.FederatedPointerEvent): boolean;
+    protected override _onDragLeftStart(event: PIXI.FederatedPointerEvent): boolean | void;
 
     protected _onDragLeftMove(event: PIXI.FederatedPointerEvent): void;
 

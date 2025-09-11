@@ -1,0 +1,130 @@
+{
+    "_id": "lI5vqwD8QKmoSjuD",
+    "folder": "H9CJ9F8U83kU0CYj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "EulP5zDJ1OH8N6Cf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tail Swat",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature lands near the base of the Granite Ox's tail</p><hr /><p><strong>Effect</strong> The Granite Ox makes a tail Strike against the triggering creature. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Lbs3PAxyh5qH8AuZ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "0p4cctViBNtHRudT": {
+                        "damage": "2d10+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>plus @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round; no multiple attack penalty</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Swatted Like Flies",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Feeling the presence of creatures on its backside, the Granite Ox swishes its stone tail to swat them away.</p><p><strong>Escaping</strong> The PCs overcome this hazard by moving out of the area that the Ox's tail can reach. A PC escapes (and is not subject to tail Strikes) by ascending the Ox's sloped back, traveling a distance based on the result of the PC's Reflex save from the Shaken Loose hazard. PCs can Climb up the Ox's back with a successful @Check[athletics|dc:24] check or—by finding and scrambling up improvised paths—a @Check[acrobatics|dc:26], @Check[perception|dc:26], or @Check[survival|dc:26] check. With a successful @Check[acrobatics|dc:20] check, a flying PC can ascend half their fly Speed (or their full Speed on a critical success). PCs can attempt to Disable the hazard whether or not they're in range of the tail.</p>",
+            "disable": "<p>@Check[acrobatics|dc:26] to scramble out of the way, @Check[deception|dc:24] or @Check[intimidation|dc:24] (trained) to draw the Ox's attention. The DC of the flat check for this round (see Routine) is increased by 4 on a success, or by 8 on a critical success. Increasing the flat check DC to 21 or higher buys the party enough time to move up the Ox's back, disabling the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #218: Titanbane"
+            },
+            "reset": "<p>Once all of the PCs moved outside the tail's striking range, the hazard is effectively disabled. The hazard reactivates if any PC returns to that area.</p>",
+            "routine": "<p>(1 action) The Granite Ox makes a tail Strike against one creature in the area. If the attack succeeds, the GM rolls a @Check[flat|dc:9]. On a success, the hazard makes another Strike. The hazard continues making Strikes until the GM fails the flat check.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "mythic"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -15,7 +15,7 @@ import type {
 import type { ImageFilePath, RollMode } from "@common/constants.d.mts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { itemIsOfType, markdownToHTML } from "@item/helpers.ts";
+import { addOrUpgradeTrait, itemIsOfType, markdownToHTML } from "@item/helpers.ts";
 import type { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
@@ -31,6 +31,7 @@ import {
     htmlClosest,
     isObject,
     localizer,
+    objectHasKey,
     setHasElement,
     sluggify,
     tupleHasValue,
@@ -278,15 +279,22 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.system.description.override = null;
         this.system.description.initialized = false;
 
-        const flags = this.flags;
-        flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
-
-        const traits = this.system.traits;
-        if (traits.value) {
-            traits.value = traits.value.filter((t) => t in this.constructor.validTraits);
+        // If this item has traits, filter for valid traits and check for annotations
+        if (this.system.traits.value) {
+            this.system.traits.value = this.system.traits.value.filter((t) => t in this.constructor.validTraits);
+            this.system.traits.config = {};
+            for (const trait of this.system.traits.value) {
+                const annotatedTraitMatch = trait.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
+                if (annotatedTraitMatch) {
+                    const [_, traitBase, annotation] = annotatedTraitMatch;
+                    this.system.traits.config[traitBase] = Number(annotation);
+                }
+            }
         }
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
+        const flags = this.flags;
+        flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
         if (isObject(flags.pf2e.grantedBy)) {
             flags.pf2e.grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
         }
@@ -296,7 +304,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 grant.onDelete ??= "detach";
             }
         }
-
         this.grantedBy = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
@@ -824,7 +831,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /* -------------------------------------------- */
 
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
@@ -872,15 +879,19 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             changed.system.slug = sluggify(changed.system.slug) || null;
         }
 
-        // Sort traits for easier visual scanning in breakpoints
+        // Validate and deduplicate traits and other-tags
         if (changed.system?.traits) {
-            if (Array.isArray(changed.system.traits.value)) {
-                changed.system.traits.value.sort();
+            const traits: { value?: string[]; otherTags?: string[] } = changed.system.traits;
+            if (traits.value && Array.isArray(traits.value)) {
+                const validTraits: ItemTrait[] = [];
+                for (const trait of traits.value) {
+                    if (objectHasKey(this.constructor.validTraits, trait)) {
+                        addOrUpgradeTrait(validTraits, trait);
+                    }
+                }
+                traits.value = validTraits.sort();
             }
-
-            if (Array.isArray(changed.system.traits.otherTags)) {
-                changed.system.traits.otherTags = changed.system.traits.otherTags.map((t) => sluggify(t)).sort();
-            }
+            if (Array.isArray(traits.otherTags)) traits.otherTags = traits.otherTags.map((t) => sluggify(t)).sort();
         }
 
         // Run preUpdateItem rule element callbacks

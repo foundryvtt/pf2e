@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Usage</strong> imbued into a weapon ikon</p><hr /><p>The blaze of your divine spark is hot enough that it burns in not just the present, but the past and future as well. Whenever you score a critical hit with the imbued ikon, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} or increases its doomed condition by 1. If the target's maximum dying value is reduced to 0 by this ability, it immediately dies in a flash of spiritual fire that reduces its body to ash. This effect applies even when the ikon is not empowered. The ikon also gains the following transcendence ability.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Burn out of Time] <span class=\"action-glyph\">2</span> (spirit, transcendence, void)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.ZhVJ7EUTJngrIO2Z inline]</p>"
+            "value": "<p><strong>Usage</strong> imbued into a weapon ikon</p><hr /><p>The blaze of your divine spark is hot enough that it burns in not just the present, but the past and future as well. Whenever you score a critical hit with the imbued ikon, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} or increases its doomed condition by 1. If the target's maximum dying value is reduced to 0 by this ability, it immediately dies in a flash of spiritual fire that reduces its body to ash. This effect applies even when the ikon is not empowered. The ikon also gains the following transcendence ability.</p>\n<p><strong>Transcendence—@UUID[Compendium.pf2e.actionspf2e.Item.Burn out of Time]</strong> <span class=\"action-glyph\">2</span> (spirit, transcendence, void)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.ZhVJ7EUTJngrIO2Z inline]</p>"
         },
         "level": {
             "value": 18
@@ -56,9 +56,16 @@
                 "title": "PF2E.SpecificRule.Exemplar.EternityIncineratingBlaze.Label"
             },
             {
+                "disabledIf": [
+                    {
+                        "not": "divine-spark:{item|flags.pf2e.rulesSelections.ikon}"
+                    }
+                ],
+                "disabledValue": false,
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Exemplar.EternityIncineratingBlaze.BurnOutOfTime.Label",
                 "option": "burn-out-of-time",
+                "priority": 51,
                 "toggleable": true
             },
             {
@@ -96,7 +103,8 @@
                 "option": "exemplar-spirit-damage",
                 "predicate": [
                     "burn-out-of-time"
-                ]
+                ],
+                "priority": 51
             }
         ],
         "traits": {

@@ -163,7 +163,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         // Characters prepare spellcasting by extending a statistic.
         // NPCs prepare spellcasting with explicit values.
         if (actor.isOfType("character")) {
-            // Spellcasting entries extend other statistics, usually a tradition, but sometimes class dc
+            // Spellcasting entries extend other statistics, usually base spellcasting, but sometimes class dc
             const baseStat = actor.getStatistic(this.system.proficiency.slug || "base-spellcasting");
             if (!baseStat) return;
 

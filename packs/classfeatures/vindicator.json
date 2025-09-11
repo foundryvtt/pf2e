@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You have been specially trained to use guile and magic to reveal hidden threats. You must select Vindicator Dedication as your 2nd-level class feat.</p>\n<p><strong>Prerequisites:</strong> You must be a ranger.</p>\n<p><strong>Vindicator Adjustments:</strong> You must choose a deity to be a follower of, and you gain your deity's sanctification.</p>\n<p>You are trained in Religion instead of Nature.</p>\n<p>You are trained in your deity's favored weapon. If your deity's favored weapon is a simple weapon or unarmed attack with a damage die smaller than d6, you gain the Deadly Simplicity feat. If your deity's favored weapon is an advanced weapon, your proficiency with it is equal to your proficiency with martial weapons.</p>\n<p>You must choose the vindication edge for your hunter's edge.</p>\n<p>You learn warden spells as divine spells instead of primal spells, and your spellcasting attribute is Wisdom. When you gain domain spells via the Domain Initiate or Advanced Domain feats, they are warden spells for the purposes of all your vindicator feats and abilities.</p><h2>Vindication Edge</h2><p>Your specialized training gives you a unique edge that allows you to more effectively bring the tools of your faith to bear against the monsters that lurk in the night or hide among the faithful.</p>\n<p>You gain a +1 status bonus to your spell attack rolls against your hunted prey, and they take a –1 status penalty to their saving throws against divine spells you cast. You gain the vindicator's mark warden spell.</p><h2>Trackless Journey <span style=\"float:right\">5th</span></h2><p>Vindicators can choose to gain the benefits of this class feature in either urban or natural terrain, chosen at the time the class feature is gained.</p><h2>Masterful Hunter <span style=\"float:right\">17th</span></h2><p>The masterful hunter class feature gives an additional benefit based on your hunter's edge. Included here is the additional benefit for the vindication edge.</p>"
+            "value": "<p>You have been specially trained to use guile and magic to reveal hidden threats. You must select @UUID[Compendium.pf2e.feats-srd.Item.Vindicator Dedication] as your 2nd-level class feat.</p>\n<p><strong>Prerequisites:</strong> You must be a ranger.</p>\n<p><strong>Vindicator Adjustments:</strong> You must choose a deity to be a follower of, and you gain your deity's sanctification.</p>\n<p>You are trained in Religion instead of Nature.</p>\n<p>You are trained in your deity's favored weapon. If your deity's favored weapon is a simple weapon or unarmed attack with a damage die smaller than d6, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Deadly Simplicity] feat. If your deity's favored weapon is an advanced weapon, your proficiency with it is equal to your proficiency with martial weapons.</p>\n<p>You must choose the vindication edge for your hunter's edge.</p>\n<p>You learn warden spells as divine spells instead of primal spells, and your spellcasting attribute is Wisdom. When you gain domain spells via the @UUID[Compendium.pf2e.feats-srd.Item.Domain Initiate] or @UUID[Compendium.pf2e.feats-srd.Item.Advanced Domain] feats, they are warden spells for the purposes of all your vindicator feats and abilities.</p><h2>Vindication Edge</h2><p>Your specialized training gives you a unique edge that allows you to more effectively bring the tools of your faith to bear against the monsters that lurk in the night or hide among the faithful.</p>\n<p>You gain a +1 status bonus to your spell attack rolls against your hunted prey, and they take a –1 status penalty to their saving throws against divine spells you cast. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Vindicator's Mark] warden spell.</p><h2>@UUID[Compendium.pf2e.classfeatures.Item.Trackless Journey]{Trackless Journey }<span style=\"float:right\">5th</span></h2><p>Vindicators can choose to gain the benefits of this class feature in either urban or natural terrain, chosen at the time the class feature is gained.</p><h2>@UUID[Compendium.pf2e.classfeatures.Item.Masterful Hunter] <span style=\"float:right\">17th</span></h2><p>The masterful hunter class feature gives an additional benefit based on your hunter's edge. Included here is the additional benefit for the vindication edge.</p>\n<p><strong>Vindication:</strong> You combine skill and magic to swiftly defeat your prey. The status bonus to divine spell attack rolls against your hunted prey increases to +2, and the status penalty to their saving throws against divine spells you cast is –2.</p>"
         },
         "level": {
             "value": 1
@@ -119,21 +119,15 @@
             },
             {
                 "add": [
-                    "holy"
+                    "{item|flags.pf2e.rulesSelections.sanctification}"
                 ],
                 "key": "ActorTraits",
                 "predicate": [
-                    "sanctification:holy"
-                ]
-            },
-            {
-                "add": [
-                    "unholy"
+                    {
+                        "not": "sanctification:none"
+                    }
                 ],
-                "key": "ActorTraits",
-                "predicate": [
-                    "sanctification:unholy"
-                ]
+                "remove": []
             },
             {
                 "fist": true,
@@ -146,9 +140,6 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "flags.pf2e.favoredWeaponRank",
-                "predicate": [
-                    "item:slug:vindicator"
-                ],
                 "value": 1
             },
             {
@@ -160,31 +151,41 @@
                 "label": "PF2E.SpecificRule.Ranger.Vindicator.Edge",
                 "predicate": [
                     "target:mark:hunted-prey",
-                    "item:trait:divine"
+                    "spellcasting:tradition:divine"
                 ],
                 "selector": "spell-attack",
                 "type": "status",
                 "value": "ternary(gte(@actor.level,17),2,1)"
             },
             {
-                "itemType": "action",
+                "itemType": "spell",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:hunt-prey"
+                    "spellcasting:tradition:divine",
+                    "self:effect:hunt-prey"
                 ],
                 "property": "description",
                 "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Ranger.Vindicator.SpellPenaltyAddendum"
+                    },
                     {
                         "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Vindication Edge]"
                     }
                 ]
             },
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.skills.religion.rank",
-                "value": 1
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:tradition:divine",
+                    "self:effect:hunt-prey",
+                    "feature:masterful-hunter"
+                ],
+                "property": "other-tags",
+                "value": "vindicator-masterful-hunter"
             },
             {
                 "flag": "vinidicatorDedication",
@@ -199,6 +200,23 @@
                 ],
                 "reevaluateOnUpdate": true,
                 "uuid": "Compendium.pf2e.feats-srd.Item.Vindicator Dedication"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:hunters-edge-sharing"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Ranger.Vindicator.BenefitsAddendum"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Vindication)]"
+                    }
+                ]
             }
         ],
         "subfeatures": {

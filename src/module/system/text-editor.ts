@@ -434,65 +434,58 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         // variant
         const variant = action.variants.get(params.variant?.trim() ?? "");
 
-        if (label?.trim()) {
-            // label
-            element.innerText = label.trim();
-        } else {
-            // name
-            const text = document.createElement("span");
-            text.innerText = variant?.name
-                ? `${game.i18n.localize(action.name)} - ${game.i18n.localize(variant.name)}`
-                : game.i18n.localize(action.name);
-            element.appendChild(text);
+        const text = document.createElement("span");
+        const trimmedLabel = label?.trim();
+        text.innerText = trimmedLabel
+            ? trimmedLabel
+            : variant?.name
+              ? `${game.i18n.localize(action.name)} - ${game.i18n.localize(variant.name)}`
+              : game.i18n.localize(action.name);
+        element.appendChild(text);
 
-            // difficulty class
-            const visibility = (params["show-dc"] || (game.pf2e.settings.metagame.dcs ? "all" : "gm"))
-                .trim()
-                .toLowerCase();
-            const showDC =
-                (visibility === "all" && game.pf2e.settings.metagame.dcs) ||
-                (["all", "gm"].includes(visibility) && game.user.isGM);
+        // difficulty class
+        const visibility = (params["show-dc"] || (game.pf2e.settings.metagame.dcs ? "all" : "gm")).trim().toLowerCase();
+        const showDC =
+            (visibility === "all" && game.pf2e.settings.metagame.dcs) ||
+            (["all", "gm"].includes(visibility) && game.user.isGM);
 
-            // statistic
-            const statistic = (params["statistic"] || params["stat"] || params["skill"])?.trim();
+        // statistic
+        const statistic = (params["statistic"] || params["stat"] || params["skill"])?.trim();
 
-            if ((dc && showDC) || statistic) {
-                element.appendChild(document.createTextNode(" "));
+        if ((dc && showDC) || statistic) {
+            element.appendChild(document.createTextNode(" "));
 
-                const details = document.createElement("span");
-                if (dc && showDC) {
-                    if (!Number.isNumeric(dc)) {
-                        // (Statistic vs Defense DC)
-                        const defense = game.i18n.localize(`PF2E.Check.DC.Specific.${dc}`);
-                        const text = statistic
-                            ? game.i18n.format("PF2E.InlineAction.Check.StatisticVsDefense", {
-                                  defense,
-                                  statistic: ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic,
-                              })
-                            : game.i18n.format("PF2E.InlineAction.Check.VsDefense", { defense });
-                        details.innerText = `(${text})`;
-                    } else if (statistic) {
-                        // (<span data-visibility="...">DC #</span> Statistic)
-                        const span = createHTMLElement("span", {
-                            dataset: { visibility },
-                            children: [game.i18n.format("PF2E.InlineAction.Check.DC", { dc })],
-                        });
-                        const end = statistic
-                            ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})`
-                            : ")";
-                        details.append("(", span, end);
-                    } else {
-                        // <span data-visibility="...">(DC #)</span>
-                        details.dataset.visibility = visibility;
-                        details.innerText = `(${game.i18n.format("PF2E.InlineAction.Check.DC", { dc })})`;
-                    }
-                } else {
-                    // (Statistic)
-                    const text = ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic;
+            const details = document.createElement("span");
+            if (dc && showDC) {
+                if (!Number.isNumeric(dc)) {
+                    // (Statistic vs Defense DC)
+                    const defense = game.i18n.localize(`PF2E.Check.DC.Specific.${dc}`);
+                    const text = statistic
+                        ? game.i18n.format("PF2E.InlineAction.Check.StatisticVsDefense", {
+                              defense,
+                              statistic: ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic,
+                          })
+                        : game.i18n.format("PF2E.InlineAction.Check.VsDefense", { defense });
                     details.innerText = `(${text})`;
+                } else if (statistic) {
+                    // (<span data-visibility="...">DC #</span> Statistic)
+                    const span = createHTMLElement("span", {
+                        dataset: { visibility },
+                        children: [game.i18n.format("PF2E.InlineAction.Check.DC", { dc })],
+                    });
+                    const end = statistic ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})` : ")";
+                    details.append("(", span, end);
+                } else {
+                    // <span data-visibility="...">(DC #)</span>
+                    details.dataset.visibility = visibility;
+                    details.innerText = `(${game.i18n.format("PF2E.InlineAction.Check.DC", { dc })})`;
                 }
-                element.appendChild(details);
+            } else {
+                // (Statistic)
+                const text = ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic;
+                details.innerText = `(${text})`;
             }
+            element.appendChild(details);
         }
 
         // traits

@@ -6,12 +6,12 @@ import type { AutomaticBonusProgression as ABP } from "@actor/character/automati
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { FeatGroupData } from "@actor/character/feats/index.ts";
 import type { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
+import type { SettingConfig } from "@client/_types.d.mts";
 import type Hotbar from "@client/applications/ui/hotbar.d.mts";
 import type Config from "@client/config.d.mts";
 import type WallDocument from "@client/documents/wall.d.mts";
 import type { FoundryUI } from "@client/ui.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
-import type { SettingConfig } from "@common/_types.d.mts";
 import type { ImageFilePath, RollMode, UserRole } from "@common/constants.d.mts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
@@ -23,7 +23,6 @@ import type {
     CompendiumBrowserSources,
 } from "@module/apps/compendium-browser/browser.ts";
 import type { EffectsPanel } from "@module/apps/effects-panel.ts";
-import type { LicenseViewer } from "@module/apps/license-viewer/app.ts";
 import type {
     ActorDirectoryPF2e,
     ChatLogPF2e,
@@ -91,6 +90,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(module: "pf2e", setting: "automation.flankingDetection"): boolean;
     get(module: "pf2e", setting: "automation.iwr"): boolean;
     get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
+    get(module: "pf2e", setting: "automation.reachEnforcement"): Set<"doors" | "corpses" | "loot" | "merchants">;
     get(module: "pf2e", setting: "automation.removeExpiredEffects"): boolean;
     get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
 
@@ -170,7 +170,6 @@ interface GamePF2e
         // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         actions: Record<string, Function> & Collection<string, Action>;
         compendiumBrowser: CompendiumBrowser;
-        licenseViewer: LicenseViewer;
         worldClock: WorldClock;
         effectPanel: EffectsPanel;
         effectTracker: EffectTracker;
@@ -213,6 +212,7 @@ interface GamePF2e
             automation: {
                 /** Flanking detection */
                 flanking: boolean;
+                reachEnforcement: Set<"doors" | "corpses" | "loot" | "merchants">;
                 removeEffects: boolean;
             };
             /** Campaign feat slots */

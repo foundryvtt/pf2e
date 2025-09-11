@@ -407,7 +407,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const { rollMode, skipDialog } = (() => {
             if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
                 const event = args.event?.originalEvent ?? args.event;
-                if (event instanceof MouseEvent) {
+                if (event instanceof PointerEvent) {
                     const { rollMode, skipDialog } = args;
                     return fu.mergeObject({ rollMode, skipDialog }, eventToRollParams(event, { type: "check" }));
                 }

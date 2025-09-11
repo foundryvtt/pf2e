@@ -1,0 +1,107 @@
+{
+    "_id": "uBYnIENo1mSyL11E",
+    "folder": "kER9W9tgG8uPsj8o",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "CwJWB3RDmuPPzpM2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flames of Caina",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature enters the area</p><hr /><p><strong>Effect</strong> Shadows roil in the brazier. It casts @UUID[Compendium.pf2e.spells-srd.Item.Darkness] on itself, and then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "darkness"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "In a Right Pickle",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 8,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 13
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A soot-blackened brazier glows with fiendish light, shadows fickering inside.</p>",
+            "disable": "<p>@Check[arcana|dc:21], @Check[occultism|dc:21], or @Check[religion|dc:21] while within 15 feet of the brazier to command it to stop, reducing its actions by 1 (or 2 on a critical success); @Check[thievery|dc:23] to find the hidden switch on the brazier that deactivates it; or 1st-rank spell, counteract DC 20, to dispel the shadow flames in one square, using any spell with the water or light traits</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #7-01: Intro to the Year of Battle's Spark: Enough is Enough"
+            },
+            "reset": "<p>The flames cease 1 minute after all living creatures leave the area, but after 1 hour, a well of darkness fills the brazier and it is ready to trigger again.</p>",
+            "routine": "<p>(4 actions) The trap ignites shadowy flames in a @Template[line|distance:5]{5-foot square} within the area of the room. A creature that moves into or ends its turn in this fire takes @Damage[(2d6+5)[fire]] damage (@Check[fortitude|dc:19|basic] save). Increase the DC by 2 if the creature is in magical darkness (@Check[fortitude|dc:21|basic]).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 9
+            },
+            "reflex": {
+                "value": 4
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

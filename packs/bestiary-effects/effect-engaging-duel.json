@@ -1,0 +1,80 @@
+{
+    "_id": "Lingp4fGpZuj9eJB",
+    "img": "icons/skills/melee/weapons-crossed-swords-teal.webp",
+    "name": "Effect: Engaging Duel",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to Strike attack rolls and DCs against the marked creature. You take a –1 circumstance penalty to all checks and DCs against any creature other than the marked creature.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #218: Titanbane"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "engaging-duel"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:mark:engaging-duel",
+                            "origin:mark:engaging-duel"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-attack-roll",
+                    "reflex-dc",
+                    "fortitude-dc",
+                    "will-dc"
+                ],
+                "slug": "engaging-duel",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "nor": [
+                            "target:mark:engaging-duel",
+                            "origin:mark:engaging-duel"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "attack",
+                    "skill-check",
+                    "saving-throw"
+                ],
+                "slug": "engaging-duel-other",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

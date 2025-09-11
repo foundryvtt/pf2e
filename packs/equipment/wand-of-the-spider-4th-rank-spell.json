@@ -7,7 +7,9 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p>The length of this wand is a pair of twisted giant spider legs.</p><hr /><p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Web] at 4th-rank, but the strands of webbing are toxic. Any creature that fails its Athletics check or Reflex save to navigate the web takes @Damage[2d6[poison],1d6[persistent,poison]]{2d6 poison damage plus 1d6 persistent poison damage}.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of <em>web</em> at 4th-rank.</p>"
         },
@@ -24,8 +26,12 @@
             "type": null
         },
         "price": {
+            "per": 1,
             "value": {
-                "gp": 1400
+                "cp": 0,
+                "gp": 1400,
+                "pp": 0,
+                "sp": 0
             }
         },
         "publication": {
@@ -36,6 +42,91 @@
         "quantity": 1,
         "rules": [],
         "size": "med",
+        "spell": {
+            "_id": "szQb3PZpYfwcjXYR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9s5tqqXNzcoKamWx"
+            },
+            "folder": "lPzcDrjGDFbzuF2r",
+            "img": "icons/creatures/webs/web-spider-glowing-pink.webp",
+            "name": "Web",
+            "sort": 0,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 10
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>You create a sticky web in the area that impedes creatures' movement. Squares filled with the web are difficult terrain. Each time a creature in the web begins to use a move action or enters the web during a move action it's using, it must attempt an @Check[athletics] check or Reflex save against your spell DC to avoid taking a circumstance penalty to its Speeds or becoming @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. A creature that gets out of the web ceases to take a circumstance penalty to its Speed from the web. Each square can be cleared of the web by a single attack or effect that deals at least 5 slashing damage or 1 fire damage. A square has AC 5, and it automatically fails its saving throws.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected, and it doesn't need to attempt further Athletics checks or saving throws against the web this turn. If it used an Athletics check, it clears the web from every square it leaves during its movement.</p>\n<p><strong>Success</strong> The creature is unaffected during its action. If it used an Athletics check, it clears the web from every square it leaves during its movement.</p>\n<p><strong>Failure</strong> The creature takes a –10-foot circumstance penalty to its Speeds until the start of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature is immobilized until the start of its next turn, after which it takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] to remove its immobilized condition.</p><hr /><p><strong>Heightened (4th)</strong> The spell's area increases to a @Template[burst|distance:20], and its range increases to 60 feet.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "area": {
+                                "areaType": "burst",
+                                "type": "burst",
+                                "value": 20
+                            },
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": null
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "web",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -46,7 +137,12 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

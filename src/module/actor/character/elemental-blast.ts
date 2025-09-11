@@ -155,7 +155,7 @@ class ElementalBlast {
         if (!item || !statistic) return [];
         const kineticist = this.actor.flags.pf2e.kineticist;
         if (!R.isPlainObject(kineticist) || !R.isPlainObject(kineticist.elementalBlast)) {
-            return [];
+            return [this.#getDisabledBlast(statistic, item.name)];
         }
         const schema = ElementalBlast.#blastConfigSchema;
         const damageTypeSelections = ((): Record<string, unknown> => {
@@ -233,8 +233,9 @@ class ElementalBlast {
             return {
                 ...blast,
                 statistic,
-                maps,
                 item,
+                ready: true,
+                maps,
                 actionCost,
                 damageTypes,
                 range,
@@ -263,6 +264,23 @@ class ElementalBlast {
         }
 
         return config;
+    }
+
+    #getDisabledBlast(statistic: Statistic, label: string): ElementalBlastConfig {
+        if (!this.item) throw ErrorPF2e("Unexpected missing Elemental Blast item");
+        return {
+            ready: false,
+            statistic,
+            item: this.item,
+            img: "icons/magic/sonic/projectile-shock-wave-blue.webp",
+            element: "fire",
+            dieFaces: 6,
+            label,
+            maps: { melee: { map0: "", map1: "", map2: "" }, ranged: { map0: "", map1: "", map2: "" } },
+            actionCost: this.actionCost,
+            damageTypes: [{ value: "fire", label: "", icon: "", selected: true }],
+            range: { increment: null, max: 30, label: "" },
+        };
     }
 
     #createModifiedItem({
@@ -383,6 +401,10 @@ class ElementalBlast {
         const actionCost = Math.clamp(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
         const actionSlug = "elemental-blast";
         const domains = ["damage", "attack-damage", "impulse-damage", `${actionSlug}-damage`];
+
+        // Data issue: a lot of abilities that affect ranged strike damage are using the "melee-damage" selector
+        if (melee) domains.push("melee-damage");
+
         const targetToken = game.user.targets.first()?.document ?? null;
         const damageCategory = DamageCategorization.fromDamageType(params.damageType);
         item.flags.pf2e.attackItemBonus =
@@ -606,7 +628,9 @@ interface ElementalBlastConfig extends Omit<fields.ModelPropsFromSchema<BlastCon
     damageTypes: BlastConfigDamageType[];
     range: RangeData & { label: string };
     statistic: Statistic;
+    item: AbilityItemPF2e<CharacterPF2e>;
     actionCost: 1 | 2;
+    ready: boolean;
     maps: {
         melee: { map0: string; map1: string; map2: string };
         ranged: { map0: string; map1: string; map2: string };

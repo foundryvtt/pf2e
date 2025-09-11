@@ -10,6 +10,7 @@ import type {
     ModifierPF2e,
 } from "@actor/modifiers.ts";
 import type { MovementType } from "@actor/types.ts";
+import type { TokenAnimationOptions } from "@client/_module.d.mts";
 import type { TokenDocumentUUID } from "@client/documents/_module.d.mts";
 import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import type { TokenSource } from "@common/documents/token.d.mts";
@@ -19,16 +20,15 @@ import type { ConditionSource, EffectSource } from "@item/base/data/index.ts";
 import type { WeaponRuneSource } from "@item/weapon/data.ts";
 import type { WeaponPropertyRuneType } from "@item/weapon/types.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
-import { TokenAnimationOptionsPF2e } from "@module/canvas/token/object.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import type { MaterialDamageEffect } from "@system/damage/types.ts";
 import type { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import type { Predicate } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import type { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
-import { ItemAlterationRuleElement } from "./rule-element/item-alteration/rule-element.ts";
+import type { ItemAlterationRuleElement } from "./rule-element/item-alteration/rule-element.ts";
 import type { Suboption } from "./rule-element/roll-option/data.ts";
-import { SpecialResourceRuleElement } from "./rule-element/special-resource.ts";
+import type { SpecialResourceRuleElement } from "./rule-element/special-resource.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {
@@ -71,7 +71,7 @@ interface RuleElementSynthetics {
             colors: TokenDocument["ring"]["colors"];
             effects: TokenDocument["ring"]["effects"];
         };
-        animation?: TokenAnimationOptionsPF2e;
+        animation?: TokenAnimationOptions;
     };
     weaponPotency: Record<string, PotencySynthetic[]>;
 }

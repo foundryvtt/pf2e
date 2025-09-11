@@ -331,13 +331,13 @@ class ChatCards {
 
 interface OnClickButtonParams {
     message: ChatMessagePF2e;
-    event: MouseEvent;
+    event: PointerEvent;
     html: HTMLElement;
     button: HTMLButtonElement;
 }
 
 interface RollActorSavesParams {
-    event: MouseEvent;
+    event: PointerEvent;
     button: HTMLButtonElement;
     actor: ActorPF2e;
     item: ItemPF2e<ActorPF2e>;

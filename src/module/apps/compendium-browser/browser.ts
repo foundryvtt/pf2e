@@ -93,9 +93,11 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         },
     };
 
-    protected override _onFirstRender(context: object, options: fa.ApplicationRenderOptions): void {
-        super._onFirstRender(context, options);
-        // Reset visible tabs when the browser was fully closed
+    protected override async _onFirstRender(
+        context: fa.ApplicationRenderContext,
+        options: fa.ApplicationRenderOptions,
+    ): Promise<void> {
+        await super._onFirstRender(context, options);
         this.#setVisibleTabs();
     }
 

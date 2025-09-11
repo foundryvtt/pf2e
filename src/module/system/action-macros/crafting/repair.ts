@@ -101,7 +101,7 @@ async function repair(options: RepairActionOptions): Promise<void> {
 }
 
 async function onRepairChatCardEvent(
-    event: MouseEvent,
+    event: PointerEvent,
     message: ChatMessagePF2e | undefined,
     card: HTMLElement,
 ): Promise<void> {

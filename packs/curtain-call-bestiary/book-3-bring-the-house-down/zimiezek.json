@@ -789,14 +789,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature hit by the zimiezek's web Strike is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] either to a surface or tethered to the zimiezek until it Escapes (DC 40). The zimiezek gains a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] a tethered target and can Interact with the tether to pull a target 15 feet toward them.</p>"
+                    "value": "<p>A creature hit by the zimiezek's web Strike is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] either to a surface or tethered to the zimiezek until it [[/act escape dc=40]]{Escapes}. The zimiezek gains a +2 circumstance bonus to [[/act trip options=web-restraints]] a tethered target and can Interact with the tether to pull a target 15 feet toward them.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:trip",
+                            "web-restraints"
+                        ],
+                        "selector": "skill-check",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

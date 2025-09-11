@@ -1,0 +1,94 @@
+{
+    "_id": "uXCU8GgriUjuj5FV",
+    "img": "icons/skills/melee/strike-polearm-light-orange.webp",
+    "name": "Effect: Share Hunter's Edge (Flurry)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Animal Companion (Ranger)], @UUID[Compendium.pf2e.feats-srd.Item.Shared Prey], @UUID[Compendium.pf2e.feats-srd.Item.Triple Threat], @UUID[Compendium.pf2e.feats-srd.Item.Warden's Boon]</p>\n<p>Your multiple attack penalty for attacks against the marked creature is –3 (–2 with an agile attack) on your second attack of the turn instead of –5, and –6 (–4 with an agile attack) on your third or subsequent attack of the turn, instead of –10.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "share-hunters-edge"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                "predicate": [
+                    "action:seek",
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                "predicate": [
+                    "action:track",
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:2",
+                "predicate": [
+                    "target:mark:share-hunters-edge"
+                ]
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Flurry.Label",
+                "predicate": [
+                    "item:trait:agile",
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "attack",
+                "value": -2
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Flurry.Label",
+                "predicate": [
+                    "target:mark:share-hunters-edge",
+                    {
+                        "not": "item:trait:agile"
+                    }
+                ],
+                "selector": "attack",
+                "value": -3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 3648
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

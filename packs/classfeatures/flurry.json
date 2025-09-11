@@ -28,7 +28,7 @@
             {
                 "key": "MultipleAttackPenalty",
                 "predicate": [
-                    "agile",
+                    "item:trait:agile",
                     "target:mark:hunted-prey"
                 ],
                 "selector": "attack",
@@ -39,11 +39,51 @@
                 "predicate": [
                     "target:mark:hunted-prey",
                     {
-                        "not": "agile"
+                        "not": "item:trait:agile"
                     }
                 ],
                 "selector": "attack",
                 "value": -3
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:hunters-edge-sharing"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "item:slug:animal-companion-ranger",
+                                    "feat:masterful-companion"
+                                ]
+                            }
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Flurry)]"
+                    },
+                    {
+                        "predicate": [
+                            "feat:masterful-companion",
+                            "item:slug:animal-companion-ranger"
+                        ],
+                        "text": "PF2E.SpecificRule.Ranger.MasterfulHunter.Flurry",
+                        "title": "PF2E.SpecificRule.Ranger.MasterfulHunter.Label"
+                    },
+                    {
+                        "predicate": [
+                            "feat:masterful-companion",
+                            "item:slug:animal-companion-ranger"
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Flurry, Masterful)]"
+                    }
+                ]
             }
         ],
         "traits": {

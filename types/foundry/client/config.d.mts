@@ -2,7 +2,7 @@ import { DataSchema, Document, TypeDataModel } from "@common/abstract/_module.mj
 import { AudioFilePath, ImageFilePath, RollMode } from "@common/constants.mjs";
 import { DocumentConstructionContext } from "../common/_types.mjs";
 import { ActiveEffectSource } from "../common/documents/active-effect.mjs";
-import { applications, dice, documents } from "./_module.mjs";
+import { applications, dice, documents, TokenMovementActionConfig } from "./_module.mjs";
 import DocumentSheetV2 from "./applications/api/document-sheet.mjs";
 import CameraViews from "./applications/apps/av/cameras.mjs";
 import HTMLEnrichedContentElement from "./applications/elements/enriched-content.mjs";
@@ -46,6 +46,7 @@ import type {
     PointVisionSource,
 } from "./canvas/sources/_module.mjs";
 import ClientDatabaseBackend from "./data/client-backend.mjs";
+import { TokenMovementCostAggregator } from "./documents/_types.mjs";
 import WorldCollection from "./documents/abstract/world-collection.mjs";
 import * as collections from "./documents/collections/_module.mjs";
 
@@ -137,6 +138,10 @@ interface WallDoorAnimationConfig {
     postAnimate?: WallDoorAnimationHook;
     duration: number;
 }
+
+export interface PartialTokenMovementActionConfig
+    extends Pick<TokenMovementActionConfig, "label" | "icon" | "order">,
+        Partial<Omit<TokenMovementActionConfig, "label" | "icon" | "order">> {}
 
 export default interface Config<
     TAmbientLightDocument extends documents.AmbientLightDocument<TScene | null>,
@@ -443,7 +448,20 @@ export default interface Config<
     Token: {
         documentClass: ConstructorOf<TTokenDocument>;
         objectClass: ConstructorOf<NonNullable<TTokenDocument["object"]>>;
+        layerClass: ConstructorOf<layers.TokenLayer>;
         prototypeSheetClass: ConstructorOf<PrototypeTokenConfig>;
+        hudClass: ConstructorOf<applications.hud.TokenHUD>;
+        rulerClass: ConstructorOf<placeables.tokens.TokenRuler<NonNullable<TTokenDocument["object"]>>>;
+        movement: {
+            TerrainData: typeof foundry.data.TerrainData;
+            /** The movement cost aggregator. */
+            costAggregator: TokenMovementCostAggregator;
+            /** The default movement animation speed in grid spaces per second. */
+            defaultSpeed: number;
+            defaultAction: string;
+            actions: Record<string, PartialTokenMovementActionConfig>;
+        };
+        adjectivesPrefix: string;
         ring: TokenRingConfig;
     };
 
@@ -474,7 +492,7 @@ export default interface Config<
             CONTROLLED: number;
             SECRET: number;
         };
-        doorControlsClass: DoorControl;
+        doorControlClass: typeof DoorControl;
         exploredColor: number;
         unexploredColor: number;
         darknessToDaylightAnimationMS: number;

@@ -176,7 +176,7 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;

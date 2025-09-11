@@ -26,75 +26,27 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "To Track hunted prey (Masterful Hunter)",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": [
-                    "action:track",
-                    "target:mark:hunted-prey"
+                    {
+                        "gte": [
+                            "perception:rank",
+                            3
+                        ]
+                    },
+                    {
+                        "or": [
+                            "bonus:slug:hunt-prey-seek",
+                            "bonus:slug:hunt-prey-track"
+                        ]
+                    }
                 ],
-                "selector": "survival",
-                "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 4
-                        },
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.skills.survival.rank"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "To Seek hunted prey (Masterful Hunter)",
-                "predicate": [
-                    "action:seek",
-                    "target:mark:hunted-prey"
+                "selectors": [
+                    "perception",
+                    "survival"
                 ],
-                "selector": "perception",
-                "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 4
-                        },
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.perception.rank"
-                }
-            },
-            {
-                "key": "GrantItem",
-                "predicate": [
-                    "feature:flurry"
-                ],
-                "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter (Flurry)"
-            },
-            {
-                "key": "GrantItem",
-                "predicate": [
-                    "feature:outwit"
-                ],
-                "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter (Outwit)"
-            },
-            {
-                "key": "GrantItem",
-                "predicate": [
-                    "feature:precision"
-                ],
-                "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter (Precision)"
+                "value": 4
             },
             {
                 "domain": "ranged-attack-roll",
@@ -118,6 +70,27 @@
                     "feat:initiate-warden"
                 ],
                 "value": 3
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:flurry"
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter (Flurry)"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:outwit"
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter (Outwit)"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:precision"
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter (Precision)"
             }
         ],
         "subfeatures": {

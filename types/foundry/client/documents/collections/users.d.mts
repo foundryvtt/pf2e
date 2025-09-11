@@ -1,4 +1,4 @@
-import { User, UserSource } from "../_module.mjs";
+import { User } from "../_module.mjs";
 import WorldCollection from "../abstract/world-collection.mjs";
 import { UserActivity } from "../user.mjs";
 
@@ -16,7 +16,7 @@ export default class Users<TUser extends User = User> extends WorldCollection<TU
      */
     current: TUser | null;
 
-    protected override _initialize(data: UserSource[]): void;
+    protected override _initialize(): void;
 
     static override documentName: "User";
 

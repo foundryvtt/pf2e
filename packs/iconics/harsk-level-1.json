@@ -314,172 +314,6 @@
             "type": "weapon"
         },
         {
-            "_id": "KheMSudrAyD7Q5Jc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.heritages.Item.UV2sABrTC5teOXTE"
-            },
-            "img": "systems/pf2e/icons/features/ancestry/strong-blooded-dwarf.webp",
-            "name": "Strong-Blooded Dwarf",
-            "sort": 0,
-            "system": {
-                "ancestry": {
-                    "name": "Dwarf",
-                    "slug": "dwarf",
-                    "uuid": "Compendium.pf2e.ancestries.Item.BYj5ZvlXZdpaEgA6"
-                },
-                "description": {
-                    "value": "<p>Your blood runs hearty and strong, and you can shake off toxins. You gain poison resistance equal to half your level (minimum 1), and each of your successful saving throws against a poison affliction reduces its stage by 2, or by 1 for a virulent poison. Each critical success against an ongoing poison reduces its stage by 3, or by 2 for a virulent poison.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "poison"
-                        ],
-                        "selector": "saving-throw",
-                        "text": "Your succesful saving throws against a poison reduce its stage by 2 (or 1 for a virulent poison). Each critical success reduces its stage by 3 (or 2 for a virulent poison).",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "Resistance",
-                        "type": "poison",
-                        "value": "max(1,floor(@actor.level/2))"
-                    }
-                ],
-                "slug": "strong-blooded-dwarf",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "heritage"
-        },
-        {
-            "_id": "MstDOuMLMsWvS1dc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.backgrounds.Item.o7RbsQbv5iLRvd8j"
-            },
-            "img": "systems/pf2e/icons/default-icons/background.svg",
-            "name": "Scout",
-            "sort": 0,
-            "system": {
-                "boosts": {
-                    "0": {
-                        "selected": "dex",
-                        "value": [
-                            "dex",
-                            "wis"
-                        ]
-                    },
-                    "1": {
-                        "selected": "str",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>You called the wilderness home as you found trails and guided travelers. Your wanderlust could have called you to the adventuring life, or perhaps you served as a scout for soldiers and found you liked battle.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Survival skill and a Lore skill related to one terrain you scouted in (such as Forest Lore or Cavern Lore). You gain the @UUID[Compendium.pf2e.feats-srd.Item.Forager] skill feat.</p>"
-                },
-                "items": {
-                    "hkkx3": {
-                        "img": "icons/sundries/books/book-red-exclamation.webp",
-                        "level": 1,
-                        "name": "Forager",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Forager"
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [],
-                "slug": "scout",
-                "trainedSkills": {
-                    "lore": [
-                        "<Terrain> Lore"
-                    ],
-                    "value": [
-                        "survival"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "background"
-        },
-        {
-            "_id": "4Bw7EPhqGnNAkxkQ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.8qebBeOJsyRIchcu"
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Forager",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>While using Survival to Subsist, if you roll any result worse than a success, you get a success. On a success, you can provide subsistence living for yourself and four additional creatures, and on a critical success, you can take care of twice as many additional creatures. You can choose to support half the number of creatures with a comfortable living.</p>\n<p>Increase the number of additional creatures you feed on a success to eight if you're an expert in Survival, 16 if you're a master, and 32 if you're legendary.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "MstDOuMLMsWvS1dc",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Survival"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "action:subsist"
-                        ],
-                        "selector": "survival",
-                        "text": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide subsistence living for multiple creatures.",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": "forager",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "niNPaK9dKPwmck7X",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.classes.Item.Yix76sfxrIlltSTJ"
@@ -724,433 +558,6 @@
                 }
             },
             "type": "class"
-        },
-        {
-            "_id": "LfLcnlkGebFFJhGP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.mzkkj9LEWjJPBhaq"
-            },
-            "flags": {
-                "pf2e": {
-                    "itemGrants": {
-                        "flurry": {
-                            "id": "6HdS41TR3Y0TEfvK",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "Hunter's Edge",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You have trained to become a skilled hunter and tracker, gaining an extra benefit when you Hunt Prey depending on the focus of your training. Choose a hunter's edge.</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Flurry]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Outwit]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Precision]</li>\n</ul>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "niNPaK9dKPwmck7X",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:tag:ranger-hunters-edge"
-                            ]
-                        },
-                        "flag": "huntersEdge",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Ranger.HuntersEdge.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Flurry"
-                    },
-                    {
-                        "flag": "flurry",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.huntersEdge}"
-                    }
-                ],
-                "slug": "hunters-edge",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "ranger"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "UrIZeZunh9ebLoxQ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.0nIOGpHQNHsKSFKT"
-            },
-            "flags": {
-                "pf2e": {
-                    "itemGrants": {
-                        "huntPrey": {
-                            "id": "Pqz5Z9Gbs2VnmBFc",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/creatures/eyes/humanoid-single-red-brown.webp",
-            "name": "Hunt Prey",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>When you focus your attention on a single foe, you become unstoppable in your pursuit. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Hunt Prey] action.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "niNPaK9dKPwmck7X",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "allowDuplicate": false,
-                        "flag": "huntPrey",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Hunt Prey"
-                    },
-                    {
-                        "count": true,
-                        "key": "RollOption",
-                        "option": "grants-hunt-prey",
-                        "priority": 99
-                    }
-                ],
-                "slug": "hunt-prey",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "ranger"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "6HdS41TR3Y0TEfvK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.6v4Rj7wWfOH1882r"
-            },
-            "flags": {
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "LfLcnlkGebFFJhGP",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/skills/melee/strike-polearm-light-orange.webp",
-            "name": "Flurry",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You have trained to unleash a devastating flurry of attacks upon your prey. Your multiple attack penalty for attacks against your hunted prey is –3 (–2 with an agile weapon) on your second attack of the turn instead of –5, and –6 (–4 with an agile weapon) on your third or subsequent attack of the turn, instead of –10.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "key": "MultipleAttackPenalty",
-                        "predicate": [
-                            "agile",
-                            "hunted-prey"
-                        ],
-                        "selector": "attack",
-                        "value": -2
-                    },
-                    {
-                        "key": "MultipleAttackPenalty",
-                        "predicate": [
-                            "hunted-prey",
-                            {
-                                "not": "agile"
-                            }
-                        ],
-                        "selector": "attack",
-                        "value": -3
-                    }
-                ],
-                "slug": "flurry",
-                "traits": {
-                    "otherTags": [
-                        "ranger-hunters-edge"
-                    ],
-                    "rarity": "common",
-                    "value": [
-                        "ranger"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "Pqz5Z9Gbs2VnmBFc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.JYi4MnsdFu618hPm"
-            },
-            "flags": {
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "UrIZeZunh9ebLoxQ",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hunt Prey",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>You designate a single creature as your prey and focus your attacks against that creature. You must be able to see or hear the prey, or you must be tracking the prey during exploration.</p>\n<p>You gain a +2 circumstance bonus to Perception checks when you @UUID[Compendium.pf2e.actionspf2e.Item.Seek] your prey and a +2 circumstance bonus to Survival checks when you @UUID[Compendium.pf2e.actionspf2e.Item.Track] your prey. You also ignore the penalty for making ranged attacks within your second range increment against the prey you're hunting.</p>\n<p>You can have only one creature designated as your prey at a time. If you use Hunt Prey against a creature when you already have a creature designated, the prior creature loses the designation and the new prey gains the designation. Your designation lasts until your next daily preparations.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                        "option": "hunted-prey",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
-                        "predicate": [
-                            "action:seek",
-                            "hunted-prey"
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
-                        "predicate": [
-                            "action:track",
-                            "hunted-prey"
-                        ],
-                        "selector": "survival",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "domain": "ranged-attack-roll",
-                        "key": "RollOption",
-                        "option": "ignore-range-penalty:2",
-                        "predicate": [
-                            "hunted-prey"
-                        ]
-                    }
-                ],
-                "slug": "hunt-prey",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "ranger"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "T7LPcdjdw2AJyHOA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.CXS0ryG2SODSobm9"
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Dwarven Weapon Familiarity",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>Your kin have instilled in you an affinity for hard-hitting weapons, and you prefer these to more elegant arms. You gain access to all uncommon weapons with the dwarf trait. You have familiarity with weapons with the dwarf trait plus the battle axe, pick, and warhammer—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            {
-                                "or": [
-                                    {
-                                        "and": [
-                                            "item:trait:dwarf",
-                                            "item:category:martial"
-                                        ]
-                                    },
-                                    "item:base:battle-axe",
-                                    "item:base:warhammer",
-                                    "item:base:pick"
-                                ]
-                            }
-                        ],
-                        "key": "MartialProficiency",
-                        "label": "PF2E.SpecificRule.MartialProficiency.MartialDwarfWeapons",
-                        "sameAs": "simple",
-                        "slug": "martial-dwarf-weapons"
-                    },
-                    {
-                        "definition": [
-                            "item:trait:dwarf",
-                            "item:category:advanced"
-                        ],
-                        "key": "MartialProficiency",
-                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedDwarfWeapons",
-                        "sameAs": "martial",
-                        "slug": "advanced-dwarf-weapons"
-                    },
-                    {
-                        "key": "CriticalSpecialization",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    5
-                                ]
-                            },
-                            {
-                                "or": [
-                                    "item:trait:dwarf",
-                                    "item:base:battle-axe",
-                                    "item:base:pick",
-                                    "item:base:warhammer"
-                                ]
-                            }
-                        ]
-                    }
-                ],
-                "slug": "dwarven-weapon-familiarity",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "dwarf"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "e5dEznwtvtMzM6qc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.YTTJqRKH8QZl6al2"
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Monster Hunter",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You quickly assess your prey and apply what you know. As part of the action used to Hunt your Prey, you can attempt a check to Recall Knowledge about your prey. When you critically succeed at identifying your hunted prey with @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge], you note a weakness in the creature's defenses in addition to any other benefits. You and allies you tell gain a +1 circumstance bonus to your next attack roll against that prey. You can give bonuses from Monster Hunter only once per day against a particular creature.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Monster Hunter]</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [],
-                "slug": "monster-hunter",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "ranger"
-                    ]
-                }
-            },
-            "type": "feat"
         },
         {
             "_id": "EHSXAu6t5rEEswRY",
@@ -2337,6 +1744,684 @@
                 }
             },
             "type": "treasure"
+        },
+        {
+            "_id": "PTQpLXGw9uBR0dVB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.mzkkj9LEWjJPBhaq"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "flurry": {
+                            "id": "yYcew2WRLzLa9E08",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Hunter's Edge",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You have trained to become a skilled hunter and tracker, gaining an extra benefit when you Hunt Prey depending on the focus of your training. Choose a hunter's edge.</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Flurry]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Outwit]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Precision]</li>\n</ul>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "niNPaK9dKPwmck7X",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:ranger-hunters-edge"
+                            ]
+                        },
+                        "flag": "huntersEdge",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Ranger.HuntersEdge.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Flurry"
+                    },
+                    {
+                        "flag": "flurry",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.huntersEdge}"
+                    }
+                ],
+                "slug": "hunters-edge",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "ranger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "L6ESuQEa9NQQAYt6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.0nIOGpHQNHsKSFKT"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "huntPrey": {
+                            "id": "7iCafIrOQX0gyiW0",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/creatures/eyes/humanoid-single-red-brown.webp",
+            "name": "Hunt Prey",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>When you focus your attention on a single foe, you become unstoppable in your pursuit. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Hunt Prey] action.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "niNPaK9dKPwmck7X",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "allowDuplicate": false,
+                        "flag": "huntPrey",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Hunt Prey"
+                    },
+                    {
+                        "count": true,
+                        "key": "RollOption",
+                        "option": "grants-hunt-prey",
+                        "priority": 99
+                    }
+                ],
+                "slug": "hunt-prey",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "ranger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "yYcew2WRLzLa9E08",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.6v4Rj7wWfOH1882r"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "PTQpLXGw9uBR0dVB",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/skills/melee/strike-polearm-light-orange.webp",
+            "name": "Flurry",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You have trained to unleash a devastating flurry of attacks upon your prey. Your multiple attack penalty for attacks against your hunted prey is –3 (–2 with an agile attack) on your second attack of the turn instead of –5, and –6 (–4 with an agile attack) on your third or subsequent attack of the turn, instead of –10.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "MultipleAttackPenalty",
+                        "predicate": [
+                            "item:trait:agile",
+                            "target:mark:hunted-prey"
+                        ],
+                        "selector": "attack",
+                        "value": -2
+                    },
+                    {
+                        "key": "MultipleAttackPenalty",
+                        "predicate": [
+                            "target:mark:hunted-prey",
+                            {
+                                "not": "item:trait:agile"
+                            }
+                        ],
+                        "selector": "attack",
+                        "value": -3
+                    },
+                    {
+                        "itemType": "feat",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:tag:hunters-edge-sharing"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            },
+                            {
+                                "predicate": [
+                                    {
+                                        "nand": [
+                                            "item:slug:animal-companion-ranger",
+                                            "feat:masterful-companion"
+                                        ]
+                                    }
+                                ],
+                                "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Flurry)]"
+                            },
+                            {
+                                "predicate": [
+                                    "feat:masterful-companion",
+                                    "item:slug:animal-companion-ranger"
+                                ],
+                                "text": "PF2E.SpecificRule.Ranger.MasterfulHunter.Flurry",
+                                "title": "PF2E.SpecificRule.Ranger.MasterfulHunter.Label"
+                            },
+                            {
+                                "predicate": [
+                                    "feat:masterful-companion",
+                                    "item:slug:animal-companion-ranger"
+                                ],
+                                "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Flurry, Masterful)]"
+                            }
+                        ]
+                    }
+                ],
+                "slug": "flurry",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "otherTags": [
+                        "ranger-hunters-edge"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "ranger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "7iCafIrOQX0gyiW0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.JYi4MnsdFu618hPm"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "L6ESuQEa9NQQAYt6",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hunt Prey",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>You designate a single creature as your prey and focus your attacks against that creature. You must be able to see or hear the prey, or you must be tracking the prey during exploration.</p>\n<p>You gain a +2 circumstance bonus to Perception checks when you @UUID[Compendium.pf2e.actionspf2e.Item.Seek] your prey and a +2 circumstance bonus to Survival checks when you @UUID[Compendium.pf2e.actionspf2e.Item.Track] your prey. You also ignore the penalty for making ranged attacks within your second range increment against the prey you're hunting.</p>\n<p>You can have only one creature designated as your prey at a time. If you use Hunt Prey against a creature when you already have a creature designated, the prior creature loses the designation and the new prey gains the designation. Your designation lasts until your next daily preparations.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                        "predicate": [
+                            "action:seek",
+                            "target:mark:hunted-prey"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                        "predicate": [
+                            "action:track",
+                            "target:mark:hunted-prey"
+                        ],
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": [
+                            "target:mark:hunted-prey"
+                        ]
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Hunt Prey",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Hunt Prey"
+                },
+                "slug": "hunt-prey",
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "ranger"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wZ8oMv6TRufxpwo7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.CXS0ryG2SODSobm9"
+            },
+            "folder": "WlKsZx5hWV06wH7O",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Dwarven Weapon Familiarity",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>Your kin have instilled in you an affinity for hard-hitting weapons, and you prefer these to more elegant arms. You gain access to all uncommon weapons with the dwarf trait. You have familiarity with weapons with the dwarf trait plus the battle axe, pick, and warhammer—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "item:trait:dwarf",
+                                            "item:category:martial"
+                                        ]
+                                    },
+                                    "item:base:battle-axe",
+                                    "item:base:warhammer",
+                                    "item:base:pick"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.MartialDwarfWeapons",
+                        "sameAs": "simple",
+                        "slug": "martial-dwarf-weapons"
+                    },
+                    {
+                        "definition": [
+                            "item:trait:dwarf",
+                            "item:category:advanced"
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedDwarfWeapons",
+                        "sameAs": "martial",
+                        "slug": "advanced-dwarf-weapons"
+                    },
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:dwarf",
+                                    "item:base:battle-axe",
+                                    "item:base:pick",
+                                    "item:base:warhammer"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "slug": "dwarven-weapon-familiarity",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "dwarf"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "qjUz94ADSb9W3zOE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.YTTJqRKH8QZl6al2"
+            },
+            "folder": "EPA7iz3YgfimVST0",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Monster Hunter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You quickly assess your prey and apply what you know. As part of the action used to Hunt your Prey, you can attempt a check to Recall Knowledge about your prey. When you critically succeed at identifying your hunted prey with @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge], you note a weakness in the creature's defenses in addition to any other benefits. You gain a +1 circumstance bonus to your next attack roll against that prey, and any ally you tell gains the same benefit. You can give bonuses from Monster Hunter only once per day against a particular creature.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Monster Hunter]</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "monster-hunter",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "ranger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "fvPSEy3MxDaBgEZv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.backgrounds.Item.o7RbsQbv5iLRvd8j"
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Scout",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "dex",
+                        "value": [
+                            "dex",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "str",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You called the wilderness home as you found trails and guided travelers. Your wanderlust could have called you to the adventuring life, or perhaps you served as a scout for soldiers and found you liked battle.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Survival skill and a Lore skill related to one terrain you scouted in (such as Forest Lore or Cavern Lore). You gain the @UUID[Compendium.pf2e.feats-srd.Item.Forager] skill feat.</p>"
+                },
+                "items": {
+                    "hkkx3": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Forager",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Forager"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "scout",
+                "trainedSkills": {
+                    "lore": [
+                        "<Terrain> Lore"
+                    ],
+                    "value": [
+                        "survival"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "f3Z2QvGsnvlNUrgr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.8qebBeOJsyRIchcu"
+            },
+            "folder": "y1yqadf5jPHJk1jW",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Forager",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>While using Survival to Subsist, if you roll any result worse than a success, you get a success. On a success, you can provide subsistence living for yourself and four additional creatures, and on a critical success, you can take care of twice as many additional creatures. You can choose to support half the number of creatures with a comfortable living.</p>\n<p>Increase the number of additional creatures you feed on a success to eight if you're an expert in Survival, 16 if you're a master, and 32 if you're legendary.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "fvPSEy3MxDaBgEZv",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Survival"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "to-success",
+                            "failure": "to-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:subsist"
+                        ],
+                        "selector": "survival"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "action:subsist"
+                        ],
+                        "selector": "survival",
+                        "text": "PF2E.SpecificRule.Feat.Forager.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "forager",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "vkyME7varXjzbM7B",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.UV2sABrTC5teOXTE"
+            },
+            "folder": "Z6Ve0qYfgLQLbcOs",
+            "img": "systems/pf2e/icons/features/ancestry/strong-blooded-dwarf.webp",
+            "name": "Strong-Blooded Dwarf",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Dwarf",
+                    "slug": "dwarf",
+                    "uuid": "Compendium.pf2e.ancestries.Item.BYj5ZvlXZdpaEgA6"
+                },
+                "description": {
+                    "value": "<p>Your blood runs hearty and strong, and you can shake off toxins. You gain poison resistance equal to half your level (minimum 1), and each of your successful saving throws against a poison affliction reduces its stage by 2, or by 1 for a virulent poison. Each critical success against an ongoing poison reduces its stage by 3, or by 2 for a virulent poison.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "poison"
+                        ],
+                        "selector": "saving-throw",
+                        "text": "PF2E.SpecificRule.Dwarf.StrongBloodedDwarf.Note",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "poison",
+                        "value": "max(1,floor(@actor.level/2))"
+                    }
+                ],
+                "slug": "strong-blooded-dwarf",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
         }
     ],
     "name": "Harsk (Level 1)",

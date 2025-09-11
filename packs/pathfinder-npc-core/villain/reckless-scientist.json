@@ -97,7 +97,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Work Coat",
+            "name": "Work Coat (Functions as Leather Armor)",
             "sort": 200000,
             "system": {
                 "acBonus": 1,
@@ -109,7 +109,7 @@
                 "checkPenalty": -1,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Functions as leather armor.</p>"
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
                 },
                 "dexCap": 4,
                 "equipped": {
@@ -333,9 +333,6 @@
         },
         {
             "_id": "LHKrI2drE35rhFEs",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 600000,
@@ -422,7 +419,7 @@
         },
         {
             "_id": "E00krW5owLvGqBHn",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unstable Collection",
             "sort": 800000,
             "system": {
@@ -545,7 +542,18 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -584,7 +592,7 @@
         },
         {
             "_id": "ziPz3z2a6Db63N9r",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Reckless Alchemy",
             "sort": 1200000,
             "system": {

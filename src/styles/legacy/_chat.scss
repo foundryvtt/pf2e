@@ -66,11 +66,43 @@
         }
     }
 
-    .card-buttons {
+    footer {
+        padding: var(--space-3) 0 0;
+        border-top: 2px groove white;
+
+        span {
+            border-right: 2px groove white;
+            padding: 0 var(--space-4) 0 0;
+            font-size: var(--font-size-12);
+
+            &:last-child {
+                border-right: none;
+                padding-right: 0;
+            }
+        }
+    }
+
+    .card-buttons-two-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: var(--space-4);
+    }
+}
+
+.message-content {
+    .card-buttons,
+    .message-buttons {
         display: flex;
         flex-basis: 100%;
         flex-direction: column;
         gap: 0.25rem;
+
+        &.horizontal {
+            flex-direction: row;
+            button {
+                flex: 1;
+            }
+        }
 
         button span {
             border: none;
@@ -111,27 +143,5 @@
         .hidden-to-others {
             background: var(--visibility-gm-bg);
         }
-    }
-
-    footer {
-        padding: var(--space-3) 0 0;
-        border-top: 2px groove white;
-
-        span {
-            border-right: 2px groove white;
-            padding: 0 var(--space-4) 0 0;
-            font-size: var(--font-size-12);
-
-            &:last-child {
-                border-right: none;
-                padding-right: 0;
-            }
-        }
-    }
-
-    .card-buttons-two-column {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: var(--space-4);
     }
 }

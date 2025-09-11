@@ -1,10 +1,10 @@
 {
     "_id": "W2tWq0gdAcnoz2MO",
-    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "img": "icons/skills/targeting/crosshair-triple-strike-orange.webp",
     "name": "Effect: Monster Hunter",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Monster Hunter]</p>\n<p>You gain a +1 circumstance bonus to your next attack roll against that prey.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Monster Hunter]</p>\n<p>You gain a +1 circumstance bonus to your next attack roll against the assessed creature. This bonus increases to +2 if the origin has Legendary Monster Hunter.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,21 +22,29 @@
         },
         "rules": [
             {
-                "domain": "attack-roll",
-                "key": "RollOption",
-                "label": "Target is the subject of Monster Hunter",
-                "option": "monster-hunter",
-                "toggleable": true
+                "key": "TokenMark",
+                "slug": "monster-hunter"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "monster-hunter"
+                    "target:mark:monster-hunter"
                 ],
                 "removeAfterRoll": "if-enabled",
-                "selector": "attack",
+                "selector": "attack-roll",
+                "slug": "monster-hunter",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:origin:item:tag:legendary-monster-hunter"
+                ],
+                "selector": "attack-roll",
+                "slug": "monster-hunter",
+                "value": 2
             }
         ],
         "start": {

@@ -21,6 +21,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 initial: undefined,
                 choices: R.keys(ITEM_ALTERATION_HANDLERS),
             }),
+            fromEquipment: new fields.BooleanField({
+                required: true,
+                nullable: false,
+                initial: true,
+            }),
             value: new ResolvableValueField(),
         };
     }
@@ -45,6 +50,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         handler.handle({
             item,
             rule: this.rule,
+            fromEquipment: this.fromEquipment,
             alteration: {
                 mode: this.mode,
                 itemType: item.type,
@@ -62,9 +68,11 @@ type ItemAlterationSchema = {
     mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     property: fields.StringField<ItemAlterationProperty, ItemAlterationProperty, true, false, false>;
     value: ResolvableValueField<true, true, false>;
+    /** Whether this alteration comes from equipment or an equipment effect */
+    fromEquipment: fields.BooleanField;
 };
 
 type ItemAlterationProperty = keyof typeof ITEM_ALTERATION_HANDLERS;
 
 export { ItemAlteration };
-export type { ItemAlterationSchema };
+export type { ItemAlterationProperty, ItemAlterationSchema };

@@ -56,33 +56,26 @@
                 "damageType": "spirit",
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Exemplar.Ikon.ShadowSheath.Label",
                 "predicate": [
-                    "divine-spark:shadow-sheath",
-                    {
-                        "not": "target:condition:off-guard"
-                    }
+                    "divine-spark:shadow-sheath"
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.shadowSheathWeapon}-damage",
-                "slug": "shadow-sheath-damage",
+                "slug": "shadow-sheath-immanence-damage",
                 "tags": [
                     "exemplar"
                 ],
                 "value": "2*@weapon.system.damage.dice"
             },
             {
-                "damageType": "spirit",
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "multiply",
                 "predicate": [
-                    "divine-spark:shadow-sheath",
                     "target:condition:off-guard"
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.shadowSheathWeapon}-damage",
-                "slug": "shadow-sheath-off-guard-damage",
-                "tags": [
-                    "exemplar"
-                ],
-                "value": "3*@weapon.system.damage.dice"
+                "slug": "shadow-sheath-immanence-damage",
+                "value": 1.5
             },
             {
                 "itemId": "{item|flags.pf2e.rulesSelections.shadowSheathWeapon}",

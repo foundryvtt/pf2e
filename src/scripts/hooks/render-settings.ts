@@ -1,5 +1,6 @@
+import { LegalNotice } from "@module/apps/legal-notice.ts";
 import { MigrationSummary } from "@module/apps/migration-summary.ts";
-import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery } from "@util";
+import { ErrorPF2e, createHTMLElement, htmlQuery } from "@util";
 
 /** Attach system buttons and other knickknacks to the settings sidebar */
 export const RenderSettings = {
@@ -24,7 +25,7 @@ export const RenderSettings = {
                     label: "PF2E.SETTINGS.Sidebar.Wiki",
                 },
                 {
-                    url: "https://discord.gg/SajryVzCyf",
+                    url: "https://discord.gg/pf2e",
                     label: "PF2E.SETTINGS.Sidebar.Discord",
                 },
             ].map((data): HTMLAnchorElement => {
@@ -43,32 +44,27 @@ export const RenderSettings = {
             html.querySelector("section.documentation")?.after(pf2eSettings);
 
             // Paizo License and remaster information
+            const createIcon = fa.fields.createFontAwesomeIcon;
             const licenseButton = document.createElement("button");
             licenseButton.type = "button";
-            licenseButton.append(fontAwesomeIcon("balance-scale"), game.i18n.localize("PF2E.LicenseViewer.Label"));
-            licenseButton.addEventListener("click", () => {
-                game.pf2e.licenseViewer.render(true);
-            });
+            licenseButton.append(createIcon("balance-scale"), " ", game.i18n.localize("PF2E.LegalNotice.Title"));
+            licenseButton.addEventListener("click", () => new LegalNotice().render({ force: true }));
 
             const remasterButton = document.createElement("button");
             remasterButton.type = "button";
-            remasterButton.append(fontAwesomeIcon("rocket"), game.i18n.localize("PF2E.SETTINGS.Sidebar.Remaster"));
+            remasterButton.append(createIcon("rocket"), game.i18n.localize("PF2E.SETTINGS.Sidebar.Remaster"));
             remasterButton.addEventListener("click", async () => {
                 const entry = await fromUuid("Compendium.pf2e.journals.JournalEntry.6L2eweJuM8W7OCf2");
                 entry?.sheet.render(true);
             });
-
             pf2eSettings.append(licenseButton, remasterButton);
 
             // Migration Troubleshooting (if GM)
             if (game.user.isGM) {
                 const shootButton = document.createElement("button");
                 shootButton.type = "button";
-                shootButton.append(fontAwesomeIcon("wrench"), game.i18n.localize("PF2E.Migrations.Troubleshooting"));
-                shootButton.addEventListener("click", () => {
-                    new MigrationSummary({ troubleshoot: true }).render(true);
-                });
-
+                shootButton.append(createIcon("wrench"), game.i18n.localize("PF2E.Migrations.Troubleshooting"));
+                shootButton.addEventListener("click", () => new MigrationSummary({ troubleshoot: true }).render(true));
                 pf2eSettings.append(shootButton);
             }
         });

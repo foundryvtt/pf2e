@@ -7,7 +7,9 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p>The luminous design of red-orange cracks on this black obsidian wand suggests cooling lava.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p><hr /><p><strong>Effect</strong> You cast 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Floating Flame]. If you create the flame on the ground, the ground in the sphere's square and all adjacent squares are coated in rolling flames until the start of your next turn. These are difficult terrain and hazardous terrain. A creature that moves on the ground takes @Damage[6[fire]] damage for every square of rolling flames it moves into. If a creature in the flames doesn't move on its turn, it takes the damage for each of the squares it's in at the end of its turn. The first time you Sustain the Spell each round, the sphere creates rolling flames again in its new location (or the same location if you chose not to move it), provided it's on the ground.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of <em>floating flame</em> of the appropriate rank.</p>"
         },
@@ -25,7 +27,10 @@
         },
         "price": {
             "value": {
-                "gp": 10000
+                "cp": 0,
+                "gp": 10000,
+                "pp": 0,
+                "sp": 0
             }
         },
         "publication": {
@@ -36,6 +41,96 @@
         "quantity": 1,
         "rules": [],
         "size": "med",
+        "spell": {
+            "_id": "ZHzx8ffv8lprqSkH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2ZdHjnpEQJuqOYSG"
+            },
+            "folder": "lPzcDrjGDFbzuF2r",
+            "img": "icons/magic/earth/orb-lava-ball-yellow.webp",
+            "name": "Floating Flame",
+            "sort": 0,
+            "system": {
+                "area": {
+                    "type": "square",
+                    "value": 5
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>You create a fire that burns without fuel and moves to your commands. The flame deals 3d6 fire damage to each creature in the square in which it appears, with a basic Reflex save. When you Sustain this spell, you can levitate the flame up to 10 feet. It then deals damage to each creature whose space it shared at any point during its flight. This uses the same damage and save, and you roll the damage once each time you Sustain. A given creature can take damage from floating flame only once per round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "area": 0,
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 7,
+                    "value": null
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "floating-flame",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "fire",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -46,7 +141,12 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

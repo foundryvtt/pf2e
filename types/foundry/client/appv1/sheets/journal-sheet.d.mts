@@ -182,7 +182,7 @@ export default class JournalSheet<TJournalEntry extends JournalEntry> extends Do
      * Handle clicking an image to pop it out for fullscreen view.
      * @param event The click event.
      */
-    protected _onClickImage(event: MouseEvent): void;
+    protected _onClickImage(event: PointerEvent): void;
 
     /**
      * Handle new pages scrolling into view.

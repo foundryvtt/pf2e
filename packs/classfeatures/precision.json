@@ -26,20 +26,75 @@
         },
         "rules": [
             {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:hunt-prey"
+                    }
+                ],
+                "disabledValue": false,
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
-                "option": "first-attack",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Precision.ToggleLabel",
+                "mergeable": true,
+                "option": "precision-hunters-edge",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Ordinals.First",
+                        "value": "first-hit"
+                    }
+                ],
                 "toggleable": true
             },
             {
                 "category": "precision",
-                "diceNumber": "ternary(lt(@actor.level, 11), 1, ternary(lt(@actor.level, 19), 2, 3))",
+                "diceNumber": "ternary(lt(@actor.level,11),1,ternary(lt(@actor.level,19),2,3))",
                 "dieSize": "d8",
                 "key": "DamageDice",
                 "predicate": [
-                    "first-attack"
+                    "precision-hunters-edge",
+                    "target:mark:hunted-prey"
                 ],
-                "selector": "strike-damage"
+                "selector": "strike-damage",
+                "slug": "precision"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:hunters-edge-sharing"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "item:slug:animal-companion-ranger",
+                                    "feat:masterful-companion"
+                                ]
+                            }
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Precision)]"
+                    },
+                    {
+                        "predicate": [
+                            "feat:masterful-companion",
+                            "item:slug:animal-companion-ranger"
+                        ],
+                        "text": "PF2E.SpecificRule.Ranger.MasterfulHunter.Precision",
+                        "title": "PF2E.SpecificRule.Ranger.MasterfulHunter.Label"
+                    },
+                    {
+                        "predicate": [
+                            "feat:masterful-companion",
+                            "item:slug:animal-companion-ranger"
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Precision, Masterful)]"
+                    }
+                ]
             }
         ],
         "traits": {

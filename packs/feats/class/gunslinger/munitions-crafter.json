@@ -43,8 +43,13 @@
                             "definition": [
                                 {
                                     "or": [
-                                        "item:category:ammo",
-                                        "item:slug:black-powder-dose"
+                                        "item:slug:black-powder-dose",
+                                        {
+                                            "and": [
+                                                "item:trait:alchemical",
+                                                "item:category:ammo"
+                                            ]
+                                        }
                                     ]
                                 }
                             ],
@@ -53,14 +58,7 @@
                     ]
                 },
                 "craftableItems": [
-                    "item:trait:alchemical",
-                    {
-                        "or": [
-                            "item:category:ammo",
-                            "item:group:bomb",
-                            "item:slug:black-powder-dose"
-                        ]
-                    }
+                    "item:group:bomb"
                 ],
                 "isDailyPrep": true,
                 "key": "CraftingAbility",

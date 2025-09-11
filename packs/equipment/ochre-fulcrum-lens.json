@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This brownish-orange lens always feels dusty and gritty, regardless of how often it's polished, though it doesn't impede light shining through it.</p>\n<p>While you have the <em>Ochre Fulcrum Lens</em> invested, lassitude grips you and your emotions are hard to sway. You gain resistance 10 to mental damage and a +2 status bonus to saves against emotion effects.</p>\n<p>You can also activate the lens in the following ways.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Ochre Fulcrum Lens]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You hold up the <em>Ochre Fulcrum Lens</em> in your hand and the item casts @UUID[Compendium.pf2e.spells-srd.Item.Wave of Despair] (@Check[will|dc:31|traits:emotion,enchantment,mental,occult] save).</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (attack, possession)</p>\n<p>While grasping the lens, make a melee spell attack roll with a modifier of [[/r 1d20+21]]{+21}. On a hit, you force the splinter of Nhimbaloth's essence from the lens to possess the target. You're no longer invested in the lens, and the target gains the benefits as though it had invested the lens but can't activate the lens's other abilities. This effect is permanent, but it can be ended by any effect that removes a possession effect. The lens doesn't have any magical abilities until the possession effect ends; when it does, the essence returns to the lens.</p>"
+            "value": "<p>This brownish-orange lens always feels dusty and gritty, regardless of how often it's polished, though it doesn't impede light shining through it.</p>\n<p>While you have the <em>Ochre Fulcrum Lens</em> invested, lassitude grips you and your emotions are hard to sway. You gain resistance 10 to mental damage and a +2 status bonus to saves against emotion effects.</p>\n<p>You can also activate the lens in the following ways.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Ochre Fulcrum Lens]</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You hold up the <em>Ochre Fulcrum Lens</em> in your hand and the item casts @UUID[Compendium.pf2e.spells-srd.Item.Wave of Despair] (@Check[will|dc:31|traits:emotion,enchantment,mental,occult] save).</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (attack, possession)</p>\n<p>While grasping the lens, make a melee spell attack roll with a modifier of @Check[ochre-fulcrum-lens|against:ac]{+21}. On a hit, you force the splinter of Nhimbaloth's essence from the lens to possess the target. You're no longer invested in the lens, and the target gains the benefits as though it had invested the lens but can't activate the lens's other abilities. This effect is permanent, but it can be ended by any effect that removes a possession effect. The lens doesn't have any magical abilities until the possession effect ends; when it does, the essence returns to the lens.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,7 +34,23 @@
             "title": "Pathfinder Abomination Vaults Hardcover Compilation"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "SpecialStatistic",
+                "label": "PF2E.SpecificRule.FulcrumLens.StatisticLabel",
+                "slug": "ochre-fulcrum-lens",
+                "type": "attack-roll"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ochre-fulcrum-lens",
+                "value": 21
+            },
+            {
+                "key": "RollOption",
+                "option": "ochre-fulcrum-lens"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "unique",

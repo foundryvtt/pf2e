@@ -130,14 +130,38 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A will-o'-wisp is immune to all spells except <em>faerie fire</em>, <em>glitterdust</em>, <em>magic missile</em>, and <em>maze</em>.</p>"
+                    "value": "<p>A will-o'-wisp is immune to all spells except @UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire], @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], and @UUID[Compendium.pf2e.spells-srd.Item.Quandary].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:type:spell",
+                                    {
+                                        "or": [
+                                            "item:slug:glitterdust",
+                                            "item:slug:magic-missile",
+                                            "item:slug:maze",
+                                            "item:slug:faerie-fire",
+                                            "item:slug:force-barrage",
+                                            "item:slug:quandary",
+                                            "item:slug:revealing-light"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.WispVulnerabilities"
+                            }
+                        ],
+                        "key": "Immunity",
+                        "type": "magic"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

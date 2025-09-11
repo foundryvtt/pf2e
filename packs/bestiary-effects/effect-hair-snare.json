@@ -1,0 +1,70 @@
+{
+    "_id": "LYxKPQYeiD4S5tQP",
+    "img": "icons/commodities/materials/hair-tuft-gold.webp",
+    "name": "Effect: Hair Snare",
+    "system": {
+        "description": {
+            "value": "<p><strong>Failure</strong> You take a –10‐foot circumstance penalty to all of your Speeds.</p>\n<p><strong>Critical Failure</strong> You are immobilized.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Bestiary 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "hair-snare"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hair-snare:failure"
+                ],
+                "selector": "all-speeds",
+                "type": "circumstance",
+                "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "hair-snare:critical-failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

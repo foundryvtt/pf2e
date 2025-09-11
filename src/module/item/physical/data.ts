@@ -3,7 +3,7 @@ import type { ImageFilePath } from "@common/constants.d.mts";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import type { Size, TraitsWithRarity, ZeroToTwo } from "@module/data.ts";
 import type { MaterialDamageEffect } from "@system/damage/types.ts";
-import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
+import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, TraitConfig } from "../base/data/system.ts";
 import type { ITEM_CARRY_TYPES } from "../base/data/values.ts";
 import type { CoinsPF2e } from "./helpers.ts";
 import type { PhysicalItemTrait, PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
@@ -120,6 +120,7 @@ type EquippedData = {
 
 interface PhysicalItemTraits<T extends PhysicalItemTrait> extends TraitsWithRarity<T> {
     otherTags: string[];
+    config?: TraitConfig;
 }
 
 interface PhysicalItemHPSource {

@@ -29,7 +29,25 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:relinquish-control",
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

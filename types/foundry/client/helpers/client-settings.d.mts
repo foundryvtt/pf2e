@@ -1,8 +1,8 @@
+import { SettingConfig, SettingSubmenuConfig } from "@client/_types.mjs";
 import ApplicationV2 from "@client/applications/api/application.mjs";
 import SettingsConfig from "@client/applications/settings/config.mjs";
 import Application from "@client/appv1/api/application-v1.mjs";
 import Setting from "@client/documents/setting.mjs";
-import { SettingConfig, SettingSubmenuConfig } from "@common/_types.mjs";
 import { RollMode } from "@common/constants.mjs";
 import Collection from "@common/utils/collection.mjs";
 

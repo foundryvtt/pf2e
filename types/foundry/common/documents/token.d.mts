@@ -1,5 +1,7 @@
+import { ElevatedPoint, TokenDimensions, TokenPosition } from "@common/_types.mjs";
 import Document, { DocumentMetadata } from "@common/abstract/document.mjs";
 import { ImageFilePath, TokenDisplayMode, TokenDisposition, VideoFilePath } from "@common/constants.mjs";
+import { GridOffset3D } from "@common/grid/_types.mjs";
 import * as data from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseActorDelta, BaseScene } from "./_module.mjs";
@@ -17,8 +19,55 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
 
     static override defineSchema(): TokenSchema;
 
+    static override LOCALIZATION_PREFIXES: string[];
+
+    /**
+     * The fields of the data model for which changes count as a movement action.
+     */
+    static readonly MOVEMENT_FIELDS: ["x", "y", "elevation", "width", "height", "shape"];
+
+    /**
+     * Are the given positions equal?
+     */
+    static arePositionsEqual(position1: TokenPosition, position2: TokenPosition): boolean;
+
     /** The default icon used for newly created Token documents */
     static DEFAULT_ICON: ImageFilePath | VideoFilePath;
+
+    /* -------------------------------------------- */
+    /*  Token Methods                               */
+    /* -------------------------------------------- */
+
+    /**
+     * Get the snapped position of the Token.
+     * @param data The position and dimensions
+     * @returns The snapped position
+     */
+    getSnappedPosition(data?: Partial<TokenPosition>): ElevatedPoint;
+
+    /**
+     * Get the top-left grid offset of the Token.
+     * @param data The position and dimensions
+     * @returns GridOffset3D The top-left grid offset
+     * @internal
+     */
+    _positionToGridOffset(data?: Partial<TokenPosition>): GridOffset3D;
+
+    /**
+     * Get the position of the Token from the top-left grid offset.
+     * @param offset The top-left grid offset
+     * @param data The dimensions that override the current dimensions
+     * @returns The snapped position
+     * @internal
+     */
+    _gridOffsetToPosition(offset: GridOffset3D, data?: Partial<TokenDimensions>): ElevatedPoint;
+
+    /**
+     * Get the width and height of the Token in pixels.
+     * @param data The width and/or height in grid units (must be positive)
+     * @returns The width and height in pixels
+     */
+    getSize(data?: { width?: number; height?: number }): { width: number; height: number };
 }
 
 export default interface BaseToken<TParent extends BaseScene | null = BaseScene | null>
@@ -147,6 +196,14 @@ type TokenSchema = {
             texture: fields.FilePathField<ImageFilePath>;
         }>;
     }>;
+    turnMarker: fields.SchemaField<{
+        mode: fields.NumberField<number, number, true, true, true>;
+        animation: fields.StringField<string, string, true, true, true>;
+        src: fields.FilePathField<ImageFilePath | VideoFilePath>;
+        disposition: fields.BooleanField;
+    }>;
+    movementAction: fields.StringField<string, string, true, true, true>;
+
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
 };

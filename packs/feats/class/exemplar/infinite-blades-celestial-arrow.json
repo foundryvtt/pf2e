@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Usage</strong> imbued into a ranged weapon ikon</p><hr /><p>Each shot you launch multiplies itself with spiritual blades, rings, and other missiles that shower upon your foes. Your weapon ikon gains the following abilities.</p>\n<p><strong>Immanence</strong> Whenever you successfully Strike an enemy with your weapon ikon, up to two enemies adjacent to the target take spirit damage equal to your weapon ikon's damage dice as they are struck by duplicated missiles.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Heaven Rains an Ending] <span class=\"action-glyph\">3</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.JtEzSceixS0WA8wn inline]</p>"
+            "value": "<p><strong>Usage</strong> imbued into a ranged weapon ikon</p><hr /><p>Each shot you launch multiplies itself with spiritual blades, rings, and other missiles that shower upon your foes. Your weapon ikon gains the following abilities.</p>\n<p><strong>Immanence</strong> Whenever you successfully Strike an enemy with your weapon ikon, up to two enemies adjacent to the target take spirit damage equal to your weapon ikon's damage dice as they are struck by duplicated missiles.</p>\n<p><strong>Transcendence—@UUID[Compendium.pf2e.actionspf2e.Item.Heaven Rains an Ending]</strong> <span class=\"action-glyph\">3</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.JtEzSceixS0WA8wn inline]</p>"
         },
         "level": {
             "value": 14
@@ -59,19 +59,48 @@
                 "title": "PF2E.SpecificRule.Exemplar.InfiniteBladesCelestialArrow.Label"
             },
             {
+                "disabledIf": [
+                    {
+                        "not": "divine-spark:{item|flags.pf2e.rulesSelections.ikon}"
+                    }
+                ],
+                "disabledValue": false,
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Exemplar.InfiniteBladesCelestialArrow.HeavenRainsAnEnding.Label",
-                "option": "heavens-rains-an-ending",
+                "option": "heaven-rains-an-ending",
+                "priority": 51,
                 "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "heaven-rains-an-ending",
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "ranged-strike-damage"
+                ],
+                "value": "spirit"
             },
             {
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.Exemplar.InfiniteBladesCelestialArrow.HeavenRainsAnEnding.Label",
                 "predicate": [
-                    "heavens-rains-an-ending"
+                    "heaven-rains-an-ending",
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}"
                 ],
                 "selector": "ranged-strike-attack-roll",
                 "value": -2
+            },
+            {
+                "key": "RollOption",
+                "option": "exemplar-spirit-damage",
+                "predicate": [
+                    "heaven-rains-an-ending"
+                ],
+                "priority": 51
             }
         ],
         "traits": {

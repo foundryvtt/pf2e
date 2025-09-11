@@ -14,36 +14,87 @@ import { Point } from "@common/_types.mjs";
 export default class Ray {
     constructor(A: Point, B: Point);
 
-    // Store points
+    /**
+     * The origin point, {x, y}
+     */
     A: Point;
-    B: Point;
-
-    // Origins
-    y0: number;
-    x0: number;
-
-    // Slopes
-    dx: number;
-    dy: number;
-
-    /** The slope of the ray, dy over dx */
-    slope: number;
-
-    /** The normalized angle of the ray in radians on the range (-PI, PI) */
-    angle: number;
-
-    /** The distance of the ray */
-    distance: number;
 
     /**
-     * Return the value of the angle normalized to the range (0, 2*PI)
-     * This is useful for testing whether an angle falls between two others
+     * The destination point, {x, y}
      */
-    readonly normAngle: number;
+    B: Point;
 
+    /**
+     * The origin y-coordinate
+     */
+    y0: number;
+
+    /**
+     * The origin x-coordinate
+     */
+    x0: number;
+
+    /**
+     * The horizontal distance of the ray, x1 - x0
+     */
+    dx: number;
+
+    /**
+     * The vertical distance of the ray, y1 - y0
+     */
+    dy: number;
+
+    /**
+     * The slope of the ray, dy over dx
+     */
+    slope: number;
+
+    /* -------------------------------------------- */
+    /*  Attributes                                  */
+    /* -------------------------------------------- */
+
+    /**
+     * The normalized angle of the ray in radians on the range (-PI, PI).
+     * The angle is computed lazily (only if required) and cached.
+     */
+    get angle(): number;
+
+    set angle(value: number);
+
+    /**
+     * A normalized bounding rectangle that encompasses the Ray
+     */
+    get bounds(): PIXI.Rectangle;
+
+    /**
+     * The distance (length) of the Ray in pixels.
+     * The distance is computed lazily (only if required) and cached.
+     */
+    get distance(): number;
+
+    set distance(value: number);
+
+    /* -------------------------------------------- */
+    /*  Methods                                     */
+    /* -------------------------------------------- */
+
+    /**
+     * A factory method to construct a Ray from an origin point, an angle, and a distance
+     * @param x The origin x-coordinate
+     * @param y The origin y-coordinate
+     * @param radians The ray angle in radians
+     * @param distance The distance of the ray in pixels
+     * @returns The constructed Ray instance
+     */
     static fromAngle(x: number, y: number, radians: number, distance: number): Ray;
 
-    static fromArrays(A: [], B: []): Ray;
+    /**
+     * A factory method to construct a Ray from points in array format.
+     * @param A The origin point [x,y]
+     * @param B The destination point [x,y]
+     * @returns The constructed Ray instance
+     */
+    static fromArrays(A: [number, number], B: [number, number]): Ray;
 
     /**
      * Project the Array by some proportion of it's initial distance.
@@ -53,22 +104,38 @@ export default class Ray {
      */
     project(t: number): Point;
 
-    shiftAngle(angleOffset: number, distance: number): Ray;
+    /**
+     * Create a Ray by projecting a certain distance towards a known point.
+     * @param origin The origin of the Ray
+     * @param point The point towards which to project
+     * @param distance The distance of projection
+     */
+    static towardsPoint(origin: Point, point: Point, distance: number): Ray;
+
+    /**
+     * Create a Ray by projecting a certain squared-distance towards a known point.
+     * @param origin The origin of the Ray
+     * @param point The point towards which to project
+     * @param distance2 The squared distance of projection
+     */
+    static towardsPointSquared(origin: Point, point: Point, distance2: number): Ray;
+
+    /**
+     * Reverse the direction of the Ray, returning a second Ray
+     */
+    reverse(): Ray;
+
+    /**
+     * Create a new ray which uses the same origin point, but a slightly offset angle and distance
+     * @param offset An offset in radians which modifies the angle of the original Ray
+     * @param distance A distance the new ray should project, otherwise uses the same distance.
+     * @return A new Ray with an offset angle
+     */
+    shiftAngle(angleOffset: number, distance?: number): Ray;
 
     /**
      * Find the point I[x,y] and distance t* on ray R(t) which intersects another ray
      * http://paulbourke.net/geometry/pointlineplane/
      */
     intersectSegment(coords: [number]): Vector2;
-
-    static _getIntersection(
-        x1: number,
-        y1: number,
-        x2: number,
-        y2: number,
-        x3: number,
-        y3: number,
-        x4: number,
-        y4: number,
-    ): Vector2;
 }

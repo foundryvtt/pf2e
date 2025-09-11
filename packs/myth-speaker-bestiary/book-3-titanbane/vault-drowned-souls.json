@@ -1,0 +1,124 @@
+{
+    "_id": "vh6qX5Sz3fVxSC3N",
+    "folder": "H9CJ9F8U83kU0CYj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "GPSuRcMP1gYoqmZf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flooding Vault",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature spends more than 1 minute inside the vault</p><hr /><p><strong>Effect</strong> The vault's door slams shut, trapping any creatures inside. Meanwhile, the souls of the dozens of citizens who died when Pakilykos sank manifest throughout the vault. The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vFb5aVBbRosTqJli",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "New Attack",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 0
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Vault-Drowned Souls",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert) to sense the terror of the spirits inside the vault</p>",
+                "value": 22
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The spirits of the island's citizens manifest and panic as the vault fills with seawater.</p>",
+            "disable": "<p>DC 33 Athletics (trained) twice to [[/act force-open dc=33]] the vault's door or @Check[religion|dc:30] (trained) three times to exorcise the spirits</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #218: Titanbane"
+            },
+            "reset": "<p>The waters recede and the spirits disappear once no living creatures remain inside the vault, but the haunt resets immediately, triggering again if a living creature steps inside.</p>",
+            "routine": "<p>(1 action) Water begins to fill the vault from a crack in the floor hidden beneath the bones. The spirits of the citizens panic and grasp at the living, begging them to act. Each creature in the vault takes @Damage[(2d10+13)[void]|options:area-damage] damage with a @Check[fortitude|dc:28|basic] saving throw. On a failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure).</p><p>The first time the hazard takes this action, water fills the vault to knee-height, making the area difficult terrain. The second time the hazard takes this action, the vault fills halfway with water, and creatures inside must succeed at a @Check[athletics|dc:15] check each round to Swim. The third time the hazard takes this action, the vault fills entirely with water, and creatures inside must hold their breath.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

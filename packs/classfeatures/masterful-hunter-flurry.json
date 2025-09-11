@@ -11,17 +11,13 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<h2 class=\"title\">Masterful Hunter Upgrade<span style=\"float: right;\">Level 17</span></h2>\n<p>You can blend your weapon mastery with skillful targeting to make a series of precise attacks.</p>\n<p>If you have master proficiency with your weapon, your multiple attack penalty for attacks against your hunted prey is -2 (-1 with an agile weapon) on your second attack of the turn, and -4 (-2 with an agile weapon) on your third and subsequent attacks of the turn.</p>"
+            "value": "<p>If you have master proficiency with your weapon, your multiple attack penalty for attacks against your hunted prey is –2 (–1 with an agile weapon) on your second attack of the turn, and –4 (–2 with an agile weapon) on your third and subsequent attacks of the turn.</p>"
         },
         "level": {
             "value": 17
         },
         "prerequisites": {
-            "value": [
-                {
-                    "value": "Hunter's Edge: Flurry"
-                }
-            ]
+            "value": []
         },
         "publication": {
             "license": "ORC",
@@ -31,16 +27,17 @@
         "rules": [
             {
                 "key": "MultipleAttackPenalty",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Flurry.Label",
                 "predicate": [
                     "target:mark:hunted-prey",
                     {
-                        "or": [
-                            "proficiency:master",
-                            "proficiency:legendary"
+                        "gte": [
+                            "item:proficiency:rank",
+                            3
                         ]
                     },
                     {
-                        "not": "agile"
+                        "not": "item:trait:agile"
                     }
                 ],
                 "selector": "attack",
@@ -48,13 +45,14 @@
             },
             {
                 "key": "MultipleAttackPenalty",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Flurry.Label",
                 "predicate": [
-                    "agile",
+                    "item:trait:agile",
                     "target:mark:hunted-prey",
                     {
-                        "or": [
-                            "proficiency:master",
-                            "proficiency:legendary"
+                        "gte": [
+                            "item:proficiency:rank",
+                            3
                         ]
                     }
                 ],

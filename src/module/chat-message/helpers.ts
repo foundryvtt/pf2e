@@ -58,6 +58,7 @@ async function createUseActionMessage(
         selfEffect: !!item.system.selfEffect,
         craftedItem: craftedItem?.toAnchor({ attrs: { draggable: "true" } }).outerHTML,
         withoutResources: craftedItem && !consumeResources,
+        activate: craftedItem?.type === "consumable" && craftedItem.system.usage.type === "held" ? craftedItem : null,
     });
     const flags: { pf2e: ChatMessageFlagsPF2e["pf2e"] } = { pf2e: {} };
     if (item.system.selfEffect) {

@@ -119,13 +119,13 @@ class EncounterPF2e extends Combat {
                 return false;
             }
 
-            const actorTraits = actor.traits;
-            if (actor.type === "loot" || ["minion", "eidolon"].some((t) => actorTraits.has(t))) {
+            const actorTraits = actor.system.traits?.value ?? [];
+            if (actor.type === "loot" || ["minion", "eidolon"].some((t) => actorTraits.includes(t))) {
                 const actorTypes: Record<string, string> = CONFIG.PF2E.actorTypes;
                 const type = game.i18n.localize(
-                    actorTraits.has("minion")
+                    actorTraits.includes("minion")
                         ? CONFIG.PF2E.creatureTraits.minion
-                        : actorTraits.has("eidolon")
+                        : actorTraits.includes("eidolon")
                           ? CONFIG.PF2E.creatureTraits.eidolon
                           : actorTypes[actor.type],
                 );

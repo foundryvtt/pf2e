@@ -20,6 +20,10 @@ export class DelegatedCollection<V> {
         return this.#data.contents;
     }
 
+    values(): MapIterator<V> {
+        return this.#data.values();
+    }
+
     get<T extends V = V>(key: Maybe<string>, { strict }: { strict: true }): T;
     get<T extends V = V>(key: string, options?: CollectionGetOptions): T | undefined;
     get(key: string, options?: CollectionGetOptions): V | undefined {

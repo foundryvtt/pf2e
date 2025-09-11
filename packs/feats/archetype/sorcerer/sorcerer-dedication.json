@@ -31,8 +31,22 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:sorcerer-bloodline",
+                        {
+                            "not": "item:tag:class-archetype"
+                        }
+                    ]
+                },
+                "flag": "bloodline",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.Bloodline.Prompt"
+            },
+            {
                 "key": "GrantItem",
-                "uuid": "Compendium.pf2e.classfeatures.Item.Bloodline"
+                "uuid": "{item|flags.pf2e.rulesSelections.bloodline}"
             }
         ],
         "subfeatures": {

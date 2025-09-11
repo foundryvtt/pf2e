@@ -1,7 +1,7 @@
 import { ActorPF2e, type PartyPF2e } from "@actor";
-import { HitPointsSummary } from "@actor/base.ts";
+import type { HitPointsSummary } from "@actor/base.ts";
 import { CORE_RESOURCES } from "@actor/character/values.ts";
-import { CreatureSource } from "@actor/data/index.ts";
+import type { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
@@ -11,7 +11,7 @@ import type {
     DatabaseDeleteOperation,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
-import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
+import { ArmorPF2e, ItemPF2e, PhysicalItemPF2e, ShieldPF2e, SpellcastingEntryPF2e } from "@item";
 import { ArmorSource, ItemType } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
@@ -19,10 +19,10 @@ import { isEquipped } from "@item/physical/usage.ts";
 import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 import { ItemSpellcasting } from "@item/spellcasting-entry/item-spellcasting.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
-import { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
+import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { ItemAttacher } from "@module/apps/item-attacher.ts";
-import { Rarity, SIZES, SIZE_SLUGS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import { Rarity, SIZE_SLUGS, SIZES, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
@@ -46,7 +46,6 @@ import {
 } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import type {
-    CreatureTrait,
     CreatureType,
     CreatureUpdateCallbackOptions,
     CreatureUpdateOperation,
@@ -216,8 +215,9 @@ abstract class CreaturePF2e<
 
     /** Retrieve percpetion and spellcasting statistics */
     override getStatistic(slug: SaveType | SkillSlug | "perception"): Statistic<this>;
-    override getStatistic(slug: string): Statistic<this> | null;
-    override getStatistic(slug: string): Statistic | null {
+    override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic<this> | null;
+    override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic | null {
+        const item = options?.item;
         switch (slug) {
             case "perception":
                 return this.perception;
@@ -235,6 +235,21 @@ abstract class CreaturePF2e<
                         .flatMap((sc) => sc.statistic ?? [])
                         .sort((a, b) => b.dc.value - a.dc.value)
                         .shift() ?? null
+                );
+            case "counteract":
+                if (
+                    item?.isOfType("spell") &&
+                    item.actor?.uuid === this.uuid &&
+                    item.spellcasting instanceof SpellcastingEntryPF2e
+                ) {
+                    return item.spellcasting.counteraction;
+                }
+                return (
+                    this.spellcasting
+                        .values()
+                        .filter((sc) => sc instanceof SpellcastingEntryPF2e)
+                        .map((sc) => sc.counteraction)
+                        .reduce((best, candidate) => (candidate.mod > best.mod ? candidate : best)) ?? null
                 );
         }
 
@@ -583,10 +598,9 @@ abstract class CreaturePF2e<
     }
 
     /**
-     * Roll a Recovery Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     * Roll a Dying Recovery Check
      */
-    async rollRecovery(event?: MouseEvent): Promise<Rolled<CheckRoll> | null> {
+    async rollRecovery(event?: PointerEvent): Promise<Rolled<CheckRoll> | null> {
         const { dying } = this.attributes;
 
         if (!dying?.value) return null;
@@ -895,8 +909,6 @@ abstract class CreaturePF2e<
 interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: CreatureSource;
     system: CreatureSystemData;
-
-    get traits(): Set<CreatureTrait>;
 
     get hitPoints(): HitPointsSummary;
 

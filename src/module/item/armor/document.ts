@@ -4,6 +4,7 @@ import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_module.d.m
 import type { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e, checkPhysicalItemSystemChange, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { ARMOR_UPGRADES } from "@scripts/config/usage.ts";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
@@ -73,6 +74,17 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         );
 
         return rollOptions;
+    }
+
+    override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {
+        if (candidate === this) return false;
+
+        const usage = candidate.system.usage;
+        if (this.system.grade && usage.type === "installed" && usage.value in ARMOR_UPGRADES) {
+            return true;
+        }
+
+        return false;
     }
 
     override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
@@ -194,14 +206,16 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Clear runes or grade based on tech/analog traits
-        const result = await checkPhysicalItemSystemChange(this, changed);
-        if (result === "cancel") {
+        try {
+            const result = await checkPhysicalItemSystemChange(this, changed);
+            if (result === "sf2e") {
+                changed.system.runes = { potency: 0, resilient: 0, property: [] };
+                changed.system.grade ??= this._source.system.grade ?? "commercial";
+            } else if (result === "pf2e") {
+                changed.system.grade = null;
+            }
+        } catch {
             return false;
-        } else if (result === "sf2e") {
-            changed.system.runes = { potency: 0, resilient: 0, property: [] };
-            changed.system.grade ??= this._source.system.grade ?? "commercial";
-        } else if (result === "pf2e") {
-            changed.system.grade = null;
         }
 
         if (changed.system.acBonus !== undefined) {

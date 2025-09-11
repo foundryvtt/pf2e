@@ -40,12 +40,12 @@ export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> exten
         );
     }
 
+    /** Only allow the death overlay effect */
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        // Only allow the death overlay effect
-        return data.statuses.includes("dead") ? super._preCreate(data, options, user) : false;
+        return data.statuses?.includes("dead") ? super._preCreate(data, options, user) : false;
     }
 }

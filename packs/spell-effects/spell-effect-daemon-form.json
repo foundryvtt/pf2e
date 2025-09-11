@@ -1,0 +1,452 @@
+{
+    "_id": "IKdTcUwGtnkvrCed",
+    "img": "icons/creatures/magical/spirit-undead-ghost-tan-teal.webp",
+    "name": "Spell Effect: Daemon Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Daemon Form]</p>\n<p>You transform into a daemon battle form. While in this form, you gain the daemon and fiend traits. You have hands in this battle form and can use manipulate actions. You gain the following statistics and abilities regardless of the form that you choose:</p><ul><li>AC = 21 + your level. Ignore your armor check's penalty and Speed reduction.</li><li>15 temporary Hit Points and weakness 5 to holy.</li><li>A +2 status bonus to all saving throws against death effects.</li><li>Resistance 10 to poison.</li><li>Darkvision.</li><li>One or more attacks specific to the battle form you use. You're trained with them. Your attack modifier is +21, and you use the listed damage. These attacks are Strength based (for the purpose of the enfeebled condition, for example). If your unarmed attack modifier is higher, you can use it instead.</li><li>Athletics modifier of +23, unless your own modifier is higher.</li></ul><p>You also gain specific abilities based on the type of Daemon you choose:</p><ul><li><p><strong>Lacridaemon</strong> Size Medium, Speed 25 feet, fly 40 feet resistance 10 to cold</p><ul><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws (magical, unholy), <strong>Damage</strong> 1d8+12 piercing plus 1d6 cold and 1d4 poison</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> claw (agile, magical, unholy), <strong>Damage</strong> 1d6+12 slashing plus 1d6 cold.</li></ul></li><li><p><strong>Leukodaemon</strong> Size Large, Speed 25 feet, fly 40 feet +2 status bonus to saves against diseases</p><ul><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws (magical, reach 10 feet, unholy), <strong>Damage</strong> 2d10+12 piercing</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> claw (agile, magical, reach 10 feet, unholy), <strong>Damage</strong> 2d6+12 slashing;</li><li><strong>Ranged</strong> <span class=\"action-glyph\">1</span> composite longbow (deadly 1d10, magical, propulsive, range increment 100 feet, unholy, volley), <strong>Damage</strong> 2d8+12 piercing.</li></ul></li><li><p><strong>Meladaemon</strong> Size Large, Speed 25 feet, fly 40 feet</p><ul><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws (magical, reach 10 feet, unholy), <strong>Damage</strong> 2d10+12 piercing</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> claw (agile, magical, reach 10 feet, unholy, void), <strong>Damage</strong> 1d6+12 slashing plus 1d6 void, and you can spend an action after a hit to attempt to Grab the target.</li></ul></li><li><p><strong>Venedaemon</strong> Size Medium, Speed 25 feet sense magical items and active spells within 60 feet as an imprecise sense</p><ul><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> tentacle (agile, magical, reach 10 feet, unholy), <strong>Damage</strong> 2d6+12 bludgeoning.</li></ul></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.DaemonForm.ChoiceSet.Lacridaemon",
+                        "value": "lacridaemon"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.DaemonForm.ChoiceSet.Leukodaemon",
+                        "value": "leukodaemon"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.DaemonForm.ChoiceSet.Meladaemon",
+                        "value": "meladaemon"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.DaemonForm.ChoiceSet.Venedaemon",
+                        "value": "venedaemon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Form",
+                "rollOption": "daemon-form"
+            },
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "21 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "type": "cold",
+                            "value": 10
+                        },
+                        {
+                            "type": "poison",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 25
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 1,
+                                "die": "d6",
+                                "modifier": 12
+                            },
+                            "img": "icons/creatures/claws/claw-straight-brown.webp",
+                            "modifier": 21,
+                            "traits": [
+                                "agile",
+                                "magical",
+                                "unarmed",
+                                "unholy"
+                            ]
+                        },
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d8",
+                                "modifier": 12
+                            },
+                            "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                            "modifier": 21,
+                            "traits": [
+                                "magical",
+                                "unarmed",
+                                "unholy"
+                            ]
+                        }
+                    },
+                    "tempHP": 15,
+                    "weaknesses": [
+                        {
+                            "type": "holy",
+                            "value": 5
+                        }
+                    ]
+                },
+                "predicate": [
+                    "daemon-form:lacridaemon"
+                ]
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "daemon-form:lacridaemon"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "daemon-form:lacridaemon"
+                ],
+                "selector": "jaws-damage"
+            },
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "21 + @actor.level"
+                    },
+                    "hasHands": true,
+                    "resistances": [
+                        {
+                            "type": "poison",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "lg",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 25
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 12
+                            },
+                            "img": "icons/commodities/biological/hand-gnarled-purple.webp",
+                            "modifier": 21,
+                            "traits": [
+                                "agile",
+                                "reach-10",
+                                "unarmed",
+                                "unholy"
+                            ]
+                        },
+                        "composite-longbow": {
+                            "ability": "str",
+                            "baseType": "composite-longbow",
+                            "category": "martial",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 12
+                            },
+                            "group": "bow",
+                            "img": "icons/weapons/bows/bow-recurve-black.webp",
+                            "label": "PF2E.Weapon.Base.composite-longbow",
+                            "modifier": 21,
+                            "range": {
+                                "increment": 100
+                            },
+                            "traits": [
+                                "deadly-d10",
+                                "magical",
+                                "propulsive",
+                                "unholy",
+                                "volley-30"
+                            ]
+                        },
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d10",
+                                "modifier": 12
+                            },
+                            "img": "icons/commodities/bones/skull-bird-tan.webp",
+                            "modifier": 21,
+                            "traits": [
+                                "magical",
+                                "reach-10",
+                                "unarmed",
+                                "unholy"
+                            ]
+                        }
+                    },
+                    "tempHP": 15,
+                    "weaknesses": [
+                        {
+                            "type": "holy",
+                            "value": 5
+                        }
+                    ]
+                },
+                "predicate": [
+                    "daemon-form:leukodaemon"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "daemon-form:leukodaemon",
+                    {
+                        "or": [
+                            "item:trait:death",
+                            "item:trait:disease"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "21 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "type": "poison",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "lg",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 25
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 1,
+                                "die": "d8"
+                            },
+                            "img": "icons/creatures/claws/claw-hooked-barbed.webp",
+                            "modifier": 21,
+                            "traits": [
+                                "unarmed",
+                                "agile",
+                                "reach-10"
+                            ]
+                        },
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d10",
+                                "modifier": 10
+                            },
+                            "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                            "modifier": 21,
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
+                        }
+                    },
+                    "tempHP": 15,
+                    "weaknesses": [
+                        {
+                            "type": "holy",
+                            "value": 5
+                        }
+                    ]
+                },
+                "predicate": [
+                    "daemon-form:meladaemon"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "daemon-form:meladaemon",
+                    "item:trait:death"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "daemon-form:meladaemon"
+                ],
+                "selector": "claw-damage",
+                "text": "PF2E.BattleForm.Note.Grab",
+                "title": "{item|name}"
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "daemon-form:meladaemon"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "void",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "daemon-form:meladaemon"
+                ],
+                "selector": "claw-damage"
+            },
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "21 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "type": "poison",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "land": 25
+                    },
+                    "strikes": {
+                        "tentacle": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 12
+                            },
+                            "img": "icons/creatures/tentacles/tentacles-thing-green.webp",
+                            "modifier": 21,
+                            "traits": [
+                                "unarmed",
+                                "agile",
+                                "magical",
+                                "reach-10",
+                                "unholy"
+                            ]
+                        }
+                    },
+                    "tempHP": 15,
+                    "weaknesses": [
+                        {
+                            "type": "holy",
+                            "value": 5
+                        }
+                    ]
+                },
+                "predicate": [
+                    "daemon-form:venedaemon"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -44,7 +44,7 @@
     </header>
     <hr>
     <div class="main-section">
-        <div class="skills-sidebar{{#if document.limited}} skills-sidebar-placeholder{{/if}}">
+        <div class="section-container skills-sidebar{{#if document.limited}} placeholder{{/if}}">
             {{#unless document.limited}}{{> skills}}{{/unless}}
         </div>
         <div class="main-container">
@@ -136,35 +136,29 @@
 {{/inline}}
 
 {{#*inline "skills"}}
-    <div class="section-container">
-        <div class="section-header">
-            <h4>{{localize "PF2E.Familiar.Skills"}}</h4>
-        </div>
-        <div class="section-body">
-            <div class="skills-content">
-                {{#if data.master.id}}
-                    <div class="skills-list">
-                        <a data-action="roll-check" data-statistic="perception"
-                            data-tooltip aria-label="{{data.perception.breakdown}}">
-                            <div class="mod">{{numberFormat data.perception.totalModifier sign=true}}</div>
-                            <div class="name">{{localize "PF2E.Familiar.Perception"}}</div>
-                        </a>
-                    </div>
-                    <div class="skills-list">
-                        {{#each skills as |skill|}}
-                            <a data-action="roll-check" data-statistic="{{skill.slug}}" data-tooltip="{{skill.breakdown}}">
-                                <div class="mod">{{numberFormat skill.value sign=true}}</div>
-                                <div class="name">{{skill.label}}</div>
-                            </a>
-                        {{/each}}
-                    </div>
-                    <a class="rollable skills-attack" data-action="familiar-attack-roll" data-tooltip="{{data.attack.breakdown}}">
-                        <strong>{{localize "PF2E.Familiar.AttackRoll"}}</strong>
-                        <span>{{numberFormat data.attack.value sign=true}}</span>
-                    </a>
-                {{/if}}
-            </div>
-        </div>
+    <div class="section-header">
+        <h4>{{localize "PF2E.Familiar.Skills"}}</h4>
+    </div>
+    <div class="section-body">
+        {{#if data.master.id}}
+            <a class="perception" data-action="roll-check" data-statistic="perception"
+                data-tooltip aria-label="{{data.perception.breakdown}}">
+                <div class="mod">{{numberFormat data.perception.totalModifier sign=true}}</div>
+                <div class="name">{{localize "PF2E.Familiar.Perception"}}</div>
+            </a>
+            {{#each skills as |skill|}}
+                <a data-action="roll-check" data-statistic="{{skill.slug}}"
+                   data-tooltip aria-label="{{skill.breakdown}}">
+                    <div class="mod">{{numberFormat skill.value sign=true}}</div>
+                    <div class="name">{{skill.label}}</div>
+                </a>
+            {{/each}}
+            <a class="attack-roll" data-action="familiar-attack-roll"
+               data-tooltip aria-label="{{data.attack.breakdown}}">
+                <strong>{{localize "PF2E.Familiar.AttackRoll"}}</strong>
+                <span>{{numberFormat data.attack.value sign=true}}</span>
+            </a>
+        {{/if}}
     </div>
 {{/inline}}
 

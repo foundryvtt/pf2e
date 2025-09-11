@@ -1,10 +1,10 @@
 {
     "_id": "nlaxROgSSLVHZ1hx",
-    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "img": "icons/skills/melee/shield-block-fire-orange.webp",
     "name": "Effect: Monster Warden",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Monster Warden]</p>\n<p>You gain a +1 circumstance bonus to your next attack roll against that prey.</p>\n<p>You gain a +2 circumstance bonus either to your AC the next time the creature attacks you or to your next saving throw against an effect from that particular creature (whichever comes first.)</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Monster Warden]</p>\n<p>You gain a +2 circumstance bonus either to your AC the next time the assessed creature attacks you or to your next saving throw against an effect from that particular creature.</p>"
         },
         "duration": {
             "expiry": null,
@@ -13,7 +13,7 @@
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 2
         },
         "publication": {
             "license": "ORC",
@@ -22,15 +22,13 @@
         },
         "rules": [
             {
-                "key": "RollOption",
-                "label": "Target is the subject of Monster Hunter",
-                "option": "monster-hunter",
-                "toggleable": true
+                "key": "TokenMark",
+                "slug": "monster-warden"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "monster-hunter"
+                    "origin:mark:monster-warden"
                 ],
                 "selector": [
                     "ac",
@@ -38,15 +36,6 @@
                 ],
                 "type": "circumstance",
                 "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "monster-hunter"
-                ],
-                "selector": "attack",
-                "type": "circumstance",
-                "value": 1
             }
         ],
         "start": {

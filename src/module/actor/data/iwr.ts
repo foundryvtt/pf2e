@@ -89,9 +89,11 @@ abstract class IWR<TType extends IWRType> {
             case "air":
             case "alchemical":
             case "earth":
+            case "light":
             case "metal":
             case "olfactory":
             case "radiation":
+            case "time":
             case "visual":
             case "water":
             case "wood":
@@ -303,9 +305,12 @@ class Weakness extends IWR<WeaknessType> implements WeaknessSource {
 
     override value: number;
 
-    constructor(data: IWRConstructorData<WeaknessType> & { value: number }) {
+    readonly applyOnce: boolean;
+
+    constructor(data: IWRConstructorData<WeaknessType> & { value: number; applyOnce?: boolean }) {
         super(data);
         this.value = data.value;
+        this.applyOnce = data.applyOnce ?? APPLY_ONCE_WEAKNESSES.has(this.type);
     }
 
     override toObject(): Readonly<WeaknessDisplayData> {
@@ -320,6 +325,7 @@ type WeaknessDisplayData = IWRDisplayData<WeaknessType> & Pick<Weakness, "value"
 
 interface WeaknessSource extends IWRSource<WeaknessType> {
     value: number;
+    applyOnce?: boolean;
 }
 
 class Resistance extends IWR<ResistanceType> implements ResistanceSource {
@@ -369,7 +375,7 @@ interface ResistanceSource extends IWRSource<ResistanceType> {
 }
 
 /** Weaknesses to things that "[don't] normally deal damage, such as water": applied separately as untyped damage */
-const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
+const APPLY_ONCE_WEAKNESSES: Set<WeaknessType> = new Set([
     ...MAGIC_TRADITIONS,
     "air",
     "earth",
@@ -386,5 +392,5 @@ const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
     "wood",
 ]);
 
-export { Immunity, NON_DAMAGE_WEAKNESSES, Resistance, Weakness };
+export { Immunity, APPLY_ONCE_WEAKNESSES, Resistance, Weakness };
 export type { ImmunitySource, IWRSource, ResistanceSource, WeaknessSource };

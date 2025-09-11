@@ -27,6 +27,9 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
                 "slots": {
                     "slot3": {
                         "max": 3,
@@ -65,7 +68,8 @@
                 },
                 "tradition": {
                     "value": "occult"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -1023,11 +1027,8 @@
             "type": "spell"
         },
         {
-            "_id": "12NbBWM5piSrRxih",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.WTVLL9xk0Tk87w93"
-            },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "_id": "H1rrAhTLIqcgCBVW",
+            "img": "systems/pf2e/icons/equipment/consumables/talismans/jade-bauble.webp",
             "name": "Fox Marble",
             "sort": 1600000,
             "system": {
@@ -1037,7 +1038,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>A gumiho wears a strange green amulet around its neck. This fox marble stores all of the gumiho's knowledge. By focusing on the marble, a gumiho can perfectly recall anything it has experienced in its lifetime. A creature who manages to steal a gumiho's fox marble is lucky indeed, for they can also use it to access the gumiho's memories. However, if the gumiho still lives, the vengeful fox will stop at nothing to recover its marble.</p>\n<p>Whoever wears a fox marble gains a +2 item bonus to all checks to Recall Knowledge.</p>"
+                    "value": "<p>A gumiho wears a strange green amulet around its neck. This fox marble stores all of the gumiho's knowledge. By focusing on the marble, a gumiho can perfectly recall anything it has experienced in its lifetime. A creature who manages to steal a gumiho's fox marble is lucky indeed, for they can also use it to access the gumiho's memories. However, if the gumiho still lives, the vengeful fox will stop at nothing to recover its marble.</p>\n<p>Whoever wears a fox marble gains a +2 item bonus to all checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge].</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1061,7 +1062,7 @@
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder #168: King of the Mountain"
                 },
                 "quantity": 1,
                 "rules": [
@@ -1070,61 +1071,7 @@
                         "predicate": [
                             "action:recall-knowledge"
                         ],
-                        "selector": "arcana",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:recall-knowledge"
-                        ],
-                        "selector": "crafting",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:recall-knowledge"
-                        ],
-                        "selector": "medicine",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:recall-knowledge"
-                        ],
-                        "selector": "nature",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:recall-knowledge"
-                        ],
-                        "selector": "occultism",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:recall-knowledge"
-                        ],
-                        "selector": "religion",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:recall-knowledge"
-                        ],
-                        "selector": "society",
+                        "selector": "skill-check",
                         "type": "item",
                         "value": 2
                     }
@@ -1147,9 +1094,6 @@
             "name": "Claw",
             "sort": 1700000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
                     "value": []
                 },
@@ -1173,15 +1117,11 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
                         "unarmed"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -1192,9 +1132,6 @@
             "name": "Jaws",
             "sort": 1800000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
                     "value": []
                 },
@@ -1218,14 +1155,10 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "finesse",
                         "unarmed"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -1254,7 +1187,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "emotion",
                         "incapacitation",
@@ -1289,7 +1221,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1322,7 +1253,6 @@
                 "rules": [],
                 "slug": "change-shape",
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "concentrate",
                         "occult",
@@ -1353,10 +1283,22 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": [
+                            "claw-damage",
+                            "jaws-damage"
+                        ],
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },

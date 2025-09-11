@@ -718,8 +718,8 @@ function calculateRangePenalty(
 
 /** Whether this actor is of a the "character" type, excluding those from the PF2E Companion Compendia module */
 function isReallyPC(actor: ActorPF2e): boolean {
-    const traits = actor.traits;
-    return actor.isOfType("character") && !(traits.has("minion") || traits.has("eidolon"));
+    const traits = actor.system.traits?.value ?? [];
+    return actor.isOfType("character") && !["eidolon", "minion"].some((t) => traits.includes(t));
 }
 
 /** Recursive generator function to iterate over all items and their sub items */
@@ -752,7 +752,6 @@ async function transferItemsBetweenActors(
 
     for (const item of source.inventory) {
         if (itemFilterFn && !itemFilterFn(item)) continue;
-
         const stackableItem = dest.inventory.findStackableItem(item);
         if (stackableItem) {
             const currentQuantity = itemUpdates.get(stackableItem.id) ?? stackableItem.quantity;
@@ -760,7 +759,6 @@ async function transferItemsBetweenActors(
             itemsToDelete.push(item.id);
             continue;
         }
-
         newItems.push(item);
         itemsToDelete.push(item.id);
     }
@@ -770,14 +768,11 @@ async function transferItemsBetweenActors(
             const stackableItem = result.find((i) => i.isStackableWith(item));
             if (stackableItem) {
                 stackableItem.updateSource({
-                    system: {
-                        quantity: stackableItem.quantity + item.quantity,
-                    },
+                    system: { quantity: stackableItem.quantity + item.quantity },
                 });
             } else {
                 result.push(item);
             }
-
             return result;
         }, []);
         const sources = stacked.map((i) => i.toObject());
@@ -786,19 +781,11 @@ async function transferItemsBetweenActors(
             render: itemUpdates.size === 0,
         });
     }
-
     if (itemUpdates.size > 0) {
-        const updates = [...itemUpdates.entries()].map(([id, quantity]) => ({
-            _id: id,
-            system: { quantity },
-        }));
-
+        const updates = [...itemUpdates.entries()].map(([id, quantity]) => ({ _id: id, system: { quantity } }));
         await dest.updateEmbeddedDocuments("Item", updates);
     }
-
-    if (itemsToDelete.length > 0) {
-        await source.deleteEmbeddedDocuments("Item", itemsToDelete);
-    }
+    if (itemsToDelete.length > 0) await source.deleteEmbeddedDocuments("Item", itemsToDelete);
 }
 
 /** Creates an empty actor group update with optional additional data */

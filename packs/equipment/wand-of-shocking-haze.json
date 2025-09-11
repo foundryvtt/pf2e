@@ -7,7 +7,9 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p>Thin, shiny wires crisscross the surface of this smooth, black wand. The pommel is capped with a polished metal sphere, which sometimes emits small electric sparks.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p><hr /><p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Blur], and the wand creates faint orbs of electricity @UUID[Compendium.pf2e.conditionitems.Item.Concealed] in the haze around you. Each time a creature that's adjacent to you fails a flat check against the concealment from blur, they explode one of the orbs, causing them to take @Damage[5[electricity]] damage.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of <em>blur</em>.</p>"
         },
@@ -25,7 +27,10 @@
         },
         "price": {
             "value": {
-                "gp": 250
+                "cp": 0,
+                "gp": 250,
+                "pp": 0,
+                "sp": 0
             }
         },
         "publication": {
@@ -36,6 +41,70 @@
         "quantity": 1,
         "rules": [],
         "size": "med",
+        "spell": {
+            "_id": "0udMYtmT1QUOvZZ2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.3JG1t3T4mWn6vTke"
+            },
+            "folder": "lPzcDrjGDFbzuF2r",
+            "img": "systems/pf2e/icons/spells/blur.webp",
+            "name": "Blur",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>The target's form appears blurry. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Concealed]. As the nature of this effect still leaves the target's location obvious, the target can't use this concealment to Hide or Sneak.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": null
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "blur",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -46,7 +115,12 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

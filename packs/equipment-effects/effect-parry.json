@@ -4,7 +4,7 @@
     "name": "Effect: Parry",
     "system": {
         "description": {
-            "value": "<p>You gain a +1 circumstance bonus to AC.</p>"
+            "value": "<p>You gain a circumstance bonus to AC.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -21,6 +21,24 @@
             "title": "Pathfinder Player Core"
         },
         "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "no"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "yes"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "weapon-parry"
+                ],
+                "prompt": "PF2E.SpecificRule.Parry.Prompt",
+                "rollOption": "parry-bonus-upgrade"
+            },
             {
                 "key": "FlatModifier",
                 "selector": "ac",

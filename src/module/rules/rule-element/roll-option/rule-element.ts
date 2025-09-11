@@ -1,4 +1,4 @@
-import { processChoicesFromData } from "@module/rules/helpers.ts";
+import { createBatchRuleElementUpdate, processChoicesFromData } from "@module/rules/helpers.ts";
 import { Predicate } from "@system/predication.ts";
 import {
     DataUnionField,
@@ -382,24 +382,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     async toggle(value = !this.resolveValue(), selection: string | null = null): Promise<boolean | null> {
         if (!this.toggleable) throw ErrorPF2e("Attempted to toggle non-toggleable roll option");
 
-        const actor = this.actor;
-        const updates: { _id: string; "system.rules": RuleElementSource[] }[] = [];
-
         if (this.mergeable && selection) {
             // Update the items containing rule elements in the merge family
-            const rulesByItem = R.groupBy(this.#resolveSuboptionRules(), (r) => r.item.id);
-            for (const [itemId, rules] of Object.entries(rulesByItem)) {
-                const item = actor.items.get(itemId, { strict: true });
-                const ruleSources = item.toObject().system.rules;
-                const rollOptionSources = rules
-                    .map((rule) => (typeof rule.sourceIndex === "number" ? ruleSources[rule.sourceIndex] : null))
-                    .filter((source): source is RollOptionSource => source?.key === "RollOption");
-                for (const ruleSource of rollOptionSources) {
-                    ruleSource.value = value;
-                    ruleSource.selection = selection;
-                }
-                updates.push({ _id: itemId, "system.rules": ruleSources });
-            }
+            const rules = this.#resolveSuboptionRules();
+            const updates = createBatchRuleElementUpdate(rules, { value, selection });
+            const result = await this.actor.updateEmbeddedDocuments("Item", updates);
+            return result.length > 0 ? value : null;
         } else {
             // Directly update the rule element on the item
             const ruleSources = this.item.toObject().system.rules;
@@ -408,12 +396,9 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             if (!thisSource) return null;
             thisSource.value = value;
             if (selection) thisSource.selection = selection;
-            updates.push({ _id: this.item.id, "system.rules": ruleSources });
+            const updated = await this.item.update({ "system.rules": ruleSources });
+            return updated ? value : null;
         }
-
-        const result = await this.actor.updateEmbeddedDocuments("Item", updates);
-
-        return result.length > 0 ? value : null;
     }
 
     /* -------------------------------------------- */

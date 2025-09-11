@@ -1,0 +1,48 @@
+{
+    "_id": "yryez4kaltjOUm7C",
+    "img": "icons/equipment/chest/shirt-collared-pink.webp",
+    "name": "Effect: Cloister Robe",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Cloister Robe (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Cloister Robe (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Cloister Robe (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Cloister Robe (Major)]</p>\n<p>You gain resistance to damage from divine spells.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:trait:divine",
+                    "item:type:spell"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllDamageFromDivineSpells",
+                "type": "custom",
+                "value": "@item.origin.flags.pf2e.cloisterRobeResistance"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

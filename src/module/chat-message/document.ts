@@ -290,8 +290,8 @@ class ChatMessagePF2e extends ChatMessage {
             }
         }
 
-        html.addEventListener("mouseenter", (event) => this.#onHoverIn(event));
-        html.addEventListener("mouseleave", (event) => this.#onHoverOut(event));
+        html.addEventListener("pointerenter", (event) => this.#onHoverIn(event));
+        html.addEventListener("pointerleave", (event) => this.#onHoverOut(event));
 
         UserVisibilityPF2e.processMessageSender(this, html);
         if ((!actor || this.isRoll) && this.content) {
@@ -348,7 +348,7 @@ class ChatMessagePF2e extends ChatMessage {
     }
 
     /** Highlight the message's corresponding token on the canvas */
-    #onHoverIn(nativeEvent: MouseEvent | PointerEvent): void {
+    #onHoverIn(nativeEvent: PointerEvent): void {
         if (!canvas.ready) return;
         const token = this.token?.object;
         if (token?.isVisible && !token.controlled) {
@@ -357,7 +357,7 @@ class ChatMessagePF2e extends ChatMessage {
     }
 
     /** Remove the token highlight */
-    #onHoverOut(nativeEvent: MouseEvent | PointerEvent): void {
+    #onHoverOut(nativeEvent: PointerEvent): void {
         if (canvas.ready) this.token?.object?.emitHoverOut(nativeEvent);
     }
 

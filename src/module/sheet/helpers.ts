@@ -126,7 +126,7 @@ async function getItemFromDragEvent(event: DragEvent): Promise<ItemPF2e | null> 
 /** Returns statistic dialog roll parameters based on held keys */
 type ParamsFromEvent = { skipDialog: boolean; rollMode?: RollMode | "roll" };
 
-function isRelevantEvent(event: Maybe<Event>): event is MouseEvent | TouchEvent | KeyboardEvent | WheelEvent {
+function isRelevantEvent(event: Maybe<Event>): event is PointerEvent | TouchEvent | KeyboardEvent | WheelEvent {
     return !!event && "ctrlKey" in event && "metaKey" in event && "shiftKey" in event;
 }
 
@@ -146,8 +146,13 @@ function eventToRollParams(event: Maybe<Event>, rollType: { type: "check" | "dam
 
 /** Set roll mode from a user's input: used for messages that are not actually rolls. */
 function eventToRollMode(event: Maybe<Event>): RollMode | "roll" {
-    if (!isRelevantEvent(event) || !(event.ctrlKey || event.metaKey)) return "roll";
-    return game.user.isGM ? "gmroll" : "blindroll";
+    if (!isRelevantEvent(event)) return "roll";
+    return isControlDown(event) ? (game.user.isGM ? "gmroll" : "blindroll") : "roll";
+}
+
+/** Returns true if the control key is held down, handling mac */
+function isControlDown(event: PointerEvent | KeyboardEvent | TouchEvent | WheelEvent): boolean {
+    return fh.interaction.KeyboardManager.CONTROL_KEY_STRING === "⌘" ? event.metaKey : event.ctrlKey;
 }
 
 /** Given a uuid, loads the item and sends it to chat, potentially recontextualizing it with a given actor */
@@ -244,6 +249,7 @@ export {
     getAdjustedValue,
     getAdjustment,
     getItemFromDragEvent,
+    isControlDown,
     maintainFocusInRender,
     sendItemToChat,
 };

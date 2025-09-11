@@ -99,7 +99,6 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     ): Promise<EffectBadgeValueSource> {
         const actor = this.actor;
         if (!actor) throw ErrorPF2e("A formula badge can only be evaluated if part of an embedded effect");
-
         const roll = await new Roll(badge.value, this.getRollData()).evaluate();
         const initial = initialValue ?? roll.total;
         const reevaluate = badge.reevaluate ? { event: badge.reevaluate, formula: badge.value, initial } : null;
@@ -119,7 +118,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
@@ -129,9 +128,9 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         }
 
         // If this is an immediate evaluation formula effect, pre-roll and change the badge type on creation
-        const badge = data.system.badge;
-        if (this.actor && badge?.type === "formula" && badge.evaluate) {
-            this._source.system.badge = await this.#evaluateFormulaBadge(badge);
+        const badge = data.system?.badge;
+        if (this.actor && badge?.type === "formula" && badge.evaluate && badge.value !== undefined) {
+            this._source.system.badge = await this.#evaluateFormulaBadge(badge as EffectBadgeFormulaSource);
         }
 
         return super._preCreate(data, options, user);

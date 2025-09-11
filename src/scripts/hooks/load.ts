@@ -20,6 +20,7 @@ import { HeritageSystemData } from "@item/heritage/data.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { DoorControlPF2e } from "@module/canvas/door-control.ts";
 import { EnvironmentCanvasGroupPF2e } from "@module/canvas/group/environment.ts";
 import {
     AmbientLightPF2e,
@@ -27,11 +28,14 @@ import {
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
     RegionPF2e,
+    RulerPF2e,
     TemplateLayerPF2e,
     TokenPF2e,
 } from "@module/canvas/index.ts";
 import { TokenLayerPF2e } from "@module/canvas/layer/token.ts";
 import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
+import { TerrainDataPF2e } from "@module/canvas/token/movement/terrain-data.ts";
+import { TokenRulerPF2e } from "@module/canvas/token/ruler.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActorsPF2e } from "@module/collection/actors.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
@@ -48,6 +52,7 @@ import {
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene/index.ts";
+import { DifficultTerrainBehaviorType } from "@scene/region-behavior/difficult-terrain.ts";
 import { PrototypeTokenConfigPF2e } from "@scene/token-document/index.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
@@ -78,20 +83,31 @@ export const Load = {
         CONFIG.MeasuredTemplate.defaults.width = 1;
         CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
         CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
+
         CONFIG.Region.documentClass = RegionDocumentPF2e;
         CONFIG.Region.objectClass = RegionPF2e;
         CONFIG.RegionBehavior.dataModels.environment = EnvironmentBehaviorType;
         CONFIG.RegionBehavior.dataModels.environmentFeature = EnvironmentFeatureBehaviorType;
+        CONFIG.RegionBehavior.dataModels.modifyMovementCost = DifficultTerrainBehaviorType;
         CONFIG.RegionBehavior.documentClass = RegionBehaviorPF2e;
         CONFIG.RegionBehavior.typeIcons.environment = "fa-solid fa-mountain-sun";
         CONFIG.RegionBehavior.typeIcons.environmentFeature = "fa-solid fa-wind";
         CONFIG.RegionBehavior.typeLabels.environment = "PF2E.Region.Environment.Label";
         CONFIG.RegionBehavior.typeLabels.environmentFeature = "PF2E.Region.EnvironmentFeature.Label";
+
         CONFIG.Scene.documentClass = ScenePF2e;
         CONFIG.Tile.documentClass = TileDocumentPF2e;
+
         CONFIG.Token.documentClass = TokenDocumentPF2e;
-        CONFIG.Token.prototypeSheetClass = PrototypeTokenConfigPF2e;
+        CONFIG.Token.movement.TerrainData = TerrainDataPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
+        CONFIG.Token.prototypeSheetClass = PrototypeTokenConfigPF2e;
+        CONFIG.Token.rulerClass = TokenRulerPF2e;
+        const movementActions = CONFIG.Token.movement.actions;
+        for (const key of ["crawl", "climb", "jump"]) {
+            delete movementActions[key]?.getCostFunction;
+        }
+
         CONFIG.User.documentClass = UserPF2e;
 
         // Actor system data models
@@ -116,13 +132,15 @@ export const Load = {
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
 
-        // Assign canvas layer and placeable classes
+        // Assign canvas-related classes
+        CONFIG.Canvas.doorControlClass = DoorControlPF2e;
         CONFIG.Canvas.exploredColor = 0x262626; // Increased from 0 (black)
         CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
         CONFIG.Canvas.groups.environment.groupClass = EnvironmentCanvasGroupPF2e;
         CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
         CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
         CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
+        CONFIG.Canvas.rulerClass = RulerPF2e;
         CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
 
         CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll, DamageInstance);

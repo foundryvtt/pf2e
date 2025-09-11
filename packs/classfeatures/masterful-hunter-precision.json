@@ -11,17 +11,13 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<h2 class=\"title\">Masterful Hunter Upgrade<span style=\"float: right;\">Level 17</span></h2>\n<p>Your weapon mastery allows you to hit your prey's vital areas multiple times.</p>\n<p>The second time in a round you hit your hunted prey, you also deal 1d8 precision damage.</p>\n<p>At 19th level, your second hit in a round against your hunted prey deals 2d8 precision damage, and your third hit in a round against your hunted prey deals 1d8 precision damage.</p>"
+            "value": "<p>Your weapon mastery allows you to hit your prey's vital areas multiple times. The second time in a round you hit your hunted prey, you also deal 1d8 precision damage.</p>\n<p>At 19th level, your second hit in a round against your hunted prey deals 2d8 precision damage, and your third hit in a round against your hunted prey deals 1d8 precision damage.</p>"
         },
         "level": {
             "value": 17
         },
         "prerequisites": {
-            "value": [
-                {
-                    "value": "Hunter's Edge: Precision"
-                }
-            ]
+            "value": []
         },
         "publication": {
             "license": "ORC",
@@ -31,59 +27,54 @@
         "rules": [
             {
                 "key": "RollOption",
-                "label": "Second attack on hunted prey this round",
-                "option": "second-attack",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Precision.ToggleLabel",
+                "mergeable": true,
+                "option": "precision-hunters-edge",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Ordinals.Second",
+                        "value": "second-hit"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Ordinals.Third",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    19
+                                ]
+                            }
+                        ],
+                        "value": "third-hit"
+                    }
+                ],
                 "toggleable": true
             },
             {
-                "category": "precision",
-                "dieSize": "d8",
-                "key": "DamageDice",
+                "key": "DamageAlteration",
+                "mode": "override",
                 "predicate": [
-                    "second-attack"
+                    "precision-hunters-edge:second-hit"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 18,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "start": 19,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        }
-                    ]
-                }
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "precision",
+                "value": "ternary(gte(@actor.level,19),2,1)"
             },
             {
-                "key": "RollOption",
-                "label": "Third attack on hunted prey this round",
-                "option": "third-attack",
-                "toggleable": true
-            },
-            {
-                "category": "precision",
-                "dieSize": "d8",
-                "key": "DamageDice",
+                "key": "DamageAlteration",
+                "mode": "override",
                 "predicate": [
-                    "third-attack"
+                    "precision-hunters-edge:third-hit"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 19,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        }
-                    ]
-                }
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "precision",
+                "value": 1
             }
         ],
         "traits": {

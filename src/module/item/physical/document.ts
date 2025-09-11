@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import { applyActorGroupUpdate, createActorGroupUpdate } from "@actor/helpers.ts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
@@ -14,8 +15,9 @@ import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
+import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
 import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
-import { ErrorPF2e, isObject, setHasElement, tupleHasValue } from "@util";
+import { createHTMLElement, ErrorPF2e, isObject, localizer, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk } from "./bulk.ts";
@@ -91,6 +93,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     get isEquipped(): boolean {
+        // Items with embed-type usages are equipped if they have a parent that is equipped
+        // @todo do the same for non-weapon attachments and affixed.
+        // subitem carryType is overriden to match the parent during prep, and weapons rely on that behavior.
+        if (this.system.usage.type === "installed") return !!this.parentItem?.isEquipped;
         return isEquipped(this.system.usage, this.system.equipped);
     }
 
@@ -299,15 +305,20 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         }
 
         // Prepare doubly-embedded items if this is of an appropriate physical-item type
+        // We need to re-initialize for pre-existing data without diffs to avoid errors from stale data
         for (const subitemSource of this.system.subitems ?? []) {
             subitemSource.system.equipped = R.pick(this.system.equipped, ["carryType", "handsHeld"]);
+            const preExisting = this.subitems.get(subitemSource._id ?? "");
             const item =
-                this.subitems.get(subitemSource._id ?? "") ??
+                preExisting ??
                 (new ItemProxyPF2e(subitemSource, {
                     parent: this.parent,
                     parentItem: this,
                 }) as PhysicalItemPF2e<TParent>);
-            item.updateSource(subitemSource);
+            const diff = item.updateSource(subitemSource);
+            if (preExisting && R.isEmpty(diff)) {
+                item._initialize();
+            }
             this.subitems.set(item.id, item);
         }
 
@@ -318,6 +329,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         }
 
         this.system.bulk = prepareBulkData(this);
+        this.system.temporary ??= false;
 
         // Normalize apex data
         if (this.system.apex) {
@@ -400,6 +412,16 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         }
     }
 
+    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElementPF2e[] {
+        const rules = super.prepareRuleElements(options);
+        if (this.actor?.canHostRuleElements) {
+            for (const subitem of this.subitems) {
+                rules.push(...subitem.prepareRuleElements());
+            }
+        }
+        return rules;
+    }
+
     /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
     override onPrepareSynthetics(): void {
         this.system.hp.value = Math.clamp(this.system.hp.value, 0, this.system.hp.max);
@@ -454,19 +476,119 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return super.getEmbeddedDocument(embeddedName, id, options);
     }
 
+    async attach(
+        item: PhysicalItemPF2e,
+        { quantity = 1, stack = false }: { quantity?: number; stack?: boolean } = {},
+    ): Promise<boolean> {
+        const subitems = fu.deepClone(this._source.system.subitems);
+        if (!subitems) {
+            throw ErrorPF2e("This item does not accept attachments");
+        }
+
+        // Add to subitems, matching with a stackable item if stack is true
+        const validCarryTypes = ["attached", "installed"] as const;
+        const attachmentSource = item.toObject();
+        attachmentSource.system.quantity = quantity;
+        attachmentSource.system.equipped = {
+            carryType: validCarryTypes.find((c) => c === item.system.usage.type) ?? "attached",
+            handsHeld: 0,
+        };
+        const matchingId = stack ? this.subitems.contents.find((s) => s.isStackableWith(item))?.id : null;
+        const matching = matchingId ? subitems.find((s) => s._id === matchingId) : null;
+        if (matching) {
+            matching.system.quantity += quantity;
+        } else {
+            if (subitems.some((s) => s._id === attachmentSource._id)) {
+                attachmentSource._id = fu.randomID();
+            }
+            subitems.push(attachmentSource);
+        }
+
+        // Calculate new quantity for the existing item, and apply updates
+        const newQuantity = item.quantity - quantity;
+        const actor = this.actor;
+        if (actor && actor.uuid === item.actor?.uuid && this.id && !this.parentItem) {
+            // Do an update that minimizes updates and rerendering if its all the same actor
+            const updates = createActorGroupUpdate({
+                itemUpdates: [{ _id: this.id, "system.subitems": subitems }],
+            });
+            if (newQuantity <= 0) {
+                updates.itemDeletes.push(item.id);
+            } else {
+                updates.itemUpdates.push({ _id: item.id, "system.quantity": newQuantity });
+            }
+            await applyActorGroupUpdate(actor, updates);
+            return true;
+        } else {
+            const updated = await Promise.all([
+                newQuantity <= 0 ? item.delete() : item.update({ "system.quantity": newQuantity }),
+                this.update({ "system.subitems": subitems }),
+            ]);
+            return updated.every((u) => !!u);
+        }
+    }
+
+    /**
+     * Detach a subitem from another physical item, either creating it as a new, independent item or incrementing the
+     * quantity of an existing stack.
+     */
+    async detach({ skipConfirm }: { skipConfirm?: boolean }): Promise<void> {
+        const parentItem = this.parentItem;
+        if (!parentItem) throw ErrorPF2e("Subitem has no parent item");
+
+        const localize = localizer("PF2E.Item.Physical.Attach.Detach");
+        const confirmed =
+            skipConfirm ||
+            (await foundry.applications.api.DialogV2.confirm({
+                window: { title: localize("Label") },
+                content: createHTMLElement("p", { children: [localize("Prompt", { attachable: this.name })] })
+                    .outerHTML,
+                yes: { default: true },
+            }));
+
+        if (confirmed) {
+            const deletePromise = this.delete();
+            const createPromise = (async (): Promise<unknown> => {
+                // Find a stack match, cloning the subitem as worn so the search won't fail due to it being equipped
+                const subitemData: PhysicalItemSource = this.toObject();
+                subitemData.system.equipped.carryType = "worn";
+                const stack = this.isOfType("consumable")
+                    ? parentItem.actor?.inventory.findStackableItem(subitemData)
+                    : null;
+                const keepId = !!parentItem.actor && !parentItem.actor.items.has(this.id);
+                return (
+                    stack?.update({ "system.quantity": stack.quantity + this.quantity }) ??
+                    Item.implementation.create(
+                        fu.mergeObject(subitemData, { "system.containerId": parentItem.system.containerId }),
+                        { parent: parentItem.actor, keepId },
+                    )
+                );
+            })();
+
+            await Promise.all([deletePromise, createPromise]);
+        }
+    }
+
     /**
      * Can the provided item stack with this item?
      * @param item an item we are trying to add to the inventory
      */
     isStackableWith(item: PhysicalItemPF2e): boolean {
+        // Initial basic type checks
         const preCheck =
             this !== item &&
             this.type === item.type &&
             this.name === item.name &&
-            this.isIdentified === item.isIdentified &&
-            this.isHeld === item.isHeld &&
-            (!this.isHeld || this.quantity === 0 || item.quantity === 0);
+            this.isIdentified === item.isIdentified;
         if (!preCheck) return false;
+
+        // Additional checks to make sure the worn state is what we want
+        // These checks are skipped for sub-items
+        if (!this.parentItem) {
+            const secondPreCheck =
+                this.isHeld === item.isHeld && (!this.isHeld || this.quantity === 0 || item.quantity === 0);
+            if (!secondPreCheck) return false;
+        }
 
         const thisData = this.toObject().system;
         const otherData = item.toObject().system;
@@ -713,7 +835,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** Set to unequipped upon acquiring */
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {

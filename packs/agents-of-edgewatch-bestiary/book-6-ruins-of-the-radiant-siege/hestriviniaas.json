@@ -1610,7 +1610,7 @@
         {
             "_id": "wKQPyzZESm0w8vni",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Protean Anatomy",
+            "name": "Protean Anatomy 25",
             "sort": 2900000,
             "system": {
                 "actionType": {
@@ -1621,14 +1621,21 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Hestriviniaas' vital organs shift and change shape and position constantly. Immediately after the Hestriviniaas takes acid, electricity, or sonic damage, it gains the listed amount of resistance to that damage type.</p>\n<p>This lasts for 1 hour or until the next time the protean takes damage of one of the other types (in which case its resistance changes to match that type), whichever comes first. The keketar is immune to polymorph effects unless it is a willing target.</p>\n<p>If @UUID[Compendium.pf2e.conditionitems.Item.Blinded] or @UUID[Compendium.pf2e.conditionitems.Item.Deafened], the keketar automatically recovers at the end of its next turn as new sensory organs grow to replace the compromised ones.</p>"
+                    "value": "<p>Hestriviniaas' vital organs shift and change shape and position constantly. Immediately after the Hestriviniaas takes acid, electricity, or sonic damage, it gains the listed amount of resistance to that damage type.</p>\n<p>This lasts for 1 hour or until the next time the protean takes damage of one of the other types (in which case its resistance changes to match that type), whichever comes first. The keketar is immune to polymorph effects unless it is a willing target.</p>\n<p>If @UUID[Compendium.pf2e.conditionitems.Item.Blinded] or @UUID[Compendium.pf2e.conditionitems.Item.Deafened], the keketar automatically recovers at the end of its next turn as new sensory organs grow to replace the compromised ones.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Protean Anatomy]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "flags.pf2e.proteanResistance",
+                        "value": 25
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

@@ -12,6 +12,18 @@ import { CompatibilityMode } from "@common/constants.mjs";
 export function debounce<T extends unknown[]>(callback: (...args: T) => unknown, delay: number): (...args: T) => void;
 
 /**
+ * Recursively freezes (`Object.freeze`) the object (or value).
+ * This method DOES NOT support cyclical data structures.
+ * This method DOES NOT support advanced object types like Set, Map, or other specialized classes.
+ * @param obj The object (or value)
+ * @param options Options to configure the behaviour of deepFreeze
+ * @param options.strict Throw an Error if deepFreeze is unable to seal something instead of
+ *                                            returning the original
+ * @returns The same object (or value) that was passed in
+ */
+export function deepFreeze<T extends object>(obj: T, options?: { strict?: boolean }): DeepReadonly<T>;
+
+/**
  * Quickly clone a simple piece of data, returning a copy which can be mutated safely.
  * This method DOES support recursive data structures containing inner objects or arrays.
  * This method DOES NOT support advanced object types like Set, Map, or other specialized classes.

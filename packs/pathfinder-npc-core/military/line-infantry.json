@@ -183,7 +183,58 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "change-formation",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeFormation.MarchingColumn.Label",
+                                "value": "marching-column"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeFormation.Wedge.Label",
+                                "value": "wedge"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "change-formation:marching-column"
+                        ],
+                        "selector": "all-speeds",
+                        "slug": "marching-column-speed-bonus",
+                        "type": "circumstance",
+                        "value": 10
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "change-formation:marching-column"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "change-formation:marching-column"
+                        ],
+                        "selector": "reflex",
+                        "slug": "marching-column-reflex-penalty",
+                        "value": -2
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "change-formation:wedge"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

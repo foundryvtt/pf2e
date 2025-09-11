@@ -5,7 +5,7 @@ import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
-import { ErrorPF2e, createHTMLElement, localizer, tupleHasValue } from "@util";
+import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
@@ -35,7 +35,7 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0) - reinforcingRuneValue;
 
     const basePrice = materialValue > 0 || runeValue > 0 ? new CoinsPF2e() : item.price.value;
-    const gradeValue = getGradeData(item).price;
+    const gradeValue = item.isSpecific ? 0 : getGradeData(item).price;
     const afterMaterialAndRunes = runeValue
         ? new CoinsPF2e({ gp: runeValue + materialValue })
         : basePrice.plus({ gp: gradeValue + materialValue });
@@ -82,7 +82,7 @@ function getGradeData(item: PhysicalItemPF2e) {
     const gradeData = item.isOfType("weapon")
         ? CONFIG.PF2E.weaponImprovements[item.system.grade]
         : item.isOfType("armor")
-          ? CONFIG.PF2E.weaponImprovements[item.system.grade]
+          ? CONFIG.PF2E.armorImprovements[item.system.grade]
           : CONFIG.PF2E.shieldImprovements[item.system.grade];
     const price = gradeData.credits / 10; // convert to gp
     return { level: gradeData?.level, price };
@@ -91,14 +91,15 @@ function getGradeData(item: PhysicalItemPF2e) {
 /**
  * Checks if a change in traits leads to the item converting to sf2e or pf2e.
  * If so, it prompts for confirmation, and allows the user to cancel.
- * @returns false if no change, "cancel" if the update was aborted, or pf2e or sf2e based on the new traits.
+ * @returns pf2e or sf2e based on the new traits, or `null` if no change is to be made.
+ * @throws an error if the user does not make a selection
  */
 async function checkPhysicalItemSystemChange(
     item: PhysicalItemPF2e,
     changed: DeepPartial<PhysicalItemSource>,
-): Promise<false | "cancel" | "pf2e" | "sf2e"> {
+): Promise<"pf2e" | "sf2e" | null> {
     const newTraits: string[] | undefined = changed.system?.traits?.value;
-    if (!item.isOfType("weapon", "armor", "shield") || !newTraits) return false;
+    if (!item.isOfType("weapon", "armor", "shield") || !newTraits) return null;
 
     const sf2eTraits = ["tech", "analog"] as const;
     const beforeSF2eTraits = item._source.system.traits.value.filter((t) => tupleHasValue(sf2eTraits, t));
@@ -112,9 +113,7 @@ async function checkPhysicalItemSystemChange(
         ("reinforcing" in runes && runes.reinforcing > 0) ||
         (hasPotency && "property" in runes && runes.property.length > 0);
     const hasGrade = item.system.grade && item.system.grade !== "commercial";
-    if (wasSF2e === becomingSF2e || !(hasRunes || hasGrade)) {
-        return false;
-    }
+    if (wasSF2e === becomingSF2e || !(hasRunes || hasGrade)) return null;
 
     const key = `PF2E.Item.Physical.ChangeEquipmentSystem.${becomingSF2e ? "ToStarfinder" : "ToPathfinder"}`;
     const removedTrait = beforeSF2eTraits.find((t) => !newTraits.includes(t));
@@ -143,13 +142,13 @@ async function checkPhysicalItemSystemChange(
     });
 
     if (!result) {
-        item.sheet.render(false); // tagify is optimistic, so we need to re-render
-        return "cancel";
+        item.render(); // tagify is optimistic, so we need to re-render
+        throw Error;
     } else if (result === "change") {
         // If the change button is pressed, we are staying as sf2e but swapping the trait used
         // To the caller of this function, this is a no change
         newTraits.push(otherTrait);
-        return false;
+        return null;
     }
 
     return becomingSF2e ? "sf2e" : "pf2e";
@@ -312,44 +311,6 @@ function prepareBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData {
         : data;
 }
 
-/**
- * Detach a subitem from another physical item, either creating it as a new, independent item or incrementing the
- * quantity of aan existing stack.
- */
-async function detachSubitem(subitem: PhysicalItemPF2e, skipConfirm: boolean): Promise<void> {
-    const parentItem = subitem.parentItem;
-    if (!parentItem) throw ErrorPF2e("Subitem has no parent item");
-
-    const localize = localizer("PF2E.Item.Physical.Attach.Detach");
-    const confirmed =
-        skipConfirm ||
-        (await foundry.applications.api.DialogV2.confirm({
-            window: { title: localize("Label") },
-            content: createHTMLElement("p", { children: [localize("Prompt", { attachable: subitem.name })] }).outerHTML,
-            yes: { default: true },
-        }));
-
-    if (confirmed) {
-        const deletePromise = subitem.delete();
-        const createPromise = (async (): Promise<unknown> => {
-            // Find a stack match, cloning the subitem as worn so the search won't fail due to it being equipped
-            const stack = subitem.isOfType("consumable")
-                ? parentItem.actor?.inventory.findStackableItem(subitem.clone({ "system.equipped.carryType": "worn" }))
-                : null;
-            const keepId = !!parentItem.actor && !parentItem.actor.items.has(subitem.id);
-            return (
-                stack?.update({ "system.quantity": stack.quantity + 1 }) ??
-                Item.implementation.create(
-                    fu.mergeObject(subitem.toObject(), { "system.containerId": parentItem.system.containerId }),
-                    { parent: parentItem.actor, keepId },
-                )
-            );
-        })();
-
-        await Promise.all([deletePromise, createPromise]);
-    }
-}
-
 /** Clone an item, sizing it appropriately for the actor. For larger PCs, set the price's sensitity to false.  */
 function sizeItemForActor<TItem extends PhysicalItemPF2e>(item: TItem, actor: ActorPF2e): TItem {
     if (item.isOfType("treasure") || !actor.isOfType("creature")) return item.clone();
@@ -378,7 +339,6 @@ export {
     CoinsPF2e,
     checkPhysicalItemSystemChange,
     computeLevelRarityPrice,
-    detachSubitem,
     generateItemName,
     getDefaultEquipStatus,
     handleHPChange,

@@ -185,18 +185,17 @@ class NPCSheetPF2e extends AbstractNPCSheet {
 
     override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData> {
         const sheetData = (await super.getData(options)) as PrePrepSheetData;
-
-        if (this.isLootSheet || this.actor.limited) {
+        const { actor, token } = this;
+        if (this.isLootSheet || actor.limited) {
             const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
-            const canSeeName = !tokenSetsNameVisibility || !this.token || this.token.playersCanSeeName;
-            const actorName = canSeeName ? (this.token?.name ?? this.actor.name) : "";
-
+            const canSeeName = !tokenSetsNameVisibility || !token || token.playersCanSeeName;
+            const actorName = canSeeName ? (token?.name ?? actor.name) : "";
             sheetData.actor.name = actorName;
         }
 
         // Identification DCs
         sheetData.identificationDCs = ((): NPCIdentificationSheetData => {
-            const data = this.actor.identificationDCs;
+            const data = actor.identificationDCs;
             const skills =
                 data.skills.length > 0
                     ? localizeList(data.skills.map((s) => game.i18n.localize(CONFIG.PF2E.skills[s].label)))
@@ -219,12 +218,11 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         })();
 
         // Shield
-        const { heldShield } = this.actor;
+        const heldShield = actor.heldShield;
         const actorShieldData = sheetData.data.attributes.shield;
         sheetData.hasShield = !!heldShield || actorShieldData.hp.max > 0;
 
-        const isElite = this.actor.isElite;
-        const isWeak = this.actor.isWeak;
+        const { isElite, isWeak } = actor;
         sheetData.isElite = isElite;
         sheetData.isWeak = isWeak;
         sheetData.notAdjusted = !isElite && !isWeak;
@@ -240,7 +238,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
             sheetData.weakState = "inactive";
         }
 
-        const actorSource = this.actor._source;
+        const actorSource = actor._source;
         const level = sheetData.data.details.level;
         level.adjustedHigher = level.value > Number(level.base);
         level.adjustedLower = level.value < Number(level.base);
@@ -281,8 +279,8 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                 {} as Record<Exclude<MovementType, "land">, NPCSpeedSheetData | null>,
             ),
         };
-
-        sheetData.hasHardness = this.actor.traits.has("construct") || (Number(hardness?.value) || 0) > 0;
+        const traits = actor.system.traits.value;
+        sheetData.hasHardness = traits.includes("construct") || (Number(hardness?.value) || 0) > 0;
         sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
 
         return sheetData as NPCSheetData;
@@ -321,8 +319,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
      * @param sheetData Data of the actor to be shown in the sheet.
      */
     async #prepareActions(sheetData: NPCSheetData): Promise<void> {
-        const listFormatter = new Intl.ListFormat(game.i18n.lang, { style: "long", type: "conjunction" });
-
+        const listFormatter = game.i18n.getListFormatter({ style: "long", type: "conjunction" });
         const attacks: NPCStrikeSheetData[] = R.sortBy(
             await Promise.all(
                 sheetData.data.actions.map(async (attack) => {
@@ -352,7 +349,6 @@ class NPCSheetPF2e extends AbstractNPCSheet {
             (a) => a.name,
             (a) => a.sort,
         );
-
         const actions: NPCActionSheetData = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
             active: { label: game.i18n.localize("PF2E.ActionTypeAction"), actions: [] },
@@ -365,12 +361,10 @@ class NPCSheetPF2e extends AbstractNPCSheet {
             (a) => a.sort,
             (a) => baseOrder.indexOf(a.actionCost?.type ?? "action"),
         );
-
         for (const item of abilities) {
             const actionGroup = item.actionCost ? "active" : "passive";
             actions[actionGroup].actions.push(createAbilityViewData(item));
         }
-
         sheetData.attacks = attacks;
         sheetData.actions = actions;
     }

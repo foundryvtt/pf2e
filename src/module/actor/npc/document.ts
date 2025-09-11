@@ -130,7 +130,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         resources.focus = fu.mergeObject({ value: 0, max: 0, cap: 3 }, resources.focus);
         resources.mythicPoints = {
             value: resources.mythicPoints?.value ?? 3,
-            max: this.traits.has("mythic") ? 3 : 0,
+            max: this.system.traits.value.includes("mythic") ? 3 : 0,
         };
     }
 

@@ -7,7 +7,9 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p>This polished black wand has a green gem at the tip, and anyone who looks into it sees a reflection of a grinning skull.</p><hr /><p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Execute] at 8th-rank. If the spell slays a living target, the corpse releases grim energy in a @Template[emanation|distance:20], dealing @Damage[16[void]] damage.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of <em>execute</em> at 8th-rank.</p>"
         },
@@ -25,7 +27,10 @@
         },
         "price": {
             "value": {
-                "gp": 24000
+                "cp": 0,
+                "gp": 24000,
+                "pp": 0,
+                "sp": 0
             }
         },
         "publication": {
@@ -36,6 +41,123 @@
         "quantity": 1,
         "rules": [],
         "size": "med",
+        "spell": {
+            "_id": "kjs72UFRotj7XHW0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Z9OrRXKgAPv6Hn5l"
+            },
+            "folder": "xqlqJ6eeiNtWb7bq",
+            "img": "icons/magic/unholy/hand-claw-fog-green.webp",
+            "name": "Execute",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "70",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You point at a creature and invoke the demise of all things. The target takes 70 void damage with a basic Fortitude save. If the target is undead or otherwise has void healing, the spell loses the death and void traits and gains the vitality trait, and the target takes 70 vitality damage with a basic Fortitude save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "heightenedLevel": 8,
+                    "value": null
+                },
+                "overlays": {
+                    "WTeek6DuuUC5uXiv": {
+                        "_id": "WTeek6DuuUC5uXiv",
+                        "name": "Execute (Void)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {}
+                    },
+                    "rZUgF7LFHu7N5MFK": {
+                        "_id": "rZUgF7LFHu7N5MFK",
+                        "name": "Execute (Vitality)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "category": null,
+                                    "type": "vitality"
+                                }
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "manipulate",
+                                    "vitality"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "execute",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "death",
+                        "manipulate",
+                        "void"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -46,7 +168,12 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

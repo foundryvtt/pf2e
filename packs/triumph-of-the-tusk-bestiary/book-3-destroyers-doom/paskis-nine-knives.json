@@ -729,50 +729,6 @@
             "type": "melee"
         },
         {
-            "_id": "UIA4WUVch6Wk53mD",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "5ZYmd6iNMGrWsJPv"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "aVFA0MIT7i93dUwa": {
-                        "damage": "2d4+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "M8cm2sSZxWYZ2Jr7",
             "flags": {
                 "pf2e": {
@@ -781,7 +737,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -820,7 +776,7 @@
             "_id": "jheMZW5AHua03M7K",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Dance Between the Blades",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -830,7 +786,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A foe within Paskis's reach critically fails a Strike against her</p><hr /><p><strong>Effect</strong> Paskis can Step; she must end her movement within reach of the triggering foe. Paskis then makes a melee Strike against the triggering creature, treating them as @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for the attack. This Strike uses the triggering Strike's damage rather than that of Paskis's weapon. If the weapon has the agile or finesse train, Paskis also applies her @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] Attack to this damage.</p>"
+                    "value": "<p><strong>Trigger</strong> A foe within Paskis's reach critically fails a Strike against her</p><hr /><p><strong>Effect</strong> Paskis can Step; she must end her movement within reach of the triggering foe. Paskis then makes a melee Strike against the triggering creature, treating them as @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for the attack. This Strike uses the triggering Strike's damage rather than that of Paskis's weapon. If the weapon has the agile or finesse train, Paskis also applies her Sneak Attack to this damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -849,7 +805,7 @@
             "_id": "z9IRoeaZJZNCpMOQ",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Deny Advantage",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -888,7 +844,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Ferocity",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -918,7 +874,7 @@
             "_id": "cZFvICqHxszg3rBe",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Enfeebling Strike",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -935,7 +891,22 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "<span class=\"action-glyph\">F</span> {item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -947,7 +918,7 @@
             "_id": "GgGCbgvdM6GVVh9n",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Knife Training",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -964,7 +935,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:group:knife"
+                        ],
+                        "property": "traits",
+                        "value": "finesse"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -976,7 +958,7 @@
             "_id": "LVripsU6ZqE1Xgkt",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Lightning Blades",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1007,7 +989,7 @@
             "_id": "PKh7b4QFN8U6A3Mq",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Mark for Death",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1017,7 +999,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Paskis can observe the creature she intends to mark</p><hr /><p><strong>Effect</strong> Paskis designates a single creature as her mark. This lasts until the mark dies or she uses Mark for Death again. She gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] the mark and on Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against the mark. In addition, her sneak attacks against her mark deal an additional 2 precision damage.</p>"
+                    "value": "<p><strong>Requirements</strong> Paskis can observe the creature she intends to mark</p><hr /><p><strong>Effect</strong> Paskis designates a single creature as her mark. This lasts until the mark dies or she uses Mark for Death again. She gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] the mark and on Deception checks to [[/act feint]] against the mark. In addition, her sneak attacks against her mark deal an additional 2 precision damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1049,6 +1031,7 @@
                         "value": 2
                     },
                     {
+                        "damageCategory": "precision",
                         "key": "FlatModifier",
                         "predicate": [
                             "mark-for-death",
@@ -1069,7 +1052,7 @@
             "_id": "JDOtHb3GOdzLRPe7",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Poison Weapon",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1103,7 +1086,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1149,7 +1132,7 @@
             "_id": "yMfEFrdraDHuaYBL",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Surprise Attack",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "passive"

@@ -9,7 +9,6 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
     const squareWidth = canvas.dimensions.size;
     const rowCount = Math.ceil(data.bounds.width / squareWidth);
     const emptyVector = Array<null>(rowCount - 1).fill(null);
-
     const genColumn = (square: EffectAreaSquare): EffectAreaSquare[] => {
         return emptyVector.reduce(
             (colSquares) => {
@@ -26,7 +25,6 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
             [square],
         );
     };
-
     const topLeftSquare = new EffectAreaSquare(data.bounds.x, data.bounds.y, squareWidth, squareWidth);
     const collisionType =
         data.traits?.includes("visual") && !data.traits.includes("auditory")

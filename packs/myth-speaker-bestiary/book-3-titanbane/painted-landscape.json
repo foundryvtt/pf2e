@@ -1,0 +1,353 @@
+{
+    "_id": "OeFnLt97mzHjSnbG",
+    "folder": "H9CJ9F8U83kU0CYj",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "JwhR4MmH4oJvZE2c",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Branch",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "sticky-paint"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "Lktvw3humkmIdBno": {
+                        "damage": "2d10+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FvELwwfYjjf4fTJw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-monster-core.Actor.CFlx1tkRxKC9qAC7.Item.GhnXpFtWM1vyvu8V"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Construct Armor (Hardness 15)",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Like normal objects, a painted landscape has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once a painted landscape is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks, removing the Hardness and reducing its Armor Class to 26.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
+                        "option": "construct-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "ac",
+                        "value": -4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 0
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oVaQS0qsziV00K2C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.zU3Ovaet4xQ5Gmvy"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Engulf",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Check[reflex|dc:29], @Damage[(6d6)[bludgeoning]] damage, Escape DC 29, Rupture 20</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "engulf",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dAS4t2JVwVAvBfxE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mural",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Until the next time it acts, the animated landscape appears to be a mural on a flat surface that's at least 10 by 20 feet in area. It has an automatic result of 42 on Deception checks and DCs to pass as a mural.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UsLramUVwpvnF31u",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Painted Replica",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A creature died while engulfed by the painted landscape</p><hr /><p><strong>Effect</strong> The painted landscape absorbs the creature, causing the creature's likeness to appear in the mural. Any gear carried by the dead creature remains left behind (but still appears as part of the painting). The painted landscape regains @Damage[(2d6+20)[healing]] HP when it absorbs a creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ULEPdCzpusplO8WZ",
+            "_stats": {
+                "compendiumSource": "Actor.byFpFNAiClHVHnSJ.Item.xP60aA1bWlPbW5N8"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sticky Paint",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A painted landscape's Strikes splatter paint on the target. On a critical hit, this paint swiftly dries, and the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 10 minutes. As an Interact action, the target or an adjacent creature can remove enough paint to end the condition.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Painted Landscape",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 30
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 155,
+                "temp": 0,
+                "value": 155
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 15
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Resembling a large mural, a painted landscape attacks by animating the very landscape it depicts: trees, castles, or even snow-capped mountains.</p><hr /><p>This mindless construct takes the form of a two-dimensional portrait given life or an illustration painted in three dimensions with magical pigments.</p><h2>Painted Treasure</h2><p>A painted creature's gear is part of the creature and is also made of magical paint. Such gear can't be disarmed. If the painted creature drops any gear, the item melts into a glob of paint a moment later—after dealing damage, for thrown and projectile weapons. Painted gear (including ammunition) is restored to a painted creature automatically 24 hours after it's lost. At the GM's discretion, a talented PC artist might rescue a painted item by immediately and successfully Repairing it, using a hard DC of the painted creature's level. This might allow PCs to recover a unique (even magical) item that existed only in the original artist's imagination.</p><h2>Painted Behavior</h2><p>Painted creatures typically adopt the behaviors of whatever they resemble. This results in creatures like a painted sheep bleating worriedly and grazing, even though any grasses consumed sit inertly inside its improvised belly before eventually seeping though its body and plopping on the ground.</p>\n<p>Intelligent creatures animated in this way sometimes develop a limited vocabulary. However, the construct remains mindless, their utterances follow only the most simplistic logic, and their words fall short of anything that could be considered conversation. With careful instruction, such constructs can perform mundane chores.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #218: Titanbane"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 20
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 21
+            },
+            "stealth": {
+                "base": 22
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "construct"
+            ]
+        }
+    },
+    "type": "npc"
+}

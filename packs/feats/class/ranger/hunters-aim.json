@@ -27,7 +27,7 @@
         },
         "rules": [
             {
-                "domain": "attack-roll",
+                "domain": "ranged-strike-attack-roll",
                 "key": "RollOption",
                 "option": "hunters-aim",
                 "toggleable": true
@@ -38,7 +38,7 @@
                     "hunters-aim",
                     "target:mark:hunted-prey"
                 ],
-                "selector": "ranged-attack-roll",
+                "selector": "ranged-strike-attack-roll",
                 "type": "circumstance",
                 "value": 2
             },
@@ -47,11 +47,24 @@
                 "predicate": [
                     "hunters-aim",
                     "target:mark:hunted-prey",
-                    "target:condition:concealed"
+                    {
+                        "or": [
+                            "target:condition:concealed",
+                            "target:cover-level:lesser"
+                        ]
+                    }
                 ],
-                "selector": "ranged-attack-roll",
-                "text": "Ignore your prey's concealed condition.",
+                "selector": "ranged-strike-attack-roll",
+                "text": "{item|description}",
                 "title": "{item|name}"
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "target:cover-level:lesser"
+                ],
+                "selectors": "ranged-strike-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Hunter's Aim"
             }
         ],
         "traits": {

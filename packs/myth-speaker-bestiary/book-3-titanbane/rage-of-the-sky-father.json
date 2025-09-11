@@ -1,0 +1,99 @@
+{
+    "_id": "fx9PYNPRSpNpybyl",
+    "folder": "H9CJ9F8U83kU0CYj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "9tDFuyVfecMoNAkS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thunderclap",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature not designated by Katlanthe approaches within 10 feet of the circle of stone columns</p><hr /><p><strong>Effect</strong> The storm clouds release a boom of thunder. Creatures atop the plateau take @Damage[(2d10+9)[sonic]] damage (@Check[fortitude|dc:26|basic] save). On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for [[/gmr 1d4 #rounds]]{1d4 rounds}. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Rage of the Sky Father",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Ominous storm clouds gather overhead, pulsating with flashes of blue-white lightning.</p>",
+            "disable": "<p>@Check[religion|dc:23] (trained) to petition Gozreh for safe passage or @Check[arcana|dc:28], @Check[nature|dc:28], or @Check[occultism|dc:28] (expert) to disperse the storm's magical energies. A PC whose voice is exceptionally loud (such as using the @UUID[Compendium.pf2e.spells-srd.Item.Bullhorn] cantrip) can also attempt to Disable this hazard with a @Check[diplomacy|dc:25] check to convince the Gozren priests that they mean no harm; the priests make a second prayer to dissipate the hazard on the following round, though they're unable to stop the sargassum heaps.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #218: Titanbane"
+            },
+            "reset": "<p>The storm clouds disperse once no creature other than those designated by Katlanthe are atop the plateau.</p>",
+            "routine": "<p>(1 action) (divine, electricity) A bolt of lightning strikes a @Template[type:burst|distance:10] atop the plateau of the GM's choosing. Creatures in the area take @Damage[(2d10+9)[electricity]|traits:divine|options:area-damage] damage (@Check[reflex|dc:28|traits:divine,electricity] save). On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. Creatures designated by Katlanthe within the area are infused with divine energy for 1 round. They gain the electricity trait and immunity to electricity damage, and all their attacks deal an additional 1d6 electricity damage.</p><p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Rage of the Sky Father]</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "divine",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

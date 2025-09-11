@@ -253,7 +253,31 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Duel.Dueling",
+                        "option": "dueling",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "dueling",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -308,7 +332,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature critically fails a Strike against Vorens</p><hr /><p><strong>Effect</strong> Vorens makes a melee Strike against or attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature critically fails a Strike against Vorens</p><hr /><p><strong>Effect</strong> Vorens makes a melee Strike against or attempts to [[/act disarm]] the triggering creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",

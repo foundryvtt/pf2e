@@ -62,5 +62,5 @@ export default class HTMLSecret {
      * @param The triggering click event.
      * @returns The Document whose content was modified.
      */
-    protected _onToggleSecret(event: MouseEvent): Promise<ClientDocument>;
+    protected _onToggleSecret(event: PointerEvent): Promise<ClientDocument>;
 }

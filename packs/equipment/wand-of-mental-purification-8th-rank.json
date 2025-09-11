@@ -7,7 +7,9 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p>Red feathers hang from the handle of this ivory wand. Holding it brings a sense of gentle calm.</p><hr /><p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You cast 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Soothe], and can attempt to counteract one mental effect on the same target. Treat the @UUID[Compendium.pf2e.spells-srd.Item.Soothe] spell's rank as 1 higher for this counteract check.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of <em>soothe</em> of the appropriate rank.</p>"
         },
@@ -36,6 +38,88 @@
         "quantity": 1,
         "rules": [],
         "size": "med",
+        "spell": {
+            "_id": "89ywDMfD5TB2wh17",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n"
+            },
+            "folder": "T8AzYUgNIAgTJ9Iz",
+            "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
+            "name": "Soothe",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d10+4",
+                        "kinds": [
+                            "healing"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Soothe]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10+4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 8,
+                    "value": null
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "soothe",
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "healing",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -48,7 +132,12 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

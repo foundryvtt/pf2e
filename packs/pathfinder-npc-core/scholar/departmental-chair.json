@@ -1026,12 +1026,30 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": "staff",
                 "traits": {
                     "value": [
                         "magical",
-                        "monk",
                         "two-hand-d8"
                     ]
                 }
@@ -1040,9 +1058,6 @@
         },
         {
             "_id": "w9DPMxuMCVsaR1jq",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 1500000,
@@ -1123,14 +1138,55 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The departmental chair has spent so much time dealing with bureaucracy recently that papers and forms have worked their way into the chair's spellcasting. If the departmental chair's next action is to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] that deals energy damage, the spell conjures a burst of sharp-edged paper instead. Change the damage type to slashing, and the spell deals an additional @Damage[1d6[persistent,bleed]] damage.</p>"
+                    "value": "<p>The departmental chair has spent so much time dealing with bureaucracy recently that papers and forms have worked their way into the chair's spellcasting. If the departmental chair's next action is to Cast a Spell that deals energy damage, the spell conjures a burst of sharp-edged paper instead. Change the damage type to slashing, and the spell deals an additional 1d6 persistent bleed damage.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "paper-pusher",
+                        "placement": "spellcasting",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "paper-pusher",
+                            "item:damage:category:energy",
+                            "item:type:spell",
+                            {
+                                "not": "dice:slug:paper-pusher-bleed"
+                            }
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage",
+                            "inline-damage"
+                        ],
+                        "value": "slashing"
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "paper-pusher",
+                            "item:damage:category:energy",
+                            "item:type:spell"
+                        ],
+                        "selector": [
+                            "spell-damage",
+                            "inline-damage"
+                        ],
+                        "slug": "paper-pusher-bleed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

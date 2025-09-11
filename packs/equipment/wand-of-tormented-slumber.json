@@ -7,7 +7,9 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p>The carved talon of an unidentifiable beast comprises this wand. Blood-stained cloth wraps the thicker part of the talon, which acts as a handle.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p><hr /><p><strong>Effect</strong> You cast 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Sleep], but the slumbering creatures have terrifying nightmares. A creature knocked @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] by this spell takes @Damage[1d6[persistent,mental]]. This damage wakes the creature from unconsciousness only if it deals 4 or more damage on a single roll. If the creature awakens from its unconsciousness due to damage (whether it was the persistent mental damage or not), it's @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. If it awakens from damage on its own turn, the creature doesn't reduce its frightened condition automatically on that turn.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of 4th-rank <em>sleep</em>.</p>"
         },
@@ -24,8 +26,12 @@
             "type": null
         },
         "price": {
+            "per": 1,
             "value": {
-                "gp": 1000
+                "cp": 0,
+                "gp": 1000,
+                "pp": 0,
+                "sp": 0
             }
         },
         "publication": {
@@ -36,6 +42,79 @@
         "quantity": 1,
         "rules": [],
         "size": "med",
+        "spell": {
+            "_id": "NauarmF4wagPNQdK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.o4lRVTwSxnOOn5vl"
+            },
+            "folder": "T8AzYUgNIAgTJ9Iz",
+            "img": "systems/pf2e/icons/spells/sleep.webp",
+            "name": "Sleep",
+            "sort": 0,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 5
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] from this spell doesn't fall @UUID[Compendium.pf2e.conditionitems.Item.Prone] or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 hour, it wakes up automatically.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creatures fall Unconscious for 1 round on a failure or 1 minute on a critical failure. They fall Prone and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": null
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "sleep",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "manipulate",
+                        "mental",
+                        "sleep"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -47,7 +126,12 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

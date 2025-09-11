@@ -513,7 +513,11 @@ const weaponTraits = {
     "thrown-80": "PF2E.TraitThrown80",
     "thrown-100": "PF2E.TraitThrown100",
     "thrown-200": "PF2E.TraitThrown200",
+    time: "PF2E.TraitTime",
     training: "PF2E.TraitTraining",
+    "tracking-1": "PF2E.TraitTracking1",
+    "tracking-2": "PF2E.TraitTracking2",
+    "tracking-3": "PF2E.TraitTracking3",
     trip: "PF2E.TraitTrip",
     twin: "PF2E.TraitTwin",
     "two-hand-d6": "PF2E.TraitTwoHandD6",
@@ -904,6 +908,7 @@ const vehicleTraits = {
     artifact: "PF2E.TraitArtifact",
     clockwork: "PF2E.TraitClockwork",
     magical: "PF2E.TraitMagical",
+    tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
 };
 
@@ -1014,6 +1019,7 @@ const shieldTraits = {
     invested: "PF2E.TraitInvested",
     "launching-dart": "PF2E.TraitLaunching",
     magical: "PF2E.TraitMagical",
+    mythic: "PF2E.TraitMythic",
     relic: "PF2E.TraitRelic",
     "shield-throw-20": "PF2E.TraitShieldThrow20",
     "shield-throw-30": "PF2E.TraitShieldThrow30",

@@ -1,0 +1,228 @@
+{
+    "_id": "5yd6BBLY2vCNz1zh",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "VwFPof1dofh8yRFP",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Thematic Action - Hero",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "2DPoIJKL5EsqBM8X": {
+                        "damage": "4d6+6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            }
+                        ],
+                        "property": "dice-number",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "value": "@actor.level - 4"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "VkD8a3RdmP5PbcIN",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Thematic Action - Ally",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The protagonist takes the form of a recognizable support character. Its thematic action is to grant an adjacent creature 4d4 temporary Hit Points, which last for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.NPCAbility.PhantasmalProtagonist.AbilityLabel",
+                        "selector": "hp",
+                        "value": "(@actor.level - 1) * 30"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.NPCAbility.PhantasmalProtagonist.AbilityLabel",
+                        "selector": [
+                            "saving-throw",
+                            "perception",
+                            "skill-check",
+                            "ac"
+                        ],
+                        "value": "@actor.level * 3"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jUDT9HKqaWRtEn1A",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Thematic Action - Villain",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The protagonist takes the form of a notorious villain. Its thematic action is to harry and mock an adjacent target. The target must succeed at a Will save or become @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on a critical failure) until the end of your next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Phantasmal Protagonist",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 10
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 90
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder Kingmaker"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 0,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "skills": {},
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "illusion",
+                "mental"
+            ]
+        }
+    },
+    "type": "npc"
+}

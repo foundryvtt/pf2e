@@ -7,16 +7,16 @@ import Token from "../token.mjs";
  *   - the movment path the Token currently animating along, and
  *   - the planned movement path while the Token is being dragged.
  */
-export default abstract class BaseTokenRuler {
+export default abstract class BaseTokenRuler<TObject extends Token> {
     /**
      * @param token The Token that this ruler belongs to
      */
-    constructor(token: Token);
+    constructor(token: TObject);
 
     /**
      * The reference to the Token this ruler belongs to.
      */
-    get token(): Token;
+    get token(): TObject;
 
     /**
      * Is the ruler visible?

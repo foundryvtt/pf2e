@@ -1,4 +1,6 @@
+import { ErrorPF2e } from "@util";
 import { PartialSettingsData, SettingsMenuPF2e } from "./menu.ts";
+import fields = foundry.data.fields;
 
 type ConfigPF2eListName = (typeof AutomationSettings.SETTINGS)[number];
 
@@ -12,14 +14,20 @@ export class AutomationSettings extends SettingsMenuPF2e {
         "flankingDetection",
         "encumbrance",
         "lootableNPCs",
+        "reachEnforcement",
     ] as const;
 
+    static override get defaultOptions(): fav1.api.FormApplicationOptions {
+        return Object.assign(super.defaultOptions, { submitOnChange: false });
+    }
+
     protected static override get settings(): Record<ConfigPF2eListName, PartialSettingsData> {
+        const prefix = `${AutomationSettings.namespace}.`;
         return {
             rulesBasedVision: {
-                prefix: "automation.",
-                name: CONFIG.PF2E.SETTINGS.automation.rulesBasedVision.name,
-                hint: CONFIG.PF2E.SETTINGS.automation.rulesBasedVision.hint,
+                prefix,
+                name: "PF2E.SETTINGS.Automation.RulesBasedVision.Name",
+                hint: "PF2E.SETTINGS.Automation.RulesBasedVision.Hint",
                 default: true,
                 type: Boolean,
                 onChange: (value) => {
@@ -31,9 +39,9 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 },
             },
             iwr: {
-                prefix: "automation.",
-                name: CONFIG.PF2E.SETTINGS.automation.iwr.name,
-                hint: CONFIG.PF2E.SETTINGS.automation.iwr.hint,
+                prefix,
+                name: "PF2E.SETTINGS.Automation.IWR.Name",
+                hint: "PF2E.SETTINGS.Automation.IWR.Hint",
                 default: true,
                 type: Boolean,
                 onChange: (value) => {
@@ -41,21 +49,21 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 },
             },
             removeExpiredEffects: {
-                prefix: "automation.",
-                name: CONFIG.PF2E.SETTINGS.automation.removeExpiredEffects.name,
-                hint: CONFIG.PF2E.SETTINGS.automation.removeExpiredEffects.hint,
+                prefix,
+                name: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Name",
+                hint: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Hint",
                 default: true,
                 type: Boolean,
             },
             flankingDetection: {
-                prefix: "automation.",
-                name: CONFIG.PF2E.SETTINGS.automation.flankingDetection.name,
-                hint: CONFIG.PF2E.SETTINGS.automation.flankingDetection.hint,
+                prefix,
+                name: "PF2E.SETTINGS.Automation.FlankingDetection.Name",
+                hint: "PF2E.SETTINGS.Automation.FlankingDetection.Hint",
                 default: true,
                 type: Boolean,
             },
             encumbrance: {
-                prefix: "automation.",
+                prefix,
                 name: "PF2E.SETTINGS.Automation.Encumbrance.Name",
                 hint: "PF2E.SETTINGS.Automation.Encumbrance.Hint",
                 default: false,
@@ -65,11 +73,33 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 },
             },
             lootableNPCs: {
-                prefix: "automation.",
-                name: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.name,
-                hint: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.hint,
+                prefix,
+                name: "PF2E.SETTINGS.Automation.LootableNPCs.Name",
+                hint: "PF2E.SETTINGS.Automation.LootableNPCs.Hint",
                 default: true,
                 type: Boolean,
+            },
+            reachEnforcement: {
+                name: "PF2E.SETTINGS.Automation.ReachEnforcement.Name",
+                hint: "PF2E.SETTINGS.Automation.ReachEnforcement.Hint",
+                prefix,
+                type: new fields.SetField(
+                    new fields.StringField({
+                        required: true,
+                        label: "PF2E.SETTINGS.Automation.ReachEnforcement.Name",
+                        choices: {
+                            doors: "PF2E.SETTINGS.Automation.ReachEnforcement.Doors",
+                            corpses: "PF2E.SETTINGS.Automation.ReachEnforcement.Corpses",
+                            loot: "PF2E.SETTINGS.Automation.ReachEnforcement.Loot",
+                            merchants: "PF2E.SETTINGS.Automation.ReachEnforcement.Merchants",
+                        },
+                    }),
+                    { required: true, initial: ["doors"] },
+                ),
+                onChange: (value) => {
+                    if (!(value instanceof Set)) throw ErrorPF2e("Unexpected setting value");
+                    game.pf2e.settings.automation.reachEnforcement = value;
+                },
             },
         };
     }

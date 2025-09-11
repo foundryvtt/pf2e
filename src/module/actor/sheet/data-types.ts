@@ -5,6 +5,7 @@ import type { InventoryBulk } from "@actor/inventory/index.ts";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { ActorSheetData } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import type { Frequency } from "@item/base/data/index.ts";
 import type { Coins } from "@item/physical/data.ts";
@@ -70,6 +71,7 @@ interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TA
 }
 
 interface AbilityViewData {
+    uuid: ItemUUID;
     id: string;
     name: string;
     img: string;

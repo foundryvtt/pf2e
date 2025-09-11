@@ -1,4 +1,4 @@
-import { SceneDimensions } from "@client/_types.mjs";
+import { CanvasDimensions } from "@client/_types.mjs";
 import { Point } from "@common/_types.mjs";
 import { CanvasPerformanceMode } from "@common/constants.mjs";
 import { GridlessGrid, HexagonalGrid, SquareGrid } from "@common/grid/_module.mjs";
@@ -202,7 +202,7 @@ export default class Canvas<
     get manager(): foundry.canvas.SceneManager | null;
 
     /** The current pixel dimensions of the displayed Scene, or null if the Canvas is blank. */
-    get dimensions(): SceneDimensions;
+    get dimensions(): CanvasDimensions;
 
     /** A reference to the grid of the currently displayed Scene document, or null if the Canvas is currently blank. */
     get grid(): SquareGrid | HexagonalGrid | GridlessGrid;
@@ -285,15 +285,6 @@ export default class Canvas<
      * @returns The canvas layer
      */
     getCollectionLayer(collectionName: string): PlaceablesLayer | undefined;
-
-    /**
-     * Get the canvas active dimensions based on the size of the scene's map.
-     * We expand the image size by a factor of 1.5 and round to the nearest 2x grid size.
-     * The rounding accomplishes that the padding buffer around the map always contains whole grid spaces.
-     * @see {@link documents.BaseScene.getDimensions}
-     * @param dimensions The scene dimensions data being established
-     */
-    static getDimensions(dimensions: GetDimensionsParams): SceneDimensions;
 
     /** Configure performance settings for hte canvas application based on the selected performance mode */
     protected _configurePerformanceMode(): CanvasPerformanceSettings;
@@ -427,7 +418,7 @@ export default class Canvas<
      * Pan the canvas view when the cursor position gets close to the edge of the frame
      * @param event The originating mouse movement event
      */
-    _onDragCanvasPan(event: MouseEvent): void;
+    _onDragCanvasPan(event: PointerEvent): void;
 }
 
 export interface CanvasPerformanceSettings {

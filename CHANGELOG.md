@@ -1,3 +1,175 @@
+## 7.4.3
+
+### System Improvements
+
+- (stwlam) Convert core modify region behavior to difficult terrain
+- (stwlam) Allow familiars and other zero-reach creatures to operate doors within five feet
+
+### Bugfixes
+
+- (In3luki) Fix special statistics not correctly extending basic spellcasting
+- (stwlam) Fix opening Elemental Blast item from PC sheet
+- (stwlam) Include party actor in door reach checks as well
+- (stwlam) Prevent grabbing adjacent tokens in keybound `cycleStack` operation
+- (stwlam) Remove flipping of initial `unconstrainedMovement` scene control value
+- (Supe) Fix exploration activities getting cleared on refresh
+
+### Data Updates
+
+- (Ambrose, Dire Weasel, Tikael) Convert multiple inline rolls to `/act`
+- (Ambrose) Add automation to `Drilled in Formations` for select troop actors and the Change Formation bestiary action
+- (Ambrose) Add Commander trait to Reactive Strike
+- (Ambrose) Condense Ooze Form spell effects
+- (Ambrose) Convert several wand items to the correct item type
+- (Ambrose) Correct Animate Dream's spell list and resistances (Gatewalkers version)
+- (Ambrose) Remove errant traits and `GrantItem`'s from select items
+- (Ambrose) Remove Quetz Couatl actor from Pathfinder Bestiary 2 Compendium and redirect to Monster Core actor equivalent
+- (Ambrose) Update Umbral Journey's publication source
+- (Daomephsta) Cleanup NPC `system.skills` data entry/migration mistakes
+- (Dire Weasel) Add automation for Vorens' Adroit Duelist
+- (Dire Weasel) Brush up Paskis Nine-Knives
+- (Dire Weasel) Convert some inline `line` templates to `square`, and some `burst` to `cylinder`
+- (Dire Weasel) Correct some publication titles
+- (kromko) Add Lich Legion's Frightful Presence DC
+- (kromko) Add statistics to Xulgath Dinosaur Cavalry's Trample ability
+- (mechamaya) Add tech trait option to vehicles
+- (Mose) fix data for arrow-catching shield
+- (Tikael) Remove duration from Daze
+
+### Under the Hood
+
+- (In3luki) Resolve strike damage modifier value in `BattleFormRuleElement`
+
+## 7.4.2
+
+### System Improvements
+
+- (stwlam) Define a party actor's manipulate "reach", use with reach enforcement
+
+### Bugfixes
+
+- (stwlam) Fix various issues preventing saving of kit-item updates from sheet
+- (stwlam) Fix issue preventing familiars with canvas-altering effects from appearing on initial load
+- (stwlam) Make sidebar of familiar sheet scrollable
+- (Supe) Fix rendering of damage buttons from attack-roll messages
+- (websterguy) Fix Token Image ring background color input
+
+### Data Updates
+
+- (Ambrose) Convert Wand of Crackling Lightning, Traitorous Thoughts, and Wand of Wearying Dance to magic wands
+- (Ambrose) Correct Deity Choice Set on Mortal Dedication dedication feat
+- (Daomephsta) Add missing colon in inline damage for Sword Bash of Arboreal Copse
+- (Dire Weasel) Add missing inline saving throw links to Dread Gaze and Feral Possession
+- (Dire Weasel) Fix reach distance for Cosmic Form fist Strike
+- (kromko) Add missing link to Aura of Sophistry localization
+- (Rigo) Fix Munitions Crafter allowing any ammunition to be created
+
+## 7.4.1
+
+### System Improvements
+
+- (Dire Weasel) Show DC for /act inlines with custom label
+- (stwlam) Add configurable support for checking character reach when opening doors and looting
+- (stwlam) Refine token distance text and refrain from showing on all when holding alt
+- (Supe) Add activate button for consumables created via quick alchemy
+
+### Bugfixes
+
+- (kromko) Fix some localization keys
+- (stwlam) Fix distance text rounding
+- (stwlam) Fix issues with party deposit tokens button and remove token spin retrieval for now
+- (stwlam) Fix editing price of kit items
+- (Supe) Don't auto adjust price for tech and analog specific magic weapons
+
+### Data Updates
+
+- (Ambrose) Convert Wand of Toxic Blades to magic wand equipment type
+- (Dire Weasel) Add automation for Relinquish Control and Instinctive Maneuvers
+- (Dire Weasel) Add automation for The Harder They Fall
+- (Tikael) Remove duplicate prompts for Wellspring Mage
+
+### Under the Hood
+
+- (stwlam) Have `PricePF2e.fromString` accept unitless numeric strings
+
+## 7.4.0
+
+### System Improvements
+
+- (Clemente) Add (unbound) Toggle Compendium Browser keybinding
+- (stwlam) Add notification to PC sheet when no armor is equipped but one is equippable
+- (stwlam) Flip default of Unconstrained Movement token tool
+- (stwlam) Show disabled Elemental Blast attack for kineticists without Kinetic Aura effect
+- (stwlam) Show distances from controlled token underneath highlighted tokens
+- (Supe) Add installed usage and sf2e weapon/armor upgrades
+- (Supe) Add support for weapon, armor, and shield grade
+- (Trent) Add support for custom single-application (instead of per instance) weaknesses
+
+### Bugfixes
+
+- (stwlam) Fix click handlers on popped out chat messages
+- (stwlam) Bump max vehicle size to 300ft
+- (stwlam) Fix flanking detection failing for tiny creatures in some positions
+- (stwlam) Fix temporary token changes not appearing to some users until token is moved or client is reloaded
+- (Tikael) Increase maximum weapon damage dice to support SF grenades
+- (websterguy) Fix TokenImage form opacity and scale inputs
+
+### Data Updates
+
+- (Abaddon) Fix crossbow infiltrator feat sorces
+- (Ambrose, Dire Weasel) Add "area-effect", "area-damage", "damage-effect", and/or "inflicts:" roll options to many abilities
+- (Ambrose) Add actor to Phantasmal Protagonist and spell effect for temporary Hit Points
+- (Ambrose) Add effect to Trudd's Strength filigree
+- (Ambrose) Add magical trait to Eye of Apprehension
+- (Ambrose) Add missing Liar's Demise item
+- (Ambrose) Add Special Statistics and Roll Options to Fulcrum Lens items
+- (Ambrose) Condense Fey Form spell effects
+- (Ambrose) Condense Monstrosity Form spell effects
+- (Ambrose) Condense Daemon Form spell effects and correct Kithangian size in Demon Form spell effect
+- (Ambrose) Condense various Parry feat effects
+- (Ambrose) Convert many special wands to wand-category consumable
+- (Ambrose) Correct Horus' divine font to heal
+- (Ambrose) Correct source for Quick Draw player feat
+- (Ambrose) Delete Pathfinder Bestiary Terotricus actor and redirect to the Monster Core equivalent
+- (Ambrose) Remove AC details text from Losko actor
+- (Ambrose) Remove attribute damage from Draconic Barrage
+- (Ambrose) Remove inline roll from Attached trait description
+- (Ambrose) Update Demontangle actor to Remaster variant
+- (Ambrose) Update Protosoul actor to match Remaster changes
+- (Ambrose) Update Raise a Shield effect's publication source to Pathfinder Player Core
+- (Ambrose) Update range on Read Fate to match Player Core update
+- (Ambrose) Update roll syntax for Fortune's Coin to use `coin flip`
+- (Ambrose) Update Spirit Turtle's Unbalancing Stomp to use Damage Alteration.
+- (Dire Weasel) Add effect for Hellshadow's Clinging Smoke
+- (Dire Weasel) Condense effects for Cosmic Form
+- (DocSchlock) Add height calculation and template to Rising Hurricane
+- (In3luki) Fix styling of Compendium Browser settings
+- (In3luki) Omit level from mythic point rerolls if Proficiency without Level is enabled
+- (kromko) Fix Mantle of the Frozen Heart spell effect RE damage text
+- (rectulo) Change sylvan for fey in arboreal staff languages known
+- (rectulo) Fix a typo in the attribute boost of the exemplar class at 1st level
+- (rectulo) Fix level of Lightspeed Assault
+- (rectulo) Fix level of Primal Howl feat
+- (Rigo) Audit automation and formatting on Jotunborn feats
+- (Rigo) Automate Officer's Medical Training
+- (Rigo) Grant Tactics feature with Commander Dedication
+- (Rigo) Remove Hunt Prey toggle and update automation on several Ranger features
+- (Rigo) Remove non-exclusive class archetypes from early class feature selection
+- (Rigo) Set key attribute on multiclass dedication class DC subfeatures
+- (Rigo) Set location keys on War Mage and Munitions Master dedication feats
+- (Rigo) Use modifier instead of total DC on inline DC AdjustModifier upgrades
+- (Rigo) Use Weakness rule element on Veil of Spirits effect
+- (Rigo) Widen Clue In's Flat Modifier selector to apply to any check
+- (samanthaoldenburg) Remove bard language from note text
+- (SpartanCPA) Add tokens for Battlecry! Iconics
+- (stwlam) Add Bloodsense to sense types
+- (stwlam) Increase duration of Effect: Devise a Stratagem to expire on next turn start
+- (Tikael) Add heightening info to Collective Transposition
+- (Tikael) Add Time trait to IWR
+- (Tikael) Improve automation of Witchlight Follower background
+- (Trent) Fix Blessed Counterstrike weakness
+- (websterguy) Fix AdjustModifier rules targeting Parry
+
 ## 7.3.1
 
 ### Bugfixes
@@ -7,6 +179,7 @@
 - (Supe) Fix drag drop after changing active party
 
 ### Data Updates
+
 - (Ambrose) Add area-effect, area-damage, damage-effect, and inflicts: options to additional select items and NPC abilities
 - (Ambrose) Add effects for Mantle of the Frozen/Melting Heart
 - (Ambrose) Condense Devil Form spell effect
