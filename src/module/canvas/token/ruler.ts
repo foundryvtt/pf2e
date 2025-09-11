@@ -1,7 +1,6 @@
 import type { TokenRulerData, TokenRulerWaypoint } from "@client/_types.d.mts";
 import type { WaypointLabelRenderContext } from "@client/canvas/placeables/tokens/ruler.d.mts";
 import { Rectangle } from "@common/_types.mjs";
-import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 import type { TokenPF2e } from "./index.ts";
 
@@ -34,10 +33,8 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     #labelsObserver: MutationObserver | null = null;
 
     /** Retrieve the ruler-labels container for this token.  */
-    get #labelsEl(): HTMLElement {
-        const labelsEl = document.getElementById(`token-ruler-${this.token.document.id}`);
-        if (!labelsEl) throw ErrorPF2e("Unexpected failure looking up ruler labels element");
-        return labelsEl;
+    get #labelsEl(): HTMLElement | null {
+        return document.getElementById(`token-ruler-${this.token.document.id}`);
     }
 
     /** Recalculate the counter-scale. */
@@ -75,8 +72,8 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         super.refresh(rulerData);
         if (canvas.ready && canvas.grid.isSquare) {
             const labelsEl = this.#labelsEl;
-            delete labelsEl.dataset.glyphMarked;
-            if (!this.#labelsObserver) {
+            delete labelsEl?.dataset.glyphMarked;
+            if (labelsEl && !this.#labelsObserver) {
                 this.#labelsObserver = new MutationObserver(() => {
                     if (!("glyphMarked" in labelsEl.dataset)) this.#renderActionGlyphs();
                 });
@@ -152,6 +149,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     /** Render action glyphs at marked intermediate waypoints. */
     async #renderActionGlyphs(): Promise<void> {
         const labelsEl = this.#labelsEl;
+        if (!labelsEl) return;
         labelsEl.dataset.glyphMarked = "";
         const templatePath = TokenRulerPF2e.ACTION_MARKER_TEMPLATE;
         const uiScale = canvas.dimensions.uiScale;
