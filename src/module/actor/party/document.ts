@@ -14,8 +14,7 @@ import type { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
-import * as R from "remeda";
-import type { PartyAttributes, PartySource, PartySystemData } from "./data.ts";
+import type { PartySource, PartySystemData } from "./data.ts";
 import { Kingdom } from "./kingdom/model.ts";
 import type { PartySheetRenderOptions } from "./sheet.ts";
 import type { PartyCampaign } from "./types.ts";
@@ -94,13 +93,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     override prepareBaseData(): void {
-        // Provide base structure for parent method
-        this.system.details.level = { value: 0 };
-        interface PartialSystemData extends Omit<Partial<PartySystemData>, "attributes"> {
-            attributes: Partial<PartyAttributes>;
-        }
-        const partialSystem: PartialSystemData = this.system;
-        partialSystem.attributes = {};
         super.prepareBaseData();
 
         // Fetch members, and update their parties if this isn't a clone
@@ -113,28 +105,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 member.parties.add(this);
             }
         }
-
-        // Determine alliance based on the contained members
-        this.system.details.alliance = this.members.some((m) => m.alliance === "party")
-            ? "party"
-            : this.members.some((m) => m.alliance === "opposition")
-              ? "opposition"
-              : null;
-
-        // Filler until put into use for encounter metrics
-        const partyLevel = Math.round(
-            R.meanBy(
-                this.members.filter((m) => m.isOfType("character")),
-                (m) => m.level,
-            ),
-        );
-        this.system.details.level.value = partyLevel;
-
-        // Derive a manipulate reach from the members
-        this.system.attributes.reach = {
-            base: 0,
-            manipulate: this.members.reduce((highest, a) => Math.max(a.system.attributes.reach.manipulate, highest), 0),
-        };
 
         // Kingmaker things
         if (game.pf2e.settings.campaign.type === "kingmaker" && !this.campaign) {
@@ -151,11 +121,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-
-        // Compute travel speed. Creature travel speed isn't implemented yet
-        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));
-        this.attributes.speed = { total: travelSpeed };
-
         this.prepareSynthetics();
         this.campaign?.prepareDerivedData();
     }

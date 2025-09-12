@@ -40,15 +40,9 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        // Set the dimensions of this vehicle in its size object
-        const size = this.system.traits.size;
-        const dimensions = this.dimensions;
-        size.long = dimensions.length;
-        size.wide = dimensions.width;
-
         // Set the prototype token's dimensions according to the vehicle dimensions
         if (this.prototypeToken.flags?.pf2e?.linkToActorSize) {
-            const { width, height } = size.tokenDimensions;
+            const { width, height } = this.system.traits.size.tokenDimensions;
             this.prototypeToken.width = width;
             this.prototypeToken.height = height;
         }

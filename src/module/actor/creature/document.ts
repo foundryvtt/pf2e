@@ -2,9 +2,10 @@ import { ActorPF2e, type PartyPF2e } from "@actor";
 import type { HitPointsSummary } from "@actor/base.ts";
 import { CORE_RESOURCES } from "@actor/character/values.ts";
 import type { CreatureSource } from "@actor/data/index.ts";
-import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
+import { MODIFIER_TYPES, ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
+import { MOVEMENT_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type {
     DatabaseDeleteCallbackOptions,
@@ -24,8 +25,6 @@ import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { ItemAttacher } from "@module/apps/item-attacher.ts";
 import { Rarity, SIZE_SLUGS, SIZES, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { extractModifiers } from "@module/rules/helpers.ts";
-import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { LightLevels } from "@scene/data.ts";
@@ -34,18 +33,14 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
+import { SpeedStatistic } from "@system/statistic/speed.ts";
 import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import {
-    CreatureResources,
-    CreatureSpeeds,
-    CreatureSystemData,
-    LabeledSpeed,
-    VisionLevel,
-    VisionLevels,
-} from "./data.ts";
+import { CreatureMovementData, CreatureResources, CreatureSystemData, VisionLevel, VisionLevels } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import type {
+    CreatureMovement,
+    CreatureSpeeds,
     CreatureType,
     CreatureUpdateCallbackOptions,
     CreatureUpdateOperation,
@@ -69,6 +64,8 @@ abstract class CreaturePF2e<
     declare saves: Record<SaveType, Statistic>;
 
     declare perception: PerceptionStatistic;
+
+    declare movement: CreatureMovement<this>;
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "affliction"];
@@ -271,6 +268,13 @@ abstract class CreaturePF2e<
 
     protected override _initialize(options?: Record<string, unknown>): void {
         this.parties ??= new Set();
+        const getSystem = () => this.system;
+        this.movement = {
+            speeds: {} as CreatureSpeeds<this>,
+            get terrain() {
+                return fu.deepClone(getSystem().movement.terrain);
+            },
+        };
         super._initialize(options);
     }
 
@@ -327,13 +331,13 @@ abstract class CreaturePF2e<
         const attributes = this.system.attributes;
         attributes.ac = fu.mergeObject({ attribute: "dex" }, attributes.ac);
         attributes.hardness ??= { value: 0 };
-        attributes.flanking.canFlank = true;
+        attributes.flanking.canFlank = this.type !== "familiar";
         attributes.flanking.flankable = true;
         attributes.flanking.offGuardable = true;
-        attributes.speed = fu.mergeObject({ total: 0, value: 0 }, attributes.speed ?? {});
 
-        // Start with a baseline reach of 5 feet: melee attacks with reach can adjust it
-        attributes.reach = { base: 5, manipulate: 5 };
+        // Start with a baseline reach of 5 feet except for familiars: melee attacks with reach can adjust it
+        const baseReach = this.type === "familiar" ? 0 : 5;
+        attributes.reach = { base: baseReach, manipulate: baseReach };
 
         if (this.system.initiative) {
             this.system.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
@@ -380,6 +384,20 @@ abstract class CreaturePF2e<
                 this.rollOptions.all[`self:position:difficult-terrain:${gradeOption}`] = true;
             }
         }
+
+        // Movement data
+        type PartialMovementData = Omit<CreatureMovementData, "speeds"> & {
+            speeds: DeepPartial<CreatureMovementData["speeds"]>;
+        };
+        type WithPartialMovement = Omit<CreatureSystemData, "movement"> & { movement: PartialMovementData };
+        const withMovementData: WithPartialMovement = this.system;
+        withMovementData.movement = { speeds: {}, terrain: { difficult: { downgraded: [], ignored: [] } } };
+        const sourceSystemData = this._source.system.attributes;
+        const legacyData = "speed" in sourceSystemData ? sourceSystemData.speed : { value: 25, otherSpeeds: [] };
+        for (const speed of [{ type: "land", value: legacyData.value }, ...legacyData.otherSpeeds] as const) {
+            const { type, value } = speed;
+            withMovementData.movement.speeds[type] = { value };
+        }
     }
 
     override prepareEmbeddedDocuments(): void {
@@ -419,7 +437,6 @@ abstract class CreaturePF2e<
     protected override prepareDataFromItems(): void {
         this.spellcasting ??= new ActorSpellcasting(this);
         this.spellcasting.initialize([...this.itemTypes.spellcastingEntry, new RitualSpellcasting(this)]);
-
         super.prepareDataFromItems();
     }
 
@@ -493,10 +510,9 @@ abstract class CreaturePF2e<
         imposeEncumberedCondition(this);
     }
 
+    /** Extract and add custom modifiers. */
     protected override prepareSynthetics(): void {
         super.prepareSynthetics();
-
-        // Custom modifiers
         for (const [selector, modifiers] of Object.entries(this.system.customModifiers)) {
             const syntheticModifiers = (this.synthetics.modifiers[selector] ??= []);
             syntheticModifiers.push(...modifiers.map((m) => () => m));
@@ -703,109 +719,43 @@ abstract class CreaturePF2e<
         }
     }
 
-    prepareSpeed(movementType: "land"): this["system"]["attributes"]["speed"];
-    prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
-    prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
-    prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null {
-        const systemData = this.system;
-
-        if (movementType === "land") {
-            const domains = ["speed", "all-speeds", `${movementType}-speed`];
-            const rollOptions = this.getRollOptions(domains);
-            const landSpeed = systemData.attributes.speed;
-            landSpeed.value = Number(landSpeed.value) || 0;
-
-            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).flatMap((d) => d() ?? []);
-            landSpeed.value = Math.max(landSpeed.value, ...fromSynthetics.map((s) => s.value));
-
-            const modifiers = extractModifiers(this.synthetics, domains);
-            const stat: CreatureSpeeds = fu.mergeObject(
-                new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions),
-                landSpeed,
-                { overwrite: false },
-            );
-            const typeLabel = game.i18n.localize(CONFIG.PF2E.speedTypes.land);
-            const statLabel = game.i18n.format("PF2E.Actor.Speed.Type.Label", { type: typeLabel });
-            const otherData = {
-                type: "land",
-                label: statLabel,
-            };
-            this.rollOptions.all["speed:land"] = true;
-
-            const merged = fu.mergeObject(stat, otherData);
-            Object.defineProperties(merged, {
-                total: {
-                    get(): number {
-                        return stat.value + stat.totalModifier;
-                    },
-                },
-                breakdown: {
-                    get(): string {
-                        return [
-                            `${game.i18n.format("PF2E.Actor.Speed.BaseLabel", { type: typeLabel })} ${stat.value}`,
-                            ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${m.signedValue}`),
-                        ].join(", ");
-                    },
-                },
-            });
-
-            return merged;
-        } else {
-            const candidateSpeeds = ((): (BaseSpeedSynthetic | LabeledSpeed)[] => {
-                const { otherSpeeds } = systemData.attributes.speed;
-                const existing = otherSpeeds.filter((s) => s.type === movementType);
-                const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d() ?? []).flat();
-                return [...existing, ...fromSynthetics];
-            })();
-            const fastest = candidateSpeeds.reduce(
-                (best: LabeledSpeed | BaseSpeedSynthetic | null, speed) =>
-                    !best ? speed : speed?.value > best.value ? speed : best,
-                null,
-            );
-            if (!fastest) return null;
-
-            // If this speed is derived from the creature's land speed, avoid reapplying the same modifiers
-            const domains = fastest.derivedFromLand
-                ? [`${movementType}-speed`]
-                : ["speed", "all-speeds", `${movementType}-speed`];
-            const rollOptions = this.getRollOptions(domains);
-
-            const speed: LabeledSpeed = {
-                type: movementType,
-                label: game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]),
-                value: fastest.value,
-                derivedFromLand: fastest.derivedFromLand,
-            };
-            if (fastest.source) speed.source = fastest.source;
-
-            this.rollOptions.all[`speed:${movementType}`] = true;
-
-            const modifiers = extractModifiers(this.synthetics, domains);
-            const stat = new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions);
-            const merged = fu.mergeObject(stat, speed, { overwrite: false });
-            Object.defineProperties(merged, {
-                total: {
-                    get(): number {
-                        return speed.value + stat.totalModifier;
-                    },
-                },
-                breakdown: {
-                    get(): string {
-                        return [
-                            `${game.i18n.format("PF2E.Actor.Speed.BaseLabel", { type: speed.label })} ${speed.value}`,
-                        ]
-                            .concat(
-                                stat.modifiers
-                                    .filter((m) => m.enabled)
-                                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
-                            )
-                            .join(", ");
-                    },
-                },
-            });
-
-            return merged;
-        }
+    /**
+     * Prepare this creature's movement data
+     * @param modifiers Modifiers in addition to those extracted
+     */
+    prepareMovementData(modifiers: ModifierPF2e[] = []): void {
+        const baseSpeed = this.system.movement.speeds.land.value;
+        const landSpeed = new SpeedStatistic(this, { type: "land", base: baseSpeed, modifiers });
+        const rollOptions = this.getRollOptions(["all-speeds", "speed", "land-speed"]);
+        const otherSpeeds = Object.fromEntries(
+            MOVEMENT_TYPES.filter((t) => t !== "land").map((type) => {
+                const fromSynthetics = R.filter(
+                    this.synthetics.movementTypes[type]?.map((d) => d({ test: rollOptions })) ?? [],
+                    R.isNonNull,
+                );
+                const syntheticSpeed = R.firstBy(fromSynthetics, [(s) => s.value ?? 0, "desc"]);
+                if (!syntheticSpeed && !this.system.movement.speeds[type]) return [type, null];
+                const systemDataSpeed = this.system.movement.speeds[type] ?? { value: -Infinity, source: null };
+                const selected =
+                    syntheticSpeed && syntheticSpeed.value > systemDataSpeed.value ? syntheticSpeed : systemDataSpeed;
+                if (selected === syntheticSpeed && syntheticSpeed.derivedFromLand) {
+                    const domain = (this.flags.pf2e.rollOptions[`${type}-speed`] ??= {});
+                    domain["derived-from-land"] = true;
+                }
+                const base = selected.value;
+                const statistic = syntheticSpeed?.derivedFromLand
+                    ? landSpeed.extend({ type })
+                    : new SpeedStatistic(this, { type, base, source: selected.source });
+                return [type, statistic];
+            }),
+        ) as { [T in Exclude<MovementType, "land">]: SpeedStatistic<this, T> | null };
+        const travelSpeed = landSpeed.extend({ type: "travel" });
+        this.movement.speeds = { [landSpeed.type]: landSpeed, ...otherSpeeds, [travelSpeed.type]: travelSpeed };
+        const speeds = R.mapValues(
+            this.movement.speeds,
+            (s) => s?.getTraceData() ?? null,
+        ) as CreatureMovementData["speeds"];
+        this.system.movement = { speeds, terrain: { difficult: { ignored: [], downgraded: [] } } };
     }
 
     /* -------------------------------------------- */

@@ -98,9 +98,7 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
         this.proficient = data.proficient === undefined ? this.rank === null || this.rank > 0 : !!data.proficient;
 
         // Run the modifiers filter function if one is supplied
-        if (data.filter) {
-            this.modifiers = this.modifiers.filter(data.filter);
-        }
+        if (data.filter) this.modifiers = this.modifiers.filter(data.filter);
 
         // Add DC data with an additional domain if not already set
         this.data.dc ??= { domains: [`${this.slug}-dc`] };

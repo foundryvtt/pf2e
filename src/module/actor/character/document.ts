@@ -1,5 +1,5 @@
 import { CreaturePF2e, type FamiliarPF2e } from "@actor";
-import { Abilities, CreatureSpeeds, LabeledSpeed } from "@actor/creature/data.ts";
+import { Abilities } from "@actor/creature/data.ts";
 import { CreatureUpdateCallbackOptions, ResourceData } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
@@ -25,7 +25,7 @@ import {
 } from "@actor/modifiers.ts";
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
-import type { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
+import type { AttributeString, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type {
@@ -614,9 +614,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             this.synthetics.modifiers.speed.push(() => speedPenalty);
         }
 
-        // Speeds
-        const speeds = (system.attributes.speed = this.prepareSpeed("land"));
-        speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
+        this.prepareMovementData();
 
         // Strike actions
         system.actions = this.prepareStrikes();
@@ -913,13 +911,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         });
     }
 
-    override prepareSpeed(movementType: "land"): CreatureSpeeds;
-    override prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
-    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
-    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null {
-        const statistic = super.prepareSpeed(movementType);
-        if (!statistic) return null;
-
+    override prepareMovementData(): void {
         const wornArmor = this.wornArmor;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
         const strength = this.system.abilities.str.mod;
@@ -928,35 +920,19 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             typeof requirement === "number" && strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty,
             0,
         );
-        const derivedFromLand = !!("derivedFromLand" in statistic && statistic.derivedFromLand);
-        const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
         const slug = "armor-speed-penalty";
-        const armorPenalty =
-            penaltyValue && !derivedFromLand
-                ? new ModifierPF2e({
-                      slug,
-                      label: modifierName,
-                      modifier: penaltyValue,
-                      type: "untyped",
-                      predicate: new Predicate({ not: "armor:ignore-speed-penalty" }),
-                      adjustments: extractModifierAdjustments(
-                          this.synthetics.modifierAdjustments,
-                          ["all-speeds", "speed", `${movementType}-speed`],
-                          slug,
-                      ),
-                  })
-                : null;
-
-        if (armorPenalty) {
-            statistic.push(armorPenalty);
-            statistic.calculateTotal(new Set(this.getRollOptions(["all-speeds", "speed", `${movementType}-speed`])));
-        }
-
+        const armorPenalty = penaltyValue
+            ? new ModifierPF2e({
+                  slug,
+                  label: wornArmor?.name ?? "PF2E.ArmorSpeedLabel",
+                  modifier: penaltyValue,
+                  type: "untyped",
+                  predicate: new Predicate({ nor: ["derived-from-land", "armor:ignore-speed-penalty"] }),
+              })
+            : null;
         // A hindering penalty can't be removed or mitigated
         const hinderingPenalty = createHinderingPenalty(this);
-        if (hinderingPenalty) statistic.push(hinderingPenalty);
-
-        return statistic;
+        super.prepareMovementData([armorPenalty, hinderingPenalty].filter(R.isNonNull));
     }
 
     private prepareFeats(): void {

@@ -15,7 +15,6 @@ const SELECTABLE_TAG_FIELDS = [
     "otherWeaponTags",
     "senses",
     "skills",
-    "speedTypes",
     "vehicleTraits",
     "weaponTraits",
 ] as const;

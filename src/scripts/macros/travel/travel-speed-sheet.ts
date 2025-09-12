@@ -13,7 +13,6 @@ import {
     calculateTravelDuration,
     speedToVelocity,
 } from "./travel-speed.ts";
-import appv1 = foundry.appv1;
 
 type DetectionModeData = "none" | "everything" | "before";
 type SpeedUnitData = "feet" | "miles";
@@ -104,14 +103,14 @@ interface SheetData extends TravelFormData {
     partySpeedInFeet: number;
 }
 
-interface TravelSpeedSheetOptions extends appv1.api.FormApplicationOptions {
+interface TravelSpeedSheetOptions extends fav1.api.FormApplicationOptions {
     actors: CharacterPF2e[];
 }
 
-class TravelSpeedSheet extends appv1.api.FormApplication<object, TravelSpeedSheetOptions> {
+class TravelSpeedSheet extends fav1.api.FormApplication<object, TravelSpeedSheetOptions> {
     private formData?: TravelFormData = undefined;
 
-    static override get defaultOptions(): appv1.api.FormApplicationOptions {
+    static override get defaultOptions(): fav1.api.FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = "travel-duration";
         options.classes = ["travel-duration"];
@@ -152,7 +151,7 @@ class TravelSpeedSheet extends appv1.api.FormApplication<object, TravelSpeedShee
         return this.actorFormToSheetData(actor, {
             detectionMode: "before",
             explorationActivity: "Search",
-            speed: actor.system.attributes.speed.total,
+            speed: actor.system.movement.speeds.land.value,
         });
     }
 

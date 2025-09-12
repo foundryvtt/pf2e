@@ -4,6 +4,7 @@ import type {
     CreatureAttributes,
     CreatureDetails,
     CreatureLanguagesData,
+    CreatureMovementData,
     CreaturePerceptionData,
     CreatureResources,
     CreatureSaves,
@@ -11,8 +12,9 @@ import type {
     SkillData,
 } from "@actor/creature/data.ts";
 import { ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import type { ModifierPF2e } from "@actor/modifiers.ts";
-import type { AttributeString } from "@actor/types.ts";
+import type { ActorAlliance, AttributeString, SaveType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type {
     ModelPropFromDataField,
@@ -21,6 +23,7 @@ import type {
     SourceFromSchema,
 } from "@common/data/fields.d.mts";
 import type { StatisticTraceData } from "@system/statistic/data.ts";
+import * as R from "remeda";
 import type { FamiliarPF2e } from "./document.ts";
 import fields = foundry.data.fields;
 
@@ -38,6 +41,8 @@ class FamiliarSystemData extends ActorSystemModel<FamiliarPF2e, FamiliarSystemSc
     declare attack: StatisticTraceData;
 
     declare resources: CreatureResources;
+
+    declare movement: CreatureMovementData;
 
     static override defineSchema(): FamiliarSystemSchema {
         return {
@@ -80,6 +85,42 @@ class FamiliarSystemData extends ActorSystemModel<FamiliarPF2e, FamiliarSystemSc
                 }),
             }),
         };
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        const master = this.parent.master;
+        this.details = {
+            alliance: master?.alliance ?? "party",
+            creature: this.details.creature,
+            languages: { value: [], details: "" },
+            level: { value: master?.level ?? 0 },
+        };
+        this.traits = {
+            value: ["minion"],
+            rarity: "common",
+            size: new ActorSizePF2e({ value: "tiny" }),
+        };
+
+        type PartialSystemData = {
+            perception: { senses: { type: string; acuity: string; range: number; source: string | null }[] };
+            skills: object;
+            saves: Record<SaveType, object>;
+            details: { level: { value: number }; alliance: ActorAlliance };
+        };
+
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const system: PartialSystemData = this;
+        system.perception = {
+            senses: [{ type: "low-light-vision", acuity: "precise", range: Infinity, source: null }],
+        };
+        system.skills = {};
+        system.saves = { fortitude: {}, reflex: {}, will: {} };
+    }
+
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+        this.traits.value = R.unique(this.traits.value).sort();
     }
 }
 

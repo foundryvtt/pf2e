@@ -1,4 +1,4 @@
-import { ActorProxyPF2e } from "@actor";
+import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ArmySystemData } from "@actor/army/data.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { FamiliarSystemData } from "@actor/familiar/data.ts";
@@ -63,8 +63,8 @@ import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import * as R from "remeda";
 
 /** Not an actual hook listener but rather things to run on initial load */
-export const Load = {
-    listen(): void {
+export class Load {
+    static listen(): void {
         // Assign database backend to handle migrations
         CONFIG.DatabaseBackend = new ClientDatabaseBackendPF2e();
 
@@ -103,10 +103,7 @@ export const Load = {
         CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.Token.prototypeSheetClass = PrototypeTokenConfigPF2e;
         CONFIG.Token.rulerClass = TokenRulerPF2e;
-        const movementActions = CONFIG.Token.movement.actions;
-        for (const key of ["crawl", "climb", "jump"]) {
-            delete movementActions[key]?.getCostFunction;
-        }
+        Load.#configureMovement();
 
         CONFIG.User.documentClass = UserPF2e;
 
@@ -250,5 +247,76 @@ export const Load = {
                 }
             });
         }
-    },
-};
+    }
+
+    static #configureMovement(): void {
+        const movementActions = CONFIG.Token.movement.actions;
+        for (const key of ["crawl", "climb", "jump"]) {
+            delete movementActions[key]?.getCostFunction;
+        }
+
+        // Default action for creatures unless prone
+        movementActions.walk.canSelect = (token) => {
+            const actor = token.actor as ActorPF2e | null;
+            return !!actor?.isOfType("creature") && !actor.hasCondition("prone");
+        };
+        movementActions.walk.img = null;
+
+        // Default action for creatures when prone
+        movementActions.crawl.canSelect = (token) => {
+            const actor = token.actor as ActorPF2e | null;
+            return !!actor?.isOfType("creature") && actor.hasCondition("prone");
+        };
+
+        // Default action for vehicles
+        movementActions.drive = {
+            label: "TOKEN.MOVEMENT.ACTIONS.drive.label",
+            icon: "fa-solid fa-car-side",
+            order: 0,
+            canSelect: (t) => t.actor?.type === "vhiecle",
+            deriveTerrainDifficulty: () => 1,
+        };
+
+        // Default action for armies
+        movementActions.deploy = {
+            label: "TOKEN.MOVEMENT.ACTIONS.deploy.label",
+            icon: "fa-solid fa-person-military-pointing fa-flip-horizontal",
+            order: 0,
+            canSelect: (t) => t.actor?.type === "army",
+        };
+
+        movementActions.jump.order = 1;
+        movementActions.jump.canSelect = (tokenDoc) => {
+            const actor = tokenDoc.actor as ActorPF2e | null;
+            return !!(actor?.isOfType("creature") && !actor.hasCondition("prone"));
+        };
+        movementActions.jump.deriveTerrainDifficulty = () => 1;
+
+        movementActions.fly.order = 2;
+        movementActions.fly.canSelect = (tokenDoc) => {
+            const actor = tokenDoc.actor as ActorPF2e | null;
+            return !!(actor?.isOfType("creature") && actor.system.movement.speeds.fly);
+        };
+
+        movementActions.burrow.order = 3;
+        movementActions.burrow.canSelect = (tokenDoc) => {
+            const actor = tokenDoc.actor as ActorPF2e | null;
+            return !!(actor?.isOfType("creature") && actor.system.movement.speeds.burrow);
+        };
+
+        movementActions.climb.order = 4;
+        movementActions.climb.canSelect = (tokenDoc) => {
+            const actor = tokenDoc.actor as ActorPF2e | null;
+            return !!actor?.isOfType("creature");
+        };
+        movementActions.climb.deriveTerrainDifficulty = () => 1;
+
+        movementActions.swim.order = 5;
+        movementActions.swim.canSelect = (tokenDoc) => {
+            const actor = tokenDoc.actor as ActorPF2e | null;
+            return !!actor?.isOfType("creature");
+        };
+
+        movementActions.blink.order = 6;
+    }
+}

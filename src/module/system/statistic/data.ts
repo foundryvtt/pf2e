@@ -69,7 +69,7 @@ interface StatisticChatData {
 interface BaseStatisticTraceData {
     slug: string;
     label: string;
-    /** A numeric value of some kind: semantics determined by `AbstractBaseStatistic` subclass */
+    /** A numeric value of some kind: semantics determined by `BaseStatistic` subclass */
     value: number;
     breakdown: string;
     modifiers: Required<RawModifier>[];

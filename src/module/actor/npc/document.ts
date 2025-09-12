@@ -81,19 +81,16 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         super.prepareBaseData();
 
         this.flags.pf2e.lootable ??= false;
-
         this.system.actions = [];
         for (const key of SAVE_TYPES) {
             this.system.saves[key].attribute = CONFIG.PF2E.savingThrowDefaultAttributes[key];
         }
-
         const { attributes, details } = this.system;
-
         if (details.alliance === undefined) {
             details.alliance = this.hasPlayerOwner ? "party" : "opposition";
         }
 
-        // Ensure undead have negative healing
+        // Ensure undead have void healing
         attributes.hp.negativeHealing = this.system.traits.value.includes("undead");
 
         // Exclude troops from being flankable
@@ -204,9 +201,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             setHitPointsRollOptions(this);
         }
 
-        // Speeds
-        const speeds = (system.attributes.speed = this.prepareSpeed("land"));
-        speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
+        this.prepareMovementData();
 
         // Armor Class
         const armorStatistic = new ArmorStatistic(this, {
