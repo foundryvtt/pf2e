@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_module.d.mts";
 import type { RawItemChatData } from "@item/base/data/index.ts";
+import { addOrUpgradeTrait } from "@item/helpers.ts";
 import { PhysicalItemPF2e, checkPhysicalItemSystemChange, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { ARMOR_UPGRADES } from "@scripts/config/usage.ts";
@@ -127,6 +128,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         this.system.traits.value = R.unique([...baseTraits, investedTrait, magicTrait] as const)
             .filter(R.isTruthy)
             .sort();
+
+        // Add traits from grade
+        const gradeData = CONFIG.PF2E.armorImprovements[this.system.grade ?? "commercial"];
+        if (gradeData.resilient) addOrUpgradeTrait(this.system.traits, `resilient-${gradeData.resilient}`);
     }
 
     override prepareDerivedData(): void {

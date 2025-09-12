@@ -23,6 +23,7 @@ interface ActionCost {
 interface TraitConfig {
     volley?: number;
     tracking?: number;
+    resilient?: number;
     [key: string]: number | undefined;
 }
 

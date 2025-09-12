@@ -776,18 +776,24 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const modifiers: ModifierPF2e[] = [];
             const selectors = [saveType, `${save.attribute}-based`, "saving-throw", "all"];
 
-            // Add resilient bonuses for wearing armor with a resilient rune.
-            if (wornArmor?.system.runes.resilient && wornArmor.isInvested) {
-                const slug = "resilient";
-                modifiers.push(
-                    new ModifierPF2e({
-                        slug,
-                        type: "item",
-                        label: wornArmor.name,
-                        modifier: wornArmor.system.runes.resilient,
-                        adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, selectors, slug),
-                    }),
-                );
+            // Add resilient bonuses for wearing armor with a resilient rune or trait.
+            if (wornArmor) {
+                const fromTraits = wornArmor.system.traits.config?.resilient ?? 0;
+                const fromRunes = wornArmor.isInvested ? wornArmor.system.runes.resilient : 0;
+                const resilientModifier = Math.max(fromTraits, fromRunes);
+                if (resilientModifier) {
+                    const slug = "resilient";
+                    const modifierAdjustments = this.synthetics.modifierAdjustments;
+                    modifiers.push(
+                        new ModifierPF2e({
+                            slug,
+                            type: "item",
+                            label: wornArmor.name,
+                            modifier: resilientModifier,
+                            adjustments: extractModifierAdjustments(modifierAdjustments, selectors, slug),
+                        }),
+                    );
+                }
             }
 
             const affectedByBulwark = saveType === "reflex" && wornArmor?.traits.has("bulwark");
