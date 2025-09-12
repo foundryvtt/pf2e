@@ -112,7 +112,7 @@ class AutomaticBonusProgression {
     static cleanupRunes(item: ArmorPF2e | WeaponPF2e): void {
         if (!this.isEnabled(item.actor)) return;
 
-        item.system.grade = null;
+        item.system.grade &&= "commercial";
         item.system.runes.potency = 0;
         if (item.isOfType("weapon")) {
             item.system.runes.striking = 0;

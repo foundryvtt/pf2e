@@ -199,7 +199,7 @@ function generateItemName(item: PhysicalItemPF2e): string {
         : item.name;
     const materialLabel = material.type && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]);
 
-    if (grade) {
+    if (grade && !AutomaticBonusProgression.isEnabled(item.actor)) {
         const params: Record<string, string | number | null> = {
             base: baseLabel,
             material: materialLabel,
