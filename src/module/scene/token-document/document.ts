@@ -383,17 +383,18 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     }
 
     protected override _inferMovementAction(): string {
-        switch (this.actor?.type) {
+        const actor = this.actor;
+        switch (actor?.type) {
             case "character":
             case "npc":
             case "familiar":
-                return this.actor.hasCondition("prone") ? "crawl" : "walk";
+                return !actor.inCombat ? "travel" : actor.hasCondition("prone") ? "crawl" : "walk";
             case "army":
                 return "deploy";
             case "vehicle":
                 return "drive";
             case "party":
-                return "blink";
+                return "travel";
             default:
                 return "displace";
         }

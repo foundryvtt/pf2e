@@ -89,8 +89,9 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         waypoint: DeepReadonly<TokenRulerWaypoint>,
         state: object,
     ): WaypointLabelRenderContext | void {
+        if (waypoint.action === "displace") return undefined;
         const context: WaypointRenderContextPF2e | void = super._getWaypointLabelContext(waypoint, state);
-        if (!context || !canvas.grid.isSquare || waypoint.action === "displace") return context;
+        if (!context || !canvas.grid.isSquare) return context;
         const speed = this.#getSpeed(waypoint.action);
         if (!speed) return context;
         const accruedCost = waypoint.measurement.cost;

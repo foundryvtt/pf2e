@@ -317,6 +317,17 @@ export class Load {
             return !!actor?.isOfType("creature");
         };
 
+        movementActions.travel = {
+            order: 0,
+            icon: "fa-solid fa-person-hiking",
+            label: "TOKEN.MOVEMENT.ACTIONS.travel.label",
+            canSelect: (tokenDoc) => {
+                const actor = tokenDoc.actor as ActorPF2e | null;
+                if (!actor) return false;
+                return actor.isOfType("party") || (actor.isOfType("creature") && !actor.inCombat);
+            },
+        };
+
         movementActions.blink.order = 6;
     }
 }
