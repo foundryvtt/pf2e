@@ -42,7 +42,7 @@
                     }
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.speed}",
-                "value": "@actor.attributes.speed.total"
+                "value": "@actor.system.movement.speeds.land.value"
             },
             {
                 "key": "BaseSpeed",
@@ -50,7 +50,7 @@
                     "invoke-movement:burrow"
                 ],
                 "selector": "burrow",
-                "value": "floor(@actor.attributes.speed.total / 2)"
+                "value": "floor(@actor.system.movement.speeds.land.value / 2)"
             }
         ],
         "start": {

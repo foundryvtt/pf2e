@@ -5,7 +5,8 @@
         {{#if editable}}data-edit="img"{{/if}}
         alt="{{actor.name}}"
     />
-    <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
+    <a class="hover-icon" data-action="show-image"
+       data-tooltip aria-label="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
 </div>
 
 {{!-- Armor Class --}}
@@ -41,7 +42,8 @@
 
 {{#if hasShield}}
     {{!-- Shield --}}
-    <div class="subsection shield{{#if data.attributes.shield.broken}} broken" data-tooltip="PF2E.Item.Physical.Broken{{/if}}">
+    <div class="subsection shield{{#if data.attributes.shield.broken}} broken{{/if}}"
+         {{#if data.attributes.shield.broken}}data-tooltip aria-label="{{localize "PF2E.Item.Physical.Broken"}}"{{/if}}>
         <header>
             <label>
                 <i class="fa-solid fa-user-shield fa-fw{{#if data.attributes.shield.broken}} broken{{/if}}" inert></i>
@@ -49,9 +51,12 @@
             </label>
 
             <div class="hit-points">
-                <input type="number" name="system.attributes.shield.hp.value" value="{{data.attributes.shield.hp.value}}" class="current" placeholder="0" />
+                <input type="number" name="system.attributes.shield.hp.value" value="{{data.attributes.shield.hp.value}}"
+                       class="current" placeholder="0" />
                 <span class="slash">/</span>
-                <div class="max" data-tooltip="PF2E.Actor.Creature.Shield.HitPoints.Max">{{data.attributes.shield.hp.max}}</div>
+                <div class="max"
+                     data-tooltip aria-label="{{localize "PF2E.Actor.Creature.Shield.HitPoints.Max"}}"
+                >{{data.attributes.shield.hp.max}}</div>
             </div>
         </header>
 
@@ -290,7 +295,7 @@
                     data-tag-selector="speed-types"
                     data-options="speedTypes"
                     data-has-values="true"
-                    data-tooltip="PF2E.NPC.EditSpeed"
+                    data-tooltip aria-label="{{localize "PF2E.NPC.EditSpeed"}}"
                 ><i class="fa-solid fa-pen-to-square"></i></a>
             </div>
         {{/if}}

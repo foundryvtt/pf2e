@@ -18,7 +18,7 @@ export class Migration943UpdateSpeedPath extends MigrationBase {
 
     /** Update path to land base or derived speed in rule elements. */
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        const landSpeedPath = "system.movement.land";
+        const landSpeedPath = "system.movement.speeds.land";
         source.system.rules = recursiveReplaceString(source.system.rules, (s) =>
             s
                 .replace(/\bsystem.attributes\.speed\.total\b/g, `${landSpeedPath}.value`)
