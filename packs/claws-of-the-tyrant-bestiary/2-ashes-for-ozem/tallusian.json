@@ -514,7 +514,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Until the next time it acts, the tallusian appears to be a normal pile of broken rubble. It has an automatic result of 31 (34 in ruins) on Deception checks and DCs to pass as a pile of rubble.</p>"
+                    "value": "<p>Until the next time it acts, the tallusian appears to be a normal pile of broken rubble. It has an automatic result of 31 (34 in ruins) on @Check[deception] checks and DCs to pass as a pile of rubble.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -528,9 +528,14 @@
                         "toggleable": true
                     },
                     {
+                        "disabledIf": [
+                            {
+                                "not": "rubble"
+                            }
+                        ],
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.Tallusian.Rubble.RollOptionLabel",
-                        "option": "in-rubble",
+                        "option": "in-ruins",
                         "toggleable": true
                     },
                     {
@@ -551,7 +556,10 @@
                             "rubble"
                         ],
                         "required": true,
-                        "selector": "deception-check",
+                        "selectors": [
+                            "deception-dc",
+                            "deception"
+                        ],
                         "slug": "rubble-bonus",
                         "value": 10
                     },
@@ -560,7 +568,7 @@
                         "mode": "upgrade",
                         "predicate": [
                             "rubble",
-                            "in-rubble"
+                            "in-ruins"
                         ],
                         "selectors": [
                             "deception-dc",
@@ -571,6 +579,9 @@
                     },
                     {
                         "key": "Note",
+                        "predicate": [
+                            "rubble"
+                        ],
                         "selector": "deception",
                         "text": "{item|description}",
                         "title": "{item|name}",
