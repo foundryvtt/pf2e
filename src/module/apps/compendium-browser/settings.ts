@@ -4,7 +4,7 @@ import type { PackInfo, TabName } from "./data.ts";
 class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
     #tabSettings: Record<TabName, CompendiumBrowserSettingsData> = {
         action: {
-            label: "PF2E.CompendiumBrowser.TabAction",
+            label: "PF2E.CompendiumBrowser.TabAbilities",
         },
         bestiary: {
             label: "PF2E.CompendiumBrowser.TabBestiary",
