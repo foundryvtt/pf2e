@@ -1,3 +1,4 @@
+import User from "@client/documents/user.mjs";
 import { ApplicationConfiguration, ApplicationRenderOptions } from "../_types.mjs";
 import ApplicationV2 from "./application.mjs";
 
@@ -94,6 +95,27 @@ export default class DialogV2<
         close?: DialogV2CloseCallback;
         render?: DialogV2RenderCallback;
     } & DeepPartial<DialogV2Configuration>): Promise<unknown>;
+
+    /**
+     * Present an asynchronous Dialog query to a specific User for response.
+     * @param user A User instance or a User id
+     * @param type The type of Dialog to present
+     * @param config Dialog configuration forwarded on to the Dialog.prompt, Dialog.confirm, Dialog.input, or
+     *               Dialog.wait function depending on the query type. Callback options are not supported.
+     * @returns The query response or null if no response was provided
+     *
+     * @see {@link DialogV2.prompt}
+     * @see {@link DialogV2.confirm}
+     * @see {@link DialogV2.input}
+     * @see {@link DialogV2.wait}
+     */
+    static query(user: User | string, type: "prompt" | "confirm" | "input" | "wait", config?: object): Promise<unknown>;
+
+    /**
+     * The dialog query handler.
+     * @internal
+     */
+    static _handleQuery: (options: { type: "prompt" | "confirm" | "input" | "wait"; config: object }) => unknown;
 }
 
 export interface DialogV2Button {

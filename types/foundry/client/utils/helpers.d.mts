@@ -6,6 +6,8 @@ import {
     ItemUUID,
     TokenDocument,
     TokenDocumentUUID,
+    User,
+    UserUUID,
     WorldDocumentUUID,
 } from "@client/documents/_module.mjs";
 import { ClientDocument } from "@client/documents/abstract/client-document.mjs";
@@ -68,6 +70,22 @@ export type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUI
  * @returns The Document or its index entry if it resides in a Compendium, otherwise null.
  * @throws If the uuid resolves to a Document that cannot be retrieved synchronously, and the strict option is true.
  */
+export function fromUuidSync<TResult extends User = User>(
+    uuid: UserUUID,
+    options?: {
+        relative?: ClientDocument;
+        invalid?: boolean;
+        strict?: boolean;
+    },
+): TResult | null;
+export function fromUuidSync<TResult extends Actor | CompendiumIndexData = Actor | CompendiumIndexData>(
+    uuid: UserUUID,
+    options?: {
+        relative?: ClientDocument;
+        invalid?: boolean;
+        strict?: boolean;
+    },
+): TResult | null;
 export function fromUuidSync<
     TResult extends (Document & { name?: string }) | CompendiumIndexData =
         | (ClientDocument & { name?: string })
