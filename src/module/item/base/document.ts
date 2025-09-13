@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor/base.ts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.d.mts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
+import type { ToCompendiumOptions } from "@client/documents/abstract/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
@@ -29,7 +30,6 @@ import {
     ErrorPF2e,
     createHTMLElement,
     htmlClosest,
-    isObject,
     localizer,
     objectHasKey,
     setHasElement,
@@ -295,12 +295,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         const flags = this.flags;
         flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
-        if (isObject(flags.pf2e.grantedBy)) {
+        if (R.isPlainObject(flags.pf2e.grantedBy)) {
             flags.pf2e.grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
         }
         const grants = (flags.pf2e.itemGrants ??= {});
         for (const grant of Object.values(grants)) {
-            if (isObject(grant)) {
+            if (R.isPlainObject(grant)) {
                 grant.onDelete ??= "detach";
             }
         }
@@ -427,6 +427,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (options.notify) ui.notifications.info(localize("Success", { item: this.name }));
 
         return this;
+    }
+
+    override exportToJSON(options: ToCompendiumOptions = {}): void {
+        options.clearSource ??= false;
+        super.exportToJSON(options);
     }
 
     getOriginData(): ItemOriginFlag {

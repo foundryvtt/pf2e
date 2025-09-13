@@ -158,8 +158,14 @@ export default abstract class WorldCollection<
 }
 
 export interface FromCompendiumOptions {
-    addFlags?: boolean;
+    /** Clear the currently assigned folder. */
+    clearFolder?: boolean;
+    /** Clear fields which store Document state. */
+    clearState?: boolean;
+    /** Clear the current sort order. */
     clearSort?: boolean;
-    clearPermissions?: boolean;
+    /** Clear Document ownership (recursive). */
+    clearOwnership?: boolean;
+    /** Retain the Document ID from the source Compendium. */
     keepId?: boolean;
 }
