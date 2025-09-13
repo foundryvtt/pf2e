@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { Grade } from "@item/physical/types.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { Grade } from "@item/physical/types.ts";
 import { sluggify } from "@util/misc.ts";
 import { MigrationBase } from "../base.ts";
 

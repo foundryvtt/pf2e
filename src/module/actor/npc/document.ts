@@ -5,7 +5,7 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import type { SaveType } from "@actor/types.ts";
+import type { MovementType, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { UserAction } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e } from "@item";
@@ -129,6 +129,15 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             value: resources.mythicPoints?.value ?? 3,
             max: this.system.traits.value.includes("mythic") ? 3 : 0,
         };
+
+        // Base movement data
+        const speeds: Record<MovementType, { value: number; base: number } | null> = this.system.movement.speeds;
+        const sourceSpeeds = this._source.system.attributes.speed;
+        speeds.land = { value: sourceSpeeds.value, base: sourceSpeeds.value };
+        const otherSpeeds = sourceSpeeds.otherSpeeds;
+        for (const speed of otherSpeeds) {
+            speeds[speed.type] = { value: speed.value, base: speed.value };
+        }
     }
 
     override prepareDerivedData(): void {

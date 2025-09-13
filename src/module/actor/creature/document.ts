@@ -374,30 +374,20 @@ abstract class CreaturePF2e<
         // Set IWR guaranteed by traits
         setImmunitiesFromTraits(this);
 
-        // Set difficult terrain roll options
-        if (game.ready && game.scenes.active) {
-            const tokens = this.getActiveTokens(true, true);
-            const highestGrade = Math.max(...tokens.map((t) => t.difficultTerrain));
-            if (highestGrade > 0) {
-                this.rollOptions.all["self:position:difficult-terrain"] = true;
-                const gradeOption = highestGrade === 2 ? "greater" : "normal";
-                this.rollOptions.all[`self:position:difficult-terrain:${gradeOption}`] = true;
-            }
-        }
-
         // Movement data
         type PartialMovementData = Omit<CreatureMovementData, "speeds"> & {
             speeds: DeepPartial<CreatureMovementData["speeds"]>;
         };
         type WithPartialMovement = Omit<CreatureSystemData, "movement"> & { movement: PartialMovementData };
-        const withMovementData: WithPartialMovement = this.system;
-        withMovementData.movement = { speeds: {}, terrain: { difficult: { downgraded: [], ignored: [] } } };
+        const withPartialMovement: WithPartialMovement = this.system;
+        withPartialMovement.movement = { speeds: {}, terrain: { difficult: { downgraded: [], ignored: [] } } };
         const sourceSystemData = this._source.system.attributes;
         const legacyData = "speed" in sourceSystemData ? sourceSystemData.speed : { value: 25, otherSpeeds: [] };
         for (const speed of [{ type: "land", value: legacyData.value }, ...legacyData.otherSpeeds] as const) {
             const { type, value } = speed;
-            withMovementData.movement.speeds[type] = { value };
+            withPartialMovement.movement.speeds[type] = { value, base: value };
         }
+        if ("speed" in this.system.attributes) delete this.system.attributes.speed;
         Object.defineProperty(this.system.attributes, "speed", {
             get: () => {
                 const message = [
@@ -747,8 +737,10 @@ abstract class CreaturePF2e<
      * @param modifiers Modifiers in addition to those extracted
      */
     prepareMovementData(modifiers: ModifierPF2e[] = []): void {
-        const baseSpeed = this.system.movement.speeds.land.value;
+        const baseSpeed = this.system.movement.speeds.land.base;
         const landSpeed = new SpeedStatistic(this, { type: "land", base: baseSpeed, modifiers });
+        this.system.movement.speeds.land.value = landSpeed.value;
+        this.system.movement.speeds.land.base = landSpeed.base;
         const rollOptions = this.getRollOptions(["all-speeds", "speed", "land-speed"]);
         const otherSpeeds = Object.fromEntries(
             MOVEMENT_TYPES.filter((t) => t !== "land").map((type) => {
@@ -778,7 +770,7 @@ abstract class CreaturePF2e<
             this.movement.speeds,
             (s) => s?.getTraceData() ?? null,
         ) as CreatureMovementData["speeds"];
-        this.system.movement = { speeds, terrain: { difficult: { ignored: [], downgraded: [] } } };
+        this.system.movement.speeds = speeds;
     }
 
     /* -------------------------------------------- */
