@@ -75,6 +75,7 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
             slug: this.slug,
             label: this.label,
             value: this.value,
+            base: this.base,
             source: this.source,
             breakdown: this.breakdown,
             modifiers: this.modifiers.filter((m) => m.enabled && m.value !== 0).map((m) => m.toObject()),
@@ -98,6 +99,7 @@ interface SpeedStatisticTraceData<TType extends MovementType | "travel" = Moveme
     extends BaseStatisticTraceData {
     type: TType;
     value: number;
+    base: number;
     source: string | null;
 }
 
