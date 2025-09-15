@@ -333,13 +333,12 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     }
 
     protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
-        event.preventDefault();
-
+        const actor = this.actor;
         const spellFrom = data.spellFrom;
         if (spellFrom) {
             // Confirm whether this is a swap and execute if so
             const { collectionId, groupId, slotIndex } = spellFrom;
-            const collection = this.actor.spellcasting.collections.get(spellFrom.collectionId, { strict: true });
+            const collection = actor.spellcasting.collections.get(spellFrom.collectionId, { strict: true });
             const isPrepared = collection.entry.category === "prepared";
             const collectionEl = htmlClosest(event.target, "[data-container-id]");
             const sameCollectionId = collectionId === collectionEl?.dataset.containerId;
@@ -350,7 +349,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
             if (isPrepared && sameCollectionId && sameGroupId && !targetIsEmpty) {
                 const draggedSpell = await ItemPF2e.fromDropData(data);
-                const dropTargetSpell = this.actor.items.get(targetDataset.itemId ?? "");
+                const dropTargetSpell = actor.items.get(targetDataset.itemId ?? "");
                 if (!draggedSpell?.isOfType("spell") || !dropTargetSpell?.isOfType("spell")) {
                     throw ErrorPF2e("Unexpected data received while swapping spells");
                 }

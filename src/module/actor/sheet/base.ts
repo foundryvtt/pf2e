@@ -1097,7 +1097,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         event: DragEvent,
         data: DropCanvasItemDataPF2e & { fromInventory?: boolean },
     ): Promise<ItemPF2e[]> {
-        event.preventDefault();
         const item = await ItemPF2e.fromDropData(data);
         if (!item) return [];
 
