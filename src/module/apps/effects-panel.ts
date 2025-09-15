@@ -263,7 +263,7 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
     }
 }
 
-interface EffectsPanelViewData {
+interface EffectsPanelViewData extends fa.ApplicationRenderContext {
     afflictions: EffectViewData[];
     conditions: EffectViewData[];
     effects: EffectViewData[];

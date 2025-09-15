@@ -146,7 +146,7 @@ interface PersistentDamageDialogOptions {
     selectedItemId?: string;
 }
 
-interface PersistentDialogContext {
+interface PersistentDialogContext extends fa.ApplicationRenderContext {
     selectedItemId: string | null;
     existing: DamageEntryData[];
     damageTypes: DamageTypeData[];

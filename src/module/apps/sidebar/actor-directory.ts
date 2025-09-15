@@ -80,7 +80,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
     }
 
     protected override async _prepareFooterContext(
-        context: object & { buttons?: object[] },
+        context: fa.ApplicationRenderContext & { buttons?: object[] },
         options: HandlebarsRenderOptions,
     ): Promise<void> {
         await super._prepareFooterContext(context, options);

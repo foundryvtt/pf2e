@@ -1,65 +1,52 @@
-import type { ApplicationTab } from "@client//applications/_module.d.mts";
-import type { DocumentSheetRenderOptions } from "@client/applications/api/document-sheet.d.mts";
-import { htmlQueryAll } from "@util";
 import type { UserPF2e } from "./document.ts";
 
 /** Player-specific settings, stored as flags on each User */
 class UserConfigPF2e extends fa.sheets.UserConfig<UserPF2e> {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = { window: { contentTag: "div" } };
+
     static override PARTS = {
-        tabs: {
-            template: "templates/generic/tab-navigation.hbs",
-        },
+        tabs: { template: "templates/generic/tab-navigation.hbs" },
+        main: { template: "systems/pf2e/templates/user/sheet.hbs" },
         // Add a new main part, which embeds the original form part
-        main: {
-            template: "systems/pf2e/templates/user/sheet.hbs",
-        },
         ...super.PARTS,
     };
 
-    override tabGroups = {
-        primary: "core",
+    static override TABS: Record<string, fa.ApplicationTabsConfiguration> = {
+        primary: {
+            tabs: [
+                { id: "core", icon: "fa-solid fa-user", label: "PACKAGECONFIG.Core" },
+                { id: "pf2e", icon: "action-glyph", label: "PF2E.Pathfinder" },
+            ],
+            initial: "core",
+        },
     };
 
-    #getTabs() {
-        const DEFAULTS = { group: "primary" as const, active: false, cssClass: "" };
-        const tabs = [
-            { ...DEFAULTS, id: "core", icon: "fa-solid fa-user", label: "Core" },
-            { ...DEFAULTS, id: "pf2e", icon: "fa-solid fa-dice", label: "System" },
-        ];
-        for (const tab of tabs) {
-            tab.active = this.tabGroups[tab.group] === tab.id;
-            tab.cssClass = tab.active ? "active" : "";
-        }
-        return tabs;
-    }
-
-    override async _prepareContext(options: DocumentSheetRenderOptions): Promise<UserConfigRenderContextPF2e> {
-        const data = await super._prepareContext(options);
-
+    override async _prepareContext(options: fa.api.DocumentSheetRenderOptions): Promise<UserConfigRenderContextPF2e> {
+        const context = await super._prepareContext(options);
+        const createCharacterWidget = context.characterWidget;
         // Remove party actors from the selection
-        function createAdjustedCharacterWidget(...args: unknown[]) {
-            const widget = data.characterWidget(...args);
-            for (const option of htmlQueryAll(widget, "option")) {
+        const createAdjustedCharacterWidget = (...args: unknown[]): HTMLDivElement => {
+            const widget = createCharacterWidget(...args);
+            for (const option of widget.querySelectorAll("option")) {
                 const actor = game.actors.get(option.value);
                 if (actor?.isOfType("party")) {
                     option.remove();
                 }
             }
             return widget;
-        }
-
-        return {
-            ...data,
-            tabGroups: this.tabGroups,
-            tabs: this.#getTabs(),
-            characterWidget: createAdjustedCharacterWidget,
         };
+
+        return Object.assign(context, {
+            tabs: context.tabs ?? this._prepareTabs("primary"),
+            activeTab: this.tabGroups.primary,
+            characterWidget: createAdjustedCharacterWidget,
+        });
     }
 }
 
 interface UserConfigRenderContextPF2e extends fa.sheets.UserConfigRenderContext<UserPF2e> {
-    tabs: Partial<ApplicationTab>[];
-    tabGroups: Record<string, string>;
+    tabs: Record<string, fa.ApplicationTab>;
+    activeTab: string;
 }
 
 export { UserConfigPF2e };
