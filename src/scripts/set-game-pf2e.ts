@@ -7,7 +7,7 @@ import { CompendiumBrowser } from "@module/apps/compendium-browser/browser.ts";
 import { EffectsPanel } from "@module/apps/effects-panel.ts";
 import { WorldClock } from "@module/apps/world-clock/index.ts";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
-import { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
+import { RuleElementPF2e } from "@module/rules/index.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import {
     calculateXP,
@@ -79,8 +79,6 @@ export const SetGamePF2e = {
             Modifier: ModifierPF2e,
             ModifierType: MODIFIER_TYPE,
             Predicate: Predicate,
-            RuleElement: RuleElementPF2e,
-            RuleElements: RuleElements,
             StatisticModifier: StatisticModifier,
             StatusEffects: StatusEffects,
             TextEditor: TextEditorPF2e,
@@ -101,7 +99,11 @@ export const SetGamePF2e = {
             system: { generateItemName, moduleArt: new ModuleArt(), remigrate, sluggify },
             variantRules: { AutomaticBonusProgression },
         };
-        game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);
+        game.pf2e = Object.assign(game.pf2e ?? {}, initSafe);
+        Object.defineProperties(game.pf2e, {
+            RuleElement: { get: () => RuleElementPF2e },
+            RuleElements: { get: () => CONFIG.PF2E.RuleElements },
+        });
 
         const campaignType = game.settings.get("pf2e", "campaignType");
         game.pf2e.settings = {
