@@ -46,8 +46,8 @@ class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
             const wordSegmenter =
                 "Segmenter" in Intl
                     ? new Intl.Segmenter(game.i18n.lang, { granularity: "word" })
-                    : // Firefox >:(
-                      {
+                    : {
+                          // Firefox >:(
                           segment(term: string): { segment: string }[] {
                               return [{ segment: term }];
                           },

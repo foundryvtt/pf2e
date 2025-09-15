@@ -7,10 +7,6 @@ import type { TokenDocumentPF2e } from "@scene";
 export class TerrainDataPF2e extends foundry.data.TerrainData {
     /** Make terrain difficulty additive instead of multiplicative. */
     static override getMovementCostFunction(
-        token: TokenDocument,
-        options?: TokenMeasureMovementPathOptions,
-    ): TokenMovementCostFunction;
-    static override getMovementCostFunction(
         token: TokenDocumentPF2e,
         options?: TokenMeasureMovementPathOptions,
     ): TokenMovementCostFunction {

@@ -17,7 +17,7 @@ export * as ux from "./ux/_module.mjs";
 /**
  * A registry of currently rendered ApplicationV2 instances.
  */
-export const instances: Map<number, ApplicationV2>;
+export const instances: Map<string, ApplicationV2>;
 
 /**
  * Parse an HTML string, returning a processed HTMLElement or HTMLCollection.
