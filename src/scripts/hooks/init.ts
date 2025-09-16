@@ -9,7 +9,6 @@ import {
     ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
-import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
 import { registerKeybindings } from "@scripts/register-keybindings.ts";
@@ -30,7 +29,6 @@ export const Init = {
                 delete game.system.documentTypes.Item.affliction;
             }
 
-            CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
 
             setPerceptionModes();

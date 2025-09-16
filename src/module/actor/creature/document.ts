@@ -380,7 +380,10 @@ abstract class CreaturePF2e<
         };
         type WithPartialMovement = Omit<CreatureSystemData, "movement"> & { movement: PartialMovementData };
         const withPartialMovement: WithPartialMovement = this.system;
-        withPartialMovement.movement = { speeds: {}, terrain: { difficult: { downgraded: [], ignored: [] } } };
+        withPartialMovement.movement = {
+            speeds: {},
+            terrain: { difficult: { ignored: [] }, greater: { ignored: [] } },
+        };
         const sourceSystemData = this._source.system.attributes;
         const legacyData = "speed" in sourceSystemData ? sourceSystemData.speed : { value: 25, otherSpeeds: [] };
         for (const speed of [{ type: "land", value: legacyData.value }, ...legacyData.otherSpeeds] as const) {
@@ -766,11 +769,10 @@ abstract class CreaturePF2e<
         ) as { [T in Exclude<MovementType, "land">]: SpeedStatistic<this, T> | null };
         const travelSpeed = landSpeed.extend({ type: "travel" });
         this.movement.speeds = { [landSpeed.type]: landSpeed, ...otherSpeeds, [travelSpeed.type]: travelSpeed };
-        const speeds = R.mapValues(
+        this.system.movement.speeds = R.mapValues(
             this.movement.speeds,
             (s) => s?.getTraceData() ?? null,
         ) as CreatureMovementData["speeds"];
-        this.system.movement.speeds = speeds;
     }
 
     /* -------------------------------------------- */

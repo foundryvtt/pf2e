@@ -141,7 +141,7 @@ interface PickableThing<T extends string | number | object = string | number | o
     predicate?: Predicate;
 }
 
-interface PromptTemplateData {
+interface PromptTemplateData extends fa.ApplicationRenderContext {
     choices: PickableThing[];
     /** An item pertinent to the selection being made */
     item: ItemPF2e;

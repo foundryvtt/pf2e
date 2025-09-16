@@ -4,7 +4,7 @@ import { localizer } from "@util";
 import * as R from "remeda";
 import fields = foundry.data.fields;
 
-interface SettingsContext {
+interface SettingsContext extends fa.ApplicationRenderContext {
     rootId: string;
     fields: WorldClockSettingSchema;
     settings: WorldClockSettingData;

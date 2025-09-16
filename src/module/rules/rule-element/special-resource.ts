@@ -22,7 +22,7 @@ import fields = foundry.data.fields;
 const INVALID_RESOURCES: (keyof CharacterResources)[] = [...CORE_RESOURCES, "crafting", "infusedReagents"];
 
 class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> {
-    protected static override validActorTypes: ActorType[] = ["character"];
+    protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     constructor(source: SpecialResourceSource, options: RuleElementOptions) {
         super({ priority: 18, ...source }, options);

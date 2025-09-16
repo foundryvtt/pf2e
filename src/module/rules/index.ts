@@ -50,7 +50,7 @@ export type { RuleElementSynthetics } from "./synthetics.ts";
  * @category RuleElement
  */
 class RuleElements {
-    static readonly builtin: Record<string, RuleElementConstructor | undefined> = {
+    static #builtin: Record<string, RuleElementConstructor | undefined> = Object.freeze({
         ActiveEffectLike: AELikeRuleElement,
         ActorTraits: ActorTraitsRuleElement,
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
@@ -93,12 +93,12 @@ class RuleElements {
         TokenName: TokenNameRuleElement,
         Weakness: WeaknessRuleElement,
         WeaponPotency: WeaponPotencyRuleElement,
-    };
+    });
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};
 
     static get all(): Record<string, RuleElementConstructor | undefined> {
-        return { ...this.builtin, ...this.custom };
+        return { ...this.#builtin, ...this.custom };
     }
 
     static fromOwnedItem(options: RuleElementOptions): RuleElementPF2e[] {
@@ -111,7 +111,7 @@ class RuleElements {
                 );
                 continue;
             }
-            const REConstructor = this.custom[source.key] ?? this.custom[source.key] ?? this.builtin[source.key];
+            const REConstructor = this.custom[source.key] ?? this.custom[source.key] ?? this.#builtin[source.key];
             if (REConstructor) {
                 try {
                     rules.push(new REConstructor(source, { ...options, sourceIndex }));

@@ -9,7 +9,7 @@ import { CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from ".
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "equipment";
-    tabLabel = "TYPES.Item.equipment";
+    tabLabel = "PF2E.CompendiumBrowser.TabEquipment";
     declare filterData: EquipmentFilters;
 
     /* MiniSearch */

@@ -1,10 +1,11 @@
 <div>
-    <section class="tab {{#if (eq tabGroups.primary "core")}}active{{/if}}" data-tab="core" data-group="primary">
+    <section class="tab {{#if (eq activeTab "core")}} active{{/if}}" data-group="primary" data-tab="core">
         <div data-application-part="form"></div>
     </section>
 
     {{!-- PF2e Settings --}}
-    <section class="tab standard-form{{#if (eq tabGroups.primary "pf2e")}} active{{/if}}" data-tab="pf2e" data-group="primary">
+    <section class="tab standard-form{{#if (eq activeTab "pf2e")}} active{{/if}}"
+        data-tab="pf2e" data-group="primary">
         <div class="form-group">
             <label for="{{user.uuid}}-showEffectPanel">{{localize "PF2E.SETTINGS.User.EffectPanel.Name"}}</label>
             <div class="form-fields">

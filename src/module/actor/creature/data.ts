@@ -80,16 +80,20 @@ interface CreatureMovementData {
     };
     terrain: {
         difficult: {
-            /** Difficult terrain that is downgraded when part of certain environment features */
-            downgraded: string[];
             /**
              * Difficult terrain that is ignored when part of certain environment features: a value of "all" has the
              * creature ignoring difficult terrain from all sources.
              */
-            ignored: string[];
+            ignored: IgnorableEnvironmentFeature[];
+        };
+        greater: {
+            /** Difficult terrain that is downgraded when part of certain environment features */
+            ignored: IgnorableEnvironmentFeature[];
         };
     };
 }
+
+type IgnorableEnvironmentFeature = { environment: string; feature: string };
 
 interface CreatureSystemData extends Omit<CreatureSystemSource, "attributes">, ActorSystemData {
     abilities?: Abilities;
