@@ -82,6 +82,15 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
         return { visible: true, threat, award };
     }
 
+    protected override async _renderHTML(
+        context: object,
+        options: HandlebarsRenderOptions,
+    ): Promise<Record<string, HTMLElement>> {
+        const result = await super._renderHTML(context, options);
+        if (result.tracker) this.#onRenderTracker(result.tracker);
+        return result;
+    }
+
     /** Show encounter analysis data if obtainable */
     protected override async _onRender(
         context: ApplicationRenderContext,
@@ -93,13 +102,11 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
             metricsPart.remove();
             this.parts["header"].querySelector("nav")?.after(metricsPart);
         }
-        if (options.parts.includes("tracker")) this.#onRenderTracker();
         if (game.user.isGM) this.#createSortable();
     }
 
-    #onRenderTracker() {
+    #onRenderTracker(tracker: HTMLElement) {
         const encounter = this.viewed;
-        const tracker = <HTMLOListElement | null>this.element.querySelector("ol.combat-tracker");
         if (!encounter || !tracker) return;
         const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
         const nameVisibilityButton = tokenSetsNameVisibility
