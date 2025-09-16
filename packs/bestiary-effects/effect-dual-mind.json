@@ -1,0 +1,56 @@
+{
+    "_id": "F1HQADu6wNdT5ctT",
+    "img": "icons/commodities/biological/organ-brain-red.webp",
+    "name": "Effect: Dual Mind",
+    "system": {
+        "description": {
+            "value": "<p>You are clumsy 2 and take a –10-foot circumstance penalty to your Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "circumstance",
+                "value": -10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

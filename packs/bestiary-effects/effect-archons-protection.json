@@ -1,0 +1,43 @@
+{
+    "_id": "JZVSXgzu52tJGO6D",
+    "img": "icons/magic/defensive/shield-barrier-blades-teal.webp",
+    "name": "Effect: Archon's Protection",
+    "system": {
+        "description": {
+            "value": "<p>You gain resistance to all damage against the triggering damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "@item.origin.flags.pf2e.archonsProtection"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
