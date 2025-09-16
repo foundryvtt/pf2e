@@ -8,7 +8,6 @@ const materialIWR = R.mapValues(
     // Exclude niche materials from APs that have no IWR properties, as well as ones that count as more-common materials
     R.omit(materialDamageEffects, [
         "keep-stone",
-        "peachwood",
         "sisterstone-dusk",
         "sisterstone-scarlet",
         "sovereign-steel",

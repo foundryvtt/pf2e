@@ -4,10 +4,10 @@
     "name": "Effect: Guardian's Aegis",
     "system": {
         "description": {
-            "value": "<p>The creature gains a +1 status bonus to saves against magical effects. The bonus increases to +2 if the effect originated from a demon or other chaotic evil fiend.</p>"
+            "value": "<p>The creature gains a +1 status bonus to saves against magical effects. The bonus increases to +2 if the effect originated from a fiend.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -35,9 +35,7 @@
                 "key": "AdjustModifier",
                 "mode": "override",
                 "predicate": [
-                    "origin:trait:fiend",
-                    "origin:trait:chaotic",
-                    "origin:trait:evil"
+                    "origin:trait:fiend"
                 ],
                 "selector": "saving-throw",
                 "slug": "guardians-aegis",

@@ -12,14 +12,27 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p>The nosferatu can cast @UUID[Compendium.pf2e.spells-srd.Item.Dominate] at will as a divine innate spell. Casting it requires staring into the target's eyes, giving the spell the visual trait (@Check[will|dc:]). The save DC uses a high DC for the nosferatu's level, and a creature that succeeds is temporarily immune to that nosferatu's Dominate for 24 hours. Fully destroying the nosferatu ends the domination, but merely reducing the nosferatu to 0 HP is insufficient to break the spell.</p>"
+            "value": "<p>The nosferatu can cast @UUID[Compendium.pf2e.spells-srd.Item.Dominate] at will as a divine innate spell. Casting it requires staring into the target's eyes, giving the spell the visual trait. The save DC uses a high DC for the nosferatu's level, and a creature that succeeds is temporarily immune to that nosferatu's Dominate for 24 hours. Fully destroying the nosferatu ends the domination, but merely reducing the nosferatu to 0 HP is insufficient to break the spell.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Bestiary 3"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:dominate",
+                    "spellcasting:tradition:divine",
+                    "spellcasting:category:innate"
+                ],
+                "property": "traits",
+                "value": "visual"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
