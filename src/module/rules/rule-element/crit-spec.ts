@@ -1,4 +1,4 @@
-import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, ModifierType } from "@actor/modifiers.ts";
+import { DamageDicePF2e, MODIFIER_TYPES, Modifier, ModifierType } from "@actor/modifiers.ts";
 import type { ActorType } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -6,12 +6,12 @@ import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import * as R from "remeda";
 import { CritSpecEffect } from "../synthetics.ts";
-import { RuleElementPF2e } from "./base.ts";
+import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
 import fields = foundry.data.fields;
 
 /** Substitute a pre-determined result for a check's D20 roll */
-class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
+class CritSpecRuleElement extends RuleElement<CritSpecRuleSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc"];
 
     static override defineSchema(): CritSpecRuleSchema {
@@ -130,7 +130,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
 
         const modifier = () =>
             this.alternate && this.modifier
-                ? new ModifierPF2e({
+                ? new Modifier({
                       slug,
                       label,
                       type: this.modifier.type,
@@ -163,7 +163,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
                     : weapon.flags.pf2e.attackItemBonus;
                 const bonus =
                     bonusValue > 0
-                        ? new ModifierPF2e({
+                        ? new Modifier({
                               slug,
                               label,
                               type: "item",
@@ -177,7 +177,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
             case "pick":
                 return weapon.baseDamage.die
                     ? [
-                          new ModifierPF2e({
+                          new Modifier({
                               slug,
                               label,
                               type: "untyped",
@@ -193,7 +193,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
     }
 }
 
-interface CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema>, ModelPropsFromRESchema<CritSpecRuleSchema> {}
+interface CritSpecRuleElement extends RuleElement<CritSpecRuleSchema>, ModelPropsFromRESchema<CritSpecRuleSchema> {}
 
 type DamageDieFaces = 4 | 6 | 8 | 10 | 12;
 

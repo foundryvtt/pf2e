@@ -5,7 +5,7 @@ import type { Action } from "@actor/actions/index.ts";
 import type { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { FeatGroupData } from "@actor/character/feats/index.ts";
-import type { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
+import type { CheckModifier, Modifier, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
 import type { SettingConfig } from "@client/_types.d.mts";
 import type Hotbar from "@client/applications/ui/hotbar.d.mts";
 import type Config from "@client/config.d.mts";
@@ -15,7 +15,7 @@ import type { CompendiumUUID } from "@client/utils/_module.d.mts";
 import type { ImageFilePath, RollMode, UserRole } from "@common/constants.d.mts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
-import type { CoinsPF2e } from "@item/physical/helpers.ts";
+import type { Coins } from "@item/physical/helpers.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type {
     CompendiumBrowser,
@@ -37,7 +37,7 @@ import type { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { ActorsPF2e } from "@module/collection/actors.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";
-import type { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
+import type { RuleElement, RuleElements } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type {
     AmbientLightDocumentPF2e,
@@ -62,7 +62,7 @@ import type {
     xpFromEncounter,
 } from "@scripts/macros/index.ts";
 import type { remigrate } from "@scripts/system/remigrate.ts";
-import type { CheckPF2e } from "@system/check/index.ts";
+import type { Check } from "@system/check/index.ts";
 import type { ConditionManager } from "@system/conditions/manager.ts";
 import type { EffectTracker } from "@system/effect-tracker.ts";
 import type { ModuleArt } from "@system/module-art.ts";
@@ -193,16 +193,16 @@ interface GamePF2e
         variantRules: {
             AutomaticBonusProgression: typeof AutomaticBonusProgression;
         };
-        Check: typeof CheckPF2e;
+        Check: typeof Check;
         CheckModifier: typeof CheckModifier;
-        Coins: typeof CoinsPF2e;
+        Coins: typeof Coins;
         ConditionManager: typeof ConditionManager;
         Dice: typeof DicePF2e;
         ElementalBlast: typeof ElementalBlast;
-        Modifier: typeof ModifierPF2e;
+        Modifier: typeof Modifier;
         ModifierType: { [K in Uppercase<ModifierType>]: Lowercase<K> };
         Predicate: typeof Predicate;
-        RuleElement: typeof RuleElementPF2e;
+        RuleElement: typeof RuleElement;
         RuleElements: typeof RuleElements;
         StatisticModifier: typeof StatisticModifier;
         StatusEffects: typeof StatusEffects;

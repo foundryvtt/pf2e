@@ -1,7 +1,7 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import type { ActorType } from "@actor/types.ts";
 import { PotencySynthetic } from "../synthetics.ts";
-import { RuleElementPF2e } from "./base.ts";
+import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
 
@@ -9,7 +9,7 @@ import fields = foundry.data.fields;
  * Copies potency runes from the weapon its attached to, to another weapon based on a predicate.
  * @category RuleElement
  */
-class WeaponPotencyRuleElement extends RuleElementPF2e<WeaponPotencyRuleSchema> {
+class WeaponPotencyRuleElement extends RuleElement<WeaponPotencyRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     static override defineSchema(): WeaponPotencyRuleSchema {
@@ -41,7 +41,7 @@ class WeaponPotencyRuleElement extends RuleElementPF2e<WeaponPotencyRuleSchema> 
 }
 
 interface WeaponPotencyRuleElement
-    extends RuleElementPF2e<WeaponPotencyRuleSchema>,
+    extends RuleElement<WeaponPotencyRuleSchema>,
         ModelPropsFromRESchema<WeaponPotencyRuleSchema> {}
 
 type WeaponPotencyRuleSchema = RuleElementSchema & {

@@ -37,7 +37,6 @@ import { PreciousMaterialGrade } from "@item/physical/types.ts";
 import { MeleeWeaponGroup, WeaponCategory, WeaponGroup, WeaponReloadTime } from "@item/weapon/types.ts";
 import { Size, ZeroToThree } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
-import { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
 import { configFromLocalization, sluggify } from "@util";
 import * as R from "remeda";
 import {
@@ -804,12 +803,4 @@ export const PF2ECONFIG = {
             gmVision: 0xd1ccff,
         },
     },
-
-    RuleElement: RuleElementPF2e,
-    RuleElements,
 };
-
-Object.defineProperties(PF2ECONFIG, {
-    RuleElement: { configurable: false, writable: false },
-    RuleElements: { configurable: false },
-});

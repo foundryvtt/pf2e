@@ -8,12 +8,12 @@ import { Rarity } from "@module/data.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
-import { CoinsPF2e } from "./coins.ts";
+import { Coins } from "./coins.ts";
 import { BulkData, EquippedData } from "./data.ts";
 import { getMaterialValuationData } from "./materials.ts";
 import { RUNE_DATA, getRuneValuationData } from "./runes.ts";
 
-function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
+function computePrice(item: PhysicalItemPF2e): Coins {
     if (item.isOfType("treasure")) return item.price.value;
 
     // Adjust the item price according to precious material and runes
@@ -34,20 +34,20 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
             : (RUNE_DATA.shield.reinforcing[item.system.runes.reinforcing]?.price ?? 0);
     const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0) - reinforcingRuneValue;
 
-    const basePrice = materialValue > 0 || runeValue > 0 ? new CoinsPF2e() : item.price.value;
+    const basePrice = materialValue > 0 || runeValue > 0 ? new Coins() : item.price.value;
     const gradeValue = item.isSpecific ? 0 : getGradeData(item).price;
     const afterMaterialAndRunes = runeValue
-        ? new CoinsPF2e({ gp: runeValue + materialValue })
+        ? new Coins({ gp: runeValue + materialValue })
         : basePrice.plus({ gp: gradeValue + materialValue });
     const higher = afterMaterialAndRunes.copperValue > basePrice.copperValue ? afterMaterialAndRunes : basePrice;
-    const afterReinforcingRune = higher.plus(new CoinsPF2e({ gp: reinforcingRuneValue }));
+    const afterReinforcingRune = higher.plus(new Coins({ gp: reinforcingRuneValue }));
     const afterShoddy = item.isShoddy ? afterReinforcingRune.scale(0.5) : afterReinforcingRune;
 
     /** Increase the price if it is larger than medium and not magical. */
     return item.system.price.sizeSensitive ? afterShoddy.adjustForSize(item.size) : afterShoddy;
 }
 
-function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarity: Rarity; price: CoinsPF2e } {
+function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarity: Rarity; price: Coins } {
     // Stop here if this weapon is not a magical or precious-material item, or if it is a specific magic weapon
     const materialData = getMaterialValuationData(item);
     const price = computePrice(item);
@@ -336,7 +336,7 @@ function getDefaultEquipStatus(item: PhysicalItemPF2e): EquippedData {
 
 export { coinCompendiumIds } from "./coins.ts";
 export {
-    CoinsPF2e,
+    Coins,
     checkPhysicalItemSystemChange,
     computeLevelRarityPrice,
     generateItemName,

@@ -4,11 +4,11 @@ import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
 import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { extractDamageAlterations } from "../helpers.ts";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
-class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
+class DamageDiceRuleElement extends RuleElement<DamageDiceRuleSchema> {
     constructor(data: DamageDiceSource, options: RuleElementOptions) {
         super(data, options);
         if (this.invalid) return;
@@ -202,7 +202,7 @@ interface DamageDiceSource extends RuleElementSource {
 }
 
 interface DamageDiceRuleElement
-    extends RuleElementPF2e<DamageDiceRuleSchema>,
+    extends RuleElement<DamageDiceRuleSchema>,
         ModelPropsFromRESchema<DamageDiceRuleSchema> {}
 
 type DamageDiceRuleSchema = RuleElementSchema & {

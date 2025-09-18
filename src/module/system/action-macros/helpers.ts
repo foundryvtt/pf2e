@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import type { StrikeData } from "@actor/data/base.ts";
 import { getRangeIncrement } from "@actor/helpers.ts";
-import { CheckModifier, ModifierPF2e, ensureProficiencyOption } from "@actor/modifiers.ts";
+import { CheckModifier, Modifier, ensureProficiencyOption } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import type { ItemPF2e, WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
@@ -15,7 +15,7 @@ import {
 } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
-import { CheckPF2e, CheckType } from "@system/check/index.ts";
+import { Check, CheckType } from "@system/check/index.ts";
 import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { CheckDCReference, Statistic } from "@system/statistic/index.ts";
 import { sluggify } from "@util";
@@ -260,7 +260,7 @@ class ActionMacroHelpers {
                     );
                     const dosAdjustments = extractDegreeOfSuccessAdjustments(actor.synthetics, domains);
 
-                    await CheckPF2e.roll(
+                    await Check.roll(
                         check,
                         {
                             actor: selfActor,
@@ -312,10 +312,10 @@ class ActionMacroHelpers {
         };
     }
 
-    static getWeaponPotencyModifier(item: WeaponPF2e<ActorPF2e>, selector: string): ModifierPF2e | null {
+    static getWeaponPotencyModifier(item: WeaponPF2e<ActorPF2e>, selector: string): Modifier | null {
         const slug = "potency";
         if (AutomaticBonusProgression.isEnabled(item.actor)) {
-            return new ModifierPF2e({
+            return new Modifier({
                 slug,
                 type: "potency",
                 label: "PF2E.AutomaticBonusProgression.attackPotency",
@@ -323,7 +323,7 @@ class ActionMacroHelpers {
                 adjustments: extractModifierAdjustments(item.actor.synthetics.modifierAdjustments, [selector], slug),
             });
         } else if (item.system.runes.potency > 0) {
-            return new ModifierPF2e({
+            return new Modifier({
                 slug,
                 type: "item",
                 label: "PF2E.Item.Weapon.Rune.Potency",

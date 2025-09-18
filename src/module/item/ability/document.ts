@@ -4,7 +4,7 @@ import type { DatabaseCreateCallbackOptions, DatabaseUpdateCallbackOptions } fro
 import { ItemPF2e } from "@item";
 import type { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import type { RangeData } from "@item/types.ts";
-import type { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
+import type { RuleElement, RuleElementOptions } from "@module/rules/index.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { sluggify } from "@util";
 import type { AbilitySource, AbilitySystemData } from "./data.ts";
@@ -75,7 +75,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     }
 
     /** Overriden to not create rule elements when suppressed */
-    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElementPF2e[] {
+    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElement[] {
         if (this.suppressed) return [];
         return super.prepareRuleElements(options);
     }

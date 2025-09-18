@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { SingleCheckAction } from "@actor/actions/index.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
@@ -17,7 +17,7 @@ function stabilizeDifficultyClass(target: ActorPF2e): CheckDC | null {
     if (!dying?.value) {
         throw new Error(game.i18n.localize(`${PREFIX}.Warning.TargetNotDying`));
     }
-    const dcModifier = new ModifierPF2e({
+    const dcModifier = new Modifier({
         slug: "dying-recovery",
         label: "PF2E.ModifierTitle",
         modifier: 5 + dying.recoveryDC + dying.value - 10,

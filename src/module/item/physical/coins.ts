@@ -1,15 +1,15 @@
 import { Size } from "@module/data.ts";
-import { Coins, PartialPrice } from "./data.ts";
+import { PartialPrice, RawCoins } from "./data.ts";
 import { DENOMINATIONS } from "./values.ts";
 
 /** Coins class that exposes methods to perform operations on coins without side effects */
-class CoinsPF2e implements Coins {
+class Coins implements RawCoins {
     declare cp: number;
     declare sp: number;
     declare gp: number;
     declare pp: number;
 
-    constructor(data?: Coins | null) {
+    constructor(data?: RawCoins | null) {
         data ??= {};
         for (const denomination of DENOMINATIONS) {
             this[denomination] = Math.max(Math.floor(Math.abs(data[denomination] ?? 0)), 0);
@@ -26,9 +26,9 @@ class CoinsPF2e implements Coins {
         return this.copperValue / 100;
     }
 
-    plus(coins: Coins): CoinsPF2e {
-        const other = new CoinsPF2e(coins);
-        return new CoinsPF2e({
+    plus(coins: RawCoins): Coins {
+        const other = new Coins(coins);
+        return new Coins({
             pp: this.pp + other.pp,
             gp: this.gp + other.gp,
             sp: this.sp + other.sp,
@@ -37,8 +37,8 @@ class CoinsPF2e implements Coins {
     }
 
     /** Multiply by a number and clean up result */
-    scale(factor: number): CoinsPF2e {
-        const result = new CoinsPF2e(this);
+    scale(factor: number): Coins {
+        const result = new Coins(this);
         result.pp *= factor;
         result.gp *= factor;
         result.sp *= factor;
@@ -60,8 +60,8 @@ class CoinsPF2e implements Coins {
     }
 
     /** Increase a price for larger physical-item sizes */
-    adjustForSize(size: Size): CoinsPF2e {
-        const basePrice = new CoinsPF2e(this);
+    adjustForSize(size: Size): Coins {
+        const basePrice = new Coins(this);
 
         switch (size) {
             case "lg": {
@@ -79,7 +79,7 @@ class CoinsPF2e implements Coins {
     }
 
     /** Returns a coins data object with all zero value denominations omitted */
-    toObject(): Coins {
+    toObject(): RawCoins {
         return DENOMINATIONS.reduce((result, denomination) => {
             if (this[denomination] !== 0) {
                 return { ...result, [denomination]: this[denomination] };
@@ -89,7 +89,7 @@ class CoinsPF2e implements Coins {
     }
 
     /** Parses a price string such as "5 gp" and returns a new CoinsPF2e object */
-    static fromString(coinString: string, quantity = 1): CoinsPF2e {
+    static fromString(coinString: string, quantity = 1): Coins {
         if (/^\s*\d+\s*$/.test(coinString)) coinString = `${coinString.trim()} gp`;
 
         // This requires preprocessing, as large gold values contain , for their value
@@ -109,12 +109,12 @@ class CoinsPF2e implements Coins {
                 const computedValue = (Number(value) || 0) * quantity;
                 return { [denomination]: computedValue };
             })
-            .reduce((first, second) => first.plus(second), new CoinsPF2e());
+            .reduce((first, second) => first.plus(second), new Coins());
     }
 
-    static fromPrice(price: PartialPrice, factor: number): CoinsPF2e {
+    static fromPrice(price: PartialPrice, factor: number): Coins {
         const per = Math.max(1, price.per ?? 1);
-        return new CoinsPF2e(price.value).scale(factor / per);
+        return new Coins(price.value).scale(factor / per);
     }
 
     /** Creates a new price string such as "5 gp" from this object */
@@ -142,4 +142,4 @@ const coinCompendiumIds = {
     cp: "lzJ8AVhRcbFul5fh",
 };
 
-export { coinCompendiumIds, CoinsPF2e };
+export { coinCompendiumIds, Coins };

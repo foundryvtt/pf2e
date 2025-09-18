@@ -3,8 +3,8 @@ import {
     DamageDicePF2e,
     DeferredDamageDiceOptions,
     DeferredValueParams,
+    Modifier,
     ModifierAdjustment,
-    ModifierPF2e,
     StatisticModifier,
 } from "@actor/modifiers.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
@@ -16,7 +16,7 @@ import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
 import * as R from "remeda";
 import { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
-import { BracketedValue, RuleElementPF2e, RuleElementSource } from "./rule-element/index.ts";
+import { BracketedValue, RuleElement, RuleElementSource } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
@@ -24,7 +24,7 @@ function extractModifiers(
     synthetics: RuleElementSynthetics,
     domains: string[],
     options: DeferredValueParams = {},
-): ModifierPF2e[] {
+): Modifier[] {
     domains = R.unique(domains);
     const modifiers = domains.flatMap((s) => synthetics.modifiers[s] ?? []).flatMap((d) => d(options) ?? []);
     for (const modifier of modifiers) {
@@ -67,8 +67,8 @@ function extractDamageDice(synthetics: DamageDiceSynthetics, options: DeferredDa
 
 function processDamageCategoryStacking(
     base: BaseDamageData[],
-    options: { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[]; test: Set<string> },
-): { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[] } {
+    options: { modifiers: Modifier[]; dice: DamageDicePF2e[]; test: Set<string> },
+): { modifiers: Modifier[]; dice: DamageDicePF2e[] } {
     const dice = options.dice;
     const groupedModifiers = R.groupBy(options.modifiers, (m) => (m.category === "persistent" ? "persistent" : "main"));
 
@@ -186,8 +186,8 @@ async function processPreUpdateActorHooks(
     if (!(actor instanceof ActorPF2e)) return;
 
     // Run preUpdateActor rule element callbacks
-    type WithPreUpdateActor = RuleElementPF2e & {
-        preUpdateActor: NonNullable<RuleElementPF2e["preUpdateActor"]>;
+    type WithPreUpdateActor = RuleElement & {
+        preUpdateActor: NonNullable<RuleElement["preUpdateActor"]>;
     };
     const rules = actor.rules.filter((r): r is WithPreUpdateActor => !!r.preUpdateActor);
     if (rules.length === 0) return;
@@ -230,7 +230,7 @@ function getSubItemPath(item: ItemPF2e): PhysicalItemPF2e[] | null {
 
 /** Gets the item update info that applies an update to all given rules */
 function createBatchRuleElementUpdate(
-    rules: RuleElementPF2e[],
+    rules: RuleElement[],
     update: Record<string, unknown>,
 ): EmbeddedDocumentUpdateData[] {
     const itemUpdates: { _id: string; system: { rules?: RuleElementSource[]; subitems?: PhysicalItemSource[] } }[] = [];

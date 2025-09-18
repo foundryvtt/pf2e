@@ -1,14 +1,14 @@
 import type { ActorType } from "@actor/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import * as R from "remeda";
-import { RuleElementPF2e } from "./base.ts";
+import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
  */
-class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
+class TempHPRuleElement extends RuleElement<TempHPRuleSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
     static override defineSchema(): TempHPRuleSchema {
@@ -115,7 +115,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     }
 }
 
-interface TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema>, ModelPropsFromRESchema<TempHPRuleSchema> {}
+interface TempHPRuleElement extends RuleElement<TempHPRuleSchema>, ModelPropsFromRESchema<TempHPRuleSchema> {}
 
 type TempHPEventsSchema = {
     /** Whether the temporary hit points are immediately applied */

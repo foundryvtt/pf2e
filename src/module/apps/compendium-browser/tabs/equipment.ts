@@ -1,4 +1,4 @@
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Coins } from "@item/physical/helpers.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { localizer, sluggify } from "@util";
 import * as R from "remeda";
@@ -84,7 +84,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
                     const priceValue = itemData.system.price.value;
                     const priceCoins =
-                        typeof priceValue === "string" ? CoinsPF2e.fromString(priceValue) : new CoinsPF2e(priceValue);
+                        typeof priceValue === "string" ? Coins.fromString(priceValue) : new Coins(priceValue);
                     const coinValue = priceCoins.copperValue;
 
                     // Prepare publication source
@@ -215,8 +215,8 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 upper = upper.replaceAll(translated, english);
             }
             return {
-                min: CoinsPF2e.fromString(lower).copperValue,
-                max: CoinsPF2e.fromString(upper).copperValue,
+                min: Coins.fromString(lower).copperValue,
+                max: Coins.fromString(upper).copperValue,
                 inputMin: lower,
                 inputMax: upper,
             };

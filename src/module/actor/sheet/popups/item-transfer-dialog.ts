@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { PhysicalItemPF2e } from "@item";
-import { CoinsPF2e } from "@item/physical/coins.ts";
+import { Coins } from "@item/physical/coins.ts";
 import { htmlQuery } from "@util";
 import appv1 = foundry.appv1;
 
@@ -87,7 +87,7 @@ class ItemTransferDialog extends appv1.api.FormApplication<PhysicalItemPF2e, Mov
             const getQuantity = () => Math.clamp(Number(quantityInput?.value ?? 1), 1, this.item.quantity);
             const updatePrice = () => {
                 const quantity = Math.clamp(Number(quantityInput?.value ?? 1), 1, this.item.quantity);
-                const cost = CoinsPF2e.fromPrice(this.item.price, quantity);
+                const cost = Coins.fromPrice(this.item.price, quantity);
                 priceElement.innerText = `(${cost.toString()})`;
             };
 

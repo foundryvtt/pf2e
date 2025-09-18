@@ -1,5 +1,5 @@
 import type { CharacterPF2e } from "@actor";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Coins } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { OneToFour } from "@module/data.ts";
 import { calculateDC } from "@module/dc.ts";
@@ -23,7 +23,7 @@ function degreeOfSuccessLabel(degreeIndex: DegreeOfSuccessIndex): string {
     return game.i18n.localize(`PF2E.Check.Result.Degree.Check.${degreeSlug}`);
 }
 
-function coinsToString(coins: CoinsPF2e, degreeOfSuccess: DegreeOfSuccessIndex): string {
+function coinsToString(coins: Coins, degreeOfSuccess: DegreeOfSuccessIndex): string {
     if (degreeOfSuccess === 0) {
         return "none";
     } else {

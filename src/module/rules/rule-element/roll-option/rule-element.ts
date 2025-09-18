@@ -11,7 +11,7 @@ import { ErrorPF2e, sluggify } from "@util";
 import * as R from "remeda";
 import { RollOptionToggle } from "../../synthetics.ts";
 import { AELikeRuleElement } from "../ae-like.ts";
-import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import { RuleElement, RuleElementOptions } from "../base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
 import { Suboption, type RollOptionSchema } from "./data.ts";
 import fields = foundry.data.fields;
@@ -20,7 +20,7 @@ import fields = foundry.data.fields;
  * Set a roll option at a specificed domain
  * @category RuleElement
  */
-class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
+class RollOptionRuleElement extends RuleElement<RollOptionSchema> {
     /** True if this roll option has a suboptions configuration */
     hasSubOptions: boolean;
 
@@ -422,7 +422,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 
     /** Remove the parent effect if configured so */
-    override async afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
+    override async afterRoll({ domains, rollOptions }: RuleElement.AfterRollParams): Promise<void> {
         const option = this.#resolveOption({ withSuboption: true });
         if (
             !this.ignored &&
@@ -438,7 +438,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 }
 
-interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromRESchema<RollOptionSchema> {
+interface RollOptionRuleElement extends RuleElement<RollOptionSchema>, ModelPropsFromRESchema<RollOptionSchema> {
     value: boolean | string;
 }
 

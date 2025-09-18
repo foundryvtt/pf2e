@@ -6,8 +6,8 @@ import type {
     DeferredDamageDiceOptions,
     DeferredPromise,
     DeferredValue,
+    Modifier,
     ModifierAdjustment,
-    ModifierPF2e,
 } from "@actor/modifiers.ts";
 import type { MovementType } from "@actor/types.ts";
 import type { TokenAnimationOptions } from "@client/_module.d.mts";
@@ -76,7 +76,7 @@ interface RuleElementSynthetics {
     weaponPotency: Record<string, PotencySynthetic[]>;
 }
 
-type CritSpecEffect = (DamageDicePF2e | ModifierPF2e | RollNotePF2e)[];
+type CritSpecEffect = (DamageDicePF2e | Modifier | RollNotePF2e)[];
 type CritSpecSynthetic = (weapon: WeaponPF2e | MeleePF2e, options: Set<string>) => CritSpecEffect | null;
 
 type DamageDiceSynthetics = { damage: DeferredDamageDice[] } & Record<string, DeferredDamageDice[] | undefined>;
@@ -85,7 +85,7 @@ type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: Modifie
     string,
     ModifierAdjustment[] | undefined
 >;
-type DeferredModifier = DeferredValue<ModifierPF2e>;
+type DeferredModifier = DeferredValue<Modifier>;
 type DeferredDamageDice = (args: DeferredDamageDiceOptions) => DamageDicePF2e | null;
 type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
 type DeferredEphemeralEffect = DeferredPromise<EffectSource | ConditionSource | null>;

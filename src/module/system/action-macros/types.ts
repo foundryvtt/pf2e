@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
-import type { ModifierPF2e } from "@actor/modifiers.ts";
+import type { Modifier } from "@actor/modifiers.ts";
 import type { DCSlug } from "@actor/types.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type { ItemPF2e } from "@item";
@@ -34,7 +34,7 @@ interface CheckContextOptions<TItem extends ItemPF2e<ActorPF2e>> {
 
 interface CheckContextData<TItem extends ItemPF2e<ActorPF2e>> {
     item?: TItem;
-    modifiers?: ModifierPF2e[];
+    modifiers?: Modifier[];
     rollOptions: string[];
     slug: string;
     target?: ActorPF2e | null;
@@ -43,7 +43,7 @@ interface CheckContextData<TItem extends ItemPF2e<ActorPF2e>> {
 interface CheckMacroContext<TItem extends ItemPF2e<ActorPF2e>> {
     type: CheckType;
     item?: TItem;
-    modifiers?: ModifierPF2e[];
+    modifiers?: Modifier[];
     rollOptions: string[];
     slug: string;
     statistic: Statistic | (StrikeData & { rank?: number });
@@ -87,7 +87,7 @@ interface ActionDefaultOptions {
     event?: Event | null;
     actors?: ActorPF2e | ActorPF2e[];
     glyph?: ActionGlyph;
-    modifiers?: ModifierPF2e[];
+    modifiers?: Modifier[];
     callback?: (result: CheckResultCallback) => void;
 }
 

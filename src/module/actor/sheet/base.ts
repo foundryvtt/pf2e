@@ -14,7 +14,7 @@ import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import type { Coins } from "@item/physical/data.ts";
+import type { RawCoins } from "@item/physical/data.ts";
 import { sizeItemForActor } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
@@ -306,7 +306,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         }
     }
 
-    protected static coinsToSheetData(coins: Coins): CoinageSummary {
+    protected static coinsToSheetData(coins: RawCoins): CoinageSummary {
         return DENOMINATIONS.reduce(
             (accumulated, d) => ({
                 ...accumulated,

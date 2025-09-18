@@ -1,6 +1,6 @@
 import type { NPCPF2e } from "@actor";
 import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { createAbilityViewData } from "@actor/sheet/helpers.ts";
@@ -121,7 +121,7 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
             const args: StatisticRollParameters = {
                 ...eventToRollParams(event, { type: "check" }),
                 modifiers: [
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "variant",
                         label: variant.label,
                         modifier: variant.base - skill.base,

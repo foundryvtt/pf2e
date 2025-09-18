@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e, RawDamageDice } from "@actor/modifiers.ts";
+import { DamageDicePF2e, Modifier, RawDamageDice } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { extractDamageAlterations, extractModifierAdjustments } from "@module/rules/helpers.ts";
@@ -84,7 +84,7 @@ function applyBaseDamageAlterations({ actor, item, base, domains, rollOptions }:
                     term.dice.number = damage.diceNumber;
                     term.dice.faces = damage.dieSize ? damageDieSizeToFaces(damage.dieSize) : term.dice.faces;
                 } else if (term.modifier) {
-                    const modifier = new ModifierPF2e({
+                    const modifier = new Modifier({
                         label: "PF2E.ModifierTitle",
                         slug: "base",
                         modifier: term.modifier,
@@ -376,7 +376,7 @@ function processBaseDamage(
             : null;
     const modifier =
         unprocessed.modifier !== 0
-            ? new ModifierPF2e({
+            ? new Modifier({
                   slug: "base",
                   label: "Base",
                   damageCategory,
@@ -394,7 +394,7 @@ function processBaseDamage(
                   diceNumber: unprocessed.persistent.number,
                   dieSize: `d${unprocessed.persistent.faces}`,
               })
-            : new ModifierPF2e({
+            : new Modifier({
                   slug: "base-persistent",
                   label: "Base",
                   damageCategory: "persistent",
@@ -494,9 +494,9 @@ function getDamageDiceOverrideLabel(d: DamageDicePF2e | RawDamageDice): string {
 }
 
 export {
-    DamageCategorization,
     applyBaseDamageAlterations,
     applyDamageDiceOverrides,
+    DamageCategorization,
     damageDiceIcon,
     damageDieSizeToFaces,
     deepFindTerms,
