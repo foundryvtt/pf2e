@@ -824,9 +824,7 @@ async function applyActorGroupUpdate(
     }
 
     const changed = !!actorUpdates || itemCreates.length || itemUpdates.length || itemDeletes.length;
-    if (render && changed) {
-        actor.render();
-    }
+    if (changed && render) actor.render();
 }
 
 export {

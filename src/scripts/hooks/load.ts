@@ -20,6 +20,7 @@ import { HeritageSystemData } from "@item/heritage/data.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
 import { DoorControlPF2e } from "@module/canvas/door-control.ts";
 import { EnvironmentCanvasGroupPF2e } from "@module/canvas/group/environment.ts";
 import {
@@ -144,6 +145,8 @@ export class Load {
         for (const TermCls of [ArithmeticExpression, Grouping, InstancePool, IntermediateDie]) {
             CONFIG.Dice.termTypes[TermCls.name] = TermCls;
         }
+
+        CONFIG.queries["pf2e.trade"] = TradeDialog.handleQuery;
 
         // Add functions to the `Math` namespace for use in `Roll` formulas
         Math.eq = (a: number, b: number): boolean => a === b;

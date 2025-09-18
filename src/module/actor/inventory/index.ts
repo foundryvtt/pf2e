@@ -258,16 +258,17 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
             itemCreates.push(item instanceof ItemPF2e ? item.toObject() : item);
         }
 
-        const itemUpdates = Object.entries(newQuantities).map(([id, quantity]) => ({
-            _id: id,
+        const itemUpdates = Object.entries(newQuantities).map(([_id, quantity]) => ({
+            _id,
             "system.quantity": quantity,
         }));
-        applyActorGroupUpdate(this.actor, { itemCreates, itemUpdates });
+        return applyActorGroupUpdate(this.actor, { itemCreates, itemUpdates }, { render: options.render });
     }
 }
 
 interface AddItemOptions {
     stack?: boolean;
+    render?: boolean;
 }
 
 export { ActorInventory, InventoryBulk };

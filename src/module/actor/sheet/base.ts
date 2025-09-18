@@ -17,7 +17,7 @@ import { itemIsOfType } from "@item/helpers.ts";
 import type { RawCoins } from "@item/physical/data.ts";
 import { sizeItemForActor } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import {
     createSheetTags,
@@ -1095,7 +1095,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
     protected override async _onDropItem(
         event: DragEvent,
-        data: DropCanvasItemDataPF2e & { fromInventory?: boolean },
+        data: DropCanvasItemData & { fromInventory?: boolean },
     ): Promise<ItemPF2e[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) return [];
@@ -1128,12 +1128,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     protected async _handleDroppedItem(
         event: DragEvent,
         item: ItemPF2e<ActorPF2e | null>,
-        data: DropCanvasItemDataPF2e,
+        data: DropCanvasItemData,
     ): Promise<ItemPF2e<ActorPF2e | null>[]>;
     protected async _handleDroppedItem(
         event: DragEvent,
         item: ItemPF2e<ActorPF2e | null>,
-        data: DropCanvasItemDataPF2e,
+        data: DropCanvasItemData,
     ): Promise<Item<ActorPF2e | null>[]> {
         const actor = this.actor;
 
@@ -1275,36 +1275,30 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
     /**
      * Moves an item between two actors' inventories.
-     * @param event         Event that fired this method.
-     * @param sourceActorId ID of the actor who originally owns the item.
-     * @param targetActorId ID of the actor where the item will be stored.
-     * @param itemId           ID of the item to move between the two actors.
+     * @param event The triggering event
+     * @param item The item to move between the two actors
+     * @param recipient The receiving actor
      */
-    async moveItemBetweenActors(event: DragEvent, item: PhysicalItemPF2e, targetActor: ActorPF2e): Promise<void> {
+    async moveItemBetweenActors(event: DragEvent, item: PhysicalItemPF2e, recipient: ActorPF2e): Promise<void> {
         const sourceActor = item.actor;
-        if (!sourceActor || !targetActor) {
+        if (!sourceActor || !recipient) {
             throw ErrorPF2e("Unexpected missing actor(s)");
         }
 
         const containerId = htmlClosest(event.target, "[data-is-container]")?.dataset.containerId?.trim();
-        const stackable = !!targetActor.inventory.findStackableItem(item._source);
-        const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant;
+        const stackable = !!recipient.inventory.findStackableItem(item._source);
+        const mode = sourceActor.isOfType("loot") && sourceActor.isMerchant ? "purchase" : "move";
 
         // If more than one item can be moved, show a popup to ask how many to move
-        const result = await new ItemTransferDialog(item, {
-            targetActor,
-            lockStack: !stackable,
-            isPurchase,
-        }).resolve();
-
-        if (result !== null) {
+        const result = await new ItemTransferDialog({ item, recipient, lockStack: !stackable, mode }).resolve();
+        if (result) {
             sourceActor.transferItemToActor(
-                targetActor,
+                recipient,
                 item as PhysicalItemPF2e<ActorPF2e>,
                 result.quantity,
                 containerId,
                 result.newStack,
-                result.isPurchase,
+                result.mode === "purchase",
             );
         }
     }

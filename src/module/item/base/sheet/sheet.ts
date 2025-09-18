@@ -612,10 +612,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         return buttons;
     }
 
-    protected override _canDragDrop(_selector: string): boolean {
-        return this.item.isOwner;
-    }
-
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const expanded = fu.expandObject(formData) as DeepPartial<ItemSourcePF2e>;
 
