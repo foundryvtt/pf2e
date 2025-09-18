@@ -317,7 +317,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const totalEl = labelEl.querySelector(".total-measurement");
         if (!totalEl) throw ErrorPF2e("Unexpected failure to retrieve measurement HTML element");
         const distance = controlledToken.distanceTo(this);
-        if (distance < canvas.grid.distance) return;
+        if (distance < canvas.grid.distance) {
+            labelEl.hidden = true;
+            return;
+        }
         const label = [distance, canvas.scene?.grid.units ?? ""].join(" ").trim();
         totalEl.textContent = label;
         const center = this.center;

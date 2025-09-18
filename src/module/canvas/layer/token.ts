@@ -116,6 +116,16 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
             .endFill();
     }
 
+    protected override _activate(): void {
+        super._activate();
+        if (this.#hoverDistanceLine.destroyed) this.#hoverDistanceLine = new PIXI.Graphics();
+    }
+
+    protected override _deactivate(): void {
+        super._deactivate();
+        this.#hoverDistanceLine.clear();
+    }
+
     protected override _tearDown(options?: object): Promise<void> {
         this.#hoverDistanceLine.destroy();
         return super._tearDown(options);
