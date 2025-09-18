@@ -1,8 +1,8 @@
-import { ApplicationConfiguration, FormFooterButton } from "../_types.mjs";
+import { ApplicationConfiguration, ApplicationRenderContext, FormFooterButton } from "../_types.mjs";
 import { HandlebarsApplicationMixin, HandlebarsRenderOptions, HandlebarsTemplatePart } from "../api/_module.mjs";
 import ApplicationV2 from "../api/application.mjs";
 
-export interface CompendiumArtContext {
+export interface CompendiumArtContext extends ApplicationRenderContext {
     config: foundry.helpers.CompendiumArtDescriptor[];
     buttons: FormFooterButton[];
 }
