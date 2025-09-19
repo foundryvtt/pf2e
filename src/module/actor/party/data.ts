@@ -21,7 +21,7 @@ class PartySystemData extends ActorSystemModel<PartyPF2e, PartySystemSchema> {
         return {
             ...super.defineSchema(),
             details: new fields.SchemaField({
-                description: new fields.HTMLField({ required: true, nullable: false, blank: true, initial: "" }),
+                description: new fields.HTMLField({ required: true, nullable: false, initial: "" }),
                 members: new fields.ArrayField(
                     new fields.SchemaField({
                         uuid: new fields.DocumentUUIDField({ required: true, nullable: false, initial: undefined }),
@@ -86,7 +86,7 @@ interface PartySystemData
 
 type PartySystemSchema = ActorSystemSchema & {
     details: fields.SchemaField<{
-        description: fields.HTMLField<string, string, true, false, true>;
+        description: fields.HTMLField;
         members: fields.ArrayField<
             fields.SchemaField<{
                 uuid: fields.DocumentUUIDField<ActorUUID, true, false, false>;

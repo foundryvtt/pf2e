@@ -11,7 +11,7 @@ class LootSystemData extends ActorSystemModel<LootPF2e, LootSystemSchema> {
         return {
             ...super.defineSchema(),
             details: new fields.SchemaField({
-                description: new fields.HTMLField({ required: true, nullable: false, blank: true, initial: "" }),
+                description: new fields.HTMLField({ required: true, nullable: false, initial: "" }),
                 level: new fields.SchemaField({
                     value: new fields.NumberField({
                         required: true,
@@ -43,7 +43,7 @@ interface LootSystemData
 
 type LootSystemSchema = ActorSystemSchema & {
     details: fields.SchemaField<{
-        description: fields.HTMLField<string, string, true, false, true>;
+        description: fields.HTMLField;
         level: fields.SchemaField<{
             value: fields.NumberField<number, number, true, false, true>;
         }>;

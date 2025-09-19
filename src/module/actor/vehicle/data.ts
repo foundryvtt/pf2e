@@ -166,7 +166,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                 ),
             }),
             details: new fields.SchemaField({
-                description: blankableString(),
+                description: new fields.HTMLField({ required: true, nullable: false, initial: "" }),
                 level: new fields.SchemaField({
                     value: requiredInteger({ min: -1, initial: 0 }),
                 }),
@@ -296,7 +296,7 @@ type VehicleAttributesSchema = {
 type VehicleAttributesSource = fields.SourceFromSchema<VehicleAttributesSchema>;
 
 type VehicleDetailsSchema = {
-    description: fields.StringField<string, string, true, false, true>;
+    description: fields.HTMLField;
     level: fields.SchemaField<{
         value: fields.NumberField<number, number, true, false, true>;
     }>;
