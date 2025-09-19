@@ -91,12 +91,19 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     static async initiateTrade({ self, trader }: TradeRequestData): Promise<void> {
         TradeDialog.#userTrading = true;
         self.actor.render();
+
+        // Check for resolution without rendering application
         const giftQuantity =
             self.gift && self.item
                 ? (await new ItemTransferDialog({ recipient: trader.actor, item: self.item, mode: "gift" }).resolve())
                       ?.quantity
                 : 0;
-        if (self.gift && !giftQuantity) return; // Gifting cancelled
+        if (self.gift && !giftQuantity) {
+            // Gifting cancelled
+            TradeDialog.#userTrading = false;
+            return;
+        }
+
         const queryData: RequestQueryData = {
             action: "request",
             initiator: { user: game.user.uuid, actor: self.actor.uuid, item: self.item?.id, gift: giftQuantity },
