@@ -71,4 +71,4 @@ interface LootAttributes {
 }
 
 export { LootSystemData };
-export type { LootSource, LootSystemSource };
+export type { LootSource, LootSystemSchema, LootSystemSource };
