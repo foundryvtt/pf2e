@@ -379,8 +379,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const args = {
             self: { actor: selfActor, item, gift: event.shiftKey },
             trader: { user: traderUser, actor: traderActor },
+            checkReach: game.pf2e.settings.automation.reachEnforcement,
         };
-        return TradeDialog.canTrade(args) ? !!TradeDialog.initiateTrade(args) : false;
+        return TradeDialog.canTrade(args) ? !!TradeDialog.requestTrade(args) : false;
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */

@@ -245,18 +245,22 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
     protected override _getEntryContextOptions(): ContextMenuEntry[] {
         const entries = super._getEntryContextOptions();
-        const createTradeArgs = (traderActor: ActorPF2e, selfActor?: ActorPF2e | null): TradeRequestData | null => {
+        const createTradeArgs = (
+            traderActor: ActorPF2e,
+            selfActor: ActorPF2e | null = null,
+            checkReach = false,
+        ): TradeRequestData | null => {
             const token = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
             selfActor ??= token?.actor ?? game.user.character;
             if (!selfActor) return null;
             const owners = game.users
                 .filter((u) => u.active && !u.isSelf && traderActor.testUserPermission(u, "OWNER"))
-                .sort((a, b) => Number(b.hasPlayerOwner) - Number(a.hasPlayerOwner));
+                .sort((a, b) => Number(a.isGM) - Number(b.isGM));
             const assignee = owners.find((u) => u.character === traderActor);
             const traderUser = assignee ?? owners[0];
             if (!traderUser) return null;
             const args = { self: { actor: selfActor }, trader: { user: traderUser, actor: traderActor } };
-            return TradeDialog.canTrade(args) ? args : null;
+            return TradeDialog.canTrade(args, { checkReach }) ? args : null;
         };
         entries.push(
             {
@@ -272,10 +276,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
                     const selfActor =
                         token?.actor ??
                         game.user.character ??
-                        game.actors.find(
-                            (a) => a.isOwner && a !== actor && a.isOfType("character", "npc") && a.isAllyOf(actor),
-                        );
-
+                        game.actors.find((a) => a.isOwner && a.isOfType("character", "npc") && a.isAllyOf(actor));
                     return !!createTradeArgs(actor, selfActor);
                 },
                 callback: (li) => {
@@ -286,8 +287,9 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
                         return;
                     }
                     const traderActor = game.actors.get(li.dataset.entryId, { strict: true });
-                    const args = createTradeArgs(traderActor);
-                    if (args) TradeDialog.initiateTrade(args);
+                    const checkReach = game.pf2e.settings.automation.reachEnforcement.has("merchants");
+                    const args = createTradeArgs(traderActor, selfActor, checkReach);
+                    if (args) TradeDialog.requestTrade(args);
                 },
             },
             {

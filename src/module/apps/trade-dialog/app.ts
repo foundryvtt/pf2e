@@ -71,24 +71,41 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 
     /** Can the current user trade utilizing the provided trade-initiation data? */
-    static canTrade(args: MaybeTradeInitiationData): args is TradeRequestData {
+    static canTrade(args: MaybeTradeInitiationData, { checkReach = false } = {}): args is TradeRequestData {
         if (TradeDialog.#userTrading) return false;
-        if (game.paused && !game.user.isGM) return false;
         const { self, trader } = args;
-        if (foundry.applications.instances.has("trade-dialog")) return false;
-        if (!trader.user?.active || trader.user.isSelf) return false;
-        if (!self.actor?.isOwner || !self.actor.isOfType("character", "npc")) return false;
-        if (!self.actor.testUserPermission(game.user, "OWNER")) return false;
-        if (self.actor.uuid === trader.actor?.uuid) return false;
-        if (!trader.actor?.isOfType("character", "npc")) return false;
-        if (!self.actor.isAllyOf(trader.actor) && trader.actor.alliance !== null) return false;
+        const selfActor = self.actor;
+        const traderActor = trader.actor;
+        if (!traderActor?.isOfType("creature") || !trader.user?.active || trader.user.isSelf) return false;
+        if (!selfActor?.isOwner || !selfActor.isOfType("character", "npc")) return false;
+        if (!selfActor.testUserPermission(game.user, "OWNER")) return false;
+        if (selfActor.uuid === traderActor?.uuid) return false;
+        if (!selfActor.isOfType("character", "npc")) return false;
+        if (!selfActor.isAllyOf(traderActor) && traderActor.alliance !== null) return false;
         if (self.gift && !self.item) return false;
-        if (self.item && (!self.item.isOfType("physical") || !self.actor.inventory.has(self.item.id))) return false;
+        if (self.item && (!self.item.isOfType("physical") || !selfActor.inventory.has(self.item.id))) return false;
+        if (!checkReach || !canvas.grid.isSquare) return true;
+
+        const traderTokens = traderActor.getActiveTokens(true, false);
+        const selfReach = selfActor.system.attributes.reach.manipulate;
+        const traderReach = traderActor.system.attributes.reach.manipulate;
+        const inReach = selfActor.getActiveTokens(true, false).some((selfToken) =>
+            traderTokens.some((traderToken) => {
+                const distance = selfToken.distanceTo(traderToken);
+                return selfReach >= distance && traderReach >= distance;
+            }),
+        );
+        if (!inReach) {
+            const formatArgs = { self: selfActor.name, trader: traderActor.name };
+            const message = TradeDialog.localize("Error.OutOfReach", formatArgs);
+            ui.notifications.error(message);
+            return false;
+        }
         return true;
     }
 
-    /** Initiate a trade via user query. */
-    static async initiateTrade({ self, trader }: TradeRequestData): Promise<void> {
+    /** Request a trade via user query. */
+    static async requestTrade({ self, trader }: TradeRequestData): Promise<void> {
         TradeDialog.#userTrading = true;
         self.actor.render();
         const giftQuantity =
