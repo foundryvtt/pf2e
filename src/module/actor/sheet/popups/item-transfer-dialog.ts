@@ -1,38 +1,19 @@
 import type { ActorPF2e } from "@actor";
 import type { PhysicalItemPF2e } from "@item";
 import { Coins } from "@item/physical/coins.ts";
+import { ErrorPF2e, objectHasKey } from "@util";
 
-class ItemTransferDialog extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2<ItemTransferConfiguration>) {
-    constructor({ recipient, item, ...config }: ConstructorParams) {
-        super(config);
-        this.recipient = recipient;
-        this.item = item;
-        this.mode = this.options.mode;
-    }
-
+class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
     static override DEFAULT_OPTIONS: DeepPartial<ItemTransferConfiguration> = {
-        tag: "dialog",
         id: "item-transfer-dialog",
-        classes: ["dialog"],
         window: {
-            contentTag: "form",
             icon: "fa-solid fa-hand-holding-box",
             contentClasses: ["standard-form"],
-        },
-        form: {
-            submitOnChange: false,
-            closeOnSubmit: true,
-            handler: ItemTransferDialog.#onSubmit,
         },
         position: { width: 450 },
         newStack: false,
         lockStack: false,
         mode: "move",
-    };
-
-    static override PARTS = {
-        dialog: { template: "systems/pf2e/templates/popups/item-transfer-dialog.hbs", root: true },
-        footer: { template: "templates/generic/form-footer.hbs" },
     };
 
     static #MODE_ICONS = {
@@ -41,92 +22,85 @@ class ItemTransferDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Applic
         gift: "fa-solid fa-gift",
     };
 
-    readonly mode: ItemTransferMode;
-
-    readonly recipient: ActorPF2e;
-
-    readonly item: PhysicalItemPF2e;
-
-    override get title(): string {
-        return game.i18n.format(`PF2E.ItemTransferDialog.Title.${this.mode}`, { item: this.item.name });
-    }
-
-    get isPurchase(): boolean {
-        return this.mode === "purchase";
-    }
-
-    #resolve: ((value: ResolveParams | null) => void) | null = null;
+    /** The Dialog submission callback */
+    static #callback: fa.api.DialogV2ButtonCallback = (_event, button): ResolutionData => {
+        const form = button.closest("form");
+        if (!form) throw ErrorPF2e("Unexpected missing form");
+        const submitData = new fa.ux.FormDataExtended(form).object;
+        const quantity = Number(submitData.quantity) || 1;
+        const mode = objectHasKey(ItemTransferDialog.#MODE_ICONS, button.dataset.action)
+            ? button.dataset.action
+            : "move";
+        return { quantity, mode, newStack: !!submitData.newStack };
+    };
 
     protected override _initializeApplicationOptions(
         options: DeepPartial<ItemTransferConfiguration>,
     ): ItemTransferConfiguration {
         const initialized = super._initializeApplicationOptions(options) as ItemTransferConfiguration;
-        initialized.window.icon = ItemTransferDialog.#MODE_ICONS[initialized.mode];
+        initialized.window.icon = ItemTransferDialog.#MODE_ICONS[initialized.mode ?? "move"];
+        const mode = initialized.mode;
+        const itemName = initialized.item.name;
+        initialized.window.title = game.i18n.format(`PF2E.ItemTransferDialog.Title.${mode}`, { item: itemName });
         return initialized;
     }
 
-    protected override async _preparePartContext(
-        partId: string,
-        context: fa.ApplicationRenderContext,
-        options: fa.api.HandlebarsRenderOptions,
-    ): Promise<Partial<ItemTransferRenderContext>> {
-        const partContext: Partial<ItemTransferRenderContext> = await super._preparePartContext(
-            partId,
-            context,
-            options,
-        );
-        switch (partId) {
-            case "dialog": {
-                const mode = (partContext.mode = this.mode);
-                const actorName = this.recipient.name;
-                partContext.prompt = game.i18n.format(`PF2E.ItemTransferDialog.Prompt.${mode}`, { actor: actorName });
-                const item = (partContext.item = this.item);
-                const isAmmo = item.isOfType("consumable") && item.isAmmo;
-                partContext.quantity = this.isPurchase ? (isAmmo ? Math.min(10, item.quantity) : 1) : item.quantity;
-                partContext.newStack = this.options.newStack;
-                partContext.lockStack = this.options.lockStack;
-                partContext.rootId = this.id;
-                break;
-            }
-            case "footer": {
-                const buttons: fa.FormFooterButton[] = (partContext.buttons = []);
-                const action = this.mode;
-                if (this.isPurchase) {
-                    if (this.item.isOwner) {
-                        const icon = ItemTransferDialog.#MODE_ICONS.gift;
-                        const label = "PF2E.ItemTransferDialog.Button.gift";
-                        buttons.push({ type: "submit", icon, label, action: "move" });
-                    }
-                    const icon = ItemTransferDialog.#MODE_ICONS.purchase;
-                    const label = "PF2E.ItemTransferDialog.Button.purchase";
-                    buttons.push({ type: "submit", icon, label, action });
-                } else {
-                    const icon = ItemTransferDialog.#MODE_ICONS.gift;
-                    const label = `PF2E.ItemTransferDialog.Button.${action}`;
-                    buttons.push({ type: "submit", icon, label, action });
-                }
-            }
+    static override async wait(options: WaitParams): Promise<ResolutionData | null>;
+    static override async wait(options: WaitParams): Promise<unknown> {
+        const { item, mode = "move", newStack = false, lockStack = false } = options;
+
+        // Early resolution: single item and quaranteed to not be a purchase
+        if (item.quantity < 2 && (mode !== "purchase" || !item.isOwner)) {
+            return { quantity: item.quantity, newStack, mode };
         }
-        return partContext;
+
+        // Main content
+        const actorName = options.recipient.name;
+        const isAmmo = item.isOfType("consumable") && item.isAmmo;
+        const quantity = mode === "purchase" ? (isAmmo ? Math.min(10, item.quantity) : 1) : item.quantity;
+        const context = {
+            prompt: game.i18n.format(`PF2E.ItemTransferDialog.Prompt.${mode}`, { actor: actorName }),
+            item,
+            quantity,
+            newStack,
+            lockStack,
+            rootId: "item-transfer-dialog",
+        };
+        const content = document.createElement("div");
+        const templatePath = "systems/pf2e/templates/popups/item-transfer-dialog.hbs";
+        content.innerHTML = await fa.handlebars.renderTemplate(templatePath, context);
+
+        // Buttons
+        const buttons: fa.api.DialogV2Button[] = [];
+        const callback = ItemTransferDialog.#callback;
+        if (mode === "purchase") {
+            if (item.isOwner) {
+                const icon = ItemTransferDialog.#MODE_ICONS.gift;
+                const label = "PF2E.ItemTransferDialog.Button.gift";
+                buttons.push({ type: "button", icon, label, action: "move", callback });
+            }
+            const icon = ItemTransferDialog.#MODE_ICONS.purchase;
+            const label = "PF2E.ItemTransferDialog.Button.purchase";
+            buttons.push({ type: "submit", icon, label, action: mode, callback });
+        } else {
+            const icon = ItemTransferDialog.#MODE_ICONS.gift;
+            const label = `PF2E.ItemTransferDialog.Button.${mode}`;
+            buttons.push({ type: "submit", icon, label, action: mode, callback });
+        }
+
+        return super.wait(Object.assign(options, { item, mode, newStack, lockStack, content, buttons }));
     }
 
-    /**
-     * Shows the dialog and resolves how many to transfer and what action to perform.
-     * In situations where there are no choices (quantity is 1 and it's a player purchasing), this returns immediately.
-     */
-    async resolve(): Promise<ResolveParams | null> {
-        if (this.item.quantity < 2 && !(this.isPurchase && this.item.isOwner)) {
-            return {
-                quantity: this.item.quantity,
-                newStack: this.options.newStack,
-                mode: this.mode,
-            };
-        }
+    static override async confirm(): Promise<never> {
+        throw ErrorPF2e("The item transfer dialog must be utilized via the static wait method.");
+    }
 
-        this.render({ force: true });
-        return new Promise((resolve) => {
-            this.#resolve = resolve;
-        });
+    static override async prompt(): Promise<never> {
+        throw ErrorPF2e("The item transfer dialog must be utilized via the static wait method.");
+    }
+
+    static override async query(): Promise<never> {
+        throw ErrorPF2e("The item transfer dialog must be utilized via the static wait method.");
     }
 
     protected override async _onRender(
@@ -146,12 +120,13 @@ class ItemTransferDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Applic
     }
 
     #renderPurchasePrice(): void {
-        if (!this.isPurchase) return;
+        const { mode, item } = this.options;
+        if (mode !== "purchase") return;
         const quantityInput = this.element.querySelector<fa.elements.HTMLRangePickerElement>("input[name=quantity]");
         const purchaseButton = this.element.querySelector("button[data-action=purchase]");
         if (!quantityInput || !purchaseButton) return;
-        const quantity = Math.clamp(Number(quantityInput.value) || 1, 1, this.item.quantity);
-        const cost = Coins.fromPrice(this.item.price, quantity);
+        const quantity = Math.clamp(Number(quantityInput.value) || 1, 1, item.quantity);
+        const cost = Coins.fromPrice(item.price, quantity);
         const span =
             purchaseButton.querySelector("span[data-price]") ??
             purchaseButton.insertAdjacentElement("beforeend", document.createElement("span"));
@@ -159,24 +134,6 @@ class ItemTransferDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Applic
             span.dataset.price = "";
             span.textContent = `(${cost.toString()})`;
         }
-    }
-
-    static async #onSubmit(
-        this: ItemTransferDialog,
-        event: SubmitEvent,
-        _form: HTMLFormElement,
-        formData: fa.ux.FormDataExtended & ResolveParams,
-    ): Promise<void> {
-        const submitData = formData.object;
-        const isMerchantGift = this.isPurchase && event.submitter?.dataset.action === "move";
-        const mode = this.isPurchase && isMerchantGift ? "move" : this.mode;
-        this.#resolve?.({ quantity: Number(submitData.quantity) || 1, newStack: !!submitData.newStack, mode });
-        this.#resolve = null;
-    }
-
-    override async close(options?: fa.ApplicationClosingOptions): Promise<this> {
-        this.#resolve?.(null);
-        return super.close(options);
     }
 }
 
@@ -188,19 +145,19 @@ class ItemTransferDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Applic
  */
 type ItemTransferMode = "move" | "purchase" | "gift";
 
-interface ItemTransferConfiguration extends fa.ApplicationConfiguration {
-    recipient: ActorPF2e;
+interface ItemTransferConfiguration extends fa.api.DialogV2Configuration {
     item: PhysicalItemPF2e;
+    recipient: ActorPF2e;
     mode: ItemTransferMode;
     newStack: boolean;
     lockStack: boolean;
 }
 
-interface ConstructorParams
+interface WaitParams
     extends DeepPartial<Omit<ItemTransferConfiguration, "recipient" | "item">>,
         Pick<ItemTransferConfiguration, "recipient" | "item"> {}
 
-interface ResolveParams {
+interface ResolutionData {
     quantity: number;
     newStack: boolean;
     mode: "move" | "purchase" | "gift";

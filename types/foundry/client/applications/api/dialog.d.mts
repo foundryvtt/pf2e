@@ -8,7 +8,7 @@ export default class DialogV2<
 > extends ApplicationV2<TConfig, TRenderOptions> {
     static override DEFAULT_OPTIONS: DeepPartial<DialogV2Configuration>;
 
-    override _initializeApplicationOptions(options: DeepPartial<TConfig>): TConfig;
+    protected override _initializeApplicationOptions(options: DeepPartial<TConfig>): TConfig;
 
     protected override _renderHTML(): Promise<HTMLFormElement>;
 
@@ -121,51 +121,71 @@ export default class DialogV2<
 export interface DialogV2Button {
     /** The button action identifier. */
     action: string;
+
     /** The button label. Will be localized. */
     label: string;
+
     /** FontAwesome icon classes. */
     icon?: string;
+
     /** CSS classes to apply to the button. */
     class?: string;
-    /** Whether this button represents the default action to take if the user
-     * submits the form without pressing a button, i.e. with an Enter keypress. */
-    default?: boolean;
+
+    /** CSS style to apply to the button. */
+    style?: Record<string, string>;
+
+    /** The button type. */
+    type?: string;
+
+    /** Whether the button is disabled */
+    disabled?: boolean;
+
     /**
-     * A function to invoke when the button is clicked. The value returned from
-     * this function will be used as the dialog's submitted value.  Otherwise,
-     * the button's identifier is used.
+     * Whether this button represents the default action to take if the user submits the form without pressing a button,
+     * i.e. with an Enter keypress.
+     */
+    default?: boolean;
+
+    /**
+     * A function to invoke when the button is clicked. The value returned from this function will be used as the
+     * dialog's submitted value. Otherwise, the button's identifier is used.
      */
     callback?: DialogV2ButtonCallback;
 }
 
 export interface DialogV2Configuration extends ApplicationConfiguration {
-    /**
-     * Modal dialogs prevent interaction with the rest of the UI until they are
-     * dismissed or submitted.
-     */
+    /** Modal dialogs prevent interaction with the rest of the UI until they are dismissed or submitted. */
     modal?: boolean;
+
     /** Button configuration. */
     buttons: DialogV2Button[];
-    /** The dialog content */
-    content?: string; // The dialog content
-    /** A function to invoke when the dialog is submitted. This will not be
-     * called if the dialog is dismissed
+
+    /**
+     * The dialog content: a HTML string or a <div> element. If string,
+     *     the content is cleaned with {@link foundry.utils.cleanHTML}.
+     *     Otherwise, the content is not cleaned.
+     */
+    content?: string | HTMLDivElement;
+
+    /**
+     * A function to invoke when the dialog is submitted. This will not be
+     *     called if the dialog is dismissed.
      */
     submit?: DialogV2SubmitCallback;
 }
 
 export interface DialogV2WaitOptions {
-    /**
-     * A synchronous function to invoke whenever the dialog is rendered.
-     */
+    /** A synchronous function to invoke whenever the dialog is rendered. */
     render?: DialogV2RenderCallback;
-    /**
-     * A synchronous function to invoke when the dialog is closed under any
-     * circumstances.
-     */
+
+    /** A synchronous function to invoke when the dialog is closed under any circumstances. */
     close?: DialogV2CloseCallback;
+
     /** Throw a Promise rejection if the dialog is dismissed. */
     rejectClose?: boolean;
+
+    /** Options forwarded to the dialog's render call. */
+    renderOptions?: ApplicationRenderOptions;
 }
 
 /**
@@ -178,7 +198,7 @@ export type DialogV2ButtonCallback = (
     event: PointerEvent | SubmitEvent,
     button: HTMLButtonElement,
     dialog: DialogV2,
-) => void | Promise<void> | Promise<unknown>;
+) => Promise<unknown> | unknown;
 
 /**
  * A dialog render handler method.

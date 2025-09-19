@@ -1290,7 +1290,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         const mode = sourceActor.isOfType("loot") && sourceActor.isMerchant ? "purchase" : "move";
 
         // If more than one item can be moved, show a popup to ask how many to move
-        const result = await new ItemTransferDialog({ item, recipient, lockStack: !stackable, mode }).resolve();
+        const result = await ItemTransferDialog.wait({ item, recipient, lockStack: !stackable, mode });
         if (result) {
             sourceActor.transferItemToActor(
                 recipient,

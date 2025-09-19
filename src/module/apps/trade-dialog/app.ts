@@ -93,8 +93,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         self.actor.render();
         const giftQuantity =
             self.gift && self.item
-                ? (await new ItemTransferDialog({ recipient: trader.actor, item: self.item, mode: "gift" }).resolve())
-                      ?.quantity
+                ? (await ItemTransferDialog.wait({ recipient: trader.actor, item: self.item, mode: "gift" }))?.quantity
                 : 0;
         if (self.gift && !giftQuantity) return; // Gifting cancelled
         const queryData: RequestQueryData = {
