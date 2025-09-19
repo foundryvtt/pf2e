@@ -1,12 +1,17 @@
 <p>{{prompt}}</p>
 
-<div class="form-group">
-    <label for="{{rootId}}-quantity">{{localize "PF2E.QuantityLabel"}}</label>
-    <div class="form-fields">
-        <range-picker id="{{rootId}}-quantity" name="quantity" value="{{quantity}}"
-                      min="1" max="{{item.quantity}}" step="1"></range-picker>
+<section class="transfer-data">
+    <img src="{{item.img}}" />
+    <span class="name">{{item.name}}</span>
+    <div class="form-group">
+        <label for="{{rootId}}-quantity">{{localize "PF2E.QuantityLabel"}}</label>
+        <div class="form-fields">
+            <range-picker id="{{rootId}}-quantity" name="quantity" value="{{quantity}}"
+                        min="1" max="{{item.quantity}}" step="1"></range-picker>
+        </div>
     </div>
-</div>
+</section>
+
 
 {{#if lockStack}}
     <input type="hidden" name="newStack" value="true" data-dtype="Boolean" />

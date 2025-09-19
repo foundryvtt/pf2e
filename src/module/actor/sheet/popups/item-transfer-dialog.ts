@@ -24,7 +24,7 @@ class ItemTransferDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Applic
             closeOnSubmit: true,
             handler: ItemTransferDialog.#onSubmit,
         },
-        position: { width: 420 },
+        position: { width: 450 },
         newStack: false,
         lockStack: false,
         mode: "move",

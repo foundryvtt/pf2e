@@ -2,4 +2,35 @@
     p {
         margin: 0;
     }
+
+    .transfer-data {
+        --input-height: 1.75rem;
+
+        column-gap: var(--space-12);
+        display: grid;
+        grid-template:
+            "img name" minmax(0, auto)
+            "img quantity" minmax(0, auto)
+            / 2.75rem auto;
+        padding: 0 var(--space-4);
+
+        img {
+            grid-area: img;
+            width: 2.75rem;
+            height: 2.75rem;
+            object-fit: contain;
+        }
+
+        .name {
+            grid-area: name;
+            font-size: var(--font-size-16);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        range-picker input[type="number"] {
+            font-size: 1em;
+        }
+    }
 }
