@@ -283,7 +283,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
                     const token = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
                     const selfActor = token?.actor ?? game.user.character;
                     if (!selfActor?.isOfType("character", "npc")) {
-                        ui.notifications.warn(TradeDialog.localize("SelectToken"));
+                        ui.notifications.warn(TradeDialog.localize("Error.SelectToken"));
                         return;
                     }
                     const traderActor = game.actors.get(li.dataset.entryId, { strict: true });

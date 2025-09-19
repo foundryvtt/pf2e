@@ -1,11 +1,12 @@
 import type { ActorPF2e, CharacterPF2e, CreaturePF2e, NPCPF2e } from "@actor";
-import type { ActorInventory } from "@actor/inventory/index.ts";
 import { ItemTransferDialog } from "@actor/sheet/popups/item-transfer-dialog.ts";
 import type { ActorUUID, UserUUID } from "@common/documents/_module.d.mts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, localizer } from "@util";
+import { traitSlugToObject } from "@util/tags.ts";
 import MiniSearch from "minisearch";
 import * as R from "remeda";
 import { CompendiumDirectoryPF2e } from "../sidebar/compendium-directory.ts";
@@ -15,7 +16,8 @@ import Root from "./app.svelte";
 class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     constructor({ self, trader, ...options }: ConstructorParams) {
         super(options);
-        this.#self = { actor: self.actor, initialMarked: self.item?.id ?? null, gift: self.gift ?? 0 };
+        const initiator = !!self.initiator;
+        this.#self = { actor: self.actor, initiator, initialMarked: self.item?.id ?? null, gift: self.gift ?? 0 };
         this.#self.actor.apps[this.id] = this;
         this.#trader = {
             user: trader.user,
@@ -46,7 +48,9 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     /** The present user's side of the trade */
     #self: {
-        actor: TradeActor;
+        actor: CreaturePF2e;
+        /** Whether this side initiated the trade */
+        initiator: boolean;
         /** The identifier of an initially-marked item */
         initialMarked: string | null;
         /** The number of items being gifted: a value greater than zero short-circuits the trade process. */
@@ -56,9 +60,9 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     /** The other user and their trade data */
     #trader: {
         user: UserPF2e;
-        actor: TradeActor;
+        actor: CreaturePF2e;
         /** A clone of the trader's inventory at the time of trade initiation */
-        items: PhysicalItemPF2e<TradeActor>[];
+        items: PhysicalItemPF2e<CreaturePF2e>[];
         /** The identifier of an initially-marked item */
         initialMarked: string | null;
         /** The number of items being gifted: a value greater than zero short-circuits the trade process. */
@@ -74,29 +78,31 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     static canTrade(args: MaybeTradeInitiationData, { checkReach = false } = {}): args is TradeRequestData {
         if (TradeDialog.#userTrading) return false;
         const { self, trader } = args;
-        const selfActor = self.actor;
         const traderActor = trader.actor;
         if (!traderActor?.isOfType("creature") || !trader.user?.active || trader.user.isSelf) return false;
-        if (!selfActor?.isOwner || !selfActor.isOfType("character", "npc")) return false;
-        if (!selfActor.testUserPermission(game.user, "OWNER")) return false;
-        if (selfActor.uuid === traderActor?.uuid) return false;
-        if (!selfActor.isOfType("character", "npc")) return false;
-        if (!selfActor.isAllyOf(traderActor) && traderActor.alliance !== null) return false;
+        if (!self.actor?.isOwner || !self.actor.isOfType("character", "npc")) return false;
+        if (!self.actor.testUserPermission(game.user, "OWNER")) return false;
+        if (self.actor.uuid === traderActor?.uuid) return false;
+        if (!self.actor.isOfType("character", "npc")) return false;
+        if (!self.actor.isAllyOf(traderActor) && traderActor.alliance !== null) return false;
         if (self.gift && !self.item) return false;
-        if (self.item && (!self.item.isOfType("physical") || !selfActor.inventory.has(self.item.id))) return false;
+        if (self.item) {
+            if (!self.item.isOfType("physical") || !self.actor.inventory.has(self.item.id)) return false;
+            if (self.item.quantity === 0) return false;
+        }
         if (!checkReach || !canvas.grid.isSquare) return true;
 
         const traderTokens = traderActor.getActiveTokens(true, false);
-        const selfReach = selfActor.system.attributes.reach.manipulate;
+        const selfReach = self.actor.system.attributes.reach.manipulate;
         const traderReach = traderActor.system.attributes.reach.manipulate;
-        const inReach = selfActor.getActiveTokens(true, false).some((selfToken) =>
+        const inReach = self.actor.getActiveTokens(true, false).some((selfToken) =>
             traderTokens.some((traderToken) => {
                 const distance = selfToken.distanceTo(traderToken);
                 return selfReach >= distance && traderReach >= distance;
             }),
         );
         if (!inReach) {
-            const formatArgs = { self: selfActor.name, trader: traderActor.name };
+            const formatArgs = { self: self.actor.name, trader: traderActor.name };
             const message = TradeDialog.localize("Error.OutOfReach", formatArgs);
             ui.notifications.error(message);
             return false;
@@ -131,9 +137,8 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             const response = await trader.user.query("pf2e.trade", queryData, { timeout: 30_000 });
             if (!response) throw ErrorPF2e("No response from other side.");
             if (response.ok) {
-                const dialog = new TradeDialog({ self: { ...self, gift: giftQuantity }, trader });
-                if (self.gift) return dialog.transact();
-                await dialog.render({ force: true });
+                const dialog = new TradeDialog({ self: { ...self, gift: giftQuantity, initiator: true }, trader });
+                await (self.gift ? dialog.close({ success: true }) : dialog.render({ force: true }));
             } else {
                 ui.notifications.error(response.message);
                 TradeDialog.#userTrading = false;
@@ -143,25 +148,6 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             TradeDialog.#userTrading = false;
         }
     }
-
-    static handleQuery = async (data: TradeQueryData): Promise<TradeQueryResponse> => {
-        switch (data.action) {
-            case "request":
-                return TradeDialog.#userTrading
-                    ? { ok: false, message: TradeDialog.localize("Error.Engaged", { user: game.user.name }) }
-                    : TradeDialog.#onRequest(data);
-            case "update": {
-                const dialog = foundry.applications.instances.get("trade-dialog");
-                return dialog instanceof TradeDialog
-                    ? dialog.#onUpdate(data)
-                    : { ok: false, message: TradeDialog.localize("Error.NotTrading", { user: game.user.name }) };
-            }
-            case "abort":
-                return TradeDialog.#onAbort(data);
-            default:
-                throw ErrorPF2e("Unrecognized trade query action");
-        }
-    };
 
     static #validateConstructorParams(data: MaybeValidConstructorParams): asserts data is ConstructorParams {
         const { self, trader } = data;
@@ -190,10 +176,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             ...R.pick(item, ["id", "name", "img", "quantity"]),
             marked: Math.clamp(marked, 0, item.quantity),
             matchScore: 1,
-            visible:
-                item.actor === selfActor ||
-                game.user.isGM ||
-                ((otherActor.alliance === null || otherActor.isAllyOf(selfActor)) && !item.isStowed),
+            visible: item.actor === selfActor || game.user.isGM || (otherActor.isAllyOf(selfActor) && !item.isStowed),
         };
     }
 
@@ -251,12 +234,11 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 
     #prepareItems(
-        trader: { actor: TradeActor; initialMarked: string | null },
+        trader: { actor: CreaturePF2e; initialMarked: string | null },
         current: TradeItemData[],
     ): TradeItemData[] {
         const initial = trader.initialMarked;
-        const inventory: ActorInventory<CreaturePF2e> = trader.actor.inventory;
-        const data = inventory
+        const data = trader.actor.inventory
             .filter((i) => i.quantity > 0)
             .map((item) => {
                 const itemData = current.find((i) => i.id === item.id);
@@ -275,9 +257,9 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 
     /** Create, update and/or delete items following a successful trade. */
-    async transact(state = this.$state): Promise<void> {
-        if (R.isEmpty(state)) return this.#transactGift();
-        const selfActor: CreaturePF2e = this.#self.actor;
+    async #transact(): Promise<void> {
+        const state = this.$state;
+        const selfActor = this.#self.actor;
         if (!state.trader.accepted) throw ErrorPF2e(`${this.#trader.user.name} hasn't accepted the trade`);
         const receivedQuantities = R.mapToObj(
             state.trader.items.filter((i) => i.marked > 0),
@@ -310,20 +292,18 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
         this.#trader.actor.render();
         selfActor.render();
-        this.close({ success: true });
     }
 
     /** Create a state object with gift data, to be used in lieu of data created during dialog render. */
-    #transactGift(): Promise<void> {
-        const selfActor: CreaturePF2e = this.#self.actor;
-        const traderActor: CreaturePF2e = this.#trader.actor;
+    #setGiftData(): void {
         if (!this.#self.gift && !this.#trader.gift) {
             throw ErrorPF2e("Cannot perform gift transaction: nothing marked for gifting");
         }
-        return this.transact({
+        const traderActor = this.#trader.actor;
+        this.$state = {
             self: {
-                actor: R.pick(selfActor, ["id", "img", "name"]),
-                items: [selfActor.inventory.get(this.#self.initialMarked ?? "")]
+                actor: R.pick(this.#self.actor, ["id", "img", "name"]),
+                items: [this.#self.actor.inventory.get(this.#self.initialMarked ?? "")]
                     .filter(R.isDefined)
                     .map((i) => this.#itemToData(i, this.#self.gift)),
                 accepted: true,
@@ -339,31 +319,113 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     .map((i) => this.#itemToData(i, this.#trader.gift)),
                 accepted: true,
             },
+        };
+    }
+
+    /** Create and send an appropriate notification upon successful conclusion of a trade. */
+    #notifySuccess(itemsExchanged: boolean): void {
+        const self = this.#self;
+        const selfName = self.actor.name;
+        const trader = this.#trader;
+        const traderName = TradeDialog.#getObfuscatedActorName(trader.actor);
+        if (self.gift) {
+            ui.notifications.success(TradeDialog.localize("Gift.Accepted", { trader: traderName }));
+        } else if (trader.gift) {
+            ui.notifications.success(TradeDialog.localize("Gift.Received", { self: selfName, trader: traderName }));
+        } else if (itemsExchanged) {
+            const message = TradeDialog.localize("Success.Finished", { self: selfName, trader: traderName });
+            ui.notifications.success(message);
+        } else {
+            ui.notifications.info(TradeDialog.localize("Success.NoItems"));
+        }
+    }
+
+    async #postMessage(itemsExchanged: boolean): Promise<void> {
+        const self = this.#self;
+        const trader = this.#trader;
+        if (!self.initiator || !itemsExchanged || !self.actor.combatant?.combat.started) return;
+        const receivedItems = !self.gift && this.$state.trader.items.some((i) => i.marked);
+        const mutualExchange = receivedItems && !trader.gift && this.$state.self.items.some((i) => i.marked);
+        const annotationKey = mutualExchange ? "ExchangeItems" : "GiveItem";
+        const subtitle = `PF2E.Actions.Interact.${annotationKey}.Title`;
+        const flavorData = {
+            action: { title: "PF2E.Actions.Interact.Title", subtitle, glyph: mutualExchange ? 2 : 1 },
+            traits: [traitSlugToObject("manipulate", CONFIG.PF2E.actionTraits)],
+        };
+        const templates = {
+            flavor: "systems/pf2e/templates/chat/action/flavor.hbs",
+            content: "systems/pf2e/templates/chat/action/content.hbs",
+        };
+        const itemExchanged = mutualExchange
+            ? null
+            : receivedItems
+              ? trader.actor.inventory.get(this.$state.trader.items.find((i) => i.marked)?.id ?? "")
+              : self.actor.inventory.get(this.$state.self.items.find((i) => i.marked)?.id ?? "");
+        const flavor = await fa.handlebars.renderTemplate(templates.flavor, flavorData);
+        const speakerActor = receivedItems && !mutualExchange ? trader.actor : self.actor;
+        const speaker = ChatMessagePF2e.getSpeaker({
+            actor: speakerActor,
+            token: speakerActor.token ?? speakerActor.getActiveTokens(true, true)[0],
+        });
+        const other = speakerActor === self.actor ? trader.actor : self.actor;
+        const content = await fa.handlebars.renderTemplate(templates.content, {
+            imgPath: itemExchanged?.img ?? "systems/pf2e/icons/actions/interact/trade.webp",
+            message: game.i18n.format(`PF2E.Actions.Interact.${annotationKey}.Description`, {
+                actor: speaker.alias,
+                other: TradeDialog.#getObfuscatedActorName(other),
+                item: itemExchanged?.name ?? game.i18n.localize("PF2E.Actions.Interact.GiveItem.AnItem"),
+            }),
+        });
+        await ChatMessagePF2e.create({
+            speaker,
+            flavor,
+            content,
+            style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
+            author: speakerActor === self.actor ? game.user.id : this.#trader.user.id,
         });
     }
 
-    override close(options: TradeDialogClosingOptions = {}): Promise<this> {
-        const self = this.#self;
-        const trader = this.#trader;
+    override async close(options: TradeDialogClosingOptions = {}): Promise<this> {
         if (options.success) {
-            const traderName = TradeDialog.#getObfuscatedActorName(trader.actor);
-            const message = self.gift
-                ? TradeDialog.localize("Gift.Accepted", { trader: traderName })
-                : trader.gift && trader.initialMarked
-                  ? TradeDialog.localize("Gift.Received", { self: self.actor.name, trader: traderName })
-                  : TradeDialog.localize("Success", { self: self.actor.name, trader: traderName });
-            ui.notifications.success(message);
+            if (this.#self.gift || this.#trader.gift) this.#setGiftData();
+            const itemsExchanged =
+                this.$state.self.items.some((i) => i.marked) || this.$state.trader.items.some((i) => i.marked);
+            this.#notifySuccess(itemsExchanged);
+            await this.#postMessage(itemsExchanged);
+            this.#transact();
         } else if (!options.aborted) {
+            const trader = this.#trader;
             const message = TradeDialog.localize("Aborted", { user: trader.user.name });
             trader.user.query("pf2e.trade", { action: "abort", message });
         }
         TradeDialog.#userTrading = false;
+        delete this.#self.actor.apps[this.id];
+        delete this.#trader.actor.apps[this.id];
         return super.close(options);
     }
 
     /* -------------------------------------------- */
-    /*  Query Handlers                              */
+    /*  Query Handling                              */
     /* -------------------------------------------- */
+
+    static handleQuery = async (data: TradeQueryData): Promise<TradeQueryResponse> => {
+        switch (data.action) {
+            case "request":
+                return TradeDialog.#userTrading
+                    ? { ok: false, message: TradeDialog.localize("Error.Engaged", { user: game.user.name }) }
+                    : TradeDialog.#onRequest(data);
+            case "update": {
+                const dialog = foundry.applications.instances.get("trade-dialog");
+                return dialog instanceof TradeDialog
+                    ? dialog.#onUpdate(data)
+                    : { ok: false, message: TradeDialog.localize("Error.NotTrading", { user: game.user.name }) };
+            }
+            case "abort":
+                return TradeDialog.#onAbort(data);
+            default:
+                throw ErrorPF2e("Unrecognized trade query action");
+        }
+    };
 
     /** Handle a trade request from another user. */
     static async #onRequest(data: RequestQueryData): Promise<TradeQueryResponse> {
@@ -382,7 +444,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const dialog = new TradeDialog(args);
         const initiatorName = TradeDialog.#getObfuscatedActorName(args.trader.actor);
 
-        // Prompt to transfer a gift
+        // Confirm to accept a gift
         if (args.trader.item && args.trader.gift) {
             const { user, item, gift: quantity } = args.trader;
             const title = TradeDialog.localize("Gift.Prompt.Title", { trader: initiatorName });
@@ -398,10 +460,10 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 yes: { default: true },
             });
             if (ok) {
-                dialog.transact();
+                dialog.close({ success: true });
                 return { ok };
             }
-            TradeDialog.#userTrading = false;
+            dialog.close({ aborted: true });
             const selfName = TradeDialog.#getObfuscatedActorName(args.self.actor, args.trader.user);
             return { ok, message: TradeDialog.localize("Gift.Declined", { trader: selfName, user: user.name }) };
         }
@@ -430,8 +492,6 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     /** Handle a trade-update query from another user. */
     async #onUpdate(data: UpdateQueryData): Promise<TradeQueryResponse> {
-        const dialog = foundry.applications.instances.get("trade-dialog");
-        if (!dialog) return { ok: false, message: TradeDialog.localize("Error.NotTrading", { user: game.user.name }) };
         const trader = this.$state.trader;
         if (typeof data.accepted === "boolean") trader.accepted = data.accepted;
         if (data.marked) {
@@ -441,7 +501,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 itemData.marked = data.marked[itemId] ?? 0;
             }
         }
-        if (data.accepted && this.$state.self.accepted) this.transact();
+        if (data.accepted && this.$state.self.accepted) this.close({ success: true });
         return { ok: true };
     }
 
@@ -466,7 +526,7 @@ interface MaybeValidConstructorParams extends DeepPartial<fa.ApplicationConfigur
 }
 
 interface ConstructorParams extends MaybeValidConstructorParams {
-    self: { actor: TradeActor; item?: PhysicalItemPF2e<TradeActor> | null; gift?: number };
+    self: { actor: TradeActor; initiator?: boolean; item?: PhysicalItemPF2e<TradeActor> | null; gift?: number };
     trader: { user: UserPF2e; actor: TradeActor; item?: PhysicalItemPF2e<TradeActor> | null; gift?: number };
 }
 

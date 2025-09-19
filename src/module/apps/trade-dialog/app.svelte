@@ -13,7 +13,7 @@
     const listFormatter = game.i18n.getListFormatter({ style: "narrow" });
     const selfItems = $derived(
         self.items
-            .filter((i) => i.visible && i.matchScore > 0)
+            .filter((i) => i.matchScore > 0)
             .sort((a, b) => b.matchScore - a.matchScore || a.name.localeCompare(b.name, game.i18n.lang)),
     );
     const withQuantity = (i: { quantity: number; marked: number; name: string }) =>
@@ -54,7 +54,7 @@
                 .filter((i) => i.marked > 0)
                 .map((i) => [i.id, i.marked]),
         );
-        if (self.accepted && trader.accepted) dialog.transact();
+        if (self.accepted && trader.accepted) dialog.close({ success: true });
         sendQuery({ action: "update", marked, accepted: self.accepted });
     }
 

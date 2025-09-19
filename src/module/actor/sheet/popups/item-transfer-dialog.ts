@@ -62,6 +62,7 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
             prompt: game.i18n.format(`PF2E.ItemTransferDialog.Prompt.${mode}`, { actor: actorName }),
             item,
             quantity,
+            mode,
             newStack,
             lockStack,
             rootId: "item-transfer-dialog",
