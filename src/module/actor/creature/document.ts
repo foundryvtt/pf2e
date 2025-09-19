@@ -551,7 +551,7 @@ abstract class CreaturePF2e<
             );
             if (container) await item.actor.stowOrUnstow(item, container);
         } else if (carryType === "attached" && item.quantity > 0) {
-            await new ItemAttacher({ item }).resolveSelection();
+            await new ItemAttacher({ item }).render({ force: true });
         } else {
             const equipped: EquippedData = {
                 carryType: carryType,
