@@ -1,10 +1,10 @@
 import type { ActorType } from "@actor/types.ts";
 import { ErrorPF2e } from "@util";
 import { ModelPropsFromRESchema } from "./data.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import { RuleElement, RuleElementSchema } from "./index.ts";
 import fields = foundry.data.fields;
 
-class ActorTraitsRuleElement extends RuleElementPF2e<ActorTraitsRuleSchema> {
+class ActorTraitsRuleElement extends RuleElement<ActorTraitsRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "vehicle"];
 
     static override defineSchema(): ActorTraitsRuleSchema {
@@ -73,7 +73,7 @@ type ActorTraitsRuleSchema = RuleElementSchema & {
 };
 
 interface ActorTraitsRuleElement
-    extends RuleElementPF2e<ActorTraitsRuleSchema>,
+    extends RuleElement<ActorTraitsRuleSchema>,
         ModelPropsFromRESchema<ActorTraitsRuleSchema> {}
 
 export { ActorTraitsRuleElement };

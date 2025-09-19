@@ -1,4 +1,4 @@
-import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
+import { MODIFIER_TYPES, Modifier, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { ApplicationV1Options } from "@client/appv1/api/application-v1.d.mts";
 import type { RollMode } from "@common/constants.d.mts";
 import type { RollSubstitution } from "@module/rules/synthetics.ts";
@@ -22,7 +22,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
     isResolved = false;
 
     /** A set of originally enabled modifiers to circumvent hideIfDisabled for manual disables */
-    #originallyEnabled: Set<ModifierPF2e>;
+    #originallyEnabled: Set<Modifier>;
 
     constructor(
         check: StatisticModifier,
@@ -164,7 +164,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
             if (errors.length > 0) {
                 ui.notifications.error(errors.join(" "));
             } else {
-                this.check.push(new ModifierPF2e(name, value, type));
+                this.check.push(new Modifier(name, value, type));
                 this.render();
             }
         });

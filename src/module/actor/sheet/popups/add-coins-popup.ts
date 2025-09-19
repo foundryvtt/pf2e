@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor/base.ts";
-import { Coins } from "@item/physical/data.ts";
+import { RawCoins } from "@item/physical/data.ts";
 import appv1 = foundry.appv1;
 
-interface AddCoinsFormData extends Coins {
+interface AddCoinsFormData extends RawCoins {
     combineStacks: boolean;
 }
 

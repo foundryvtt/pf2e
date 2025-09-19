@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e, createAttributeModifier } from "@actor/modifiers.ts";
+import { DamageDicePF2e, Modifier, createAttributeModifier } from "@actor/modifiers.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
@@ -45,7 +45,7 @@ class WeaponDamagePF2e {
 
         // Collect damage dice and modifiers from secondary damage instances
         const damageDice: DamageDicePF2e[] = [];
-        const modifiers: ModifierPF2e[] = [];
+        const modifiers: Modifier[] = [];
         const labelFromCategory = {
             null: "",
             persistent: "",
@@ -71,7 +71,7 @@ class WeaponDamagePF2e {
             }
             if (instance.modifier) {
                 modifiers.push(
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "base",
                         label: labelFromCategory[instance.category ?? "null"],
                         modifier: instance.modifier,
@@ -158,7 +158,7 @@ class WeaponDamagePF2e {
         if (splashDamage > 0) {
             const slug = hasScatterTrait ? "scatter" : "splash";
             const label = `PF2E.Trait${sluggify(slug, { camel: "bactrian" })}`;
-            const modifier = new ModifierPF2e({
+            const modifier = new Modifier({
                 slug,
                 label,
                 modifier: splashDamage,
@@ -173,7 +173,7 @@ class WeaponDamagePF2e {
             if (weaponTraits.includes("kickback")) {
                 // For NPCs, subtract from the base damage and add back as an untype bonus
                 modifiers.push(
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "kickback",
                         label: CONFIG.PF2E.weaponTraits.kickback,
                         modifier: 1,
@@ -200,14 +200,14 @@ class WeaponDamagePF2e {
         })();
 
         if (critSpecEffect.length > 0) options.add("critical-specialization");
-        modifiers.push(...critSpecEffect.filter((e): e is ModifierPF2e => e instanceof ModifierPF2e));
+        modifiers.push(...critSpecEffect.filter((e): e is Modifier => e instanceof Modifier));
         damageDice.push(...critSpecEffect.filter((e): e is DamageDicePF2e => e instanceof DamageDicePF2e));
 
         // Property Runes
         const propertyRunes = weapon.system.runes.property;
         const runeDamage = getPropertyRuneDamage(weapon, propertyRunes, options);
         damageDice.push(...runeDamage.filter((d): d is DamageDicePF2e => "diceNumber" in d));
-        modifiers.push(...runeDamage.filter((d): d is ModifierPF2e => "modifier" in d));
+        modifiers.push(...runeDamage.filter((d): d is Modifier => "modifier" in d));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
 
         const irBypassData: DamageIRBypassData = {
@@ -220,7 +220,7 @@ class WeaponDamagePF2e {
 
         // Backstabber trait
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:off-guard")) {
-            const modifier = new ModifierPF2e({
+            const modifier = new Modifier({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
                 slug: "backstabber",
                 modifier: weaponPotency > 2 ? 2 : 1,
@@ -306,14 +306,14 @@ class WeaponDamagePF2e {
         // Forceful trait
         if (weaponTraits.some((t) => t === "forceful") && weapon.isOfType("weapon")) {
             modifiers.push(
-                new ModifierPF2e({
+                new Modifier({
                     slug: "forceful-second",
                     label: "PF2E.Item.Weapon.Forceful.Second",
                     modifier: weapon._source.system.damage.dice + strikingDice,
                     type: "circumstance",
                     ignored: true,
                 }),
-                new ModifierPF2e({
+                new Modifier({
                     slug: "forceful-third",
                     label: "PF2E.Item.Weapon.Forceful.Third",
                     modifier: 2 * (weapon._source.system.damage.dice + strikingDice),
@@ -325,7 +325,7 @@ class WeaponDamagePF2e {
 
         // Tearing trait
         if (weaponTraits.some((t) => t === "tearing")) {
-            const modifier = new ModifierPF2e({
+            const modifier = new Modifier({
                 label: CONFIG.PF2E.weaponTraits.tearing,
                 slug: "tearing",
                 modifier: strikingDice > 1 ? 2 : 1,
@@ -338,7 +338,7 @@ class WeaponDamagePF2e {
         // Twin trait
         if (weaponTraits.some((t) => t === "twin") && weapon.isOfType("weapon")) {
             modifiers.push(
-                new ModifierPF2e({
+                new Modifier({
                     slug: "twin-second",
                     label: "PF2E.Item.Weapon.Twin.SecondPlus",
                     modifier: weapon._source.system.damage.dice + strikingDice,
@@ -350,7 +350,7 @@ class WeaponDamagePF2e {
 
         // Venomous trait
         if (weaponTraits.some((t) => t === "venomous")) {
-            const modifier = new ModifierPF2e({
+            const modifier = new Modifier({
                 label: CONFIG.PF2E.weaponTraits.venomous,
                 slug: "venomous",
                 modifier: strikingDice > 1 ? 2 : 1,
@@ -547,7 +547,7 @@ interface WeaponDamageCalculateParams {
     actor: ActorPF2e;
     weaponPotency?: number;
     damageDice?: DamageDicePF2e[];
-    modifiers?: ModifierPF2e[];
+    modifiers?: Modifier[];
     context: DamageDamageContext;
 }
 
@@ -559,7 +559,7 @@ interface NPCStrikeCalculateParams {
 
 interface ExcludeDamageParams {
     actor: ActorPF2e;
-    modifiers: (DamageDicePF2e | ModifierPF2e)[];
+    modifiers: (DamageDicePF2e | Modifier)[];
     weapon: WeaponPF2e | null;
     options: Set<string>;
 }

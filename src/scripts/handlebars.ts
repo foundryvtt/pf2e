@@ -1,5 +1,5 @@
-import type { Coins, PartialPrice } from "@item/physical/data.ts";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import type { PartialPrice, RawCoins } from "@item/physical/data.ts";
+import { Coins } from "@item/physical/helpers.ts";
 import { getActionGlyph, ordinalString, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 
@@ -102,13 +102,13 @@ export function registerHandlebarsHelpers(): void {
         return signedInteger(number, { emptyStringZero, zeroIsNegative });
     });
 
-    Handlebars.registerHelper("coinLabel", (value: Maybe<Coins | PartialPrice>): CoinsPF2e | null => {
+    Handlebars.registerHelper("coinLabel", (value: Maybe<RawCoins | PartialPrice>): Coins | null => {
         if (!value) return null;
         if ("value" in value) {
             // todo: handle per pricing
-            return new CoinsPF2e(value.value);
+            return new Coins(value.value);
         }
-        return new CoinsPF2e(value);
+        return new Coins(value);
     });
 
     Handlebars.registerHelper("includes", (data: unknown, element: unknown): boolean => {

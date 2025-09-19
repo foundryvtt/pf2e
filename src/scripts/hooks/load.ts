@@ -54,7 +54,6 @@ import {
 } from "@scene/index.ts";
 import { DifficultTerrainBehaviorType } from "@scene/region-behavior/difficult-terrain.ts";
 import { PrototypeTokenConfigPF2e } from "@scene/token-document/index.ts";
-import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
 import { ClientDatabaseBackendPF2e } from "@system/client-backend.ts";
@@ -66,8 +65,6 @@ import * as R from "remeda";
 /** Not an actual hook listener but rather things to run on initial load */
 export class Load {
     static listen(): void {
-        CONFIG.PF2E = PF2ECONFIG;
-
         // Assign database backend to handle migrations
         CONFIG.DatabaseBackend = new ClientDatabaseBackendPF2e();
 

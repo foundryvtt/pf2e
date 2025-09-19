@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ItemPF2e, PhysicalItemPF2e, type SpellPF2e } from "@item";
@@ -201,11 +201,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 check: {
                     type: "attack-roll",
                     domains: checkDomains,
-                    modifiers: [new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseMod })],
+                    modifiers: [new Modifier({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseMod })],
                 },
                 dc: {
                     domains: dcDomains,
-                    modifiers: [new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseDC - 10 })],
+                    modifiers: [new Modifier({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseDC - 10 })],
                 },
             });
         } else {

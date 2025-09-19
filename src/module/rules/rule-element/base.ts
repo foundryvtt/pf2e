@@ -1,5 +1,5 @@
 import type { ActorPF2e, ActorType } from "@actor";
-import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import type { CheckModifier, DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import type {
     DatabaseCreateOperation,
@@ -25,8 +25,10 @@ import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from 
  *
  * @category RuleElement
  */
-abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends foundry.abstract
-    .DataModel<ItemPF2e<ActorPF2e>, TSchema> {
+abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema> extends foundry.abstract.DataModel<
+    ItemPF2e<ActorPF2e>,
+    TSchema
+> {
     declare static _schema: LaxSchemaField<RuleElementSchema> | undefined;
 
     declare label: string;
@@ -416,10 +418,10 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 }
 
-interface RuleElementPF2e<TSchema extends RuleElementSchema>
+interface RuleElement<TSchema extends RuleElementSchema>
     extends foundry.abstract.DataModel<ItemPF2e<ActorPF2e>, TSchema>,
         ModelPropsFromSchema<RuleElementSchema> {
-    constructor: typeof RuleElementPF2e<TSchema>;
+    constructor: typeof RuleElement<TSchema>;
 
     get schema(): LaxSchemaField<TSchema>;
 
@@ -454,7 +456,7 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
      * @param domains Applicable predication domains for pending check
      * @param rollOptions Currently accumulated roll options for the pending check
      */
-    afterRoll?(params: RuleElementPF2e.AfterRollParams): Promise<void>;
+    afterRoll?(params: RuleElement.AfterRollParams): Promise<void>;
 
     /** Runs before the rule's parent item's owning actor is updated */
     preUpdateActor?(): Promise<{ create: ItemSourcePF2e[]; delete: string[] }>;
@@ -464,14 +466,14 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
      * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
      * manner.
      */
-    preCreate?({ ruleSource, itemSource, pendingItems, operation }: RuleElementPF2e.PreCreateParams): Promise<void>;
+    preCreate?({ ruleSource, itemSource, pendingItems, operation }: RuleElement.PreCreateParams): Promise<void>;
 
     /**
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
      * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
      * manner.
      */
-    preDelete?({ pendingItems, operation }: RuleElementPF2e.PreDeleteParams): Promise<void>;
+    preDelete?({ pendingItems, operation }: RuleElement.PreDeleteParams): Promise<void>;
 
     /**
      * Runs before this rules element's parent item is updated */
@@ -512,11 +514,11 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
     onDelete?(actorUpdates: Record<string, unknown>): void;
 
     /** An optional method for excluding damage modifiers and extra dice */
-    applyDamageExclusion?(weapon: WeaponPF2e, modifiers: (DamageDicePF2e | ModifierPF2e)[]): void;
+    applyDamageExclusion?(weapon: WeaponPF2e, modifiers: (DamageDicePF2e | Modifier)[]): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
-namespace RuleElementPF2e {
+namespace RuleElement {
     export interface PreCreateParams<T extends RuleElementSource = RuleElementSource> {
         /** The source partial of the rule element's parent item to be created */
         itemSource: ItemSourcePF2e;
@@ -564,4 +566,4 @@ interface RuleElementOptions extends DataModelConstructionContext<ItemPF2e<Actor
     suppressWarnings?: boolean;
 }
 
-export { RuleElementPF2e, type RuleElementOptions };
+export { RuleElement, type RuleElementOptions };

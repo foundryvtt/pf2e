@@ -1,12 +1,12 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
+import { Modifier } from "@actor/modifiers.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.Steal";
 
 function steal(options: SkillActionOptions): void {
     const modifiers = [
-        new ModifierPF2e({
+        new Modifier({
             label: "PF2E.Actions.Steal.Pocketed",
             modifier: -5,
             predicate: ["action:steal:pocketed"],
@@ -51,4 +51,4 @@ const action = new SingleCheckAction({
     traits: ["manipulate"],
 });
 
-export { steal as legacy, action };
+export { action, steal as legacy };

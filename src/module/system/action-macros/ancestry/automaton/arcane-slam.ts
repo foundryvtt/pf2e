@@ -1,5 +1,5 @@
 import { CreaturePF2e } from "@actor";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { Predicate } from "@system/predication.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../../index.ts";
@@ -18,7 +18,7 @@ export function arcaneSlam(options: SkillActionOptions): void {
                 const attackerSize = opts.actor.system.traits.size;
                 const targetSize = opts.target.system.traits.size;
                 const sizeDifference = attackerSize.difference(targetSize);
-                const sizeModifier = new ModifierPF2e(
+                const sizeModifier = new Modifier(
                     "PF2E.Actions.ArcaneSlam.Modifier.SizeDifference",
                     Math.clamp(2 * sizeDifference, -4, 4),
                     "circumstance",

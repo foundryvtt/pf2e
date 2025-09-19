@@ -2,7 +2,7 @@ import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import type { DataField, SourceFromSchema } from "@common/data/fields.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { isBracketedValue } from "@module/rules/helpers.ts";
-import { RuleElements, type RuleElementPF2e, type RuleElementSource } from "@module/rules/index.ts";
+import { RuleElements, type RuleElement, type RuleElementSource } from "@module/rules/index.ts";
 import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { LaxSchemaField } from "@system/schema-data-fields.ts";
@@ -11,7 +11,7 @@ import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import type { ItemSheetPF2e } from "../index.ts";
 
-interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e | null> {
+interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElement | null> {
     sheet: ItemSheetPF2e<ItemPF2e>;
     index: number;
     rule: TSource;
@@ -21,7 +21,7 @@ interface RuleElementFormOptions<TSource extends RuleElementSource, TObject exte
 /** Base Rule Element form handler. Form handlers intercept sheet events to support new UI */
 class RuleElementForm<
     TSource extends RuleElementSource = RuleElementSource,
-    TObject extends RuleElementPF2e | null = RuleElementPF2e | null,
+    TObject extends RuleElement | null = RuleElement | null,
 > {
     template = "systems/pf2e/templates/items/rules/default.hbs";
 
@@ -418,7 +418,7 @@ function cleanPredicate(source: { predicate?: unknown }) {
     }
 }
 
-interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElementPF2e | null>
+interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElement | null>
     extends Omit<RuleElementFormOptions<TSource, TObject>, "sheet"> {
     item: ItemPF2e;
     label: string;

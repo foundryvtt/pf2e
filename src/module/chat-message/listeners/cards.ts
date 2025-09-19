@@ -5,7 +5,7 @@ import { SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import { PhysicalItemPF2e, type ItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Coins } from "@item/physical/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
@@ -222,7 +222,7 @@ class ChatCards {
                 await onRepairChatCardEvent(event, message, buttonGroup);
             } else if (physicalItem && action === "pay-crafting-costs") {
                 const quantity = Number(buttonGroup?.dataset.craftingQuantity) || 1;
-                const craftingCost = CoinsPF2e.fromPrice(physicalItem.price, quantity);
+                const craftingCost = Coins.fromPrice(physicalItem.price, quantity);
                 const coinsToRemove = button.classList.contains("full") ? craftingCost : craftingCost.scale(0.5);
                 if (!(await actor.inventory.removeCoins(coinsToRemove))) {
                     ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
@@ -264,7 +264,7 @@ class ChatCards {
                     speaker: { alias: actor.name },
                 });
             } else if (physicalItem && action === "lose-materials") {
-                const craftingCost = CoinsPF2e.fromPrice(physicalItem.price, quantity);
+                const craftingCost = Coins.fromPrice(physicalItem.price, quantity);
                 const materialCosts = craftingCost.scale(0.5);
                 const coinsToRemove = materialCosts.scale(0.1);
                 if (!(await actor.inventory.removeCoins(coinsToRemove))) {

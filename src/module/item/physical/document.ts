@@ -15,7 +15,7 @@ import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
-import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
+import { RuleElement, RuleElementOptions } from "@module/rules/index.ts";
 import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
 import { createHTMLElement, ErrorPF2e, isObject, localizer, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -31,13 +31,7 @@ import type {
     PhysicalSystemData,
     Price,
 } from "./data.ts";
-import {
-    CoinsPF2e,
-    computeLevelRarityPrice,
-    getDefaultEquipStatus,
-    handleHPChange,
-    prepareBulkData,
-} from "./helpers.ts";
+import { Coins, computeLevelRarityPrice, getDefaultEquipStatus, handleHPChange, prepareBulkData } from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
@@ -129,11 +123,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** The monetary value of the entire item stack */
-    get assetValue(): CoinsPF2e {
-        const baseValue = CoinsPF2e.fromPrice(this.price, this.quantity);
+    get assetValue(): Coins {
+        const baseValue = Coins.fromPrice(this.price, this.quantity);
         return this.isSpecific
             ? baseValue
-            : this.subitems.reduce((total, i) => total.plus(CoinsPF2e.fromPrice(i.price, i.quantity)), baseValue);
+            : this.subitems.reduce((total, i) => total.plus(Coins.fromPrice(i.price, i.quantity)), baseValue);
     }
 
     get identificationStatus(): IdentificationStatus {
@@ -273,7 +267,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         // Temporary: prevent noise from items pre migration 746
         if (typeof this.system.price.value === "string") {
-            this.system.price.value = CoinsPF2e.fromString(this.system.price.value);
+            this.system.price.value = Coins.fromString(this.system.price.value);
         }
 
         // Ensure infused items are always temporary
@@ -281,7 +275,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (traits.includes("infused")) this.system.temporary = true;
 
         // Normalize and fill price data
-        this.system.price.value = new CoinsPF2e(this.system.temporary ? {} : this.system.price.value);
+        this.system.price.value = new Coins(this.system.temporary ? {} : this.system.price.value);
         this.system.price.per = Math.max(1, this.system.price.per ?? 1);
         this.system.price.sizeSensitive ??= true;
 
@@ -412,7 +406,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         }
     }
 
-    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElementPF2e[] {
+    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElement[] {
         const rules = super.prepareRuleElements(options);
         if (this.actor?.canHostRuleElements) {
             for (const subitem of this.subitems) {

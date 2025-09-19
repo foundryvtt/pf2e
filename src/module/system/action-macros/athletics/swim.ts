@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.Swim";
 
@@ -8,7 +8,7 @@ function swim(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:swim"];
     const modifiers = (options?.modifiers ?? []).concat(
-        new ModifierPF2e({
+        new Modifier({
             slug: "swim-speed",
             label: `${PREFIX}.Modifier.SwimSpeed`,
             modifier: 4,
@@ -69,4 +69,4 @@ const action = new SingleCheckAction({
     traits: ["move"],
 });
 
-export { swim as legacy, action };
+export { action, swim as legacy };

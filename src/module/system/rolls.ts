@@ -1,4 +1,4 @@
-import type { ModifierPF2e } from "@actor/modifiers.ts";
+import type { Modifier } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import type { RollMode } from "@common/constants.d.mts";
 import type { AbilityTrait } from "@item/ability/types.ts";
@@ -28,7 +28,7 @@ interface RollParameters {
     /** Callback called when the roll occurs. */
     callback?: (roll: dice.Rolled<Roll>) => void | Promise<void>;
     /** Additional modifiers */
-    modifiers?: ModifierPF2e[];
+    modifiers?: Modifier[];
     /** Whether to create a message from the roll */
     createMessage?: boolean;
 }

@@ -23,7 +23,7 @@ import {
 import { objectHasKey, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
-import { ResolvableValueField, RuleElementPF2e } from "../index.ts";
+import { ResolvableValueField, RuleElement } from "../index.ts";
 import { adjustCreatureShieldData, getNewInterval, itemHasCounterBadge } from "./helper.ts";
 import fields = foundry.data.fields;
 import validation = foundry.data.validation;
@@ -56,12 +56,12 @@ class ItemAlterationHandler<TSchema extends AlterationSchema> extends fields.Sch
      */
     isValid(data: {
         item: ItemPF2e | ItemSourcePF2e;
-        rule: RuleElementPF2e;
+        rule: RuleElement;
         fromEquipment: boolean;
         alteration: MaybeAlterationData;
     }): data is {
         item: ItemOrSource<fields.SourceFromSchema<TSchema>["itemType"]>;
-        rule: RuleElementPF2e;
+        rule: RuleElement;
         fromEquipment: boolean;
         alteration: fields.SourceFromSchema<TSchema>;
     } {
@@ -94,7 +94,7 @@ type MaybeAlterationData = { mode: string; itemType: string; value: unknown };
 
 interface AlterationApplicationData {
     item: ItemPF2e | ItemSourcePF2e;
-    rule: RuleElementPF2e;
+    rule: RuleElement;
     fromEquipment: boolean;
     alteration: MaybeAlterationData;
 }

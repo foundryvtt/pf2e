@@ -53,7 +53,7 @@ type CheckRollCallback = (
     event: Event | null,
 ) => Promise<void> | void;
 
-class CheckPF2e {
+class Check {
     /** Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down. */
     static async roll(
         check: CheckModifier,
@@ -581,8 +581,8 @@ class CheckPF2e {
         }
 
         const renders = {
-            old: await CheckPF2e.renderReroll(oldRoll, { isOld: true, resource }),
-            new: await CheckPF2e.renderReroll(newRoll, { isOld: false, resource }),
+            old: await Check.renderReroll(oldRoll, { isOld: true, resource }),
+            new: await Check.renderReroll(newRoll, { isOld: false, resource }),
         };
 
         const rerollIcon = fontAwesomeIcon(
@@ -939,5 +939,5 @@ interface CreateTagFlavorParams {
     extraTags: string[];
 }
 
-export { CheckPF2e };
+export { Check };
 export type { CheckRollCallback };

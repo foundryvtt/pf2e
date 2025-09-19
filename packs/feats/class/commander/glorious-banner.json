@@ -25,7 +25,39 @@
             "remaster": true,
             "title": "Pathfinder Battlecry!"
         },
-        "rules": [],
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "alterations": [
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "glorious-banner"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Commander's Banner"
+                    },
+                    {
+                        "affects": "enemies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Glorious Banner"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "commanders-banner"
+                ],
+                "radius": 60,
+                "slug": "commanders-banner",
+                "traits": [
+                    "emotion",
+                    "mental",
+                    "visual",
+                    "aura"
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

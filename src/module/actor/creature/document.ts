@@ -2,7 +2,7 @@ import { ActorPF2e, type PartyPF2e } from "@actor";
 import type { HitPointsSummary } from "@actor/base.ts";
 import { CORE_RESOURCES } from "@actor/character/values.ts";
 import type { CreatureSource } from "@actor/data/index.ts";
-import { MODIFIER_TYPES, ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
+import { Modifier, MODIFIER_TYPES, RawModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
@@ -347,7 +347,7 @@ abstract class CreaturePF2e<
         const customModifiers = (this.system.customModifiers ??= {});
         for (const selector of Object.keys(customModifiers)) {
             customModifiers[selector] = customModifiers[selector].map(
-                (rawModifier: RawModifier) => new ModifierPF2e(rawModifier),
+                (rawModifier: RawModifier) => new Modifier(rawModifier),
             );
         }
 
@@ -601,7 +601,7 @@ abstract class CreaturePF2e<
         const modifiers = customModifiers[stat] ?? [];
         if (!modifiers.some((m) => m.label === label)) {
             const modifierType = setHasElement(MODIFIER_TYPES, type) ? type : "untyped";
-            const modifier = new ModifierPF2e({
+            const modifier = new Modifier({
                 label,
                 modifier: value,
                 type: modifierType,
@@ -739,7 +739,7 @@ abstract class CreaturePF2e<
      * Prepare this creature's movement data
      * @param modifiers Modifiers in addition to those extracted
      */
-    prepareMovementData(modifiers: ModifierPF2e[] = []): void {
+    prepareMovementData(modifiers: Modifier[] = []): void {
         const baseSpeed = this.system.movement.speeds.land.base;
         const landSpeed = new SpeedStatistic(this, { type: "land", base: baseSpeed, modifiers });
         this.system.movement.speeds.land.value = landSpeed.value;

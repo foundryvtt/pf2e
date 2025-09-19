@@ -1,5 +1,5 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import type { ArmorPF2e, WeaponPF2e } from "@item";
 import { ZeroToThree } from "@module/data.ts";
 import type { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier.ts";
@@ -39,7 +39,7 @@ class AutomaticBonusProgression {
             const modifiers = (synthetics.modifiers["saving-throw"] ??= []);
             modifiers.push(
                 () =>
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "save-potency",
                         label: "PF2E.AutomaticBonusProgression.savePotency",
                         modifier: save,
@@ -52,7 +52,7 @@ class AutomaticBonusProgression {
             const modifiers = (synthetics.modifiers["ac"] ??= []);
             modifiers.push(
                 () =>
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "defense-potency",
                         label: "PF2E.AutomaticBonusProgression.defensePotency",
                         modifier: ac,
@@ -65,7 +65,7 @@ class AutomaticBonusProgression {
             const modifiers = (synthetics.modifiers["perception"] ??= []);
             modifiers.push(
                 () =>
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "perception-potency",
                         label: "PF2E.AutomaticBonusProgression.perceptionPotency",
                         modifier: perception,
@@ -81,7 +81,7 @@ class AutomaticBonusProgression {
                 const modifiers = (synthetics.modifiers["strike-attack-roll"] ??= []);
                 modifiers.push(
                     () =>
-                        new ModifierPF2e({
+                        new Modifier({
                             slug: "attack-potency",
                             label: "PF2E.AutomaticBonusProgression.attackPotency",
                             modifier: attack,

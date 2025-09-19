@@ -22,7 +22,7 @@ import {
 import { localizer, objectHasKey, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import { RuleElement, RuleElementOptions } from "../base.ts";
 import { ModelPropsFromRESchema } from "../data.ts";
 import {
     AllowedDropsData,
@@ -41,7 +41,7 @@ import fields = foundry.data.fields;
  * Present a set of options to the user and assign their selection to an injectable property
  * @category RuleElement
  */
-class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
+class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
     declare choices: UninflatedChoiceSet;
     declare flag: string;
     declare allowedDrops: AllowedDropsData | null;
@@ -184,7 +184,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         itemSource,
         ruleSource,
         tempItems,
-    }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
+    }: RuleElement.PreCreateParams<ChoiceSetSource>): Promise<void> {
         if (this.selection === null && R.isObjectType(this.choices) && "query" in this.choices) {
             this.failValidation("As of FVTT version 11, choice set queries are no longer supported.");
             for (const ruleData of this.item.system.rules) {
@@ -586,6 +586,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 }
 
-interface ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema>, ModelPropsFromRESchema<ChoiceSetSchema> {}
+interface ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema>, ModelPropsFromRESchema<ChoiceSetSchema> {}
 
 export { ChoiceSetRuleElement };

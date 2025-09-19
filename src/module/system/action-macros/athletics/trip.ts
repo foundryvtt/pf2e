@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { CheckContextData, CheckContextOptions, CheckMacroContext } from "@system/action-macros/types.ts";
@@ -32,7 +32,7 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         }
         if (item.traits.has("ranged-trip")) {
             modifiers.push(
-                new ModifierPF2e({
+                new Modifier({
                     slug: "ranged-trip",
                     adjustments: extractModifierAdjustments(
                         opts.actor.synthetics.modifierAdjustments,

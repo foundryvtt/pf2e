@@ -10,7 +10,7 @@ import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import { AnyChoiceField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import { createBatchRuleElementUpdate } from "../helpers.ts";
-import { RuleElementPF2e, type RuleElementOptions } from "./base.ts";
+import { RuleElement, type RuleElementOptions } from "./base.ts";
 import {
     ModelPropsFromRESchema,
     ResolvableValueField,
@@ -21,7 +21,7 @@ import fields = foundry.data.fields;
 
 const INVALID_RESOURCES: (keyof CharacterResources)[] = [...CORE_RESOURCES, "crafting", "infusedReagents"];
 
-class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> {
+class SpecialResourceRuleElement extends RuleElement<SpecialResourceSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     constructor(source: SpecialResourceSource, options: RuleElementOptions) {
@@ -118,7 +118,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
     }
 
     /** If an item uuid is specified, create it when this resource is first attached */
-    override async preCreate({ tempItems, pendingItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
+    override async preCreate({ tempItems, pendingItems }: RuleElement.PreCreateParams): Promise<void> {
         if (!this.test()) return;
 
         if (this.itemUUID) {
@@ -218,7 +218,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
 }
 
 interface SpecialResourceRuleElement
-    extends RuleElementPF2e<SpecialResourceSchema>,
+    extends RuleElement<SpecialResourceSchema>,
         ModelPropsFromRESchema<SpecialResourceSchema> {
     slug: string;
     max: number;

@@ -9,7 +9,7 @@ import type {
 import type { UserAction } from "@common/constants.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
 import type { ItemType } from "@item/base/data/index.ts";
-import { RuleElementPF2e } from "@module/rules/index.ts";
+import { RuleElement } from "@module/rules/index.ts";
 import type { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";
@@ -84,7 +84,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Only prepare rule elements for non-physical items (in case campaign items exist) */
-    protected override prepareRuleElements(): RuleElementPF2e<RuleElementSchema>[] {
+    protected override prepareRuleElements(): RuleElement<RuleElementSchema>[] {
         return this.items.contents
             .filter((item) => !item.isOfType("physical"))
             .flatMap((item) => item.prepareRuleElements())

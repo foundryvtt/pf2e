@@ -1,6 +1,6 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import type { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
 import { EffectPF2e, ItemProxyPF2e } from "@item";
 import type { ItemCarryType } from "@item/physical/index.ts";
@@ -46,7 +46,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
         }
     }
 
-    static override createAttackModifiers({ item, domains }: CreateAttackModifiersParams): ModifierPF2e[] {
+    static override createAttackModifiers({ item, domains }: CreateAttackModifiersParams): Modifier[] {
         const actor = item.actor;
         if (!actor) throw ErrorPF2e("The weapon must be embedded");
 
@@ -60,7 +60,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
                     // (pre-remaster language)
                     // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with
                     // 14 or more Strength ignore the penalty."
-                    return new ModifierPF2e({
+                    return new Modifier({
                         slug: unannotatedTrait,
                         label: CONFIG.PF2E.weaponTraits.kickback,
                         modifier: -2,
@@ -70,7 +70,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
                     });
                 }
                 case "improvised": {
-                    return new ModifierPF2e({
+                    return new Modifier({
                         slug: unannotatedTrait,
                         label: this.getLabel(trait),
                         modifier: -2,
@@ -367,10 +367,10 @@ function getWeaponProficiencyRank(actor: CharacterPF2e, weapon: WeaponPF2e, item
 }
 
 /** Create a penalty for attempting to Force Open without a crowbar or equivalent tool */
-function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): ModifierPF2e {
+function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): Modifier {
     const slug = "no-crowbar";
     const { modifierAdjustments } = actor.synthetics;
-    return new ModifierPF2e({
+    return new Modifier({
         slug,
         label: "PF2E.Actions.ForceOpen.NoCrowbarPenalty",
         type: "item",
@@ -385,12 +385,12 @@ function createShoddyPenalty(
     actor: ActorPF2e,
     item: WeaponPF2e | ArmorPF2e | null,
     domains: string[],
-): ModifierPF2e | null {
+): Modifier | null {
     if (!actor.isOfType("character") || !item?.isShoddy) return null;
 
     const slug = "shoddy";
 
-    return new ModifierPF2e({
+    return new Modifier({
         label: "PF2E.Item.Physical.OtherTag.Shoddy",
         type: "item",
         slug,
@@ -405,10 +405,10 @@ function createShoddyPenalty(
  * the armor's Speed penalty, and affects you even if your Strength or an ability lets you reduce or ignore the armor's
  * Speed penalty."
  */
-function createHinderingPenalty(actor: CharacterPF2e): ModifierPF2e | null {
+function createHinderingPenalty(actor: CharacterPF2e): Modifier | null {
     const slug = "hindering";
     return actor.wornArmor?.traits.has(slug)
-        ? new ModifierPF2e({
+        ? new Modifier({
               label: "PF2E.TraitHindering",
               type: "untyped",
               slug,
@@ -423,14 +423,14 @@ function createHinderingPenalty(actor: CharacterPF2e): ModifierPF2e | null {
  * "While wearing the armor, you take a –1 penalty to initiative checks. If you don't meet the armor's required Strength
  * score, this penalty increases to be equal to the armor's check penalty if it's worse."
  */
-function createPonderousPenalty(actor: CharacterPF2e): ModifierPF2e | null {
+function createPonderousPenalty(actor: CharacterPF2e): Modifier | null {
     const armor = actor.wornArmor;
     const slug = "ponderous";
     if (!armor?.traits.has(slug)) return null;
 
     const penaltyValue = actor.abilities.str.mod >= (armor.strength ?? -Infinity) ? -1 : armor.checkPenalty || -1;
 
-    return new ModifierPF2e({
+    return new Modifier({
         label: "PF2E.TraitPonderous",
         type: "untyped",
         slug,

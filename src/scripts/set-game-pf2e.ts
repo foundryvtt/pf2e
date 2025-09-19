@@ -1,13 +1,13 @@
 import { Action } from "@actor/actions/index.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
-import { CheckModifier, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { CoinsPF2e, generateItemName } from "@item/physical/helpers.ts";
+import { CheckModifier, Modifier, StatisticModifier } from "@actor/modifiers.ts";
+import { Coins, generateItemName } from "@item/physical/helpers.ts";
 import { CompendiumBrowser } from "@module/apps/compendium-browser/browser.ts";
 import { EffectsPanel } from "@module/apps/effects-panel.ts";
 import { WorldClock } from "@module/apps/world-clock/index.ts";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
-import { RuleElementPF2e } from "@module/rules/index.ts";
+import { RuleElement, RuleElements } from "@module/rules/index.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import {
     calculateXP,
@@ -29,7 +29,7 @@ import {
 } from "@scripts/macros/index.ts";
 import { remigrate } from "@scripts/system/remigrate.ts";
 import { ActionMacros, SystemActions } from "@system/action-macros/index.ts";
-import { CheckPF2e } from "@system/check/check.ts";
+import { Check } from "@system/check/check.ts";
 import { ConditionManager } from "@system/conditions/index.ts";
 import { EffectTracker } from "@system/effect-tracker.ts";
 import { ModuleArt } from "@system/module-art.ts";
@@ -70,15 +70,17 @@ export const SetGamePF2e = {
         } as const;
 
         const initSafe: Partial<(typeof game)["pf2e"]> = {
-            Check: CheckPF2e,
+            Check: Check,
             CheckModifier,
-            Coins: CoinsPF2e,
+            Coins: Coins,
             ConditionManager,
             Dice: DicePF2e,
             ElementalBlast,
-            Modifier: ModifierPF2e,
+            Modifier: Modifier,
             ModifierType: MODIFIER_TYPE,
             Predicate: Predicate,
+            RuleElement: RuleElement,
+            RuleElements: RuleElements,
             StatisticModifier: StatisticModifier,
             StatusEffects: StatusEffects,
             TextEditor: TextEditorPF2e,
@@ -99,11 +101,7 @@ export const SetGamePF2e = {
             system: { generateItemName, moduleArt: new ModuleArt(), remigrate, sluggify },
             variantRules: { AutomaticBonusProgression },
         };
-        game.pf2e = Object.assign(game.pf2e ?? {}, initSafe);
-        Object.defineProperties(game.pf2e, {
-            RuleElement: { get: () => RuleElementPF2e },
-            RuleElements: { get: () => CONFIG.PF2E.RuleElements },
-        });
+        game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);
 
         const campaignType = game.settings.get("pf2e", "campaignType");
         game.pf2e.settings = {

@@ -4,7 +4,7 @@ import type { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { MovementType, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { UserAction } from "@common/constants.d.mts";
@@ -156,11 +156,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             });
             synthetics.modifiers.hp.push(
                 () =>
-                    new ModifierPF2e(
-                        "PF2E.NPC.Adjustment.EliteLabel",
-                        this.getHpAdjustment(baseLevel, "elite"),
-                        "untyped",
-                    ),
+                    new Modifier("PF2E.NPC.Adjustment.EliteLabel", this.getHpAdjustment(baseLevel, "elite"), "untyped"),
             );
         } else if (this.isWeak) {
             modifierAdjustments.all.push({
@@ -170,7 +166,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             });
             synthetics.modifiers.hp.push(
                 () =>
-                    new ModifierPF2e(
+                    new Modifier(
                         "PF2E.NPC.Adjustment.WeakLabel",
                         this.getHpAdjustment(baseLevel, "weak") * -1,
                         "untyped",
@@ -186,7 +182,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Hit Points
         {
             const base = system.attributes.hp.max;
-            const modifiers: ModifierPF2e[] = [
+            const modifiers: Modifier[] = [
                 extractModifiers(synthetics, ["hp"], { test: this.getRollOptions(["hp"]) }),
                 extractModifiers(synthetics, ["hp-per-level"], {
                     test: this.getRollOptions(["hp-per-level"]),
@@ -215,7 +211,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Armor Class
         const armorStatistic = new ArmorStatistic(this, {
             modifiers: [
-                new ModifierPF2e({
+                new Modifier({
                     slug: "base",
                     label: "PF2E.ModifierTitle",
                     modifier: system.attributes.ac.value - 10,
@@ -240,7 +236,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 attribute: "wis",
                 domains,
                 modifiers: [
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
                         modifier: system.perception.mod,
@@ -297,7 +293,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 label: saveName,
                 domains: domains,
                 modifiers: [
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
                         modifier: base,
@@ -331,7 +327,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     ?.filter((v) => v.predicate?.length)
                     .map(
                         (special) =>
-                            new ModifierPF2e({
+                            new Modifier({
                                 slug: "variant",
                                 label: special.label,
                                 modifier: special.base - skill.base,
@@ -347,7 +343,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 attribute,
                 domains,
                 modifiers: [
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
                         modifier: skill?.base ?? this.system.abilities[attribute].mod,
@@ -375,7 +371,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 attribute: "int",
                 domains,
                 modifiers: [
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
                         modifier: loreItem.system.mod.value,

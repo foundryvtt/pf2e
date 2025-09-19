@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { EnrichmentOptions } from "@client/applications/ux/text-editor.d.mts";
@@ -875,7 +875,7 @@ function getCheckDC({
             params.type === "flat"
                 ? ["inline-flat-check-dc"]
                 : ["all", "inline-dc", idDomain, slugDomain].filter(R.isTruthy);
-        const modifier = new ModifierPF2e({
+        const modifier = new Modifier({
             slug: "base",
             label: "PF2E.ModifierTitle",
             modifier: base - 10,

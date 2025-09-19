@@ -13,7 +13,7 @@ import type {
 } from "@actor/creature/data.ts";
 import { ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import type { ModifierPF2e } from "@actor/modifiers.ts";
+import type { Modifier } from "@actor/modifiers.ts";
 import type { ActorAlliance, AttributeString, SaveType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type {
@@ -129,7 +129,7 @@ interface FamiliarSystemData
         ModelPropsFromSchema<FamiliarSystemSchema> {
     attributes: CreatureAttributes;
     details: FamiliarDetails;
-    customModifiers: Record<string, ModifierPF2e[]>;
+    customModifiers: Record<string, Modifier[]>;
 }
 
 type FamiliarSystemSchema = ActorSystemSchema & {

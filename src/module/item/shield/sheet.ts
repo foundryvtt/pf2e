@@ -1,6 +1,6 @@
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
-    CoinsPF2e,
+    Coins,
     MATERIAL_DATA,
     MaterialSheetData,
     PhysicalItemSheetData,
@@ -44,7 +44,7 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
         return {
             ...sheetData,
             baseHardness: shield._source.system.hardness,
-            basePrice: new CoinsPF2e(shield._source.system.price.value),
+            basePrice: new Coins(shield._source.system.price.value),
             baseTypes: sortStringRecord(CONFIG.PF2E.baseShieldTypes),
             canChangeMaterial: !shield.isSpecific || !!shield.system.material.type,
             preciousMaterials: this.getMaterialSheetData(shield, materialData),
@@ -90,7 +90,7 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
 
 interface ShieldSheetData extends PhysicalItemSheetData<ShieldPF2e> {
     baseHardness: number;
-    basePrice: CoinsPF2e;
+    basePrice: Coins;
     baseTypes: Record<BaseShieldType, string>;
     canChangeMaterial: boolean;
     preciousMaterials: MaterialSheetData;

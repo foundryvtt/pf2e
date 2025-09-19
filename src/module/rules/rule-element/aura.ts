@@ -7,7 +7,7 @@ import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { DataUnionField, LaxArrayField, PredicateField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { isImageOrVideoPath, sluggify } from "@util";
 import * as R from "remeda";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElement, RuleElementOptions } from "./base.ts";
 import {
     ModelPropsFromRESchema,
     ResolvableValueField,
@@ -19,7 +19,7 @@ import { ItemAlteration } from "./item-alteration/alteration.ts";
 import fields = foundry.data.fields;
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
-class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
+class AuraRuleElement extends RuleElement<AuraSchema> {
     constructor(source: AuraRuleElementSource, options: RuleElementOptions) {
         super(source, options);
         if (this.invalid) return;
@@ -358,7 +358,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     }
 }
 
-interface AuraRuleElement extends RuleElementPF2e<AuraSchema>, ModelPropsFromRESchema<AuraSchema> {
+interface AuraRuleElement extends RuleElement<AuraSchema>, ModelPropsFromRESchema<AuraSchema> {
     slug: string;
     effects: AuraEffectREData[];
 }

@@ -3,7 +3,7 @@ import { InitiativeData } from "@actor/data/base.ts";
 import { Immunity } from "@actor/data/iwr.ts";
 import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ConditionPF2e } from "@item";
@@ -112,7 +112,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                 label: CONFIG.PF2E.skills.stealth.label,
                 domains: ["stealth", `dex-based`, "skill-check", `dex-skill-check`, "all"],
                 modifiers: [
-                    new ModifierPF2e({
+                    new Modifier({
                         label: "PF2E.ModifierTitle",
                         slug: "base",
                         type: "untyped",
@@ -139,7 +139,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
 
         // Armor Class
         if (this.hasDefenses) {
-            const baseModifier = new ModifierPF2e({
+            const baseModifier = new Modifier({
                 slug: "base",
                 label: "PF2E.BaseModifier",
                 modifier: system.attributes.ac.value - 10,
@@ -193,7 +193,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                 attribute: CONFIG.PF2E.savingThrowDefaultAttributes[saveType],
                 domains: [saveType, "saving-throw"],
                 modifiers: [
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
                         modifier: base,

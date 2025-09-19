@@ -1,5 +1,5 @@
 import type { CreaturePF2e } from "@actor";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
@@ -9,12 +9,12 @@ import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { Statistic, StatisticData } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import { RuleElementPF2e } from "../index.ts";
+import { RuleElement } from "../index.ts";
 import type { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
 
 /** Create a special-purpose statistic for use in checks and as a DC */
-class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema> {
+class SpecialStatisticRuleElement extends RuleElement<SpecialStatisticSchema> {
     static override validActorTypes = ["character", "npc"] satisfies ("character" | "npc")[];
 
     static override defineSchema(): SpecialStatisticSchema {
@@ -89,7 +89,7 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema
                       const slug = typeof this.baseModifier?.mod === "number" && key !== "mod" ? `base-${key}` : "base";
                       const label = "PF2E.ModifierTitle";
                       const modifier = typeof value === "number" && key === "dc" ? value - 10 : value;
-                      return typeof modifier === "number" ? [new ModifierPF2e({ slug, label, modifier })] : [];
+                      return typeof modifier === "number" ? [new Modifier({ slug, label, modifier })] : [];
                   })
                 : { mod: [], check: [], dc: [] };
 
@@ -126,7 +126,7 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema
 }
 
 interface SpecialStatisticRuleElement
-    extends RuleElementPF2e<SpecialStatisticSchema>,
+    extends RuleElement<SpecialStatisticSchema>,
         ModelPropsFromRESchema<SpecialStatisticSchema> {
     slug: string;
 

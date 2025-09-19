@@ -1,7 +1,7 @@
 import { EffectPF2e } from "@item";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { isImageFilePath } from "@util";
-import { RuleElementPF2e } from "./base.ts";
+import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
 
@@ -9,7 +9,7 @@ import fields = foundry.data.fields;
  * Add an effect icon to an actor's token
  * @category RuleElement
  */
-class TokenEffectIconRuleElement extends RuleElementPF2e<TokenEffectIconSchema> {
+class TokenEffectIconRuleElement extends RuleElement<TokenEffectIconSchema> {
     static override defineSchema(): TokenEffectIconSchema {
         return {
             ...super.defineSchema(),
@@ -41,7 +41,7 @@ class TokenEffectIconRuleElement extends RuleElementPF2e<TokenEffectIconSchema> 
 }
 
 interface TokenEffectIconRuleElement
-    extends RuleElementPF2e<TokenEffectIconSchema>,
+    extends RuleElement<TokenEffectIconSchema>,
         ModelPropsFromRESchema<TokenEffectIconSchema> {}
 
 type TokenEffectIconSchema = RuleElementSchema & {
