@@ -249,10 +249,10 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
             const token = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
             selfActor ??= token?.actor ?? game.user.character;
             if (!selfActor) return null;
-            const owners = game.users.filter(
-                (u) => u.active && !u.isSelf && traderActor.testUserPermission(u, "OWNER"),
-            );
-            const assignee = owners.find((u) => !u.isSelf && u.character === traderActor);
+            const owners = game.users
+                .filter((u) => u.active && !u.isSelf && traderActor.testUserPermission(u, "OWNER"))
+                .sort((a, b) => Number(b.hasPlayerOwner) - Number(a.hasPlayerOwner));
+            const assignee = owners.find((u) => u.character === traderActor);
             const traderUser = assignee ?? owners[0];
             if (!traderUser) return null;
             const args = { self: { actor: selfActor }, trader: { user: traderUser, actor: traderActor } };
