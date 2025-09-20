@@ -140,7 +140,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(module: "pf2e", setting: "critFumbleButtons"): boolean;
     get(module: "pf2e", setting: "critRule"): "doubledamage" | "doubledice";
     get(module: "pf2e", setting: "deathIcon"): ImageFilePath;
-    get(module: "pf2e", setting: "dragMeasurement"): "always" | "encounters" | "never";
+    get(module: "pf2e", setting: "distanceDisplay"): "always" | "encounters" | "never";
     get(module: "pf2e", setting: "drawCritFumble"): boolean;
     get(module: "pf2e", setting: "gmVision"): boolean;
     get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
@@ -229,6 +229,7 @@ interface GamePF2e
                 buttons: boolean;
                 cards: boolean;
             };
+            distanceDisplay: "always" | "encounters" | "never";
             /** Encumbrance automation */
             encumbrance: boolean;
             gmVision: boolean;

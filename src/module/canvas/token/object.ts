@@ -307,6 +307,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      */
     #refreshDistanceLabel(): void {
         this.layer.clearDistanceLine();
+        const setting = game.pf2e.settings.distanceDisplay;
+        if (setting === "never" || (setting === "encounters" && !game.combat?.started)) return;
         const labelEl = document.getElementById("token-hover-distance");
         if (!this.#canSeeDistance || !labelEl) {
             if (labelEl) labelEl.hidden = true;
