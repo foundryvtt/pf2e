@@ -741,18 +741,20 @@ abstract class CreaturePF2e<
      */
     prepareMovementData(modifiers: Modifier[] = []): void {
         const baseSpeed = this.system.movement.speeds.land.base;
+        if (baseSpeed > 0) this.flags.pf2e.rollOptions.all["speed:land"] = true;
         const landSpeed = new SpeedStatistic(this, { type: "land", base: baseSpeed, modifiers });
         this.system.movement.speeds.land.value = landSpeed.value;
         this.system.movement.speeds.land.base = landSpeed.base;
-        const rollOptions = this.getRollOptions(["all-speeds", "speed", "land-speed"]);
+        const baseSpeedOptions = this.getRollOptions();
         const otherSpeeds = Object.fromEntries(
             MOVEMENT_TYPES.filter((t) => t !== "land").map((type) => {
                 const fromSynthetics = R.filter(
-                    this.synthetics.movementTypes[type]?.map((d) => d({ test: rollOptions })) ?? [],
+                    this.synthetics.movementTypes[type]?.map((d) => d({ test: baseSpeedOptions })) ?? [],
                     R.isNonNull,
                 );
                 const syntheticSpeed = R.firstBy(fromSynthetics, [(s) => s.value ?? 0, "desc"]);
                 if (!syntheticSpeed && !this.system.movement.speeds[type]) return [type, null];
+                this.flags.pf2e.rollOptions.all[`speed:${type}`] = true;
                 const systemDataSpeed = this.system.movement.speeds[type] ?? { value: -Infinity, source: null };
                 const selected =
                     syntheticSpeed && syntheticSpeed.value > systemDataSpeed.value ? syntheticSpeed : systemDataSpeed;

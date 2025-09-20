@@ -19,7 +19,7 @@ class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
 
         this.selector = this.selector.trim().replace(/-speed$/, "");
 
-        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
+        if (typeof this.value !== "string" && typeof this.value !== "number" && !this.isBracketedValue(this.value)) {
             this.failValidation("A value must be a number, string, or bracketed value");
         }
     }
@@ -45,12 +45,11 @@ class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
     }
 
     #createMovementType(type: MovementType): DeferredMovementType {
-        return (): BaseSpeedSynthetic | null => {
-            if (!this.test()) return null;
-
+        return (options: { test?: string[] | Set<string> } = {}): BaseSpeedSynthetic | null => {
+            if (!this.test(options.test ?? [])) return null;
             const value = Math.trunc(Number(this.resolveValue(this.value)));
-            if (!Number.isInteger(value)) {
-                this.failValidation("Failed to resolve value");
+            if (!(value > 0)) {
+                if (!Number.isInteger(value)) this.failValidation("Failed to resolve value");
                 return null;
             }
             // Whether this speed is derived from the creature's land speed
@@ -58,7 +57,7 @@ class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
                 type !== "land" &&
                 typeof this.value === "string" &&
                 /attributes\.speed\.(?:value|total)/.test(this.value);
-            return value > 0 ? { type: type, value, source: this.item.name, derivedFromLand } : null;
+            return { type: type, value, source: this.item.name, derivedFromLand };
         };
     }
 }
