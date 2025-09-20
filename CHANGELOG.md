@@ -1,3 +1,22 @@
+## 7.5.1
+
+### System Improvements
+
+- (stwlam) Show action cost in label of final planned waypoint
+
+### Bugfixes
+
+- (stwlam) Fix sheet issue causing loot actors to refuse to be merchants
+- (stwlam) Ensure trade is properly aborted on receiver's end after declining a request
+
+### Data Updates
+
+- (Ambrose) Add "immutable:true" to Sacred Defense inline rolls
+
+### Under the Hood
+
+- (stwlam) Include speed `type` in `speed.otherSpeeds` shim
+
 ## 7.5.0
 
 ### Highlights
