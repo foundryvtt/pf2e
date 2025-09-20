@@ -1,6 +1,9 @@
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import type { TokenRulerData, TokenRulerWaypoint } from "@client/_types.d.mts";
-import type { WaypointLabelRenderContext } from "@client/canvas/placeables/tokens/ruler.d.mts";
+import type {
+    WaypointLabelRenderContext,
+    WaypointLabelRenderState,
+} from "@client/canvas/placeables/tokens/ruler.d.mts";
 import { Rectangle } from "@common/_types.mjs";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -87,16 +90,18 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     /** Include action-cost information for showing a glyph. */
     protected override _getWaypointLabelContext(
         waypoint: DeepReadonly<TokenRulerWaypoint>,
-        state: object,
+        state: WaypointLabelRenderState,
     ): WaypointLabelRenderContext | void {
-        if (waypoint.action === "displace") return undefined;
+        if (waypoint.action === "displace") return;
         const context: WaypointRenderContextPF2e | void = super._getWaypointLabelContext(waypoint, state);
         if (!context || !canvas.grid.isSquare) return context;
+
         const speed = this.#getSpeed(waypoint.action);
         if (!speed) return context;
+
         const accruedCost = waypoint.measurement.cost;
-        if (accruedCost > 0 && accruedCost % speed === 0) {
-            const actionsSpent = accruedCost / speed;
+        if (accruedCost > 0 && (!waypoint.next || accruedCost % speed === 0)) {
+            const actionsSpent = Math.ceil(accruedCost / speed);
             const clampedCost = Math.clamp(actionsSpent, 1, 3);
             context.actionCost = { actions: clampedCost, overage: actionsSpent > 3 };
         }
