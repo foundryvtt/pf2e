@@ -163,7 +163,8 @@ export const Ready = {
             }
 
             // Preload Font Awesome Duotone
-            const faDuotone = document.fonts.values().find((f) => f.family === "Font Awesome 6 Duotone");
+            // Check for presence of `find`: Firefox's iterator objects aren't always iterator objects.
+            const faDuotone = document.fonts.values().find?.((f) => f.family === "Font Awesome 6 Duotone");
             if (faDuotone?.status === "unloaded") faDuotone.load();
 
             // Announce the system is ready in case any module needs access to an application not available until now
