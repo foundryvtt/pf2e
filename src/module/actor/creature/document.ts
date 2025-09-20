@@ -405,7 +405,7 @@ abstract class CreaturePF2e<
                         (e): e is [string, SpeedStatisticTraceData] =>
                             !!e[1] && ["burrow", "fly", "swim"].includes(e[0]),
                     )
-                    .map(([, s]) => ({ value: s.base, total: s.value, breakdown: s.breakdown }));
+                    .map(([type, s]) => ({ type, value: s.base, total: s.value, breakdown: s.breakdown }));
                 return {
                     value: land.base,
                     total: land.value,
