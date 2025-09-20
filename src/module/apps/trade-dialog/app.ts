@@ -104,7 +104,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         if (!inReach) {
             const formatArgs = { self: self.actor.name, trader: traderActor.name };
             const message = TradeDialog.localize("Error.OutOfReach", formatArgs);
-            ui.notifications.error(message);
+            ui.notifications.error(message, { console: false });
             return false;
         }
         return true;
@@ -113,7 +113,6 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     /** Request a trade via user query. */
     static async requestTrade({ self, trader }: TradeRequestData): Promise<void> {
         TradeDialog.#userTrading = true;
-        self.actor.render();
 
         // Check for resolution without rendering application
         const giftQuantity =
@@ -140,11 +139,12 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 const dialog = new TradeDialog({ self: { ...self, gift: giftQuantity, initiator: true }, trader });
                 await (self.gift ? dialog.close({ success: true }) : dialog.render({ force: true }));
             } else {
-                ui.notifications.error(response.message);
+                ui.notifications.error(response.message, { console: false });
                 TradeDialog.#userTrading = false;
             }
         } catch {
-            ui.notifications.error(TradeDialog.localize("Request.Timeout", { user: trader.user.name }));
+            const message = TradeDialog.localize("Request.Timeout", { user: trader.user.name });
+            ui.notifications.error(message, { console: false });
             TradeDialog.#userTrading = false;
         }
     }
@@ -251,7 +251,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 
     async abortTrade(message: string): Promise<this> {
-        if (message) ui.notifications.error(message);
+        if (message) ui.notifications.error(message, { console: false });
         this.#trader.user.query("pf2e.trade", { action: "abort" });
         return this.close({ aborted: true });
     }

@@ -343,11 +343,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const isPrepared = collection.entry.category === "prepared";
             const collectionEl = htmlClosest(event.target, "[data-container-id]");
             const sameCollectionId = collectionId === collectionEl?.dataset.containerId;
-
             const targetDataset = htmlClosest(event.target, "[data-item-id]")?.dataset ?? {};
             const sameGroupId = groupId === targetDataset.groupId;
             const targetIsEmpty = targetDataset.itemId?.length !== 16;
-
             if (isPrepared && sameCollectionId && sameGroupId && !targetIsEmpty) {
                 const draggedSpell = await ItemPF2e.fromDropData(data);
                 const dropTargetSpell = actor.items.get(targetDataset.itemId ?? "");
@@ -355,7 +353,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                     throw ErrorPF2e("Unexpected data received while swapping spells");
                 }
                 collection.swapSlotPositions(groupId, slotIndex, Number(targetDataset.slotId));
-
                 return [draggedSpell];
             }
         }
