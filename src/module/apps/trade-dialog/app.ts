@@ -481,13 +481,13 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             yes: { default: true },
         });
         if (ok) {
-            await new TradeDialog(args).render({ force: true });
+            await dialog.render({ force: true });
             return { ok };
-        } else {
-            const selfName = TradeDialog.#getObfuscatedActorName(args.self.actor, args.trader.user);
-            const message = TradeDialog.localize("Request.Declined", { trader: selfName, user: game.user.name });
-            return { ok, message };
         }
+        const selfName = TradeDialog.#getObfuscatedActorName(args.self.actor, args.trader.user);
+        const message = TradeDialog.localize("Request.Declined", { trader: selfName, user: game.user.name });
+        dialog.close({ aborted: true });
+        return { ok, message };
     }
 
     /** Handle a trade-update query from another user. */
@@ -513,7 +513,6 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             await dialog.close({ aborted: true });
             return { ok: true };
         }
-        TradeDialog.#userTrading = false;
         return { ok: false, message: TradeDialog.localize("Error.NotTrading", { user: game.user.name }) };
     }
 }
