@@ -162,6 +162,10 @@ export const Ready = {
                 ui.combat.render();
             }
 
+            // Preload Font Awesome Duotone
+            const faDuotone = document.fonts.values().find((f) => f.family === "Font Awesome 6 Duotone");
+            if (faDuotone?.status === "unloaded") faDuotone.load();
+
             // Announce the system is ready in case any module needs access to an application not available until now
             Hooks.callAll("pf2e.systemReady");
         });
