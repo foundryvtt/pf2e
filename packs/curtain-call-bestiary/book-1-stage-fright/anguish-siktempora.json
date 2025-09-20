@@ -485,7 +485,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Creatures with the frightened condition are always @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the anguish siktempora.</p>"
+                    "value": "<p>Creatures with the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition are always @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the anguish siktempora.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -535,7 +535,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "check:statistic:base:dimension-of-time-lore"
+                        ],
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -590,7 +601,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The anguish siktempora emits a terrible scream in a @Template[emanation|distance:30]. Creatures in the area must attempt a @Check[will|dc:33|options:area-effect,damaging-effect,inflicts:frightened] save. The anguish siktempora can't use Scream of Despair for [[/gmr 1d4 #Recharge Scream of Despair]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[mental],2d6[sonic]|options:area-damage]{2d6 mental damage, 2d6 sonic damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[6d6[mental],6d6[sonic]|options:area-damage]{6d6 mental damage, 6d6 sonic damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and the creature gains weakness to mental 15 (this weakness applies to this Scream of Despair).</p>"
+                    "value": "<p>The anguish siktempora emits a terrible scream in a @Template[emanation|distance:30]. Creatures in the area must attempt a @Check[will|dc:33|options:area-effect,damaging-effect,inflicts:frightened] save. The anguish siktempora can't use Scream of Despair for [[/gmr 1d4 #Recharge Scream of Despair]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[mental],2d6[sonic]|options:area-damage]{2d6 mental damage, 2d6 sonic damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[6d6[mental],6d6[sonic]|options:area-damage]{6d6 mental damage, 6d6 sonic damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and the creature gains weakness to mental 15 (this weakness applies to this Scream of Despair).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Scream of Despair]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -625,6 +636,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The anguish siktempora projects their crippling despair into the mind of a @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creature they can see within range of their telepathy. The frightened creature takes @Damage[6d6[mental]] damage (@Check[will|dc:30|basic] save).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "OGL",
@@ -733,7 +748,7 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "Can't Speak any Language, Telepathy 300 feet",
+                "details": "(can't speak any language), telepathy 300 feet",
                 "value": [
                     "aklo"
                 ]

@@ -542,7 +542,7 @@
                     {
                         "key": "Note",
                         "predicate": [
-                            "dimension-of-time-lore"
+                            "check:statistic:base:dimension-of-time-lore"
                         ],
                         "selector": "initiative",
                         "text": "{item|system.description.value}",
@@ -602,7 +602,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The hatred siktempora has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The hatred siktempora tightens their garrote, dealing @Damage[5d10[bludgeoning]] damage to each creature they're Grabbing. Each creature grabbed by the siktempora must attempt a @Check[fortitude|dc:40|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and can't breathe or speak while it remains grabbed; it must hold its breath or begin suffocating.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage and the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Restrained] and can't speak for 1 round after it's no longer grabbed.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The hatred siktempora has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p><hr /><p><strong>Effect</strong> The hatred siktempora tightens their garrote, dealing @Damage[5d10[bludgeoning]] damage to each creature they're Grabbing. Each creature grabbed by the siktempora must attempt a @Check[fortitude|dc:40|options:damaging-effect,inflicts:restrained] save.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and can't breathe or speak while it remains grabbed; it must hold its breath or begin suffocating.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage and the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Restrained] and can't speak for 1 round after it's no longer grabbed.</p>"
                 },
                 "frequency": {
                     "max": 1,
