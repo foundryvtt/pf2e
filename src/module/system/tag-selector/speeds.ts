@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { MovementType } from "@actor/types.ts";
+import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { ErrorPF2e, htmlQueryAll } from "@util";
 import * as R from "remeda";
 import { BaseTagSelector, type TagSelectorData } from "./base.ts";
@@ -17,20 +18,24 @@ class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
 
     protected objectProperty = "system.attributes.speed.otherSpeeds";
 
-    override choices = R.omit(CONFIG.PF2E.speedTypes, ["land"]);
+    override choices = R.mapToObj(
+        MOVEMENT_TYPES.filter((t) => t !== "land"),
+        (t) => [t, `PF2E.Actor.Speed.Type.${t.capitalize()}`],
+    );
 
     protected get configTypes(): readonly SelectableTagField[] {
-        return ["speedTypes"];
+        return [];
     }
 
     override async getData(options?: Partial<TagSelectorOptions>): Promise<SpeedSelectorData<TActor>> {
-        if (!this.document.isOfType("creature")) {
+        const actor = this.document;
+        if (!actor.isOfType("creature")) {
             throw ErrorPF2e("The Speed selector is usable only with creature-type actors");
         }
 
-        const speeds = this.document.system.attributes.speed.otherSpeeds;
+        const speeds = actor.system.movement.speeds;
         const choices = R.mapValues(this.choices, (label, type) => {
-            const speed = speeds.find((s) => s.type === type);
+            const speed = speeds[type];
             return {
                 selected: !!speed,
                 disabled: !!speed?.source,

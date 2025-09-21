@@ -77,29 +77,31 @@
             </select>
         </div>
 
-        {{#if data.grade}}
-            <div class="form-group">
-                <label for="{{fieldIdPrefix}}grade">{{localize "PF2E.Item.Physical.FIELDS.grade.label"}}</label>
-                <select data-property="system.grade" id="{{fieldIdPrefix}}grade">
-                    {{selectOptions grades selected=data.grade}}
-                </select>
-            </div>
-        {{else if (not abpEnabled)}}
-            <div class="form-group">
-                <label for="{{fieldIdPrefix}}rune-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
-                <select data-property="system.runes.potency" id="{{fieldIdPrefix}}rune-potency" data-dtype="Number">
-                    <option value="0"></option>
-                    {{selectOptions (omit runeTypes.potency 0) selected=data.runes.potency labelAttr="name" localize=true}}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="{{fieldIdPrefix}}rune-striking">{{localize "PF2E.StrikingRuneLabel"}}</label>
-                <select data-property="system.runes.striking" id="{{fieldIdPrefix}}rune-striking" data-dtype="Number">
-                    <option value="0"></option>
-                    {{selectOptions (omit runeTypes.striking 0) selected=data.runes.striking labelAttr="name" localize=true}}
-                </select>
-            </div>
-        {{/if}}
+        {{#unless abpEnabled}}
+            {{#if data.grade}}
+                <div class="form-group">
+                    <label for="{{fieldIdPrefix}}grade">{{localize "PF2E.Item.Physical.FIELDS.grade.label"}}</label>
+                    <select data-property="system.grade" id="{{fieldIdPrefix}}grade">
+                        {{selectOptions grades selected=data.grade}}
+                    </select>
+                </div>
+            {{else}}
+                <div class="form-group">
+                    <label for="{{fieldIdPrefix}}rune-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
+                    <select data-property="system.runes.potency" id="{{fieldIdPrefix}}rune-potency" data-dtype="Number">
+                        <option value="0"></option>
+                        {{selectOptions (omit runeTypes.potency 0) selected=data.runes.potency labelAttr="name" localize=true}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="{{fieldIdPrefix}}rune-striking">{{localize "PF2E.StrikingRuneLabel"}}</label>
+                    <select data-property="system.runes.striking" id="{{fieldIdPrefix}}rune-striking" data-dtype="Number">
+                        <option value="0"></option>
+                        {{selectOptions (omit runeTypes.striking 0) selected=data.runes.striking labelAttr="name" localize=true}}
+                    </select>
+                </div>
+            {{/if}}
+        {{/unless}}
 
         {{#each propertyRuneSlots as |slot index|}}
             <div class="form-group">

@@ -39,7 +39,7 @@ import { Migration937RemoveInvalidAuraTraits } from "@module/migration/migration
 import { Migration938RenameBroochesAndThroned } from "@module/migration/migrations/938-rename-brooches-and-throned.ts";
 import { Migration940WeaponExpend } from "@module/migration/migrations/940-weapon-expend.ts";
 import { Migration942EquipmentGrade } from "@module/migration/migrations/942-equipment-grade.ts";
-// ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
+import { Migration943UpdateSpeedPath } from "@module/migration/migrations/943-update-speed-paths.ts";
 
 const { window } = new JSDOM();
 globalThis.document = window.document;
@@ -72,6 +72,7 @@ const migrations: MigrationBase[] = [
     new Migration938RenameBroochesAndThroned(),
     new Migration940WeaponExpend(),
     new Migration942EquipmentGrade(),
+    new Migration943UpdateSpeedPath(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

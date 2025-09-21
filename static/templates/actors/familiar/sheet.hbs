@@ -205,14 +205,12 @@
                         <div class="detail">
                             <label>{{localize "PF2E.Actor.Speed.Plural"}}</label>
                             <ol class="tags speeds">
-                                {{#with data.attributes.speed as |landSpeed|}}
-                                    <li class="tag tag_alt" data-tooltip="{{landSpeed.breakdown}}">{{localize landSpeed.label}}
-                                        ({{landSpeed.total}})</li>
-                                {{/with}}
-                                {{#each data.attributes.speed.otherSpeeds as |speed k|}}
-                                    <li class="tag tag_alt {{k}}" data-tooltip="{{speed.breakdown}}">
-                                        {{localize speed.label}} ({{speed.total}})
-                                    </li>
+                                {{#each data.movement.speeds as |speed type|}}
+                                    {{#if (and speed (ne type "travel"))}}
+                                        <li class="tag tag_alt {{type}}" data-tooltip aria-label="{{speed.breakdown}}">
+                                            {{localize speed.label}} ({{speed.value}})
+                                        </li>
+                                    {{/if}}
                                 {{/each}}
                             </ol>
                         </div>

@@ -90,9 +90,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             game.user.isGM && this.isEditable
                 ? { enabled: this.actor.inventory.coins.copperValue > 0 && members.some(isReallyPC) }
                 : null;
-
-        const travelSpeed = this.actor.system.attributes.speed.total;
-
+        const travelSpeed = this.actor.system.movement.speeds.travel.value;
+        const hexplorationActivities = Object.keys(CONFIG.PF2E.hexplorationActivities).map((k) => Number(k));
         return {
             ...base,
             playerRestricted: !game.pf2e.settings.metagame.partyStats,
@@ -116,10 +115,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 feetPerMinute: travelSpeed * 10,
                 milesPerHour: travelSpeed / 10,
                 milesPerDay: travelSpeed * 0.8,
-                activities:
-                    Object.entries(CONFIG.PF2E.hexplorationActivities).find(
-                        ([max]) => Number(max) >= this.actor.system.attributes.speed.total,
-                    )?.[1] ?? 0,
+                activities: hexplorationActivities.find((max) => max >= travelSpeed) ?? 0,
             },
             orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
         };
@@ -165,10 +161,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 owner: actor.isOwner,
                 observer,
                 limited: observer || actor.limited,
-                speeds: [
-                    { label: "PF2E.Actor.Speed.Label", value: actor.attributes.speed.value },
-                    ...actor.attributes.speed.otherSpeeds.map((s) => R.pick(s, ["label", "value"])),
-                ],
+                speeds: Object.values(actor.system.movement.speeds).filter(R.isNonNull),
                 senses: (() => {
                     return condenseSenses(actor.perception.senses.contents).map((r) => ({
                         acuity: r.acuity,

@@ -9,6 +9,7 @@ import {
 } from "@actor/types.ts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { ActorUUID } from "@client/documents/_module.d.mts";
+import type { ToCompendiumOptions } from "@client/documents/abstract/_module.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
     DatabaseCreateOperation,
@@ -964,10 +965,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         TokenDocumentPF2e.prepareScale(prototypeToken);
     }
 
-    /* -------------------------------------------- */
-    /*  Rolls                                       */
-    /* -------------------------------------------- */
-
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */
     async toggleRollOption(domain: string, option: string, value?: boolean): Promise<boolean | null>;
     async toggleRollOption(
@@ -1491,6 +1488,21 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return this.canUserModify(user, "update");
     }
 
+    /* -------------------------------------------- */
+    /*  Moving/Cloning Operations                   */
+    /* -------------------------------------------- */
+
+    override exportToJSON(options: ToCompendiumOptions = {}): void {
+        options.clearSource ??= false;
+        super.exportToJSON(options);
+    }
+
+    /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
+    override async importFromJSON(json: string): Promise<this> {
+        const processed = await preImportJSON(json);
+        return processed ? super.importFromJSON(processed) : this;
+    }
+
     /**
      * Moves an item to another actor's inventory.
      * @param targetActor Instance of actor to be receiving the item.
@@ -1802,6 +1814,53 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    /** Redirect to `toggleCondition` if possible. */
+    override async toggleStatusEffect(
+        statusId: string,
+        options?: { active?: boolean; overlay?: boolean },
+    ): Promise<boolean | void | ActiveEffect<this>> {
+        return setHasElement(CONDITION_SLUGS, statusId)
+            ? this.toggleCondition(statusId, options)
+            : super.toggleStatusEffect(statusId, options);
+    }
+
+    /** Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option) */
+    #prepareDamageBroadcast(changed: DeepPartial<this["_source"]>, options: ActorUpdateCallbackOptions): void {
+        const currentHP = this._source.system.attributes?.hp?.value;
+        const updatedHP = changed.system?.attributes?.hp?.value ?? currentHP;
+        if (
+            !options.damageTaken &&
+            this.hasPlayerOwner &&
+            currentHP &&
+            typeof updatedHP === "number" &&
+            updatedHP !== currentHP
+        ) {
+            const damageTaken = -1 * (updatedHP - currentHP);
+            const currentLevel = this._source.system.details.level?.value;
+            const updatedLevel = changed.system?.details?.level?.value ?? currentLevel;
+            if (damageTaken && currentLevel === updatedLevel) options.damageTaken = damageTaken;
+        }
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: ActorUpdateCallbackOptions,
+        user: fd.BaseUser,
+    ): Promise<boolean | void> {
+        const result = await super._preUpdate(changed, options, user);
+        if (result === false) return false;
+
+        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
+        if (isFullReplace) return result;
+
+        this.#prepareDamageBroadcast(changed, options);
+        return result;
+    }
+
     /** Store certain data to be checked in _onUpdateDescendantDocuments */
     protected override _preUpdateDescendantDocuments(
         parent: Document,
@@ -1841,59 +1900,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 const newHitPoints = this._source.system.attributes.hp.value + hpMaxDifference;
                 this.update({ "system.attributes.hp.value": newHitPoints }, { allowHPOverage: true });
             }
-        }
-    }
-
-    /** Redirect to `toggleCondition` if possible. */
-    override async toggleStatusEffect(
-        statusId: string,
-        options?: { active?: boolean; overlay?: boolean },
-    ): Promise<boolean | void | ActiveEffect<this>> {
-        return setHasElement(CONDITION_SLUGS, statusId)
-            ? this.toggleCondition(statusId, options)
-            : super.toggleStatusEffect(statusId, options);
-    }
-
-    /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
-    override async importFromJSON(json: string): Promise<this> {
-        const processed = await preImportJSON(json);
-        return processed ? super.importFromJSON(processed) : this;
-    }
-
-    /* -------------------------------------------- */
-    /*  Event Handlers                              */
-    /* -------------------------------------------- */
-
-    protected override async _preUpdate(
-        changed: DeepPartial<this["_source"]>,
-        options: ActorUpdateCallbackOptions,
-        user: fd.BaseUser,
-    ): Promise<boolean | void> {
-        const result = await super._preUpdate(changed, options, user);
-        if (result === false) return false;
-
-        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
-        if (isFullReplace) return result;
-
-        this.#prepareDamageBroadcast(changed, options);
-        return result;
-    }
-
-    /** Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option) */
-    #prepareDamageBroadcast(changed: DeepPartial<this["_source"]>, options: ActorUpdateCallbackOptions): void {
-        const currentHP = this._source.system.attributes?.hp?.value;
-        const updatedHP = changed.system?.attributes?.hp?.value ?? currentHP;
-        if (
-            !options.damageTaken &&
-            this.hasPlayerOwner &&
-            currentHP &&
-            typeof updatedHP === "number" &&
-            updatedHP !== currentHP
-        ) {
-            const damageTaken = -1 * (updatedHP - currentHP);
-            const currentLevel = this._source.system.details.level?.value;
-            const updatedLevel = changed.system?.details?.level?.value ?? currentLevel;
-            if (damageTaken && currentLevel === updatedLevel) options.damageTaken = damageTaken;
         }
     }
 

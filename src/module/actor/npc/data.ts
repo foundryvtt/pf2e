@@ -11,7 +11,6 @@ import type {
     CreaturePerceptionData,
     CreatureResources,
     CreatureResourcesSource,
-    CreatureSpeeds,
     CreatureSystemData,
     CreatureSystemSource,
     CreatureTraitsSource,
@@ -177,7 +176,6 @@ interface NPCPerceptionData extends CreaturePerceptionData {
 interface NPCAttributes extends Omit<NPCAttributesSource, AttributesSourceOmission>, CreatureAttributes {
     adjustment: "elite" | "weak" | null;
     hp: NPCHitPoints;
-    speed: NPCSpeeds;
     /**
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
      * allow for the shield health to be shown in a token.
@@ -195,7 +193,7 @@ interface NPCAttributes extends Omit<NPCAttributesSource, AttributesSourceOmissi
     classOrSpellDC: { value: number };
 }
 
-type AttributesSourceOmission = "ac" | "initiative" | "immunities" | "weaknesses" | "resistances";
+type AttributesSourceOmission = "ac" | "initiative" | "immunities" | "weaknesses" | "resistances" | "speed";
 
 interface NPCDetails extends NPCDetailsSource, CreatureDetails {
     level: {
@@ -250,10 +248,6 @@ interface NPCSkillData extends NPCSkillSource, AttributeBasedTraceData {
     /** If this is a lore skill, what item it came from */
     itemId?: string;
     special: NPCSpecialSkill[];
-}
-
-interface NPCSpeeds extends CreatureSpeeds {
-    details: string;
 }
 
 interface NPCResources extends CreatureResources {

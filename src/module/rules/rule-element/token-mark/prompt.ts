@@ -19,7 +19,7 @@ class MarkTargetPrompt {
     }
 
     async resolveTarget(): Promise<Maybe<TokenDocumentPF2e | null>> {
-        game.user.targets.clear();
+        canvas.tokens.setTargets([]);
         this.activateListeners();
         ui.notifications.info(this.prompt, { localize: true });
 

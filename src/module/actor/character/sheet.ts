@@ -389,19 +389,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             burrow: "water-ladder",
         };
         sheetData.speeds = R.keys(speedIcons).map((slug): SpeedSheetData => {
-            const speed = this.actor.system.attributes.speed;
-            const data = slug === "land" ? speed : speed.otherSpeeds.find((s) => s.type === slug);
+            const speeds = this.actor.system.movement.speeds;
+            const data = speeds[slug];
             return {
                 slug,
                 icon: fontAwesomeIcon(speedIcons[slug]).outerHTML,
-                action: ["swim", "climb"].includes(slug) && !data?.total ? slug : null,
-                label: CONFIG.PF2E.speedTypes[slug],
-                value: data?.total ?? null,
-                breakdown: slug === "land" ? speed.breakdown : null,
+                action: ["swim", "climb"].includes(slug) && !data?.value ? slug : null,
+                label: `PF2E.Actor.Speed.Type.${slug.capitalize()}`,
+                value: data?.value ?? null,
+                breakdown: data?.breakdown ?? null,
             };
         });
 
-        // Return data for rendering
         return sheetData;
     }
 

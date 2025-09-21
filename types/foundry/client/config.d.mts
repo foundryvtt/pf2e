@@ -764,6 +764,16 @@ export default interface Config<
         TextEditor: typeof applications.ux.TextEditor;
         TooltipManager: typeof foundry.helpers.interaction.TooltipManager;
     };
+
+    /**
+     * System and modules must prefix the names of the queries they register (e.g. "my-module.aCustomQuery").
+     * Non-prefixed query names are reserved by core.
+     */
+    queries: {
+        dialog: typeof applications.api.DialogV2._handleQuery;
+        confirmTeleportToken: typeof foundry.data.regionBehaviors.TeleportTokenRegionBehaviorType._confirmQuery;
+        [key: string]: Function;
+    };
 }
 
 interface ControlIconsConfig {

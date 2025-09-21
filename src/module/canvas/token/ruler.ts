@@ -1,6 +1,8 @@
+import { MOVEMENT_TYPES } from "@actor/values.ts";
 import type { TokenRulerData, TokenRulerWaypoint } from "@client/_types.d.mts";
 import type { WaypointLabelRenderContext } from "@client/canvas/placeables/tokens/ruler.d.mts";
 import { Rectangle } from "@common/_types.mjs";
+import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { TokenPF2e } from "./index.ts";
 
@@ -87,6 +89,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         waypoint: DeepReadonly<TokenRulerWaypoint>,
         state: object,
     ): WaypointLabelRenderContext | void {
+        if (waypoint.action === "displace") return undefined;
         const context: WaypointRenderContextPF2e | void = super._getWaypointLabelContext(waypoint, state);
         if (!context || !canvas.grid.isSquare) return context;
         const speed = this.#getSpeed(waypoint.action);
@@ -95,7 +98,7 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         if (accruedCost > 0 && accruedCost % speed === 0) {
             const actionsSpent = accruedCost / speed;
             const clampedCost = Math.clamp(actionsSpent, 1, 3);
-            context.actionCost = { actions: clampedCost, overage: actionsSpent - accruedCost > 0 };
+            context.actionCost = { actions: clampedCost, overage: actionsSpent > 3 };
         }
         return context;
     }
@@ -112,16 +115,22 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
     /** Retrieve the actor's speed of a certain movement type, if any. */
     #getSpeed(rulerAction: string): number | null {
         const actor = this.token.actor;
-        if (!actor?.isOfType("creature") || !actor.isOwner || actor.alliance !== "party") return null;
-        const speeds = actor.system.attributes.speed;
-        switch (rulerAction) {
-            case "walk":
-                return speeds.total;
-            case "crawl":
-                return 5;
-            default:
-                return speeds.otherSpeeds.find((s) => s.type === rulerAction)?.total ?? null;
+        if (!actor?.isOwner && actor?.alliance !== "party") return null;
+        if (actor.isOfType("creature")) {
+            const speeds = actor.system.movement.speeds;
+            switch (rulerAction) {
+                case "walk":
+                    return speeds.land.value;
+                case "crawl":
+                    return speeds.land.crawl;
+                case "step":
+                    return speeds.land.step;
+                default:
+                    return tupleHasValue(MOVEMENT_TYPES, rulerAction) ? (speeds[rulerAction]?.value ?? null) : null;
+            }
         }
+        if (actor.isOfType("vehicle")) return actor.system.movement.speeds.drive.value;
+        return null;
     }
 
     /** If the provided waypoint should have an action glyph, track it for later rendering. */

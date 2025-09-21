@@ -58,7 +58,6 @@ class BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema> {
                 type !== "land" &&
                 typeof this.value === "string" &&
                 /attributes\.speed\.(?:value|total)/.test(this.value);
-
             return value > 0 ? { type: type, value, source: this.item.name, derivedFromLand } : null;
         };
     }

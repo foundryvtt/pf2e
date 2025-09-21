@@ -687,6 +687,9 @@ export interface TokenMovementActionConfig {
     /** The icon of the movement action. */
     icon: string;
 
+    /** An image filename. Takes precedence over the icon if both are supplied. */
+    img: string | null;
+
     /**
      * The number that is used to sort the movement actions / movement action configs.
      * Determines the order of cycling. Default: `0`.

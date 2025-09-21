@@ -1,11 +1,10 @@
 import { CreaturePF2e, type CharacterPF2e } from "@actor";
 import type { ActorPF2e } from "@actor/base.ts";
-import type { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
-import type { CreatureReach, CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
-import { ActorSizePF2e } from "@actor/data/size.ts";
+import type { CreatureSaves } from "@actor/creature/data.ts";
+import type { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
-import type { ActorAlliance, SaveType } from "@actor/types.ts";
+import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { DatabaseDeleteCallbackOptions } from "@common/abstract/_types.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
@@ -63,18 +62,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
     /** Set base emphemeral data for later updating by derived-data preparation. */
     override prepareBaseData(): void {
-        this.system.details = {
-            alliance: null,
-            creature: this.system.details.creature,
-            languages: { value: [], details: "" },
-            level: { value: 0 },
-        };
-        this.system.traits = {
-            value: ["minion"],
-            rarity: "common",
-            size: new ActorSizePF2e({ value: "tiny" }),
-        };
-
         super.prepareBaseData();
 
         // A familiar "[...] can never benefit from item bonuses." (CRB pg 217)
@@ -85,52 +72,8 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             suppress: true,
         });
 
-        type PartialSystemData = {
-            attributes: {
-                speed: { value: number; total: number; label?: string; otherSpeeds: LabeledSpeed[] };
-                flanking: { canFlank: boolean };
-                reach: CreatureReach;
-            };
-            perception: object;
-            skills: object;
-            saves: Record<SaveType, object>;
-            details: { alliance: ActorAlliance };
-        };
-
-        const system: PartialSystemData = this.system;
-        system.attributes.flanking.canFlank = false;
-        system.perception = {
-            senses: [
-                {
-                    type: "low-light-vision",
-                    acuity: "precise",
-                    range: Infinity,
-                },
-            ],
-        };
-        system.attributes.speed = {
-            value: 25,
-            total: 25,
-            label: CONFIG.PF2E.speedTypes.land,
-            otherSpeeds: [],
-        };
-
-        system.attributes.reach = { base: 0, manipulate: 0 };
-
-        system.skills = {};
-
-        system.saves = {
-            fortitude: {},
-            reflex: {},
-            will: {},
-        };
-
-        const master = this.master;
-        this.system.details.level.value = master?.level ?? 0;
-        this.rollOptions.all[`self:level:${this.level}`] = true;
-        system.details.alliance = master?.alliance ?? "party";
-
         // Set encounter roll options from the master's perspective
+        const master = this.master;
         if (master) {
             this.flags.pf2e.rollOptions.all = fu.mergeObject(
                 this.flags.pf2e.rollOptions.all,
@@ -146,20 +89,11 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-
         const { level, master, masterAttributeModifier, system } = this;
-        const { attributes, traits } = system;
         const attributeModifier =
             masterAttributeModifier > 2
                 ? new ModifierPF2e(`PF2E.MasterAbility.${system.master.ability}`, masterAttributeModifier, "untyped")
                 : new ModifierPF2e(`PF2E.Actor.Familiar.MinimumAttributeModifier`, 3, "untyped");
-
-        // Ensure uniqueness of traits
-        traits.value = R.unique(traits.value).sort();
-
-        const masterLevel = game.pf2e.settings.variants.pwol.enabled ? 0 : level;
-        const speeds = (attributes.speed = this.prepareSpeed("land"));
-        speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         // Hit Points
         const hitPoints = new HitPointsStatistic(this, { baseMax: level * 5 });
@@ -206,6 +140,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         );
 
         // Attack
+        const masterLevel = game.pf2e.settings.variants.pwol.enabled ? 0 : level;
         this.attackStatistic = new Statistic(this, {
             slug: "attack-roll",
             label: "PF2E.Familiar.AttackRoll",
@@ -249,6 +184,8 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
             return [skill, statistic];
         });
+
+        this.prepareMovementData();
     }
 
     /* -------------------------------------------- */

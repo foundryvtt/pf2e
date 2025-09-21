@@ -57,13 +57,11 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-
         for (const boost of Object.values(this.system.boosts)) {
             if (boost.value.length === 1) {
                 boost.selected = boost.value[0];
             }
         }
-
         for (const flaw of Object.values(this.system.flaws)) {
             if (flaw.value.length === 1) {
                 flaw.selected = flaw.value[0];
@@ -73,26 +71,30 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
     /** Prepare a character's data derived from their ancestry */
     override prepareActorData(this: AncestryPF2e<CharacterPF2e>): void {
-        const { actor } = this;
+        const actor = this.actor;
         if (!actor.isOfType("character")) {
             console.error("PF2e System | Only a character can have an ancestry");
             return;
         }
 
         actor.ancestry = this;
-
         actor.system.attributes.ancestryhp = this.hitPoints;
         this.logAutoChange("system.attributes.ancestryhp", this.hitPoints);
-
         actor.system.traits.size = new ActorSizePF2e({ value: this.size });
         this.logAutoChange("system.traits.size.value", this.size);
-
         const reach = SIZE_TO_REACH[this.size];
         actor.system.attributes.reach = { base: reach, manipulate: reach };
 
-        actor.system.attributes.speed.value = this.speed;
+        // Set base land speed
+        const speed = actor.system.movement.speeds.land;
+        speed.base = speed.value = this.speed;
+        speed.source = this.name;
 
-        const { build } = actor.system;
+        // Set at actor level for use by early-running REs
+        const actorLevelSpeeds: Record<"land", { value: number; base: number }> = actor.movement.speeds;
+        actorLevelSpeeds.land = { value: speed.base, base: speed.base };
+
+        const build = actor.system.build;
         if (this.system.alternateAncestryBoosts) {
             build.attributes.boosts.ancestry.push(...this.system.alternateAncestryBoosts);
         } else {

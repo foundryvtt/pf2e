@@ -39,8 +39,7 @@ class ArmorStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TAc
 
     /** If this statistic belongs to a PC, create bonuses and penalties from their worn armor */
     #createBonusesAndPenalties(): ModifierPF2e[] {
-        const { actor } = this;
-
+        const actor = this.actor;
         const armor = actor.isOfType("character") ? actor.wornArmor : null;
         const armorSlug = armor?.baseType ?? armor?.slug ?? sluggify(armor?.name ?? "");
         const itemBonus = armor
@@ -56,7 +55,6 @@ class ArmorStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TAc
                   ),
               })
             : null;
-
         return [itemBonus, createShoddyPenalty(actor, armor, this.dc.domains), this.#createShieldBonus()].filter(
             R.isTruthy,
         );

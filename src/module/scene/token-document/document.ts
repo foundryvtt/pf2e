@@ -199,6 +199,38 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super.getTrackedAttributeChoices(attributes);
     }
 
+    /** Synchronize the token image with the actor image if the token does not currently have an image */
+    static assignDefaultImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
+        const actor = token.actor;
+        if (!actor) return;
+
+        // Always override token images if in Nath mode
+        if (game.pf2e.settings.tokens.nathMode && isDefaultTokenImage(token)) {
+            token.texture.src = ((): ImageFilePath | VideoFilePath => {
+                switch (actor.alliance) {
+                    case "party":
+                        return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
+                    case "opposition":
+                        return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
+                    default:
+                        return token.texture.src ?? CONST.DEFAULT_TOKEN;
+                }
+            })();
+        } else if (isDefaultTokenImage(token)) {
+            token.texture.src = actor._source.img;
+        }
+    }
+
+    /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
+    static prepareScale(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
+        if (!token.flags.pf2e.autoscale) return;
+        const absoluteScale = token.actor?.size === "sm" ? 0.8 : 1;
+        const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
+        token.texture.scaleX = mirrorX * absoluteScale;
+        const mirrorY = token.texture.scaleY < 0 ? -1 : 1;
+        token.texture.scaleY = mirrorY * absoluteScale;
+    }
+
     /** Make stamina, resolve, and shield HP editable despite not being present in template.json */
     override getBarAttribute(barName: string, options?: { alternative?: string }): TokenResourceData | null {
         const attribute = super.getBarAttribute(barName, options);
@@ -350,36 +382,22 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
     }
 
-    /** Synchronize the token image with the actor image if the token does not currently have an image */
-    static assignDefaultImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
-        const actor = token.actor;
-        if (!actor) return;
-
-        // Always override token images if in Nath mode
-        if (game.pf2e.settings.tokens.nathMode && isDefaultTokenImage(token)) {
-            token.texture.src = ((): ImageFilePath | VideoFilePath => {
-                switch (actor.alliance) {
-                    case "party":
-                        return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
-                    case "opposition":
-                        return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
-                    default:
-                        return token.texture.src ?? CONST.DEFAULT_TOKEN;
-                }
-            })();
-        } else if (isDefaultTokenImage(token)) {
-            token.texture.src = actor._source.img;
+    protected override _inferMovementAction(): string {
+        const actor = this.actor;
+        switch (actor?.type) {
+            case "character":
+            case "npc":
+            case "familiar":
+                return !actor.inCombat ? "travel" : actor.hasCondition("prone") ? "crawl" : "walk";
+            case "army":
+                return "deploy";
+            case "vehicle":
+                return "drive";
+            case "party":
+                return "travel";
+            default:
+                return "displace";
         }
-    }
-
-    /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
-    static prepareScale(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
-        if (!token.flags.pf2e.autoscale) return;
-        const absoluteScale = token.actor?.size === "sm" ? 0.8 : 1;
-        const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
-        token.texture.scaleX = mirrorX * absoluteScale;
-        const mirrorY = token.texture.scaleY < 0 ? -1 : 1;
-        token.texture.scaleY = mirrorY * absoluteScale;
     }
 
     /** Set a token's initiative on the current encounter, creating a combatant if necessary */
