@@ -22,13 +22,14 @@
         },
         "rules": [
             {
-                "key": "DamageAlteration",
-                "mode": "upgrade",
-                "property": "dice-faces",
-                "selectors": [
+                "key":"DamageDice",
+                "override": {
+                    "upgrade":true
+                },
+                "selector": [
                     "{actor|flags.pf2e.claySphere.weapon}-damage"
                 ],
-                "slug": "base"
+                "slug":"base"
             }
         ],
         "start": {
