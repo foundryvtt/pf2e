@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import { MovementType } from "@actor/types.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, localizer } from "@util";
 import { BaseStatistic } from "./base.ts";
 import { BaseStatisticData, BaseStatisticTraceData } from "./data.ts";
 
@@ -48,8 +48,10 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
     #value: number | null = null;
 
     get breakdown(): string {
-        const typeLabel = game.i18n.localize(`PF2E.Actor.Speed.Type.${this.type.capitalize()}`);
-        const baseLabel = game.i18n.format("PF2E.Actor.Speed.BaseLabel", { value: this.base, type: typeLabel });
+        const localize = localizer("PF2E.Actor.Speed");
+        const typeLabel = localize(`Type.${this.type.capitalize()}`);
+        const baseKey = this.source ? "BaseWithSource" : "BaseLabel";
+        const baseLabel = localize(baseKey, { value: this.base, type: typeLabel, source: this.source });
         const components = this.modifiers
             .filter((m) => m.enabled && m.value !== 0)
             .map((m) => `${m.label} ${m.signedValue}`);
@@ -58,15 +60,8 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
 
     /** Derive a travel speed from this statistic. */
     extend<TType extends MovementType | "travel">(options: ExtendParams<TType>): SpeedStatistic<TActor, TType> {
-        const base = options.base ?? this.base;
-        const source = options.source ?? this.source;
-        const modifiers = [
-            options.modifiers ?? [],
-            this.modifiers
-                .filter((m) => !["all-speeds", "speed"].some((d) => m.domains.includes(d)))
-                .map((m) => m.clone()),
-        ].flat();
-        return new SpeedStatistic(this.actor, { type: options.type, base, modifiers, source });
+        const { type, base = this.value, modifiers = [], source = this.source } = options;
+        return new SpeedStatistic(this.actor, { type, base, modifiers, domains: [`${type}-speed`], source });
     }
 
     override getTraceData(): SpeedStatisticTraceData<TType> {
@@ -109,7 +104,7 @@ interface LandSpeedStatisticTraceData extends SpeedStatisticTraceData {
 }
 
 interface ExtendParams<TType extends MovementType | "travel">
-    extends Pick<SpeedStatisticData<TType>, "type" | "base" | "source" | "modifiers"> {}
+    extends Pick<SpeedStatisticData<TType>, "type" | "base" | "modifiers" | "source"> {}
 
 export { SpeedStatistic };
 export type { LandSpeedStatisticTraceData, SpeedStatisticTraceData };

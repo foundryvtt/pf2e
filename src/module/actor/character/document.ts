@@ -87,7 +87,6 @@ import {
     PCAttackTraitHelpers,
     WeaponAuxiliaryAction,
     createForceOpenPenalty,
-    createHinderingPenalty,
     createShoddyPenalty,
     getItemProficiencyRank,
     imposeOversizedWeaponCondition,
@@ -601,19 +600,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             attribute: armorStatistic.attribute ?? "dex",
         });
 
-        // Apply the speed penalty from this character's held shield
-        const heldShield = this.heldShield;
-        if (heldShield?.speedPenalty) {
-            const speedPenalty = new Modifier({
-                slug: "shield-speed-penalty",
-                label: heldShield.name,
-                modifier: heldShield.speedPenalty,
-            });
-            speedPenalty.predicate.push({ not: "self:shield:ignore-speed-penalty" });
-            this.synthetics.modifiers.speed ??= [];
-            this.synthetics.modifiers.speed.push(() => speedPenalty);
-        }
-
         this.prepareMovementData();
 
         // Strike actions
@@ -918,7 +904,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     override prepareMovementData(): void {
-        const wornArmor = this.wornArmor;
+        const { wornArmor, heldShield } = this;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
         const strength = this.system.abilities.str.mod;
         const requirement = wornArmor?.strength ?? null;
@@ -931,14 +917,32 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ? new Modifier({
                   slug,
                   label: wornArmor?.name ?? "PF2E.ArmorSpeedLabel",
+                  domains: ["all-speeds"],
                   modifier: penaltyValue,
                   type: "untyped",
-                  predicate: new Predicate({ nor: ["derived-from-land", "armor:ignore-speed-penalty"] }),
+                  predicate: new Predicate({ nor: ["armor:ignore-speed-penalty"] }),
               })
             : null;
-        // A hindering penalty can't be removed or mitigated
-        const hinderingPenalty = createHinderingPenalty(this);
-        super.prepareMovementData([armorPenalty, hinderingPenalty].filter(R.isNonNull));
+
+        // Speed penalty from held shield
+        const shieldPenalty = heldShield?.speedPenalty
+            ? new Modifier({
+                  slug: "shield-speed-penalty",
+                  label: heldShield.name,
+                  domains: ["all-speeds"],
+                  modifier: heldShield.speedPenalty,
+                  predicate: new Predicate({ not: "self:shield:ignore-speed-penalty" }),
+              })
+            : null;
+
+        // "You take a –5 penalty to all your Speeds (to a minimum of a 5-foot Speed). This is separate from and in
+        // "addition to the armor's Speed penalty, and affects you even if your Strength or an ability lets you reduce
+        // "or ignore the armor's Speed penalty."
+        const hinderingPenalty = wornArmor?.traits.has("hindering")
+            ? new Modifier({ slug: "hindering", label: "PF2E.TraitHindering", domains: ["all-speeds"], modifier: -5 })
+            : null;
+
+        super.prepareMovementData([armorPenalty, shieldPenalty, hinderingPenalty].filter(R.isNonNull));
     }
 
     private prepareFeats(): void {

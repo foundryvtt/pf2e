@@ -18,7 +18,6 @@ class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
         if (this.invalid) return;
 
         this.selector = this.selector.trim().replace(/-speed$/, "");
-
         if (typeof this.value !== "string" && typeof this.value !== "number" && !this.isBracketedValue(this.value)) {
             this.failValidation("A value must be a number, string, or bracketed value");
         }
@@ -54,10 +53,8 @@ class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
             }
             // Whether this speed is derived from the creature's land speed
             const derivedFromLand =
-                type !== "land" &&
-                typeof this.value === "string" &&
-                /attributes\.speed\.(?:value|total)/.test(this.value);
-            return { type: type, value, source: this.item.name, derivedFromLand };
+                type !== "land" && typeof this.value === "string" && this.value.includes("movement.speeds.land.value");
+            return { type: type, value, source: this.getReducedLabel(), derivedFromLand };
         };
     }
 }

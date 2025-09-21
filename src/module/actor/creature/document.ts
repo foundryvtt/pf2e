@@ -756,16 +756,22 @@ abstract class CreaturePF2e<
                 if (!syntheticSpeed && !this.system.movement.speeds[type]) return [type, null];
                 this.flags.pf2e.rollOptions.all[`speed:${type}`] = true;
                 const systemDataSpeed = this.system.movement.speeds[type] ?? { value: -Infinity, source: null };
-                const selected =
+                const selected: { value: number; source?: string | null; derivedFromLand?: boolean } =
                     syntheticSpeed && syntheticSpeed.value > systemDataSpeed.value ? syntheticSpeed : systemDataSpeed;
                 if (selected === syntheticSpeed && syntheticSpeed.derivedFromLand) {
                     const domain = (this.flags.pf2e.rollOptions[`${type}-speed`] ??= {});
                     domain["derived-from-land"] = true;
                 }
-                const base = selected.value;
-                const statistic = syntheticSpeed?.derivedFromLand
-                    ? landSpeed.extend({ type })
-                    : new SpeedStatistic(this, { type, base, source: selected.source });
+                const statistic = selected?.derivedFromLand
+                    ? landSpeed.extend({ type, base: selected.value, source: selected.source })
+                    : new SpeedStatistic(this, {
+                          type,
+                          base: selected.value,
+                          modifiers: modifiers
+                              .filter((m) => ["all-speeds", `${type}-speed`].some((d) => m.domains.includes(d)))
+                              .map((m) => m.clone()),
+                          source: selected.source,
+                      });
                 return [type, statistic];
             }),
         ) as { [T in Exclude<MovementType, "land">]: SpeedStatistic<this, T> | null };
