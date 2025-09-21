@@ -138,7 +138,6 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         }
         flags.pf2e.polymorphed = true;
         flags.pf2e.battleForm = true;
-
         this.#setRollOptions();
         this.#prepareSenses();
         if (this.ignored) return;
@@ -148,9 +147,13 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
 
+        if (this.overrides.armorClass.ignoreCheckPenalty) {
+            const synthetics = (this.actor.synthetics.modifierAdjustments["skill-check"] ??= []);
+            synthetics.push({ slug: "armor-check-penalty", test: () => true, suppress: true });
+        }
         if (this.overrides.armorClass.ignoreSpeedPenalty) {
-            const speedRollOptions = (actor.rollOptions.speed ??= {});
-            speedRollOptions["armor:ignore-speed-penalty"] = true;
+            const synthetics = (this.actor.synthetics.modifierAdjustments["all-speeds"] ??= []);
+            synthetics.push({ slug: "armor-speed-penalty", test: () => true, suppress: true });
         }
     }
 
@@ -186,14 +189,6 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         const { attributes, rollOptions } = this.actor;
         rollOptions.all["polymorph"] = true;
         rollOptions.all["battle-form"] = true;
-        if (this.overrides.armorClass.ignoreCheckPenalty) {
-            rollOptions.all["armor:ignore-check-penalty"] = true;
-        }
-        if (this.overrides.armorClass.ignoreSpeedPenalty) {
-            rollOptions.all["armor:ignore-speed-penalty"] = true;
-            const speedRollOptions = (rollOptions.speed ??= {});
-            speedRollOptions["armor:ignore-speed-penalty"] = true;
-        }
 
         // Inform predicates that this battle form grants a skill modifier
         for (const key of Object.keys(this.overrides.skills)) {
