@@ -1,84 +1,42 @@
-<form class="flexcol" autocomplete="off">
-    {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=gradualBoostsVariant}}
-    {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=staminaVariant}}
-    {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=freeArchetypeVariant}}
+<div class="standard-form scrollable">
+    {{#each settings as |setting key|}}
+        {{#if (eq key "proficiencyVariant")}}
+            <fieldset>
+                <legend>{{localize "PF2E.SETTINGS.Variant.Proficiency.Legend"}}</legend>
 
-    <div class="form-group abp">
-        <label>{{localize automaticBonusVariant.name}}</label>
-        <div class="form-fields">
-            <select name="automaticBonusVariant">
-                {{selectOptions
-                    automaticBonusVariant.choices
-                    selected=automaticBonusVariant.value
-                    localize=true
-                }}
-            </select>
-        </div>
-        <p class="hint">{{localize automaticBonusVariant.hint}}</p>
-    </div>
+                {{formGroup setting.type value=setting.value choices=setting.choices rootId=../rootId classes="slim"
+                            localize=true}}
 
-    {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=mythic}}
+                <div class="pwol-modifiers flexrow">
+                    {{#> pwolModifiers @root}}{{/pwolModifiers}}
+                </div>
+            </fieldset>
+        {{else if (not setting.pwolModifier)}}
+            {{formGroup setting.type value=setting.value choices=setting.choices classes="slim" rootId=../rootId
+                        localize=true}}
+        {{/if}}
+    {{/each}}
+</div>
 
-    <div class="form-group">
-        <label>{{localize proficiencyVariant.name}}</label>
-        <div class="form-fields">
-            <input type="checkbox" name="proficiencyVariant" {{checked proficiencyVariant.value}} />
-        </div>
-        <p class="hint">{{localize "PF2E.SETTINGS.Variant.Proficiency.Hint"}}</p>
-    </div>
-
-    <div class="proficiency-modifiers">
-        <div class="modifier">
-            <label>{{localize "PF2E.ProficiencyLevel0"}}</label>
-            <div class="form-fields">
-                <input
-                    type="number"
-                    name="proficiencyUntrainedModifier"
-                    value="{{proficiencyUntrainedModifier.value}}"
-                />
-            </div>
-        </div>
-        <div class="modifier">
-            <label>{{localize "PF2E.ProficiencyLevel1"}}</label>
-            <div class="form-fields">
-                <input type="number" name="proficiencyTrainedModifier" value="{{proficiencyTrainedModifier.value}}" />
-            </div>
-        </div>
-        <div class="modifier">
-            <label>{{localize "PF2E.ProficiencyLevel2"}}</label>
-            <div class="form-fields">
-                <input type="number" name="proficiencyExpertModifier" value="{{proficiencyExpertModifier.value}}" />
-            </div>
-        </div>
-        <div class="modifier">
-            <label>{{localize "PF2E.ProficiencyLevel3"}}</label>
-            <div class="form-fields">
-                <input type="number" name="proficiencyMasterModifier" value="{{proficiencyMasterModifier.value}}" />
-            </div>
-        </div>
-        <div class="modifier">
-            <label>{{localize "PF2E.ProficiencyLevel4"}}</label>
-            <div class="form-fields">
-                <input
-                    type="number"
-                    name="proficiencyLegendaryModifier"
-                    value="{{proficiencyLegendaryModifier.value}}"
-                />
-            </div>
-        </div>
-        <p class="hint">{{localize "PF2E.SETTINGS.Variant.Proficiency.ModifiersHint"}}</p>
-    </div>
-
-    <hr />
-
-    <footer class="sheet-footer">
-        <button type="submit">
-            <i class="fa-regular fa-floppy-disk"></i>
-            {{localize "SETTINGS.Save"}}
-        </button>
-        <button type="reset">
-            <i class="fa-solid fa-arrow-rotate-left"></i>
-            {{localize "PF2E.SETTINGS.ResetChanges"}}
-        </button>
-    </footer>
-</form>
+{{~#*inline "pwolModifiers"~}}
+    {{#with settings.proficiencyUntrainedModifier as |subsetting|}}
+        {{formGroup subsetting.type value=subsetting.value rootId=../rootId classes="slim" localize=true
+                    disabled=(not ../settings.proficiencyVariant.value)}}
+    {{/with}}
+    {{#with settings.proficiencyTrainedModifier as |subsetting|}}
+        {{formGroup subsetting.type value=subsetting.value rootId=../rootId classes="slim" localize=true
+                    disabled=(not ../settings.proficiencyVariant.value)}}
+    {{/with}}
+    {{#with settings.proficiencyExpertModifier as |subsetting|}}
+        {{formGroup subsetting.type value=subsetting.value rootId=../rootId classes="slim" localize=true
+                    disabled=(not ../settings.proficiencyVariant.value)}}
+    {{/with}}
+    {{#with settings.proficiencyMasterModifier as |subsetting|}}
+        {{formGroup subsetting.type value=subsetting.value rootId=../rootId classes="slim" localize=true
+                    disabled=(not ../settings.proficiencyVariant.value)}}
+    {{/with}}
+    {{#with settings.proficiencyLegendaryModifier as |subsetting|}}
+        {{formGroup subsetting.type value=subsetting.value rootId=../rootId classes="slim" localize=true
+                    disabled=(not ../settings.proficiencyVariant.value)}}
+    {{/with}}
+{{~/inline~}}

@@ -76,6 +76,9 @@ export abstract class DataField<
     /** The initial value of a field, or a function which assigns that initial value. */
     initial: this["options"]["initial"];
 
+    /** A localizable label displayed on forms which render this field. */
+    label: string;
+
     /** Whether this field defines part of a Document/Embedded Document hierarchy. */
     static hierarchical: boolean;
 

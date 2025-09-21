@@ -61,7 +61,7 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
     });
 
     /** Register World Clock settings and this menu. */
-    static registerSettings(): void {
+    static register(): void {
         game.settings.register("pf2e", "worldClock", {
             name: "PF2E.SETTINGS.WorldClock.Name",
             scope: "world",
