@@ -743,8 +743,7 @@ abstract class CreaturePF2e<
         const baseSpeed = this.system.movement.speeds.land.base;
         if (baseSpeed > 0) this.flags.pf2e.rollOptions.all["speed:land"] = true;
         const landSpeed = new SpeedStatistic(this, { type: "land", base: baseSpeed, modifiers });
-        this.system.movement.speeds.land.value = landSpeed.value;
-        this.system.movement.speeds.land.base = landSpeed.base;
+        this.system.movement.speeds.land = landSpeed.getTraceData();
         const baseSpeedOptions = this.getRollOptions();
         const otherSpeeds = Object.fromEntries(
             MOVEMENT_TYPES.filter((t) => t !== "land").map((type) => {
@@ -777,9 +776,8 @@ abstract class CreaturePF2e<
         ) as { [T in Exclude<MovementType, "land">]: SpeedStatistic<this, T> | null };
         const travelSpeed = landSpeed.extend({ type: "travel" });
         this.movement.speeds = { [landSpeed.type]: landSpeed, ...otherSpeeds, [travelSpeed.type]: travelSpeed };
-        this.system.movement.speeds = R.mapValues(
-            this.movement.speeds,
-            (s) => s?.getTraceData() ?? null,
+        this.system.movement.speeds = R.mapValues(this.movement.speeds, (s) =>
+            s?.type === "land" ? this.system.movement.speeds.land : (s?.getTraceData() ?? null),
         ) as CreatureMovementData["speeds"];
     }
 

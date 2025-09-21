@@ -22,8 +22,9 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
         }
         this.rollOptions = this.createRollOptions(domains);
         const additionalModifiers = (options.modifiers ??= []);
+        const modifierAdjustments = actor.synthetics.modifierAdjustments;
         for (const modifier of additionalModifiers) {
-            modifier.adjustments = extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, slug);
+            modifier.adjustments = extractModifierAdjustments(modifierAdjustments, domains, modifier.slug);
         }
         const syntheticModifiers = extractModifiers(actor.synthetics, domains, { test: this.rollOptions });
         this.modifiers = [...syntheticModifiers, ...additionalModifiers];
@@ -64,7 +65,12 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
         return new SpeedStatistic(this.actor, { type, base, modifiers, domains: [`${type}-speed`], source });
     }
 
-    override getTraceData(): SpeedStatisticTraceData<TType> {
+    override getTraceData(): TType extends "land"
+        ? LandSpeedStatisticTraceData
+        : TType extends MovementType | "travel"
+          ? SpeedStatisticTraceData<TType>
+          : never;
+    override getTraceData(): LandSpeedStatisticTraceData | SpeedStatisticTraceData<TType> {
         const data: SpeedStatisticTraceData<TType> & { crawl?: number; step?: number } = {
             type: this.type,
             slug: this.slug,
@@ -98,7 +104,7 @@ interface SpeedStatisticTraceData<TType extends MovementType | "travel" = Moveme
     source: string | null;
 }
 
-interface LandSpeedStatisticTraceData extends SpeedStatisticTraceData {
+interface LandSpeedStatisticTraceData extends SpeedStatisticTraceData<"land"> {
     crawl: number;
     step: number;
 }
