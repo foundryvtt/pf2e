@@ -6,13 +6,15 @@
     import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
     import { sluggify } from "@util/misc.ts";
 
-    const { state: data, resolve, testAllowedDrop }: PickAThingRenderContext = $props();
+    const { state: data, updateSelection, resolve, testAllowedDrop }: PickAThingRenderContext = $props();
     const { containsItems, selectMenu, allowNoSelection, includeDropZone } = $derived(data);
     let droppedOption: PickableThing | null = $state(null);
 
     // Select specific options, unused for buttons
     let selectedIndex: string | number | null = $state(null);
-    const selectedChoice = $derived(selectedIndex === "bonus" ? droppedOption : data.choices[Number(selectedIndex)]);
+    const selectedChoice = $derived(
+        selectedIndex === null ? null : selectedIndex === "bonus" ? droppedOption : data.choices[Number(selectedIndex)],
+    );
 
     // The select cannot handle complex value objects, so we use index or bonus instead
     const selectChoices = $derived.by(() => {
@@ -22,6 +24,9 @@
         if (droppedOption) options.push({ value: "bonus", label: droppedOption.label });
         return options;
     });
+
+    // Reflect selection to main window in case its closed early
+    $effect(() => updateSelection(selectedChoice));
 
     async function viewItem(selection: unknown) {
         if (!UUIDUtils.isItemUUID(selection)) return;

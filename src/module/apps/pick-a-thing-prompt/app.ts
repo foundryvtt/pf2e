@@ -43,11 +43,17 @@ class PickAThingPrompt<TThing extends string | number | object> extends SvelteAp
 
     allowNoSelection: boolean;
 
+    /** The current value, which is used in the resolve when it closes */
+    selection: PickableThing<TThing> | null = null;
+
     protected override async _prepareContext(): Promise<PickAThingRenderContext<TThing>> {
         return {
             foundryApp: this,
+            updateSelection: (result: PickableThing<TThing> | null) => {
+                this.selection = result;
+            },
             resolve: (result: PickableThing<TThing> | null) => {
-                this.#resolve?.(result);
+                this.selection = result;
                 this.close();
             },
             testAllowedDrop: (droppedItem) => {
@@ -88,6 +94,11 @@ class PickAThingPrompt<TThing extends string | number | object> extends SvelteAp
             this.#resolve = resolve;
         });
     }
+
+    protected override _onClose(options: fa.ApplicationClosingOptions): void {
+        this.#resolve?.(this.selection);
+        super._onClose(options);
+    }
 }
 
 interface PickAThingPromptConfiguration<TThing extends string | number | object = string | number | object>
@@ -111,6 +122,7 @@ interface PickableThing<T extends string | number | object = string | number | o
 
 interface PickAThingRenderContext<T extends string | number | object = string | number | object>
     extends SvelteApplicationRenderContext {
+    updateSelection: (option: PickableThing<T> | null) => void;
     resolve: (option: PickableThing<T> | null) => void;
     testAllowedDrop: (option: ItemPF2e) => boolean;
     state: {
