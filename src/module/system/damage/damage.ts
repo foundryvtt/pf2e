@@ -162,7 +162,8 @@ export class DamagePF2e {
         // Create the damage roll and evaluate. If already created, evalute the one we've been given instead
         const roll = await (() => {
             const damage = data.damage;
-            if (damage.roll) return damage.roll.evaluate();
+            const allowInteractive = context.rollMode !== "blindroll";
+            if (damage.roll) return damage.roll.evaluate({ allowInteractive });
 
             const formula = fu.deepClone(damage.formula[outcome ?? "success"]);
             if (!formula) {
@@ -178,7 +179,6 @@ export class DamagePF2e {
                     : game.settings.get("pf2e", "critRule") === "doubledamage"
                       ? "double-damage"
                       : "double-dice";
-
             const options: DamageRollData = {
                 rollerId,
                 damage: data,
@@ -191,7 +191,6 @@ export class DamagePF2e {
                 showBreakdown,
             };
 
-            const allowInteractive = context.rollMode !== "blindroll";
             return new DamageRoll(formula, {}, options).evaluate({ allowInteractive });
         })();
 
