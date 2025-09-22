@@ -1,1 +1,15 @@
-<textarea name="system.rules.{{index}}" spellcheck="false">{{json rule}}</textarea>
+{{~#if autogenerate~}}
+    {{#each fields as |field key|}}
+        {{#unless (includes ../omittedFields key)}}
+            {{#if (includes ../hiddenFields key)}}
+                <input type="hidden" name="system.rules.{{../index}}.{{key}}" value="{{json (lookup ../rule key)}}"
+                       data-dtype="JSON" />
+            {{else}}
+                {{formGroup field name=(concat "system.rules." ../index "." key) value=(lookup ../rule key)
+                            rootId=../rootId placeholder=(ifThen (eq key "label") ../item.name "")}}
+            {{/if}}
+        {{/unless}}
+    {{/each}}
+{{~else~}}
+    <textarea name="system.rules.{{index}}" spellcheck="false">{{json rule}}</textarea>
+{{/if~}}

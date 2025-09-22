@@ -13,6 +13,8 @@ import fields = foundry.data.fields;
 class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
+    static override autogenForms = true;
+
     constructor(data: RuleElementSource, options: RuleElementOptions) {
         super(data, options);
         if (this.invalid) return;

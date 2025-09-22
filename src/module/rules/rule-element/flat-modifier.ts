@@ -103,17 +103,8 @@ class FlatModifierRuleElement extends RuleElement<FlatModifierSchema> {
             }),
             removeAfterRoll: new DataUnionField(
                 [
-                    new StrictStringField<"if-enabled", "if-enabled">({
-                        required: false,
-                        nullable: false,
-                        choices: ["if-enabled"],
-                        initial: undefined,
-                    }),
-                    new StrictBooleanField({
-                        required: false,
-                        nullable: false,
-                        initial: undefined,
-                    }),
+                    new StrictStringField<"if-enabled">({ required: false, nullable: false, choices: ["if-enabled"] }),
+                    new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
                     new PredicateField({ required: false, nullable: false, initial: undefined }),
                 ],
                 { required: false, nullable: false, initial: false },
@@ -248,7 +239,7 @@ type FlatModifierSchema = RuleElementSchema & {
      * The value may be a boolean, "if-enabled", or a predicate to be tested against the roll options from the roll.
      */
     removeAfterRoll: DataUnionField<
-        StrictStringField<"if-enabled"> | StrictBooleanField | PredicateField<false, false, false>,
+        StrictStringField<"if-enabled"> | StrictBooleanField<false, false, false> | PredicateField<false, false, false>,
         false,
         false,
         true

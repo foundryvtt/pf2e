@@ -31,7 +31,7 @@ export default abstract class Document<
     TSchema extends DataSchema = DataSchema,
 > extends DataModel<TParent, TSchema> {
     /** A set of localization prefix paths which are used by this Document model. */
-    static LOCALIZATION_PREFIXES: string[];
+    static override LOCALIZATION_PREFIXES: string[];
 
     protected override _configure(options?: { pack?: string | null; parentCollection?: string | null }): void;
 

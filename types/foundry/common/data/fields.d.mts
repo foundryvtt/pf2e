@@ -16,6 +16,7 @@ import {
     JavaScriptFieldOptions,
     NumberFieldOptions,
     ObjectFieldOptions,
+    StringFieldInputConfig,
     StringFieldOptions,
 } from "./_types.mjs";
 import { TombstoneDataSchema } from "./data.mjs";
@@ -547,6 +548,8 @@ export class BooleanField<
     protected override _cast(value: unknown): unknown;
 
     protected override _validateType(value: unknown): value is boolean;
+
+    protected override _toInput(config: FormInputConfig<boolean | null>): HTMLElement;
 }
 
 /** A subclass of [DataField]{@link DataField} which deals with number-typed data. */
@@ -622,6 +625,8 @@ export class StringField<
      * Prepare form input configuration to accept a limited choice set of options.
      */
     static _prepareChoiceConfig(config: foundry.data.FormInputConfig & Partial<foundry.data.ChoiceInputConfig>): void;
+
+    protected override _toInput(config: StringFieldInputConfig): HTMLElement;
 }
 
 /** A subclass of `DataField` which deals with object-typed data. */
@@ -747,7 +752,7 @@ export class ArrayField<
         TModelProp extends object = ModelPropFromDataField<TElementField>[],
         TRequired extends boolean = true,
         TNullable extends boolean = false,
-        THasInitial extends boolean = true,
+        THasInitial extends boolean = TRequired,
     >
     extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial>
     implements Omit<ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>, "validate">
@@ -816,7 +821,7 @@ export interface ArrayField<
     TModelProp extends object = ModelPropFromDataField<TElementField>[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
-    THasInitial extends boolean = true,
+    THasInitial extends boolean = TRequired,
 > extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
     clean(value: unknown, options?: CleanFieldOptions): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 }
@@ -829,9 +834,9 @@ export class SetField<
     TElementField extends DataField,
     TSourceProp extends SourceFromDataField<TElementField>[] = SourceFromDataField<TElementField>[],
     TModelProp extends Set<ModelPropFromDataField<TElementField>> = Set<ModelPropFromDataField<TElementField>>,
-    TRequired extends boolean = false,
+    TRequired extends boolean = true,
     TNullable extends boolean = false,
-    THasInitial extends boolean = true,
+    THasInitial extends boolean = TRequired,
 > extends ArrayField<TElementField, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
     protected override _validateElements(
         value: unknown[],

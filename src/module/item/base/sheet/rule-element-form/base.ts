@@ -3,13 +3,14 @@ import type { DataField, SourceFromSchema } from "@common/data/fields.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElements, type RuleElement, type RuleElementSource } from "@module/rules/index.ts";
-import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";
+import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { LaxSchemaField } from "@system/schema-data-fields.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import type { ItemSheetPF2e } from "../index.ts";
+import fields = foundry.data.fields;
 
 interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElement | null> {
     sheet: ItemSheetPF2e<ItemPF2e>;
@@ -122,6 +123,7 @@ class RuleElementForm<
                     : `${key}: ${failure.message}`,
             );
         })();
+        const autogenerate = (this.object?.constructor as typeof RuleElement | undefined)?.autogenForms ?? false;
 
         return {
             ...R.pick(this, ["index", "rule", "object"]),
@@ -133,6 +135,10 @@ class RuleElementForm<
             rule: mergedRule,
             fields: this.schema?.fields,
             form: await this.#getFormHelpers(mergedRule),
+            autogenerate,
+            rootId: this.sheet.id,
+            hiddenFields: ["ignored", "requiresEquipped", "requiresInvestment", "removeUponCreate"],
+            omittedFields: ["key", "priority", "spinoff"],
             validationFailures,
         };
     }
@@ -194,9 +200,7 @@ class RuleElementForm<
     async updateItem(updates: Partial<TSource> | Record<string, JSONValue>): Promise<void> {
         const rules: Record<string, JSONValue>[] = this.item.toObject().system.rules;
         const result = fu.mergeObject(this.rule, updates, { performDeletions: true });
-        if (this.schema) {
-            cleanDataUsingSchema(this.schema.fields, result);
-        }
+        if (this.schema) cleanDataUsingSchema(this.schema.fields, result);
         rules[this.index] = result;
         await this.item.update({ [`system.rules`]: rules });
     }
@@ -313,7 +317,6 @@ class RuleElementForm<
                     throw error; // prevent update, to give the user a chance to correct, and prevent bad data
                 }
             }
-
             return;
         }
 
@@ -327,9 +330,7 @@ class RuleElementForm<
         // Predicate is special cased as always json. Later on extend such parsing to more things
         cleanPredicate(source);
 
-        if (this.schema) {
-            cleanDataUsingSchema(this.schema.fields, source);
-        }
+        if (this.schema) cleanDataUsingSchema(this.schema.fields, source);
 
         // Update our reference so that equality matching works on the next data prep cycle
         // This allows form reuse to occur
@@ -339,13 +340,11 @@ class RuleElementForm<
 
 /** Recursively clean and remove all fields that have a default value */
 function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>): void {
-    const fields = foundry.data.fields;
-
     // Removes the field if it is the initial value.
     // It may merge with the initial value to handle cases where the values where cleaned recursively
     const deleteIfInitial = (key: string, field: DataField): boolean => {
         if (data[key] === undefined) return true;
-        const initialValue = typeof field.initial === "function" ? field.initial(data) : field.initial;
+        const initialValue = field.getInitialValue(data);
         const valueRaw = data[key];
         const value =
             R.isPlainObject(valueRaw) && R.isPlainObject(initialValue) ? { ...initialValue, ...valueRaw } : valueRaw;
@@ -355,13 +354,10 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
     };
 
     for (const [key, field] of Object.entries(schema)) {
-        if (deleteIfInitial(key, field)) continue;
-
-        if (field instanceof ResolvableValueField) {
+        if (typeof data[key] === "string" && !(field instanceof fields.StringField)) {
             data[key] = field.clean(data[key]);
-            deleteIfInitial(key, field);
-            continue;
         }
+        if (deleteIfInitial(key, field)) continue;
 
         if ("fields" in field) {
             const value = data[key];

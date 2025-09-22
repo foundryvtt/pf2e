@@ -1,6 +1,5 @@
 import type { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES, DAMAGE_TYPES } from "@system/damage/values.ts";
-import { StrictArrayField } from "@system/schema-data-fields.ts";
 import { sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
@@ -11,28 +10,19 @@ import fields = foundry.data.fields;
 
 /** Alter certain aspects of individual components (modifiers and dice) of a damage roll. */
 class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
+    static override autogenForms = true;
+
     static override defineSchema(): DamageAlterationSchema {
         return {
             ...super.defineSchema(),
-            selectors: new StrictArrayField(
+            selectors: new fields.SetField(
                 new fields.StringField({
                     required: true,
                     nullable: false,
                     blank: false,
                     initial: undefined,
                 }),
-                {
-                    required: true,
-                    initial: undefined,
-                    validate: (value) => {
-                        if (Array.isArray(value) && value.length > 0) return true;
-                        const failure = new foundry.data.validation.DataModelValidationFailure({
-                            invalidValue: value,
-                            message: "must have at least one",
-                        });
-                        throw new foundry.data.validation.DataModelValidationError(failure);
-                    },
-                },
+                { required: true, initial: undefined, min: 1 },
             ),
             mode: new fields.StringField({
                 required: true,
@@ -48,6 +38,8 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
             relabel: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
         };
     }
+
+    static override LOCALIZATION_PREFIXES = ["PF2E.RULES.Common", "PF2E.RULES.DamageAlteration"];
 
     override resolveValue(
         value: unknown,
@@ -97,7 +89,8 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
         if (this.ignored) return;
 
         const alteration = new DamageAlteration(this);
-        for (const selector of this.resolveInjectedProperties(this.selectors)) {
+        const selectors = this.selectors.values().toArray();
+        for (const selector of this.resolveInjectedProperties(selectors)) {
             const synthetics = (this.actor.synthetics.damageAlterations[selector] ??= []);
             synthetics.push(alteration);
         }
@@ -111,7 +104,7 @@ interface DamageAlterationRuleElement
 type DamageAlterationProperty = "dice-faces" | "dice-number" | "damage-type" | "tags";
 
 type DamageAlterationSchema = RuleElementSchema & {
-    selectors: StrictArrayField<fields.StringField<string, string, true, false, false>>;
+    selectors: fields.SetField<fields.StringField<string, string, true, false, false>>;
     mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     property: fields.StringField<DamageAlterationProperty, DamageAlterationProperty, true, false, false>;
     value: ResolvableValueField<true, true, true>;
