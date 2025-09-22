@@ -252,9 +252,9 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
             }
         } else {
             if (this.choices.length > 0 && !this.allowNoSelection) {
-                ui.notifications.warn(
-                    game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name }),
-                );
+                ui.notifications.warn("PF2E.UI.RuleElements.Prompt.NoSelectionMade", {
+                    format: { item: this.item.name },
+                });
             }
             ruleSource.ignored = true;
         }
