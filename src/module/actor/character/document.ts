@@ -1564,6 +1564,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }));
         action.attack = action.roll = action.variants[0].roll;
 
+        // Note this since a damage alteration may set it to true, which we want to revert after rolling
+        const originalDiceUpgraded = weapon.flags.pf2e.damageFacesUpgraded;
+
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
                 params.options = new Set(params.options ?? []);
@@ -1624,6 +1627,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     context: damageContext,
                 });
                 if (!damage) return null;
+                weapon.flags.pf2e.damageFacesUpgraded = originalDiceUpgraded;
 
                 if (params.getFormula) {
                     const formula = damage.damage.formula[outcome];
