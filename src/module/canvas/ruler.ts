@@ -1,4 +1,5 @@
 import type { ElevatedPoint } from "@common/_types.d.mts";
+import * as R from "remeda";
 
 export class RulerPF2e extends fc.interaction.Ruler {
     override get path(): readonly Readonly<ElevatedPoint>[] {
@@ -11,18 +12,19 @@ export class RulerPF2e extends fc.interaction.Ruler {
             super.path = value;
             return;
         }
-        const snappedOrigin = { ...RulerPF2e.getSnappedPoint(origin), elevation: origin.elevation };
+        if (R.isDeepEqual(super.path, value)) return;
+
         const gridSize = canvas.grid.size;
+        const snappedOrigin = { ...RulerPF2e.getSnappedPoint(origin), elevation: origin.elevation };
         const nearest = { x: snappedOrigin.x % gridSize, y: snappedOrigin.y % gridSize };
-        super.path = value.map((point) => {
-            if (point.x === origin.x && point.y === origin.y && point.elevation === origin.elevation) {
-                return { ...snappedOrigin };
-            }
-            const snappedPoint = {
-                x: Math.floor(point.x / gridSize) * gridSize + nearest.x,
-                y: Math.floor(point.y / gridSize) * gridSize + nearest.y,
-            };
-            return Object.assign(point, snappedPoint);
-        });
+        super.path = value.map((p) =>
+            R.isDeepEqual(p, origin)
+                ? snappedOrigin
+                : {
+                      x: Math.floor(p.x / gridSize) * gridSize + nearest.x,
+                      y: Math.floor(p.y / gridSize) * gridSize + nearest.y,
+                      elevation: p.elevation,
+                  },
+        );
     }
 }
