@@ -1,5 +1,5 @@
 import { LaxSchemaField } from "@system/schema-data-fields.ts";
-import { RuleElementPF2e } from "./rule-element/base.ts";
+import { RuleElement } from "./rule-element/base.ts";
 
 import { ActorTraitsRuleElement } from "./rule-element/actor-traits.ts";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success.ts";
@@ -50,7 +50,7 @@ export type { RuleElementSynthetics } from "./synthetics.ts";
  * @category RuleElement
  */
 class RuleElements {
-    static #builtin: Record<string, RuleElementConstructor | undefined> = Object.freeze({
+    static readonly builtin: Record<string, RuleElementConstructor | undefined> = {
         ActiveEffectLike: AELikeRuleElement,
         ActorTraits: ActorTraitsRuleElement,
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
@@ -93,16 +93,16 @@ class RuleElements {
         TokenName: TokenNameRuleElement,
         Weakness: WeaknessRuleElement,
         WeaponPotency: WeaponPotencyRuleElement,
-    });
+    };
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};
 
     static get all(): Record<string, RuleElementConstructor | undefined> {
-        return { ...this.#builtin, ...this.custom };
+        return { ...this.builtin, ...this.custom };
     }
 
-    static fromOwnedItem(options: RuleElementOptions): RuleElementPF2e[] {
-        const rules: RuleElementPF2e[] = [];
+    static fromOwnedItem(options: RuleElementOptions): RuleElement[] {
+        const rules: RuleElement[] = [];
         const item = options.parent;
         for (const [sourceIndex, source] of item.system.rules.entries()) {
             if (typeof source.key !== "string") {
@@ -111,7 +111,7 @@ class RuleElements {
                 );
                 continue;
             }
-            const REConstructor = this.custom[source.key] ?? this.custom[source.key] ?? this.#builtin[source.key];
+            const REConstructor = this.custom[source.key] ?? this.custom[source.key] ?? this.builtin[source.key];
             if (REConstructor) {
                 try {
                     rules.push(new REConstructor(source, { ...options, sourceIndex }));
@@ -136,6 +136,6 @@ class RuleElements {
 type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (new (
     data: RuleElementSource,
     options: RuleElementOptions,
-) => RuleElementPF2e);
+) => RuleElement);
 
-export { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource };
+export { RuleElement, RuleElementOptions, RuleElements, RuleElementSource };

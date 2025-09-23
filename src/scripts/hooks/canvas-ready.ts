@@ -1,6 +1,4 @@
-import { TokenRulerPF2e } from "@module/canvas/token/ruler.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
-import { createHTMLElement } from "@util";
 
 export const CanvasReady = {
     listen: (): void => {
@@ -23,45 +21,15 @@ export const CanvasReady = {
             // Accomodate hex grid play with a usable default cone angle
             CONFIG.MeasuredTemplate.defaults.angle = canvas.grid.isHexagonal ? 60 : 90;
 
-            const hasSceneTerrains = !!canvas.scene.flags.pf2e.environmentTypes?.length;
             for (const token of canvas.tokens.placeables) {
-                // Reset actors to add scene and region terrains and refresh their available roll options
-                // The first reset is performed in the ready hook
-                if (game.ready) {
-                    if (
-                        hasSceneTerrains ||
-                        (token.document.regions ?? []).some((r) =>
-                            r.behaviors.some((b) => !b.disabled && b.type === "environment"),
-                        )
-                    ) {
-                        token.actor?.reset();
-                    }
-                }
                 // Redraw effects on visible tokens
-                if (token.visible) {
-                    token.renderFlags.set({ redrawEffects: true });
-                }
+                if (token.visible) token.renderFlags.set({ redrawEffects: true });
             }
 
             // Show clear-measured-templates buttons
             for (const message of game.messages.contents.slice((-1 * CONFIG.ChatMessage.batchSize) / 2)) {
                 toggleClearTemplatesButton(message);
             }
-
-            // Observe changes to the HeadsUpDisplayContainer's element attributes
-            TokenRulerPF2e.observeHudContainer();
-
-            // Create a distance label to show above hovered tokens
-            document.getElementById("measurement")?.append(
-                createHTMLElement("div", {
-                    id: "token-hover-distance",
-                    classes: ["waypoint-label"],
-                    children: [
-                        fa.fields.createFontAwesomeIcon("ruler"),
-                        createHTMLElement("span", { classes: ["total-measurement"] }),
-                    ],
-                }),
-            );
         });
     },
 };

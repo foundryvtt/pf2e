@@ -22,7 +22,7 @@ import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
+import { RuleElement, RuleElementOptions, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
 import { eventToRollMode } from "@module/sheet/helpers.ts";
 import { type EnrichmentOptionsPF2e, type RollDataPF2e, TextEditorPF2e } from "@system/text-editor.ts";
@@ -74,7 +74,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Prepared rule elements from this item */
-    declare rules: RuleElementPF2e[];
+    declare rules: RuleElement[];
 
     /** The sluggified name of the item **/
     get slug(): string | null {
@@ -307,7 +307,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.grantedBy = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
-    prepareRuleElements(options: Omit<RuleElementOptions, "parent"> = {}): RuleElementPF2e[] {
+    prepareRuleElements(options: Omit<RuleElementOptions, "parent"> = {}): RuleElement[] {
         if (!this.actor) throw ErrorPF2e("Rule elements may only be prepared from embedded items");
         return (this.rules = this.actor.canHostRuleElements
             ? RuleElements.fromOwnedItem({ ...options, parent: this as ItemPF2e<NonNullable<TParent>> })

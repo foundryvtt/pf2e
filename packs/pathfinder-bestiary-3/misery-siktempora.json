@@ -265,7 +265,7 @@
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 3,
+                    "heightenedLevel": 2,
                     "uses": {
                         "max": 3,
                         "value": 3
@@ -576,7 +576,7 @@
                     {
                         "key": "Note",
                         "predicate": [
-                            "dimension-of-time-lore"
+                            "check:statistic:base:dimension-of-time-lore"
                         ],
                         "selector": "initiative",
                         "text": "{item|system.description.value}",
@@ -606,7 +606,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The misery siktempora's last action was a claw Strike that damaged the target</p>\n<hr />\n<p><strong>Effect</strong> The misery siktempora fills the target's thoughts with abject despair. The target must attempt a @Check[will|dc:32] save. Regardless of outcome, the target is then immune to Inflict Misery for 1 minute.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but for 1 minute.</p>"
+                    "value": "<p><strong>Requirements</strong> The misery siktempora's last action was a claw Strike that damaged the target</p><hr /><p><strong>Effect</strong> The misery siktempora fills the target's thoughts with abject despair. The target must attempt a @Check[will|dc:32|options:inflicts:clumsy,inflicts:enfeebled,inflicts:stupefied] save. Regardless of outcome, the target is then immune to Inflict Misery for 1 minute.</p><hr /><p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -640,7 +640,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The misery siktempora assails the mind of one creature within 100 feet with a wail of anguish and torment that deals @Damage[8d6[mental]] damage (@Check[will|dc:32|basic] save).</p>\n<p>On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for the first action of its next turn (or for 1 round on a critical failure).</p>"
+                    "value": "<p>The misery siktempora assails the mind of one creature within 100 feet with a wail of anguish and torment that deals @Damage[8d6[mental]] damage (@Check[will|dc:32|basic|options:inflicts:confused] save).</p>\n<p>On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for the first action of its next turn (or for 1 round on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",

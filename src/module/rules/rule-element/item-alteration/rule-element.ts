@@ -4,12 +4,12 @@ import type { ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import * as R from "remeda";
 import { AELikeRuleElement } from "../ae-like.ts";
-import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import { RuleElement, RuleElementOptions } from "../base.ts";
 import type { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource } from "../data.ts";
 import { ItemAlteration, ItemAlterationProperty, ItemAlterationSchema } from "./alteration.ts";
 import fields = foundry.data.fields;
 
-class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
+class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
     constructor(data: RuleElementSource, options: RuleElementOptions) {
         super(data, options);
 
@@ -68,7 +68,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         return this.constructor.#LAZY_PROPERTIES.includes(this.property);
     }
 
-    override async preCreate({ tempItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
+    override async preCreate({ tempItems }: RuleElement.PreCreateParams): Promise<void> {
         if (this.ignored) return;
 
         // Apply feature/feature alterations during pre-creation to possibly inform subsequent REs like choice sets
@@ -185,7 +185,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 }
 
 interface ItemAlterationRuleElement
-    extends RuleElementPF2e<ItemAlterationRuleSchema>,
+    extends RuleElement<ItemAlterationRuleSchema>,
         ModelPropsFromRESchema<ItemAlterationRuleSchema> {
     constructor: typeof ItemAlterationRuleElement;
 }

@@ -18,7 +18,7 @@ import {
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentRegionBehavior } from "@scene/region-behavior/types.ts";
-import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { Check, CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
@@ -29,7 +29,7 @@ import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
 import type { DamageRollFunction } from "./data/base.ts";
 import type { ActorSourcePF2e } from "./data/index.ts";
-import { CheckModifier, ModifierPF2e, StatisticModifier, createAttributeModifier } from "./modifiers.ts";
+import { CheckModifier, Modifier, StatisticModifier, createAttributeModifier } from "./modifiers.ts";
 import type { NPCStrike } from "./npc/data.ts";
 import { CheckContext } from "./roll-context/check.ts";
 import { DamageContext } from "./roll-context/damage.ts";
@@ -359,7 +359,7 @@ function getStrikeAttackDomains(
             alternativeAttributeModifier,
             ...extractModifiers(weapon.actor.synthetics, domains, { resolvables: { weapon }, test: rollOptions }),
         ]
-            .filter((m): m is ModifierPF2e & { ability: AttributeString } => m?.type === "ability" && m.enabled)
+            .filter((m): m is Modifier & { ability: AttributeString } => m?.type === "ability" && m.enabled)
             .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
         domains.push(`${attributeModifier.ability}-attack`, `${attributeModifier.ability}-based`);
     }
@@ -373,10 +373,11 @@ function getStrikeDamageDomains(
 ): string[] {
     const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
     const slug = weapon.slug ?? sluggify(weapon.name);
-    const { actor, group, traits } = weapon;
+    const { actor, group } = weapon;
+    const traits = weapon.system.traits.value;
     const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
     const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
-    const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
+    const unarmedOrWeapon = traits.includes("unarmed") ? "unarmed" : "weapon";
     const domains = [
         `${weapon.id}-damage`,
         `${slug}-damage`,
@@ -406,7 +407,9 @@ function getStrikeDamageDomains(
 
     if (actor.isOfType("character", "npc")) {
         const strengthBasedDamage =
-            weapon.isMelee || (weapon.isThrown && !traits.has("splash")) || traits.has("propulsive");
+            weapon.isMelee ||
+            traits.includes("propulsive") ||
+            (weapon.isThrown && !traits.includes("splash") && !["alchemical-bomb", "grenade"].includes(baseType ?? ""));
 
         const attributeModifier = [
             strengthBasedDamage ? createAttributeModifier({ actor, attribute: "str", domains }) : null,
@@ -442,7 +445,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     const synthetics = actor.synthetics;
     const modifiers = [
-        new ModifierPF2e({
+        new Modifier({
             slug: "base",
             label: "PF2E.ModifierTitle",
             modifier: item.attackModifier,
@@ -514,7 +517,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     // Multiple attack penalty
     const maps = calculateMAPs(item, { domains, options: initialRollOptions });
     const createMapModifier = (prop: "map1" | "map2") => {
-        return new ModifierPF2e({
+        return new Modifier({
             slug: maps.slug,
             label: maps.label,
             modifier: maps[prop],
@@ -601,7 +604,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 dosAdjustments,
                 createMessage: params.createMessage ?? true,
             };
-            const roll = await CheckPF2e.roll(check, checkContext, params.event);
+            const roll = await Check.roll(check, checkContext, params.event);
 
             if (roll) {
                 for (const rule of context.origin.actor.rules.filter((r) => !r.ignored)) {
@@ -699,11 +702,11 @@ function calculateRangePenalty(
     increment: number | null,
     selectors: string[],
     rollOptions: Set<string>,
-): ModifierPF2e | null {
+): Modifier | null {
     if (!increment || increment === 1) return null;
 
     const slug = "range-penalty";
-    const modifier = new ModifierPF2e({
+    const modifier = new Modifier({
         label: "PF2E.RangePenalty",
         slug,
         type: "untyped",
@@ -824,9 +827,7 @@ async function applyActorGroupUpdate(
     }
 
     const changed = !!actorUpdates || itemCreates.length || itemUpdates.length || itemDeletes.length;
-    if (render && changed) {
-        actor.render();
-    }
+    if (changed && render) actor.render();
 }
 
 export {

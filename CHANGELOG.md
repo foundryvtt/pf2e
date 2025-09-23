@@ -1,3 +1,104 @@
+## 7.5.1
+
+### System Improvements
+
+- (stwlam) Show action cost in label of final planned waypoint
+
+### Bugfixes
+
+- (stwlam) Fix sheet issue causing loot actors to refuse to be merchants
+- (stwlam) Ensure trade is properly aborted on receiver's end after declining a request
+
+### Data Updates
+
+- (Ambrose) Add "immutable:true" to Sacred Defense inline rolls
+
+### Under the Hood
+
+- (stwlam) Include speed `type` in `speed.otherSpeeds` shim
+
+## 7.5.0
+
+### Highlights
+
+- (stwlam) Make several improvements to measurement rulers and labeling
+    - Drag-measurement waypoint labels now show distance traveled instead of movement cost.
+    - When moving a creature token using a non-travel speed, action glyphs mark squares where Token movement would translate into a single Stride action.
+    - Outside of encounters, a creature's travel speed is used by default (managed from Token HUD).
+    - Measurement labels are now at a fixed scale, making them readable even when zoomed far out.
+    - A line is now drawn between a controlled and mouse-hovered token to go along with the distance label.
+    - Display of distance labels can now be controlled via system client setting.
+- (stwlam) Add a creature-to-creature trade application
+    - It can be accessed by players via dropping items on allied/neutral tokens and by anyone from the actor directory. Someone must be logged in to represent each trading party.
+    - When dropping an item, hold the Shift key to offer it as a gift and skip the full trade window.
+
+### System Improvements
+
+- (Clemente) Improve localizability of "Cast" term and the Compendium Browser's "Abilities" label
+- (stwlam) Add support for mitigating/ignoring difficult terrain (see, e.g., Unimpeded Stride)
+- (stwlam) Add support for retrieving counteract statistic via `ActorPF2e#getStatistic`
+- (Supe) Add support for resolvable-value item trait alterations
+- (Supe) Add support for the resilient trait
+- (Supe) Allow the SpecialResource rule element on NPCs
+- (Supe) Implement sf2e equipment-grade item alterations
+
+### Bugfixes
+
+- (Supe) Fix sf2e weapons/armor, Runic Body/Weapon effects when using ABP
+- (Supe) Fix issue causing re-rendering slowdowns in encounter tracker
+- (stwlam) Fix issue causing battle forms to not ignore armor speed/check penalties
+- (stwlam) Fix issue sometimes causing a trained spellcasting proficiency to not apply to spell attack rolls
+- (stwlam) Include "melee-damage" selector when retrieving modifiers for melee spell and blast damage
+- (stwlam) Fix clearing targets in TokenMark RE prompt
+- (stwlam) Fix pricing of Starfinder armor improvements
+- (stwlam) Prevent FlatModifier REs from applying twice to armies
+- (stwlam) Fix displayed toggle status in notifications created by roll-option toggle macros
+
+### Data Updates
+
+- (Abaddon) Add cursebound condition to en.json
+- (Abaddon) Fix cloister robe and unstable gearshift action
+- (Ambrose) Add Dawn of the Frogs content
+- (Ambrose) Add deception to selectors for Tallusian's Rubble ability
+- (Ambrose) Add Magic Immunity automation to select Will-o-Wisp actors
+- (Ambrose) Correct Ancient Diabolic Dragon's Claw attack modifier
+- (Ambrose) Fix Crime Kingpin's Sneak Attack damage, Heraldic Proclamation, and typos in PFS Season 7 actors
+- (Ambrose) Fix Feat/Feature Effects compendium banner color
+- (Ambrose) Remove Snare Kit and redirect to Artisan's Toolkit per Pathfinder Player Core 2
+- (Ambrose) Remove Swing Back from Morlock Thrall stat block
+- (Ambrose) Update Pick a Lock text to remaster
+- (Ambrose) Update text formatting on Shepard of Errant Winds and Speaker in Sibilance
+- (CotillionTheRope) Add Jotunborn journal entry
+- (CotillionTheRope) Fix banner color of Spells and Equipment compendiums
+- (Dire Weasel) Add effect for Cloister Robe and Rokurokubi's Extend Neck
+- (Dire Weasel) Fix acuity of Bloodsense feat
+- (Dire Weasel) Fix name of Ancestor Statue
+- (Dire Weasel) Fix some predicates for NPC skill variants
+- (Dire Weasel) Show Escape DC for Rooting rune
+- (jokr) Fix hemlock stage 3 damage
+- (kanongil) Fix level of Revitalizing Finisher
+- (rectulo) Fix a typo in Deep Pockets
+- (rectulo) Fix level of the Staff of the Ruling Beast
+- (rectulo) Fix Guardian class abilities table
+- (rectulo) Update Maneuver in Flight description to remaster
+- (Rigo) Automate Glorious Banner
+- (Rigo) Correct typo in Shadow Sheath spirit damage roll option predicate
+- (Rigo) Disable transcendence action toggles if chosen ikon has no divine spark
+- (Rigo) Limit Crunch to only upgrade jaws base damage dice faces
+- (Rigo) Limit Damage Alterations on psychic conscious mind to base damage
+- (stwlam) Fix selector of Treerazer's Staggering Strike note
+- (stwlam) Include Agile trait for small claw at higher levels of Animal Form: Crab
+- (Tikael) Fix action type of Naiad Queen's Water Healing
+- (Tikael) Improve automation of Luminous Sprite
+
+### Under the Hood
+
+- (stwlam) Export module-subclassable classes (`AutomaticBonusProgression`, `ElementalBlast`, `RuleElement`)
+- (stwlam) Keep `_stats` when exporting to JSON
+- (stwlam) Rewrite creature-speed data structure and place at `system.movement.speeds`
+- (Supe) Convert choice selection to Svelte application
+- (Supe) Add trait annotations logging
+
 ## 7.4.3
 
 ### System Improvements

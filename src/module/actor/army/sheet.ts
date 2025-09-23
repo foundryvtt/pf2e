@@ -5,7 +5,7 @@ import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { ClientDocument } from "@client/documents/abstract/_module.d.mts";
 import { CampaignFeaturePF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
-import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { AdjustedValue, eventToRollParams, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
 import { kingmakerTraits } from "@scripts/config/traits.ts";
@@ -265,7 +265,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         return handlers;
     }
 
-    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
+    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemData): Promise<ItemPF2e[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 

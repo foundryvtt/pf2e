@@ -1,4 +1,4 @@
-import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
+import { DamageDicePF2e, MODIFIER_TYPES, Modifier, applyStackingRules } from "@actor/modifiers.ts";
 import type { RollMode } from "@common/constants.d.mts";
 import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import {
@@ -37,7 +37,7 @@ class DamageModifierDialog extends fav1.api.Application {
 
     /** A set of originally enabled modifiers and dice to circumvent hideIfDisabled for manual disables */
     #originallyEnabled: {
-        modifiers: Set<ModifierPF2e>;
+        modifiers: Set<Modifier>;
         dice: Set<DamageDicePF2e>;
     };
 
@@ -271,7 +271,7 @@ class DamageModifierDialog extends fav1.api.Application {
                 ui.notifications.error(errors.join(" "));
             } else {
                 this.formulaData.modifiers.push(
-                    new ModifierPF2e({
+                    new Modifier({
                         label,
                         modifier: value,
                         type,

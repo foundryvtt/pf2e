@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Coins } from "@item/physical/helpers.ts";
 import { TreasureSystemSource } from "@item/treasure/data.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
@@ -12,7 +12,7 @@ export class Migration746StandardizePricing extends MigrationBase {
         if (!itemIsOfType(source, "physical") && source.type !== "kit") return;
 
         if (!R.isPlainObject(source.system.price)) {
-            source.system.price = { value: CoinsPF2e.fromString(String(source.system.price)).toObject() };
+            source.system.price = { value: Coins.fromString(String(source.system.price)).toObject() };
         }
 
         if (source.type === "treasure") {
@@ -28,7 +28,7 @@ export class Migration746StandardizePricing extends MigrationBase {
                 delete systemData.value;
             }
         } else if (!R.isPlainObject(source.system.price.value)) {
-            source.system.price.value = CoinsPF2e.fromString(String(source.system.price.value)).toObject();
+            source.system.price.value = Coins.fromString(String(source.system.price.value)).toObject();
         }
     }
 }

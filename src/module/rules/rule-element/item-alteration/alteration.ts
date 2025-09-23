@@ -3,12 +3,12 @@ import { ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import * as R from "remeda";
 import { AELikeChangeMode } from "../ae-like.ts";
-import type { RuleElementPF2e } from "../base.ts";
+import type { RuleElement } from "../base.ts";
 import { ResolvableValueField } from "../data.ts";
 import { ITEM_ALTERATION_HANDLERS } from "./handlers.ts";
 import fields = foundry.data.fields;
 
-class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema> {
+class ItemAlteration extends foundry.abstract.DataModel<RuleElement, ItemAlterationSchema> {
     static override defineSchema(): ItemAlterationSchema {
         return {
             mode: new fields.StringField({
@@ -30,7 +30,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         };
     }
 
-    get rule(): RuleElementPF2e {
+    get rule(): RuleElement {
         return this.parent;
     }
 
@@ -61,7 +61,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
 }
 
 interface ItemAlteration
-    extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema>,
+    extends foundry.abstract.DataModel<RuleElement, ItemAlterationSchema>,
         fields.ModelPropsFromSchema<ItemAlterationSchema> {}
 
 type ItemAlterationSchema = {

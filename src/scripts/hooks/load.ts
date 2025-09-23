@@ -20,6 +20,7 @@ import { HeritageSystemData } from "@item/heritage/data.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
 import { DoorControlPF2e } from "@module/canvas/door-control.ts";
 import { EnvironmentCanvasGroupPF2e } from "@module/canvas/group/environment.ts";
 import {
@@ -54,7 +55,6 @@ import {
 } from "@scene/index.ts";
 import { DifficultTerrainBehaviorType } from "@scene/region-behavior/difficult-terrain.ts";
 import { PrototypeTokenConfigPF2e } from "@scene/token-document/index.ts";
-import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
 import { ClientDatabaseBackendPF2e } from "@system/client-backend.ts";
@@ -66,8 +66,6 @@ import * as R from "remeda";
 /** Not an actual hook listener but rather things to run on initial load */
 export class Load {
     static listen(): void {
-        CONFIG.PF2E = PF2ECONFIG;
-
         // Assign database backend to handle migrations
         CONFIG.DatabaseBackend = new ClientDatabaseBackendPF2e();
 
@@ -147,6 +145,8 @@ export class Load {
         for (const TermCls of [ArithmeticExpression, Grouping, InstancePool, IntermediateDie]) {
             CONFIG.Dice.termTypes[TermCls.name] = TermCls;
         }
+
+        CONFIG.queries["pf2e.trade"] = TradeDialog.handleQuery;
 
         // Add functions to the `Math` namespace for use in `Roll` formulas
         Math.eq = (a: number, b: number): boolean => a === b;

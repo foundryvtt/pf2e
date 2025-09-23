@@ -1,14 +1,19 @@
 import User from "@client/documents/user.mjs";
-import { ApplicationConfiguration } from "../_module.mjs";
+import { ApplicationConfiguration, ApplicationRenderContext } from "../_module.mjs";
 import ApplicationV2 from "../api/application.mjs";
-import HandlebarsApplicationMixin, { HandlebarsTemplatePart } from "../api/handlebars-application.mjs";
+import HandlebarsApplicationMixin, {
+    HandlebarsRenderOptions,
+    HandlebarsTemplatePart,
+} from "../api/handlebars-application.mjs";
 import { ContextMenuEntry } from "../ux/context-menu.mjs";
 
 /**
  * A UI element which displays the Users defined for this world.
  * Currently active users are always displayed, while inactive users can be displayed on toggle.
  */
-export default class Players extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class Players extends HandlebarsApplicationMixin(
+    ApplicationV2<ApplicationConfiguration, HandlebarsRenderOptions, PlayersRenderContext>,
+) {
     static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration>;
 
     static override PARTS: Record<string, HandlebarsTemplatePart>;
@@ -32,7 +37,7 @@ export default class Players extends HandlebarsApplicationMixin(ApplicationV2) {
     /*  Rendering                                   */
     /* -------------------------------------------- */
 
-    protected override _prepareContext(): Promise<{ active: object[]; inactive: object[] }>;
+    protected override _prepareContext(): Promise<PlayersRenderContext>;
 
     /**
      * Format the display of a user's name using their name, pronouns (if defined), and character name (if defined).
@@ -84,4 +89,9 @@ export default class Players extends HandlebarsApplicationMixin(ApplicationV2) {
      * @returns The Array of context options passed to the ContextMenu instance
      */
     protected _getContextMenuOptions(): ContextMenuEntry[];
+}
+
+interface PlayersRenderContext extends ApplicationRenderContext {
+    active: object[];
+    inactive: object[];
 }

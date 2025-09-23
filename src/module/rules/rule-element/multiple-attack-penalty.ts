@@ -1,12 +1,12 @@
 import { MAPSynthetic } from "../synthetics.ts";
-import { RuleElementPF2e } from "./base.ts";
+import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
  */
-class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
+class MultipleAttackPenaltyRuleElement extends RuleElement<MAPRuleSchema> {
     static override defineSchema(): MAPRuleSchema {
         return {
             ...super.defineSchema(),
@@ -43,9 +43,7 @@ class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
     }
 }
 
-interface MultipleAttackPenaltyRuleElement
-    extends RuleElementPF2e<MAPRuleSchema>,
-        ModelPropsFromRESchema<MAPRuleSchema> {}
+interface MultipleAttackPenaltyRuleElement extends RuleElement<MAPRuleSchema>, ModelPropsFromRESchema<MAPRuleSchema> {}
 
 type MAPRuleSchema = RuleElementSchema & {
     selector: fields.StringField<string, string, true, false, false>;

@@ -6,11 +6,11 @@ import { objectHasKey } from "@util";
 import * as R from "remeda";
 import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
 import { ModelPropsFromRESchema, ResolvableValueField } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElement, RuleElementOptions, RuleElementSchema, RuleElementSource } from "./index.ts";
 import fields = foundry.data.fields;
 
 /** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
-class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
+class AdjustModifierRuleElement extends RuleElement<AdjustModifierSchema> {
     constructor(source: AdjustModifierSource, options: RuleElementOptions) {
         if (source.suppress) source.mode = "override"; // Allow `suppress` as a shorthand without providing `mode`
         super(source, options);
@@ -118,7 +118,7 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
 }
 
 interface AdjustModifierRuleElement
-    extends RuleElementPF2e<AdjustModifierSchema>,
+    extends RuleElement<AdjustModifierSchema>,
         ModelPropsFromRESchema<AdjustModifierSchema> {
     suppress: boolean;
     maxApplications: number;

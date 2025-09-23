@@ -1,0 +1,54 @@
+{
+    "_id": "8x5T5e5Gzh3NJ86H",
+    "img": "icons/sundries/flags/banner-symbol-claw.webp",
+    "name": "Effect: Glorious Banner",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Glorious Banner]</p>\n<p>You take a –2 status penalty to Will saves as long as you can see the origin's banner.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 20
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Commander.GloriousBanner.ToggleLabel",
+                "option": "glorious-banner",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "glorious-banner"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

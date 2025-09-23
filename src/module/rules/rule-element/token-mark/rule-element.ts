@@ -2,13 +2,13 @@ import { TokenDocumentPF2e } from "@scene";
 import { SlugField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
-import { RuleElementPF2e } from "../base.ts";
+import { RuleElement } from "../base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource } from "../data.ts";
 import { MarkTargetPrompt } from "./prompt.ts";
 import fields = foundry.data.fields;
 
 /** Remember a token for later referencing */
-class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
+class TokenMarkRuleElement extends RuleElement<TokenMarkSchema> {
     static override defineSchema(): TokenMarkSchema {
         return {
             ...super.defineSchema(),
@@ -17,7 +17,7 @@ class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
         };
     }
 
-    override async preCreate({ ruleSource, itemSource, pendingItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
+    override async preCreate({ ruleSource, itemSource, pendingItems }: RuleElement.PreCreateParams): Promise<void> {
         if (this.ignored) return;
 
         this.uuid &&= this.resolveInjectedProperties(this.uuid);
@@ -64,7 +64,7 @@ type TokenMarkSchema = Omit<RuleElementSchema, "slug"> & {
     uuid: fields.StringField<string, string, false, true, true>;
 };
 
-interface TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema>, ModelPropsFromRESchema<TokenMarkSchema> {
+interface TokenMarkRuleElement extends RuleElement<TokenMarkSchema>, ModelPropsFromRESchema<TokenMarkSchema> {
     slug: string;
 }
 

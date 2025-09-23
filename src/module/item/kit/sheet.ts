@@ -1,5 +1,5 @@
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
-import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical/index.ts";
+import { Coins, PhysicalItemPF2e } from "@item/physical/index.ts";
 import { htmlClosest, htmlQueryAll } from "@util";
 import { KitEntryData } from "./data.ts";
 import { KitPF2e } from "./document.ts";
@@ -79,14 +79,14 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Convert price from a string to an actual object
         const priceString = String(formData["system.price.value"] ?? "").trim();
-        formData["system.price.==value"] = CoinsPF2e.fromString(priceString).toObject();
+        formData["system.price.==value"] = Coins.fromString(priceString).toObject();
         delete formData["system.price.value"];
         return super._updateObject(event, formData);
     }
 }
 
 interface KitSheetData extends ItemSheetDataPF2e<KitPF2e> {
-    priceString: CoinsPF2e;
+    priceString: Coins;
     items: Record<string, KitEntrySheetData>;
 }
 

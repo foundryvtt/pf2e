@@ -22,12 +22,12 @@ import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { TraitToggleViewData } from "@item/ability/trait-toggles.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
-import { CoinsPF2e } from "@item/physical/coins.ts";
+import { Coins } from "@item/physical/coins.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
 import type { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import type { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import type { LabeledValueAndMax, ZeroToFour } from "@module/data.ts";
@@ -486,7 +486,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             item: f.item,
             dc: f.dc,
             batchSize: this.#formulaQuantities[f.uuid] ?? f.batchSize,
-            cost: CoinsPF2e.fromPrice(f.item.price, this.#formulaQuantities[f.uuid] ?? f.batchSize),
+            cost: Coins.fromPrice(f.item.price, this.#formulaQuantities[f.uuid] ?? f.batchSize),
         }));
         const knownFormulas = R.pipe(
             sheetFormulas,
@@ -1405,7 +1405,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
     }
 
-    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
+    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemData): Promise<ItemPF2e[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 
@@ -1548,7 +1548,7 @@ interface FormulaSheetData {
     item: ItemPF2e;
     dc: number;
     batchSize: number;
-    cost: CoinsPF2e;
+    cost: Coins;
 }
 
 interface FormulaByLevel {

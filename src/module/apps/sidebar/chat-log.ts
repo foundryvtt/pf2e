@@ -11,7 +11,7 @@ import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { CombatantPF2e } from "@module/encounter/index.ts";
 import { TokenDocumentPF2e } from "@scene";
-import { CheckPF2e } from "@system/check/index.ts";
+import { Check } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { createHTMLElement, ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
@@ -62,9 +62,8 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         options: { speaker?: ChatSpeakerData } = {},
     ): Promise<ChatMessage | undefined> {
         const [command, matches] = ChatLogPF2e.parse(message) ?? [];
-        if (!["roll", "publicroll", "gmroll", "blindroll", "selfroll"].includes(command) || !Array.isArray(matches)) {
-            return super.processMessage(message, options);
-        }
+        const isRollCommand = ["roll", "publicroll", "gmroll", "blindroll", "selfroll"].includes(command);
+        if (!isRollCommand || !Array.isArray(matches)) return super.processMessage(message, options);
 
         const speaker = (options.speaker ??= ChatMessagePF2e.getSpeaker());
         const chatData: DeepPartial<ChatMessageSource> = { speaker, author: game.user.id, flavor: "" };
@@ -77,7 +76,9 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             const roll = await ((): Promise<Rolled<DamageRoll>> | null => {
                 try {
                     const damageRoll = new DamageRoll(formula, rollData);
-                    return looksLikeDamageRoll(damageRoll) ? damageRoll.evaluate() : null;
+                    const rollMode = command === "roll" ? game.settings.get("core", "rollMode") : command;
+                    const allowInteractive = rollMode !== "blindroll";
+                    return looksLikeDamageRoll(damageRoll) ? damageRoll.evaluate({ allowInteractive }) : null;
                 } catch {
                     return null;
                 }
@@ -525,7 +526,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 condition: canHeroPointReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { resource: "hero-points" });
+                    Check.rerollFromMessage(message, { resource: "hero-points" });
                 },
             },
             {
@@ -534,7 +535,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 condition: canMythicPointReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { resource: "mythic-points" });
+                    Check.rerollFromMessage(message, { resource: "mythic-points" });
                 },
             },
             {
@@ -543,7 +544,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 condition: canReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message);
+                    Check.rerollFromMessage(message);
                 },
             },
             {
@@ -552,7 +553,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 condition: canReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { keep: "lower" });
+                    Check.rerollFromMessage(message, { keep: "lower" });
                 },
             },
             {
@@ -561,7 +562,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 condition: canReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { keep: "higher" });
+                    Check.rerollFromMessage(message, { keep: "higher" });
                 },
             },
         );

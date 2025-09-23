@@ -1,0 +1,142 @@
+{
+    "_id": "u2g4nQ38CjUi3bve",
+    "folder": "84vygvtBit90EG6B",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "hJJ0OCULgzHXeOsy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flip the Ship",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The naiads board the ship</p><hr /><p><strong>Effect</strong> Each creature standing on the deck must attempt a @Check[Refex|dc:22] save or fall @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "M8m5ET7uQuzasHjR",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "Hb6uNxDup253HvqL": {
+                        "damage": "2d8+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Dragged to the Briny Depths",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 23
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A giant squid rams the ship from below, using its beak to puncture the hull. It then wraps its tentacles around the mast, rocking the ship violently.</p>",
+            "disable": "<p>@Check[athletics|dc:23] to pull the tentacles from the mast, stopping the ship from rocking; two total successes are required to disable the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfnder Society Scenario #7-03: A Foot in the Door"
+            },
+            "reset": "<p>The squid releases the ship for one round before regripping the mast and resetting the hazard The hazard no longer resets once the PCs defeat the naiads or they flee</p>",
+            "routine": "<p>(two actions) On its initiative, the squid uses its first action to pull on the mast Every creature must attempt a @Check[reflex|dc:22] save On a failure, it falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] If a creature is prone when attempting the save, it slides 10 feet in a direction determined by the GM on a failure If this movement would force a creature off the ship, it can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] The squid uses its second action to make one tentacle attack</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 15
+            },
+            "reflex": {
+                "value": 9
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

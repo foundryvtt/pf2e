@@ -256,7 +256,7 @@ class DamageRoll extends AbstractDamageRoll {
             return super.render({ flavor, template, isPrivate });
         }
 
-        if (!this._evaluated) await this.evaluate();
+        if (!this._evaluated) await this.evaluate({ allowInteractive: !isPrivate });
         const formula = isPrivate ? "???" : (await Promise.all(instances.map((i) => i.render()))).join(" + ");
         const total = this.total ?? NaN;
         const damageKinds = this.kinds;

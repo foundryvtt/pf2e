@@ -7,7 +7,7 @@ import { getAdjustment, isControlDown } from "@module/sheet/helpers.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, localizer, sortStringRecord, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { CoinsPF2e, MaterialValuationData } from "./index.ts";
+import { Coins, MaterialValuationData } from "./index.ts";
 import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
@@ -25,7 +25,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         const bulkAdjustment = getAdjustment(item.system.bulk.value, item._source.system.bulk.value, {
             better: "lower",
         });
-        const basePrice = new CoinsPF2e(item._source.system.price.value);
+        const basePrice = new Coins(item._source.system.price.value);
         const priceAdjustment = getAdjustment(item.system.price.value.copperValue, basePrice.copperValue);
 
         // Enrich content
@@ -54,7 +54,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         const adjustedPriceHint = (() => {
             if (!priceAdjustment) return null;
             const baseData = item._source;
-            const basePrice = new CoinsPF2e(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
+            const basePrice = new Coins(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
             const derivedPrice = item.assetValue.copperValue;
             const priceLabel =
                 game.i18n.lang === "de"
@@ -201,7 +201,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
         // Convert price from a string to an actual object
         if ("system.price.value" in formData) {
-            formData["system.price.value"] = CoinsPF2e.fromString(String(formData["system.price.value"]));
+            formData["system.price.value"] = Coins.fromString(String(formData["system.price.value"]));
         }
 
         return super._updateObject(event, formData);
@@ -215,7 +215,7 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     bulkAdjustment: string | null;
     adjustedBulkHint?: string | null;
     adjustedLevelHint: string | null;
-    basePrice: CoinsPF2e;
+    basePrice: Coins;
     priceAdjustment: string | null;
     adjustedPriceHint: string | null;
     attributes: typeof CONFIG.PF2E.abilities;

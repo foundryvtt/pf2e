@@ -9,7 +9,7 @@ import { AbstractEffectPF2e } from "@item/abstract-effect/index.ts";
 import { BadgeReevaluationEventType } from "@item/abstract-effect/types.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import type { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
+import type { RuleElement, RuleElementOptions } from "@module/rules/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import * as R from "remeda";
 import type { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
@@ -47,7 +47,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     }
 
     /** Unless this effect is temporarily constructed, ignore rule elements if it is expired */
-    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElementPF2e[] {
+    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElement[] {
         if (this.isExpired && this.actor?.items.has(this.id)) {
             for (const rule of this.system.rules) {
                 rule.ignored = true;

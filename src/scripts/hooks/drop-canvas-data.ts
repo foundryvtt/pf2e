@@ -1,6 +1,6 @@
 export const DropCanvasData = {
     listen: (): void => {
-        Hooks.on("dropCanvasData", (_canvas, data) => {
+        Hooks.on("dropCanvasData", (_canvas, data, event) => {
             if (!(data.type === "Item" || data.type === "PersistentDamage")) {
                 return true;
             }
@@ -14,8 +14,12 @@ export const DropCanvasData = {
             if (dropTarget?.actor) {
                 const dataTransfer = new DataTransfer();
                 dataTransfer.setData("text/plain", JSON.stringify(data));
-                const event = new DragEvent("drop", { altKey: game.keyboard.isModifierActive("Alt"), dataTransfer });
-                dropTarget.actor.sheet._onDrop(event);
+                const newEvent = new DragEvent("drop", {
+                    altKey: event.altKey,
+                    shiftKey: event.shiftKey,
+                    dataTransfer,
+                });
+                dropTarget.actor.sheet._onDrop(newEvent);
                 return false; // Prevent modules from doing anything further
             }
 

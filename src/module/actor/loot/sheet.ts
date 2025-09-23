@@ -3,12 +3,15 @@ import { transferItemsBetweenActors } from "@actor/helpers.ts";
 import type { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "@actor/sheet/data-types.ts";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type BaseActor from "@common/documents/actor.d.mts";
+import type { ActorSchema } from "@common/documents/actor.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import { DistributeCoinsPopup } from "../sheet/popups/distribute-coins-popup.ts";
 import { LootNPCsPopup } from "../sheet/popups/loot-npcs-popup.ts";
+import type { LootSystemSchema } from "./data.ts";
 
 export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActor> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -30,21 +33,20 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 
     override async getData(): Promise<LootSheetDataPF2e<TActor>> {
         const sheetData = await super.getData();
-        const isLoot = this.actor.system.lootSheetType === "Loot";
-
-        // Enrich content
-        const rollData = this.actor.getRollData();
-        sheetData.enrichedContent.description = await TextEditorPF2e.enrichHTML(sheetData.data.details.description, {
-            rollData,
-        });
-
+        const actor = this.actor;
+        const isLoot = actor.system.lootSheetType === "Loot";
+        const rollData = actor.getRollData();
+        const description = sheetData.data.details.description;
+        sheetData.enrichedContent.description = await TextEditorPF2e.enrichHTML(description, { rollData });
         return {
             ...sheetData,
             hasActiveParty: !!game.actors.party,
             isLoot,
+            fields: (actor as BaseActor).schema.fields,
+            systemFields: actor.system.schema.fields,
             lootSheetTypeOptions: [
-                { value: "Loot", label: "PF2E.loot.LootLabel" },
-                { value: "Merchant", label: "PF2E.loot.MerchantLabel" },
+                { value: "Loot", label: game.i18n.localize("PF2E.loot.LootLabel") },
+                { value: "Merchant", label: game.i18n.localize("PF2E.loot.MerchantLabel") },
             ],
         };
     }
@@ -97,5 +99,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 interface LootSheetDataPF2e<TActor extends LootPF2e> extends ActorSheetDataPF2e<TActor> {
     hasActiveParty: boolean;
     isLoot: boolean;
+    fields: ActorSchema;
+    systemFields: LootSystemSchema;
     lootSheetTypeOptions: FormSelectOption[];
 }

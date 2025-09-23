@@ -9,6 +9,7 @@ import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
 import { htmlClosest, htmlQueryAll } from "@util";
 import * as R from "remeda";
+import { TradeDialog, TradeRequestData } from "../trade-dialog/app.ts";
 
 /** Extend ActorDirectory to show more information */
 class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>> {
@@ -244,20 +245,68 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
     protected override _getEntryContextOptions(): ContextMenuEntry[] {
         const entries = super._getEntryContextOptions();
-        entries.push({
-            name: "PF2E.Actor.Party.Sidebar.RemoveMember",
-            icon: fa.fields.createFontAwesomeIcon("bus").outerHTML,
-            condition: (li) => !!li.closest("[data-party]") && !li.closest(".folder-header"),
-            callback: (li) => {
-                const actorId = li.dataset.entryId;
-                const partyId = li.closest<HTMLElement>("[data-party]")?.dataset.entryId;
-                const actor = game.actors.get(actorId ?? "");
-                const party = game.actors.get(partyId ?? "");
-                if (actor && party instanceof PartyPF2e) {
-                    party.removeMembers(actor.uuid);
-                }
+        const createTradeArgs = (
+            traderActor: ActorPF2e,
+            selfActor: ActorPF2e | null = null,
+            checkReach = false,
+        ): TradeRequestData | null => {
+            const token = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
+            selfActor ??= token?.actor ?? game.user.character;
+            if (!selfActor) return null;
+            const owners = game.users
+                .filter((u) => u.active && !u.isSelf && traderActor.testUserPermission(u, "OWNER"))
+                .sort((a, b) => Number(a.isGM) - Number(b.isGM));
+            const assignee = owners.find((u) => u.character === traderActor);
+            const traderUser = assignee ?? owners[0];
+            if (!traderUser) return null;
+            const args = { self: { actor: selfActor }, trader: { user: traderUser, actor: traderActor } };
+            return TradeDialog.canTrade(args, { checkReach }) ? args : null;
+        };
+        entries.push(
+            {
+                name: TradeDialog.localize("Request.MenuLabel"),
+                icon: fa.fields.createFontAwesomeIcon("money-bill-transfer", { style: "regular" }).outerHTML,
+                condition: (li) => {
+                    if (foundry.applications.instances.has("trade-dialog")) return false;
+                    const actor = game.actors.get(li.dataset.entryId, { strict: true });
+                    if (canvas.tokens.controlled.some((t) => t.actor === actor)) return false;
+
+                    // For the purpose of showing the menu item, find any eligible actor
+                    const token = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
+                    const selfActor =
+                        token?.actor ??
+                        game.user.character ??
+                        game.actors.find((a) => a.isOwner && a.isOfType("character", "npc") && a.isAllyOf(actor));
+                    return !!createTradeArgs(actor, selfActor);
+                },
+                callback: (li) => {
+                    const token = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
+                    const selfActor = token?.actor ?? game.user.character;
+                    if (!selfActor?.isOfType("character", "npc")) {
+                        ui.notifications.warn(TradeDialog.localize("Error.SelectToken"));
+                        return;
+                    }
+                    const traderActor = game.actors.get(li.dataset.entryId, { strict: true });
+                    const checkReach = game.pf2e.settings.automation.reachEnforcement.has("merchants");
+                    const args = createTradeArgs(traderActor, selfActor, checkReach);
+                    if (args) TradeDialog.requestTrade(args);
+                },
             },
-        } satisfies ContextMenuEntry);
+            {
+                name: "PF2E.Actor.Party.Sidebar.RemoveMember",
+                icon: fa.fields.createFontAwesomeIcon("eject").outerHTML,
+                condition: (li) => game.user.isGM && !!li.closest("[data-party]") && !li.closest(".folder-header"),
+                callback: (li) => {
+                    const actorId = li.dataset.entryId;
+                    const partyId = li.closest<HTMLElement>("[data-party]")?.dataset.entryId;
+                    const actor = game.actors.get(actorId ?? "");
+                    const party = game.actors.get(partyId ?? "");
+                    if (actor && party instanceof PartyPF2e) {
+                        party.removeMembers(actor.uuid);
+                    }
+                },
+            },
+        );
         return entries;
     }
 

@@ -1,12 +1,12 @@
 import type { ActorPF2e } from "@actor";
 import type { PhysicalItemPF2e } from "@item";
 import { SlugField } from "@system/schema-data-fields.ts";
-import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import { RuleElement, RuleElementOptions } from "../base.ts";
 import type { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource } from "../data.ts";
 import { EffectSpinoff } from "./spinoff.ts";
 import fields = foundry.data.fields;
 
-class EffectSpinoffRuleElement extends RuleElementPF2e<EffectSpinoffSchema> {
+class EffectSpinoffRuleElement extends RuleElement<EffectSpinoffSchema> {
     constructor(source: RuleElementSource, options: RuleElementOptions) {
         super(source, options);
 
@@ -87,7 +87,7 @@ class EffectSpinoffRuleElement extends RuleElementPF2e<EffectSpinoffSchema> {
 }
 
 interface EffectSpinoffRuleElement
-    extends RuleElementPF2e<EffectSpinoffSchema>,
+    extends RuleElement<EffectSpinoffSchema>,
         ModelPropsFromRESchema<EffectSpinoffSchema> {
     slug: string;
 

@@ -9,7 +9,8 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
 import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
+import { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQueryAll, tupleHasValue } from "@util";
@@ -332,7 +333,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         game.tooltip.activate(anchor, { cssClass: "pf2e carry-type-menu", html, locked: true });
     }
 
-    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
+    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemData): Promise<ItemPF2e[]> {
         const actor = this.actor;
         const spellFrom = data.spellFrom;
         if (spellFrom) {
@@ -342,11 +343,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const isPrepared = collection.entry.category === "prepared";
             const collectionEl = htmlClosest(event.target, "[data-container-id]");
             const sameCollectionId = collectionId === collectionEl?.dataset.containerId;
-
             const targetDataset = htmlClosest(event.target, "[data-item-id]")?.dataset ?? {};
             const sameGroupId = groupId === targetDataset.groupId;
             const targetIsEmpty = targetDataset.itemId?.length !== 16;
-
             if (isPrepared && sameCollectionId && sameGroupId && !targetIsEmpty) {
                 const draggedSpell = await ItemPF2e.fromDropData(data);
                 const dropTargetSpell = actor.items.get(targetDataset.itemId ?? "");
@@ -354,12 +353,32 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                     throw ErrorPF2e("Unexpected data received while swapping spells");
                 }
                 collection.swapSlotPositions(groupId, slotIndex, Number(targetDataset.slotId));
-
                 return [draggedSpell];
             }
         }
 
-        return super._onDropItem(event, data);
+        return (await this.#attemptTrade(data, event)) ? [] : super._onDropItem(event, data);
+    }
+
+    /**
+     * Determine whether a dropped item can be used for trading and initiate a trade if so.
+     * @returns whether a trade initiation request was sent
+     */
+    async #attemptTrade(data: DropCanvasItemData, event: DragEvent): Promise<boolean> {
+        const traderActor = this.actor;
+        if (traderActor.isLootableBy(game.user)) return false;
+        const item = await ItemPF2e.fromDropData(data);
+        const selfActor = item?.actor;
+        if (!selfActor) return false;
+        const traderUser = game.users
+            .filter((u) => u.active && !u.isSelf && traderActor.testUserPermission(u, "OWNER"))
+            .sort((a, b) => Number(a.isGM) - Number(b.isGM))[0];
+        const args = {
+            self: { actor: selfActor, item, gift: event.shiftKey },
+            trader: { user: traderUser, actor: traderActor },
+            checkReach: game.pf2e.settings.automation.reachEnforcement,
+        };
+        return TradeDialog.canTrade(args) ? !!TradeDialog.requestTrade(args) : false;
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
@@ -449,7 +468,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     protected override async _handleDroppedItem(
         event: DragEvent,
         item: ItemPF2e<ActorPF2e | null>,
-        data: DropCanvasItemDataPF2e,
+        data: DropCanvasItemData,
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const containerEl = htmlClosest(event.target, "[data-container-type=spellcastingEntry]");
         if (containerEl && item.isOfType("spell") && !item.isRitual) {

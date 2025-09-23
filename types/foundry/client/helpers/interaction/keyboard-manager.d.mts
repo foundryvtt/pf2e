@@ -1,4 +1,4 @@
-import { KeybindingAction, KeyboardEventContext } from "@client/_types.mjs";
+import { KeybindingAction, KeyboardEventContext, ModifierKey } from "@client/_types.mjs";
 
 /**
  * A set of helpers and management functions for dealing with user input from keyboard events.
@@ -144,7 +144,7 @@ export default class KeyboardManager {
      * @param modifier A modifier in MODIFIER_KEYS
      * @returns Is this modifier key currently down (active)?
      */
-    isModifierActive(modifier: string): boolean;
+    isModifierActive(modifier: ModifierKey): boolean;
 
     /**
      * Report whether a core action key is currently actively depressed.
