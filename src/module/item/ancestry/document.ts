@@ -82,6 +82,9 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         this.logAutoChange("system.attributes.ancestryhp", this.hitPoints);
         actor.system.traits.size = new ActorSizePF2e({ value: this.size });
         this.logAutoChange("system.traits.size.value", this.size);
+
+        // Hands and reach
+        actor.system.hands.max.value = this.system.hands;
         const reach = SIZE_TO_REACH[this.size];
         actor.system.attributes.reach = { base: reach, manipulate: reach };
 
@@ -153,7 +156,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         }
     }
 
-    /** Ensure certain fields are positive integers. */
+    /** Ensure certain fields are integers. */
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DatabaseUpdateCallbackOptions,
@@ -164,6 +167,10 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         const additionalLanguages = changed.system.additionalLanguages;
         if (additionalLanguages?.count !== undefined) {
             additionalLanguages.count = Math.floor(Math.clamp(Number(additionalLanguages.count) || 0, 0, 99));
+        }
+
+        if (changed.system.hands !== undefined) {
+            changed.system.hands = Math.floor(Math.clamp(changed.system.hands || 0, 0, 12) / 2) * 2;
         }
 
         for (const fieldName of ["hp", "speed", "reach"] as const) {

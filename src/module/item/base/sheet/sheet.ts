@@ -178,6 +178,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                 { label: "PF2E.Publication.License.OGL", value: "OGL" },
                 { label: "PF2E.Publication.License.ORC", value: "ORC" },
             ],
+            rootId: this.id,
         };
     }
 
@@ -693,6 +694,8 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemShee
     publicationLicenses: FormSelectOption[];
     /** Lore only, will be removed later */
     proficiencyRanks: typeof CONFIG.PF2E.proficiencyLevels;
+    /** A prefix for label and form elements ids */
+    rootId: string;
 }
 
 interface ItemSheetOptions extends fav1.api.DocumentSheetV1Options {
