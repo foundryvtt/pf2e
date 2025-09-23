@@ -564,9 +564,9 @@ export const PF2ECONFIG = {
         prepared: "PF2E.PreparationTypePrepared",
         spontaneous: "PF2E.PreparationTypeSpontaneous",
         innate: "PF2E.PreparationTypeInnate",
-        focus: "PF2E.TraitFocus",
+        focus: "PF2E.PreparationTypeFocus",
         items: "PF2E.PreparationTypeItems",
-        ritual: "PF2E.Item.Spell.Ritual.Label",
+        ritual: "PF2E.PreparationTypeRitual",
     },
 
     attitude: {
