@@ -13,7 +13,7 @@ import { ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import type { ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags, eventToRollParams } from "@module/sheet/helpers.ts";
 import type { SocketMessage } from "@scripts/socket.ts";
@@ -443,7 +443,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     /** Override to allow divvying/outward transfer of items via party member blocks in inventory members sidebar. */
     protected override async _onDropItem(
         event: DragEvent,
-        data: DropCanvasItemDataPF2e & { fromInventory?: boolean },
+        data: DropCanvasItemData & { fromInventory?: boolean },
     ): Promise<ItemPF2e[]> {
         const droppedRegion = htmlClosest(event.target, "[data-region]")?.dataset.region;
         const targetActorUUID = htmlClosest(event.target, "[data-actor-uuid]")?.dataset.actorUuid;

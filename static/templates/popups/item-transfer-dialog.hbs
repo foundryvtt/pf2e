@@ -1,39 +1,25 @@
-<form autocomplete="off">
-    <label>{{prompt}}</label>
-    <div class="item-row">
-        <img src="{{item.img}}" />
-        <span class="name">{{item.name}}</span>
-        {{#if (gt item.quantity 1)}}
-            <div class="quantity">
-                x
-                <input type="number" name="quantity" value="{{quantity}}" min="1" max="{{item.quantity}}" step="1" />
-            </div>
-        {{/if}}
-    </div>
-    <div class="form-group">
-        {{#if lockStack}}
-            <input type="hidden" name="newStack" value="true" data-dtype="Boolean" />
-        {{else}}
-            <label>{{localize "PF2E.loot.Stack"}}</label>
-            <input type="checkbox" name="newStack" {{checked newStack}} />
-        {{/if}}
-    </div>
+<p>{{prompt}}</p>
 
-    <div class="dialog-buttons">
-        {{#if options.isPurchase}}
-            {{#if canGift}}
-                <button type="submit" data-action="give">
-                    <i class="fa-regular fa-floppy-disk"></i>{{localize "PF2E.loot.Give"}}
-                </button>
-            {{/if}}
-            <button type="submit">
-                <i class="fa-regular fa-coins"></i>{{localize "PF2E.loot.Purchase"}}
-                <span class="price"></span>
-            </button>
-        {{else}}
-            <button type="submit">
-                <i class="fa-regular fa-floppy-disk"></i>{{localize "PF2E.loot.MoveLoot"}}
-            </button>
-        {{/if}}
+<section class="transfer-data">
+    <img src="{{item.img}}" />
+    <span class="name">{{item.name}}</span>
+    <div class="form-group">
+        <label for="{{rootId}}-quantity">{{localize "PF2E.QuantityLabel"}}</label>
+        <div class="form-fields">
+            <range-picker id="{{rootId}}-quantity" name="quantity" value="{{quantity}}"
+                        min="1" max="{{item.quantity}}" step="1"></range-picker>
+        </div>
     </div>
-</form>
+</section>
+
+
+{{#if lockStack}}
+    <input type="hidden" name="newStack" value="true" data-dtype="Boolean" />
+{{else if (ne mode "gift")}}
+    <div class="form-group">
+        <label for="{{rootId}}-newStack">{{localize "PF2E.loot.Stack"}}</label>
+        <div class="form-fields">
+            <input type="checkbox" id="{{rootId}}-newStack" name="newStack" {{checked newStack}} />
+        </div>
+    </div>
+{{/if}}

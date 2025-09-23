@@ -1,4 +1,4 @@
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { resolveActorAndItemFromHTML } from "@scripts/helpers.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { htmlClosest } from "@util";
@@ -25,7 +25,7 @@ export function extendDragData(): void {
 
         if (targetElement.classList.contains("content-link")) {
             // If this is a content link for an item, we need to extend existing data
-            const data: DropCanvasItemDataPF2e = JSON.parse(dataTransfer.getData("text/plain"));
+            const data: DropCanvasItemData = JSON.parse(dataTransfer.getData("text/plain"));
             if (data.type !== "Item") return;
 
             // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.

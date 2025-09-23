@@ -1,28 +1,56 @@
 <div class="inventory-details">
     <div class="form-group">
-        <label>{{localize "PF2E.HitPointsHeader"}}</label>
-        <input type="number" name="system.hp" value="{{data.hp}}" />
+        <label for="{{rootId}}-size">{{localize "PF2E.SizeLabel"}}</label>
+        <div class="form-fields">
+            <select name="system.size" id="{{rootId}}-size">
+                {{selectOptions sizes selected=data.size labelAttr="label" localize=true}}
+            </select>
+        </div>
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SizeLabel"}}</label>
-        <select name="system.size">
-            {{selectOptions sizes selected=data.size labelAttr="label" localize=true}}
-        </select>
+        <label for="{{rootId}}-hp">{{localize "PF2E.HitPointsHeader"}}</label>
+        <div class="form-fields">
+            <range-picker name="system.hp" id="{{rootId}}-hp" value="{{data.hp}}" min="4" max="12"
+                          step="2"></range-picker>
+        </div>
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.Reach"}}</label>
-        <input type="number" name="system.reach" value="{{data.reach}}" />
+        <label for="{{rootId}}-hands">{{localize "PF2E.Item.Ancestry.FIELDS.hands.label"}}</label>
+        <div class="form-fields">
+            <range-picker name="system.hands" id="{{rootId}}-hands" value="{{data.hands}}" min="0" max="12"
+                          step="2"></range-picker>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="{{rootId}}-reach">
+            {{localize "PF2E.Item.Ancestry.FIELDS.reach.label"}}
+            <span class="units">({{localize "PF2E.Foot.Abbreviation"}})</span>
+        </label>
+        <div class="form-fields">
+            <range-picker name="system.reach" id="{{rootId}}-reach" value="{{data.reach}}" min="0" max="25"
+                          step="5"></range-picker>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="{{rootId}}-speed">
+            {{localize "PF2E.Item.Ancestry.FIELDS.speed.label"}}
+            <span class="units">({{localize "PF2E.Foot.Abbreviation"}})</span>
+        </label>
+        <div class="form-fields">
+            <range-picker name="system.speed" id="{{rootId}}-speed" value="{{data.speed}}" min="0" max="50"
+                          step="5"></range-picker>
+        </div>
     </div>
     <div class="form-group">
-        <label>{{localize "PF2E.Actor.Speed.LabelFeet"}}</label>
-        <input type="number" name="system.speed" value="{{data.speed}}" />
-    </div>
-    <div class="form-group">
-        <label>{{localize "PF2E.Item.Ancestry.Vision.Label"}}</label>
-        <select name="system.vision">
-            {{selectOptions visionTypeOptions selected=data.vision localize=true}}
-        </select>
+        <label for="{{rootId}}-vision">{{localize "PF2E.Item.Ancestry.Vision.Label"}}</label>
+        <div class="form-fields">
+            <select name="system.vision" id="{{rootId}}-vision">
+                {{selectOptions visionTypeOptions selected=data.vision localize=true}}
+            </select>
+        </div>
     </div>
 </div>

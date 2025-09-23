@@ -306,7 +306,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * between the two.
      */
     #refreshDistanceLabel(): void {
-        this.layer.clearDistanceLine();
+        this.layer.refreshDistanceLine();
+        const setting = game.pf2e.settings.distanceDisplay;
+        if (setting === "never" || (setting === "encounters" && !game.combat?.started)) return;
         const labelEl = document.getElementById("token-hover-distance");
         if (!this.#canSeeDistance || !labelEl) {
             if (labelEl) labelEl.hidden = true;
@@ -328,7 +330,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         labelEl.style.setProperty("--position-y", `${this.y}px`);
         labelEl.style.setProperty("--position-x", `${center.x}px`);
         labelEl.hidden = false;
-        this.layer.renderDistanceLine(controlledToken, this);
+        this.layer.refreshDistanceLine(controlledToken, this);
     }
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */

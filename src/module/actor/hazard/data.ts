@@ -154,7 +154,7 @@ class HazardSystemData extends ActorSystemModel<HazardPF2e, HazardSystemSchema> 
                 ),
             }),
             details: new fields.SchemaField({
-                description: blankableString(),
+                description: new fields.HTMLField({ required: true, nullable: false, initial: "" }),
                 level: new fields.SchemaField({
                     value: requiredInteger({ min: -1, initial: 1 }),
                 }),
@@ -258,7 +258,7 @@ type HazardAttributesSchema = {
 type HazardAttributesSource = fields.SourceFromSchema<HazardAttributesSchema>;
 
 type HazardDetailsSchema = {
-    description: fields.StringField<string, string, true, false, true>;
+    description: fields.HTMLField;
     level: fields.SchemaField<{
         value: fields.NumberField<number, number, true, false, true>;
     }>;

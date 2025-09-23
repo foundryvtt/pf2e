@@ -46,17 +46,14 @@ import { Statistic } from "./statistic/index.ts";
 class TextEditorPF2e extends foundry.applications.ux.TextEditor {
     static override async enrichHTML(content: string | null, options: EnrichmentOptionsPF2e = {}): Promise<string> {
         options.secrets ??= game.user.isGM;
+        options.processVisibility ??= true;
 
         // Remove tags from @Localize only enriches.
         // Those often include HTML, including <p>, and <p> tags cannot be nested.
-        content = content?.replace(/^\s*<p>@Localize\[([\w.]+)\]<\/p>\s*$/, "@Localize[$1]") ?? null;
+        content = content?.replace(/^\s*<p>@Localize\[([\w.]+)\]<\/p>\s*$/, "@Localize[$1]") ?? "";
 
         const enriched = await super.enrichHTML(content, options);
-        if (typeof enriched === "string" && (options.processVisibility ?? true)) {
-            return TextEditorPF2e.processUserVisibility(enriched, options);
-        }
-
-        return TextEditorPF2e.processUserVisibility(enriched, options);
+        return options.processVisibility ? TextEditorPF2e.processUserVisibility(enriched, options) : enriched;
     }
 
     /** Replace core static method to conditionally handle parsing of inline damage rolls */

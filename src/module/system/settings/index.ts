@@ -3,7 +3,8 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemSheetPF2e, type ItemPF2e } from "@item";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
-import { isImageOrVideoPath } from "@util";
+import { isImageOrVideoPath, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { AutomationSettings } from "./automation.ts";
 import { HomebrewElements } from "./homebrew/menu.ts";
 import { MetagameSettings } from "./metagame.ts";
@@ -61,6 +62,46 @@ export function registerSettings(): void {
         },
     });
 
+    game.settings.register("pf2e", "minimumRulesUI", {
+        name: "PF2E.SETTINGS.MinimumRulesUI.Name",
+        hint: "PF2E.SETTINGS.MinimumRulesUI.Hint",
+        scope: "world",
+        config: true,
+        default: CONST.USER_ROLES.ASSISTANT,
+        type: Number,
+        choices: {
+            1: "USER.RolePlayer",
+            2: "USER.RoleTrusted",
+            3: "USER.RoleAssistant",
+            4: "USER.RoleGamemaster",
+        },
+        onChange: () => {
+            const itemSheets = Object.values(ui.windows).filter(
+                (w): w is ItemSheetPF2e<ItemPF2e> => w instanceof ItemSheetPF2e,
+            );
+            for (const sheet of itemSheets) {
+                sheet.render();
+            }
+        },
+    });
+
+    const distanceDisplays = ["always", "encounters", "never"] as const;
+    game.settings.register("pf2e", "distanceDisplay", {
+        name: "PF2E.SETTINGS.DistanceDisplay.Name",
+        hint: "PF2E.SETTINGS.DistanceDisplay.Hint",
+        scope: "client",
+        config: true,
+        type: new fields.StringField({
+            required: true,
+            nullable: false,
+            choices: R.mapToObj(distanceDisplays, (v) => [v, `PF2E.SETTINGS.DistanceDisplay.${v}`]),
+            initial: "always",
+        }),
+        onChange: (value) => {
+            if (tupleHasValue(distanceDisplays, value)) game.pf2e.settings.distanceDisplay = value;
+        },
+    });
+
     game.settings.register("pf2e", "compendiumBrowserPacks", {
         name: "PF2E.SETTINGS.CompendiumBrowserPacks.Name",
         hint: "PF2E.SETTINGS.CompendiumBrowserPacks.Hint",
@@ -86,29 +127,6 @@ export function registerSettings(): void {
         onChange: () => {
             game.pf2e.compendiumBrowser.packLoader.reset();
             game.pf2e.compendiumBrowser.initCompendiumList();
-        },
-    });
-
-    game.settings.register("pf2e", "minimumRulesUI", {
-        name: "PF2E.SETTINGS.MinimumRulesUI.Name",
-        hint: "PF2E.SETTINGS.MinimumRulesUI.Hint",
-        scope: "world",
-        config: true,
-        default: CONST.USER_ROLES.ASSISTANT,
-        type: Number,
-        choices: {
-            1: "USER.RolePlayer",
-            2: "USER.RoleTrusted",
-            3: "USER.RoleAssistant",
-            4: "USER.RoleGamemaster",
-        },
-        onChange: () => {
-            const itemSheets = Object.values(ui.windows).filter(
-                (w): w is ItemSheetPF2e<ItemPF2e> => w instanceof ItemSheetPF2e,
-            );
-            for (const sheet of itemSheets) {
-                sheet.render();
-            }
         },
     });
 

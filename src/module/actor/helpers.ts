@@ -373,10 +373,11 @@ function getStrikeDamageDomains(
 ): string[] {
     const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
     const slug = weapon.slug ?? sluggify(weapon.name);
-    const { actor, group, traits } = weapon;
+    const { actor, group } = weapon;
+    const traits = weapon.system.traits.value;
     const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
     const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
-    const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
+    const unarmedOrWeapon = traits.includes("unarmed") ? "unarmed" : "weapon";
     const domains = [
         `${weapon.id}-damage`,
         `${slug}-damage`,
@@ -406,7 +407,9 @@ function getStrikeDamageDomains(
 
     if (actor.isOfType("character", "npc")) {
         const strengthBasedDamage =
-            weapon.isMelee || (weapon.isThrown && !traits.has("splash")) || traits.has("propulsive");
+            weapon.isMelee ||
+            traits.includes("propulsive") ||
+            (weapon.isThrown && !traits.includes("splash") && !["alchemical-bomb", "grenade"].includes(baseType ?? ""));
 
         const attributeModifier = [
             strengthBasedDamage ? createAttributeModifier({ actor, attribute: "str", domains }) : null,
@@ -824,9 +827,7 @@ async function applyActorGroupUpdate(
     }
 
     const changed = !!actorUpdates || itemCreates.length || itemUpdates.length || itemDeletes.length;
-    if (render && changed) {
-        actor.render();
-    }
+    if (changed && render) actor.render();
 }
 
 export {

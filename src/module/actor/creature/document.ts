@@ -405,7 +405,7 @@ abstract class CreaturePF2e<
                         (e): e is [string, SpeedStatisticTraceData] =>
                             !!e[1] && ["burrow", "fly", "swim"].includes(e[0]),
                     )
-                    .map(([, s]) => ({ value: s.base, total: s.value, breakdown: s.breakdown }));
+                    .map(([type, s]) => ({ type, value: s.base, total: s.value, breakdown: s.breakdown }));
                 return {
                     value: land.base,
                     total: land.value,
@@ -551,7 +551,7 @@ abstract class CreaturePF2e<
             );
             if (container) await item.actor.stowOrUnstow(item, container);
         } else if (carryType === "attached" && item.quantity > 0) {
-            await new ItemAttacher({ item }).resolveSelection();
+            await new ItemAttacher({ item }).render({ force: true });
         } else {
             const equipped: EquippedData = {
                 carryType: carryType,
@@ -740,38 +740,52 @@ abstract class CreaturePF2e<
      * @param modifiers Modifiers in addition to those extracted
      */
     prepareMovementData(modifiers: Modifier[] = []): void {
-        const baseSpeed = this.system.movement.speeds.land.base;
+        const synthetics = this.synthetics.movementTypes;
+        const baseSpeedOptions = this.getRollOptions();
+
+        // Construct land-speed statistic first since others may derive from it
+        const baseSpeed = [
+            this.system.movement.speeds.land.base,
+            ...(synthetics.land?.flatMap((d) => d({ test: baseSpeedOptions })?.value ?? []) ?? []),
+        ].reduce((highest, v) => Math.max(highest, v), 0);
+        if (baseSpeed > 0) this.flags.pf2e.rollOptions.all["speed:land"] = true;
         const landSpeed = new SpeedStatistic(this, { type: "land", base: baseSpeed, modifiers });
-        this.system.movement.speeds.land.value = landSpeed.value;
-        this.system.movement.speeds.land.base = landSpeed.base;
-        const rollOptions = this.getRollOptions(["all-speeds", "speed", "land-speed"]);
+        this.system.movement.speeds.land = landSpeed.getTraceData();
+
         const otherSpeeds = Object.fromEntries(
             MOVEMENT_TYPES.filter((t) => t !== "land").map((type) => {
                 const fromSynthetics = R.filter(
-                    this.synthetics.movementTypes[type]?.map((d) => d({ test: rollOptions })) ?? [],
+                    synthetics[type]?.map((d) => d({ test: baseSpeedOptions })) ?? [],
                     R.isNonNull,
                 );
-                const syntheticSpeed = R.firstBy(fromSynthetics, [(s) => s.value ?? 0, "desc"]);
-                if (!syntheticSpeed && !this.system.movement.speeds[type]) return [type, null];
                 const systemDataSpeed = this.system.movement.speeds[type] ?? { value: -Infinity, source: null };
-                const selected =
+                const syntheticSpeed = R.firstBy(fromSynthetics, [(s) => s.value ?? 0, "desc"]);
+                if (!syntheticSpeed && systemDataSpeed.value <= 0) return [type, null];
+
+                this.flags.pf2e.rollOptions.all[`speed:${type}`] = true;
+                const selected: { value: number; source?: string | null; derivedFromLand?: boolean } =
                     syntheticSpeed && syntheticSpeed.value > systemDataSpeed.value ? syntheticSpeed : systemDataSpeed;
                 if (selected === syntheticSpeed && syntheticSpeed.derivedFromLand) {
                     const domain = (this.flags.pf2e.rollOptions[`${type}-speed`] ??= {});
                     domain["derived-from-land"] = true;
                 }
-                const base = selected.value;
-                const statistic = syntheticSpeed?.derivedFromLand
-                    ? landSpeed.extend({ type })
-                    : new SpeedStatistic(this, { type, base, source: selected.source });
+                const statistic = selected.derivedFromLand
+                    ? landSpeed.extend({ type, base: selected.value, source: selected.source })
+                    : new SpeedStatistic(this, {
+                          type,
+                          base: selected.value,
+                          modifiers: modifiers
+                              .filter((m) => ["all-speeds", `${type}-speed`].some((d) => m.domains.includes(d)))
+                              .map((m) => m.clone()),
+                          source: selected.source,
+                      });
                 return [type, statistic];
             }),
         ) as { [T in Exclude<MovementType, "land">]: SpeedStatistic<this, T> | null };
         const travelSpeed = landSpeed.extend({ type: "travel" });
         this.movement.speeds = { [landSpeed.type]: landSpeed, ...otherSpeeds, [travelSpeed.type]: travelSpeed };
-        this.system.movement.speeds = R.mapValues(
-            this.movement.speeds,
-            (s) => s?.getTraceData() ?? null,
+        this.system.movement.speeds = R.mapValues(this.movement.speeds, (s) =>
+            s?.type === "land" ? this.system.movement.speeds.land : (s?.getTraceData() ?? null),
         ) as CreatureMovementData["speeds"];
     }
 

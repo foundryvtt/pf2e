@@ -106,23 +106,17 @@ abstract class RollContext<
         const [originToken, targetToken] = [unresolved.origin?.token ?? null, unresolved.target?.token ?? null];
 
         // Calculate distance and range increment, set as a roll option
-
         const selfRole = this.rollerRole;
-        const opposerRole = selfRole === "origin" ? "target" : "origin";
-        const rollingActor = await this.#cloneActor(selfRole);
+        const opposingRole = selfRole === "origin" ? "target" : "origin";
+        const distance =
+            originToken?.object && targetToken?.object ? originToken.object.distanceTo(targetToken.object) : null;
+        const rollingActor = await this.#cloneActor(selfRole, { distance });
         const rollerStatistic = this.#getClonedStatistic(rollingActor);
-        const resolvedDomains = ((): string[] => {
-            if (this.domains.includes("damage")) {
-                return this.domains;
-            } else {
-                return (
-                    (rollerStatistic instanceof StatisticModifier
-                        ? rollerStatistic.domains
-                        : rollerStatistic?.check.domains) ?? this.domains
-                );
-            }
-        })();
-
+        const resolvedDomains = this.domains.includes("damage")
+            ? this.domains
+            : ((rollerStatistic instanceof StatisticModifier
+                  ? rollerStatistic.domains
+                  : rollerStatistic?.check.domains) ?? this.domains);
         const itemClone =
             rollerStatistic && "item" in rollerStatistic ? rollerStatistic.item : this.#cloneItem(rollingActor);
         const itemOptions = itemClone?.getRollOptions("item") ?? [];
@@ -132,13 +126,10 @@ abstract class RollContext<
             PCAttackTraitHelpers.adjustWeapon(itemClone);
         }
 
-        const distance =
-            originToken?.object && targetToken?.object ? originToken.object.distanceTo(targetToken.object) : null;
-        const distanceOption = Number.isInteger(distance) ? `${opposerRole}:distance:${distance}` : null;
-
+        const distanceOption = Number.isInteger(distance) ? `${opposingRole}:distance:${distance}` : null;
         const rangeIncrement = itemClone ? getRangeIncrement(itemClone, distance) : null;
         const rangeIncrementOption =
-            rangeIncrement && Number.isInteger(distance) ? `${opposerRole}:range-increment:${rangeIncrement}` : null;
+            rangeIncrement && Number.isInteger(distance) ? `${opposingRole}:range-increment:${rangeIncrement}` : null;
 
         const rollOptions = new Set(
             [
@@ -152,10 +143,8 @@ abstract class RollContext<
                 this.isAttack ? "attack" : null,
             ]
                 .flat()
-                .filter(R.isTruthy)
-                .sort(),
+                .filter(R.isNonNullish),
         );
-
         const actionTraits = ((): AbilityTrait[] => {
             const traits = this.traits;
             if (itemClone?.isOfType("weapon", "melee")) {
@@ -169,19 +158,17 @@ abstract class RollContext<
                     adjustment.adjustTraits?.(itemClone, traits);
                 }
             }
-
-            return R.unique(traits).sort();
+            return R.unique(traits);
         })();
 
-        const opposingActor = await this.#cloneActor(opposerRole, { other: rollingActor });
+        const opposingActor = await this.#cloneActor(opposingRole, { other: rollingActor, distance });
         const originIsSelf = selfRole === "origin";
         if (opposingActor) {
-            rollOptions.add(opposerRole);
-            for (const option of opposingActor.getSelfRollOptions(opposerRole)) {
+            rollOptions.add(opposingRole);
+            for (const option of opposingActor.getSelfRollOptions(opposingRole)) {
                 rollOptions.add(option);
             }
         }
-
         const originActor = originIsSelf ? rollingActor : opposingActor;
         const originIsRoller = originActor === rollingActor;
         const origin: RollOrigin | null = originActor
@@ -219,18 +206,17 @@ abstract class RollContext<
 
     async #cloneActor(
         which: "origin" | "target",
-        { other = null }: { other?: ActorPF2e | null } = {},
+        { other = null, distance = null }: { other?: ActorPF2e | null; distance?: number | null } = {},
     ): Promise<ActorPF2e | null> {
         const unresolved = this.unresolved;
         const uncloned = unresolved[which];
-        const opposingAlias = which === "origin" ? "target" : "origin";
-        const otherActor = other ?? unresolved[opposingAlias]?.actor;
-        if (!uncloned?.actor || !otherActor) {
-            return uncloned?.actor ?? null;
-        }
+        const opposingRole = which === "origin" ? "target" : "origin";
+        const opposingActor = other ?? unresolved[opposingRole]?.actor;
+        if (!uncloned?.actor || !opposingActor) return uncloned?.actor ?? null;
 
         const item = this.item;
         const itemOptions = item?.getRollOptions("item") ?? [];
+        const distanceOption = Number.isInteger(distance) ? `${opposingRole}:distance:${distance}` : null;
 
         // Extract origin and target marks
         const markOptions = (() => {
@@ -238,11 +224,9 @@ abstract class RollContext<
             const originUuid = unresolved.origin?.token?.uuid;
             const targetActor = unresolved.target?.actor;
             const targetUuid = unresolved.target?.token?.uuid;
-
             const originMark = originUuid ? (targetActor?.synthetics.tokenMarks.get(originUuid) ?? []) : [];
             const targetMark = targetUuid ? (originActor?.synthetics.tokenMarks.get(targetUuid) ?? []) : [];
             const [originPrefix, targetPrefix] = which === "target" ? ["origin", "self"] : ["self", "target"];
-
             return [
                 ...originMark.map((mark) => `${originPrefix}:mark:${mark}`),
                 ...targetMark.map((mark) => `${targetPrefix}:mark:${mark}`),
@@ -256,12 +240,12 @@ abstract class RollContext<
             target: unresolved.target?.actor ?? null,
             item,
             domains: this.domains,
-            options: [...this.rollOptions, ...itemOptions, ...markOptions],
+            options: [...this.rollOptions, itemOptions, markOptions, distanceOption ?? []].flat(),
         });
 
         // Add an epehemeral effect from flanking
         const isFlankingAttack = this.isFlankingAttack;
-        if (which === "target" && isFlankingAttack && isOffGuardFromFlanking(uncloned.actor, otherActor)) {
+        if (which === "target" && isFlankingAttack && isOffGuardFromFlanking(uncloned.actor, opposingActor)) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
             const condition = game.pf2e.ConditionManager.getCondition("off-guard", { name });
             ephemeralEffects.push(condition.toObject());
@@ -275,22 +259,25 @@ abstract class RollContext<
                 : this.traits.map((t) => `${perspectivePrefix}:action:trait:${t}`);
         // Set a roll option of the form `${"target" | "origin"}:${"ally" | "enemy"}`
         const allyOrEnemyOption = uncloned.actor.alliance
-            ? uncloned.actor.alliance === otherActor.alliance
-                ? `${opposingAlias}:ally`
-                : `${opposingAlias}:enemy`
+            ? uncloned.actor.alliance === opposingActor.alliance
+                ? `${opposingRole}:ally`
+                : `${opposingRole}:enemy`
             : null;
 
         return uncloned.actor.getContextualClone(
             [
-                ...Array.from(this.rollOptions),
-                opposingAlias,
+                this.rollOptions.values().toArray(),
+                opposingRole,
                 allyOrEnemyOption,
-                ...otherActor.getSelfRollOptions(opposingAlias),
-                ...markOptions,
+                opposingActor.getSelfRollOptions(opposingRole),
+                distanceOption,
+                markOptions,
                 isFlankingAttack ? `${perspectivePrefix}:flanking` : null,
-                ...actionOptions,
-                ...(which === "target" ? itemOptions : []),
-            ].filter(R.isNonNull),
+                actionOptions,
+                which === "target" ? itemOptions : null,
+            ]
+                .flat()
+                .filter(R.isNonNull),
             ephemeralEffects,
         );
     }

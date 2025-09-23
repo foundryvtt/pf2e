@@ -48,9 +48,7 @@ class DestroyableManager {
         };
         const observer = new MutationObserver(this.#onMutateContent(context));
         context.observer = observer;
-
         this.#appObservers.set(contentEl, context);
-
         observer.observe(contentEl, DestroyableManager.#OBSERVE_OPTIONS);
     }
 
@@ -64,12 +62,8 @@ class DestroyableManager {
                             context.elements.delete(element);
                         }
                     }
-                    if (context.elements.size > 0) {
-                        continue;
-                    }
-                    if (context.observer) {
-                        context.observer.disconnect();
-                    }
+                    if (context.elements.size > 0) continue;
+                    context.observer?.disconnect();
                     this.#appObservers.delete(context.contextKey);
                     context.observer = null;
                     return;
@@ -88,9 +82,7 @@ class DestroyableManager {
                     for (const element of context.elements) {
                         element.destroyable.destroy();
                     }
-                    if (context.observer) {
-                        context.observer.disconnect();
-                    }
+                    context.observer?.disconnect();
                     this.#appObservers.delete(node);
                     context.observer = null;
                 }
@@ -123,4 +115,4 @@ function createTooltipster(target: HTMLElement, options: JQueryTooltipster.ITool
     return $element;
 }
 
-export { DestroyableManager, createSortable, createTooltipster };
+export { createSortable, createTooltipster, DestroyableManager };

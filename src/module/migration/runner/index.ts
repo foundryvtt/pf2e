@@ -159,9 +159,9 @@ export class MigrationRunner extends MigrationRunnerBase {
         })();
         if (!updatedActor) return null;
 
-        if (actor.effects.size > 0) {
+        if (actor._source.effects.some((e) => e.statuses.some((s) => s !== "dead"))) {
             // What are these doing here?
-            actor.deleteEmbeddedDocuments("ActiveEffect", [], { deleteAll: true });
+            await actor.deleteEmbeddedDocuments("ActiveEffect", [], { deleteAll: true });
         }
 
         const baseItems = [...baseActor.items];

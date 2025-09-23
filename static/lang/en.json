@@ -571,6 +571,7 @@
             },
             "Speed": {
                 "BaseLabel": "{value}-Foot {type} Speed",
+                "BaseWithSource": "{value}-Foot {type} Speed ({source})",
                 "Plural": "Speeds",
                 "Label": "Speed",
                 "LabelFeet": "Speed (Feet)",
@@ -1635,6 +1636,7 @@
             "pointLabel": "Points"
         },
         "Foot": {
+            "Abbreviation": "ft",
             "Label": "foot",
             "Plural": "feet",
             "Preformatted": {
@@ -1792,6 +1794,17 @@
             },
             "Ancestry": {
                 "DropFeatures": "Drop ancestry features here.",
+                "FIELDS": {
+                    "hands": {
+                        "label": "Hands"
+                    },
+                    "reach": {
+                        "label": "Reach"
+                    },
+                    "speed": {
+                        "label": "Speed"
+                    }
+                },
                 "Plural": "Ancestries",
                 "Vision": {
                     "Label": "Vision",
@@ -2849,6 +2862,23 @@
         "ItemNotSupportedOnActor": "Item not supported on actor",
         "ItemRemoveRuleElement": "Remove Rule Element",
         "ItemTitle": "Item",
+        "ItemTransferDialog": {
+            "Button": {
+                "gift": "Give",
+                "move": "Transfer",
+                "purchase": "Purchase"
+            },
+            "Prompt": {
+                "gift": "Give this item to {actor}?",
+                "move": "Transfer this item to {actor}?",
+                "purchase": "Does {actor} wish to purchase this item?"
+            },
+            "Title": {
+                "gift": "Give {item}",
+                "move": "Transfer {item}",
+                "purchase": "Purchase {item}"
+            }
+        },
         "ItemsLabel": "Items",
         "Keybinding": {
             "CycleTokenStack": {
@@ -3460,11 +3490,11 @@
                 },
                 "Name": "Automation",
                 "ReachEnforcement": {
-                    "Corpses": "Corpses",
-                    "Doors": "Doors",
+                    "corpses": "Corpses",
+                    "doors": "Doors",
                     "Hint": "Enforce reach when players attempt to interact with certain objects on the canvas.",
-                    "Loot": "Loot",
-                    "Merchants": "Merchants",
+                    "loot": "Loot",
+                    "merchants": "Traders",
                     "Name": "Reach Enforcement"
                 },
                 "RemoveExpiredEffects": {
@@ -3520,12 +3550,12 @@
                 "Hint": "Set the overlay icon used to mark dead actors.",
                 "Name": "Death Icon"
             },
-            "DragMeasurement": {
-                "Always": "Always",
-                "Encounters": "During Encounters",
-                "Hint": "Measure distance traveled when dragging a token without the need for holding down another key. Waypoints are placed by pressing the \"{key}\" key and removed by right-clicking.",
-                "Name": "Drag Measurement",
-                "Never": "Never"
+            "DistanceDisplay": {
+                "Hint": "Display the distance between controlled and mouse-hovered tokens on the canvas.",
+                "Name": "Token Distance Display",
+                "always": "Always",
+                "encounters": "During Encounters",
+                "never": "Never"
             },
             "EnabledDisabled": {
                 "Enabled": "Enabled",
@@ -4033,6 +4063,60 @@
         "TotalCoinage": "Total Coinage",
         "TotalTreasure": "Total Treasure",
         "TotalWealth": "Total Wealth",
+        "TradeDialog": {
+            "Aborted": "{user} has ended the trade: no items were exchanged.",
+            "Acceptance": {
+                "Accepted": "{user} has accepted your offer.",
+                "Accept": "Accept Offer",
+                "NotAccepted": "{user} has not accepted your offer.",
+                "Rescind": "Rescind Acceptance"
+            },
+            "Error": {
+                "Engaged": "{user} is currently engaged in a trade.",
+                "LoggedOut": "Ending trade: {user} is no longer logged in.",
+                "NotTrading": "Ending trade: {user} is not longer trading.",
+                "OutOfReach": "{self} and {trader} are not in reach of each other.",
+                "SelectToken": "Select exactly one token associated with a PC or NPC to represent you in a trade.",
+                "Timeout": "Ending trade: there was no response from {user} after {timeout} seconds",
+                "Unavailable": "Ending trade: {user} has become unavailable."
+            },
+            "Gift": {
+                "Accepted": "{trader} has received your item.",
+                "Declined": "{trader} has declined your item.",
+                "Prompt": {
+                    "Content": "{trader} ({user}) would like to give {quantity}x {item} to {self}.",
+                    "Title": "Receive Item(s)?"
+                },
+                "Received": "{self} has received the item from {trader}."
+            },
+            "ImgAlt": {
+                "Actor": "Portrait of {actor}, representing {user}",
+                "Item": "Icon for {item}"
+            },
+            "Quantity": {
+                "Decrement": "Decrement Item Quantity",
+                "Increment": "Increment Item Quantity",
+                "Label": "Quantity of {item}"
+            },
+            "Receiving": "Receiving: {list}",
+            "Request": {
+                "Declined": "{trader} ({user}) has declined your request to trade.",
+                "Requesting": "Requesting to trade with {trader} ...",
+                "Prompt": {
+                    "Content": "{trader} ({user}) would like to trade with {self}.",
+                    "Title": "Trade with {trader}?"
+                },
+                "MenuLabel": "Request Trade",
+                "Timeout": "There was no response from {user} to your trade request after 30 seconds."
+            },
+            "Sending": "Sending: {list}",
+            "Success": {
+                "Finished": "{self} has finished trading with {trader}.",
+                "NoItems": "The trade has concluded, but no items were exchanged."
+            },
+            "Title": "Trading With {trader}",
+            "You": "You"
+        },
         "TrainedSkillsLabel": "Trained Skills",
         "TraitAberration": "Aberration",
         "TraitAcid": "Acid",
@@ -4600,7 +4684,7 @@
         "TraitDescriptionShabti": "A shabti is a constructed humanoid originally meant to face judgment for a living creature's sins after death.",
         "TraitDescriptionShade": "Shades are mortal souls who have been judged and then transformed into creatures native to other planes. Petitioners can survive the basic environmental effects of their home plane.",
         "TraitDescriptionShadow": "This magic involves shadows or the energy of the Netherworld.",
-        "TraitDescriptionShieldThrow": "A shield with this trait is designed to be thrown as a ranged attack.",
+        "TraitDescriptionShieldThrow": "A shield with this trait is designed to be thrown as a ranged attack. When thrown, the shield is a martial thrown ranged weapon. Its damage dice and type are the same as its shield bash attack, but if the shield includes an attached weapon or integrated weapon, you can choose to attack with it instead when you throw the shield. You add your Strength modifier to damage, as typical of a thrown weapon. The trait also includes the range increment.",
         "TraitDescriptionShisk": "Secretive humanoids covered in bony plumage that reside underground.",
         "TraitDescriptionShoony": "A creature with this trait is a member of the shoony ancestry.",
         "TraitDescriptionShove": "You can use this weapon to Shove with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls as an item bonus to the Athletics check. If you critically fail a check to Shove using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure.",
@@ -6515,9 +6599,7 @@
             "DepositSubtitle": "Deposit item",
             "EditLootLabel": "Configure Loot?",
             "GMSupervisionError": "A GM must be online in order to interact with {loot}.",
-            "Give": "Give",
             "GiveMessage": "{giver} gives {quantity} × {item} to {recipient}.",
-            "GiveSubtitle": "Give item",
             "HiddenWhenEmpty": {
                 "Hint": "Hide this actor's token(s) when its inventory is empty.",
                 "Label": "Hidden When Empty"
@@ -6535,14 +6617,11 @@
             "MerchantDescription": "Allows players to purchase items directly from the sheet",
             "MerchantLabel": "Merchant",
             "MoveLoot": "Move Items",
-            "MoveLootMessage": "How many items do you wish to move?",
             "MoveLootPopupTitle": "Item Quantity",
             "PartyStash": "the party stash",
             "PermissionError": "A GM must be online in order to loot or stow an item.",
             "PlantMessage": "{planter} plants {quantity} × {item} on {corpse}.",
             "PlantSubtitle": "Plant Item",
-            "Purchase": "Purchase",
-            "PurchaseLootPrompt": "Does {buyer} want to purchase this item?",
             "PurchasePrice": "Purchase Price",
             "Quantity": "Quantity",
             "SellMessage": "{seller} sells {quantity} × {item} to {buyer}.",

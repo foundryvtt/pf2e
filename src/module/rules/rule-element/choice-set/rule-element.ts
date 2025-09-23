@@ -7,7 +7,7 @@ import type { CompendiumIndexData } from "@client/documents/collections/compendi
 import type { DocumentUUID } from "@client/utils/_module.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
+import { PickableThing, PickAThingPrompt } from "@module/apps/pick-a-thing-prompt/app.ts";
 import { processChoicesFromData } from "@module/rules/helpers.ts";
 import { Predicate } from "@system/predication.ts";
 import {
@@ -34,7 +34,6 @@ import {
     ChoiceSetSource,
     UninflatedChoiceSet,
 } from "./data.ts";
-import { ChoiceSetPrompt } from "./prompt.ts";
 import fields = foundry.data.fields;
 
 /**
@@ -217,8 +216,8 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
 
         const selection =
             this.#getPreselection(this.choices) ??
-            (await new ChoiceSetPrompt({
-                prompt: this.prompt,
+            (await new PickAThingPrompt({
+                prompt: game.i18n.localize(this.prompt),
                 item: this.item,
                 title: this.label,
                 choices: this.choices,
@@ -252,6 +251,11 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
                 rule.ignored = false;
             }
         } else {
+            if (this.choices.length > 0 && !this.allowNoSelection) {
+                ui.notifications.warn("PF2E.UI.RuleElements.Prompt.NoSelectionMade", {
+                    format: { item: this.item.name },
+                });
+            }
             ruleSource.ignored = true;
         }
     }

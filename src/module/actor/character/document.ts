@@ -87,7 +87,6 @@ import {
     PCAttackTraitHelpers,
     WeaponAuxiliaryAction,
     createForceOpenPenalty,
-    createHinderingPenalty,
     createShoddyPenalty,
     getItemProficiencyRank,
     imposeOversizedWeaponCondition,
@@ -151,15 +150,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return fu.deepClone(this.system.abilities);
     }
 
-    get handsFree(): ZeroToTwo {
-        const heldItems = this.inventory.filter((i) => i.isHeld && i.type !== "shield" && !i.traits.has("free-hand"));
-        return Math.clamp(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
+    get handsFree(): number {
+        return this.system.hands.free.value;
     }
 
     /** The number of hands this PC "really" has free, ignoring allowances for shields and the Free-Hand trait */
-    get handsReallyFree(): ZeroToTwo {
-        const heldItems = this.inventory.filter((i) => i.isHeld);
-        return Math.clamp(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
+    get handsReallyFree(): number {
+        return this.system.hands.free.really;
     }
 
     override get hitPoints(): CharacterHitPointsSummary {
@@ -407,6 +404,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Crafting
         system.crafting = fu.mergeObject({ formulas: [], entries: {} }, system.crafting ?? {});
 
+        // Hands
+        this.system.hands = {
+            max: { value: 2, active: 2 },
+            free: { value: 2, really: 2 },
+        };
+
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
     }
@@ -446,6 +449,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         build.languages.value = sourceLanguages.filter((l) => !grantedLanguages.includes(l)).length - countReducedBy;
         build.languages.max += Math.max(this.system.abilities.int.mod, 0);
 
+        this.prepareHandsData();
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
     }
@@ -462,6 +466,21 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         super.prepareDataFromItems();
         this.prepareBuildData();
+    }
+
+    /** Determine hands free from held items. */
+    protected prepareHandsData(): void {
+        const maxHands = this.system.hands.max.value;
+        let heldCount = 0;
+        let reallyHeldCount = 0;
+        for (const item of this.inventory) {
+            const handsHeld = item.handsHeld;
+            if (!handsHeld) continue;
+            reallyHeldCount += handsHeld;
+            if (item.type !== "shield" && !item.system.traits.value.includes("free-hand")) heldCount += handsHeld;
+        }
+        this.system.hands.free.value = Math.clamp(maxHands - heldCount, 0, maxHands);
+        this.system.hands.free.really = Math.clamp(maxHands - reallyHeldCount, 0, maxHands);
     }
 
     override prepareDerivedData(): void {
@@ -600,19 +619,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         system.attributes.ac = fu.mergeObject(armorStatistic.getTraceData(), {
             attribute: armorStatistic.attribute ?? "dex",
         });
-
-        // Apply the speed penalty from this character's held shield
-        const heldShield = this.heldShield;
-        if (heldShield?.speedPenalty) {
-            const speedPenalty = new Modifier({
-                slug: "shield-speed-penalty",
-                label: heldShield.name,
-                modifier: heldShield.speedPenalty,
-            });
-            speedPenalty.predicate.push({ not: "self:shield:ignore-speed-penalty" });
-            this.synthetics.modifiers.speed ??= [];
-            this.synthetics.modifiers.speed.push(() => speedPenalty);
-        }
 
         this.prepareMovementData();
 
@@ -918,7 +924,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     override prepareMovementData(): void {
-        const wornArmor = this.wornArmor;
+        const { wornArmor, heldShield } = this;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
         const strength = this.system.abilities.str.mod;
         const requirement = wornArmor?.strength ?? null;
@@ -931,14 +937,32 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ? new Modifier({
                   slug,
                   label: wornArmor?.name ?? "PF2E.ArmorSpeedLabel",
+                  domains: ["all-speeds"],
                   modifier: penaltyValue,
                   type: "untyped",
-                  predicate: new Predicate({ nor: ["derived-from-land", "armor:ignore-speed-penalty"] }),
+                  predicate: new Predicate({ nor: ["armor:ignore-speed-penalty"] }),
               })
             : null;
-        // A hindering penalty can't be removed or mitigated
-        const hinderingPenalty = createHinderingPenalty(this);
-        super.prepareMovementData([armorPenalty, hinderingPenalty].filter(R.isNonNull));
+
+        // Speed penalty from held shield
+        const shieldPenalty = heldShield?.speedPenalty
+            ? new Modifier({
+                  slug: "shield-speed-penalty",
+                  label: heldShield.name,
+                  domains: ["all-speeds"],
+                  modifier: heldShield.speedPenalty,
+                  predicate: new Predicate({ not: "self:shield:ignore-speed-penalty" }),
+              })
+            : null;
+
+        // "You take a –5 penalty to all your Speeds (to a minimum of a 5-foot Speed). This is separate from and in
+        // "addition to the armor's Speed penalty, and affects you even if your Strength or an ability lets you reduce
+        // "or ignore the armor's Speed penalty."
+        const hinderingPenalty = wornArmor?.traits.has("hindering")
+            ? new Modifier({ slug: "hindering", label: "PF2E.TraitHindering", domains: ["all-speeds"], modifier: -5 })
+            : null;
+
+        super.prepareMovementData([armorPenalty, shieldPenalty, hinderingPenalty].filter(R.isNonNull));
     }
 
     private prepareFeats(): void {
@@ -1560,6 +1584,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }));
         action.attack = action.roll = action.variants[0].roll;
 
+        // Note this since a damage alteration may set it to true, which we want to revert after rolling
+        const originalDiceUpgraded = weapon.flags.pf2e.damageFacesUpgraded;
+
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
                 params.options = new Set(params.options ?? []);
@@ -1620,6 +1647,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     context: damageContext,
                 });
                 if (!damage) return null;
+                weapon.flags.pf2e.damageFacesUpgraded = originalDiceUpgraded;
 
                 if (params.getFormula) {
                     const formula = damage.damage.formula[outcome];
@@ -1882,7 +1910,7 @@ interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
 
 interface PrepareStrikeOptions {
     categories: WeaponCategory[];
-    handsReallyFree: ZeroToTwo;
+    handsReallyFree: number;
     ammos?: (ConsumablePF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
 }
 

@@ -4,7 +4,7 @@
     </div>
 
     <span class="arrow">
-        <i class="fa-solid fa-paperclip"></i>
+        <i class="fa-solid fa-paperclip" inert></i>
     </span>
 
     <select class="choices" data-choices>
@@ -15,7 +15,7 @@
 </div>
 
 <footer>
-    <button type="button" data-action="pick" value="0">{{localize "PF2E.Item.Physical.Attach.Label"}}</button>
+    <button type="button" data-action="attach">{{localize "PF2E.Item.Physical.Attach.Label"}}</button>
     {{#if requiresCrafting}}
         <label>
             <input type="checkbox" data-crafting-check {{checked (not user.isGM)}} />
