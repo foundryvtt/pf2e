@@ -2,7 +2,7 @@ import { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
 import { createHTMLElement } from "@util";
-import type { RuleElementPF2e } from "./rules/index.ts";
+import type { RuleElement } from "./rules/index.ts";
 
 class RollNotePF2e {
     /** The selector used to determine on which rolls the note will be shown for. */
@@ -18,7 +18,7 @@ class RollNotePF2e {
     /** An optional visibility restriction for the note */
     visibility: UserVisibility | null;
     /** The originating rule element of this modifier, if any: used to retrieve "parent" item roll options */
-    rule: RuleElementPF2e | null;
+    rule: RuleElement | null;
 
     constructor(params: RollNoteParams) {
         this.selector = params.selector;
@@ -88,7 +88,7 @@ interface RollNoteSource {
 }
 
 interface RollNoteParams extends RollNoteSource {
-    rule?: RuleElementPF2e | null;
+    rule?: RuleElement | null;
 }
 
 export { RollNotePF2e, type RollNoteSource };

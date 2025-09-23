@@ -44,7 +44,7 @@
     const className = $derived((props.class ?? "" + " pf2e").trim());
 </script>
 
-<Svelecte {...props} {value} class={className} {positionResolver} />
+<Svelecte {...props} bind:value class={className} {positionResolver} />
 
 <style>
     :global {
@@ -61,6 +61,7 @@
 
             --sv-selection-multi-wrap-padding: 0.15em;
             --sv-selection-gap: 0.2em;
+            --sv-min-height: 2rem; /* match var(--input-height), which is not exposed */
 
             .sv-input--text {
                 width: auto;
@@ -80,6 +81,13 @@
                     box-shadow: none;
                     outline: unset;
                 }
+            }
+
+            /** Undo foundry overrides */
+            button {
+                height: unset;
+                min-height: unset;
+                border-radius: unset;
             }
         }
 

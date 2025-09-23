@@ -20,6 +20,7 @@ import { HeritageSystemData } from "@item/heritage/data.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
 import { DoorControlPF2e } from "@module/canvas/door-control.ts";
 import { EnvironmentCanvasGroupPF2e } from "@module/canvas/group/environment.ts";
 import {
@@ -145,6 +146,8 @@ export class Load {
             CONFIG.Dice.termTypes[TermCls.name] = TermCls;
         }
 
+        CONFIG.queries["pf2e.trade"] = TradeDialog.handleQuery;
+
         // Add functions to the `Math` namespace for use in `Roll` formulas
         Math.eq = (a: number, b: number): boolean => a === b;
         Math.gt = (a: number, b: number): boolean => a > b;
@@ -203,50 +206,7 @@ export class Load {
             }
         });
 
-        function rerenderApps(path: string): void {
-            const apps = [...Object.values(ui.windows), ...foundry.applications.instances.values()];
-            for (const app of apps) {
-                if (path.endsWith(".json") && app instanceof ActorSheetPF2e) {
-                    resetActors([app.actor]);
-                } else {
-                    app.render();
-                }
-            }
-            if (path.includes("system/effects")) game.pf2e.effectPanel.render();
-        }
-
-        // HMR for localization and template files
-        if (import.meta.hot) {
-            import.meta.hot.on("lang-update", async ({ path }: { path: string }): Promise<void> => {
-                const lang = await fu.fetchJsonWithTimeout(path);
-                if (!R.isPlainObject(lang)) {
-                    ui.notifications.error(`Failed to load ${path}`);
-                    return;
-                }
-                const apply = (): void => {
-                    fu.mergeObject(game.i18n.translations, lang);
-                    rerenderApps(path);
-                };
-                if (game.ready) {
-                    apply();
-                } else {
-                    Hooks.once("ready", apply);
-                }
-            });
-
-            import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
-                const apply = async (): Promise<void> => {
-                    delete Handlebars.partials[path];
-                    await fa.handlebars.getTemplate(path);
-                    rerenderApps(path);
-                };
-                if (game.ready) {
-                    apply();
-                } else {
-                    Hooks.once("ready", apply);
-                }
-            });
-        }
+        this.#initializeHotReload();
     }
 
     static #configureMovement(): void {
@@ -329,5 +289,52 @@ export class Load {
         };
 
         movementActions.blink.order = 6;
+    }
+
+    /** Hot reload for localization and template files */
+    static #initializeHotReload(): void {
+        if (!import.meta.hot) return;
+
+        function rerenderApps(path: string): void {
+            const apps = [...Object.values(ui.windows), ...foundry.applications.instances.values()];
+            for (const app of apps) {
+                if (path.endsWith(".json") && app instanceof ActorSheetPF2e) {
+                    resetActors([app.actor]);
+                } else {
+                    app.render();
+                }
+            }
+            if (path.includes("system/effects")) game.pf2e.effectPanel.render();
+        }
+
+        import.meta.hot.on("lang-update", async ({ path }: { path: string }): Promise<void> => {
+            const lang = await fu.fetchJsonWithTimeout(path);
+            if (!R.isPlainObject(lang)) {
+                ui.notifications.error(`Failed to load ${path}`);
+                return;
+            }
+            const apply = (): void => {
+                fu.mergeObject(game.i18n.translations, lang);
+                rerenderApps(path);
+            };
+            if (game.ready) {
+                apply();
+            } else {
+                Hooks.once("ready", apply);
+            }
+        });
+
+        import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
+            const apply = async (): Promise<void> => {
+                delete Handlebars.partials[path];
+                await fa.handlebars.getTemplate(path);
+                rerenderApps(path);
+            };
+            if (game.ready) {
+                apply();
+            } else {
+                Hooks.once("ready", apply);
+            }
+        });
     }
 }

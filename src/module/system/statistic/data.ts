@@ -1,4 +1,4 @@
-import type { ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
+import type { Modifier, RawModifier } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { CheckType } from "@system/check/index.ts";
@@ -10,7 +10,7 @@ interface BaseStatisticData {
     /** Base domains for fetching actor roll options */
     domains?: string[];
     /** Modifiers not retrieved from the actor's synthetics record */
-    modifiers?: ModifierPF2e[];
+    modifiers?: Modifier[];
 }
 
 /** Used to build the actual statistic object */
@@ -23,7 +23,7 @@ interface StatisticData extends BaseStatisticData {
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
     /** If given, filters all automatically acquired modifiers */
-    filter?: (m: ModifierPF2e) => boolean;
+    filter?: (m: Modifier) => boolean;
     /**
      * Any static roll options that should be added to the list of roll options.
      * This does not include actor, rank, or basic item roll options.
@@ -37,7 +37,7 @@ interface StatisticCheckData {
     /** Additional domains for fetching actor roll options */
     domains?: string[];
     /** Modifiers not retrieved from the actor's synthetics record */
-    modifiers?: ModifierPF2e[];
+    modifiers?: Modifier[];
 }
 
 interface StatisticDifficultyClassData {
@@ -45,7 +45,7 @@ interface StatisticDifficultyClassData {
     domains?: string[];
     label?: string;
     /** Modifiers not retrieved from the actor's synthetics record */
-    modifiers?: ModifierPF2e[];
+    modifiers?: Modifier[];
 }
 
 /** Defines view data for chat message and sheet rendering */

@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import type { ImageFilePath } from "@common/constants.d.mts";
@@ -481,14 +481,14 @@ class ElementalBlast {
         if (item.system.traits.value.includes("forceful")) {
             const diceNumber = processedDamage.dice;
             extraModifiers.push(
-                new ModifierPF2e({
+                new Modifier({
                     slug: "forceful-second",
                     label: "PF2E.Item.Weapon.Forceful.Second",
                     modifier: diceNumber,
                     type: "circumstance",
                     ignored: true,
                 }),
-                new ModifierPF2e({
+                new Modifier({
                     slug: "forceful-third",
                     label: "PF2E.Item.Weapon.Forceful.Third",
                     modifier: 2 * diceNumber,
@@ -540,7 +540,7 @@ class ElementalBlast {
         return DamagePF2e.roll(damageTemplate, damageContext);
     }
 
-    #strengthModToDamage(item: AbilityItemPF2e, domains: string[]): ModifierPF2e | null {
+    #strengthModToDamage(item: AbilityItemPF2e, domains: string[]): Modifier | null {
         if (!item.range) return null;
         const strengthModValue = this.actor.abilities.str.mod;
         const { traits } = item;
@@ -553,7 +553,7 @@ class ElementalBlast {
               : null;
 
         return typeof modifierValue === "number"
-            ? new ModifierPF2e({
+            ? new Modifier({
                   slug: "str",
                   label: CONFIG.PF2E.abilities.str,
                   ability: "str",

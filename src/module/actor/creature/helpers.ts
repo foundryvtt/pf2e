@@ -1,6 +1,6 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { Immunity } from "@actor/data/iwr.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { ImmunityType } from "@actor/types.ts";
 import type { AbilityItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ConditionPF2e } from "@item";
@@ -20,7 +20,7 @@ class AttackTraitHelpers {
         return trait.replace(/-d?\d{1,3}$/, "");
     }
 
-    static createAttackModifiers({ item, domains }: CreateAttackModifiersParams): ModifierPF2e[] {
+    static createAttackModifiers({ item, domains }: CreateAttackModifiersParams): Modifier[] {
         const actor = item.actor;
         if (!actor) throw ErrorPF2e("The weapon must be embedded");
 
@@ -32,7 +32,7 @@ class AttackTraitHelpers {
                     if (!rangeIncrement) return [];
 
                     const penaltyRange = Number(/-(\d+)$/.exec(trait)![1]);
-                    return new ModifierPF2e({
+                    return new Modifier({
                         slug: unannotatedTrait,
                         label: this.getLabel(trait),
                         modifier: -2,
@@ -50,7 +50,7 @@ class AttackTraitHelpers {
                     });
                 }
                 case "sweep": {
-                    return new ModifierPF2e({
+                    return new Modifier({
                         slug: unannotatedTrait,
                         label: this.getLabel(trait),
                         modifier: 1,
@@ -59,7 +59,7 @@ class AttackTraitHelpers {
                     });
                 }
                 case "backswing": {
-                    return new ModifierPF2e({
+                    return new Modifier({
                         slug: unannotatedTrait,
                         label: this.getLabel(trait),
                         modifier: 1,

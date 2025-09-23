@@ -1,11 +1,15 @@
 #measurement {
     --counter-scale: 1;
     .waypoint-label {
+        &:has(+ .waypoint-label.last) .action-glyph {
+            display: none;
+        }
         .action-glyph {
             color: var(--color-text-primary);
             font-size: 1.5em;
         }
     }
+
     .action-marker {
         --transformX: 0;
         --transformY: 0;
@@ -23,6 +27,7 @@
         top: var(--position-y);
         width: var(--grid-size);
     }
+
     .waypoint-label,
     .action-marker {
         transform: scale(calc(var(--ui-scale) / var(--counter-scale))) translate(var(--transformX), var(--transformY));

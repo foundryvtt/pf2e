@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { StatisticModifier, type ModifierPF2e } from "@actor/modifiers.ts";
+import { StatisticModifier, type Modifier } from "@actor/modifiers.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import * as R from "remeda";
 import { BaseStatisticData, BaseStatisticTraceData, StatisticData } from "./data.ts";
@@ -17,7 +17,7 @@ abstract class BaseStatistic<TActor extends ActorPF2e> {
     /** String category identifiers: used to retrieve modifiers and other synthetics as well as create roll options  */
     domains: string[];
     /** Penalties, bonuses, and actual modifiers comprising a total modifier value */
-    modifiers: ModifierPF2e[];
+    modifiers: Modifier[];
 
     constructor(actor: TActor, data: BaseStatisticData) {
         this.actor = actor;

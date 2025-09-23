@@ -1,0 +1,58 @@
+{
+    "_id": "uZ5yEWZK9PSlsLyn",
+    "img": "icons/magic/control/mouth-smile-deception-purple.webp",
+    "name": "Effect: Winning Smile",
+    "system": {
+        "description": {
+            "value": "<p>Your attacks against the origin become nonlethal.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Bestiary 3"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "target:signature:{item|origin.signature}"
+                ],
+                "property": "traits",
+                "value": "nonlethal"
+            },
+            {
+                "itemType": "melee",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "target:signature:{item|origin.signature}"
+                ],
+                "property": "traits",
+                "value": "nonlethal"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

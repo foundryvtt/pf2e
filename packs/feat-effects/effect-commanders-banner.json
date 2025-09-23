@@ -23,6 +23,7 @@
         },
         "rules": [
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
                     "item:trait:fear"
@@ -33,8 +34,39 @@
                     "reflex-dc",
                     "will"
                 ],
+                "slug": "commanders-banner-fear",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "parent:tag:glorious-banner"
+                ],
+                "selector": [
+                    "reflex",
+                    "fortitude",
+                    "ac"
+                ],
+                "slug": "commanders-banner-glorious-banner",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:glorious-banner"
+                ],
+                "selectors": [
+                    "ac",
+                    "fortitude-dc",
+                    "reflex-dc",
+                    "will"
+                ],
+                "slug": "commanders-banner-fear",
+                "value": 2
             }
         ],
         "start": {

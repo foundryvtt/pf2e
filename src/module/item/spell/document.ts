@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AttributeString } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
@@ -370,7 +370,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         };
 
         // Add modifiers and damage die adjustments
-        const modifiers: ModifierPF2e[] = [];
+        const modifiers: Modifier[] = [];
         const damageDice: DamageDicePF2e[] = [];
         const originClone = contextData.origin.actor;
         const { damageAlterations, modifierAdjustments } = actor.synthetics;
@@ -381,7 +381,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 .filter(([, d]) => d.applyMod)
                 .map(
                     ([k, d]) =>
-                        new ModifierPF2e({
+                        new Modifier({
                             label: CONFIG.PF2E.abilities[attribute],
                             slug: `ability-${k}`,
                             // Not a restricted attribute modifier in the same way it is for checks or weapon damage

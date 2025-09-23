@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.Climb";
 
@@ -8,7 +8,7 @@ function climb(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:climb"];
     const modifiers = (options?.modifiers ?? []).concat(
-        new ModifierPF2e({
+        new Modifier({
             slug: "climb-speed",
             label: `${PREFIX}.Modifier.ClimbSpeed`,
             modifier: 4,
@@ -69,4 +69,4 @@ const action = new SingleCheckAction({
     traits: ["move"],
 });
 
-export { climb as legacy, action };
+export { action, climb as legacy };

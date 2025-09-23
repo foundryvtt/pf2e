@@ -6,7 +6,7 @@ import { SIZES, Size } from "@module/data.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
@@ -14,7 +14,7 @@ import fields = foundry.data.fields;
  * @category RuleElement
  * Change a creature's size
  */
-class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
+class CreatureSizeRuleElement extends RuleElement<CreatureSizeRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
     constructor(data: RuleElementSource, options: RuleElementOptions) {
@@ -160,7 +160,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
 }
 
 interface CreatureSizeRuleElement
-    extends RuleElementPF2e<CreatureSizeRuleSchema>,
+    extends RuleElement<CreatureSizeRuleSchema>,
         ModelPropsFromRESchema<CreatureSizeRuleSchema> {
     get actor(): CreaturePF2e;
 }

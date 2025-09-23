@@ -151,7 +151,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
-        return this.distanceTo(token) === 5;
+        return this.distanceTo(token) === canvas.grid.distance;
     }
 
     /** Publicly expose `Token#_canControl` for use in `TokenLayerPF2e`. */
@@ -307,6 +307,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      */
     #refreshDistanceLabel(): void {
         this.layer.clearDistanceLine();
+        const setting = game.pf2e.settings.distanceDisplay;
+        if (setting === "never" || (setting === "encounters" && !game.combat?.started)) return;
         const labelEl = document.getElementById("token-hover-distance");
         if (!this.#canSeeDistance || !labelEl) {
             if (labelEl) labelEl.hidden = true;
@@ -316,7 +318,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (!controlledToken || controlledToken.isPreview || controlledToken.animation) return;
         const totalEl = labelEl.querySelector(".total-measurement");
         if (!totalEl) throw ErrorPF2e("Unexpected failure to retrieve measurement HTML element");
-        const label = [controlledToken.distanceTo(this), canvas.scene?.grid.units ?? ""].join(" ").trim();
+        const distance = controlledToken.distanceTo(this);
+        if (distance < canvas.grid.distance) {
+            labelEl.hidden = true;
+            return;
+        }
+        const label = [distance, canvas.scene?.grid.units ?? ""].join(" ").trim();
         totalEl.textContent = label;
         const center = this.center;
         labelEl.dataset.tokenId = this.document.id;

@@ -1,6 +1,6 @@
 import { ActorPF2e, type ArmyPF2e, type PartyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats/index.ts";
-import { MODIFIER_TYPES, ModifierPF2e, RawModifier, createProficiencyModifier } from "@actor/modifiers.ts";
+import { MODIFIER_TYPES, Modifier, RawModifier, createProficiencyModifier } from "@actor/modifiers.ts";
 import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -153,7 +153,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
         const modifiers = customModifiers[stat] ?? [];
         if (!modifiers.some((m) => m.label === data.label)) {
             data.type = setHasElement(MODIFIER_TYPES, data.type) ? data.type : "untyped";
-            const modifier = new ModifierPF2e({ ...data, custom: true }).toObject();
+            const modifier = new Modifier({ ...data, custom: true }).toObject();
             await this.update({ [`customModifiers.${stat}`]: [...modifiers, modifier] });
         }
     }
@@ -250,7 +250,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
         const customModifiers = (this.customModifiers ??= {});
         for (const selector of Object.keys(customModifiers)) {
             const modifiers = (customModifiers[selector] = customModifiers[selector].map(
-                (rawModifier: RawModifier) => new ModifierPF2e(rawModifier),
+                (rawModifier: RawModifier) => new Modifier(rawModifier),
             ));
             (synthetics.modifiers[selector] ??= []).push(...modifiers.map((m) => () => m));
         }
@@ -267,7 +267,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
             const modifiers = (synthetics.modifiers["control-dc"] ??= []);
             modifiers.push(
                 () =>
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "size",
                         label: "Size Modifier",
                         modifier: sizeData.controlMod,
@@ -282,7 +282,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
                 const modifiers = (synthetics.modifiers[`${ability}-based`] ??= []);
                 modifiers.push(
                     () =>
-                        new ModifierPF2e({
+                        new Modifier({
                             slug: "ruin",
                             type: "item",
                             label: KINGDOM_RUIN_LABELS[ability],
@@ -310,7 +310,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
                 }
                 for (const [selector, entries] of Object.entries(penalties.modifiers ?? {})) {
                     const modifiers = (synthetics.modifiers[selector] ??= []);
-                    modifiers.push(...entries.map((e) => () => new ModifierPF2e(e)));
+                    modifiers.push(...entries.map((e) => () => new Modifier(e)));
                 }
             }
 
@@ -319,7 +319,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
                 const modifiers = (synthetics.modifiers[`${ability}-skill-check`] ??= []);
                 modifiers.push(
                     () =>
-                        new ModifierPF2e({
+                        new Modifier({
                             slug: "invested",
                             label: "PF2E.Kingmaker.Kingdom.Invested",
                             type: "status",
@@ -336,7 +336,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
             const modifiers = (synthetics.modifiers["kingdom-check"] ??= []);
             modifiers.push(
                 () =>
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "unrest",
                         label: "PF2E.Kingmaker.Kingdom.Unrest",
                         type: "status",
@@ -386,19 +386,19 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
             domains: ["consumption"],
             modifiers: [
                 consumption.settlement &&
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "settlements",
                         label: "PF2E.Kingmaker.Settlement.Label",
                         modifier: consumption.settlement,
                     }),
                 consumption.army &&
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "army",
                         label: "PF2E.Kingmaker.Army.Label",
                         modifier: consumption.army,
                     }),
                 this.resources.workSites.food.value &&
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "farmland",
                         label: "PF2E.Kingmaker.WorkSites.food.Name",
                         modifier: -this.resources.workSites.food.value,
@@ -414,7 +414,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
             slug: "control",
             label: "PF2E.Kingmaker.Kingdom.ControlDC",
             domains: ["control-dc"],
-            modifiers: [new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: controlMod })],
+            modifiers: [new Modifier({ slug: "base", label: "PF2E.ModifierTitle", modifier: controlMod })],
         });
 
         // Calculate all kingdom skills
@@ -429,7 +429,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
                 label: KINGDOM_SKILL_LABELS[skill],
                 domains,
                 modifiers: [
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: ability,
                         label: KINGDOM_ABILITY_LABELS[ability],
                         modifier: abilityMod,

@@ -9,7 +9,7 @@ import { ItemPF2e, type HeritagePF2e } from "@item";
 import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "@module/rules/index.ts";
+import { RuleElement, RuleElementOptions, RuleElementSource } from "@module/rules/index.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
@@ -293,7 +293,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Overriden to not create rule elements when suppressed */
-    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElementPF2e[] {
+    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElement[] {
         if (this.suppressed) return [];
         return super.prepareRuleElements(options);
     }

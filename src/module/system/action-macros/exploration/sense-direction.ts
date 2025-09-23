@@ -1,10 +1,10 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
+import { Modifier } from "@actor/modifiers.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function senseDirection(options: SkillActionOptions): void {
     const modifiers = [
-        new ModifierPF2e({
+        new Modifier({
             label: "PF2E.Actions.SenseDirection.Modifier.NoCompass",
             modifier: -2,
             predicate: [{ not: "compass-in-possession" }],
@@ -61,4 +61,4 @@ const action = new SingleCheckAction({
     traits: ["exploration", "secret"],
 });
 
-export { senseDirection as legacy, action };
+export { action, senseDirection as legacy };

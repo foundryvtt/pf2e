@@ -43,7 +43,7 @@ export default class TokenRuler<TObject extends Token> extends BaseTokenRuler<TO
      */
     protected _getWaypointLabelContext(
         waypoint: DeepReadonly<TokenRulerWaypoint>,
-        state: object,
+        state: WaypointLabelRenderState,
     ): WaypointLabelRenderContext | void;
 
     /**
@@ -90,4 +90,10 @@ export interface WaypointLabelRenderContext {
     position: { x: number; y: number };
     distance: { total: string };
     cost: { total: string; units: string };
+}
+
+export interface WaypointLabelRenderState {
+    hasElevation?: boolean;
+    initialize?: boolean;
+    previousElevation?: number;
 }

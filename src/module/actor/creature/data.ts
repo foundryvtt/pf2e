@@ -12,7 +12,7 @@ import type {
     StrikeData,
 } from "@actor/data/base.ts";
 import type { ActorSizePF2e } from "@actor/data/size.ts";
-import type { ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
+import type { Modifier, RawModifier } from "@actor/modifiers.ts";
 import type { AttributeString, MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import type { ImageFilePath } from "@common/constants.d.mts";
 import type { LabeledNumber, Size, ValueAndMax, ValueAndMaybeMax, ZeroToThree } from "@module/data.ts";
@@ -80,16 +80,20 @@ interface CreatureMovementData {
     };
     terrain: {
         difficult: {
-            /** Difficult terrain that is downgraded when part of certain environment features */
-            downgraded: string[];
             /**
              * Difficult terrain that is ignored when part of certain environment features: a value of "all" has the
              * creature ignoring difficult terrain from all sources.
              */
-            ignored: string[];
+            ignored: IgnorableEnvironmentFeature[];
+        };
+        greater: {
+            /** Difficult terrain that is downgraded when part of certain environment features */
+            ignored: IgnorableEnvironmentFeature[];
         };
     };
 }
+
+type IgnorableEnvironmentFeature = { environment: string; feature: string };
 
 interface CreatureSystemData extends Omit<CreatureSystemSource, "attributes">, ActorSystemData {
     abilities?: Abilities;
@@ -108,7 +112,7 @@ interface CreatureSystemData extends Omit<CreatureSystemSource, "attributes">, A
     perception: CreaturePerceptionData;
 
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
-    customModifiers: Record<string, ModifierPF2e[]>;
+    customModifiers: Record<string, Modifier[]>;
 
     /** Saving throw data */
     saves: CreatureSaves;

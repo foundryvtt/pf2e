@@ -3,14 +3,14 @@ import type { ActorPF2e } from "@actor/base.ts";
 import type { CreatureSaves } from "@actor/creature/data.ts";
 import type { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
-import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
+import { Modifier, applyStackingRules } from "@actor/modifiers.ts";
 import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { DatabaseDeleteCallbackOptions } from "@common/abstract/_types.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
 import type { ItemType } from "@item/base/data/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
-import type { RuleElementPF2e } from "@module/rules/index.ts";
+import type { RuleElement } from "@module/rules/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { Predicate } from "@system/predication.ts";
 import { ArmorStatistic, HitPointsStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
@@ -83,7 +83,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     }
 
     /** Skip rule-element preparation if there is no master */
-    protected override prepareRuleElements(): RuleElementPF2e[] {
+    protected override prepareRuleElements(): RuleElement[] {
         return this.master ? super.prepareRuleElements() : [];
     }
 
@@ -92,8 +92,8 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         const { level, master, masterAttributeModifier, system } = this;
         const attributeModifier =
             masterAttributeModifier > 2
-                ? new ModifierPF2e(`PF2E.MasterAbility.${system.master.ability}`, masterAttributeModifier, "untyped")
-                : new ModifierPF2e(`PF2E.Actor.Familiar.MinimumAttributeModifier`, 3, "untyped");
+                ? new Modifier(`PF2E.MasterAbility.${system.master.ability}`, masterAttributeModifier, "untyped")
+                : new Modifier(`PF2E.Actor.Familiar.MinimumAttributeModifier`, 3, "untyped");
 
         // Hit Points
         const hitPoints = new HitPointsStatistic(this, { baseMax: level * 5 });
@@ -102,7 +102,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         // Armor Class
         const masterModifier = master
-            ? new ModifierPF2e({
+            ? new Modifier({
                   label: "PF2E.Actor.Familiar.Master.ArmorClass",
                   slug: "base",
                   modifier: master.armorClass.modifiers
@@ -126,7 +126,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                     slug: saveType,
                     label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
                     domains: selectors,
-                    modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
+                    modifiers: [new Modifier(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
                     check: { type: "saving-throw" },
                 });
 
@@ -144,7 +144,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         this.attackStatistic = new Statistic(this, {
             slug: "attack-roll",
             label: "PF2E.Familiar.AttackRoll",
-            modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")],
+            modifiers: [new Modifier("PF2E.MasterLevel", masterLevel, "untyped")],
             check: { type: "attack-roll" },
         });
         system.attack = this.attackStatistic.getTraceData();
@@ -155,7 +155,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             label: "PF2E.PerceptionLabel",
             attribute: "wis",
             domains: ["perception", "wis-based", "all"],
-            modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"), attributeModifier],
+            modifiers: [new Modifier("PF2E.MasterLevel", masterLevel, "untyped"), attributeModifier],
             check: { type: "perception-check" },
             senses: system.perception.senses,
         });
@@ -163,7 +163,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         // Skills
         this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skill, { label, attribute }]) => {
-            const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
+            const modifiers = [new Modifier("PF2E.MasterLevel", masterLevel, "untyped")];
             if (["acrobatics", "stealth"].includes(skill)) {
                 modifiers.push(attributeModifier);
             }

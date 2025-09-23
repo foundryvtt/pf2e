@@ -8,7 +8,7 @@ import type { ActorSheetData } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import type { Frequency } from "@item/base/data/index.ts";
-import type { Coins } from "@item/physical/data.ts";
+import type { RawCoins } from "@item/physical/data.ts";
 import type { RollOptionToggle } from "@module/rules/synthetics.ts";
 import type { SheetOptions } from "@module/sheet/helpers.ts";
 
@@ -35,7 +35,7 @@ interface CoinDisplayData {
     label: string;
 }
 
-export type CoinageSummary = { [K in keyof Coins]?: CoinDisplayData };
+export type CoinageSummary = { [K in keyof RawCoins]?: CoinDisplayData };
 
 interface SheetItemList {
     label: string;
@@ -63,7 +63,7 @@ interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TA
     toggles: Record<string, RollOptionToggle[]>;
     totalCoinage: CoinageSummary;
     totalCoinageGold: string;
-    totalWealth: Coins;
+    totalWealth: RawCoins;
     totalWealthGold: string;
     traits: SheetOptions;
     user: { isGM: boolean };

@@ -30,7 +30,7 @@ import { isContainerCycle } from "@item/container/helpers.ts";
 import type { EffectFlags, EffectSource } from "@item/effect/data.ts";
 import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { CoinsPF2e } from "@item/physical/coins.ts";
+import { Coins } from "@item/physical/coins.ts";
 import { getDefaultEquipStatus } from "@item/physical/helpers.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
@@ -47,7 +47,7 @@ import {
     processPreUpdateActorHooks,
 } from "@module/rules/helpers.ts";
 import type { RuleElementSynthetics } from "@module/rules/index.ts";
-import type { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
+import type { RuleElement } from "@module/rules/rule-element/base.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
@@ -116,7 +116,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     declare spellcasting: ActorSpellcasting<this> | null;
 
     /** Rule elements drawn from owned items */
-    declare rules: RuleElementPF2e[];
+    declare rules: RuleElement[];
 
     declare synthetics: RuleElementSynthetics;
 
@@ -905,7 +905,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.rules = this.prepareRuleElements();
     }
 
-    protected prepareRuleElements(): RuleElementPF2e[] {
+    protected prepareRuleElements(): RuleElement[] {
         // Ensure certain ABC items go early and common temporary items go last
         // These leads to predictability with RE overrides such as auras and CreatureSize
         const sortOrder: Partial<Record<ItemType, number>> = {
@@ -985,7 +985,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         value = typeof itemId === "boolean" ? itemId : (value ?? !this.rollOptions[domain]?.[option]);
 
         // Find the rule on the actor. The item id provided may be for a sub item, so we search instead of retrieving outright
-        type MaybeRollOption = RuleElementPF2e & { domain?: unknown; option?: unknown };
+        type MaybeRollOption = RuleElement & { domain?: unknown; option?: unknown };
         const rule = this.rules.find(
             (r: MaybeRollOption): r is RollOptionRuleElement =>
                 r.key === "RollOption" &&
@@ -1559,7 +1559,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // If this is a transaction, remove coins from the buyer and add to the seller
         if (isPurchase) {
-            const itemValue = CoinsPF2e.fromPrice(item.price, quantity);
+            const itemValue = Coins.fromPrice(item.price, quantity);
             if (await targetActor.inventory.removeCoins(itemValue)) {
                 await item.actor.inventory.addCoins(itemValue);
             } else {

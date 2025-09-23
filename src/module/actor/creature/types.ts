@@ -6,6 +6,7 @@ import type { LabeledValueAndMax } from "@module/data.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { SpeedStatistic } from "@system/statistic/speed.ts";
 import type { CreaturePF2e } from "./document.ts";
+import { CreatureMovementData } from "./index.ts";
 import type { LANGUAGES_BY_RARITY, SENSE_TYPES } from "./values.ts";
 
 /** A `CreaturePF2e` subtype string */
@@ -43,7 +44,7 @@ interface CreatureSpeeds<TActor extends CreaturePF2e> extends OtherCreatureSpeed
 
 interface CreatureMovement<TActor extends CreaturePF2e> {
     speeds: CreatureSpeeds<TActor>;
-    terrain: { difficult: { ignored: string[]; downgraded: string[] } };
+    terrain: CreatureMovementData["terrain"];
 }
 
 interface GetReachParameters {

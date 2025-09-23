@@ -5,26 +5,16 @@
     <section class="content">
         <!-- HEADER -->
         <div class="sheet-header">
-            {{#if owner}}
-                <h1 class="charname">
-                    <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.loot.LootNamePlaceholder"}}" />
-                </h1>
-            {{else}}
-                <h1 class="charname">{{actor.name}}</h1>
-            {{/if}}
+            <h1 class="charname">
+                {{formInput fields.name value=actor.name aria=(object label=fields.name.label) placeholder=(localize "PF2E.loot.LootNamePlaceholder")}}
+            </h1>
             <section class="sheet-type">
-                {{#if owner}}
-                    <i
-                        class="fa-solid fa-circle-info"
-                        data-tooltip="<div>{{localize "PF2E.loot.LootLabel"}}: {{localize "PF2E.loot.LootDescription"}}</div><div>{{localize "PF2E.loot.MerchantLabel"}}: {{localize "PF2E.loot.MerchantDescription"}}</div>"
-                        data-tooltip-direction="LEFT"
-                    ></i>
-                    <select name="system.lootSheetType" class="type">
-                        {{selectOptions lootSheetTypeOptions selected=data.lootSheetType localize=true}}
-                    </select>
-                {{else}}
-                    <span class="type">{{data.lootSheetType}}</span>
-                {{/if}}
+                <i
+                    class="fa-solid fa-circle-info"
+                    data-tooltip="{{localize "PF2E.loot.LootLabel"}}: {{localize "PF2E.loot.LootDescription"}}</div><div>{{localize "PF2E.loot.MerchantLabel"}}: {{localize "PF2E.loot.MerchantDescription"}}</div>"
+                    data-tooltip-direction="LEFT"
+                ></i>
+                {{formInput systemFields.lootSheetType classes="type" value=data.lootSheetType options=lootSheetTypeOptions}}
             </section>
         </div>
 

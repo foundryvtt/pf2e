@@ -1,4 +1,5 @@
 import { ErrorPF2e } from "@util";
+import * as R from "remeda";
 import { PartialSettingsData, SettingsMenuPF2e } from "./menu.ts";
 import fields = foundry.data.fields;
 
@@ -87,12 +88,10 @@ export class AutomationSettings extends SettingsMenuPF2e {
                     new fields.StringField({
                         required: true,
                         label: "PF2E.SETTINGS.Automation.ReachEnforcement.Name",
-                        choices: {
-                            doors: "PF2E.SETTINGS.Automation.ReachEnforcement.Doors",
-                            corpses: "PF2E.SETTINGS.Automation.ReachEnforcement.Corpses",
-                            loot: "PF2E.SETTINGS.Automation.ReachEnforcement.Loot",
-                            merchants: "PF2E.SETTINGS.Automation.ReachEnforcement.Merchants",
-                        },
+                        choices: R.mapToObj(["corpses", "doors", "loot", "merchants"] as const, (v) => [
+                            v,
+                            `PF2E.SETTINGS.Automation.ReachEnforcement.${v}`,
+                        ]),
                     }),
                     { required: true, initial: ["doors"] },
                 ),

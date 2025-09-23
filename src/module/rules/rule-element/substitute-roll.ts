@@ -1,11 +1,11 @@
 import { DataUnionField, PredicateField, StrictBooleanField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
 /** Substitute a pre-determined result for a check's D20 roll */
-class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
+class SubstituteRollRuleElement extends RuleElement<SubstituteRollSchema> {
     constructor(source: RuleElementSource, options: RuleElementOptions) {
         super(source, options);
 
@@ -64,7 +64,7 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
         });
     }
 
-    override async afterRoll(params: RuleElementPF2e.AfterRollParams): Promise<void> {
+    override async afterRoll(params: RuleElement.AfterRollParams): Promise<void> {
         if (!this.removeAfterRoll || this.ignored) return;
 
         if (this.removeAfterRoll === true) {
@@ -86,7 +86,7 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
 }
 
 interface SubstituteRollRuleElement
-    extends RuleElementPF2e<SubstituteRollSchema>,
+    extends RuleElement<SubstituteRollSchema>,
         ModelPropsFromRESchema<SubstituteRollSchema> {}
 
 type SubstituteRollSchema = RuleElementSchema & {

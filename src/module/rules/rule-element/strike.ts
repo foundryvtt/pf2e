@@ -14,7 +14,7 @@ import type {
 } from "@item/weapon/types.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { objectHasKey, sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
@@ -22,7 +22,7 @@ import fields = foundry.data.fields;
  * Create an ephemeral strike on an actor
  * @category RuleElement
  */
-class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
+class StrikeRuleElement extends RuleElement<StrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     declare graspingAppendage: boolean;
@@ -300,7 +300,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     }
 }
 
-interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFromRESchema<StrikeSchema> {
+interface StrikeRuleElement extends RuleElement<StrikeSchema>, ModelPropsFromRESchema<StrikeSchema> {
     slug: string;
     fist: boolean;
     options: string[];

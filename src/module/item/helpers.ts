@@ -83,6 +83,7 @@ function markdownToHTML(markdown: string): string {
 function addOrUpgradeTrait<TTrait extends ItemTrait>(
     traits: ItemTraits<TTrait> | ItemTraitsNoRarity<TTrait> | TTrait[],
     newTrait: TTrait,
+    { mode = "upgrade" }: { mode?: "upgrade" | "override" } = {},
 ): void {
     // Get traits and annotations object to potentially upgrade
     const isArray = Array.isArray(traits);
@@ -105,7 +106,7 @@ function addOrUpgradeTrait<TTrait extends ItemTrait>(
     if (!(existingTrait && existingAnnotation)) {
         if (!value.includes(newTrait)) value.push(newTrait);
         if (config) config[traitBase] = Number(upgradeAnnotation);
-    } else if (_expectedValueOf(upgradeAnnotation) > _expectedValueOf(existingAnnotation)) {
+    } else if (mode === "override" || _expectedValueOf(upgradeAnnotation) > _expectedValueOf(existingAnnotation)) {
         value.splice(value.indexOf(existingTrait), 1, newTrait);
         if (config) config[traitBase] = Number(upgradeAnnotation);
     }

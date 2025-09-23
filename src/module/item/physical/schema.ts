@@ -1,5 +1,5 @@
 import * as R from "remeda";
-import { CoinsPF2e } from "./coins.ts";
+import { Coins } from "./coins.ts";
 import type { Price } from "./index.ts";
 import { DENOMINATIONS } from "./values.ts";
 import fields = foundry.data.fields;
@@ -29,13 +29,13 @@ class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema
 
     override initialize(source: fields.SourceFromSchema<PriceSchema>): Price {
         const initialized = super.initialize(source);
-        initialized.value = new CoinsPF2e(initialized.value);
+        initialized.value = new Coins(initialized.value);
         initialized.sizeSensitive ??= false;
         return initialized;
     }
 }
 
-type CoinsField = fields.SchemaField<CoinsSchema, fields.SourceFromSchema<CoinsSchema>, CoinsPF2e, true, false, true>;
+type CoinsField = fields.SchemaField<CoinsSchema, fields.SourceFromSchema<CoinsSchema>, Coins, true, false, true>;
 
 type CoinsSchema = {
     cp: fields.NumberField<number, number, false, false, false>;

@@ -1,7 +1,7 @@
 import { FeatGroup } from "@actor/character/feats/index.ts";
 import { Sense } from "@actor/creature/sense.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { Kingdom } from "@actor/party/kingdom/model.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
@@ -109,19 +109,19 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.armorClass = new ArmorStatistic(this, {
             attribute: null,
             modifiers: [
-                new ModifierPF2e({
+                new Modifier({
                     slug: "base",
                     label: "PF2E.ModifierTitle",
                     modifier: expectedAC - 10,
                 }),
                 acAdjustment &&
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "adjustment",
                         label: "PF2E.Kingmaker.Army.Adjustment",
                         modifier: acAdjustment,
                     }),
                 this.system.ac.potency &&
-                    new ModifierPF2e({ slug: "potency", label: "Potency", modifier: this.system.ac.potency }),
+                    new Modifier({ slug: "potency", label: "Potency", modifier: this.system.ac.potency }),
             ].filter(R.isTruthy),
         }).dc;
         this.system.ac.value = this.armorClass.value;
@@ -133,9 +133,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             label: "PF2E.Kingmaker.Army.Scouting",
             domains: ["scouting"],
             modifiers: [
-                new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseScouting }),
+                new Modifier({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseScouting }),
                 scoutAdjustment
-                    ? new ModifierPF2e({
+                    ? new Modifier({
                           slug: "adjustment",
                           label: "PF2E.Kingmaker.Army.Adjustment",
                           modifier: scoutAdjustment,
@@ -157,9 +157,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 label: `PF2E.Kingmaker.Army.Save.${saveType}`,
                 domains: ["saving-throw", saveType],
                 modifiers: [
-                    new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseValue }),
+                    new Modifier({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseValue }),
                     adjustment
-                        ? new ModifierPF2e({
+                        ? new Modifier({
                               slug: "adjustment",
                               label: "PF2E.Kingmaker.Army.Adjustment",
                               modifier: adjustment,
@@ -236,7 +236,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         })();
 
         const createMapModifier = (prop: "map1" | "map2") => {
-            return new ModifierPF2e({
+            return new Modifier({
                 slug: maps.slug,
                 label: maps.label,
                 modifier: maps[prop],
@@ -251,13 +251,13 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             rollOptions: [`item:${type}`],
             check: { type: "attack-roll" },
             modifiers: [
-                new ModifierPF2e({
+                new Modifier({
                     slug: "base",
                     label: "PF2E.ModifierTitle",
                     modifier: ARMY_STATS.attack[this.level],
                 }),
-                data.potency && new ModifierPF2e({ slug: "potency", label: "Potency", modifier: data.potency }),
-                new ModifierPF2e({
+                data.potency && new Modifier({ slug: "potency", label: "Potency", modifier: data.potency }),
+                new Modifier({
                     slug: "concealed",
                     label: "PF2E.Kingmaker.Army.Condition.concealed.name",
                     type: "circumstance",

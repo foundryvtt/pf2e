@@ -3,7 +3,7 @@ import { TraitViewData } from "@actor/data/base.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import {
     CheckModifier,
-    ModifierPF2e,
+    Modifier,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
     createAttributeModifier,
@@ -27,7 +27,7 @@ import {
 } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
-import { CheckPF2e, CheckRollCallback } from "@system/check/check.ts";
+import { Check, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckCheckContext, CheckType, RollTwiceOption } from "@system/check/types.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
@@ -105,7 +105,7 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
     }
 
     /** Get the attribute modifier used with this statistic. Since NPC statistics are contrived, create a new one. */
-    get attributeModifier(): ModifierPF2e | null {
+    get attributeModifier(): Modifier | null {
         if (this.actor.isOfType("npc")) {
             return this.attribute
                 ? createAttributeModifier({ actor: this.actor, attribute: this.attribute, domains: this.domains })
@@ -181,14 +181,14 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
         data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
             dc?: Partial<StatisticDifficultyClassData>;
             check?: Partial<StatisticCheckData>;
-            modifiers?: ModifierPF2e[];
+            modifiers?: Modifier[];
         },
     ): this;
     clone(
         data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
             dc?: Partial<StatisticDifficultyClassData>;
             check?: Partial<StatisticCheckData>;
-            modifiers?: ModifierPF2e[];
+            modifiers?: Modifier[];
         },
     ): Statistic<TActor> {
         function maybeMergeArrays<T>(arr1: Maybe<T[]>, arr2: Maybe<T[]>) {
@@ -222,14 +222,14 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
         data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
             dc?: Partial<StatisticDifficultyClassData>;
             check?: Partial<StatisticCheckData>;
-            modifiers?: ModifierPF2e[];
+            modifiers?: Modifier[];
         },
     ): this;
     extend(
         data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
             dc?: Partial<StatisticDifficultyClassData>;
             check?: Partial<StatisticCheckData>;
-            modifiers?: ModifierPF2e[];
+            modifiers?: Modifier[];
         },
     ): Statistic<TActor> {
         const extended = this.clone(data);
@@ -297,7 +297,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
     label: string;
     domains: string[];
     mod: number;
-    modifiers: ModifierPF2e[];
+    modifiers: Modifier[];
 
     constructor(parent: TParent, data: StatisticData, config: RollOptionConfig = {}) {
         this.parent = parent;
@@ -563,7 +563,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             } else {
                 const maps = calculateMAPs(item, { domains, options });
                 const penalty = maps[`map${mapIncreases}`];
-                extraModifiers.push(new ModifierPF2e(maps.label, penalty, "untyped"));
+                extraModifiers.push(new Modifier(maps.label, penalty, "untyped"));
             }
         }
 
@@ -615,7 +615,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const clonedStatistic = selfIsTarget ? rollContext.target?.statistic : rollContext.origin?.statistic;
         const modifiers = clonedStatistic?.check.modifiers ?? this.modifiers;
         const check = new CheckModifier(this.parent.slug, { modifiers }, extraModifiers);
-        const roll = await CheckPF2e.roll(check, context, null, args.callback);
+        const roll = await Check.roll(check, context, null, args.callback);
 
         if (roll) {
             for (const rule of selfActor.rules.filter((r) => !r.ignored)) {
@@ -666,7 +666,7 @@ interface StatisticRollParameters {
     /** Any additional options that should be used in the roll. */
     extraRollOptions?: string[];
     /** Additional modifiers */
-    modifiers?: ModifierPF2e[];
+    modifiers?: Modifier[];
     /** The originating item of this attack, if any */
     item?: ItemPF2e<ActorPF2e> | null;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
@@ -691,7 +691,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
     parent: TParent;
     domains: string[];
     label?: string;
-    modifiers: ModifierPF2e[];
+    modifiers: Modifier[];
     options: Set<string>;
 
     constructor(parent: TParent, data: StatisticData, options: RollOptionConfig = {}) {

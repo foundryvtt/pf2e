@@ -27,7 +27,7 @@ import type {
     StrikeData,
 } from "@actor/data/base.ts";
 import { InitiativeTraceData } from "@actor/initiative.ts";
-import type { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import type { Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { ActorAlliance, SaveType, SkillSlug } from "@actor/types.ts";
 import type { MeleePF2e } from "@item";
 import type { PublicationData, ValueAndMax } from "@module/data.ts";
@@ -166,7 +166,7 @@ interface NPCSystemData extends Omit<NPCSystemSource, "attributes" | "perception
         rituals: { dc: number };
     };
 
-    customModifiers: Record<string, ModifierPF2e[]>;
+    customModifiers: Record<string, Modifier[]>;
 }
 
 interface NPCPerceptionData extends CreaturePerceptionData {

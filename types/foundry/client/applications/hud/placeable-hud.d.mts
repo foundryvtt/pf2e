@@ -5,6 +5,7 @@ import {
     ApplicationClosingOptions,
     ApplicationConfiguration,
     ApplicationPosition,
+    ApplicationRenderContext,
     ApplicationRenderOptions,
 } from "../_types.mjs";
 import ApplicationV2 from "../api/application.mjs";
@@ -79,7 +80,7 @@ export default abstract class BasePlaceableHUD extends ApplicationV2<
     ): { value: number; delta?: number; isDelta: boolean; isBar: boolean };
 }
 
-export interface PlaceableHUDContext {
+export interface PlaceableHUDContext extends ApplicationRenderContext {
     _id: string;
     id: string;
 }

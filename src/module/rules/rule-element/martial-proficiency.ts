@@ -7,11 +7,11 @@ import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { OneToFour } from "@module/data.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
-class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySchema> {
+class MartialProficiencyRuleElement extends RuleElement<MartialProficiencySchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
 
     declare slug: string;
@@ -67,7 +67,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
 }
 
 interface MartialProficiencyRuleElement
-    extends RuleElementPF2e<MartialProficiencySchema>,
+    extends RuleElement<MartialProficiencySchema>,
         ModelPropsFromRESchema<MartialProficiencySchema> {
     get actor(): CharacterPF2e;
 }

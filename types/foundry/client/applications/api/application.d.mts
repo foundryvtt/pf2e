@@ -232,7 +232,7 @@ export default abstract class ApplicationV2<
      * @param options Options which modify how the application is closed.
      * @returns A Promise which resolves to the closed Application instance
      */
-    close(options?: ApplicationClosingOptions): Promise<ApplicationV2>;
+    close(options?: ApplicationClosingOptions): Promise<this>;
 
     /**
      * Remove the application HTML element from the DOM.

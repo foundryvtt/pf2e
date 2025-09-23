@@ -1,0 +1,202 @@
+{
+    "_id": "b1xe6qPYygPr7MH5",
+    "folder": "0Y8zt9OACzldeL61",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "i373FF1aDiawcdbR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "There They Are!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature opens the door to the Grand Hall</p><hr /><p><strong>Effect</strong> The unruly crowd rolls Initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ewXmZRDcTa19hzd0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Catchy Slogan",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>All the hazards in a @Template[type:emanation|distance:30] gain a +1 status bonus to attack rolls and damage rolls for 1 round.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Catchy Slogan]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "linguistic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JEjJmbaqLOsaBEiD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shake Confidence",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The unruly crowd targets a creature within 30 feet The creature must attempt a @Check[will|dc:20] save</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and immune to Shake Confidence for 24 hours</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}</p>\n<p><strong>Critical Failure</strong> The creature becomes frightened 2 and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "02FoDMzaejpPj31n",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Cobblestone",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "vkiIMDwuiEkqGvMP": {
+                        "damage": "2d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-increment-30"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Unruly Crowd",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 44,
+                "temp": 0,
+                "value": 44
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained) Characters automatically detect this hazard when they open the door to the Grand Hall.</p>",
+                "value": 5
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Concerned citizens shout slogans about the dangers of dealing with Cheliax and throw bricks at Chelaxian sympathizers.</p>",
+            "disable": "<p>Succeed at two of the following checks in any combination: @Check[athletics|dc:20] (trained) to confiscate dangerous debris, @Check[diplomacy|dc:20] (trained) to calm the crowd, @Check[intimidation|dc:18] (untrained) to scare the crowd away, @Check[will|dc:22] (trained) to maintain a brave and confident demeanor; an effect such as @UUID[Compendium.pf2e.spells-srd.Item.Calm] that can target an area counts as one automatic success.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #7-04: Sulfuric Negotiations"
+            },
+            "reset": "",
+            "routine": "<p>(three actions) The unruly crowd uses an action to chant a Catchy Slogan if it is not already benefiting from the effect It uses Shake Confidence once per turn and uses its remaining actions for cobblestone Strikes.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 12
+            },
+            "reflex": {
+                "value": 12
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}
