@@ -1,0 +1,482 @@
+{
+    "_id": "83md7JyfA5WnWaOZ",
+    "img": "icons/magic/death/skull-horned-goat-pentagram-red.webp",
+    "name": "Spell Effect: Devil Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Devil Form]</p>\n<p>You transform into a devil battleform. While in this form you gain the devil and fiend traits. You have hands in this battle form and can use manipulate actions. You gain the following statistics and abilities regardless of the form that you choose:</p><ul><li>AC = 22 + your level. Ignore your armor check's penalty and Speed reduction.</li><li>5 temporary Hit Points, resistance 5 to physical damage (except silver), and weakness 5 to holy.</li><li>Resistance 10 to fire.</li><li>Darkvision.</li><li>One or more attacks specific to the battle form you use. You're trained with them. Your attack modifier is +20, and you use the listed damage. These attacks are Strength based (for the purpose of the enfeebled condition, for example). If your attack modifier is higher for the given unarmed attack or weapon, you can use it instead.</li><li>Athletics modifier of +23, unless your own modifier is higher.</li></ul><p>You also gain specific abilities based on the type of devil you choose:</p><ul><li><p><strong>Coarti</strong> Medium size, Speed 25 feet, fly 40 feet;</p><ul><li><strong>Size</strong> Medium</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> morningstar (magical, unholy, versatile P), <strong>Damage</strong> 2d6+12 bludgeoning plus 1d6 spirit;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> wing (agile, unholy, versatile P), <strong>Damage</strong> 1d6+12 bludgeoning plus 1d6 fire.</li></ul></li><li><p><strong>Levaloch</strong> Speed 30 feet, climb 30 feet; +2 circumstance bonus to Fortitude DC against being Shoved and to other saving throws to resist being moved against your will;</p><ul><li><strong>Size</strong> Large</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> trident (magical, unholy) <strong>Damage</strong> 2d8+10 piercing;</li><li><strong>Ranged</strong> <span class=\"action-glyph\">1</span> trident (magical, thrown 20 feet, unholy), <strong>Damage</strong> 2d8+10 piercing; all melee Strikes deal 2d6 additional precision damage to clumsy, enfeebled, immobilized, or restrained creatures.</li></ul></li><li><p><strong>Sarglagon</strong> Speed 25 feet, fly 25 feet, swim 30 feet;</p><ul><li><strong>Size</strong> Large</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> fangs (magical, unholy), <strong>Damage</strong> 2d10+10 piercing;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> tentacle arm (agile, magical, unholy), <strong>Damage</strong> 1d8+10 bludgeoning plus 1d6 poison.</li></ul></li><li><p><strong>Vordine</strong> Speed 25 feet;</p><ul><li><strong>Size</strong> Medium</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> trident (magical, unholy) <strong>Damage</strong> 2d8+12 piercing;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> hoof (agile, magical, unholy), <strong>Damage</strong> 1d4+12 plus 1d6 fire;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> whip (disarm, magical, nonlethal, reach 10 feet, trip, unholy), <strong>Damage</strong> 2d4+10 slashing;</li><li><strong>Ranged</strong> <span class=\"action-glyph\">1</span> trident (magical, thrown 20 feet, unholy), <strong>Damage</strong> 2d8+12 piercing.</li></ul></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.DevilForm.ChoiceSet.Coarti",
+                        "value": "coarti"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.DevilForm.ChoiceSet.Levaloch",
+                        "value": "levaloch"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.DevilForm.ChoiceSet.Sarglagon",
+                        "value": "sarglagon"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.DevilForm.ChoiceSet.Vordine",
+                        "value": "vordine"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.BattleForm.DevilForm.Prompt",
+                "rollOption": "devil-form"
+            },
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "22 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "exceptions": [
+                                "silver"
+                            ],
+                            "type": "physical",
+                            "value": 5
+                        },
+                        {
+                            "type": "fire",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 25
+                    },
+                    "strikes": {
+                        "morningstar": {
+                            "ability": "str",
+                            "baseType": "morningstar",
+                            "category": "martial",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 12
+                            },
+                            "group": "club",
+                            "img": "icons/weapons/maces/mace-round-spiked-black.webp",
+                            "label": "PF2E.Weapon.Base.morningstar",
+                            "modifier": 20,
+                            "traits": [
+                                "magical",
+                                "unholy",
+                                "versatile-p"
+                            ]
+                        },
+                        "wing": {
+                            "ability": "str",
+                            "baseType": "wing",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d6",
+                                "modifier": 12
+                            },
+                            "img": "icons/creatures/abilities/wing-batlike-purple-blue.webp",
+                            "modifier": 22,
+                            "traits": [
+                                "agile",
+                                "unarmed",
+                                "versatile-p",
+                                "unholy"
+                            ]
+                        }
+                    },
+                    "tempHP": 5,
+                    "traits": [
+                        "devil",
+                        "fiend"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "holy",
+                            "value": 5
+                        }
+                    ]
+                },
+                "predicate": [
+                    "devil-form:coarti"
+                ]
+            },
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "22 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "exceptions": [
+                                "silver"
+                            ],
+                            "type": "physical",
+                            "value": 5
+                        },
+                        {
+                            "type": "fire",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "lg",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "climb": 30,
+                        "land": 30
+                    },
+                    "strikes": {
+                        "trident": {
+                            "ability": "str",
+                            "baseType": "trident",
+                            "category": "martial",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 10
+                            },
+                            "group": "spear",
+                            "img": "systems/pf2e/icons/equipment/weapons/trident.webp",
+                            "label": "PF2E.Weapon.Base.trident",
+                            "modifier": 20,
+                            "traits": [
+                                "magical",
+                                "thrown-20",
+                                "unholy"
+                            ]
+                        }
+                    },
+                    "tempHP": 5,
+                    "traits": [
+                        "devil",
+                        "fiend"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "holy",
+                            "value": 5
+                        }
+                    ]
+                },
+                "predicate": [
+                    "devil-form:levaloch"
+                ]
+            },
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "devil-form:levaloch",
+                    {
+                        "or": [
+                            "target:condition:off-guard",
+                            "target:condition:enfeebled",
+                            "target:condition:immobilized",
+                            "target:condition:restrained"
+                        ]
+                    }
+                ],
+                "selector": "trident-damage"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.GenericLabel.Resist.ForcedMovement",
+                "option": "resist-move",
+                "predicate": [
+                    "devil-form:levaloch"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.GenericLabel.Resist.ForcedMovement",
+                "predicate": [
+                    "devil-form:levaloch",
+                    {
+                        "or": [
+                            "action:shove",
+                            "resist-move"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "22 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "exceptions": [
+                                "silver"
+                            ],
+                            "type": "physical",
+                            "value": 5
+                        },
+                        {
+                            "type": "fire",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "lg",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "fly": 25,
+                        "land": 25,
+                        "swim": 30
+                    },
+                    "strikes": {
+                        "fangs": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d10",
+                                "modifier": 10
+                            },
+                            "img": "icons/creatures/abilities/mouth-teeth-crooked-blue.webp",
+                            "modifier": 20,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "tentacle-arm": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d8",
+                                "modifier": 10
+                            },
+                            "img": "icons/creatures/tentacles/tentacles-suctioncups-pink.webp",
+                            "modifier": 20,
+                            "traits": [
+                                "agile",
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "tempHP": 5,
+                    "traits": [
+                        "devil",
+                        "fiend"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "holy",
+                            "value": 5
+                        }
+                    ]
+                },
+                "predicate": [
+                    "devil-form:sarglagon"
+                ]
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "devil-form:sarglagon"
+                ],
+                "selector": "tentacle-arm-damage"
+            },
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "22 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "exceptions": [
+                                "silver"
+                            ],
+                            "type": "physical",
+                            "value": 5
+                        },
+                        {
+                            "type": "fire",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "climb": 30,
+                        "land": 30
+                    },
+                    "strikes": {
+                        "hoof": {
+                            "ability": "str",
+                            "baseType": "hoof",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4",
+                                "modifier": 12
+                            },
+                            "img": "systems/pf2e/icons/unarmed-attacks/foot.webp",
+                            "modifier": 22,
+                            "traits": [
+                                "unarmed",
+                                "agile",
+                                "magical",
+                                "unholy"
+                            ]
+                        },
+                        "trident": {
+                            "ability": "str",
+                            "baseType": "trident",
+                            "category": "martial",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 12
+                            },
+                            "group": "spear",
+                            "img": "systems/pf2e/icons/equipment/weapons/trident.webp",
+                            "label": "PF2E.Weapon.Base.trident",
+                            "modifier": 20,
+                            "traits": [
+                                "magical",
+                                "thrown-20",
+                                "unholy"
+                            ]
+                        },
+                        "whip": {
+                            "ability": "str",
+                            "baseType": "whip",
+                            "category": "martial",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d4",
+                                "modifier": 10
+                            },
+                            "group": "flail",
+                            "img": "systems/pf2e/icons/equipment/weapons/whip.webp",
+                            "label": "PF2E.Weapon.Base.whip",
+                            "modifier": 20,
+                            "traits": [
+                                "disarm",
+                                "magical",
+                                "nonlethal",
+                                "reach-10",
+                                "trip",
+                                "unholy"
+                            ]
+                        }
+                    },
+                    "tempHP": 5,
+                    "traits": [
+                        "devil",
+                        "fiend"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "holy",
+                            "value": 5
+                        }
+                    ]
+                },
+                "predicate": [
+                    "devil-form:vordine"
+                ]
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "devil-form:vordine"
+                ],
+                "selector": "hoof-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

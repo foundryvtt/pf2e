@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+    import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
     import type { RollInspectorContext } from "./app.ts";
     import * as R from "remeda";
     import { createHTMLElement, signedInteger } from "@util";
@@ -30,7 +30,7 @@
     }
 
     /** Shows the roll options for a specific modifier */
-    async function showOptionsTooltip(element: HTMLElement, object: ModifierPF2e | DamageDicePF2e) {
+    async function showOptionsTooltip(element: HTMLElement, object: Modifier | DamageDicePF2e) {
         const rollOptions = R.sortBy(object.getRollOptions().sort(), (o) => o.includes(":"));
         const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/system/roll-options-tooltip.hbs", {
             description: game.i18n.localize("PF2E.ChatRollDetails.DiceRollOptionsHint"),
@@ -130,7 +130,7 @@
                         <span class="label-slug">{m.label} ({m.slug})</span>
                         <i
                             class="fa-solid fa-circle-info"
-                            onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new ModifierPF2e(m))}
+                            onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new Modifier(m))}
                         ></i>
                     </header>
                     <div>

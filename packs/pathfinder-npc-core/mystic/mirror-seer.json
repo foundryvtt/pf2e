@@ -1681,8 +1681,10 @@
                 },
                 "rules": [],
                 "runes": {
-                    "potency": 0,
-                    "property": [],
+                    "potency": 1,
+                    "property": {
+                        "0": ""
+                    },
                     "striking": 0
                 },
                 "size": "med",
@@ -1908,7 +1910,6 @@
                     "_stats": {
                         "compendiumSource": "Compendium.pf2e.spells-srd.Item.RCbLd7dfquHnuvrZ"
                     },
-                    "flags": {},
                     "img": "systems/pf2e/icons/spells/false-vision.webp",
                     "name": "False Vision",
                     "sort": 0,
@@ -2048,7 +2049,6 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "finesse",
                         "magical",
                         "versatile-s"
                     ]
@@ -2177,9 +2177,6 @@
         },
         {
             "_id": "0jyNp7aMHOgmHm17",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 3000000,
@@ -2230,7 +2227,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The mirror seer accesses power from their wicked benefactor through two mirrors: one full-sized @UUID[Compendium.pf2e.equipment-srd.Item.Malefic Mirror] in their sanctum and an enchanted hand mirror they can carry on their person.</p><ul><li><strong>Malefic Mirror</strong> The mirror seer must visit the malefic mirror once per day to retain their spellcasting abilities, and they can activate the mirror for special scrying and illusory disguise spells as noted in the mirror's stat block.</li><li><p><strong>Enchanted Hand Mirror</strong> Without their enchanted hand mirror on their person, the mirror seer takes a –2 circumstance penalty to spell attack rolls and DCs and can't cast their 7th-rank spells. If it's not attended by the mirror seer, the hand mirror has AC 10, Hardness 0, and 1 HP.</p></li></ul>"
+                    "value": "<p>The mirror seer accesses power from their wicked benefactor through two mirrors: one full-sized @UUID[Compendium.pf2e.equipment-srd.Item.Malefic Mirror] in their sanctum and an <em>enchanted hand mirror</em> they can carry on their person.</p><ul><li><strong>Malefic Mirror</strong> The mirror seer must visit the <em>malefic mirror</em> once per day to retain their spellcasting abilities, and they can activate the mirror for special @UUID[Compendium.pf2e.spells-srd.Item.Scrying] and @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise] spells as noted in the mirror's stat block.</li><li><p><strong>Enchanted Hand Mirror</strong> Without their <em>enchanted hand mirror</em> on their person, the mirror seer takes a –2 circumstance penalty to spell attack rolls and DCs and can't cast their 7th-rank spells. If it's not attended by the mirror seer, the hand mirror has AC 10, Hardness 0, and 1 HP.</p></li></ul>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2303,7 +2300,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The mirror seer chooses a creature within 100 feet that can see its own reflection in a mirror. The creature must succeed at a @Check[will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by their reflection for 1 minute. The creature can attempt a new save to end the effect at the end of each of its turns.</p>"
+                    "value": "<p>The mirror seer chooses a creature within 100 feet that can see its own reflection in a mirror. The creature must succeed at a @Check[will|dc:29|options:inflicts:fascinated] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by their reflection for 1 minute. The creature can attempt a new save to end the effect at the end of each of its turns.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2337,7 +2334,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The mirror seer causes all surfaces in a @Template[type:burst|distance:30] within 100 feet to become reflective for 1 minute. Every creature in the area or that later enters the area must succeed at a @Check[will|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] by the reflections and refractions. The confusion ends if the creature leaves the area, and the creature can attempt a new save to end the effect at the end of each of its turns. When the effect ends for a creature, that creature becomes temporarily immune for 10 minutes.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The mirror seer causes all surfaces in a @Template[type:burst|distance:30] within 100 feet to become reflective for 1 minute. Every creature in the area or that later enters the area must succeed at a @Check[will|dc:27|options:area-effect,inflicts:confused] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] by the reflections and refractions. The confusion ends if the creature leaves the area, and the creature can attempt a new save to end the effect at the end of each of its turns. When the effect ends for a creature, that creature becomes temporarily immune for 10 minutes.</p>"
                 },
                 "frequency": {
                     "max": 1,

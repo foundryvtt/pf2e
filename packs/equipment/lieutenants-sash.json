@@ -1,0 +1,70 @@
+{
+    "_id": "BByeaBDXWdmQgzz0",
+    "img": "icons/equipment/waist/sash-cloth-gold-purple.webp",
+    "name": "Lieutenant's Sash",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>You wear a brightly colored sash around your waist as a symbol of your new position. You're bound to make mistakes in this role, but if you can learn from them, perhaps you'll live long enough to become an officer. If you trigger a reaction from an enemy or a hazard, you gain a +1 circumstance bonus to saving throws you attempt as a result of that reaction and a +1 circumstance bonus to your AC against attacks made during that reaction.</p>\n<p><strong>Activate—Heads Up!</strong> <span class=\"action-glyph\">r</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> One of your allies triggers a reaction from an enemy or a hazard</p><hr /><p><strong>Effect</strong> You share your hard-earned experience with your ally, giving them a +1 circumstance bonus to saving throws they attempt as a result of that reaction and a +1 circumstance bonus to their AC against attacks made during that reaction.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Heads Up!]</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 240
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.LieutenantsSash.ToggleLabel",
+                "option": "lieutenants-sash",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "lieutenants-sash"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornbelt"
+        }
+    },
+    "type": "equipment"
+}

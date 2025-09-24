@@ -1,0 +1,51 @@
+{
+    "_id": "OokULq8Ubpw9PzKr",
+    "img": "icons/sundries/flags/banner-blue.webp",
+    "name": "Effect: Hexwise Banner",
+    "system": {
+        "description": {
+            "value": "<p>You gain resistance 5 to damage from spells; for spells that apply multiple instances of damage, such as @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], this applies only to the first instance of damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "spells",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:tag:major-hexwise-banner"
+                ],
+                "type": "spells",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

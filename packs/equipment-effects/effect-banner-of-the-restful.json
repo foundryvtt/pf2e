@@ -1,0 +1,62 @@
+{
+    "_id": "pqXu9dJaIMw3yOdc",
+    "img": "icons/sundries/flags/banner-blue.webp",
+    "name": "Effect: Banner of the Restful",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Banner of the Restful], @UUID[Compendium.pf2e.equipment-srd.Item.Banner of the Restful (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Banner of the Restful (Major)]</p>\n<p>You gain an item bonus to Perception DCs.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "perception-dc",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:greater-banner-of-the-restful"
+                ],
+                "selector": "perception-dc",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:major-banner-of-the-restful"
+                ],
+                "selector": "perception-dc",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

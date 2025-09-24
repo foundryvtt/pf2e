@@ -2,7 +2,7 @@ import { AbilityTrait, ActionCategory } from "@item/ability/index.ts";
 import { ActionType, ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
-import { SvelteApplicationMixin } from "@module/sheet/mixin.svelte.ts";
+import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";
 import { untrack } from "svelte";
@@ -93,9 +93,11 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         },
     };
 
-    protected override _onFirstRender(context: object, options: fa.ApplicationRenderOptions): void {
-        super._onFirstRender(context, options);
-        // Reset visible tabs when the browser was fully closed
+    protected override async _onFirstRender(
+        context: fa.ApplicationRenderContext,
+        options: fa.ApplicationRenderOptions,
+    ): Promise<void> {
+        await super._onFirstRender(context, options);
         this.#setVisibleTabs();
     }
 
@@ -336,7 +338,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 }
 
-interface CompendiumBrowserContext {
+interface CompendiumBrowserContext extends SvelteApplicationRenderContext {
     state: CompendiumBrowserState;
 }
 

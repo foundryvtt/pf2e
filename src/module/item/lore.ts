@@ -2,8 +2,14 @@ import type { ActorPF2e } from "@actor";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
 import { ZeroToFour } from "@module/data.ts";
+import { sluggify } from "@util";
 
-class LorePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {}
+class LorePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    override get slug(): string {
+        const rawLoreSlug = super.slug ?? sluggify(this.name);
+        return /\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`;
+    }
+}
 
 interface LorePF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly _source: LoreSource;

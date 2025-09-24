@@ -2,7 +2,6 @@ import { ArmyPF2e, CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, P
 import { SenseAcuity } from "@actor/creature/types.ts";
 import { LANGUAGES, SENSE_TYPES } from "@actor/creature/values.ts";
 import type { ActorType, AttributeString, SkillSlug } from "@actor/types.ts";
-import { MOVEMENT_TYPES } from "@actor/values.ts";
 import {
     AbilityItemPF2e,
     AfflictionPF2e,
@@ -36,7 +35,7 @@ import { DeityDomain } from "@item/deity/types.ts";
 import { FeatOrFeatureCategory } from "@item/feat/index.ts";
 import { PreciousMaterialGrade } from "@item/physical/types.ts";
 import { MeleeWeaponGroup, WeaponCategory, WeaponGroup, WeaponReloadTime } from "@item/weapon/types.ts";
-import { Size } from "@module/data.ts";
+import { Size, ZeroToThree } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
 import * as R from "remeda";
@@ -75,6 +74,7 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits.ts";
+import { USAGES } from "./usage.ts";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -240,11 +240,6 @@ const sizeTypes: Record<Size, string> = {
     grg: "PF2E.ActorSizeGargantuan",
 };
 
-const speedTypes = R.mapToObj(MOVEMENT_TYPES, (t) => [
-    t,
-    `PF2E.Actor.Speed.Type.${sluggify(t, { camel: "bactrian" })}`,
-]);
-
 const featCategories: Record<FeatOrFeatureCategory, string> = {
     ancestry: "PF2E.Item.Feat.Category.Ancestry",
     ancestryfeature: "PF2E.Item.Feat.Category.AncestryFeature",
@@ -305,6 +300,16 @@ const weaponReload: Record<WeaponReloadTime, string> = {
     2: "2",
     3: "3",
     10: "PF2E.Item.Weapon.Reload.OneMinute",
+};
+
+const grades = {
+    commercial: "PF2E.Item.Physical.Grade.commercial",
+    tactical: "PF2E.Item.Physical.Grade.tactical",
+    advanced: "PF2E.Item.Physical.Grade.advanced",
+    superior: "PF2E.Item.Physical.Grade.superior",
+    elite: "PF2E.Item.Physical.Grade.elite",
+    ultimate: "PF2E.Item.Physical.Grade.ultimate",
+    paragon: "PF2E.Item.Physical.Grade.paragon",
 };
 
 export const PF2ECONFIG = {
@@ -440,141 +445,7 @@ export const PF2ECONFIG = {
         bomb: "PF2E.WeaponDescriptionBomb",
     },
 
-    usages: {
-        "affixed-to-a-creature": "PF2E.TraitAffixedToCreature",
-        "affixed-to-a-magical-staff": "PF2E.TraitAffixedToMagicalStaff",
-        "affixed-to-a-metal-weapon": "PF2E.TraitAffixedToAMetalWeapon",
-        "affixed-to-a-one-handed-firearm-or-hand-crossbow": "PF2E.TraitAffixedToAOneHandedFirearmOrHandCrossbow",
-        "affixed-to-a-ranged-weapon": "PF2E.TraitAffixedToARangedWeapon",
-        "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
-        "affixed-to-a-shield-or-weapon": "PF2E.TraitAffixedToAShieldOrWeapon",
-        "affixed-to-a-thrown-weapon": "PF2E.TraitAffixedToThrownWeapon",
-        "affixed-to-a-two-handed-firearm-or-crossbow": "PF2E.TraitAffixedToATwoHandedFirearmOrCrossbow",
-        "affixed-to-an-innovation": "PF2E.TraitAffixedToInnovation",
-        "affixed-to-an-object-or-structure": "PF2E.TraitAffixedToObjectOrStructure",
-        "affixed-to-armor": "PF2E.TraitAffixedToArmor",
-        "affixed-to-medium-heavy-armor": "PF2E.TraitAffixedToMediumHeavyArmor",
-        "affixed-to-medium-heavy-metal-armor": "PF2E.TraitAffixedToMediumHeavyMetalArmor",
-        "affixed-to-metal-armor-or-a-weapon": "PF2E.TraitAffixedToMetalArmorOrAWeapon",
-        "affixed-to-non-metal-armor-or-a-weapon": "PF2E.TraitAffixedToNMArmorOrAWeapon",
-        "affixed-to-armor-shield-or-weapon": "PF2E.TraitAffixedToArmorShieldOrWeapon",
-        "affixed-to-armor-or-a-weapon": "PF2E.TraitAffixedToArmorOrAWeapon",
-        "affixed-to-armor-or-travelers-clothing": "PF2E.TraitAffixedToArmorOrTravelersClothing",
-        "affixed-to-crossbow-or-firearm": "PF2E.TraitAffixedToCrossbowOrFirearm",
-        "affixed-to-firearm": "PF2E.TraitAffixedToFirearm",
-        "affixed-to-firearm-with-a-reload-of-1": "PF2E.TraitAffixedToFirearmWithAReloadOf1",
-        "affixed-to-firearm-with-the-kickback-trait": "PF2E.TraitAffixedToFirearmWithTheKickbackTrait",
-        "affixed-to-ground-in-10-foot-radius": "PF2E.TraitAffixedToGroundIn10FtRadius",
-        "affixed-to-ground-in-20-foot-radius": "PF2E.TraitAffixedToGroundIn20FtRadius",
-        "affixed-to-harness": "PF2E.TraitAffixedToHarness",
-        "affixed-to-headgear": "PF2E.TraitAffixedToHeadgear",
-        "affixed-to-instrument": "PF2E.TraitAffixedToInstrument",
-        "affixed-to-load-bearing-wall-or-pillar": "PF2E.TraitAffixedToLoadBearingWallOrPillar",
-        "affixed-to-melee-weapon": "PF2E.TraitAffixedToMeleeWeapon",
-        "affixed-to-metal-weapon": "PF2E.TraitAffixedToMetalWeapon",
-        "affixed-to-object-structure-or-creature": "PF2E.TraitAffixedToStructureObjectOrCreature",
-        "affixed-to-the-ground": "PF2E.TraitAffixedToGround",
-        "affixed-to-unarmored-defense-item": "PF2E.TraitAffixedToUnarmoredItem",
-        "affixed-to-wall": "PF2E.TraitAffixedToWall",
-        "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
-        "applied-to-a-basket-bag-or-other-container": "PF2E.TraitAppliedToBasketBagOrContainer",
-        "applied-to-a-weapon": "PF2E.TraitAppliedToAWeapon",
-        "applied-to-a-wind-powered-vehicle": "PF2E.TraitAppliedToAWindPoweredVehicle",
-        "applied-to-a-non-injection-melee-weapon-piercing-damage":
-            "PF2E.TraitAppliedToANoninjectionMeleePiercingWeapon",
-        "applied-to-any-item-of-light-or-negligible-bulk": "PF2E.TraitAppliedToAnyItemOfLightOrNegligibleBulk",
-        "applied-to-any-visible-article-of-clothing": "PF2E.TraitAppliedToAnyVisibleArticleOfClothing",
-        "applied-to-armor": "PF2E.TraitAppliedToArmor",
-        "applied-to-armor-or-unarmored-defense-clothing": "PF2E.TraitAppliedToArmorOrUnarmored",
-        "applied-to-belt-cape-cloak-or-scarf": "PF2E.TraitAppliedToBeltCapeCloakOrScarf",
-        "applied-to-boots-cape-cloak-or-umbrella": "PF2E.TraitAppliedToBootsCapeCloakOrUmbrella",
-        "applied-to-buckler-shield": "PF2E.TraitAppliedToBucklerShield",
-        "applied-to-dueling-cape-or-shield": "PF2E.TraitAppliedToDuelingCapeOrShield",
-        "applied-to-footwear": "PF2E.TraitAppliedToFootwear",
-        "applied-to-medium-heavy-armor": "PF2E.TraitAppliedToMediumHeavyArmor",
-        "applied-to-shield": "PF2E.TraitAppliedToShield",
-        "attached-to-a-thrown-weapon": "PF2E.TraitAttachedToAThrownWeapon",
-        "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
-        "attached-to-crossbow-or-firearm-firing-mechanism": "PF2E.TraitAttachedToCrossbowOrFirearmFiringMechanism",
-        "attached-to-crossbow-or-firearm-scope": "PF2E.TraitAttachedToCrossbowOrFirearmScope",
-        "attached-to-firearm": "PF2E.TraitAttachedToFirearm",
-        "attached-to-firearm-scope": "PF2E.TraitAttachedToFirearmScope",
-        "attached-to-melee-weapon": "PF2E.TraitAttachedToMeleeWeapon",
-        "attached-to-ships-bow": "PF2E.TraitAttachedToShipsBow",
-        bonded: "PF2E.TraitBonded",
-        carried: "PF2E.TraitCarried",
-        "each-rune-applied-to-a-separate-item-that-has-pockets":
-            "PF2E.TraitEachRuneAppliedToASeparateItemThatHasPockets",
-        "etched-onto-a-weapon": "PF2E.TraitEtchedOntoAWeapon",
-        "etched-onto-a-shield": "PF2E.TraitEtchedOntoAShield",
-        "etched-onto-armor": "PF2E.TraitEtchedOntoArmor",
-        "etched-onto-heavy-armor": "PF2E.TraitEtchedOntoHeavyArmor",
-        "etched-onto-light-armor": "PF2E.TraitEtchedOntoLightArmor",
-        "etched-onto-metal-armor": "PF2E.TraitEtchedOntoMetalArmor",
-        "etched-onto-clan-dagger": "PF2E.TraitEtchedOntoAClanDagger",
-        "etched-onto-lm-nonmetal-armor": "PF2E.TraitEtchedOntoLightMedNMArmor",
-        "etched-onto-med-heavy-armor": "PF2E.TraitEtchedOntoMedHeavyArmor",
-        "etched-onto-medium-heavy-metal-armor": "PF2E.TraitEtchedOntoMediumHeavyMetalArmor",
-        "etched-onto-bludgeoning-weapon": "PF2E.TraitEtchedOntoABludgeoningWeapon",
-        "etched-onto-melee-weapon": "PF2E.TraitEtchedOntoAMeleeWeapon",
-        "etched-onto-slashing-melee-weapon": "PF2E.TraitEtchedOntoASlashingMeleeWeapon",
-        "etched-onto-piercing-or-slashing-melee-weapon": "PF2E.TraitEtchedOntoAPiercingOrSlashingMeleeWeapon",
-        "etched-onto-piercing-or-slashing-weapon": "PF2E.TraitEtchedOntoAPiercingOrSlashingWeapon",
-        "etched-onto-weapon-wo-anarchic-rune": "PF2E.TraitEtchedOntoAWeaponWOAxiomaticRune",
-        "etched-onto-weapon-wo-axiomatic-rune": "PF2E.TraitEtchedOntoAWeaponWOAnarchicRune",
-        "etched-onto-weapon-wo-unholy-rune": "PF2E.TraitEtchedOntoAWeaponWOHolyRune",
-        "etched-onto-weapon-wo-holy-rune": "PF2E.TraitEtchedOntoAWeaponWOUnholyRune",
-        "etched-onto-melee-weapon-monk": "PF2E.TraitEtchedOntoAMeleeWeaponMonk",
-        "etched-onto-thrown-weapon": "PF2E.TraitEtchedOntoAThrownWeapon",
-        "held-in-one-hand": "PF2E.TraitHeldOneHand",
-        "held-in-one-hand-or-free-standing": "PF2E.TraitHeldOneHandFreeStanding",
-        "held-in-1-hand-hung-on-a-cord-or-attached-to-clothing": "PF2E.HeldInOneHandHungOnACordOrAttachedToClothing",
-        "held-in-one-or-two-hands": "PF2E.TraitHeldOneTwoHands",
-        "held-in-two-hands": "PF2E.TraitHeldTwoHands",
-        implanted: "PF2E.TraitImplanted",
-        "mounted-on-a-tripod-or-bracket": "PF2E.TraitMountedOnATripodOrBracket",
-        other: "PF2E.TraitOther",
-        "sewn-into-clothing": "PF2E.TraitSewnIntoClothing",
-        "tattooed-on-the-body": "PF2E.TraitTattooedOnTheBody",
-        touched: "PF2E.TraitTouched",
-        worn: "PF2E.TraitWorn",
-        wornamulet: "PF2E.TraitWornAmulet",
-        wornanklets: "PF2E.TraitWornAnklets",
-        wornarmbands: "PF2E.TraitWornArmbands",
-        wornbackpack: "PF2E.TraitWornBackpack",
-        wornbarding: "PF2E.TraitWornBarding",
-        wornbelt: "PF2E.TraitWornBelt",
-        wornbeltpouch: "PF2E.TraitWornBeltPouch",
-        wornboots: "PF2E.TraitWornBoots",
-        wornbracelet: "PF2E.TraitWornBracelet",
-        wornbracers: "PF2E.TraitWornBracers",
-        worncap: "PF2E.TraitWornCap",
-        worncape: "PF2E.TraitWornCape",
-        worncirclet: "PF2E.TraitWornCirclet",
-        worncloak: "PF2E.TraitWornCloak",
-        wornclothing: "PF2E.TraitWornClothing",
-        worncollar: "PF2E.TraitWornCollar",
-        worncrown: "PF2E.TraitWornCrown",
-        wornepaulet: "PF2E.TraitWornEpaulet",
-        worneyeglasses: "PF2E.TraitWornEyeglasses",
-        worneyepiece: "PF2E.TraitWornEyepiece",
-        wornfootwear: "PF2E.TraitWornFootwear",
-        worngarment: "PF2E.TraitWornGarment",
-        worngloves: "PF2E.TraitWornGloves",
-        wornheadwear: "PF2E.TraitWornHeadwear",
-        wornhorseshoes: "PF2E.TraitWornHorseshoes",
-        wornmask: "PF2E.TraitWornMask",
-        wornnecklace: "PF2E.TraitWornNecklace",
-        wornonbelt: "PF2E.TraitWornOnBelt",
-        wornoronehand: "PF2E.TraitWornOrOneHand",
-        wornring: "PF2E.TraitWornRing",
-        wornsaddle: "PF2E.TraitWornSaddle",
-        wornsandles: "PF2E.TraitWornSandles",
-        wornshoes: "PF2E.TraitWornShoes",
-        wornwrist: "PF2E.TraitWornOnWrists",
-        "worn-and-attached-to-two-weapons": "PF2E.TraitWornAndAttachedToTwoWeapons",
-        "worn-under-armor": "PF2E.TraitWornUnderArmor",
-    },
+    usages: USAGES,
 
     magicTraditions,
     deityDomains,
@@ -650,11 +521,44 @@ export const PF2ECONFIG = {
         5: "-5/-10",
     },
 
+    grades,
+    weaponImprovements: {
+        commercial: { level: 0, tracking: 0, dice: 1, credits: 0 },
+        tactical: { level: 2, tracking: 1, dice: 1, credits: 350 },
+        advanced: { level: 4, tracking: 1, dice: 2, credits: 1000 },
+        superior: { level: 10, tracking: 2, dice: 2, credits: 10000 },
+        elite: { level: 12, tracking: 2, dice: 3, credits: 20000 },
+        ultimate: { level: 16, tracking: 3, dice: 3, credits: 100000 },
+        paragon: { level: 19, tracking: 3, dice: 4, credits: 400000 },
+    } satisfies Record<keyof typeof grades, { level: number; tracking: ZeroToThree; dice: number; credits: number }>,
+    armorImprovements: {
+        commercial: { level: 0, bonus: 0, resilient: 0, credits: 0 },
+        tactical: { level: 5, bonus: 1, resilient: 0, credits: 1600 },
+        advanced: { level: 8, bonus: 1, resilient: 1, credits: 5000 },
+        superior: { level: 11, bonus: 2, resilient: 1, credits: 14000 },
+        elite: { level: 14, bonus: 2, resilient: 2, credits: 45000 },
+        ultimate: { level: 18, bonus: 3, resilient: 2, credits: 240000 },
+        paragon: { level: 20, bonus: 3, resilient: 3, credits: 700000 },
+    } satisfies Record<keyof typeof grades, { level: number; bonus: number; resilient: ZeroToThree; credits: number }>,
+
+    shieldImprovements: {
+        commercial: { level: 0, hardness: 0, maxHP: 0, credits: 0 },
+        tactical: { level: 5, hardness: 3, maxHP: 46, credits: 750 },
+        advanced: { level: 8, hardness: 3, maxHP: 56, credits: 3000 },
+        superior: { level: 11, hardness: 3, maxHP: 68, credits: 9000 },
+        elite: { level: 14, hardness: 5, maxHP: 80, credits: 25000 },
+        ultimate: { level: 18, hardness: 6, maxHP: 100, credits: 800000 },
+        paragon: { level: 20, hardness: 7, maxHP: 120, credits: 320000 },
+    },
+
     weaponReload,
     armorCategories,
     armorGroups,
     consumableCategories,
     identification: configFromLocalization(EN_JSON.PF2E.identification, "PF2E.identification"),
+
+    /** Base weapons that should always be treated as thrown */
+    thrownBaseWeapons: ["alchemical-bomb"] as const,
 
     preparationType: {
         prepared: "PF2E.PreparationTypePrepared",
@@ -757,8 +661,6 @@ export const PF2ECONFIG = {
 
     actorTypes,
 
-    speedTypes,
-
     prerequisitePlaceholders: {
         prerequisite1: "PF2E.Prerequisite1",
         prerequisite2: "PF2E.Prerequisite2",
@@ -845,35 +747,6 @@ export const PF2ECONFIG = {
     },
 
     SETTINGS: {
-        automation: {
-            rulesBasedVision: {
-                name: "PF2E.SETTINGS.Automation.RulesBasedVision.Name",
-                hint: "PF2E.SETTINGS.Automation.RulesBasedVision.Hint",
-            },
-            iwr: {
-                name: "PF2E.SETTINGS.Automation.IWR.Name",
-                hint: "PF2E.SETTINGS.Automation.IWR.Hint",
-            },
-            removeExpiredEffects: {
-                name: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Name",
-                hint: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Hint",
-            },
-            flankingDetection: {
-                name: "PF2E.SETTINGS.Automation.FlankingDetection.Name",
-                hint: "PF2E.SETTINGS.Automation.FlankingDetection.Hint",
-            },
-            actorsDeadAtZero: {
-                name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
-                hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
-                neither: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Neither",
-                npcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.NPCsOnly",
-                both: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Both",
-            },
-            lootableNPCs: {
-                name: "PF2E.SETTINGS.Automation.LootableNPCs.Name",
-                hint: "PF2E.SETTINGS.Automation.LootableNPCs.Hint",
-            },
-        },
         CampaignFeats: {
             name: "PF2E.SETTINGS.CampaignFeats.Name",
             hint: "PF2E.SETTINGS.CampaignFeats.Hint",

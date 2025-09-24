@@ -6,7 +6,7 @@ import type {
     DatabaseUpdateCallbackOptions,
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
-import { DocumentFlags } from "@common/data/_module.mjs";
+import type { DocumentFlags } from "@common/data/_module.d.mts";
 import type { CombatantSource } from "@common/documents/combatant.d.mts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
@@ -24,7 +24,7 @@ class CombatantPF2e<
     static override async createDocuments(
         data: (CombatantPF2e | DeepPartial<CombatantSource>)[] = [],
         operation: Partial<DatabaseCreateOperation<EncounterPF2e | null>> = {},
-    ): Promise<Combatant[]> {
+    ): Promise<Document[]> {
         this.#swapPartyForMembers(data, operation);
         return super.createDocuments(data, operation);
     }

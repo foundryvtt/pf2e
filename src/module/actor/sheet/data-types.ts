@@ -5,9 +5,10 @@ import type { InventoryBulk } from "@actor/inventory/index.ts";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { ActorSheetData } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import type { Frequency } from "@item/base/data/index.ts";
-import type { Coins } from "@item/physical/data.ts";
+import type { RawCoins } from "@item/physical/data.ts";
 import type { RollOptionToggle } from "@module/rules/synthetics.ts";
 import type { SheetOptions } from "@module/sheet/helpers.ts";
 
@@ -23,7 +24,8 @@ interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
     isSellable: boolean;
     hasCharges: boolean;
     heldItems?: InventoryItem[] | null;
-    notifyInvestment?: boolean;
+    notifyEquip?: boolean;
+    notifyInvest?: boolean;
     /** Whether the item should be hidden if the user isn't the owner */
     hidden: boolean;
 }
@@ -33,7 +35,7 @@ interface CoinDisplayData {
     label: string;
 }
 
-export type CoinageSummary = { [K in keyof Coins]?: CoinDisplayData };
+export type CoinageSummary = { [K in keyof RawCoins]?: CoinDisplayData };
 
 interface SheetItemList {
     label: string;
@@ -61,7 +63,7 @@ interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TA
     toggles: Record<string, RollOptionToggle[]>;
     totalCoinage: CoinageSummary;
     totalCoinageGold: string;
-    totalWealth: Coins;
+    totalWealth: RawCoins;
     totalWealthGold: string;
     traits: SheetOptions;
     user: { isGM: boolean };
@@ -69,6 +71,7 @@ interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TA
 }
 
 interface AbilityViewData {
+    uuid: ItemUUID;
     id: string;
     name: string;
     img: string;

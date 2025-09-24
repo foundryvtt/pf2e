@@ -1,8 +1,9 @@
 import { AttributeString } from "@actor/types.ts";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
-import { ItemFlagsPF2e } from "@item/base/data/system.ts";
+import { ItemFlagsPF2e, TraitConfig } from "@item/base/data/system.ts";
 import type {
     BasePhysicalItemSource,
+    Grade,
     Investable,
     ItemMaterialData,
     ItemMaterialSource,
@@ -73,6 +74,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
         canBeAmmo?: boolean;
         value: "worngloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
     };
+    grade: Grade | null;
     runes: WeaponRuneSource;
     /** An optional override of the default ability modifier used in attack rolls with this weapon  */
     attribute?: AttributeString | null;
@@ -165,6 +167,7 @@ type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;
 interface WeaponTraits extends WeaponTraitsSource {
     otherTags: OtherWeaponTag[];
     toggles: WeaponTraitToggles;
+    config: TraitConfig;
 }
 
 interface WeaponMaterialData extends ItemMaterialData {

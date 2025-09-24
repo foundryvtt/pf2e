@@ -7,7 +7,9 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p>This wand is a slender length of ice-blue glass.</p><hr /><p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Howling Blizzard] at 7th-rank. Snow lingers in the spell's area, remaining as difficult terrain for 1 minute.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of <em>howling blizzard</em> at 7th-rank.</p>"
         },
@@ -24,8 +26,12 @@
             "type": null
         },
         "price": {
+            "per": 1,
             "value": {
-                "gp": 24000
+                "cp": 0,
+                "gp": 24000,
+                "pp": 0,
+                "sp": 0
             }
         },
         "publication": {
@@ -36,6 +42,122 @@
         "quantity": 1,
         "rules": [],
         "size": "med",
+        "spell": {
+            "_id": "o4ZhaIkY8ZHCpCNt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.xxWhyl81w3ckslAU"
+            },
+            "folder": "iDjm2cXyRAe4VZ35",
+            "img": "icons/magic/water/vortex-water-whirlpool.webp",
+            "name": "Howling Blizzard",
+            "sort": 0,
+            "system": {
+                "area": {
+                    "type": "cone",
+                    "value": 60
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "2YlEXgT93lbWXENb": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "10d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "cold"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>Freezing winds extend from your hands, pushing away from you with great force. If you Cast this Spell with 2 actions, it has an area of a 60-foot cone; if you Cast this Spell with 3 actions, it has a range of 500 feet and an area of a 30-foot burst. Each creature in the area takes 10d6 cold damage with a basic Reflex save. Snowdrifts and icy gales fill the area until the start of your next turn, making the area difficult terrain.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "area": 0,
+                    "damage": {
+                        "2YlEXgT93lbWXENb": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "heightenedLevel": 7,
+                    "value": null
+                },
+                "overlays": {
+                    "ZxbNsu1w4bhR2fCe": {
+                        "_id": "ZxbNsu1w4bhR2fCe",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {}
+                    },
+                    "wUTd1CuL1B5jIquK": {
+                        "_id": "wUTd1CuL1B5jIquK",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "area": {
+                                "type": "burst",
+                                "value": 30
+                            },
+                            "range": {
+                                "value": "500 feet"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "howling-blizzard",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "air",
+                        "cold",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -46,7 +168,12 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

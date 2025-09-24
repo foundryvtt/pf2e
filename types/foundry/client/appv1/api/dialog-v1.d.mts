@@ -94,7 +94,7 @@ export default class Dialog extends Application {
      * Handle a left-mouse click on one of the dialog choice buttons
      * @param event The left-mouse click event
      */
-    protected _onClickButton(event: MouseEvent): void;
+    protected _onClickButton(event: PointerEvent): void;
 
     /**
      * Handle a keydown event while the dialog is active

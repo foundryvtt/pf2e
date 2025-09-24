@@ -1,0 +1,53 @@
+{
+    "_id": "9CJ7kzRLDo5VAC4n",
+    "img": "icons/skills/melee/strike-flail-destructive-yellow.webp",
+    "name": "Stance: Jotun's Battle Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Jotun's Battle Stance]</p>\n<p>When you wield a melee weapon that requires two hands and doesn't have reach, the weapon gains a reach of 10 feet.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped",
+                    "item:melee",
+                    "item:usage:hands:2",
+                    {
+                        "not": "feat:jotuns-heart"
+                    }
+                ],
+                "property": "traits",
+                "value": "reach"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

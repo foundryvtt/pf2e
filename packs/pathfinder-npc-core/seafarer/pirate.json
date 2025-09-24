@@ -8,8 +8,8 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.grmaV4GdoGD7sKbn"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/scimitar.webp",
-            "name": "Cutlass",
+            "img": "icons/weapons/swords/scimitar-worn-blue.webp",
+            "name": "Cutlass (Functions as a Scimitar)",
             "sort": 100000,
             "system": {
                 "baseItem": "scimitar",
@@ -59,7 +59,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -95,7 +95,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
             "sort": 200000,
             "system": {
@@ -146,7 +146,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -197,7 +197,7 @@
                 "checkPenalty": 0,
                 "containerId": null,
                 "description": {
-                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
+                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep magic armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
                 },
                 "dexCap": 3,
                 "equipped": {
@@ -226,7 +226,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -326,6 +326,7 @@
                 "traits": {
                     "value": [
                         "agile",
+                        "finesse",
                         "versatile-s"
                     ]
                 }
@@ -376,36 +377,43 @@
             "type": "melee"
         },
         {
-            "_id": "lrHNxw2aet6y4AAg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "_id": "sqhOZyxg3OPiv7f9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
             "sort": 700000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
+                "attackEffects": {
+                    "value": []
                 },
-                "actions": {
-                    "value": null
+                "bonus": {
+                    "value": 11
                 },
-                "category": "defensive",
+                "damageRolls": {
+                    "HhUyT1zUC1m64MJv": {
+                        "damage": "1d4+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                    "value": ""
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "attack-of-opportunity",
+                "slug": null,
                 "traits": {
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "melee"
         },
         {
             "_id": "86ELyZJGF5f8M7ew",
@@ -435,10 +443,9 @@
                         },
                         "key": "AdjustDegreeOfSuccess",
                         "predicate": [
-                            "fear"
+                            "item:trait:fear"
                         ],
-                        "selector": "will",
-                        "type": "save"
+                        "selector": "will"
                     }
                 ],
                 "slug": null,
@@ -449,10 +456,42 @@
             "type": "action"
         },
         {
+            "_id": "Yxn3DgPf75gNQx90",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "WrTvPVOo3UOYpMWC",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Boarding Action",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -476,12 +515,16 @@
                         "toggleable": true
                     },
                     {
-                        "diceNumber": 1,
-                        "key": "DamageDice",
+                        "key": "DamageAlteration",
+                        "mode": "add",
                         "predicate": [
                             "boarding-action"
                         ],
-                        "selector": "strike-damage"
+                        "property": "dice-number",
+                        "selectors": [
+                            "melee-strike-damage"
+                        ],
+                        "value": 1
                     }
                 ],
                 "slug": null,
@@ -495,7 +538,7 @@
             "_id": "CLyzEL754Aofobtz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Sailing Lore",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -543,7 +586,7 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 18
+                "value": 17
             },
             "allSaves": {
                 "value": ""

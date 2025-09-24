@@ -1,0 +1,110 @@
+{
+    "_id": "vVVorEuulaPUDHM0",
+    "img": "icons/weapons/hammers/hammer-double-steel-embossed.webp",
+    "name": "Jistkan Colossus Crusher",
+    "system": {
+        "baseItem": "maul",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 2
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d12"
+        },
+        "description": {
+            "value": "<p>This <em>+2 greater striking maul</em> is a marvel of magical and mechanical engineering, designed thousands of years ago by the mages of the Jistka Imperium for the express purpose of disabling any of the Imperium's countless magical constructs and automatons that might turn against their creators. When you damage a construct with a Strike from the Jistkan colossus crusher, you deal an additional 1d6 persistent force damage. Additionally, whenever you critically hit a construct with this weapon, the Jistkan colossus crusher briefly disrupts the magical energy signature animating the construct; it must succeed a @Check[fortitude|dc:35] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+        },
+        "expend": null,
+        "group": "hammer",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 15
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 6250
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "category": "persistent",
+                "critical": false,
+                "damageType": "force",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:construct"
+                ],
+                "selector": "{item|id}-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|id}-damage",
+                "text": "The target must succeed a @Check[fortitude|dc:35] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.",
+                "title": "{item|name}"
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [],
+            "striking": 2
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 2,
+                "property": [],
+                "striking": 2
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "magical",
+                "shove"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "weapon"
+}

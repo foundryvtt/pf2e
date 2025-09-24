@@ -1,12 +1,10 @@
-import { BaseAdventure } from "./_module.mjs";
+import ApplicationV2 from "@client/applications/api/application.mjs";
+import AdventureImporter from "@client/appv1/sheets/adventure-importer.mjs";
+import { AdventureSource, BaseAdventure } from "./_module.mjs";
 import ClientDocumentMixin from "./abstract/client-document.mjs";
 
 /**
  * The client-side Adventure document which extends the common {@link foundry.documents.BaseAdventure} model.
- *
- * ### Hook Events
- * {@link hookEvents.preImportAdventure} emitted by Adventure#import
- * {@link hookEvents.importAdventure} emitted by Adventure#import
  */
 export default class Adventure extends ClientDocumentMixin(BaseAdventure) {
     /**
@@ -31,6 +29,12 @@ export default class Adventure extends ClientDocumentMixin(BaseAdventure) {
      * @returns The import result
      */
     importContent(data?: Partial<AdventureImportData>): AdventureImportResult;
+}
+
+export default interface Adventure {
+    readonly _source: AdventureSource;
+
+    get sheet(): AdventureImporter<this> | ApplicationV2;
 }
 
 export interface AdventureImportData {

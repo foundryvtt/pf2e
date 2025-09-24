@@ -1,0 +1,350 @@
+{
+    "_id": "DAdoAVeJNyH1dgcg",
+    "folder": "H9CJ9F8U83kU0CYj",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "TH63GFXTWbtna7ai",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Mandibles",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "y0LrWL3v26dWosJ8": {
+                        "damage": "2d10+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disarm"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kN1siWCIgnUWQDT3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Foreleg",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "MX7Sw53MMw5jyBPi": {
+                        "damage": "2d8+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "defD1CqaJEA75PaH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Snagging Spines",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature the leviathan louse had @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] successfully Escapes</p><hr /><p><strong>Effect</strong> The leviathan louse makes a foreleg Strike against the triggering creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Kz60bBUkEFdBzBTP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Cling",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The leviathan louse is touching unworked stone or is on its host body</p><hr /><p><strong>Effect</strong> The leviathan louse anchors itself in place, granting itself a +2 circumstance bonus against effects to move or trip it. It cannot take move actions. This effect lasts until the start of the leviathan louse's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "cling",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "cling",
+                            "action:trip"
+                        ],
+                        "selector": "reflex-dc",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "p4wyps4FhtV4i44z",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Consume Stone",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The leviathan louse is using Cling to adhere to unworked stone</p><hr /><p><strong>Effect</strong> The leviathan louse selects one square it occupies to drain of stony sustenance. It regains @Damage[15[healing]] Hit Points, gaining any excess HP as temporary Hit Points that last for 1 hour. The resulting rubble becomes difficult terrain.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GnQ2GFFvEJuTy8mE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Leviathan Louse",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 26
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 135,
+                "temp": 0,
+                "value": 135
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 10
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 20
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Particularly enormous and ancient creatures from the Plane of Earth often find difficulty keeping their bodies mobile; over time, slow-growing crystals glue limbs together, gravel clogs the joints, and countless other maladies gradually inhibit their already limited flexibility. While good hygiene can help, these routines can be unfeasible for particularly massive entities who spend much of their lives inert, in hibernation, or far from an ideal mountain to itch against. Enter the strange and unsettling leviathan louse. These stone-hungry creatures resemble their smaller, more mundane cousins with bumpy, iridescent exoskeletons, but they're individually the size of a horse. Colonies of leviathan lice form symbiotic relationships with massive, rocky earth elementals, feeding on their rocky barnacles and (often literal) veins of minerals, in exchange for keeping their host clean.</p>\n<p>While they have little interest in feeding upon creatures closer to their own size, leviathan lice are quick to defend their territory, biting enemy combatants with massive mandibles or swiping with spiny forelegs. Rarely does a louse stray far from its host or find its way to planets like Golarion, but left to its own devices, it can reduce a rich mine to a crumbling, empty cavern in a matter of weeks.</p>\n<p>An adult leviathan louse is about 9 feet long and weighs between 1,500 and 2,100 pounds, though larger specimens raised on a plentiful, supernatural diet of strange ores or stone do exist. An adult lays eggs in crevices in the host's exterior. The larvae grow slowly, molting at least six times before reaching adulthood after several decades. These cast-off molts occasionally contain trace amounts of valuable metal that an industrious prospector might recover.</p><h2>Exterminating Lice</h2><p>As part of their invasion of the Plane of Metal, denizens of the Plane of Earth attempted to weaponize leviathan lice to simply eat the enemy's fortifications. This didn't endear them to the inhabitants of the Plane of Metal. Removed from their normal environments and deliberately starved, the leviathan lice devastated both architecture and local populations with their insatiable appetite for iron. Farmers, miners, and jewelers see little practical distinction between leviathan lice and their water-walking ore lice cousins, moving to eradicate any they see on sight.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #218: Titanbane"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 18
+            },
+            "stealth": {
+                "base": 16
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "beast",
+                "earth",
+                "metal"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,0 +1,55 @@
+{
+    "_id": "P7cVUjF59y0XHmLw",
+    "img": "icons/commodities/stone/paver-cobble-white.webp",
+    "name": "Effect: Mighty Counterweight",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Mighty Counterweight]</p>\n<p>Your weapon deals an amount of additional bludgeoning damage equal to the number of weapon damage dice.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "bludgeoning",
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

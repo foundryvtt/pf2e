@@ -1,0 +1,223 @@
+{
+    "_id": "TFihgf3jDhmKd0fa",
+    "img": "icons/weapons/swords/sword-winged-pink.webp",
+    "name": "Bloodline: Aesir",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>One of your ancestors was touched by an aesir, and now the ringing of steel against steel and the constant call to battle echo through your blood.</p>\n<p><strong>Tradition</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Sorcerous Gifts</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Shield]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Mystic Armor]; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Spiritual Armament]; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Heroism]; 4th: @UUID[Compendium.pf2e.spells-srd.Item.Seal Fate]; 5th: @UUID[Compendium.pf2e.spells-srd.Item.Invoke Spirits]; 6th: @UUID[Compendium.pf2e.spells-srd.Item.Blinding Fury]; 7th: @UUID[Compendium.pf2e.spells-srd.Item.Execute]; 8th: @UUID[Compendium.pf2e.spells-srd.Item.Spirit Song]; 9th: @UUID[Compendium.pf2e.spells-srd.Item.Massacre]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Barbed Spear]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Wings of the Valkyrie]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Let Not the Fallen Rest]</p>\n<p><strong>Blood Magic—Call the Storm</strong> You bring down a bolt of lightning to damage a foe or energize yourself. Either you gain a +2 status bonus to Reflex saving throws for 1 round, or a target takes 1 electricity damage per spell rank (if the spell already deals initial electricity damage, combine this with the spell's initial damage before determining weaknesses and resistances).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    },
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:divine",
+                                    {
+                                        "or": [
+                                            "item:slug:mystic-armor",
+                                            "item:slug:spiritual-armament",
+                                            "item:slug:heroism",
+                                            "item:slug:seal-fate",
+                                            "item:slug:invoke-spirits",
+                                            "item:slug:blinding-fury",
+                                            "item:slug:execute",
+                                            "item:slug:spirit-song",
+                                            "item:slug:massacre"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mergeable": true,
+                "option": "blood-magic",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Aesir",
+                        "predicate": [
+                            "class:sorcerer"
+                        ],
+                        "value": "aesir"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.SecondBloodMagic",
+                "mergeable": true,
+                "option": "second-blood-magic",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:blood-ascendancy",
+                            "feat:blood-sovereignty"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Aesir",
+                        "value": "aesir"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:tag:blood-magic-spell",
+                    {
+                        "or": [
+                            "blood-magic:aesir",
+                            {
+                                "and": [
+                                    "second-blood-magic:aesir",
+                                    "feat:blood-sovereignty"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Aesir",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Aesir"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aesir Blood Magic]"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:slug:blood-rising",
+                    {
+                        "or": [
+                            "blood-magic:aesir",
+                            {
+                                "and": [
+                                    "second-blood-magic:aesir",
+                                    "feat:blood-ascendancy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Aesir",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Aesir"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aesir Blood Magic]"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "option": "feature:bloodline:tradition:divine",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "sorcerer-bloodline"
+            ],
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

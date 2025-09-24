@@ -1,0 +1,74 @@
+{
+    "_id": "e9iVLfL7KIfUG3NV",
+    "folder": "3es60s1TTpSIWqPI",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Commander Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain the tactics class feature like a commander and gain your own folio; this folio contains two common mobility or offensive tactics of your choosing. You can prepare one of these tactics whenever a commander would be able to prepare tactics. You gain a commander's banner that grants you a 30-foot aura for the purposes of using your tactics, but the banner does not grant the commander's banner bonus to Will saves and DCs against fear effects. You become trained in commander class DC and Warfare Lore; if you were already trained in Warfare Lore, you become trained in another Lore skill of your choice.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.FYeYr2IQ7voFSb8y]{Commander}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Intelligence +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Commander.Banner.Label",
+                "option": "commanders-banner",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "Aura",
+                "predicate": [
+                    "commanders-banner"
+                ],
+                "radius": 30,
+                "slug": "commanders-banner",
+                "traits": []
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Tactics"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "commander": {
+                    "attribute": "int",
+                    "rank": 1
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

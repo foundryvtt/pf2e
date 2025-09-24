@@ -1,10 +1,10 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import type { ApplicationConfiguration, ApplicationRenderContext } from "@client/applications/_types.d.mts";
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
-import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
+import type { ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
 import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
-import { ItemPF2e } from "@item";
+import type { ItemPF2e } from "@item";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery } from "@util";
 import MiniSearch from "minisearch";
 import { CompendiumMigrationStatus } from "../compendium-migration-status.ts";
@@ -23,7 +23,18 @@ class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
         },
     };
 
-    declare matchDragDrop: fa.ux.DragDrop;
+    #matchDragDrop = new fa.ux.DragDrop({
+        dragSelector: "li.match",
+        permissions: {
+            dragstart: this._canDragStart.bind(this),
+            drop: this._canDragDrop.bind(this),
+        },
+        callbacks: {
+            dragover: this._onDragOver.bind(this),
+            dragstart: this._onDragStart.bind(this),
+            drop: this._onDrop.bind(this),
+        },
+    });
 
     static override PARTS = {
         ...super.PARTS,
@@ -35,8 +46,8 @@ class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
             const wordSegmenter =
                 "Segmenter" in Intl
                     ? new Intl.Segmenter(game.i18n.lang, { granularity: "word" })
-                    : // Firefox >:(
-                      {
+                    : {
+                          // Firefox >:(
                           segment(term: string): { segment: string }[] {
                               return [{ segment: term }];
                           },
@@ -63,18 +74,6 @@ class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
         }
 
         return CompendiumDirectoryPF2e.#searchEngine;
-    }
-
-    /** Create a drag preview that looks like the one generated from an open compendium */
-    get #dragPreview(): HTMLElement {
-        const preview = document.createElement("div");
-        preview.id = "pack-search-drag-preview";
-
-        const thumbnail = document.createElement("img");
-        const title = document.createElement("h4");
-        preview.append(thumbnail, title);
-
-        return preview;
     }
 
     override async _prepareContext(options: HandlebarsRenderOptions): Promise<CompendiumDirectoryRenderContext> {
@@ -149,18 +148,7 @@ class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
             const matchesList = createHTMLElement("ol", { classes: ["document-matches"] });
             const html = this.element;
             html.querySelector("ol.directory-list")?.append(matchesList);
-            this.matchDragDrop = new fa.ux.DragDrop({
-                dragSelector: "li.match",
-                permissions: {
-                    dragstart: this._canDragStart.bind(this),
-                    drop: this._canDragDrop.bind(this),
-                },
-                callbacks: {
-                    dragover: this._onDragOver.bind(this),
-                    dragstart: this._onDragStart.bind(this),
-                    drop: this._onDrop.bind(this),
-                },
-            }).bind(html);
+            this.#matchDragDrop.bind(html);
         }
         return super._onRender(context, options);
     }
@@ -240,7 +228,7 @@ class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
         const matchesList = htmlQuery(html, "ol.document-matches");
         if (!matchesList) return;
         matchesList.replaceChildren(...listElements);
-        this.matchDragDrop.bind(matchesList);
+        this.#matchDragDrop.bind(matchesList);
     }
 
     /** Anyone can drag from search results */
@@ -250,35 +238,16 @@ class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
 
     /** Replicate the functionality of dragging a compendium document from an open `Compendium` */
     protected override _onDragStart(event: DragEvent): void {
-        const dragElement = event.currentTarget;
-        if (!(dragElement instanceof HTMLElement && event.dataTransfer)) {
-            return super._onDragStart(event);
-        }
-        const { uuid } = dragElement.dataset;
+        if (!(event.currentTarget instanceof HTMLElement)) return super._onDragStart(event);
+        const uuid = event.currentTarget.dataset.uuid;
         if (!uuid) return super._onDragStart(event);
-
         const indexEntry = fromUuidSync(uuid);
         if (!indexEntry) throw ErrorPF2e("Unexpected error retrieving index data");
-
-        // Clean up old drag preview
-        document.querySelector("#pack-search-drag-preview")?.remove();
-
-        // Create a new drag preview
-        const dragPreview = this.#dragPreview.cloneNode(true) as HTMLElement;
-        const [img, title] = Array.from(dragPreview.childNodes) as [HTMLImageElement, HTMLHeadingElement];
-        title.innerText = indexEntry.name ?? "";
-        img.src = "img" in indexEntry && indexEntry.img ? indexEntry.img : "icons/svg/book.svg";
-
-        document.body.appendChild(dragPreview);
-        const documentType = ((): string | null => {
-            if (indexEntry instanceof foundry.abstract.Document) return indexEntry.documentName;
-            const pack = game.packs.get(indexEntry.pack ?? "");
-            return pack?.documentName ?? null;
-        })();
-        if (!documentType) return;
-
-        event.dataTransfer.setDragImage(dragPreview, 75, 25);
-        event.dataTransfer.setData("text/plain", JSON.stringify({ type: documentType, uuid }));
+        const dragData =
+            indexEntry instanceof foundry.abstract.Document
+                ? indexEntry.toDragData()
+                : { uuid, type: fu.parseUuid(uuid)?.type };
+        event.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
     }
 
     /** Called by a "ready" hook */
@@ -286,7 +255,6 @@ class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
         console.debug("PF2e System | compiling search index");
         const packs = game.packs.filter((p) => p.index.size > 0 && p.testUserPermission(game.user, "OBSERVER"));
         this.searchEngine.removeAll();
-
         for (const pack of packs) {
             const contents = pack.index.map((i) => ({
                 ...i,

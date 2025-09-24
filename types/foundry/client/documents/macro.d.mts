@@ -1,10 +1,16 @@
+import DocumentSheetV2 from "@client/applications/api/document-sheet.mjs";
 import { ImageFilePath } from "@common/constants.mjs";
 import Token from "../canvas/placeables/token.mjs";
-import { BaseMacro } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { BaseMacro, MacroSource } from "./_module.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import Actor from "./actor.mjs";
 
-declare const ClientBaseMacro: new (...args: any) => BaseMacro & ClientDocument<null>;
+type BaseMacroStatic = typeof BaseMacro;
+interface ClientBaseMacroStatic extends BaseMacroStatic, ClientDocumentStatic {}
+
+declare const ClientBaseMacro: {
+    new (...args: any): BaseMacro & ClientDocument<null>;
+} & ClientBaseMacroStatic;
 
 interface ClientBaseMacro extends InstanceType<typeof ClientBaseMacro> {}
 
@@ -42,6 +48,9 @@ export default class Macro extends ClientBaseMacro {
     execute(scope?: { actor?: Actor; token?: Token; [k: string]: unknown }): unknown;
 }
 
-export default interface Macro extends ClientBaseMacro {}
+export default interface Macro extends ClientBaseMacro {
+    readonly _source: MacroSource;
+    get sheet(): DocumentSheetV2;
+}
 
 export {};

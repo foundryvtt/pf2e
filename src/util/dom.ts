@@ -32,11 +32,11 @@ function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
 ): HTMLElementTagNameMap[K];
 function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
     nodeName: K,
-    { classes = [], dataset = {}, aria = {}, children = [], innerHTML }: CreateHTMLElementOptions = {},
+    { id, classes = [], dataset = {}, aria = {}, children = [], innerHTML }: CreateHTMLElementOptions = {},
 ): HTMLElementTagNameMap[K] {
     const element = document.createElement(nodeName);
+    if (id) element.id = id;
     if (classes.length > 0) element.classList.add(...classes);
-
     for (const [key, value] of Object.entries(dataset)) {
         if (R.isNullish(value) || value === false) continue;
         element.dataset[key] = value === true ? "" : String(value);
@@ -59,6 +59,7 @@ function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
 }
 
 interface CreateHTMLElementOptions {
+    id?: string;
     classes?: string[];
     dataset?: Record<string, Maybe<string | number | boolean>>;
     aria?: Record<string, Maybe<string | false>>;

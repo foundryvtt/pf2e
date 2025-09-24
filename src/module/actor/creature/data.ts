@@ -12,12 +12,13 @@ import type {
     StrikeData,
 } from "@actor/data/base.ts";
 import type { ActorSizePF2e } from "@actor/data/size.ts";
-import type { ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
+import type { Modifier, RawModifier } from "@actor/modifiers.ts";
 import type { AttributeString, MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import type { ImageFilePath } from "@common/constants.d.mts";
 import type { LabeledNumber, Size, ValueAndMax, ValueAndMaybeMax, ZeroToThree } from "@module/data.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import type { PerceptionTraceData } from "@system/statistic/perception.ts";
+import { LandSpeedStatisticTraceData, SpeedStatisticTraceData } from "@system/statistic/speed.ts";
 import type { CreatureActorType, CreatureTrait, Language, SenseAcuity, SenseType, SpecialVisionType } from "./types.ts";
 
 type BaseCreatureSource<
@@ -68,6 +69,32 @@ interface CreatureResourcesSource {
     focus?: ValueAndMaybeMax;
 }
 
+interface CreatureMovementData {
+    speeds: {
+        land: LandSpeedStatisticTraceData;
+        burrow: SpeedStatisticTraceData | null;
+        climb: SpeedStatisticTraceData | null;
+        fly: SpeedStatisticTraceData | null;
+        swim: SpeedStatisticTraceData | null;
+        travel: SpeedStatisticTraceData;
+    };
+    terrain: {
+        difficult: {
+            /**
+             * Difficult terrain that is ignored when part of certain environment features: a value of "all" has the
+             * creature ignoring difficult terrain from all sources.
+             */
+            ignored: IgnorableEnvironmentFeature[];
+        };
+        greater: {
+            /** Difficult terrain that is downgraded when part of certain environment features */
+            ignored: IgnorableEnvironmentFeature[];
+        };
+    };
+}
+
+type IgnorableEnvironmentFeature = { environment: string; feature: string };
+
 interface CreatureSystemData extends Omit<CreatureSystemSource, "attributes">, ActorSystemData {
     abilities?: Abilities;
 
@@ -76,13 +103,16 @@ interface CreatureSystemData extends Omit<CreatureSystemSource, "attributes">, A
     /** Traits, languages, and other information. */
     traits: CreatureTraitsData;
 
+    /** Data pertaining to the creature's ability to move, including its various movement types and their speeds */
+    movement: CreatureMovementData;
+
     attributes: CreatureAttributes;
 
     /** The perception statistic */
     perception: CreaturePerceptionData;
 
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
-    customModifiers: Record<string, ModifierPF2e[]>;
+    customModifiers: Record<string, Modifier[]>;
 
     /** Saving throw data */
     saves: CreatureSaves;
@@ -129,22 +159,23 @@ interface SaveData extends AttributeBasedTraceData {
 
 type CreatureSaves = Record<SaveType, SaveData>;
 
+interface CreatureReach {
+    /** The default reach for all actions requiring one */
+    base: number;
+    /** Its reach for the purpose of manipulate actions, usually the same as its base reach */
+    manipulate: number;
+}
+
 /** Miscallenous but mechanically relevant creature attributes.  */
 interface CreatureAttributes extends ActorAttributes {
     hp: ActorHitPoints;
     ac: CreatureACData;
     hardness: { value: number };
 
-    /** The creature's natural reach */
-    reach: {
-        /** The default reach for all actions requiring one */
-        base: number;
-        /** Its reach for the purpose of manipulate actions, usually the same as its base reach */
-        manipulate: number;
-    };
+    /** The creature's natural reach in feet */
+    reach: CreatureReach;
 
     shield?: HeldShieldData;
-    speed: CreatureSpeeds;
 
     /** The current dying level (and maximum) for this creature. */
     dying: ValueAndMax & { recoveryDC: number };
@@ -159,15 +190,6 @@ interface CreatureAttributes extends ActorAttributes {
 
 interface CreatureACData extends ArmorClassTraceData {
     attribute: AttributeString;
-}
-
-interface CreatureSpeeds extends StatisticModifier {
-    /** The actor's primary speed (usually walking/stride speed). */
-    value: number;
-    /** Other speeds that this actor can use (such as swim, climb, etc). */
-    otherSpeeds: LabeledSpeed[];
-    /** The derived value after applying modifiers, bonuses, and penalties */
-    total: number;
 }
 
 interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
@@ -234,11 +256,12 @@ export type {
     CreatureHitPointsSource,
     CreatureInitiativeSource,
     CreatureLanguagesData,
+    CreatureMovementData,
     CreaturePerceptionData,
+    CreatureReach,
     CreatureResources,
     CreatureResourcesSource,
     CreatureSaves,
-    CreatureSpeeds,
     CreatureSystemData,
     CreatureSystemSource,
     CreatureTraitsData,

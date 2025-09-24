@@ -3,14 +3,14 @@ import type { ItemUUID } from "@client/documents/_module.d.mts";
 import { ItemPF2e } from "@item";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
  */
-class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSchema> {
+class CraftingAbilityRuleElement extends RuleElement<CraftingAbilityRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
 
     constructor(data: CraftingAbilityRuleSource, options: RuleElementOptions) {
@@ -143,7 +143,7 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
 }
 
 interface CraftingAbilityRuleElement
-    extends RuleElementPF2e<CraftingAbilityRuleSchema>,
+    extends RuleElement<CraftingAbilityRuleSchema>,
         ModelPropsFromRESchema<CraftingAbilityRuleSchema> {
     readonly parent: ItemPF2e<CharacterPF2e>;
     slug: string;

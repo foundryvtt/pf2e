@@ -1,5 +1,5 @@
 import { resetActors } from "@actor/helpers.ts";
-import HTMLRangePickerElement from "@client/applications/elements/range-picker.mjs";
+import type HTMLRangePickerElement from "@client/applications/elements/range-picker.d.mts";
 import { WorldClock } from "@module/apps/world-clock/app.ts";
 import type { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { createHTMLElement, ErrorPF2e } from "@util";

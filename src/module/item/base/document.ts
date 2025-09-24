@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor/base.ts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.d.mts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
+import type { ToCompendiumOptions } from "@client/documents/abstract/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
@@ -15,13 +16,13 @@ import type {
 import type { ImageFilePath, RollMode } from "@common/constants.d.mts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { itemIsOfType, markdownToHTML } from "@item/helpers.ts";
+import { addOrUpgradeTrait, itemIsOfType, markdownToHTML } from "@item/helpers.ts";
 import type { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
+import { RuleElement, RuleElementOptions, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
 import { eventToRollMode } from "@module/sheet/helpers.ts";
 import { type EnrichmentOptionsPF2e, type RollDataPF2e, TextEditorPF2e } from "@system/text-editor.ts";
@@ -29,8 +30,8 @@ import {
     ErrorPF2e,
     createHTMLElement,
     htmlClosest,
-    isObject,
     localizer,
+    objectHasKey,
     setHasElement,
     sluggify,
     tupleHasValue,
@@ -73,7 +74,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Prepared rule elements from this item */
-    declare rules: RuleElementPF2e[];
+    declare rules: RuleElement[];
 
     /** The sluggified name of the item **/
     get slug(): string | null {
@@ -278,29 +279,35 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.system.description.override = null;
         this.system.description.initialized = false;
 
-        const flags = this.flags;
-        flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
-
-        const traits = this.system.traits;
-        if (traits.value) {
-            traits.value = traits.value.filter((t) => t in this.constructor.validTraits);
+        // If this item has traits, filter for valid traits and check for annotations
+        if (this.system.traits.value) {
+            this.system.traits.value = this.system.traits.value.filter((t) => t in this.constructor.validTraits);
+            this.system.traits.config = {};
+            for (const trait of this.system.traits.value) {
+                const annotatedTraitMatch = trait.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
+                if (annotatedTraitMatch) {
+                    const [_, traitBase, annotation] = annotatedTraitMatch;
+                    this.system.traits.config[traitBase] = Number(annotation);
+                }
+            }
         }
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
-        if (isObject(flags.pf2e.grantedBy)) {
+        const flags = this.flags;
+        flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
+        if (R.isPlainObject(flags.pf2e.grantedBy)) {
             flags.pf2e.grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
         }
         const grants = (flags.pf2e.itemGrants ??= {});
         for (const grant of Object.values(grants)) {
-            if (isObject(grant)) {
+            if (R.isPlainObject(grant)) {
                 grant.onDelete ??= "detach";
             }
         }
-
         this.grantedBy = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
-    prepareRuleElements(options: Omit<RuleElementOptions, "parent"> = {}): RuleElementPF2e[] {
+    prepareRuleElements(options: Omit<RuleElementOptions, "parent"> = {}): RuleElement[] {
         if (!this.actor) throw ErrorPF2e("Rule elements may only be prepared from embedded items");
         return (this.rules = this.actor.canHostRuleElements
             ? RuleElements.fromOwnedItem({ ...options, parent: this as ItemPF2e<NonNullable<TParent>> })
@@ -420,6 +427,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (options.notify) ui.notifications.info(localize("Success", { item: this.name }));
 
         return this;
+    }
+
+    override exportToJSON(options: ToCompendiumOptions = {}): void {
+        options.clearSource ??= false;
+        super.exportToJSON(options);
     }
 
     getOriginData(): ItemOriginFlag {
@@ -824,7 +836,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /* -------------------------------------------- */
 
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
@@ -872,15 +884,19 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             changed.system.slug = sluggify(changed.system.slug) || null;
         }
 
-        // Sort traits for easier visual scanning in breakpoints
+        // Validate and deduplicate traits and other-tags
         if (changed.system?.traits) {
-            if (Array.isArray(changed.system.traits.value)) {
-                changed.system.traits.value.sort();
+            const traits: { value?: string[]; otherTags?: string[] } = changed.system.traits;
+            if (traits.value && Array.isArray(traits.value)) {
+                const validTraits: ItemTrait[] = [];
+                for (const trait of traits.value) {
+                    if (objectHasKey(this.constructor.validTraits, trait)) {
+                        addOrUpgradeTrait(validTraits, trait);
+                    }
+                }
+                traits.value = validTraits.sort();
             }
-
-            if (Array.isArray(changed.system.traits.otherTags)) {
-                changed.system.traits.otherTags = changed.system.traits.otherTags.map((t) => sluggify(t)).sort();
-            }
+            if (Array.isArray(traits.otherTags)) traits.otherTags = traits.otherTags.map((t) => sluggify(t)).sort();
         }
 
         // Run preUpdateItem rule element callbacks

@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { FormulaPicker } from "@actor/character/apps/formula-picker/app.ts";
-import type { RollMode } from "@common/constants.mjs";
+import type { RollMode } from "@common/constants.d.mts";
 import { AbilityItemPF2e, FeatPF2e } from "@item";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -58,6 +58,7 @@ async function createUseActionMessage(
         selfEffect: !!item.system.selfEffect,
         craftedItem: craftedItem?.toAnchor({ attrs: { draggable: "true" } }).outerHTML,
         withoutResources: craftedItem && !consumeResources,
+        activate: craftedItem?.type === "consumable" && craftedItem.system.usage.type === "held" ? craftedItem : null,
     });
     const flags: { pf2e: ChatMessageFlagsPF2e["pf2e"] } = { pf2e: {} };
     if (item.system.selfEffect) {

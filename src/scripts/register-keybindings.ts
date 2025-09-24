@@ -1,4 +1,5 @@
 import type { PartyPF2e } from "@actor";
+import { htmlQuery, objectHasKey } from "@util";
 
 export function registerKeybindings(): void {
     game.keybindings.register("pf2e", "cycle-token-stack", {
@@ -37,6 +38,30 @@ export function registerKeybindings(): void {
                 sheet.render(true);
             }
 
+            return true;
+        },
+    });
+
+    // Record the last tab that was open
+    let previousCompendiumBrowserTab = "";
+    game.keybindings.register("pf2e", "open-compendium-browser", {
+        name: "PF2E.Keybinding.OpenCompendiumBrowser.Label",
+        hint: "PF2E.Keybinding.OpenCompendiumBrowser.Hint",
+        editable: [],
+        onDown: (): boolean => {
+            const cb = game.pf2e.compendiumBrowser;
+            if (cb.rendered) {
+                if (cb.minimized) {
+                    cb.maximize();
+                } else {
+                    previousCompendiumBrowserTab = htmlQuery(cb.element, "nav .active")?.dataset.tabName ?? "";
+                    cb.close();
+                }
+            } else if (objectHasKey(cb.tabs, previousCompendiumBrowserTab)) {
+                cb.tabs[previousCompendiumBrowserTab].open();
+            } else {
+                cb.render({ force: true });
+            }
             return true;
         },
     });

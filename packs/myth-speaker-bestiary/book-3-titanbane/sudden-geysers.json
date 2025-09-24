@@ -1,0 +1,129 @@
+{
+    "_id": "Ahd1AbUZ36MLnrXu",
+    "folder": "H9CJ9F8U83kU0CYj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Ls65ITaIxgJr85Nh",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scalding Gout",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within the hazard's area rolls initiative</p><hr /><p><strong>Effect</strong> A enormous column of superheated steam rises from the water, dealing @Damage[(4d12+26)[fire]] damage to all creatures in the area (@Check[reflex|dc:28|basic] save). On a critical failure, the creature also takes @Damage[1d12[persistent,fire]] damage as the water continues to burn their skin. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9Bb2WioaCT9Resnx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blistering Plume",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A 30-foot-tall geyser erupts from the boiling water. Creatures in a @Template[type:emanation|distance:5] of the geyser take @Damage[(2d12+13)[fire]|options:area-damage] damage (@Check[reflex|dc:30|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sudden Geysers",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 17
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The pooling seawater burbles and hisses.</p>",
+            "disable": "<p>@Check[arcana|dc:32] or @Check[nature|dc:32] (master) to dissipate the fire-aligned energies in the water, or @Check[diplomacy|dc:28] or @Check[religion|dc:28] to beseech Sangeh and convince her to momentarily tamp down her mythic power; two successes are required to disable the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 10
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #218: Titanbane"
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) The hazard uses each of its actions to create a Blistering Plume centered on a space chosen by the GM. Each successful check to disable the hazard removes one action from this routine.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "fire",
+                "water"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,6 +1,6 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { Immunity } from "@actor/data/iwr.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { ImmunityType } from "@actor/types.ts";
 import type { AbilityItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ConditionPF2e } from "@item";
@@ -20,7 +20,7 @@ class AttackTraitHelpers {
         return trait.replace(/-d?\d{1,3}$/, "");
     }
 
-    static createAttackModifiers({ item, domains }: CreateAttackModifiersParams): ModifierPF2e[] {
+    static createAttackModifiers({ item, domains }: CreateAttackModifiersParams): Modifier[] {
         const actor = item.actor;
         if (!actor) throw ErrorPF2e("The weapon must be embedded");
 
@@ -32,7 +32,7 @@ class AttackTraitHelpers {
                     if (!rangeIncrement) return [];
 
                     const penaltyRange = Number(/-(\d+)$/.exec(trait)![1]);
-                    return new ModifierPF2e({
+                    return new Modifier({
                         slug: unannotatedTrait,
                         label: this.getLabel(trait),
                         modifier: -2,
@@ -50,7 +50,7 @@ class AttackTraitHelpers {
                     });
                 }
                 case "sweep": {
-                    return new ModifierPF2e({
+                    return new Modifier({
                         slug: unannotatedTrait,
                         label: this.getLabel(trait),
                         modifier: 1,
@@ -59,7 +59,7 @@ class AttackTraitHelpers {
                     });
                 }
                 case "backswing": {
-                    return new ModifierPF2e({
+                    return new Modifier({
                         slug: unannotatedTrait,
                         label: this.getLabel(trait),
                         modifier: 1,
@@ -83,11 +83,10 @@ interface CreateAttackModifiersParams {
 function setImmunitiesFromTraits(actor: CreaturePF2e): void {
     if (actor.isOfType("character")) return;
 
-    const traits = actor.traits;
+    const traits = actor.system.traits.value;
     const immunities = actor.attributes.immunities;
     const existing = immunities.map((i) => i.type);
-
-    if (traits.has("construct") && !traits.has("eidolon")) {
+    if (traits.includes("construct") && !traits.includes("eidolon")) {
         // "Constructs are often mindless; they're immune to bleed damage, death effects, disease, healing,
         // nonlethal attacks, poison, vitality, void, and the doomed, drained, fatigued, paralyzed, sickened, and
         // unconscious conditions; and they might have Hardness based on the materials used to construct their bodies."
@@ -119,12 +118,12 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
     }
 
     // "They are immune to all mental effects." – GMC pg. 331
-    if (traits.has("mindless") && !existing.includes("mental")) {
+    if (traits.includes("mindless") && !existing.includes("mental")) {
         immunities.push(new Immunity({ type: "mental", source: game.i18n.localize("PF2E.TraitMindless") }));
     }
 
     // "Swarms are immune to the grappled [sic], prone, and restrained conditions." – GMC pg. 334
-    if (traits.has("swarm")) {
+    if (traits.includes("swarm")) {
         for (const immunity of ["grabbed", "prone", "restrained"] as const) {
             if (!existing.includes(immunity)) {
                 immunities.push(new Immunity({ type: immunity, source: game.i18n.localize("PF2E.TraitSwarm") }));
@@ -137,7 +136,9 @@ function imposeEncumberedCondition(actor: CreaturePF2e): void {
     if (!game.pf2e.settings.encumbrance) return;
     if (actor.inventory.bulk.isEncumbered && actor.conditions.bySlug("encumbered").length === 0) {
         const source = game.pf2e.ConditionManager.getCondition("encumbered").toObject();
-        const encumbered = new ConditionPF2e(fu.mergeObject(source, { _id: "xxxENCUMBEREDxxx" }), { parent: actor });
+        const encumbered = new ConditionPF2e(fu.mergeObject(source, { _id: "xxxENCUMBEREDxxx" }), {
+            parent: actor,
+        }) as ConditionPF2e<CreaturePF2e>;
         actor.conditions.set(encumbered.id, encumbered);
         encumbered.prepareSiblingData();
         encumbered.prepareActorData();

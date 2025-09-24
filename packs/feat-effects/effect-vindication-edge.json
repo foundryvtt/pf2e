@@ -24,11 +24,22 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:trait:divine"
+                    "origin:signature:{item|origin.signature}",
+                    "spellcasting:tradition:divine"
                 ],
+                "removeAfterRoll": "if-enabled",
                 "selector": "saving-throw",
                 "type": "status",
-                "value": "ternary(gte(@item.origin.level,17),-2,-1)"
+                "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "parent:origin:item:tag:vindicator-masterful-hunter"
+                ],
+                "selector": "saving-throw",
+                "value": -2
             }
         ],
         "start": {

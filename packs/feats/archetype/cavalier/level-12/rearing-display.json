@@ -1,0 +1,86 @@
+{
+    "_id": "6qIHbbT76zIVmeEt",
+    "folder": "LgnBzNHzfadK1MoZ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Rearing Display",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are riding your mount.</p><hr /><p>You've trained your mount to make an impressive attack and can leverage its presence to terrify your enemies. You @UUID[Compendium.pf2e.actionspf2e.Item.Command an Animal] to order your mount to rear up and make a melee Strike against a creature within its reach. On a successful hit, you can attempt an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the target. You gain a +1 circumstance bonus to this Intimidation check (+2 if the Strike was a critical hit).</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Cavalier Dedication"
+                },
+                {
+                    "value": "expert in Intimidation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "rearing-display",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.success",
+                        "value": "sucess"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.criticalSuccess",
+                        "value": "critical-success"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize",
+                    "rearing-display"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "action:demoralize",
+                    "rearing-display:critical-success"
+                ],
+                "selector": "intimidation",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

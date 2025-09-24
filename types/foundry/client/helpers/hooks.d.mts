@@ -1,12 +1,18 @@
+import { ApplicationRenderContext, ApplicationRenderOptions } from "@client/applications/_module.mjs";
 import type { DialogV2 } from "@client/applications/api/_module.mjs";
 import type { CombatTrackerConfig } from "@client/applications/apps/_module.mjs";
+import HeadsUpDisplayContainer from "@client/applications/hud/container.mjs";
+import { PlaceableHUDContext } from "@client/applications/hud/placeable-hud.mjs";
 import SettingsConfig from "@client/applications/settings/config.mjs";
+import ChatPopout from "@client/applications/sidebar/apps/chat-popout.mjs";
+import RegionLegend from "@client/applications/ui/region-legend.mjs";
 import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
 import Canvas from "@client/canvas/board.mjs";
 import LightingLayer from "@client/canvas/layers/lighting.mjs";
 import Token from "@client/canvas/placeables/token.mjs";
 import {
     Actor,
+    ChatMessage,
     Combat,
     Item,
     JournalEntry,
@@ -21,7 +27,7 @@ import { DatabaseCreateOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import type ApplicationV2 from "../applications/api/application.mjs";
 import type TokenHUD from "../applications/hud/token-hud.mjs";
-import { ChatLog, CompendiumDirectory, ItemDirectory } from "../applications/sidebar/tabs/_module.mjs";
+import { ChatLog, CompendiumDirectory, ItemDirectory, Settings } from "../applications/sidebar/tabs/_module.mjs";
 import type ActorDirectory from "../applications/sidebar/tabs/actor-directory.mjs";
 import type Hotbar from "../applications/ui/hotbar.mjs";
 import type SceneControls from "../applications/ui/scene-controls.mjs";
@@ -43,7 +49,7 @@ type HookParamsReady = HookParameters<"ready", never[]>;
 
 type HookParamsClose<T extends ApplicationV2, N extends string> = HookParameters<`close${N}`, [T]>;
 type HookParamsDeleteCombat = HookParameters<"deleteCombat", [Combat, { [key: string]: unknown }, string]>;
-type HookParamsDropCanvasData = HookParameters<"dropCanvasData", [Canvas, DropCanvasData]>;
+type HookParamsDropCanvasData = HookParameters<"dropCanvasData", [Canvas, DropCanvasData, DragEvent]>;
 type HookParamsGetChatLogEntryContext = HookParameters<"getChatLogEntryContext", [HTMLElement, ContextMenuEntry[]]>;
 type HookParamsGetSceneControlButtons = HookParameters<"getSceneControlButtons", [Record<string, SceneControl>]>;
 type HookParamsHotbarDrop = HookParameters<"hotbarDrop", [Hotbar<Macro>, DropCanvasData, string]>;
@@ -66,12 +72,17 @@ type HookParamsPreUpdateToken = HookParameters<
         string,
     ]
 >;
-type HookParamsRender<T extends Application | ApplicationV2, N extends string> = HookParameters<
+type HookParamsRender<
+    T extends Application | ApplicationV2,
+    N extends string,
+    C extends ApplicationRenderContext = ApplicationRenderContext,
+> = HookParameters<
     `render${N}`,
     T extends Application
         ? [T, JQuery, Awaited<ReturnType<T["getData"]>>]
-        : [T, HTMLElement, T extends ApplicationV2<infer _First, infer _Second, infer U> ? U : never]
+        : [T, HTMLElement, C, ApplicationRenderOptions]
 >;
+type HookParamsRenderChatMessageHTML = HookParameters<"renderChatMessageHTML", [ChatMessage, string, object]>;
 type HookParamsTargetToken = HookParameters<"targetToken", [User, Token<TokenDocument<Scene>>, boolean]>;
 type HookParamsUpdate<T extends foundry.abstract.Document, N extends string> = HookParameters<
     `update${N}`,
@@ -106,22 +117,27 @@ export default class Hooks {
     static on(...args: HooksParamsPreUpdateCombat): number;
     static on(...args: HookParamsPreUpdateToken): number;
     static on(...args: HookParamsRender<ChatLog, "ChatLog">): number;
+    static on(...args: HookParamsRender<ChatPopout, "ChatPopout">): number;
     static on(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
     static on(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
     static on(...args: HookParamsRender<Dialog, "Dialog">): number;
     static on(...args: HookParamsRender<DialogV2, "DialogV2">): number;
     static on(...args: HookParamsRender<ActorDirectory<Actor<null>>, "ActorDirectory">): number;
+    static on(...args: HookParamsRender<HeadsUpDisplayContainer, "HeadsUpDisplayContainer">): number;
     static on(...args: HookParamsRender<ItemDirectory<Item<null>>, "ItemDirectory">): number;
     static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
+    static on(...args: HookParamsRender<Settings, "Settings">): number;
     static on(...args: HookParamsRender<SettingsConfig, "SettingsConfig">): number;
-    static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
+    static on(...args: HookParamsRender<TokenHUD, "TokenHUD", PlaceableHUDContext>): number;
+    static on(...args: HookParamsRenderChatMessageHTML): number;
+
     static on(
         ...args: HookParamsRender<JournalPageSheet<JournalEntryPage<JournalEntry | null>>, "JournalPageSheet">
     ): number;
     static on(
         ...args: HookParamsRender<JournalTextPageSheet<JournalEntryPage<JournalEntry | null>>, "JournalTextPageSheet">
     ): number;
-    static on(...args: HookParamsRender<ApplicationV2, "RegionLegend">): number;
+    static on(...args: HookParamsRender<RegionLegend, "RegionLegend">): number;
     static on(...args: HookParamsTargetToken): number;
     static on(...args: HookParamsUpdate<Combat, "Combat">): number;
     static on(...args: HookParamsUpdate<Scene, "Scene">): number;
@@ -151,6 +167,7 @@ export default class Hooks {
     static once(...args: HookParamsPreUpdateToken): number;
     static once(...args: HookParamsRender<ActorDirectory<Actor<null>>, "ActorDirectory">): number;
     static once(...args: HookParamsRender<ChatLog, "ChatLog">): number;
+    static once(...args: HookParamsRender<ChatPopout, "ChatPopout">): number;
     static once(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
     static once(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
     static once(...args: HookParamsRender<Dialog, "Dialog">): number;
@@ -162,7 +179,10 @@ export default class Hooks {
         ...args: HookParamsRender<JournalTextPageSheet<JournalEntryPage<JournalEntry | null>>, "JournalTextPageSheet">
     ): number;
     static once(...args: HookParamsRender<SceneControls, "SceneControls">): number;
+    static once(...args: HookParamsRender<Settings, "Settings">): number;
+    static once(...args: HookParamsRender<SettingsConfig, "SettingsConfig">): number;
     static once(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
+    static once(...args: HookParamsRenderChatMessageHTML): number;
     static once(...args: HookParamsTargetToken): number;
     static once(...args: HookParamsUpdate<Combat, "Combat">): number;
     static once(...args: HookParamsUpdate<Scene, "Scene">): number;

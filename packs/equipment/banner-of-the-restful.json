@@ -1,15 +1,15 @@
 {
     "_id": "xldy59c3WDGYlAYs",
-    "img": "systems/pf2e/icons/equipment/held-items/banner-of-the-restful.webp",
+    "img": "icons/sundries/flags/banner-blue.webp",
     "name": "Banner of the Restful",
     "system": {
         "baseItem": null,
         "bulk": {
-            "value": 1
+            "value": 0
         },
         "containerId": null,
         "description": {
-            "value": "<p>Carried by knights who expect to spend the night in the open, this simple-looking banner is accompanied by a long cross pole from which it hangs. Usually, the banner appears to be a piece of plain cloth; when activated, it automatically adopts whatever insignia the person activating it desires.</p>\n<p><strong>Activate</strong> 10 minutes (command, envision, Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You plant the banner firmly in the ground, and a comfortable environment is created around it in a 20-foot radius. Those within the area are shielded against your choice of hot or cold temperatures, gaining the effects of 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Environmental Endurance]. The area created by the banner lasts for 8 hours or until it is removed from the ground.</p>\n<p>As part of the activation, you can choose to ward the same area with an @UUID[Compendium.pf2e.spells-srd.Item.Alarm] spell. In addition to a mental alert for the person who Activates the banner, the alert sent by the <em>alarm</em> spell also includes an audible alarm with the sound and volume of a hand bell, which has the auditory trait. You choose the password as you decide to ward the area.</p>"
+            "value": "<p>This peach-colored magical banner offers the promise of a good watch and a comfortable sleep. You and allies within the banner's aura gain a +1 item bonus to Perception DCs and protection from severe cold and heat.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -17,7 +17,7 @@
             "value": 0
         },
         "level": {
-            "value": 9
+            "value": 4
         },
         "material": {
             "grade": null,
@@ -25,25 +25,39 @@
         },
         "price": {
             "value": {
-                "gp": 700
+                "gp": 100
             }
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens Knights of Lastwall"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Banner of the Restful"
+                    }
+                ],
+                "key": "Aura",
+                "level": 4,
+                "radius": 30,
+                "traits": []
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",
             "value": [
+                "aura",
                 "magical"
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "affixed-or-held-in-one-hand"
         }
     },
     "type": "equipment"

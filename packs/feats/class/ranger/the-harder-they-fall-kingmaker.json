@@ -29,7 +29,44 @@
             "remaster": false,
             "title": "Pathfinder Kingmaker"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:trip",
+                    {
+                        "gt": [
+                            "target:size",
+                            "self:size"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "text": "PF2E.SpecificRule.Ranger.TheHarderTheyFall.CriticalSuccess",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:trip",
+                    {
+                        "gt": [
+                            "target:size",
+                            "self:size"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "text": "PF2E.SpecificRule.Ranger.TheHarderTheyFall.Success",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "rare",
             "value": [

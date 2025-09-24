@@ -1,11 +1,11 @@
-import { DataSchema, DatabaseUpdateOperation } from "@common/abstract/_module.mjs";
+import { DataSchema, DatabaseUpdateOperation, Document } from "@common/abstract/_module.mjs";
 import Collection from "@common/utils/collection.mjs";
 import type DataModel from "./common/abstract/data.mjs";
 
 declare global {
     type Maybe<T> = T | null | undefined;
 
-    type DeepPartial<T> = T extends Date | FileList | File | NestedValue
+    type DeepPartial<T> = T extends Date | FileList | File | NestedValue | Document
         ? T
         : T extends (infer U)[]
           ? DeepPartial<U>[]

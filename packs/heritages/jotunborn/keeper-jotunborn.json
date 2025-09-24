@@ -1,0 +1,48 @@
+{
+    "_id": "m4kFMTu2sOSWgnAU",
+    "folder": "yJnvrcSz6PPOfFs8",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Keeper Jotunborn",
+    "system": {
+        "ancestry": {
+            "name": "Jotunborn",
+            "slug": "jotunborn",
+            "uuid": "Compendium.pf2e.ancestries.Item.gayvFCiQcGNCA7aM"
+        },
+        "description": {
+            "value": "<p>Your work as an iivlar keeper has granted you a greater understanding of these sacred creatures and the ability to track them, as elusive as they may be. You are trained in Survival, and you gain the @UUID[Compendium.pf2e.feats-srd.Item.Survey Wildlife] skill feat. You gain a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Track] animals.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.survival.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Survey Wildlife"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:track",
+                    "target:trait:animal"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

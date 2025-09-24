@@ -1,0 +1,69 @@
+{
+    "_id": "U7gwOeKsIsz2zhDE",
+    "img": "icons/commodities/biological/wing-bird-white.webp",
+    "name": "Effect: Lesson of the Broken Wing",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Lesson of the Broken Wing]</p>\n<p>If you're the origin, you take a –1 penalty to your AC against the marked creature's Strikes. Otherwise, you gain a +1 circumstance bonus to your Strikes against the creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "lesson-of-the-broken-wing"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:lesson-of-the-broken-wing",
+                    "origin:action:slug:strike",
+                    "self:signature:{item|origin.signature}"
+                ],
+                "selector": "ac",
+                "slug": "lesson-of-the-broken-wing-penalty",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:lesson-of-the-broken-wing",
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "slug": "lesson-of-the-broken-wing-bonus",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,63 @@
+{
+    "_id": "91qBP1n04xsKeXkE",
+    "img": "icons/magic/death/weapon-sword-skull-purple.webp",
+    "name": "Effect: Demoralizing Charge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Demoralizing Charge]</p>\n<p>You take a circumstance penalty to your Will save.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeOne",
+                        "value": -1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeTwo",
+                        "value": -2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeThree",
+                        "value": -3
+                    }
+                ],
+                "flag": "penalty",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": "will",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.penalty"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

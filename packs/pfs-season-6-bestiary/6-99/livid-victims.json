@@ -1,0 +1,159 @@
+{
+    "_id": "fx0LDesH0BaNrdm9",
+    "folder": "6bjzqtD29qANaHac",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "AcrqEj6rBzJOWrL7",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Remember Us!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Combat begins</p><hr /><p><strong>Effect</strong> The haunt rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4thZEhBf1wqvVGYU",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Gurgling Gasp",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The haunt emits a cacophony of the ghoul victims' death rattles, forcing all living creatures within @Template[emanation|distance:80]{80 feet} to attempt a @Check[will|dc:17|options:area-effect,inflicts:frightened] save. On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). On a success, a creature is temporarily immune to gurgling gasp for 1 hour. The haunt cannot use gurgling gasp again for [[/gmr 1d6 #Recharge Gurgling Gasp]]{1d6 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Mb9JQUaYhpwJGMDv",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Telekinetic Interference",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The haunt attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] a living creature within 60 feet with a bonus of [[/r 1d20+9]]{+9}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Livid Victims",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 5
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The souls of the ghouls' recent meals cry out from their pile of bones in the nearby tunnel, lamenting their fate.</p>",
+            "disable": "<p>@Check[religion|dc:14] (trained) sets the spirits at ease, or @Check[deception|dc:17], @Check[diplomacy|dc:17], or @Check[intimidation|dc:17] to convince the spirits to not interfere right now. A single success disables the haunt. PCs may accrue additional successes beyond the first—each one convinces the haunt to use telekinetic interference once against ghouls in the haunt's range instead of the living creatures.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-99: Under the Eye of the Mantis"
+            },
+            "reset": "",
+            "routine": "<p>(two actions) The haunt uses one action to activate its gurgling gasp and then uses telekinetic interference for all of its other actions until it can use gurgling gasp again.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Usage</strong> imbued in one or two weapon ikons that both have the thrown trait (see text)</p><hr /><p>Your ikons bond like a pair of one-winged birds. This feat can be imbued in either a single ikon with multiple copies, such as one produced by the @UUID[Compendium.pf2e.classfeatures.Item.Shadow Sheath] or with the @UUID[Compendium.pf2e.feats-srd.Item.Twin Stars] feat, or two separate ikons (bypassing the normal limit per ikon feat).</p>\n<p><strong>Immanence</strong> As long as you hold one ikon, the other will return to find its partner. Both ikons gain the returning rune.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Rejoin in Flight] <span class=\"action-glyph\">2</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.I08t3hnpMZSRX5Ug inline]</p>"
+            "value": "<p><strong>Usage</strong> imbued in one or two weapon ikons that both have the thrown trait (see text)</p><hr /><p>Your ikons bond like a pair of one-winged birds. This feat can be imbued in either a single ikon with multiple copies, such as one produced by the @UUID[Compendium.pf2e.classfeatures.Item.Shadow Sheath] or with the @UUID[Compendium.pf2e.feats-srd.Item.Twin Stars] feat, or two separate ikons (bypassing the normal limit per ikon feat).</p>\n<p><strong>Immanence</strong> As long as you hold one ikon, the other will return to find its partner. Both ikons gain the returning rune.</p>\n<p><strong>Transcendence—@UUID[Compendium.pf2e.actionspf2e.Item.Rejoin in Flight]</strong> <span class=\"action-glyph\">2</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.I08t3hnpMZSRX5Ug inline]</p>"
         },
         "level": {
             "value": 10
@@ -72,6 +72,12 @@
                 "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.secondIkon}"
             },
             {
+                "disabledIf": [
+                    {
+                        "not": "divine-spark:{item|flags.pf2e.rulesSelections.ikon}"
+                    }
+                ],
+                "disabledValue": false,
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Exemplar.MatedBirdsInPairedFlight.RejoinInFlight.RollOptionLabel",
                 "option": "rejoin-in-flight",

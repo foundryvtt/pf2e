@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You slow your foes with a well-aimed attack. Make a Strike against your hunted prey with a -2 penalty. If you hit your prey, the creature takes a -5-foot status penalty to Speed. If you critically hit your prey, the creature takes a -10-foot status penalty to Speed. A creature immune to bleed damage does not take this penalty. The penalty can be removed using any method that removes persistent bleed damage or offers a flat check to do so, such as Administer First Aid.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Hamstringing Strike]</p>"
+            "value": "<p>You slow your foes with a well-aimed attack. Make a Strike against your hunted prey with a –2 penalty. If you hit your prey, the creature takes a –5-foot status penalty to Speed. If you critically hit your prey, the creature takes a –10-foot status penalty to Speed. A creature immune to bleed damage does not take this penalty. The penalty can be removed using any method that removes persistent bleed damage or offers a flat check to do so, such as @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid].</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Hamstringing Strike]</p>"
         },
         "level": {
             "value": 8
@@ -29,15 +29,13 @@
             {
                 "key": "RollOption",
                 "option": "hamstringing-strike",
-                "predicate": [
-                    "target:mark:hunted-prey"
-                ],
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "hamstringing-strike"
+                    "hamstringing-strike",
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "strike-attack-roll",
                 "value": -2
@@ -49,7 +47,8 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "hamstringing-strike"
+                    "hamstringing-strike",
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.Ranger.HamstringingStrike.Note",

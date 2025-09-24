@@ -1,0 +1,157 @@
+{
+    "_id": "FlyWq9znOHvpISNW",
+    "img": "icons/creatures/magical/construct-iron-stomping-yellow.webp",
+    "name": "Effect: Taunt",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Taunt]</p>\n<p>You take a –1 circumstance penalty to attack rolls and DCs that don't target the origin. If you take a hostile action that doesn't target the origin, you also become @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Guardian.Taunt.ToggleLabel",
+                "option": "taunt-dc-penalty",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "target:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "attack-roll",
+                "slug": "taunt-attack-roll",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "not": "target:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "attack-roll",
+                "text": "PF2E.SpecificRule.Guardian.Taunt.Note",
+                "title": "PF2E.SpecificRule.Guardian.Taunt.Label"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "taunt-dc-penalty"
+                ],
+                "selector": [
+                    "inline-dc",
+                    "spell-dc"
+                ],
+                "slug": "taunt-dc",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Guardian.Taunt.Label",
+                "mode": "add",
+                "predicate": [
+                    "taunt-dc-penalty"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Guardian.Taunt.Note"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Guardian.Taunt.Label",
+                "mode": "add",
+                "predicate": [
+                    "taunt-dc-penalty"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Guardian.Taunt.Note"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Guardian.Taunt.Label",
+                "mode": "add",
+                "predicate": [
+                    "taunt-dc-penalty"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Guardian.Taunt.Note"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Guardian.Bodyguard.ToggleLabel",
+                "option": "bodyguard-taunt",
+                "predicate": [
+                    "parent:origin:item:tag:bodyguard"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "bodyguard-taunt",
+                    {
+                        "or": [
+                            "penalty:slug:taunt-attack-roll",
+                            "penalty:slug:taunt-dc"
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "attack-roll",
+                    "inline-dc",
+                    "spell-dc"
+                ],
+                "value": -2
+            },
+            {
+                "key": "RollOption",
+                "option": "self:effect:taunt:{item|origin.signature}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

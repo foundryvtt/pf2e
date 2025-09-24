@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
-import { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
+import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import type { SpellPF2e, WeaponPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { RawItemChatData } from "@item/base/data/index.ts";

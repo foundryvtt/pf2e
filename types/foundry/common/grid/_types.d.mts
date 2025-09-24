@@ -1,4 +1,4 @@
-import { GridDiagonal, GridSnappingMode } from "@common/constants.mjs";
+import { GridDiagonalRule, GridSnappingMode } from "@common/constants.mjs";
 import { ColorSource, DeepReadonly, ElevatedPoint, Point } from "../_types.mjs";
 
 /**
@@ -102,16 +102,61 @@ export interface GridMeasurePathWaypointData3D {
     cost?: number | GridMeasurePathCostFunction3D;
 }
 
-/**
- * A waypoint of {@link GridMeasurePathResult}.
- */
-export interface GridMeasurePathResult {
-    waypoints: GridMeasurePathResultWaypoint[];
-    segments: GridMeasurePathResultSegment[];
+/** A waypoint of {@link foundry.grid.types.GridMeasurePathResult}. */
+export interface GridMeasurePathResultWaypoint {
+    /** The segment from the previous waypoint to this waypoint. */
+    backward: GridMeasurePathResultSegment | null;
+    /** The segment from this waypoint to the next waypoint. */
+    forward: GridMeasurePathResultSegment | null;
+    /** The total distance travelled along the path up to this waypoint. */
     distance: number;
+    /** The total cost of the direct path ({@link BaseGrid#getDirectPath}) up to this waypoint. */
     cost: number;
+    /** The total number of spaces moved along a direct path up to this waypoint. */
     spaces: number;
+    /** The total number of diagonals moved along a direct path up to this waypoint. */
     diagonals: number;
+    /** The total Euclidean length of the straight line path up to this waypoint. */
+    euclidean: number;
+}
+
+/** The measurements of a segment. */
+export interface GridMeasurePathResultSegment {
+    /** The waypoint that this segment starts from. */
+    from: GridMeasurePathResultWaypoint;
+    /** The waypoint that this segment goes to. */
+    to: GridMeasurePathResultWaypoint;
+    /** The distance travelled in grid units along this segment. */
+    distance: number;
+    /** The cost of the direct path ({@link BaseGrid#getDirectPath}) between the two waypoints. */
+    cost: number;
+    /** The number of spaces moved along this segment. */
+    spaces: number;
+    /** The number of diagonals moved along this segment. */
+    diagonals: number;
+    /** The Euclidean length of the straight line segment between the two waypoints. */
+    euclidean: number;
+}
+
+/** The measurements result of {@link BaseGrid#measurePath}. */
+export interface GridMeasurePathResult {
+    /** The measurements at each waypoint. */
+    waypoints: GridMeasurePathResultWaypoint[];
+    /** The measurements at each segment. */
+    segments: GridMeasurePathResultSegment[];
+    /** The total distance travelled along the path through all waypoints. */
+    distance: number;
+    /** The total cost of the direct path ({@link BaseGrid#getDirectPath}) through all waypoints. */
+    cost: number;
+    /** The total number of spaces moved along a direct path through all waypoints.
+     *  Moving from a grid space to any of its neighbors counts as 1 step.
+     *  Always 0 in gridless grids
+     */
+    spaces: number;
+    /** The total number of diagonals moved along a direct path up to this waypoint. */
+    diagonals: number;
+    /** The total Euclidean length of the straight line path up to this waypoint. */
+    euclidean: number;
 }
 
 /**
@@ -188,7 +233,7 @@ interface SquareGridConfiguration extends GridConfiguration {
      * The rule for diagonal measurement (see {@link CONST.GRID_DIAGONALS}).
      * @default CONST.GRID_DIAGONALS.EQUIDISTANT
      */
-    diagonals?: GridDiagonal;
+    diagonals?: GridDiagonalRule;
 }
 
 interface HexagonalGridConfiguration extends SquareGridConfiguration {

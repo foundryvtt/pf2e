@@ -1,6 +1,6 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { createShoddyPenalty } from "@actor/character/helpers.ts";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import type { ArmorPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
@@ -38,13 +38,12 @@ class ArmorStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TAc
     }
 
     /** If this statistic belongs to a PC, create bonuses and penalties from their worn armor */
-    #createBonusesAndPenalties(): ModifierPF2e[] {
-        const { actor } = this;
-
+    #createBonusesAndPenalties(): Modifier[] {
+        const actor = this.actor;
         const armor = actor.isOfType("character") ? actor.wornArmor : null;
         const armorSlug = armor?.baseType ?? armor?.slug ?? sluggify(armor?.name ?? "");
         const itemBonus = armor
-            ? new ModifierPF2e({
+            ? new Modifier({
                   label: armor.name,
                   type: "item",
                   slug: armorSlug,
@@ -56,13 +55,12 @@ class ArmorStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TAc
                   ),
               })
             : null;
-
         return [itemBonus, createShoddyPenalty(actor, armor, this.dc.domains), this.#createShieldBonus()].filter(
             R.isTruthy,
         );
     }
 
-    #createShieldBonus(): ModifierPF2e | null {
+    #createShieldBonus(): Modifier | null {
         const { actor } = this;
         if (!actor.isOfType("character", "npc")) return null;
 
@@ -70,7 +68,7 @@ class ArmorStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TAc
         const slug = "raised-shield";
 
         return shieldData.raised && !shieldData.broken
-            ? new ModifierPF2e({
+            ? new Modifier({
                   label: shieldData.name,
                   slug,
                   adjustments: extractModifierAdjustments(

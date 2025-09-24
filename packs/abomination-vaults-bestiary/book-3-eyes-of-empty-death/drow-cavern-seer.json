@@ -2469,7 +2469,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "stone-defense",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "stone-defense"
+                        ],
+                        "type": "all-damage",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -2492,7 +2506,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The cavern seer is underground</p>\n<hr />\n<p><strong>Effect</strong> Pebbles and dust rise from the stone to impede vision. The cavern seer and their allies within 60 feet become concealed for 1 minute.</p>\n<p>This concealment can't be used to Hide or Sneak.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The cavern seer is underground</p>\n<hr />\n<p><strong>Effect</strong> Pebbles and dust rise from the stone to impede vision. The cavern seer and their allies within @Template[emanation|distance:60]{60 feet} become @UUID[Compendium.pf2e.conditionitems.Item.Concealed] for 1 minute.</p>\n<p>This concealment can't be used to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak].</p>"
                 },
                 "frequency": {
                     "max": 1,

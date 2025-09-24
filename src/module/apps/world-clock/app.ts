@@ -8,7 +8,7 @@ import * as R from "remeda";
 import { animateDarkness } from "./animate-darkness.ts";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
 
-interface WorldClockData {
+interface WorldClockRenderContext extends fa.ApplicationRenderContext {
     date: string;
     time: string;
     options?: object;
@@ -195,7 +195,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         }
     }
 
-    protected override async _prepareContext(options: HandlebarsRenderOptions): Promise<WorldClockData> {
+    protected override async _prepareContext(options: HandlebarsRenderOptions): Promise<WorldClockRenderContext> {
         const date =
             this.dateTheme === "CE"
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
@@ -246,7 +246,10 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     }
 
     /** Advance the world time by a static or input value */
-    protected override async _onRender(context: WorldClockData, options: HandlebarsRenderOptions): Promise<void> {
+    protected override async _onRender(
+        context: WorldClockRenderContext,
+        options: HandlebarsRenderOptions,
+    ): Promise<void> {
         await super._onRender(context, options);
 
         document.removeEventListener("keydown", this.#controlKeyHandler);

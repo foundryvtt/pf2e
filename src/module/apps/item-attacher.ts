@@ -1,15 +1,45 @@
-import type { PhysicalItemPF2e } from "@item";
-import { PickAThingPrompt, PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
+import { iterateAllItems } from "@actor/helpers.ts";
+import { ApplicationRenderContext } from "@client/applications/_module.mjs";
+import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
+import { UserPF2e } from "@module/user/document.ts";
 import { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import { ErrorPF2e } from "@util";
 
 /** A prompt for the user to select an item to receive an attachment */
-class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TItem, PhysicalItemPF2e> {
+class ItemAttacher extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
+    constructor({ item }: { item: PhysicalItemPF2e }) {
+        super();
+        if (!item.isAttachable) throw ErrorPF2e("Not an attachable item");
+        const actor = item.actor;
+        const collection: ItemPF2e[] = actor ? [...iterateAllItems(actor)] : game.items.contents;
+        this.item = item;
+        this.choices = collection
+            .filter((i): i is PhysicalItemPF2e => i.isOfType("physical"))
+            .filter((i) => i.quantity > 0 && i.acceptsSubitem(item))
+            .sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
+
+        if (this.choices.length === 0) {
+            const locKey = "PF2E.Item.Physical.Attach.NoEligibleItem";
+            const message = game.i18n.format(locKey, { attachable: this.item.name });
+            ui.notifications.warn(message);
+            this.close();
+        }
+    }
+
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         id: "item-attacher",
         window: {
+            icon: "fa-solid fa-paperclip",
             contentClasses: ["standard-form"],
+            resizable: false,
+        },
+        position: {
+            height: "auto",
+            width: "auto",
+        },
+        actions: {
+            attach: ItemAttacher.#onClickAttach,
         },
     };
 
@@ -17,55 +47,39 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
         base: { template: "systems/pf2e/templates/items/item-attacher.hbs", root: true },
     };
 
-    constructor({ item }: { item: TItem }) {
-        if (!item.isAttachable) {
-            throw ErrorPF2e("Not an attachable item");
-        }
-        const collection =
-            item.actor?.inventory.contents ??
-            game.items.filter((i): i is PhysicalItemPF2e<null> => i.isOfType("physical"));
-        const choices = collection
-            .filter((i) => i.quantity > 0 && i.acceptsSubitem(item))
-            .map((i) => ({ value: i, img: i.img, label: i.name }))
-            .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
+    item: PhysicalItemPF2e;
 
-        super({ item, choices });
-    }
+    choices: PhysicalItemPF2e[];
 
     override get title(): string {
         return game.i18n.format("PF2E.Item.Physical.Attach.PromptTitle", { item: this.item.name });
     }
 
-    protected override getSelection(event: MouseEvent): PickableThing<PhysicalItemPF2e> | null {
-        const selection = super.getSelection(event);
-        if (selection) this.#attach(selection.value);
-        return selection;
+    static #onClickAttach(this: ItemAttacher): void {
+        const selectElement = this.element.querySelector<HTMLSelectElement>("select[data-choices]");
+        const selection = selectElement ? this.choices.at(Number(selectElement.value)) : null;
+        if (selection) this.#attach(selection);
+        this.close();
     }
 
-    override async resolveSelection(): Promise<PickableThing<PhysicalItemPF2e> | null> {
+    protected override _canRender(options: fa.ApplicationRenderOptions): boolean | void {
         if (this.choices.length === 0) {
             const locKey = "PF2E.Item.Physical.Attach.NoEligibleItem";
             const message = game.i18n.format(locKey, { attachable: this.item.name });
             ui.notifications.warn(message);
-            return null;
+            return false;
         }
 
-        return super.resolveSelection();
+        return super._canRender(options);
     }
 
-    protected override async _onRender(context: object, options: fa.ApplicationRenderOptions): Promise<void> {
-        await super._onRender(context, options);
-        const html = this.element;
-
-        const attachButton = html.querySelector<HTMLButtonElement>("button[data-action=pick]");
-        const selectEl = html.querySelector<HTMLSelectElement>("select[data-choices]");
-        if (!(attachButton && selectEl)) {
-            throw ErrorPF2e("Unexpected error adding listeners to item attacher");
-        }
-
-        selectEl.addEventListener("change", () => {
-            attachButton.value = selectEl.value;
-        });
+    override async _prepareContext(): Promise<ItemAttacherContext> {
+        return {
+            item: this.item,
+            choices: this.choices.map((i, index) => ({ label: i.name, value: index })),
+            user: game.user,
+            requiresCrafting: !!this.item.actor?.skills?.crafting && this.item.system.usage.type !== "installed",
+        };
     }
 
     /**
@@ -75,31 +89,11 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
     async #attach(attachmentTarget: PhysicalItemPF2e): Promise<boolean> {
         const checkRequested = !!this.element?.querySelector<HTMLInputElement>("input[data-crafting-check]")?.checked;
         if (checkRequested && !(await this.#craftingCheck(attachmentTarget))) return false;
-
-        const targetSource = attachmentTarget.toObject();
-        if (!targetSource.system.subitems) {
-            throw ErrorPF2e("This item does not accept attachments");
-        }
-        const subitems = targetSource.system.subitems;
-        const attachmentSource = this.item.toObject();
-        attachmentSource.system.quantity = 1;
-        attachmentSource.system.equipped = { carryType: "attached", handsHeld: 0 };
-        if (subitems.some((s) => s._id === attachmentSource._id)) {
-            attachmentSource._id = fu.randomID();
-        }
-        subitems.push(attachmentSource);
-
-        const newQuantity = this.item.quantity - 1;
-        const updated = await Promise.all([
-            newQuantity <= 0 ? this.item.delete() : this.item.update({ "system.quantity": newQuantity }),
-            attachmentTarget.update({ "system.subitems": subitems }),
-        ]);
-
-        return updated.every((u) => !!u);
+        return attachmentTarget.attach(this.item);
     }
 
     async #craftingCheck(attachmentTarget: PhysicalItemPF2e): Promise<boolean> {
-        const statistic = this.actor?.skills?.crafting;
+        const statistic = this.item.actor?.skills?.crafting;
         if (!statistic) throw ErrorPF2e("Item not owned by a creature");
 
         const dc = { value: 10, visible: true };
@@ -132,6 +126,14 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
 
         return (roll?.total ?? 0) >= dc.value;
     }
+}
+
+interface ItemAttacherContext extends ApplicationRenderContext {
+    choices: { label: string; value: number }[];
+    /** An item pertinent to the selection being made */
+    item: ItemPF2e;
+    user: UserPF2e;
+    requiresCrafting: boolean;
 }
 
 export { ItemAttacher };

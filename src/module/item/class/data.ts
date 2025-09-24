@@ -1,6 +1,6 @@
 import type { AttributeString, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.mjs";
+import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.d.mts";
 import { ABCFeatureEntryField } from "@item/abc/data.ts";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type { BaseItemSourcePF2e, ItemSystemSource, RarityTraitAndOtherTags } from "@item/base/data/system.ts";
@@ -108,7 +108,7 @@ interface ClassSystemData
 }
 
 type ClassSystemSchema = Omit<ItemSystemSchema, "traits"> & {
-    items: RecordField<fields.StringField<string, string, true, false>, ABCFeatureEntryField>;
+    items: RecordField<fields.StringField<string, string, true, false>, ABCFeatureEntryField, true, false, true, true>;
     traits: fields.SchemaField<{
         otherTags: fields.ArrayField<SlugField<true, false, false>>;
         rarity: RarityField;

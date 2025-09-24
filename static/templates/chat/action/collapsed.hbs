@@ -6,7 +6,7 @@
     {{{description}}}
 </div>
 
-{{#if (or selfEffect craftedItem)}}
+{{#if (or selfEffect craftedItem activate)}}
     <div class="message-buttons">
         {{#if craftedItem}}
             <div class="crafted-item">
@@ -16,6 +16,11 @@
         {{#if selfEffect}}
             <button type="button" data-action="applyEffect" data-targets="{{actor.uuid}}" data-visibility="owner">
                 {{localize "PF2E.Action.ApplyEffect"}}
+            </button>
+        {{/if}}
+        {{#if activate}}
+            <button type="button" data-action="activate" data-uuid="{{activate.uuid}}" data-visibility="owner">
+                {{localize "PF2E.Item.Activation.Activate"}}
             </button>
         {{/if}}
     </div>

@@ -1,11 +1,12 @@
+import type { Localization } from "@client/helpers/_module.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { SocketMessage } from "@scripts/socket.ts";
+import type { SocketMessage } from "@scripts/socket.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionGlyph, localizer } from "@util";
 import type { ActorPF2e } from "./base.ts";
-import { TraitViewData } from "./data/base.ts";
+import type { TraitViewData } from "./data/base.ts";
 
 export interface ItemTransferData {
     source: {

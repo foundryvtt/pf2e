@@ -293,16 +293,31 @@ class DataUnionField<
         value: unknown,
         options?: DataFieldValidationOptions | undefined,
     ): boolean | void | validation.DataModelValidationFailure {
+        const errors: { field: TField; result: validation.DataModelValidationFailure }[] = [];
         for (const field of this.fields) {
             const result = field.validate(value, options);
             if (result instanceof validation.DataModelValidationFailure) {
-                if (field === this.fields.at(-1)) return result;
-                continue;
+                errors.push({ field, result });
             } else {
                 return true;
             }
         }
-        return false;
+
+        const lastError = errors.at(-1)?.result;
+        if (!lastError) return false;
+
+        // Attempt to determine which error is the most relevant based on simple heuristics
+        if (Array.isArray(value)) {
+            return errors.findLast((e) => e.field instanceof fields.ArrayField)?.result ?? lastError;
+        } else if (typeof value === "object") {
+            // This is not exhaustive, but it only needs to catch the most common cases
+            return (
+                errors.findLast((e) => e.field instanceof fields.ObjectField || e.field instanceof fields.SchemaField)
+                    ?.result ?? lastError
+            );
+        } else {
+            return lastError;
+        }
     }
 
     override initialize(

@@ -19,9 +19,9 @@ export const GetSceneControlButtons = {
                     visible: settings.showClockButton && (game.user.isGM || settings.playersCanView),
                     onChange: () => {
                         if (game.pf2e.worldClock.rendered) {
-                            game.pf2e.worldClock.close({ force: true });
+                            game.pf2e.worldClock.close();
                         } else {
-                            game.pf2e.worldClock.render(true);
+                            game.pf2e.worldClock.render({ force: true });
                         }
                     },
                 };

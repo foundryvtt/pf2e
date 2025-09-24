@@ -1,0 +1,74 @@
+{
+    "_id": "fDLJIA6Kl81WA6gy",
+    "img": "icons/skills/melee/shield-damaged-broken-brown.webp",
+    "name": "Effect: Perfect Protection",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Perfect Protection]</p>\n<p>When you critically hit the origin, they roll a DC 14 flat check. On a success, it becomes a normal hit. If the origin's armor has a fortification rune, they roll only one flat check, but the DC is 12 (or 10 if it's a greater fortification rune).</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 18
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "parent:tag:dc-14"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.FortificationLikeEffect.Fourteen",
+                "title": "PF2E.SpecificRule.Guardian.PerfectProtection.Label"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "parent:tag:dc-12"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "@Localize[PF2E.SpecificRule.FortificationLikeEffect.Twelve]\n@Localize[PF2E.SpecificRule.FortificationLikeEffect.Fortification]",
+                "title": "PF2E.SpecificRule.Guardian.PerfectProtection.Label"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "parent:tag:dc-10"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "@Localize[PF2E.SpecificRule.FortificationLikeEffect.Ten]\n@Localize[PF2E.SpecificRule.FortificationLikeEffect.Fortification]",
+                "title": "PF2E.SpecificRule.Guardian.PerfectProtection.Label"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

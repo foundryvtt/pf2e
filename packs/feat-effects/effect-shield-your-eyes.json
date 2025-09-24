@@ -1,0 +1,68 @@
+{
+    "_id": "YU6NYuil87dSrRh7",
+    "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
+    "name": "Effect: Shield Your Eyes",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Shield Your Eyes]</p>\n<p>If you critically succeed against the origin's DC with a light or visual trait, it's a success instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:visual",
+                            "item:trait:light"
+                        ]
+                    }
+                ],
+                "selector": "attack"
+            },
+            {
+                "adjustment": {
+                    "criticalSuccess": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:visual",
+                            "item:trait:light"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

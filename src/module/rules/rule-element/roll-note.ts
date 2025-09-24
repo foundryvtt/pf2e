@@ -3,11 +3,11 @@ import { RollNotePF2e } from "@module/notes.ts";
 import type { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { DataUnionField, StrictStringField } from "@system/schema-data-fields.ts";
-import { RuleElementPF2e } from "./base.ts";
+import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
-class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
+class RollNoteRuleElement extends RuleElement<RollNoteSchema> {
     static override defineSchema(): RollNoteSchema {
         return {
             ...super.defineSchema(),
@@ -33,12 +33,13 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
                 ],
                 { required: true, nullable: false },
             ),
+            battleForm: new fields.BooleanField({ required: false }),
         };
     }
 
     override beforePrepareData(): void {
         if (this.ignored) return;
-
+        if (this.battleForm && !this.predicate.includes("battle-form")) this.predicate.push("battle-form");
         for (const selector of this.resolveInjectedProperties(this.selector)) {
             if (selector === "null") continue;
 
@@ -46,7 +47,6 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
             const text = this.resolveInjectedProperties(
                 String(this.resolveValue(this.text, "", { evaluate: false })),
             ).trim();
-
             if (!text) return this.failValidation("text field resolved empty");
 
             const note = new RollNotePF2e({
@@ -64,7 +64,7 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     }
 }
 
-interface RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema>, ModelPropsFromRESchema<RollNoteSchema> {}
+interface RollNoteRuleElement extends RuleElement<RollNoteSchema>, ModelPropsFromRESchema<RollNoteSchema> {}
 
 type RollNoteSchema = RuleElementSchema & {
     /** The statistic(s) slugs of the rolls for which this note will be appended */
@@ -86,6 +86,8 @@ type RollNoteSchema = RuleElementSchema & {
     text: DataUnionField<
         StrictStringField<string, string, true, false, false> | ResolvableValueField<true, false, false>
     >;
+    /** Whether this rule element is for use with battle forms */
+    battleForm: fields.BooleanField<boolean, boolean, false, false, true>;
 };
 
 interface NoteRESource extends RuleElementSource {

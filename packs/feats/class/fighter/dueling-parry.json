@@ -25,10 +25,36 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "slug": "parry-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "hands-free:0"
+                ],
+                "selector": "ac",
+                "slug": "parry-bonus",
+                "value": 0
+            }
+        ],
         "selfEffect": {
-            "name": "Effect: Dueling Parry",
-            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Dueling Parry"
+            "name": "Effect: Parry",
+            "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Parry"
         },
         "traits": {
             "rarity": "common",

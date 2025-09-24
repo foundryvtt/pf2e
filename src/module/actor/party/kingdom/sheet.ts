@@ -10,7 +10,7 @@ import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
 import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
-import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { ValueAndMax } from "@module/data.ts";
 import {
@@ -644,7 +644,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
     }
 
-    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
+    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemData): Promise<ItemPF2e[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 

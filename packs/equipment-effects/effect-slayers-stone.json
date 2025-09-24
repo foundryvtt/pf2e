@@ -1,0 +1,204 @@
+{
+    "_id": "xLKLKfm0p8ubp4Fe",
+    "img": "icons/commodities/stone/paver-cobble-white.webp",
+    "name": "Effect: Slayer's Stone",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Slayer's Stone]</p>\n<p>Choose aberration, animal, beast, celestial, construct, dragon, elemental, fey, fiend, giant, monitor, ooze, or both fungus and plant. Your selected weapon deals an additional 1d6 precision damage to creatures with the chosen trait or traits.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAberration",
+                        "value": "aberration"
+                    },
+                    {
+                        "label": "PF2E.TraitAnimal",
+                        "value": "animal"
+                    },
+                    {
+                        "label": "PF2E.TraitBeast",
+                        "value": "beast"
+                    },
+                    {
+                        "label": "PF2E.TraitCelestial",
+                        "value": "celestial"
+                    },
+                    {
+                        "label": "PF2E.TraitConstruct",
+                        "value": "construct"
+                    },
+                    {
+                        "label": "PF2E.TraitDragon",
+                        "value": "dragon"
+                    },
+                    {
+                        "label": "PF2E.TraitElemental",
+                        "value": "elemental"
+                    },
+                    {
+                        "label": "PF2E.TraitFey",
+                        "value": "fey"
+                    },
+                    {
+                        "label": "PF2E.TraitFiend",
+                        "value": "fiend"
+                    },
+                    {
+                        "label": "PF2E.TraitGiant",
+                        "value": "giant"
+                    },
+                    {
+                        "label": "PF2E.TraitMonitor",
+                        "value": "monitor"
+                    },
+                    {
+                        "label": "PF2E.TraitOoze",
+                        "value": "ooze"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Traits.FungusAndPlant",
+                        "value": "fungus-and-plant"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "slayers-stone"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "slayers-stone:aberration",
+                                    "target:trait:aberration"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:animal",
+                                    "target:trait:animal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:beast",
+                                    "target:trait:beast"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:celestial",
+                                    "target:trait:celestial"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:construct",
+                                    "target:trait:construct"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:dragon",
+                                    "target:trait:dragon"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:elemental",
+                                    "target:trait:elemental"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:fey",
+                                    "target:trait:fey"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:fiend",
+                                    "target:trait:fiend"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:giant",
+                                    "target:trait:giant"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:monitor",
+                                    "target:trait:monitor"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:ooze",
+                                    "target:trait:ooze"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "slayers-stone:fungus-and-plant",
+                                    {
+                                        "or": [
+                                            "target:trait:fungus",
+                                            "target:trait:plant"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

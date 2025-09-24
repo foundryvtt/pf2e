@@ -312,6 +312,7 @@
                     "DetailsPlaceholder": "Caveats, other unusual specifics",
                     "Plural": "Languages",
                     "adlet": "Adlet",
+                    "aishmayar": "Aishmayar",
                     "akitonian": "Akitonian",
                     "aklo": "Aklo",
                     "alghollthu": "Alghollthu",
@@ -363,6 +364,7 @@
                     "kaava": "Kaava",
                     "kashrishi": "Kashrishi",
                     "kelish": "Kelish",
+                    "khattibi": "Khattibi",
                     "kholo": "Kholo",
                     "kibwani": "Kibwani",
                     "kitsune": "Kitsune",
@@ -378,9 +380,11 @@
                     "mwangi": "Mwangi",
                     "mzunu": "Mzunu",
                     "nagaji": "Nagaji",
+                    "ninshaburian": "Ninshaburian",
                     "necril": "Necril",
                     "ocotan": "Ocotan",
                     "okaiyan": "Okaiyan",
+                    "old-keleshite": "Old Keleshite",
                     "orcish": "Orcish",
                     "orvian": "Orvian",
                     "osiriani": "Osiriani",
@@ -416,6 +420,8 @@
                     "tengu": "Tengu",
                     "thalassic": "Thalassic",
                     "thassilonian": "Thassilonian",
+                    "thokol": "Thokol",
+                    "tidespeech": "Tidespeech",
                     "tien": "Tien",
                     "utopian": "Utopian",
                     "vanara": "Vanara",
@@ -564,7 +570,8 @@
                 "Type": "Type"
             },
             "Speed": {
-                "BaseLabel": "Base {type} Speed",
+                "BaseLabel": "{value}-Foot {type} Speed",
+                "BaseWithSource": "{value}-Foot {type} Speed ({source})",
                 "Plural": "Speeds",
                 "Label": "Speed",
                 "LabelFeet": "Speed (Feet)",
@@ -1048,10 +1055,13 @@
                 "SourcesLabel": "Sources",
                 "Title": "Compendium Browser Settings"
             },
-            "TabAction": "Actions",
+            "TabAbilities": "Abilities",
             "TabBestiary": "Bestiaries",
             "TabCampaign": "Campaign",
+            "TabEquipment": "Equipment",
             "TabFeat": "Feats/Features",
+            "TabHazard": "Hazards",
+            "TabSpell": "Spells",
             "TakeLabel": "Take Item",
             "Title": "Compendium Browser",
             "TraitsComponent": {
@@ -1313,6 +1323,7 @@
                     "stupefied": "stupefied",
                     "swarm-attacks": "swarm attacks",
                     "swarm-mind": "swarm mind",
+                    "time": "time",
                     "trip": "trip",
                     "unarmed-attacks": "unarmed attacks",
                     "unconscious": "unconscious",
@@ -1760,7 +1771,10 @@
                 "Envision": "envision",
                 "EnvisionSheetLabel": "Envision",
                 "Interact": "Interact",
-                "Label": "Activation"
+                "Label": "Activation",
+                "Warning": {
+                    "ItemDoesNotExist": "Item to activate does not exist"
+                }
             },
             "Affliction": {
                 "AddStage": "Add Stage",
@@ -1830,6 +1844,7 @@
                     "heavy-barding": "Heavy Barding",
                     "light-barding": "Light Barding"
                 },
+                "GradeOption": "{grade} (+{bonus}; resilient +{resilient})",
                 "Rune": {
                     "Resilient": {
                         "Label": "Resilient Rune"
@@ -2372,6 +2387,11 @@
                 "ShowTokenIcon": "Show token icon?",
                 "Unidentified": "Unidentified?"
             },
+            "Equipment": {
+                "Category": {
+                    "upgrade": "Upgrade"
+                }
+            },
             "FIELDS": {
                 "category": {
                     "label": "Category"
@@ -2460,6 +2480,11 @@
                 "Hint": "Additional tags beyond traits to help classify an item"
             },
             "Physical": {
+                "FIELDS": {
+                    "grade": {
+                        "label": "Grade"
+                    }
+                },
                 "Attach": {
                     "CraftingCheck": "Crafting Check",
                     "Detach": {
@@ -2496,6 +2521,11 @@
                     "NLight": "{light}L",
                     "WithLight": "{bulk}, {light}L"
                 },
+                "ChangeEquipmentSystem": {
+                    "Title": "Change System",
+                    "ToPathfinder": "Removing the {removedTrait} trait changes this {type} from Starfinder to Pathfinder. Your grade will be lost. Are you sure? Alternatively, you could swap it to {otherTrait}.",
+                    "ToStarfinder": "Adding the {newTrait} trait changes this {type} from Pathfinder to Starfinder. All runes will be lost. Are you sure?"
+                },
                 "Destroyed": "Destroyed",
                 "FromSpell": {
                     "CantripDeck5": "Cantrip Deck of {name} (5-pack)",
@@ -2511,6 +2541,8 @@
                     "Material": "{material} {base}",
                     "OneProperty": "{property1} {base}",
                     "OnePropertyMaterial": "{property1} {material} {base}",
+                    "Grade": "{grade} {base}",
+                    "GradeMaterial": "{grade} {material} {base}",
                     "Potency": "+{potency} {base}",
                     "PotencyFourProperties": "+{potency} {property1} {property2} {property3} {property4} {base}",
                     "PotencyFourPropertiesMaterial": "+{potency} {property1} {property2} {property3} {property4} {material} {base}",
@@ -2537,6 +2569,15 @@
                     "ThreePropertiesMaterial": "{property1} {property2} {property3} {material} {base}",
                     "TwoProperties": "{property1} {property2} {base}",
                     "TwoPropertiesMaterial": "{property1} {property2} {material} {base}"
+                },
+                "Grade": {
+                    "commercial": "Commercial",
+                    "tactical": "Tactical",
+                    "advanced": "Advanced",
+                    "superior": "Superior",
+                    "elite": "Elite",
+                    "ultimate": "Ultimate",
+                    "paragon": "Paragon"
                 },
                 "LevelLabel": "Item {level}",
                 "OtherTag": {
@@ -2659,7 +2700,10 @@
             "Spell": {
                 "Area": "{size}-{unit} {shape}",
                 "BaseValue": "Base: {value}",
-                "Cast": "Cast",
+                "Cast": {
+                    "Noun": "Cast",
+                    "Verb": "Cast"
+                },
                 "Cost": "Cost",
                 "Counteract": {
                     "Hint": "If you're counteracting an affliction, the DC is in the affliction's stat block. If it's a spell, use the caster's DC. The GM can also calculate a DC based on the target effect's level.",
@@ -2748,6 +2792,7 @@
                 },
                 "FromABP": "Automatic bonus progression has adjusted this weapon's {property} to {value}.",
                 "FromMaterialAndRunes": "Precious materials and runes on this item have adjusted its {property} to {value}.",
+                "GradeOption": "{grade} (+{tracking}; {dice} damage dice)",
                 "HandsLabel": "Hands",
                 "MandatoryMelee": "This weapon has a trait that can only be used with melee weapons.",
                 "MaterialAndRunes": {
@@ -2783,6 +2828,7 @@
                 "ThrownUsage": {
                     "Label": "Thrown Usage"
                 },
+                "Tracking": "Tracking",
                 "Twin": {
                     "SecondPlus": "Twin 2nd+ Attack"
                 }
@@ -2804,6 +2850,23 @@
         "ItemNotSupportedOnActor": "Item not supported on actor",
         "ItemRemoveRuleElement": "Remove Rule Element",
         "ItemTitle": "Item",
+        "ItemTransferDialog": {
+            "Button": {
+                "gift": "Give",
+                "move": "Transfer",
+                "purchase": "Purchase"
+            },
+            "Prompt": {
+                "gift": "Give this item to {actor}?",
+                "move": "Transfer this item to {actor}?",
+                "purchase": "Does {actor} wish to purchase this item?"
+            },
+            "Title": {
+                "gift": "Give {item}",
+                "move": "Transfer {item}",
+                "purchase": "Purchase {item}"
+            }
+        },
         "ItemsLabel": "Items",
         "Keybinding": {
             "CycleTokenStack": {
@@ -2818,6 +2881,10 @@
                 "Hint": "Place a waypoint while using drag measurement.",
                 "Label": "Place Waypoint (Drag Measurement)"
             },
+            "OpenCompendiumBrowser": {
+                "Hint": "Open or close the compendium browser.",
+                "Label": "Toggle Compendium Browser"
+            },
             "TogglePartySheet": {
                 "Hint": "Open or close the sheet of the active or (if a player) assigned party.",
                 "Label": "Toggle Party Sheet"
@@ -2827,6 +2894,10 @@
         "KitWorldItem": "This item is not found in a Compendium and will not work in other worlds",
         "LackCastConsumableCapability": "{actor} lacks the proficiency to use {spell} and does not have the Trick Magic Item feat.",
         "LanguagesAdditional": "Additional Languages",
+        "LegalNotice": {
+            "Title": "Legal Notice",
+            "Text": "This system for Foundry Virtual Tabletop uses trademarks and copyrights owned by Paizo Inc., used under Paizo's Community Use Policy (<a href=\"https://paizo.com/community/communityuse\" target=\"_blank\">paizo.com/communityuse</a>). We are expressly prohibited from charging you to use or access this content. This system for FoundryVTT is not published, endorsed, or specifically approved by Paizo. For more information about Paizo Inc. and Paizo products, visit <a href=\"https://paizo.com/\" target=\"_blank\">paizo.com</a>."
+        },
         "Level1": "Level 1",
         "Level10": "Level 10",
         "Level11": "Level 11",
@@ -2855,10 +2926,6 @@
         "LevelLabel": "Level",
         "LevelN": "Level {level}",
         "LevelRange": "Levels {minLevel} — {level}",
-        "LicenseViewer": {
-            "Label": "Legal Notice",
-            "LandingPageText": "Use the tabs above to read the legal information"
-        },
         "ListPartsAnd": {
             "end": "{first}, and {second}",
             "middle": "{first}, {second}",
@@ -3264,6 +3331,10 @@
             "success": "Reduce your dying value by 1."
         },
         "Region": {
+            "DifficultTerrain": {
+                "DifficultTerrain": "Difficult Terrain",
+                "GreaterDifficultTerrain": "Greater Difficult Terrain"
+            },
             "Environment": {
                 "Mode": {
                     "Add": {
@@ -3318,13 +3389,15 @@
             "KeepHigher": "Reroll and keep the higher result",
             "KeepNew": "Reroll and keep the new result",
             "KeepLower": "Reroll and keep the lower result",
-            "MessageHeroPoint": "Rerolled using a Hero Point",
+            "MessageHeroPoints": "Rerolled using a Hero Point",
             "MessageKeep": {
                 "higher": "Rerolled and kept the higher result",
                 "new": "Rerolled and kept the new result",
                 "lower": "Rerolled and kept the lower result"
             },
-            "WarnNoHeroPoint": "{name} has no Hero Points"
+            "MessageMythicPoints": "Rerolled using a Mythic Point",
+            "MythicPoint": "Reroll using a Mythic Point",
+            "WarnNoResource": "{name} has no {resource}"
         },
         "ResistancesLabel": "Resistances",
         "RestoreSpellTitle": "Restore Spell",
@@ -3404,6 +3477,14 @@
                     "Name": "Lootable NPCs"
                 },
                 "Name": "Automation",
+                "ReachEnforcement": {
+                    "corpses": "Corpses",
+                    "doors": "Doors",
+                    "Hint": "Enforce reach when players attempt to interact with certain objects on the canvas.",
+                    "loot": "Loot",
+                    "merchants": "Traders",
+                    "Name": "Reach Enforcement"
+                },
                 "RemoveExpiredEffects": {
                     "Hint": "Expired effects are automatically removed from actors (requires a GM to be logged in).",
                     "Name": "Remove Expired Effects"
@@ -3457,12 +3538,12 @@
                 "Hint": "Set the overlay icon used to mark dead actors.",
                 "Name": "Death Icon"
             },
-            "DragMeasurement": {
-                "Always": "Always",
-                "Encounters": "During Encounters",
-                "Hint": "Measure distance traveled when dragging a token without the need for holding down another key. Waypoints are placed by pressing the \"{key}\" key and removed by right-clicking.",
-                "Name": "Drag Measurement",
-                "Never": "Never"
+            "DistanceDisplay": {
+                "Hint": "Display the distance between controlled and mouse-hovered tokens on the canvas.",
+                "Name": "Token Distance Display",
+                "always": "Always",
+                "encounters": "During Encounters",
+                "never": "Never"
             },
             "EnabledDisabled": {
                 "Enabled": "Enabled",
@@ -3485,6 +3566,10 @@
                 "ConfirmDelete": {
                     "Message": "Delete Homebrew element <strong>{element}</strong>?",
                     "Title": "Delete Homebrew Element?"
+                },
+                "ClassTraits": {
+                    "Hint": "Traits referring to individual classes",
+                    "Name": "Class Traits"
                 },
                 "CreatureTraits": {
                     "Hint": "Traits that can be applied to any creature and some item types (e.g., Dragon, Gnome)",
@@ -3943,7 +4028,13 @@
         "Token": {
             "ActorLinkForced": "{type} actors cannot be unlinked.",
             "Appearance": "Appearance",
+            "Distance": "Distance: {distance} {unit}",
             "Flanking": "Flanking",
+            "Mystified": {
+                "TheCreature": "The creature",
+                "TheObject": "The object"
+            },
+            "OutOfReach": "{token} is out of reach.",
             "SecretDisposition": {
                 "Label": "Secret Disposition",
                 "Hint": "Activate the \"secret\" disposition, which displays a purple border for owners and no border or cursor change for all others. A token with this disposition also cannot be targeted by non-owners."
@@ -3960,6 +4051,60 @@
         "TotalCoinage": "Total Coinage",
         "TotalTreasure": "Total Treasure",
         "TotalWealth": "Total Wealth",
+        "TradeDialog": {
+            "Aborted": "{user} has ended the trade: no items were exchanged.",
+            "Acceptance": {
+                "Accepted": "{user} has accepted your offer.",
+                "Accept": "Accept Offer",
+                "NotAccepted": "{user} has not accepted your offer.",
+                "Rescind": "Rescind Acceptance"
+            },
+            "Error": {
+                "Engaged": "{user} is currently engaged in a trade.",
+                "LoggedOut": "Ending trade: {user} is no longer logged in.",
+                "NotTrading": "Ending trade: {user} is not longer trading.",
+                "OutOfReach": "{self} and {trader} are not in reach of each other.",
+                "SelectToken": "Select exactly one token associated with a PC or NPC to represent you in a trade.",
+                "Timeout": "Ending trade: there was no response from {user} after {timeout} seconds",
+                "Unavailable": "Ending trade: {user} has become unavailable."
+            },
+            "Gift": {
+                "Accepted": "{trader} has received your item.",
+                "Declined": "{trader} has declined your item.",
+                "Prompt": {
+                    "Content": "{trader} ({user}) would like to give {quantity}x {item} to {self}.",
+                    "Title": "Receive Item(s)?"
+                },
+                "Received": "{self} has received the item from {trader}."
+            },
+            "ImgAlt": {
+                "Actor": "Portrait of {actor}, representing {user}",
+                "Item": "Icon for {item}"
+            },
+            "Quantity": {
+                "Decrement": "Decrement Item Quantity",
+                "Increment": "Increment Item Quantity",
+                "Label": "Quantity of {item}"
+            },
+            "Receiving": "Receiving: {list}",
+            "Request": {
+                "Declined": "{trader} ({user}) has declined your request to trade.",
+                "Requesting": "Requesting to trade with {trader} ...",
+                "Prompt": {
+                    "Content": "{trader} ({user}) would like to trade with {self}.",
+                    "Title": "Trade with {trader}?"
+                },
+                "MenuLabel": "Request Trade",
+                "Timeout": "There was no response from {user} to your trade request after 30 seconds."
+            },
+            "Sending": "Sending: {list}",
+            "Success": {
+                "Finished": "{self} has finished trading with {trader}.",
+                "NoItems": "The trade has concluded, but no items were exchanged."
+            },
+            "Title": "Trading With {trader}",
+            "You": "You"
+        },
         "TrainedSkillsLabel": "Trained Skills",
         "TraitAberration": "Aberration",
         "TraitAcid": "Acid",
@@ -3972,6 +4117,7 @@
         "TraitAdjustment": "Adjustment",
         "TraitAeon": "Aeon",
         "TraitAesir": "Aesir",
+        "TraitAffixedOrHeldInOneHand": "Affixed or Held in 1 Hand",
         "TraitAffixedToAMetalWeapon": "Affixed to a Metal Weapon",
         "TraitAffixedToAOneHandedFirearmOrHandCrossbow": "Affixed to a One-Handed Firearm or Hand Crossbow",
         "TraitAffixedToARangedWeapon": "Affixed to a Ranged Weapon",
@@ -4018,6 +4164,7 @@
         "TraitAmp": "Amp",
         "TraitAmphibious": "Amphibious",
         "TraitAnadi": "Anadi",
+        "TraitAnalog": "Analog",
         "TraitAndroid": "Android",
         "TraitAngel": "Angel",
         "TraitAnimal": "Animal",
@@ -4085,6 +4232,7 @@
         "TraitBonded": "Bonded",
         "TraitBottledBreath": "Bottled Breath",
         "TraitBrace": "Brace",
+        "TraitBrandish": "Brandish",
         "TraitBravado": "Bravado",
         "TraitBrutal": "Brutal",
         "TraitBugbear": "Bugbear",
@@ -4116,6 +4264,7 @@
         "TraitCoda": "Coda",
         "TraitCold": "Cold",
         "TraitColdiron": "Cold Iron",
+        "TraitCommander": "Commander",
         "TraitCombination": "Combination",
         "TraitComfort": "Comfort",
         "TraitCommon": "Common",
@@ -4182,6 +4331,7 @@
         "TraitDescriptionAmp": "An amp is a special thoughtform that modifies the properties of your psi cantrips. Psi cantrips each have their own amp, and feats with the amp trait provide different amps you can apply to psi cantrips in place of their normal amps.",
         "TraitDescriptionAmphibious": "An amphibious creature can breathe in water and in air, even outside of its preferred environment, usually indefinitely but at least for hours. These creatures often have a swim Speed. Their bludgeoning and slashing unarmed Strikes don't take the usual –2 penalty for being underwater.",
         "TraitDescriptionAnadi": "A reclusive people from Garund who resemble spiders and can assume human forms.",
+        "TraitDescriptionAnalog": "This weapon eschews advanced electronics, computers systems, and electric power sources, but was manufactured and calibrated using advanced technology. This weapon is immune to abilities that target technology. Weapon runes don't function on this weapon unless this weapon also has the archaic trait.",
         "TraitDescriptionAndroid": "A synthetic humanoid ancestry created by artificial means. Most common in Numeria.",
         "TraitDescriptionAngel": "This family of celestials are messengers and warriors. Most angels are holy, have darkvision, and have a weakness to unholy.",
         "TraitDescriptionAnimal": "An animal is a creature with a relatively low intelligence. It typically doesn't have an Intelligence attribute modifier over –4, can't speak languages, and can't be trained in Intelligence-based skills.",
@@ -4199,7 +4349,7 @@
         "TraitDescriptionAstral": "Astral creatures are native to the Astral Plane. They can survive the basic environmental effects of the Astral Plane.",
         "TraitDescriptionAsura": "These lawful fiends are physical manifestations of divine accidents. Asuras typically have darkvision, immunity to curses, and a weakness to good.",
         "TraitDescriptionAthamaru": "Athamarus are fishlike aquatic humanoids.",
-        "TraitDescriptionAttached": "An attached weapon must be combined with another piece of gear to be used. The trait lists what type of item the weapon must be attached to. You must be wielding or wearing the item the weapon is attached to in order to attack with it. For example, shield spikes are attached to a shield, allowing you to attack with the spikes instead of a shield bash, but only if you're wielding the shield. An attached weapon is usually bolted onto or built into the item it's attached to, and typically an item can have only one weapon attached to it. An attached weapon can be affixed to an item with 10 minutes of work and a successful @Check[crafting|dc:10] check; this includes the time needed to remove the weapon from a previous item, if necessary. If an item is destroyed, its attached weapon can usually be salvaged.",
+        "TraitDescriptionAttached": "An attached weapon must be combined with another piece of gear to be used. The trait lists what type of item the weapon must be attached to. You must be wielding or wearing the item the weapon is attached to in order to attack with it. For example, shield spikes are attached to a shield, allowing you to attack with the spikes instead of a shield bash. An attached weapon is usually bolted onto or built into the item it's attached to, and typically an item can have only one weapon attached to it. An attached weapon can be affixed to an item with 10 minutes of work and a successful DC 10 Crafting check; this includes the time needed to remove the weapon from a previous item, if necessary. If an item is destroyed, its attached weapon can usually be salvaged.",
         "TraitDescriptionAttack": "An ability with this trait involves an attack. For each attack you make beyond the first on your turn, you take a multiple attack penalty.",
         "TraitDescriptionAuditory": "Auditory actions and effects rely on sound. An action with the auditory trait can be successfully performed only if the creature using the action can speak or otherwise produce the required sounds. A spell or effect with the auditory trait has its effect only if the target can hear it. This applies only to sound-based parts of the effect, as determined by the GM. This is different from a sonic effect, which still affects targets who can't hear it (such as deaf targets) as long as the effect itself makes sound.",
         "TraitDescriptionAura": "An aura is an emanation that continually ebbs out from you, affecting creatures within a certain radius. Aura can also refer to the magical signature of an item.",
@@ -4522,7 +4672,7 @@
         "TraitDescriptionShabti": "A shabti is a constructed humanoid originally meant to face judgment for a living creature's sins after death.",
         "TraitDescriptionShade": "Shades are mortal souls who have been judged and then transformed into creatures native to other planes. Petitioners can survive the basic environmental effects of their home plane.",
         "TraitDescriptionShadow": "This magic involves shadows or the energy of the Netherworld.",
-        "TraitDescriptionShieldThrow": "A shield with this trait is designed to be thrown as a ranged attack.",
+        "TraitDescriptionShieldThrow": "A shield with this trait is designed to be thrown as a ranged attack. When thrown, the shield is a martial thrown ranged weapon. Its damage dice and type are the same as its shield bash attack, but if the shield includes an attached weapon or integrated weapon, you can choose to attack with it instead when you throw the shield. You add your Strength modifier to damage, as typical of a thrown weapon. The trait also includes the range increment.",
         "TraitDescriptionShisk": "Secretive humanoids covered in bony plumage that reside underground.",
         "TraitDescriptionShoony": "A creature with this trait is a member of the shoony ancestry.",
         "TraitDescriptionShove": "You can use this weapon to Shove with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls as an item bonus to the Athletics check. If you critically fail a check to Shove using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure.",
@@ -4569,7 +4719,7 @@
         "TraitDescriptionTattoo": "A tattoo is a type of item that is drawn or cut into a creature's skin and usually takes the form of images or symbols.",
         "TraitDescriptionTea": "<p>Magic tea is a type of potion. It activates when you drink it, which uses it up. Magic tea has the potion and tea traits. When you craft a dose of magic tea, the raw materials you supply are in the form of unusual and costly tea leaves. The process of crafting magic tea includes infusing the leaves with magical reagents, purifying the water, and steeping the tea in the water, resulting in what's essentially a particularly delicious-tasting potion. You can activate magic tea with an Interact action as you drink it or feed it to another creature, as if it were a potion. You can also activate magic tea with a 10-minute activity that requires sterling tea ware (these artisan's tools can be shared by up to four people who take this activity simultaneously) to prepare the tea and then consume it or present it to someone during a short tea ceremony, after which the magic tea's effects begin; activating magic tea in this way enhances its effect, as detailed in each entry's Tea Ceremony.</p><p>Once you drink a dose of magic tea, you're temporarily immune to that particular type of magic tea for 24 hours.</p>",
         "TraitDescriptionTearing": "This weapon is edged with curved teeth that leave bleeding wounds. When you hit a creature with this weapon, it deals an additional 1 persistent bleed damage. This increases to 2 persistent bleed damage if the weapon has a greater striking rune.",
-        "TraitDescriptionTech": "Items with this trait are associated with the technology of Numeria.",
+        "TraitDescriptionTech": "Items with the tech trait can be crafted by anyone, but if they also have the magical trait, they are hybrid items and require the Machine Magic feat to craft.",
         "TraitDescriptionTelepathy": "A creature with telepathy can communicate mentally with creatures. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.",
         "TraitDescriptionTeleportation": "Teleportation effects allow you to instantaneously move from one point in space to another. Teleportation does not usually trigger reactions based on movement.",
         "TraitDescriptionTengu": "A creature with this trait is a member of the tengu ancestry. Tengus are humanoids who resemble crows. An ability with this trait can be used or selected only by tengus. An item with this trait is created and used by tengus.",
@@ -4612,6 +4762,7 @@
         "TraitDescriptionWater": "Effects with the water trait either manipulate or conjure water. Those that manipulate water have no effect in an area without water. Creatures with this trait consist primarily of water or have a connection to magical water.",
         "TraitDescriptionWayang": "Small people native to the Netherworld. Immigrated to Golarion after Earthfall.",
         "TraitDescriptionWerecreature": "These shapechanging creatures can shift between animal, humanoid, and hybrid forms.",
+        "TraitDescriptionWhetstone": "A whetstone is a magically enhanced consumable item designed to increase a weapon's effectiveness",
         "TraitDescriptionWight": "A wight is an undead creature that drains life and stands vigil over a burial site.",
         "TraitDescriptionWildHunt": "Creatures with the wild hunt trait are never below 14th level. They possess greater darkvision, greensight, planar acclimation, wild gaze, instinctive cooperation, weakness to cold iron, the ability to speak with plants and animals, and their own specific wild hunt link.",
         "TraitDescriptionWitch": "This indicates abilities from the witch class.",
@@ -4724,6 +4875,7 @@
         "TraitGhoul": "Ghoul",
         "TraitGhul": "Ghul",
         "TraitGiant": "Giant",
+        "TraitGigas": "Gigas",
         "TraitGnoll": "Kholo",
         "TraitGnome": "Gnome",
         "TraitGoblin": "Goblin",
@@ -4736,6 +4888,7 @@
         "TraitGrimoire": "Grimoire",
         "TraitGrioth": "Grioth",
         "TraitGrippli": "Tripkee",
+        "TraitGuardian": "Guardian",
         "TraitGunslinger": "Gunslinger",
         "TraitHag": "Hag",
         "TraitHalcyon": "Halcyon",
@@ -4767,6 +4920,17 @@
         "TraitIkon": "Ikon",
         "TraitIllusion": "Illusion",
         "TraitImplanted": "Implanted",
+        "TraitInstalledInAGrenadeLauncherOrTwoHandedWeaponWithAnUndermoundedGrenadeLauncher": "Installed in a grenade launcher or two-handed weapon with an undermounted grenade launcher",
+        "TraitInstalledInArmor": "Installed in armor",
+        "TraitInstalledInArmorWithTheEnergyShieldingUpgrade": "Installed in armor with the energy shielding upgrade",
+        "TraitInstalledInArmorWithTheExposedTrait": "Installed in armor with the exposed trait",
+        "TraitInstalledInAWeapon": "Installed in a weapon",
+        "TraitInstalledInAWeaponSight": "Installed in a weapon (sight)",
+        "TraitInstalledInAWeaponWithTheKickbackTrait": "Installed in a weapon with the kickback trait",
+        "TraitInstalledInOneHandedWeaponGrip": "Installed in one-handed weapon (grip)",
+        "TraitInstalledInRangedWeaponWithoutALoudener": "Installed in ranged weapon without a loudener",
+        "TraitInstalledInTwoHandedWeapon": "Installed in two-handed weapon",
+        "TraitInstalledOnAWeaponWithoutASilencer": "Installed on a weapon without a silencer",
         "TraitImpulse": "Impulse",
         "TraitIncapacitation": "Incapacitation",
         "TraitIncarnate": "Incarnate",
@@ -4788,6 +4952,7 @@
         "TraitInventor": "Inventor",
         "TraitInvested": "Invested",
         "TraitInvestigator": "Investigator",
+        "TraitJotunborn": "Jotunborn",
         "TraitJousting": "Jousting",
         "TraitJoustingD4": "Jousting d4",
         "TraitJoustingD6": "Jousting d6",
@@ -5005,6 +5170,9 @@
         "TraitReload1Min": "Reload 1 min",
         "TraitReload2": "Reload 2",
         "TraitRepeating": "Repeating",
+        "TraitResilient1": "Resilient +1",
+        "TraitResilient2": "Resilient +2",
+        "TraitResilient3": "Resilient +3",
         "TraitResonant": "Resonant",
         "TraitRevelation": "Revelation",
         "TraitRogue": "Rogue",
@@ -5076,6 +5244,7 @@
         "TraitSwashbuckler": "Swashbuckler",
         "TraitSweep": "Sweep",
         "TraitSylph": "Sylph",
+        "TraitTactic": "Tactic",
         "TraitTalisman": "Talisman",
         "TraitTalos": "Talos",
         "TraitTandem": "Tandem",
@@ -5107,6 +5276,9 @@
         "TraitTime": "Time",
         "TraitTitan": "Titan",
         "TraitTouched": "Touched",
+        "TraitTracking1": "Tracking +1",
+        "TraitTracking2": "Tracking +2",
+        "TraitTracking3": "Tracking +3",
         "TraitTraining": "Training",
         "TraitTranscendence": "Transcendence",
         "TraitTrap": "Trap",
@@ -5169,6 +5341,7 @@
         "TraitWayang": "Wayang",
         "TraitWeapons": "Weapons",
         "TraitWerecreature": "Werecreature",
+        "TraitWhetstone": "Whetstone",
         "TraitWight": "Wight",
         "TraitWildHunt": "Wild Hunt",
         "TraitWitch": "Witch",
@@ -5302,6 +5475,11 @@
             }
         },
         "ValueLabel": "Value",
+        "Wall": {
+            "Door": {
+                "OutOfReach": "The door is out of reach."
+            }
+        },
         "WeaknessesLabel": "Weaknesses",
         "Weapon": {
             "Base": {
@@ -5328,6 +5506,7 @@
                 "bladed-gauntlet": "Bladed Gauntlet",
                 "bladed-hoop": "Bladed Hoop",
                 "bladed-scarf": "Bladed Scarf",
+                "bladesweeper": "Bladesweeper",
                 "blowgun": "Blowgun",
                 "blowgun-darts": "Blowgun Darts",
                 "blunderbuss": "Blunderbuss",
@@ -5473,6 +5652,7 @@
                 "main-gauche": "Main-Gauche",
                 "mambele": "Mambele",
                 "maul": "Maul",
+                "maul-spade": "Maul-Spade",
                 "meteor-hammer": "Meteor Hammer",
                 "mikazuki": "Mikazuki",
                 "mithral-tree": "Dawnsilver Tree",
@@ -5856,7 +6036,7 @@
             "greaterRooting": {
                 "Name": "Greater Rooting",
                 "Note": {
-                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round (<span data-pf2-action=\"escape\" data-pf2-glyph=\"A\" data-pf2-dc=\"28\">Escape DC 28</span>) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
+                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round ([[/act escape dc=28]]) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
                 }
             },
             "greaterShock": {
@@ -5939,7 +6119,7 @@
             "majorRooting": {
                 "Name": "Major Rooting",
                 "Note": {
-                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round (<span data-pf2-action=\"escape\" data-pf2-glyph=\"A\" data-pf2-dc=\"34\">Escape DC 34</span>) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
+                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round ([[/act escape dc=34]]) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
                 }
             },
             "merciful": {
@@ -5968,7 +6148,7 @@
             "rooting": {
                 "Name": "Rooting",
                 "Note": {
-                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round (<span data-pf2-action=\"escape\" data-pf2-glyph=\"A\" data-pf2-dc=\"23\">Escape DC 23</span>) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
+                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round ([[/act escape dc=23]]) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
                 }
             },
             "serrating": {
@@ -6005,7 +6185,7 @@
             "trueRooting": {
                 "Name": "True Rooting",
                 "Note": {
-                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round (<span data-pf2-action=\"escape\" data-pf2-glyph=\"A\" data-pf2-dc=\"41\">Escape DC 41</span>) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
+                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round ([[/act escape dc=41]]) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
                 }
             },
             "underwater": {
@@ -6144,19 +6324,23 @@
             },
             "concealed": {
                 "name": "Concealed",
-                "rules": "<p>While you are concealed from a creature, such as in a thick fog, you are difficult for that creature to see. You can still be observed, but you're tougher to target. A creature that you're concealed from must succeed at a @Check[flat|dc:5] when targeting you with an attack, spell, or other effect.</p>\n<p>Area effects aren't subject to this flat check. If the check fails, the attack, spell, or effect doesn't affect you.</p>",
+                "rules": "<p>While you are concealed from a creature, such as in a thick fog, you are difficult for that creature to see. You can still be observed, but you're tougher to target. A creature that you're concealed from must succeed at a @Check[flat|dc:5|name:Concealed|showDC:all] when targeting you with an attack, spell, or other effect.</p>\n<p>Area effects aren't subject to this flat check. If the check fails, the attack, spell, or effect doesn't affect you.</p>",
                 "summary": "Fog or similar obscuration makes you difficult to see and target."
             },
             "confused": {
                 "name": "Confused",
-                "note": "Each time you take damage from an attack or spell, you can attempt a @Check[flat|showDC:all|dc:11] to recover from your confusion and end the condition.",
-                "rules": "<p>You don't have your wits about you, and you attack wildly. You are off-guard, you don't treat anyone as your ally (though they might still treat you as theirs), and you can't Delay, Ready, or use reactions.<p></p>You use all your actions to Strike or cast offensive cantrips, though the GM can have you use other actions to facilitate attack, such as draw a weapon, move so that a target is in reach, and so forth. Your targets are determined randomly by the GM. If you have no other viable targets, you target yourself, automatically hitting but not scoring a critical hit. If it's impossible for you to attack or cast spells, you babble incoherently, wasting your actions.</p>\n<p>Each time you take damage from an attack or spell, you can attempt a @Check[flat|dc:11] to recover from your confusion and end the condition.</p>",
+                "note": "Each time you take damage from an attack or spell, you can attempt a @Check[flat|dc:11|name:Confused|showDC:all] to recover from your confusion and end the condition.",
+                "rules": "<p>You don't have your wits about you, and you attack wildly. You are off-guard, you don't treat anyone as your ally (though they might still treat you as theirs), and you can't Delay, Ready, or use reactions.<p></p>You use all your actions to Strike or cast offensive cantrips, though the GM can have you use other actions to facilitate attack, such as draw a weapon, move so that a target is in reach, and so forth. Your targets are determined randomly by the GM. If you have no other viable targets, you target yourself, automatically hitting but not scoring a critical hit. If it's impossible for you to attack or cast spells, you babble incoherently, wasting your actions.</p>\n<p>Each time you take damage from an attack or spell, you can attempt a @Check[flat|dc:11|name:Confusion Recovery|showDC:all] to recover from your confusion and end the condition.</p>",
                 "summary": "You attack indiscriminately."
             },
             "controlled": {
                 "name": "Controlled",
                 "rules": "<p>Someone else is making your decisions for you, usually because you're being commanded or magically dominated. The controller dictates how you act and can make you use any of your actions, including attacks, reactions, or even Delay. The controller usually does not have to spend their own actions when controlling you.</p>",
                 "summary": "Another creature determines your actions."
+            },
+            "cursebound": {
+                "name": "Cursebound",
+                "rules": "<p>Your oracular curse is constricting around you as you receive divine punishment after drawing too deeply on your mystery's powers. Cursebound is a condition that affects only creatures with an oracular curse, and cursebound always includes a value. Your specific oracular curse imposes unique negative effects depending on your cursebound value. You can remove the cursebound condition only by Refocusing.</p>"
             },
             "dazzled": {
                 "name": "Dazzled",
@@ -6165,8 +6349,8 @@
             },
             "deafened": {
                 "name": "Deafened",
-                "note": "If you perform an action that has the auditory trait, you must succeed at a @Check[flat|dc:5|showDC:all] or the action is lost.",
-                "rules": "<p>You can't hear. You automatically critically fail Perception checks that require you to be able to hear. You take a -2 status penalty to Perception checks for initiative and checks that involve sound but also rely on other senses. If you perform an action with the auditory trait, you must succeed at a @Check[flat|dc:5] or the action is lost; attempt the check after spending the action but before any effects are applied. You are immune to auditory effects.</p>",
+                "note": "If you perform an action that has the auditory trait, you must succeed at a @Check[flat|dc:5|name:Deafened|showDC:all] or the action is lost.",
+                "rules": "<p>You can't hear. You automatically critically fail Perception checks that require you to be able to hear. You take a -2 status penalty to Perception checks for initiative and checks that involve sound but also rely on other senses. If you perform an action with the auditory trait, you must succeed at a @Check[flat|dc:5|name:Deafened|showDC:all] or the action is lost; attempt the check after spending the action but before any effects are applied. You are immune to auditory effects.</p>",
                 "summary": "You're unable to hear."
             },
             "doomed": {
@@ -6226,8 +6410,8 @@
             },
             "grabbed": {
                 "name": "Grabbed",
-                "note": "If you attempt a manipulate action while grabbed, you must succeed at a @Check[flat|dc:5|showDC:all] or it is lost.",
-                "rules": "<p>You're held in place by another creature, giving you the off-guard and immobilized conditions. If you attempt a manipulate action while grabbed, you must succeed at a @Check[flat|dc:5] or it is lost; roll the check after spending the action, but before any effects are applied.</p>",
+                "note": "If you attempt a manipulate action while grabbed, you must succeed at a @Check[flat|dc:5|name:Grabbed|showDC:all] or it is lost.",
+                "rules": "<p>You're held in place by another creature, giving you the off-guard and immobilized conditions. If you attempt a manipulate action while grabbed, you must succeed at a @Check[flat|dc:5|name:Grabbed|showDC:all] or it is lost; roll the check after spending the action, but before any effects are applied.</p>",
                 "summary": "A creature, object, or magic holds you in place."
             },
             "group": {
@@ -6243,7 +6427,7 @@
             },
             "hidden": {
                 "name": "Hidden",
-                "rules": "<p>While you're hidden from a creature, that creature knows the space you're in but can't tell precisely where you are. You typically become hidden by using Stealth to Hide. When Seeking a creature using only imprecise senses, it remains hidden, rather than observed. A creature you're hidden from is off-guard to you, and it must succeed at a @Check[flat|dc:11] when targeting you with an attack, spell, or other effect or it fails affect you. Area effects aren't subject to this flat check.</p>\n<p>A creature might be able to use the Seek action to try to observe you.</p>",
+                "rules": "<p>While you're hidden from a creature, that creature knows the space you're in but can't tell precisely where you are. You typically become hidden by using Stealth to Hide. When Seeking a creature using only imprecise senses, it remains hidden, rather than observed. A creature you're hidden from is off-guard to you, and it must succeed at a @Check[flat|dc:11|name:Hidden|showDC:all] when targeting you with an attack, spell, or other effect or it fails affect you. Area effects aren't subject to this flat check.</p>\n<p>A creature might be able to use the Seek action to try to observe you.</p>",
                 "summary": "A creature you're hidden from knows your location but can't see you."
             },
             "hostile": {
@@ -6320,7 +6504,7 @@
             },
             "stupefied": {
                 "name": "Stupefied",
-                "note": "Any time you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{Cast a Spell} while stupefied, the spell is disrupted unless you succeed at a @Check[flat|showDC:all|dc:resolve(5+@actor.conditions.stupefied.value)].",
+                "note": "Any time you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{Cast a Spell} while stupefied, the spell is disrupted unless you succeed at a @Check[flat|dc:resolve(5+@actor.conditions.stupefied.value)|name:Stupefied|showDC:all].",
                 "rules": "<p>Your thoughts and instincts are clouded. Stupefied always includes a value. You take a status penalty equal to this value on Intelligence-, Wisdom-, and Charisma-based checks and DCs, including Will saving throws, spell attack rolls, spell DCs, and skill checks that use these attribute modifiers. Any time you attempt to Cast a Spell while stupefied, the spell is disrupted unless you succeed at a flat check with a DC equal to 5 + your stupefied value.</p>",
                 "summary": "You can't access your full mental faculties, and you have trouble casting spells."
             },
@@ -6331,7 +6515,7 @@
             },
             "undetected": {
                 "name": "Undetected",
-                "rules": "<p>When you are undetected by a creature, that creature cannot see you at all, has no idea what space you occupy, and can't target you, though you still can be affected by abilities that target an area. When you're undetected by a creature, that creature is off-guard to you.</p>\n<p>A creature you're undetected by can guess which square you're in to try targeting you. It must pick a square and attempt an attack. This works like targeting a hidden creature (requiring a @Check[flat|dc:11]), but the flat check and attack roll are rolled in secret by the GM, who doesn't reveal whether the attack missed due to failing the flat check, failing the attack roll, or choosing the wrong square.</p>\n<p>A creature can use the Seek action to try to find you.</p>",
+                "rules": "<p>When you are undetected by a creature, that creature cannot see you at all, has no idea what space you occupy, and can't target you, though you still can be affected by abilities that target an area. When you're undetected by a creature, that creature is off-guard to you.</p>\n<p>A creature you're undetected by can guess which square you're in to try targeting you. It must pick a square and attempt an attack. This works like targeting a hidden creature (requiring a @Check[flat|dc:11|name:Undetected|traits:secret|showDC:all]), but the flat check and attack roll are rolled in secret by the GM, who doesn't reveal whether the attack missed due to failing the flat check, failing the attack roll, or choosing the wrong square.</p>\n<p>A creature can use the Seek action to try to find you.</p>",
                 "summary": "A creature you're undetected by doesn't know where you are."
             },
             "unfriendly": {
@@ -6403,9 +6587,7 @@
             "DepositSubtitle": "Deposit item",
             "EditLootLabel": "Configure Loot?",
             "GMSupervisionError": "A GM must be online in order to interact with {loot}.",
-            "Give": "Give",
             "GiveMessage": "{giver} gives {quantity} × {item} to {recipient}.",
-            "GiveSubtitle": "Give item",
             "HiddenWhenEmpty": {
                 "Hint": "Hide this actor's token(s) when its inventory is empty.",
                 "Label": "Hidden When Empty"
@@ -6423,14 +6605,11 @@
             "MerchantDescription": "Allows players to purchase items directly from the sheet",
             "MerchantLabel": "Merchant",
             "MoveLoot": "Move Items",
-            "MoveLootMessage": "How many items do you wish to move?",
             "MoveLootPopupTitle": "Item Quantity",
             "PartyStash": "the party stash",
             "PermissionError": "A GM must be online in order to loot or stow an item.",
             "PlantMessage": "{planter} plants {quantity} × {item} on {corpse}.",
             "PlantSubtitle": "Plant Item",
-            "Purchase": "Purchase",
-            "PurchaseLootPrompt": "Does {buyer} want to purchase this item?",
             "PurchasePrice": "Purchase Price",
             "Quantity": "Quantity",
             "SellMessage": "{seller} sells {quantity} × {item} to {buyer}.",
@@ -6483,6 +6662,30 @@
     "SIDEBAR": {
         "TabCombat": "Encounter Tracker"
     },
+    "TOKEN": {
+        "MOVEMENT": {
+            "ACTIONS": {
+                "deploy": {
+                    "label": "Deploy"
+                },
+                "drive": {
+                    "label": "Drive"
+                },
+                "jump": {
+                    "label": "Leap"
+                },
+                "travel": {
+                    "label": "Travel"
+                },
+                "walk": {
+                    "label": "Stride"
+                },
+                "blink": {
+                    "label": "Teleport"
+                }
+            }
+        }
+    },
     "TYPES": {
         "Actor": {
             "army": "Army",
@@ -6520,6 +6723,9 @@
             "spellcastingEntry": "Spellcasting Entry",
             "treasure": "Treasure",
             "weapon": "Weapon"
+        },
+        "RegionBehavior": {
+            "modifyMovementCost": "Difficult Terrain"
         }
     }
 }

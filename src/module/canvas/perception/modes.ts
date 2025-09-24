@@ -96,7 +96,7 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
         }
 
         // Only if the subject can hear
-        return !visionSource.object.actor?.hasCondition("deafened");
+        return !visionSource.object?.actor?.hasCondition("deafened");
     }
 
     /**

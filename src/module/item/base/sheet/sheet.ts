@@ -429,9 +429,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             });
             closeBtn?.removeAttribute("disabled");
 
-            html
-                .querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")
-                ?.addEventListener("click", () => {
+            html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")?.addEventListener(
+                "click",
+                () => {
                     const value = view.state.doc.toString();
 
                     // Close early if the editing index is invalid
@@ -455,7 +455,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                             throw error;
                         }
                     }
-                });
+                },
+            );
         }
 
         // Activate rule element sub forms
@@ -611,10 +612,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         return buttons;
     }
 
-    protected override _canDragDrop(_selector: string): boolean {
-        return this.item.isOwner;
-    }
-
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const expanded = fu.expandObject(formData) as DeepPartial<ItemSourcePF2e>;
 
@@ -631,7 +628,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
 
             const incomingData = expanded.system?.rules?.[idx];
             if (incomingData) {
-                ruleForm.updateObject(incomingData);
+                ruleForm.updateObject(incomingData as RuleElementSource);
                 itemRules[idx] = ruleForm.rule;
                 this.item.update({ "system.rules": itemRules });
             }

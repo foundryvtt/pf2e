@@ -1,10 +1,11 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { applyActorGroupUpdate } from "@actor/helpers.ts";
+import type { DatabaseDeleteOperation } from "@common/abstract/_module.d.mts";
 import { ItemPF2e, ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e, KitSource, PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { Coins } from "@item/physical/data.ts";
-import { CoinsPF2e, coinCompendiumIds } from "@item/physical/helpers.ts";
+import { RawCoins } from "@item/physical/data.ts";
+import { Coins, coinCompendiumIds } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
 import { DelegatedCollection, ErrorPF2e, groupBy } from "@util";
 import { InventoryBulk } from "./bulk.ts";
@@ -21,16 +22,16 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         this.bulk = new InventoryBulk(this.actor);
     }
 
-    get coins(): CoinsPF2e {
+    get coins(): Coins {
         return this.filter((i) => i.isOfType("treasure") && i.isCoinage)
             .map((item) => item.assetValue)
-            .reduce((first, second) => first.plus(second), new CoinsPF2e());
+            .reduce((first, second) => first.plus(second), new Coins());
     }
 
-    get totalWealth(): CoinsPF2e {
+    get totalWealth(): Coins {
         return this.filter((item) => game.user.isGM || item.isIdentified)
             .map((item) => item.assetValue)
-            .reduce((first, second) => first.plus(second), new CoinsPF2e());
+            .reduce((first, second) => first.plus(second), new Coins());
     }
 
     get invested(): { value: number; max: number } | null {
@@ -62,7 +63,10 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         }
     }
 
-    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}): Promise<void> {
+    async addCoins(
+        coins: Partial<RawCoins>,
+        { combineStacks = true }: { combineStacks?: boolean } = {},
+    ): Promise<void> {
         const topLevelCoins = this.actor.itemTypes.treasure.filter((item) => combineStacks && item.isCoinage);
         const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
 
@@ -74,7 +78,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
                     await item.update({ "system.quantity": item.quantity + quantity });
                 } else {
                     const compendiumId = coinCompendiumIds[denomination];
-                    const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e<null>>>(
+                    const pack = game.packs.find<fd.collections.CompendiumCollection<PhysicalItemPF2e<null>>>(
                         (p) => p.collection === "pf2e.equipment-srd",
                     );
                     if (!pack) throw ErrorPF2e("Unexpected error retrieving equipment compendium");
@@ -89,10 +93,10 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         }
     }
 
-    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}): Promise<boolean> {
-        const coinsToRemove = new CoinsPF2e(coins);
+    async removeCoins(coins: Partial<RawCoins>, { byValue = true }: { byValue?: boolean } = {}): Promise<boolean> {
+        const coinsToRemove = new Coins(coins);
         const actorCoins = this.coins;
-        const coinsToAdd = new CoinsPF2e();
+        const coinsToAdd = new Coins();
 
         if (byValue) {
             let valueToRemoveInCopper = coinsToRemove.copperValue;
@@ -204,7 +208,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         const treasureIds = treasures.map((item) => item.id);
         const coins = treasures
             .map((item) => item.assetValue)
-            .reduce((first, second) => first.plus(second), new CoinsPF2e());
+            .reduce((first, second) => first.plus(second), new Coins());
         await this.actor.deleteEmbeddedDocuments("Item", treasureIds);
         await this.actor.inventory.addCoins(coins);
     }
@@ -254,16 +258,17 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
             itemCreates.push(item instanceof ItemPF2e ? item.toObject() : item);
         }
 
-        const itemUpdates = Object.entries(newQuantities).map(([id, quantity]) => ({
-            _id: id,
+        const itemUpdates = Object.entries(newQuantities).map(([_id, quantity]) => ({
+            _id,
             "system.quantity": quantity,
         }));
-        applyActorGroupUpdate(this.actor, { itemCreates, itemUpdates });
+        return applyActorGroupUpdate(this.actor, { itemCreates, itemUpdates }, { render: options.render });
     }
 }
 
 interface AddItemOptions {
     stack?: boolean;
+    render?: boolean;
 }
 
 export { ActorInventory, InventoryBulk };

@@ -8,14 +8,21 @@ import type { ConsumablePF2e, MeleePF2e, ShieldPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import type { ItemSourcePF2e, MeleeSource, RawItemChatData } from "@item/base/data/index.ts";
-import { performLatePreparation } from "@item/helpers.ts";
+import { addOrUpgradeTrait, performLatePreparation } from "@item/helpers.ts";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
 import type { PhysicalItemConstructionContext } from "@item/physical/document.ts";
-import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
+import {
+    IdentificationStatus,
+    MystifiedData,
+    RUNE_DATA,
+    checkPhysicalItemSystemChange,
+    getPropertyRuneSlots,
+} from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { RangeData } from "@item/types.ts";
 import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
+import { WEAPON_UPGRADES } from "@scripts/config/usage.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -135,7 +142,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Whether the weapon in its current usage is thrown: a thrown-only weapon or a thrown usage of a melee weapon */
     get isThrown(): boolean {
-        return this.isRanged && (this.baseType === "alchemical-bomb" || this.system.traits.value.includes("thrown"));
+        const isThrownBaseType = tupleHasValue(CONFIG.PF2E.thrownBaseWeapons, this.baseType);
+        return this.isRanged && (isThrownBaseType || this.system.traits.value.includes("thrown"));
     }
 
     /** Whether the weapon is _can be_ thrown: a thrown-only weapon or one that has a throwable usage */
@@ -188,15 +196,24 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {
-        return (
-            candidate !== this &&
-            candidate.isOfType("weapon") &&
-            candidate.system.traits.value.some((t) => t === "attached-to-crossbow-or-firearm") &&
-            ["crossbow", "firearm"].includes(this.group ?? "") &&
-            !this.isAttachable &&
-            !this.system.traits.value.includes("combination") &&
-            !this.subitems.some((i) => i.isOfType("weapon"))
-        );
+        if (candidate === this) return false;
+
+        if (candidate.isOfType("weapon")) {
+            return (
+                candidate.system.traits.value.some((t) => t === "attached-to-crossbow-or-firearm") &&
+                ["crossbow", "firearm"].includes(this.group ?? "") &&
+                !this.isAttachable &&
+                !this.system.traits.value.includes("combination") &&
+                !this.subitems.some((i) => i.isOfType("weapon"))
+            );
+        }
+
+        const usage = candidate.system.usage;
+        if (this.system.grade && usage.type === "installed" && usage.value in WEAPON_UPGRADES) {
+            return true;
+        }
+
+        return false;
     }
 
     override isStackableWith(item: PhysicalItemPF2e): boolean {
@@ -398,27 +415,20 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             this._source.system.runes.property = [];
         }
         runes.property.length = Math.min(runes.property.length, getPropertyRuneSlots(this));
+        this.prepareTraits();
 
-        // Set damage dice according to striking rune
+        // Set damage dice according to striking rune or grade
         // Only increase damage dice from ABP if the dice number is 1
         // Striking Rune: "A striking rune [...], increasing the weapon damage dice it deals to two instead of one"
         // Devastating Attacks: "At 4th level, your weapon and unarmed Strikes deal two damage dice instead of one."
         const actor = this.actor;
         const inherentDiceNumber = this.system.damage.die ? this._source.system.damage.dice : 0;
         const strikingDice = ABP.isEnabled(actor) ? ABP.getStrikingDice(actor?.level ?? 0) : this.system.runes.striking;
+        const gradeData = CONFIG.PF2E.weaponImprovements[this.system.grade ?? "commercial"];
         this.system.damage.dice =
             inherentDiceNumber === 1 && !this.flags.pf2e.battleForm
-                ? inherentDiceNumber + strikingDice
+                ? Math.max(gradeData.dice, inherentDiceNumber + strikingDice)
                 : this.system.damage.dice;
-
-        // Add traits from fundamental runes
-        const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
-        const magicTrait = hasRunes && !traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
-        traits.value = R.unique([...traits.value, magicTrait] as const)
-            .filter(R.isTruthy)
-            .sort();
-
-        this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
 
         if (this.system.usage.canBeAmmo && !this.isThrowable) {
             this.system.usage.canBeAmmo = false;
@@ -432,6 +442,33 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         } else {
             this.system.expend = null;
         }
+    }
+
+    private prepareTraits(): void {
+        // Get SF2e grade. For PF2e this resolves as commercial, which is equal to no runes.
+        const { traits, runes } = this.system;
+        const gradeData = CONFIG.PF2E.weaponImprovements[this.system.grade ?? "commercial"];
+
+        // Determine if this weapon uses runes or CTASEUP and clear the opposing data
+        const isSF2e = traits.value.some((v) => ["tech", "analog"].includes(v));
+        if (!isSF2e) this.system.grade = null;
+        this.system.grade = isSF2e ? (this.system.grade ?? "commercial") : null;
+        if (traits.value.includes("tech") || traits.value.includes("consumable")) runes.potency = runes.striking = 0;
+
+        // Add traits from fundamental runes
+        const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
+        const magicTrait =
+            hasRunes && !traits.value.some((t) => t === "magical" || setHasElement(MAGIC_TRADITIONS, t))
+                ? "magical"
+                : null;
+        if (magicTrait) traits.value.push(magicTrait);
+
+        // Add traits from weapon grade
+        if (gradeData.tracking) addOrUpgradeTrait(traits, `tracking-${gradeData.tracking}`);
+        const highestTracking = traits.config.tracking || 0;
+
+        traits.value = R.unique(traits.value).sort();
+        this.flags.pf2e.attackItemBonus = Math.max(runes.potency, highestTracking, this.system.bonus.value, 0);
     }
 
     /** Add the rule elements of this weapon's linked ammunition to its own list */
@@ -750,7 +787,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _preUpdate(
+    protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DatabaseUpdateCallbackOptions,
         user: fd.BaseUser,
@@ -758,8 +795,21 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (!changed.system) return super._preUpdate(changed, options, user);
 
         const traits = changed.system.traits ?? {};
-        if ("value" in traits && Array.isArray(traits.value)) {
+        if (Array.isArray(traits.value)) {
             traits.value = traits.value.filter((t) => t in CONFIG.PF2E.weaponTraits);
+        }
+
+        // Clear runes or grade based on tech/analog traits
+        try {
+            const result = await checkPhysicalItemSystemChange(this, changed);
+            if (result === "sf2e") {
+                changed.system.runes = { potency: 0, striking: 0, property: [] };
+                changed.system.grade ??= this._source.system.grade ?? "commercial";
+            } else if (result === "pf2e") {
+                changed.system.grade = null;
+            }
+        } catch {
+            return false;
         }
 
         for (const key of ["group", "range", "selectedAmmoId"] as const) {
@@ -769,9 +819,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         }
 
         if (changed.system.damage) {
-            // Clamp `dice` to between 0 and 12
+            // Clamp `dice` to between 0 and 14
             if (changed.system.damage.dice !== undefined) {
-                changed.system.damage.dice = Math.clamp(Number(changed.system.damage.dice) || 0, 0, 12);
+                changed.system.damage.dice = Math.clamp(Number(changed.system.damage.dice) || 0, 0, 14);
             }
 
             // Null out empty `die`
@@ -797,7 +847,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /** Remove links to this weapon from NPC attacks */
     protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
         super._onDelete(options, userId);
-
         if (game.user.id === userId) {
             const updates =
                 this.actor?.itemTypes.melee

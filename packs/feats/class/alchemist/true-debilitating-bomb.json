@@ -32,14 +32,26 @@
         "rules": [
             {
                 "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
                 "predicate": [
-                    "alchemical",
-                    "bomb",
                     "debilitating-bomb"
                 ],
-                "selector": "attack-roll",
-                "text": "If your bomb hits, the target must succed at a Fortitude save against your Class DC, or suffer one of the following @UUID[Compendium.pf2e.feats-srd.Item.True Debilitating Bomb]{effects}. If you apply the effects of @UUID[Compendium.pf2e.feats-srd.Item.Debilitating Bomb], the target must critically succeed at its save to avoid the condition.",
+                "selector": "alchemical-bomb-base-attack-roll",
+                "text": "PF2E.SpecificRule.Alchemist.DebilitatingBomb.TrueAttackRollNote",
                 "title": "{item|name}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:base:alchemical-bomb"
+                ],
+                "property": "other-tags",
+                "value": "true-debilitating-bomb"
             }
         ],
         "traits": {

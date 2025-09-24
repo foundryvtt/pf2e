@@ -34,7 +34,7 @@ import { EFFECT_AREA_SHAPES, MAGIC_TRADITIONS } from "./values.ts";
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
     traits: "PF2E.Traits",
-    time: "PF2E.Item.Spell.Cast",
+    time: "PF2E.Item.Spell.Cast.Noun",
     target: "PF2E.SpellTargetLabel",
     area: "PF2E.Area.Label",
     range: "PF2E.TraitRange",

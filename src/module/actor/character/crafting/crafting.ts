@@ -59,9 +59,7 @@ class CharacterCrafting {
 
                 const isAmmo = item.isOfType("consumable") && item.isAmmo;
                 const isMundaneAmmo = isAmmo && !item.isMagical;
-                const isConsumable =
-                    (item.isOfType("consumable") && item.category !== "wand") ||
-                    (item.isOfType("weapon") && item.baseType === "alchemical-bomb");
+                const isConsumable = item.system.traits.value.includes("consumable");
 
                 const batchSize = Math.max(
                     item.system.price.per,

@@ -1008,7 +1008,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
-            "name": "Staff",
+            "name": "Staff of Office (Functions as +1 Flaming Striking Staff)",
             "sort": 1400000,
             "system": {
                 "baseItem": "staff",
@@ -1069,7 +1069,7 @@
                     "property": [
                         "flaming"
                     ],
-                    "striking": 0
+                    "striking": 1
                 },
                 "size": "med",
                 "slug": "staff",
@@ -1097,7 +1097,7 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
+            "name": "Staff of Office",
             "sort": 1500000,
             "system": {
                 "attackEffects": {
@@ -1107,13 +1107,13 @@
                     "value": 19
                 },
                 "damageRolls": {
-                    "7jMk1svVDOJUSATI": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "81fQVVulTRu0LHrg": {
+                    "0": {
                         "damage": "2d4+8",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1156,9 +1156,6 @@
         },
         {
             "_id": "oEkSsSVmgszHEwAw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.HbYwSi428oXESdNh.Item.a6VT956imq0UeyhM"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 1600000,
@@ -1197,9 +1194,6 @@
         },
         {
             "_id": "IXlVRslfRZm87uS1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.vfFB2za4zaQnXYIa.Item.BpD2byfrbMItSgfy"
-            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+14 to Sense Motive",
             "sort": 1700000,
@@ -1222,7 +1216,6 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Sense Motive",
                         "predicate": [
                             "action:sense-motive"
                         ],
@@ -1338,7 +1331,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The infernal registrar uses their Legal Lore modifier on all Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Lie].</p>"
+                    "value": "<p>The infernal registrar uses their Legal Lore modifier on all Deception checks to [[/act lie statistic=legal-lore]]{Lie}.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1355,8 +1348,8 @@
         },
         {
             "_id": "hMogOB62TfK2FASF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "+2 circumstance to all saves vs fear",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Circumstance to All Saves vs. Fear",
             "sort": 2200000,
             "system": {
                 "actionType": {
@@ -1378,7 +1371,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "fear"
+                            "item:trait:fear"
                         ],
                         "selector": "saving-throw",
                         "type": "circumstance",
@@ -1438,7 +1431,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The infernal registrar makes a request to summon a copy of any infernal contract a specific creature has signed. They must know enough information to specifically identify the individual who signed. The infernal registrar attempts a Legal Lore check with a DC equal to a hard DC of the level of the creature in question. The infernal registrar will never promise a successful use of this ability in the agreements they make. Each agreement is typically for one attempt. Any copy summoned is simply a copy, has no impact on the original contract if destroyed or altered, and will vanish if taken more than 20 feet from the infernal registrar.</p><hr /><p><strong>Critical Success</strong> A copy of the contract appears before the infernal registrar after 10 minutes.</p>\n<p><strong>Success</strong> A copy of the contract appears before the infernal registrar after 1 hour.</p>\n<p><strong>Failure</strong> The attempt fails, but the infernal registrar can try again after 24 hours.</p>\n<p><strong>Critical Failure</strong> The attempt fails, and the infernal registrar can't try again for the named creature for 1 year.</p>"
+                    "value": "<p>The infernal registrar makes a request to summon a copy of any infernal contract a specific creature has signed. They must know enough information to specifically identify the individual who signed. The infernal registrar attempts a @Check[legal-lore] check with a DC equal to a hard DC of the level of the creature in question. The infernal registrar will never promise a successful use of this ability in the agreements they make. Each agreement is typically for one attempt. Any copy summoned is simply a copy, has no impact on the original contract if destroyed or altered, and will vanish if taken more than 20 feet from the infernal registrar.</p><hr /><p><strong>Critical Success</strong> A copy of the contract appears before the infernal registrar after 10 minutes.</p>\n<p><strong>Success</strong> A copy of the contract appears before the infernal registrar after 1 hour.</p>\n<p><strong>Failure</strong> The attempt fails, but the infernal registrar can try again after 24 hours.</p>\n<p><strong>Critical Failure</strong> The attempt fails, and the infernal registrar can't try again for the named creature for 1 year.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1537,7 +1530,7 @@
                 "value": 27
             },
             "allSaves": {
-                "value": "+2 circumstance to all saves vs fear"
+                "value": "+2 circumstance to all saves vs. fear"
             },
             "hp": {
                 "details": "",
@@ -1582,7 +1575,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "+33 to Sense Motive",
+            "details": "(+33 to Sense Motive)",
             "mod": 19,
             "senses": []
         },

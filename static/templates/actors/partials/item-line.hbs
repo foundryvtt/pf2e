@@ -63,7 +63,7 @@
         {{#if @root.editable}}
             <div class="item-controls">
                 {{#if (and canBeEquipped isInvestable)}}
-                    <a class="invested {{#if item.isInvested}} active{{/if}}{{#if notifyInvestment}} notify{{/if}}" data-action="toggle-invested" data-tooltip="PF2E.ui.equipmentInvested">
+                    <a class="invested {{#if item.isInvested}} active{{/if}}{{#if notifyInvest}} notify{{/if}}" data-action="toggle-invested" data-tooltip="PF2E.ui.equipmentInvested">
                         <i class="fa-solid fa-gem fa-fw"></i>
                     </a>
                 {{/if}}
@@ -80,7 +80,7 @@
                     </a>
                 {{else if (or (eq @root.actor.type "character") (eq @root.actor.type "npc"))}}
                     <a
-                        class="item-carry-type{{#if item.isEquipped}} active{{/if}}"
+                        class="item-carry-type{{#if item.isEquipped}} active{{/if}}{{#if notifyEquip}} notify{{/if}}"
                         data-tooltip="PF2E.Actor.Inventory.CarryType.OpenMenu"
                         data-action="open-carry-type-menu"
                     >

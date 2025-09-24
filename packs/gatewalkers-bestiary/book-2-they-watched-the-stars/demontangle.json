@@ -4,147 +4,47 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2h0yKU2nKX609M3Q",
+            "_id": "8cXuUewtlaWaE5MT",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
+            "name": "Tendril",
             "sort": 100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
-                    "custom": "",
                     "value": [
-                        "grab"
+                        "grab",
+                        "nauseating-slap"
                     ]
                 },
                 "bonus": {
-                    "value": 14
+                    "value": 15
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "2d8+5",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "1d4",
-                        "damageType": "bleed"
+                        "damage": "2d8 + 6",
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "hJ2RMo3aTyVEm4yz",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spittle",
-            "sort": 200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "burn-eyes"
-                    ]
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "haeij6f06vuk9vurwr67": {
-                        "damage": "4d6",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "bsSr0xdB56iFuS70",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "All-Around Vision",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.flankable",
-                        "value": false
-                    }
-                ],
-                "slug": "all-around-vision",
-                "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
-            "type": "action"
+            "type": "melee"
         },
         {
-            "_id": "OLoz41FJFungrpr5",
+            "_id": "4SQEQrnRpLXFksTc",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Gibbering",
-            "sort": 400000,
+            "name": "Stench",
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -154,110 +54,38 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet. Each creature that begins its turn within 60 feet of a gibbering mouther must attempt a @Check[will|dc:19] save. On a failure, they are @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. On a success, they are temporarily immune for 1 minute.</p>"
+                    "value": "<p>30 feet, @Check[fortitude|dc:19]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 60,
-                        "slug": "gibbering",
+                        "radius": 30,
+                        "slug": "stench",
                         "traits": [
-                            "auditory",
-                            "emotion",
-                            "incapacitation",
-                            "mental",
-                            "occult"
+                            "olfactory"
                         ]
                     }
                 ],
-                "slug": null,
+                "slug": "stench",
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "auditory",
                         "aura",
-                        "emotion",
-                        "incapacitation",
-                        "mental",
-                        "occult"
+                        "olfactory"
                     ]
                 }
             },
             "type": "action"
         },
         {
-            "_id": "Cfu9UWLk4FBlTQTo",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Gnaw",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature deals the gibbering mouther slashing damage.</p>\n<hr />\n<p><strong>Effect</strong> The gibbering mouther's wound opens into another maw. It makes a jaws Strike against the triggering creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "reactive-gnaw",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XZcafYrLS6wcyUVG",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Burn Eyes",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature that takes damage from a gibbering mouther's spittle must succeed at a @Check[fortitude|dc:22] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "burn-eyes",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "N5NccQ5JtdXMWjA9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.zU3Ovaet4xQ5Gmvy"
-            },
+            "_id": "gzGzxCPvcdZu8f4O",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Engulf",
-            "sort": 700000,
+            "name": "Constrict",
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -267,62 +95,86 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Check[reflex|dc:22|traits:damaging-effect], @Damage[3d8[piercing]], [[/act escape dc=22]], Rupture 8</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                    "value": "<p>@Damage[(1d8+6)[bludgeoning]], @Check[fortitude|dc:22|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "slug": "engulf",
+                "slug": "constrict",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "QllK5fKffk7mVWTW",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Ground Manipulation",
-            "sort": 800000,
+            "_id": "7H5EOw27GyoL0zDR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Nauseating Slap",
+            "sort": 400000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 2
+                    "value": null
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The gibbering mouther causes stone and earth under its body to grow soft and muddy, remaining so for 1 minute after the mouther moves off the location. A gibbering mouther can move through these areas with ease, but other creatures treat them as difficult terrain.</p>"
+                    "value": "<p>A living creature struck by a demontangle's tendril must attempt a @Check[fortitude|dc:19] save. On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. If the creature is already sickened, the condition value increases by 1, to a maximum of sickened 4.</p>\n<p>Once a creature succeeds at its saving throw, it is temporarily immune for 24 hours.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "nauseating-slap",
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "occult"
+                        "poison"
                     ]
                 }
             },
             "type": "action"
         },
         {
-            "_id": "pJ0MYG8bkvto7yHb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            "_id": "NO59VkQbOQIqZLrI",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Saturated",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A demontangle can survive for 1 hour out of the water, after which it risks drowning and suffocation.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
             },
+            "type": "action"
+        },
+        {
+            "_id": "mfooCk9alzoismP0",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 900000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -335,14 +187,13 @@
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
                 "slug": "grab",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -353,46 +204,57 @@
     "system": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -5
             },
             "con": {
-                "mod": 4
+                "mod": 5
             },
             "dex": {
-                "mod": 3
+                "mod": -5
             },
             "int": {
-                "mod": -3
+                "mod": -5
             },
             "str": {
-                "mod": 2
+                "mod": 6
             },
             "wis": {
-                "mod": 3
+                "mod": 0
             }
         },
         "attributes": {
             "ac": {
-                "details": "all-around vision",
-                "value": 21
+                "details": "",
+                "value": 12
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 140,
+                "max": 170,
                 "temp": 0,
-                "value": 140
+                "value": 170
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
                         "type": "swim",
-                        "value": 20
+                        "value": 30
                     }
                 ],
-                "value": 10
+                "value": 15
             },
             "weaknesses": [
                 {
@@ -413,22 +275,20 @@
             ]
         },
         "details": {
-            "blurb": "CE variant gibbering mouther",
+            "blurb": "Variant globster",
             "languages": {
                 "details": "",
-                "value": [
-                    "aklo"
-                ]
+                "value": []
             },
             "level": {
                 "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "<p>Amorphous blobs of yammering mouths and oozing, fleshy sludge, gibbering mouthers are among the strangest creatures found either aboveground or below. Perpetually ravenous, these aberrations are always seeking their next meals, ever eating but never sated. With a nominal intelligence, gibbering mouthers can understand and even speak Aklo, but they do so in an intelligible manner only rarely. Instead, their innumerable mouths constantly jabber and babble in a stream of sound that disrupts the thought patterns of other creatures in the area.</p>\n<p>Where, how, and why gibbering mouthers originated are questions without answers. They share certain similarities with the much more powerful shoggoths, leading to theories that the two creatures share an origin; less charitable scholars have suggested that the gibbering mouther is instead a mortal's attempt to create something akin to a shoggoth-though the question of why remains unanswered. Still others believe gibbering mouthers were sent to the world by the gods as a punishment for some forgotten but surely terrible transgression. Gibbering mouthers themselves have little to say on the matter-at least, not in any sort of sense. Scholars have wasted countless hours in attempts to make sense of gibbering mouthers' noises-studies that put researchers into danger and give results that are contradictory and confusing at best.</p>\n<p>Whatever their origin, gibbering mouthers range the entirety of Golarion. Sightings have been recorded in dungeons below ancient cities and ruins as well as many regions of the deeper Darklands layers of Sekamina and Orv. They are somewhat less common in the upper region of Nar-Voth, perhaps due to the prevalence of settlements that don't tolerate gibbering mouthers' presence.</p>",
+            "publicNotes": "<p>Since the Worldwound opened over a century ago, countless demons have been slaughtered on the streets of Domora. Their remains sometimes coalesce into further unholy terrors, among the most gruesome examples of which are a trio of large, quivering tangles of knotted demon tongues. These “demontangles” haunt the city’s streets day and night, slithering across the ruins in search of mortals to corrupt, destroy, and consume.</p><hr /><p>The tide washes ashore all manner of detritus, from harmless seaweed and shells to the rotting corpses of massive aquatic creatures. The globster is often mistaken for such, and this assumption isn't entirely incorrect—these mindless, oozing masses are composed of decaying sea creatures, half-digested and merged into a revolting, reeking heap of blubbery sludge.</p>\n<p>Though mindless, globsters are predators that seek out living quarry. They often huddle on the seafloor, where their own fetid mass attracts scavengers who swiftly become the ooze's next meal. When the tides wash these monsters ashore, they simply shift to hunting land-bound prey. Coastal communities usually notice the smell of a washed-up globster long before they see it. Those sent to investigate often mistake a globster for the carcass of a beached whale before discovering the presumed corpse is very much alive and hungry.</p>\n<p>Sages once believed globsters were undead, undulating wads of rotting flesh driven to feed, but though mindless, they are very much alive. They are attracted to waterside refuse dumps and floating garbage scows and are dimly aware enough to congregate where food is plentiful.</p>\n<p>Since they consist of so much blubber and oily tissue, globsters can be collected for lamp oil, grease, cooking fat, and more. The goo that remains when they decompose works for this purpose, if one can stand the smell. The firmer fat deteriorates quickly, but many an impromptu goblin beach barbecue has deep-fried slabs of it as a delicacy.</p>\n<p>Globsters consume living creatures but digest only a portion of them. The undigested dross accumulates within the globster as it becomes more and more bloated. They carry this fetid mass within their squelching bodies until instinct or injury provokes them to vomit forth a new globster to help devour everything nearby. A globster with enough dross to create a new globster automatically does so as a free action triggered upon taking damage. Treat any encounter with such a globster as though it were against two level 5 creatures, instead of just one. As far as scholars know, this is the only way these creatures can create more of their kind.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Adventure Path: Gatewalkers"
+                "title": "Pathfinder Monster Core"
             }
         },
         "initiative": {
@@ -436,43 +296,37 @@
         },
         "perception": {
             "details": "",
-            "mod": 15,
-            "senses": [
-                {
-                    "type": "darkvision"
-                }
-            ]
+            "mod": 9,
+            "senses": []
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 15
+                "value": 16
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 12
+                "value": 6
             },
             "will": {
                 "saveDetail": "",
-                "value": 10
+                "value": 9
             }
         },
         "skills": {
-            "acrobatics": {
-                "base": 12
-            },
             "athletics": {
-                "base": 13
+                "base": 15
             }
         },
         "traits": {
             "rarity": "common",
             "size": {
-                "value": "med"
+                "value": "lg"
             },
             "value": [
-                "aberration",
+                "aquatic",
+                "ooze",
                 "unholy"
             ]
         }

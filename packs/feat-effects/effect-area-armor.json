@@ -1,0 +1,58 @@
+{
+    "_id": "98ChTLCwnGo9ksZq",
+    "img": "icons/magic/defensive/shield-barrier-flaming-pentagon-orange.webp",
+    "name": "Effect: Area Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Area Armor]</p>\n<p>You gain a +1 circumstance bonus to Reflex saves against area effects. If the origin is a master in their armor, the bonus is +2 instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "area-effect"
+                ],
+                "selector": "reflex",
+                "slug": "area-armor",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:master-armor"
+                ],
+                "selector": "reflex",
+                "slug": "area-armor",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

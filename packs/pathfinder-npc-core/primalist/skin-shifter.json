@@ -624,9 +624,6 @@
         },
         {
             "_id": "TdUNc8KZZyIhdF7G",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.mkyMSRTbDV4lho2o.Item.0rfQ5Yx0cKAEXQY3"
-            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Animal Empathy",
             "sort": 1000000,
@@ -668,14 +665,43 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The skin shifter casts their choice of a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Aerial Form], @UUID[Compendium.pf2e.spells-srd.Item.Animal Form], @UUID[Compendium.pf2e.spells-srd.Item.Dinosaur Form], or @UUID[Compendium.pf2e.spells-srd.Item.Pest Form] spell. They must transform into an animal of a kind they've seen within the last 24 hours. They can't gain temporary HP again from a spell cast with Gift of the Wild Spirits for 10 minutes. Their Strikes for forms other than pest form have reach 10 feet, a +20 attack modifier, and a +13 damage bonus (or a +9 damage bonus for aerial form). Most other changes to their statistics are listed above.</p>\n<p>While polymorphed, the skin shifter can still use Gift of the Wild Spirits, though they're still prevented from casting other spells as normal.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The skin shifter casts their choice of a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Aerial Form], @UUID[Compendium.pf2e.spells-srd.Item.Animal Form], @UUID[Compendium.pf2e.spells-srd.Item.Dinosaur Form], or @UUID[Compendium.pf2e.spells-srd.Item.Pest Form] spell. They must transform into an animal of a kind they've seen within the last 24 hours. They can't gain temporary HP again from a spell cast with Gift of the Wild Spirits for 10 minutes. Their Strikes for forms other than <em>pest form</em> have reach 10 feet, a +20 attack modifier, and a +13 damage bonus (or a +9 damage bonus for <em>aerial form</em>). Most other changes to their statistics are listed above.</p>\n<p>While polymorphed, the skin shifter can still use Gift of the Wild Spirits, though they're still prevented from casting other spells as normal.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.SkinShifter.AnimalForm",
+                        "option": "animal-form",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.NPCAbility.SkinShifter.AnimalForm",
+                        "predicate": [
+                            "animal-form"
+                        ],
+                        "selector": "ac",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.NPCAbility.SkinShifter.AnimalForm",
+                        "predicate": [
+                            "animal-form"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -731,7 +757,10 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common",
+                    "wildsong"
+                ]
             },
             "level": {
                 "value": 8
@@ -748,7 +777,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "(+18 in animal form)",
             "mod": 16,
             "senses": []
         },

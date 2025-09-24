@@ -1,0 +1,55 @@
+{
+    "_id": "v4furpS1e0hiey4R",
+    "img": "icons/consumables/mushrooms/umbontae-green.webp",
+    "name": "Effect: Cloak of Subversion",
+    "system": {
+        "description": {
+            "value": "<p>Any creature that touches the sporescout or damages them with an unarmed attack or melee weapon without the reach trait takes @Damage[3d6[mental]].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #211: The Secret of Deathstalk Tower"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "not": "item:trait:reach"
+                    },
+                    {
+                        "or": [
+                            "item:trait:unarmed",
+                            "item:melee"
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

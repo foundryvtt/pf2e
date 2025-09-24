@@ -3,13 +3,13 @@ import type Document from "@common/abstract/document.d.mts";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/base/data/index.ts";
 import { UUIDUtils } from "@util/uuid.ts";
-import { RuleElementPF2e } from "./base.ts";
+import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 import { ItemAlteration, ItemAlterationSchema } from "./item-alteration/alteration.ts";
 import fields = foundry.data.fields;
 
 /** An effect that applies ephemerally during a single action, such as a strike */
-class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> {
+class EphemeralEffectRuleElement extends RuleElement<EphemeralEffectSchema> {
     static override defineSchema(): EphemeralEffectSchema {
         const alterationField = new fields.EmbeddedDataField(ItemAlteration);
         return {
@@ -91,7 +91,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
 }
 
 interface EphemeralEffectRuleElement
-    extends RuleElementPF2e<EphemeralEffectSchema>,
+    extends RuleElement<EphemeralEffectSchema>,
         ModelPropsFromRESchema<EphemeralEffectSchema> {}
 
 type EphemeralEffectSchema = RuleElementSchema & {

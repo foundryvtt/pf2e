@@ -1,0 +1,86 @@
+{
+    "_id": "NwMiszlcqNZWtezq",
+    "folder": "KFfSh2wxn252jxCN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Crossbow Infiltrator Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have mastered stealthy weapons that allow you to strike carefully from a distance far enough to avoid reprisal, yet close enough to confirm your kills. You have familiarity with the @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet Bow], @UUID[Compendium.pf2e.equipment-srd.Item.Hand Crossbow], and @UUID[Compendium.pf2e.equipment-srd.Item.Repeating Hand Crossbow], treating the repeating hand crossbow as a martial weapon for the purposes of proficiency and the gauntlet bow as a simple weapon for the purposes of proficiency. If you're at least an expert in any of these weapons, you gain access to that weapon's critical specialization effect. You also gain the @UUID[Compendium.pf2e.actionspf2e.Item.Infiltrator's Draw] action.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.JzUDumJ3Dlyame4z]{Crossbow Infiltrator}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Stealth"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Infiltrator's Draw"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:hand-crossbow",
+                            "item:base:gauntlet-bow"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.HandCrossbowGauntletBow",
+                "sameAs": "simple"
+            },
+            {
+                "definition": [
+                    "item:base:repeating-hand-crossbow"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.Weapon.Base.repeating-hand-crossbow",
+                "sameAs": "martial"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:hand-crossbow",
+                            "item:base:gauntlet-bow",
+                            "item:base:repeating-hand-crossbow"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

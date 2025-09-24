@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AttributeString } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
@@ -335,13 +335,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             damageKinds.map((k) => `spell-${k}`),
             damageKinds.map((k) => `${this.id}-${k}`),
             isAttack ? ["attack-damage", "attack-spell-damage"] : null,
+            this.isMelee ? "melee-damage" : null,
             checkStatistic.base ? damageKinds.map((k) => `${checkStatistic.base?.slug}-${k}`) : null,
         ]
             .flat()
-            .filter(R.isTruthy);
+            .filter(R.isNonNull);
 
         const spellTraits = R.unique([...this.system.traits.value, spellcasting.tradition])
-            .filter(R.isTruthy)
+            .filter(R.isNonNull)
             .sort();
         const actionAndTraitOptions = new Set(["action:cast-a-spell", "self:action:slug:cast-a-spell", ...spellTraits]);
         const contextData = await new DamageContext({
@@ -369,7 +370,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         };
 
         // Add modifiers and damage die adjustments
-        const modifiers: ModifierPF2e[] = [];
+        const modifiers: Modifier[] = [];
         const damageDice: DamageDicePF2e[] = [];
         const originClone = contextData.origin.actor;
         const { damageAlterations, modifierAdjustments } = actor.synthetics;
@@ -380,7 +381,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 .filter(([, d]) => d.applyMod)
                 .map(
                     ([k, d]) =>
-                        new ModifierPF2e({
+                        new Modifier({
                             label: CONFIG.PF2E.abilities[attribute],
                             slug: `ability-${k}`,
                             // Not a restricted attribute modifier in the same way it is for checks or weapon damage
@@ -803,7 +804,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override async toMessage(
-        event?: Maybe<MouseEvent>,
+        event?: Maybe<PointerEvent>,
         { create = true, data, rollMode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
@@ -993,7 +994,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     async rollAttack(
         this: SpellPF2e<ActorPF2e>,
-        event: MouseEvent,
+        event: PointerEvent,
         attackNumber = 1,
         context: StatisticRollParameters = {},
     ): Promise<Rolled<CheckRoll> | null> {
@@ -1017,7 +1018,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     async rollDamage(
         this: SpellPF2e<ActorPF2e>,
-        event: MouseEvent,
+        event: PointerEvent,
         mapIncreases?: ZeroToTwo,
     ): Promise<Rolled<DamageRoll> | null> {
         const element = htmlClosest(event.target, "[data-cast-rank]");
@@ -1050,7 +1051,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     /** Roll counteract check */
-    async rollCounteract(event?: MouseEvent): Promise<Rolled<CheckRoll> | null> {
+    async rollCounteract(event?: PointerEvent): Promise<Rolled<CheckRoll> | null> {
         const actor: ActorPF2e | null = this.actor;
         if (!actor?.isOfType("character", "npc")) {
             return null;
@@ -1119,13 +1120,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (!this.actor) {
-            this._source.system.location = { value: null };
-        }
+        if (!this.actor) this._source.system.location = { value: null };
 
         if (this._source.system.ritual) {
             this._source.system.damage = {};

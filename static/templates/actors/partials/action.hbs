@@ -1,4 +1,5 @@
-<li class="action item" data-item-id="{{action.id}}" data-item-summary-id="action-{{action.id}}">
+<li class="action item" data-item-id="{{action.id}}" data-uuid="{{action.uuid}}"
+    data-item-summary-id="action-{{action.id}}">
     <a class="icon item-image framed" data-action="item-to-chat">
         <img src="{{action.img}}" />
         <i class="fa-solid fa-message"></i>
@@ -10,7 +11,7 @@
             {{#each action.toggles as |toggle|}}
                 <button
                     type="button"
-                    class="{{#if toggle.selected}} selected{{/if}} {{toggle.classes}}"
+                    class="{{toggle.classes}}{{#if toggle.selected}} selected{{/if}}"
                     data-tooltip="{{toggle.tooltip}}"
                     data-action="toggle-trait"
                     data-trait="{{toggle.trait}}"
@@ -40,7 +41,7 @@
         </div>
     {{/if}}
 
-    {{#if (and action.exploration @root.document.parties.size)}}
+    {{#if (and action.exploration (or action.exploration.active @root.document.parties.size))}}
         <button type="button" class="activate {{#if action.exploration.active}}active{{/if}}" data-action="toggle-exploration">
             {{localize "PF2E.Actor.Character.Active"}}
         </button>

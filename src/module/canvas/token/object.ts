@@ -1,9 +1,11 @@
-import type { TokenAnimationOptions, TokenResourceData, TokenShape } from "@client/canvas/placeables/token.d.mts";
+import type { TokenResourceData, TokenShape } from "@client/canvas/placeables/token.d.mts";
 import type { TokenUpdateCallbackOptions } from "@client/documents/token.d.mts";
 import type { Point } from "@common/_types.d.mts";
+import type { GridOffset2D } from "@common/grid/_types.d.mts";
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
+import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 import type { CanvasPF2e, TokenLayerPF2e } from "../index.ts";
 import { measureDistanceCuboid, squareAtPoint } from "../index.ts";
@@ -11,22 +13,23 @@ import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends fc.placeables.Token<TDocument> {
+    constructor(document: TDocument) {
+        super(document);
+        this.auras = new AuraRenderers(this);
+        Object.defineProperty(this, "auras", { configurable: false, writable: false });
+    }
+
+    static override RENDER_FLAGS = (() => {
+        const flags = Object.assign(super.RENDER_FLAGS, { refreshDistanceLabel: {} });
+        flags.refreshState.propagate.push("refreshDistanceLabel");
+        return flags;
+    })();
+
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
 
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
-    readonly flankingHighlight: FlankingHighlightRenderer;
-
-    constructor(document: TDocument) {
-        super(document);
-        this.auras = new AuraRenderers(this);
-        Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
-        this.flankingHighlight = new FlankingHighlightRenderer(this);
-    }
-
-    get isTiny(): boolean {
-        return this.document.height < 1 || this.document.width < 1;
-    }
+    readonly flankingHighlight = new FlankingHighlightRenderer(this);
 
     /** This token's shape at its canvas position */
     get localShape(): TokenShape {
@@ -50,10 +53,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** The grid offsets representing this token's shape */
-    get footprint(): GridOffset[] {
-        const shape = this.isTiny ? this.mechanicalBounds : this.localShape;
+    get footprint(): GridOffset2D[] {
+        const shape = this.document.isTiny ? this.mechanicalBounds : this.localShape;
         const seen = new Set<number>();
-        const offsets: GridOffset[] = [];
+        const offsets: GridOffset2D[] = [];
         const [i0, j0, i1, j1] = canvas.grid.getOffsetRange(this.mechanicalBounds);
         for (let i = i0; i < i1; i++) {
             for (let j = j0; j < j1; j++) {
@@ -90,7 +93,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** A reference to an animation that is currently in progress for this Token, if any */
-    get animation(): Promise<boolean> | null {
+    get animation(): Promise<void> | null {
         return (
             this.animationContexts.get(this.animationName)?.promise ??
             this.animationContexts.get(this.movementAnimationName)?.promise ??
@@ -125,8 +128,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Bounds used for mechanics, such as flanking and drawing auras */
     get mechanicalBounds(): PIXI.Rectangle {
-        const bounds = super.bounds;
-        if (this.isTiny) {
+        const bounds = this.bounds;
+        if (this.document.isTiny) {
             const position = canvas.grid.getTopLeftPoint(bounds);
             return new PIXI.Rectangle(
                 position.x,
@@ -139,8 +142,16 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return bounds;
     }
 
+    /** Can the current user see the distance of this token from a controlled token? */
+    get #canSeeDistance(): boolean {
+        if (!this.visible || this.isPreview || this.document.isSecret || this.controlled || this.animation) {
+            return false;
+        }
+        return this.hover && (this.layer.controlled.length === 1 || !!game.user.character?.getActiveTokens().length);
+    }
+
     isAdjacentTo(token: TokenPF2e): boolean {
-        return this.distanceTo(token) === 5;
+        return this.distanceTo(token) === canvas.grid.distance;
     }
 
     /** Publicly expose `Token#_canControl` for use in `TokenLayerPF2e`. */
@@ -185,14 +196,15 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param flankee   Potentially flanked token
      */
     protected onOppositeSides(flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean {
-        const [centerA, centerB] = [flankerA.center, flankerB.center];
-        const { bounds } = flankee;
-
-        const Ray = fc.geometry.Ray;
-        const left = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
-        const right = new Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
-        const top = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
-        const bottom = new Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
+        const boundsA = flankerA.mechanicalBounds;
+        const centerA = { x: flankerA.document.x + boundsA.width / 2, y: flankerA.document.y + boundsA.height / 2 };
+        const boundsB = flankerB.mechanicalBounds;
+        const centerB = { x: flankerB.document.x + boundsB.width / 2, y: flankerB.document.y + boundsB.height / 2 };
+        const bounds = flankee.mechanicalBounds;
+        const left = new fc.geometry.Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
+        const right = new fc.geometry.Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
+        const top = new fc.geometry.Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
+        const bottom = new fc.geometry.Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
         const intersectsSide = (side: fc.geometry.Ray): boolean =>
             fu.lineSegmentIntersects(centerA, centerB, side.A, side.B);
 
@@ -212,7 +224,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         // Finds all possible allies that are allowed to flank, to test their positioning later
         // A linked actor can flank with another token of itself (ex: a Thaumaturge with a mirror implement)
-        const flankingBuddies = canvas.tokens.placeables.filter(
+        const flankingBuddies = this.layer.placeables.filter(
             (t) =>
                 (t.actor?.isAllyOf(thisActor) ||
                     (this.document.isLinked && t.actor === thisActor && t.id !== this.id)) &&
@@ -235,8 +247,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             flanking.canGangUp.includes("animal-companion") &&
             flankingBuddies.some((b) => {
                 if (!b.actor?.isOfType("character")) return false;
-                const traits = b.actor.traits;
-                return traits.has("minion") && !traits.has("construct") && b.isAdjacentTo(flankee);
+                const traits = b.actor.system.traits.value;
+                return traits.includes("minion") && !traits.includes("construct") && b.isAdjacentTo(flankee);
             });
         if (sideBySide) return true;
 
@@ -246,8 +258,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             flanking.canGangUp.includes("eidolon") &&
             flankingBuddies.some((b) => {
                 if (!b.actor?.isOfType("character")) return false;
-                const traits = b.actor.traits;
-                return traits.has("eidolon") && b.isAdjacentTo(flankee);
+                const traits = b.actor.system.traits.value;
+                return traits.includes("eidolon") && b.isAdjacentTo(flankee);
             });
         if (kindredFlank) return true;
 
@@ -264,15 +276,16 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     buddiesFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): TokenPF2e[] {
         if (!this.canFlank(flankee, context)) return [];
         const ignoreFlankable = !!context.ignoreFlankable;
-        return canvas.tokens.placeables
-            .filter((t) => t !== this && t.canFlank(flankee, { ignoreFlankable }))
-            .filter((b) => this.onOppositeSides(this, b, flankee));
+        return this.layer.placeables.filter(
+            (t) => t !== this && t.canFlank(flankee, { ignoreFlankable }) && this.onOppositeSides(this, t, flankee),
+        );
     }
 
     /** Reposition aura textures after this token has moved. */
     protected override _applyRenderFlags(flags: Record<string, boolean>): void {
         super._applyRenderFlags(flags);
         if (flags.refreshPosition) this.auras.refreshPositions();
+        if (flags.refreshDistanceLabel) this.#refreshDistanceLabel();
     }
 
     /** Draw auras and flanking highlight lines if certain conditions are met */
@@ -280,6 +293,44 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         super._refreshVisibility();
         this.auras.draw();
         this.flankingHighlight.draw();
+    }
+
+    protected override _refreshState(): void {
+        super._refreshState();
+        const distanceLabelEl = document.getElementById("token-hover-distance");
+        if (distanceLabelEl) distanceLabelEl.hidden = !this.#canSeeDistance;
+    }
+
+    /**
+     * Render a label showing the distance between a controlled token and a hovered (this) token. Also draw a line
+     * between the two.
+     */
+    #refreshDistanceLabel(): void {
+        this.layer.clearDistanceLine();
+        const setting = game.pf2e.settings.distanceDisplay;
+        if (setting === "never" || (setting === "encounters" && !game.combat?.started)) return;
+        const labelEl = document.getElementById("token-hover-distance");
+        if (!this.#canSeeDistance || !labelEl) {
+            if (labelEl) labelEl.hidden = true;
+            return;
+        }
+        const controlledToken = this.layer.controlled[0] ?? game.user.character?.getActiveTokens()[0];
+        if (!controlledToken || controlledToken.isPreview || controlledToken.animation) return;
+        const totalEl = labelEl.querySelector(".total-measurement");
+        if (!totalEl) throw ErrorPF2e("Unexpected failure to retrieve measurement HTML element");
+        const distance = controlledToken.distanceTo(this);
+        if (distance < canvas.grid.distance) {
+            labelEl.hidden = true;
+            return;
+        }
+        const label = [distance, canvas.scene?.grid.units ?? ""].join(" ").trim();
+        totalEl.textContent = label;
+        const center = this.center;
+        labelEl.dataset.tokenId = this.document.id;
+        labelEl.style.setProperty("--position-y", `${this.y}px`);
+        labelEl.style.setProperty("--position-x", `${center.x}px`);
+        labelEl.hidden = false;
+        this.layer.renderDistanceLine(controlledToken, this);
     }
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
@@ -307,7 +358,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         const numBars = temp > 0 ? 2 : 1;
         const barHeight = h / numBars;
-
         bar.clear();
 
         // Draw background
@@ -339,10 +389,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override async _drawEffects(): Promise<void> {
         await super._drawEffects();
         await this.animation;
-
-        if (this.auras.size === 0) {
-            return this.auras.reset();
-        }
+        if (this.auras.size === 0) return this.auras.reset();
 
         // Determine whether a redraw is warranted by comparing current and updated radius/appearance data
         const changedAndDeletedAuraSlugs = Array.from(this.auras.entries())
@@ -364,7 +411,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** Emulate a pointer hover ("pointerover") event */
-    emitHoverIn(nativeEvent: MouseEvent | PointerEvent): void {
+    emitHoverIn(nativeEvent: MouseEvent): void {
         const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
         event.type = "pointerover";
         event.nativeEvent = nativeEvent;
@@ -372,7 +419,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** Emulate a pointer hover ("pointerout") event */
-    emitHoverOut(nativeEvent: MouseEvent | PointerEvent): void {
+    emitHoverOut(nativeEvent: MouseEvent): void {
         const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
         event.type = "pointerout";
         event.nativeEvent = nativeEvent;
@@ -477,49 +524,23 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      */
     distanceTo(target: TokenOrPoint, { reach = null }: { reach?: number | null } = {}): number {
         if (!canvas.ready) return NaN;
-
         if (this === target) return 0;
-
-        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-            const waypoints: GridMeasurePathWaypoint[] = [
-                { x: this.x, y: this.y },
-                { x: target.x, y: target.y },
-            ];
-            return canvas.grid.measurePath(waypoints).distance;
-        }
 
         const selfElevation = this.document.elevation;
         const targetElevation = target.document?.elevation ?? selfElevation;
-        const targetBounds = target.bounds ?? squareAtPoint(target);
-        if (selfElevation === targetElevation || !this.actor || !target.bounds || !target.actor) {
-            return measureDistanceCuboid(this.bounds, targetBounds, { reach });
+        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
+            const waypoints = [
+                { x: this.x, y: this.y, elevation: selfElevation },
+                { x: target.x, y: target.y, elevation: targetElevation },
+            ];
+            return Math.round(canvas.grid.measurePath(waypoints).distance);
         }
 
-        return measureDistanceCuboid(this.bounds, targetBounds, { reach, token: this, target });
-    }
-
-    override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptionsPF2e): Promise<void> {
-        // Handle system "spin" animation option
-        if (options?.spin) {
-            let attributeAdded = false;
-            const currentRotation = this.document.rotation;
-            const rotationAngle = this.x <= this.document.x ? 360 : -360;
-            options.ontick = (_frame, data) => {
-                if (!attributeAdded && data.attributes.length > 0) {
-                    const duration = (data.duration ?? 1000) / 1000;
-                    data.attributes.push({
-                        attribute: "rotation",
-                        parent: data.attributes[0].parent,
-                        from: currentRotation,
-                        to: currentRotation + duration * rotationAngle,
-                        delta: data.attributes[0].delta,
-                    });
-                    attributeAdded = true;
-                }
-            };
+        const targetBounds = target.mechanicalBounds ?? squareAtPoint(target);
+        if (selfElevation === targetElevation || !this.actor || !target.mechanicalBounds || !target.actor) {
+            return measureDistanceCuboid(this.mechanicalBounds, targetBounds, { reach });
         }
-
-        await super.animate(updateData, options);
+        return measureDistanceCuboid(this.mechanicalBounds, targetBounds, { reach, token: this, target });
     }
 
     /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
@@ -575,9 +596,49 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
     override _onApplyStatusEffect(statusId: string, active: boolean): void {
         super._onApplyStatusEffect(statusId, active);
-
         if (["undetected", "unnoticed"].includes(statusId)) {
             canvas.perception.update({ refreshVision: true, refreshLighting: true });
+        }
+    }
+
+    protected override _onHoverIn(
+        event: PIXI.FederatedPointerEvent,
+        options?: { hoverOutOthers?: boolean },
+    ): boolean | void {
+        this.renderFlags.set({ refreshDistanceLabel: true });
+        return super._onHoverIn(event, options);
+    }
+
+    protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean | void {
+        this.renderFlags.set({ refreshDistanceLabel: true });
+        return super._onHoverOut(event);
+    }
+
+    /** Require that a loot actor or dead creature is in reach for a player to view its sheet. */
+    protected override _onClickLeft2(event: PIXI.FederatedPointerEvent): void {
+        const actor = this.actor;
+        const requiresReach = game.pf2e.settings.automation.reachEnforcement.has(
+            actor?.isOfType("loot") ? (actor.isLoot ? "loot" : "merchants") : "corpses",
+        );
+        if (!requiresReach || this.document.isOwner || !actor?.isLootableBy(game.user) || !canvas.grid.isSquare) {
+            return super._onClickLeft2(event);
+        }
+        const isInReach = R.unique(
+            [this.layer.controlled, game.user.character?.getActiveTokens(true, false) ?? []].flat(),
+        ).some(
+            (t: TokenPF2e) =>
+                t.actor?.isOwner &&
+                t.actor.isOfType("creature", "party") &&
+                t.distanceTo(this) <= t.actor.system.attributes.reach.manipulate,
+        );
+        if (isInReach) {
+            return super._onClickLeft2(event);
+        } else {
+            const thisIsCreature = actor.isOfType("creature");
+            const name = this.document.playersCanSeeName
+                ? this.document.name
+                : game.i18n.localize(`PF2E.Token.Mystified.The${thisIsCreature ? "Creature" : "Object"}`);
+            ui.notifications.warn("PF2E.Token.OutOfReach", { format: { token: name } });
         }
     }
 
@@ -588,7 +649,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
-
         if (changed.width || "hidden" in changed) {
             if (this.animation) {
                 this.animation.then(() => {
@@ -612,17 +672,13 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-interface TokenAnimationOptionsPF2e extends TokenAnimationOptions {
-    spin?: boolean;
-}
-
 type TokenOrPoint =
     | TokenPF2e
     | (Point & {
           actor?: never;
           document?: never;
-          bounds?: never;
+          mechanicalBounds?: never;
       });
 
 export { TokenPF2e };
-export type { ShowFloatyEffectParams, TokenAnimationOptionsPF2e };
+export type { ShowFloatyEffectParams };

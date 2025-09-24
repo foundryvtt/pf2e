@@ -2,7 +2,7 @@ import type { ActorType } from "@actor/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { localizeList, objectHasKey } from "@util";
-import { RuleElementPF2e } from "./base.ts";
+import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
 
@@ -11,7 +11,7 @@ import fields = foundry.data.fields;
  * Creates a chat card every round of combat.
  * @category RuleElement
  */
-class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
+class FastHealingRuleElement extends RuleElement<FastHealingRuleSchema> {
     static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     static override defineSchema(): FastHealingRuleSchema {
@@ -103,7 +103,7 @@ type FastHealingRuleSchema = RuleElementSchema & {
 };
 
 interface FastHealingRuleElement
-    extends RuleElementPF2e<FastHealingRuleSchema>,
+    extends RuleElement<FastHealingRuleSchema>,
         ModelPropsFromRESchema<FastHealingRuleSchema> {}
 
 type FastHealingType = "fast-healing" | "regeneration";

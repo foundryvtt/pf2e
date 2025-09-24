@@ -2,13 +2,14 @@
     import { tupleHasValue } from "@util";
     import BrowserTab from "./browser-tab.svelte";
     import type { CompendiumBrowserContext } from "../browser.ts";
+    import type { MouseEventHandler } from "svelte/elements";
 
     const browser = game.pf2e.compendiumBrowser;
     const tabs = $derived(browser.tabsArray.filter((t) => t.visible));
     const props: CompendiumBrowserContext = $props();
     const state = props.state;
 
-    async function onClickNav(event: MouseEvent & { currentTarget: EventTarget }): Promise<void> {
+    async function onClickNav(event: PointerEvent & { currentTarget: EventTarget }): Promise<void> {
         if (!(event.target instanceof HTMLElement)) return;
         const clickedTab = event.target.dataset.tabName;
         if (tupleHasValue(browser.dataTabsList, clickedTab)) {
@@ -24,7 +25,7 @@
         {#each tabs as tab}
             <button
                 type="button"
-                onclick={onClickNav}
+                onclick={onClickNav as MouseEventHandler<EventTarget>}
                 class:active={state.activeTabName === tab.tabName}
                 data-tab-name={tab.tabName}
             >

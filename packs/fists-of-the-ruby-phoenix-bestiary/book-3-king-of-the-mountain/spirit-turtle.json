@@ -1095,6 +1095,18 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "selector": "strike-damage"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "damage:type:untyped"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "unbalancing-stomp-inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.environmentalBalance}"
                     }
                 ],
                 "slug": null,
@@ -1274,7 +1286,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a @Template[burst|distance:15] centered on the target. All creatures in the area other than the spirit turtle take 10d10 bludgeoning and 4d8 energy damage and are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] (@Check[reflex|dc:41|basic] save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/gmr 1d4 #Recharge Unbalancing Stomp]]{1d4 rounds}.</p>\n<p>@Damage[10d10[bludgeoning],4d8[acid]]</p>\n<p>@Damage[10d10[bludgeoning],4d8[cold]]</p>\n<p>@Damage[10d10[bludgeoning],4d8[electricity]]</p>\n<p>@Damage[10d10[bludgeoning],4d8[fire]]</p>"
+                    "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a @Template[burst|distance:15] centered on the target. All creatures in the area other than the spirit turtle take @Damage[10d10[bludgeoning],4d8[untyped]|options:area-damage]{10d10 bludgeoning damage and 4d8 energy damage} and are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] (@Check[reflex|dc:41|basic|options:area-effect,inflicts:prone] save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/gmr 1d4 #Recharge Unbalancing Stomp]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

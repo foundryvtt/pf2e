@@ -1,4 +1,4 @@
-import { ImageFilePath } from "@common/constants.mjs";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { DamageCategory, DamageType } from "./types.ts";
 
 const PHYSICAL_DAMAGE_TYPES = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
@@ -122,8 +122,8 @@ export {
     DAMAGE_CATEGORIES_UNIQUE,
     DAMAGE_DICE_FACES,
     DAMAGE_DIE_SIZES,
-    DAMAGE_TYPES,
     DAMAGE_TYPE_ICONS,
+    DAMAGE_TYPES,
     ENERGY_DAMAGE_TYPES,
     MATERIAL_DAMAGE_EFFECTS,
     PERSISTENT_DAMAGE_IMAGES,

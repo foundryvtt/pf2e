@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
-import type { Point } from "@common/_types.mjs";
+import type { Point } from "@common/_types.d.mts";
+import { GridSnappingMode } from "@common/constants.mjs";
 import type { ItemPF2e } from "@item";
 import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -30,17 +31,17 @@ class MeasuredTemplatePF2e<
      * Returns the snapping for this template's highlight.
      * Note that circle templates created via the canvas controls are neither bursts nor emanations, and thus can go in either position.
      */
-    get snappingMode(): number {
-        const M = CONST.GRID_SNAPPING_MODES;
+    get snappingMode(): GridSnappingMode {
+        const MODES = CONST.GRID_SNAPPING_MODES;
         switch (this.areaShape) {
             case "burst":
-                return M.VERTEX;
+                return MODES.VERTEX;
             case "cone":
-                return M.CENTER | M.VERTEX | M.EDGE_MIDPOINT;
+                return (MODES.CENTER | MODES.VERTEX | MODES.EDGE_MIDPOINT) as GridSnappingMode;
             case "line":
-                return M.EDGE_MIDPOINT | M.VERTEX;
+                return (MODES.EDGE_MIDPOINT | MODES.VERTEX) as GridSnappingMode;
             default:
-                return M.CENTER | M.VERTEX;
+                return (MODES.CENTER | MODES.VERTEX) as GridSnappingMode;
         }
     }
 

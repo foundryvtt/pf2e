@@ -11,7 +11,7 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
 
         return {
             ...sheetData,
-            proficiencyChoices: R.mapValues(CONFIG.PF2E.proficiencyLevels, (v) => game.i18n.localize(v)),
+            proficiencyChoices: R.mapToObj(CONFIG.PF2E.proficiencyLevels, (v, index) => [index, game.i18n.localize(v)]),
             selectedKeyAbility: this.getLocalizedAbilities(itemData.system.keyAbility),
             trainedSkills: createSheetTags(CONFIG.PF2E.skills, itemData.system.trainedSkills),
             ancestryFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.ancestryFeatLevels),

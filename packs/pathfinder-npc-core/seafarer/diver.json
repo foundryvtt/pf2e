@@ -230,7 +230,20 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "adjusted-eyes",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Sense",
+                        "predicate": [
+                            "adjusted-eyes"
+                        ],
+                        "selector": "low-light-vision"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -281,7 +294,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The diver gains a +12 circumstance bonus to any skill check involved in underwater exploration activities and is considered a master in the skill for such checks. This bonus also applies to any initiative roll while the driver is underwater. Strong Lungs The diver can hold their breath for up to 5 minutes (50 rounds).</p>"
+                    "value": "<p>The diver gains a +12 circumstance bonus to any skill check involved in underwater exploration activities and is considered a master in the skill for such checks. This bonus also applies to any initiative roll while the driver is underwater.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -289,6 +302,11 @@
                     "title": ""
                 },
                 "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "skilled-diver",
+                        "toggleable": true
+                    },
                     {
                         "key": "FlatModifier",
                         "predicate": [
@@ -310,10 +328,39 @@
             "type": "action"
         },
         {
+            "_id": "66uRUxIPoc3zmnwR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Strong Lungs",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The diver can hold their breath for up to 5 minutes (50 rounds).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "6wHu4CCSDnbcEopw",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Underwater Fighter",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -342,7 +389,7 @@
             "_id": "f0DDarr5MFdbqCMt",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Underwater Awareness",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -386,7 +433,7 @@
             "_id": "xTj7OVv1uH9YPuEK",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Dive",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -415,7 +462,7 @@
             "_id": "Dzk0av8V7KPthrfO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Ocean Lore",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""

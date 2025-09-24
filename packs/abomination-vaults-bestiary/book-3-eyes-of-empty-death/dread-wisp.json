@@ -137,7 +137,33 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:type:spell",
+                                    {
+                                        "or": [
+                                            "item:slug:magic-missile",
+                                            "item:slug:maze",
+                                            "item:slug:faerie-fire",
+                                            "item:slug:force-barrage",
+                                            "item:slug:quandary",
+                                            "item:slug:revealing-light",
+                                            "item:slug:searing-light",
+                                            "item:slug:holy-light",
+                                            "item:trait:vitality"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.WispVulnerabilities"
+                            }
+                        ],
+                        "key": "Immunity",
+                        "type": "magic"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -381,11 +407,7 @@
                 "temp": 0,
                 "value": 90
             },
-            "immunities": [
-                {
-                    "type": "magic"
-                }
-            ],
+            "immunities": [],
             "speed": {
                 "otherSpeeds": [
                     {

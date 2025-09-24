@@ -127,11 +127,11 @@
             >{{localize "PF2E.CriticalDamageLabel"}}</button>
 
             {{#if (or doubleBarrel versatileOptions)}}
-                <div class="toggles">
+                <div class="toggles flexrow">
                     {{#if doubleBarrel}}
                         <button
                             type="button"
-                            class="damage double-barrel color physical{{#if doubleBarrel.selected}} selected{{/if}}"
+                            class="double-barrel color physical{{#if doubleBarrel.selected}} selected{{/if}}"
                             data-action="toggle-weapon-trait"
                             data-trait="double-barrel"
                             data-tooltip="{{localize "PF2E.TraitDoubleBarrel"}}"

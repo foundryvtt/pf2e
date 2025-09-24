@@ -3,11 +3,11 @@ import { StrikeData } from "@actor/data/base.ts";
 import { iterateAllItems } from "@actor/helpers.ts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
-import type { CompendiumIndex } from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import type { DocumentUUID } from "@client/utils/_module.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
+import { PickableThing, PickAThingPrompt } from "@module/apps/pick-a-thing-prompt/app.ts";
 import { processChoicesFromData } from "@module/rules/helpers.ts";
 import { Predicate } from "@system/predication.ts";
 import {
@@ -22,7 +22,7 @@ import {
 import { localizer, objectHasKey, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import { RuleElement, RuleElementOptions } from "../base.ts";
 import { ModelPropsFromRESchema } from "../data.ts";
 import {
     AllowedDropsData,
@@ -34,14 +34,13 @@ import {
     ChoiceSetSource,
     UninflatedChoiceSet,
 } from "./data.ts";
-import { ChoiceSetPrompt } from "./prompt.ts";
 import fields = foundry.data.fields;
 
 /**
  * Present a set of options to the user and assign their selection to an injectable property
  * @category RuleElement
  */
-class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
+class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
     declare choices: UninflatedChoiceSet;
     declare flag: string;
     declare allowedDrops: AllowedDropsData | null;
@@ -184,7 +183,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         itemSource,
         ruleSource,
         tempItems,
-    }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
+    }: RuleElement.PreCreateParams<ChoiceSetSource>): Promise<void> {
         if (this.selection === null && R.isObjectType(this.choices) && "query" in this.choices) {
             this.failValidation("As of FVTT version 11, choice set queries are no longer supported.");
             for (const ruleData of this.item.system.rules) {
@@ -217,8 +216,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         const selection =
             this.#getPreselection(this.choices) ??
-            (await new ChoiceSetPrompt({
-                prompt: this.prompt,
+            (await new PickAThingPrompt({
+                prompt: game.i18n.localize(this.prompt),
                 item: this.item,
                 title: this.label,
                 choices: this.choices,
@@ -458,7 +457,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const increment = 1 / packs.length;
         const localize = localizer("PF2E.ProgressBar");
         // Retrieve index fields from matching compendiums and use them for predicate testing
-        const indexData: CompendiumIndex[] = [];
+        const indexData: Collection<string, CompendiumIndexData>[] = [];
         for (const pack of packs) {
             progress.update({
                 message: localize("LoadingPack", { pack: pack.metadata.label }),
@@ -490,11 +489,14 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const parentRollOptions = this.item.getRollOptions("parent");
         const filteredItems = indexData
             .flatMap((d): { name: string; type: string; uuid: string }[] => d.contents)
-            .filter((s): s is PreCreate<ItemSourcePF2e> & { uuid: DocumentUUID } => s.type === itemType)
+            .filter(
+                (s): s is DeepPartial<ItemSourcePF2e> & { name: string; type: string; uuid: DocumentUUID } =>
+                    s.type === itemType,
+            )
             .map((source) => {
                 const parsedUUID = fu.parseUuid(source.uuid);
                 const pack =
-                    parsedUUID.collection instanceof fd.collections.CompendiumCollection
+                    parsedUUID?.collection instanceof fd.collections.CompendiumCollection
                         ? parsedUUID.collection.metadata.id
                         : null;
                 return new ItemProxyPF2e(fu.deepClone(source), { pack });
@@ -583,6 +585,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 }
 
-interface ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema>, ModelPropsFromRESchema<ChoiceSetSchema> {}
+interface ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema>, ModelPropsFromRESchema<ChoiceSetSchema> {}
 
 export { ChoiceSetRuleElement };

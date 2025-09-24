@@ -1,0 +1,188 @@
+{
+    "_id": "uqtXEAWwHhA2xShg",
+    "img": "systems/pf2e/icons/spells/face-in-the-crowd.webp",
+    "name": "Effect: Invincible Army",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Invincible Army]</p>\n<p>You gain resistance 5 to bludgeoning, piercing, or slashing damage if the check was against the hard DC. if the check is against a very hard DC, then you gain resistance to two damage types, adding acid, fire, cold, electricity, and sonic to the damage types.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.DCAdjustmentHard",
+                        "value": "hard"
+                    },
+                    {
+                        "label": "PF2E.DCAdjustmentVeryHard",
+                        "value": "very-hard"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "Select an adjustment",
+                "rollOption": "invincible-army"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            "invincible-army:very-hard"
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            "invincible-army:very-hard"
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            "invincible-army:very-hard"
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            "invincible-army:very-hard"
+                        ],
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "invincibleArmyDamageFirst",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "damage-selection"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            {
+                                "not": "damage-selection:acid"
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "predicate": [
+                            {
+                                "not": "damage-selection:bludgeoning"
+                            }
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "not": "damage-selection:cold"
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "damage-selection:electricity"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "predicate": [
+                            {
+                                "not": "damage-selection:piercing"
+                            }
+                        ],
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "predicate": [
+                            {
+                                "not": "damage-selection:slashing"
+                            }
+                        ],
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            {
+                                "not": "damage-selection:sonic"
+                            }
+                        ],
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "invincibleArmyDamageSecond",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "invincible-army:very-hard"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.invincibleArmyDamageFirst}",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "invincible-army:very-hard"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.invincibleArmyDamageSecond}",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -33,13 +33,13 @@
         "rules": [
             {
                 "key": "DamageAlteration",
-                "mode": "add",
+                "mode": "upgrade",
                 "property": "dice-number",
                 "selectors": [
                     "elemental-blast-damage"
                 ],
                 "slug": "base",
-                "value": "min(@item.timesTaken, 3)"
+                "value": "1 + min(3,@item.timesTaken)"
             }
         ],
         "traits": {

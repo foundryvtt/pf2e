@@ -558,13 +558,13 @@
                 "rules": [
                     {
                         "adjustment": {
-                            "success": "to-critical-success"
+                            "success": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
                         "predicate": [
-                            "fear"
+                            "item:trait:fear"
                         ],
-                        "selector": "will"
+                        "selector": "saving-throw"
                     }
                 ],
                 "slug": null,
@@ -591,7 +591,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The gendarme can Disarm instead of Striking.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                    "value": "<p>The gendarme can [[/act disarm]] instead of Striking.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -620,7 +620,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The gendarme carefully makes a ranged Strike. If the Strike deals damage, the target must succeed at a @Check[reflex|dc:26] saving throw or fall @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p>The gendarme carefully makes a ranged Strike. If the Strike deals damage, the target must succeed at a @Check[reflex|dc:26|options:inflicts:prone] saving throw or fall @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "publication": {
                     "license": "ORC",

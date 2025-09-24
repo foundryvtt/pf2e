@@ -1,0 +1,30 @@
+<div class="waypoint-label {{cssClass}}">
+    {{#if action.img}}
+        <div class="img" style="background-image: url({{action.img}})"></div>
+    {{else if action.icon}}
+        <i class="icon {{action.icon}}" inert></i>
+    {{else if action.label}}
+        <label class="action-label">{{localize action.label}}</label>
+    {{/if}}
+    <span class="total-measurement">{{distance.total}} {{units}}</span>
+    {{#if distance.delta}}
+        <span class="delta-measurement">({{distance.delta}})</span>
+    {{/if}}
+
+    {{#if (and elevation (not elevation.hidden))}}
+        <i class="icon {{elevation.icon}}" inert></i>
+        <span class="total-elevation">{{elevation.total}} {{units}}</span>
+        {{#if elevation.delta}}
+            <span class="delta-elevation">({{elevation.delta}})</span>
+        {{/if}}
+    {{/if}}
+    {{#if actionCost}}
+    <span class="action-glyph">
+        {{~actionCost.actions~}}
+        {{~#if actionCost.overage}}<span class="overage">!</span>{{/if~}}
+    </span>
+    {{/if}}
+    {{#if secret}}
+        <i class="icon fa-solid fa-eye-slash" inert></i>
+    {{/if}}
+</div>

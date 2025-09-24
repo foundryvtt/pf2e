@@ -49,9 +49,9 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           name: ${{ env.systemVersion }}
-          allowUpdates: true
+          allowUpdates: false
           draft: false
-          prerelease: true
+          prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "./dist/system.json,./dist/pf2e.zip,./json-assets/json-assets.zip"
           tag: ${{ env.systemVersion }}

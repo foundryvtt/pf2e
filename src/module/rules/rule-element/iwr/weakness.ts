@@ -4,6 +4,7 @@ import type { StrictArrayField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleValue } from "../data.ts";
 import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
+import fields = foundry.data.fields;
 
 /** @category RuleElement */
 class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
@@ -12,7 +13,17 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
             exceptions: this.createExceptionsField(this.dictionary),
+            applyOnce: new fields.BooleanField({ required: false, initial: undefined }),
         };
+    }
+
+    static override validateJoint(source: fields.SourceFromSchema<WeaknessRuleSchema>): void {
+        super.validateJoint(source);
+        if (typeof source.applyOnce === "boolean" && !source.type.every((t) => t === "custom")) {
+            throw new foundry.data.validation.DataModelValidationError(
+                "applyOnce can only be specified for custom weakness types",
+            );
+        }
     }
 
     static override get dictionary(): Record<WeaknessType, string> {
@@ -55,6 +66,7 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
                     value,
                     exceptions: this.exceptions,
                     source: this.item.name,
+                    applyOnce: this.applyOnce,
                 }),
         );
     }
@@ -73,6 +85,8 @@ interface WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema>, ModelP
 type WeaknessRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
     value: ResolvableValueField<true, false, false>;
     exceptions: StrictArrayField<IWRExceptionField>;
+    /** This is a "non-damage" Weakness, e.g. from contact with a holy weapon, and should only apply once. */
+    applyOnce: fields.BooleanField<boolean, boolean, false, false, false>;
 };
 
 export { WeaknessRuleElement };

@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { TokenSource } from "@common/documents/token.mjs";
+import type { TokenSource } from "@common/documents/token.d.mts";
 import { MigrationBase } from "../base.ts";
 
 /**

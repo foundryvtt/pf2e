@@ -1,0 +1,131 @@
+{
+    "_id": "Lt5iSfx8fxHSdYXz",
+    "img": "icons/skills/ranged/target-bullseye-archer-orange.webp",
+    "name": "Effect: Share Hunter's Edge (Precision, Masterful)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Animal Companion (Ranger)] with @UUID[Compendium.pf2e.feats-srd.Item.Masterful Companion]</p>\n<p>The first time you hit the marked creature in a round, you deal 2d8 additional precision damage. At 19th level, the extra damage increases to 3d8 precision damage.</p>\n<p>The second time in a round you hit the marked creature, you also deal 1d8 precision damage. At 19th level this extra damage increases to 2d8 precision damage, and your third hit in a round against the marked creature deals 1d8 precision damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 18
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "share-hunters-edge"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                "predicate": [
+                    "action:seek",
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                "predicate": [
+                    "action:track",
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Precision.ToggleLabel",
+                "option": "precision-hunters-edge",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Ordinals.First",
+                        "value": "first-hit"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Ordinals.Second",
+                        "value": "second-hit"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Ordinals.Third",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    19
+                                ]
+                            }
+                        ],
+                        "value": "third-hit"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "diceNumber": "ternary(gte(@actor.level,19),3,2)",
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Flurry.Label",
+                "predicate": [
+                    "precision-hunters-edge",
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "strike-damage",
+                "slug": "precision"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "precision-hunters-edge:second-hit"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "precision",
+                "value": "ternary(gte(@actor.level,19),2,1)"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "precision-hunters-edge:third-hit"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "precision",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

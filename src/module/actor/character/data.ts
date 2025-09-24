@@ -14,7 +14,7 @@ import {
     SaveData,
     SkillData,
 } from "@actor/creature/data.ts";
-import { CreatureInitiativeSource, CreatureSpeeds, Language } from "@actor/creature/index.ts";
+import { CreatureInitiativeSource, Language } from "@actor/creature/index.ts";
 import {
     ActorAttributesSource,
     ActorFlagsPF2e,
@@ -24,7 +24,7 @@ import {
     StrikeData,
     TraitViewData,
 } from "@actor/data/base.ts";
-import { AttributeString, MovementType, SaveType, SkillSlug } from "@actor/types.ts";
+import { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
 import type { WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ProficiencyRank } from "@item/base/data/index.ts";
@@ -62,6 +62,10 @@ type CharacterFlags = ActorFlagsPF2e & {
         showBasicUnarmed: boolean;
         /** The limit for each feat group that supports a custom limit. */
         featLimits: Record<string, number>;
+        /** Whether this actor is under a polymorph effect */
+        polymorphed?: boolean;
+        /** Whether this actor is under a battle form polymorph effect */
+        battleForm?: boolean;
     };
 };
 
@@ -97,13 +101,6 @@ interface CharacterAttributesSource extends ActorAttributesSource {
         temp: number;
         /** Stamina points: present if Stamina variant is enabled  */
         sp?: { value: number };
-    };
-    speed: {
-        value: number;
-        otherSpeeds: {
-            type: Exclude<MovementType, "land">;
-            value: number;
-        }[];
     };
 }
 
@@ -273,7 +270,7 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission
     exploration: string[];
 }
 
-type SourceOmission = "customModifiers" | "perception" | "resources" | "saves" | "traits";
+type SourceOmission = "attributes" | "customModifiers" | "perception" | "resources" | "saves" | "speed" | "traits";
 
 interface CharacterSkillData extends SkillData {
     attribute: AttributeString;
@@ -475,21 +472,14 @@ interface CharacterAttributes extends Omit<CharacterAttributesSource, Attributes
     /** Data related to character hitpoints. */
     hp: CharacterHitPoints;
 
-    speed: CreatureSpeeds;
-
     /**
      * Data related to the currently equipped shield. This is copied from the shield data itself and exists to
      * allow for the shield health to be shown on an actor shield and token.
      */
     shield: HeldShieldData;
-
-    /** Whether this actor is under a polymorph effect */
-    polymorphed: boolean;
-
-    /** Whether this actor is under a battle form polymorph effect */
-    battleForm: boolean;
 }
-type AttributesSourceOmission = "immunities" | "weaknesses" | "resistances";
+
+type AttributesSourceOmission = "immunities" | "weaknesses" | "resistances" | "speed";
 
 interface CharacterHitPoints extends HitPointsStatistic {
     recoveryMultiplier: number;

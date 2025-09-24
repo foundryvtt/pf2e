@@ -1,0 +1,75 @@
+{
+    "_id": "7FPIQyPcq2R4L1ZQ",
+    "img": "icons/sundries/flags/banner-blue.webp",
+    "name": "Effect: Blazing Banner",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Blazing Banner], @UUID[Compendium.pf2e.equipment-srd.Item.Blazing Banner (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Blazing Banner (Major)]</p>\n<p>Whenever you critically succeeds with a Strike, the Strike deals additional persistent fire damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "selector": "strike-damage",
+                "slug": "blazing-banner"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:greater-blazing-banner"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "blazing-banner",
+                "value": 6
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:major-blazing-banner"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "blazing-banner",
+                "value": 8
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

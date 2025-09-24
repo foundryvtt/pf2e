@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { TraitViewData } from "@actor/data/base.ts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { EffectPF2e, type PhysicalItemPF2e } from "@item";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { EffectSource } from "@item/effect/data.ts";

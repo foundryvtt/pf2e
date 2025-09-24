@@ -1,5 +1,5 @@
 import * as R from "remeda";
-import { RuleElementPF2e } from "./base.ts";
+import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 import validation = foundry.data.validation;
@@ -8,7 +8,7 @@ import validation = foundry.data.validation;
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
  * @category RuleElement
  */
-class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
+class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElement<TSchema> {
     static override defineSchema(): AELikeSchema {
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = this.CHANGE_MODE_DEFAULT_PRIORITIES;
@@ -246,7 +246,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
 }
 
 interface AELikeRuleElement<TSchema extends AELikeSchema>
-    extends RuleElementPF2e<TSchema>,
+    extends RuleElement<TSchema>,
         ModelPropsFromRESchema<AELikeSchema> {}
 
 interface AutoChangeEntry {

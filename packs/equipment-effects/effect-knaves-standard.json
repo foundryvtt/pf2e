@@ -1,0 +1,74 @@
+{
+    "_id": "mGozE5ZdZlQiIr8y",
+    "img": "icons/sundries/flags/banner-blue.webp",
+    "name": "Effect: Knave's Standard",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Knave's Standard], @UUID[Compendium.pf2e.equipment-srd.Item.Knave's Standard (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Knave's Standard (Major)]</p>\n<p>Whenever you critically succeeds with a Strike against an off-guard target, the Strike deals additional precision damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "category": "precision",
+                "critical": true,
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "selector": "strike-damage",
+                "slug": "knaves-standard"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:greater-knaves-standard"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "knaves-standard",
+                "value": 6
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:major-knaves-standard"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "knaves-standard",
+                "value": 8
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

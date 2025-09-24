@@ -236,18 +236,18 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
+        const system = (data.system ??= {});
         if (this.isOwned) {
             const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
-            this._source.system.start = { value: game.time.worldTime + this.onsetDuration, initiative };
+            system.start = { value: game.time.worldTime + this.onsetDuration, initiative };
         } else {
             // Reset stage and active onset if there is no actor
-            this.updateSource({ "system.status": undefined });
+            delete system.status;
         }
-
         return super._preCreate(data, options, user);
     }
 

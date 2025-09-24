@@ -1,0 +1,66 @@
+{
+    "_id": "IWQsYjk17aDAZ4eM",
+    "folder": "GgaQl7a4EHY42e3q",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Jotunborn Lore",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You were taught the history of your people's planar travels as well as the skills necessary to thrive in sub-planar environments. You become trained in Occultism and Survival. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] general feat for Jotunborn Lore.</p><hr /><p><strong>Special</strong> If you have the @UUID[Compendium.pf2e.heritages.Item.Sage Jotunborn] heritage, you gain the Additional Lore feat a second time for a lore of your choice.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occultism.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.survival.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "heritage:sage-jotunborn"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "jotunborn"
+            ]
+        }
+    },
+    "type": "feat"
+}

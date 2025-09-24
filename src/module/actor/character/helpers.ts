@@ -1,19 +1,20 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import type { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
 import { EffectPF2e, ItemProxyPF2e } from "@item";
-import { ItemCarryType } from "@item/physical/index.ts";
+import type { ItemCarryType } from "@item/physical/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
+import type { ZeroToFour, ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
+import type { RuleElementSource } from "@module/rules/index.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { Predicate } from "@system/predication.ts";
 import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
+import type { MartialProficiency } from "./data.ts";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
 class PCAttackTraitHelpers extends AttackTraitHelpers {
@@ -45,7 +46,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
         }
     }
 
-    static override createAttackModifiers({ item, domains }: CreateAttackModifiersParams): ModifierPF2e[] {
+    static override createAttackModifiers({ item, domains }: CreateAttackModifiersParams): Modifier[] {
         const actor = item.actor;
         if (!actor) throw ErrorPF2e("The weapon must be embedded");
 
@@ -59,7 +60,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
                     // (pre-remaster language)
                     // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with
                     // 14 or more Strength ignore the penalty."
-                    return new ModifierPF2e({
+                    return new Modifier({
                         slug: unannotatedTrait,
                         label: CONFIG.PF2E.weaponTraits.kickback,
                         modifier: -2,
@@ -69,7 +70,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
                     });
                 }
                 case "improvised": {
-                    return new ModifierPF2e({
+                    return new Modifier({
                         slug: unannotatedTrait,
                         label: this.getLabel(trait),
                         modifier: -2,
@@ -326,11 +327,50 @@ interface CreateAttackModifiersParams {
     domains: string[];
 }
 
+/** Get the proficiency rank of of a weapon or armor for a PC. */
+function getItemProficiencyRank(
+    actor: CharacterPF2e,
+    item: ArmorPF2e | WeaponPF2e,
+    itemOptions = new Set(item.getRollOptions("item")),
+): ZeroToFour {
+    if (item.isOfType("armor")) return getArmorProficiencyRank(actor, item, itemOptions);
+    return getWeaponProficiencyRank(actor, item, itemOptions);
+}
+
+function getArmorProficiencyRank(actor: CharacterPF2e, armor: ArmorPF2e, itemOptions: Set<string>): ZeroToFour {
+    return Object.entries(actor.system.proficiencies.defenses as Record<string, MartialProficiency>)
+        .filter(([key, proficiency]) => {
+            if (!armor) return key === "unarmored";
+            if (armor.category === key) return true;
+            return proficiency.definition?.test(itemOptions) ?? false;
+        })
+        .map(([_k, v]) => v)
+        .reduce((best, p) => (p.rank > best.rank ? p : best), { rank: 0 as ZeroToFour }).rank;
+}
+
+function getWeaponProficiencyRank(actor: CharacterPF2e, weapon: WeaponPF2e, itemOptions: Set<string>): ZeroToFour {
+    // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
+    // certain criteria also count as weapon of different category
+    const proficiencies = actor.system.proficiencies;
+    const categoryRank = proficiencies.attacks[weapon.category]?.rank ?? 0;
+    const groupRank = proficiencies.attacks[`weapon-group-${weapon.group}`]?.rank ?? 0;
+
+    // Weapons that are interchangeable for all rules purposes (e.g., longbow and composite longbow)
+    const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+    const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
+    const baseWeaponRank = proficiencies.attacks[`weapon-base-${baseWeapon}`]?.rank ?? 0;
+    const syntheticRanks = Object.values(proficiencies.attacks)
+        .filter((p): p is MartialProficiency => !!p?.definition?.test(itemOptions))
+        .map((p) => p.rank);
+
+    return Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
+}
+
 /** Create a penalty for attempting to Force Open without a crowbar or equivalent tool */
-function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): ModifierPF2e {
+function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): Modifier {
     const slug = "no-crowbar";
     const { modifierAdjustments } = actor.synthetics;
-    return new ModifierPF2e({
+    return new Modifier({
         slug,
         label: "PF2E.Actions.ForceOpen.NoCrowbarPenalty",
         type: "item",
@@ -345,12 +385,12 @@ function createShoddyPenalty(
     actor: ActorPF2e,
     item: WeaponPF2e | ArmorPF2e | null,
     domains: string[],
-): ModifierPF2e | null {
+): Modifier | null {
     if (!actor.isOfType("character") || !item?.isShoddy) return null;
 
     const slug = "shoddy";
 
-    return new ModifierPF2e({
+    return new Modifier({
         label: "PF2E.Item.Physical.OtherTag.Shoddy",
         type: "item",
         slug,
@@ -361,36 +401,17 @@ function createShoddyPenalty(
 
 /**
  * Create a penalty for wearing armor with the "ponderous" trait
- * "You take a –5 penalty to all your Speeds (to a minimum of a 5-foot Speed). This is separate from and in addition to
- * the armor's Speed penalty, and affects you even if your Strength or an ability lets you reduce or ignore the armor's
- * Speed penalty."
- */
-function createHinderingPenalty(actor: CharacterPF2e): ModifierPF2e | null {
-    const slug = "hindering";
-    return actor.wornArmor?.traits.has(slug)
-        ? new ModifierPF2e({
-              label: "PF2E.TraitHindering",
-              type: "untyped",
-              slug,
-              modifier: -5,
-              adjustments: [],
-          })
-        : null;
-}
-
-/**
- * Create a penalty for wearing armor with the "ponderous" trait
  * "While wearing the armor, you take a –1 penalty to initiative checks. If you don't meet the armor's required Strength
  * score, this penalty increases to be equal to the armor's check penalty if it's worse."
  */
-function createPonderousPenalty(actor: CharacterPF2e): ModifierPF2e | null {
+function createPonderousPenalty(actor: CharacterPF2e): Modifier | null {
     const armor = actor.wornArmor;
     const slug = "ponderous";
     if (!armor?.traits.has(slug)) return null;
 
     const penaltyValue = actor.abilities.str.mod >= (armor.strength ?? -Infinity) ? -1 : armor.checkPenalty || -1;
 
-    return new ModifierPF2e({
+    return new Modifier({
         label: "PF2E.TraitPonderous",
         type: "untyped",
         slug,
@@ -403,8 +424,8 @@ export {
     PCAttackTraitHelpers,
     WeaponAuxiliaryAction,
     createForceOpenPenalty,
-    createHinderingPenalty,
     createPonderousPenalty,
     createShoddyPenalty,
+    getItemProficiencyRank,
     imposeOversizedWeaponCondition,
 };

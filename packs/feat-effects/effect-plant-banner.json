@@ -1,0 +1,46 @@
+{
+    "_id": "KsUQjLQO62BY0lk4",
+    "img": "icons/sundries/flags/banner-standard-moon.webp",
+    "name": "Effect: Plant Banner",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Plant Banner]</p>\n<p>You gain 4 temporary Hit Points, plus an additional 4 temporary Hit Points if the origin is 4th level and every 4 levels thereafter.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "events": {
+                    "onCreate": true,
+                    "onTurnStart": true
+                },
+                "key": "TempHP",
+                "value": "4*(1 + floor(@actor.level / 4))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,77 @@
+{
+    "_id": "cRmTTrgGzaACo7R3",
+    "img": "icons/equipment/head/helm-norman-shrouded.webp",
+    "name": "Gas Mask of Clean Air",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This black canvas mask covers your mouth and nose, with thick tubes coming from the sides. While wearing this mask, you gain a +1 item bonus to saves against inhaled poisons, inhaled diseases, and olfactory effects.</p>\n<p><strong>Activate—Breathe Clean</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> Your mask springs to life, pumping clean air into your nose and mouth. For 1 round, you are immune to inhaled poisons, inhaled diseases, and olfactory effects. If you have ongoing effects due to such an effect from before activating the mask, those effects continue as normal. If the air around you is unbreathable, you are underwater, or you are in a vacuum, you can breathe normally.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 85
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:olfactory",
+                            {
+                                "and": [
+                                    "item:trait:inhaled",
+                                    {
+                                        "or": [
+                                            "item:trait:disease",
+                                            "item:trait:poison"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "air",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornmask"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,68 @@
+{
+    "_id": "kJndFOHNBH8SR5IM",
+    "img": "icons/skills/wounds/injury-pain-body-orange.webp",
+    "name": "Effect: Sanguine Revitalization",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Sanguine Revitalization]</p>\n<p>You take a circumstance penalty to your Fortitude save.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 19
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeOne",
+                        "value": -1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeTwo",
+                        "value": -2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeThree",
+                        "value": -3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeFour",
+                        "value": -4
+                    }
+                ],
+                "flag": "penalty",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Penalty"
+            },
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.penalty"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

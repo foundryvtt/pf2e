@@ -4,7 +4,7 @@ import type { ItemPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
-import type { RuleElementPF2e } from "@module/rules/index.ts";
+import type { RuleElement } from "@module/rules/index.ts";
 import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import type { DamageCategoryUnique, DamageDiceFaces, DamageDieSize, DamageType } from "@system/damage/types.ts";
@@ -111,7 +111,7 @@ type DeferredValue<T> = (options?: DeferredValueParams) => T | null;
 type DeferredPromise<T> = (options?: DeferredValueParams) => Promise<T | null>;
 
 /** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
-class ModifierPF2e implements RawModifier {
+class Modifier implements RawModifier {
     slug: string;
     label: string;
     domains: string[];
@@ -128,7 +128,7 @@ class ModifierPF2e implements RawModifier {
     enabled: boolean;
     ignored: boolean;
     /** The originating rule element of this modifier, if any: used to retrieve "parent" item roll options */
-    rule: RuleElementPF2e | null;
+    rule: RuleElement | null;
     source: string | null;
     custom: boolean;
     damageType: DamageType | null;
@@ -274,11 +274,8 @@ class ModifierPF2e implements RawModifier {
     }
 
     /** Return a copy of this ModifierPF2e instance */
-    clone(
-        data: Partial<ModifierObjectParams> = {},
-        options: { test?: Set<string> | string[] | null } = {},
-    ): ModifierPF2e {
-        const clone = new ModifierPF2e({ ...this, modifier: this.#originalValue, rule: this.rule, ...data });
+    clone(data: Partial<ModifierObjectParams> = {}, options: { test?: Set<string> | string[] | null } = {}): Modifier {
+        const clone = new Modifier({ ...this, modifier: this.#originalValue, rule: this.rule, ...data });
         if (options.test) clone.test(options.test);
 
         return clone;
@@ -347,7 +344,7 @@ class ModifierPF2e implements RawModifier {
 
 interface ModifierObjectParams extends RawModifier {
     name?: string;
-    rule?: RuleElementPF2e | null;
+    rule?: RuleElement | null;
     alterations?: DamageAlteration[];
 }
 
@@ -365,12 +362,12 @@ type ModifierOrderedParams = [
  * Create a modifier for a given attribute type.
  * @returns The modifier of the given attribute
  */
-function createAttributeModifier({ actor, attribute, domains, max }: CreateAbilityModifierParams): ModifierPF2e {
+function createAttributeModifier({ actor, attribute, domains, max }: CreateAbilityModifierParams): Modifier {
     const withAttributeBased = domains.includes(`${attribute}-based`) ? domains : [...domains, `${attribute}-based`];
     const modifierValue = actor.abilities[attribute].mod;
     const cappedValue = Math.min(modifierValue, max ?? modifierValue);
 
-    return new ModifierPF2e({
+    return new Modifier({
         slug: attribute,
         label: CONFIG.PF2E.abilities[attribute],
         modifier: cappedValue,
@@ -398,7 +395,7 @@ function createProficiencyModifier({
     domains,
     level,
     addLevel,
-}: CreateProficiencyModifierParams): ModifierPF2e {
+}: CreateProficiencyModifierParams): Modifier {
     rank = Math.clamp(rank, 0, 4) as ZeroToFour;
     addLevel ??= rank > 0;
     const pwolVariant = game.pf2e.settings.variants.pwol.enabled;
@@ -410,7 +407,7 @@ function createProficiencyModifier({
     const addedLevel = addLevel && !pwolVariant ? (level ?? actor.level) : 0;
     const bonus = baseBonuses[rank] + addedLevel;
 
-    return new ModifierPF2e({
+    return new Modifier({
         slug: "proficiency",
         label: `PF2E.ProficiencyLevel${rank}`,
         modifier: bonus,
@@ -429,9 +426,9 @@ interface CreateProficiencyModifierParams {
 }
 
 /** A comparison which rates the first modifier as better than the second if it's modifier is at least as large. */
-const HIGHER_BONUS = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier >= b.modifier;
+const HIGHER_BONUS = (a: Modifier, b: Modifier) => a.modifier >= b.modifier;
 /** A comparison which rates the first modifier as better than the second if it's modifier is at least as small. */
-const LOWER_PENALTY = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier <= b.modifier;
+const LOWER_PENALTY = (a: Modifier, b: Modifier) => a.modifier <= b.modifier;
 
 /**
  * Given a current map of damage type -> best modifier, compare the given modifier against the current best modifier
@@ -439,9 +436,9 @@ const LOWER_PENALTY = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier <= b.modi
  * as a result of this update.
  */
 function applyStacking(
-    best: Record<string, ModifierPF2e>,
-    modifier: ModifierPF2e,
-    isBetter: (first: ModifierPF2e, second: ModifierPF2e) => boolean,
+    best: Record<string, Modifier>,
+    modifier: Modifier,
+    isBetter: (first: Modifier, second: Modifier) => boolean,
 ) {
     // If there is no existing bonus of this type, then add ourselves.
     const existing = best[modifier.type];
@@ -471,14 +468,14 @@ function applyStacking(
  * @param modifiers The list of modifiers to apply stacking rules for.
  * @returns The total modifier provided by the given list of modifiers.
  */
-function applyStackingRules(modifiers: ModifierPF2e[]): number {
+function applyStackingRules(modifiers: Modifier[]): number {
     let total = 0;
-    const highestBonus: Record<string, ModifierPF2e> = {};
-    const lowestPenalty: Record<string, ModifierPF2e> = {};
+    const highestBonus: Record<string, Modifier> = {};
+    const lowestPenalty: Record<string, Modifier> = {};
 
     // There are no ability bonuses or penalties, so always take the highest ability modifier.
     const abilityModifiers = modifiers.filter((m) => m.type === "ability" && !m.ignored);
-    const bestAbility = abilityModifiers.reduce((best: ModifierPF2e | null, modifier): ModifierPF2e | null => {
+    const bestAbility = abilityModifiers.reduce((best: Modifier | null, modifier): Modifier | null => {
         if (best === null) {
             return modifier;
         } else {
@@ -525,7 +522,7 @@ class StatisticModifier {
     /** The display label of this statistic */
     declare label?: string;
     /** The list of modifiers which affect the statistic. */
-    protected _modifiers: ModifierPF2e[];
+    protected _modifiers: Modifier[];
     /** The total modifier for the statistic, after applying stacking rules. */
     declare totalModifier: number;
     /** A textual breakdown of the modifiers factoring into this statistic */
@@ -540,14 +537,14 @@ class StatisticModifier {
      * @param modifiers All relevant modifiers for this statistic.
      * @param rollOptions Roll options used for initial total calculation
      */
-    constructor(slug: string, modifiers: ModifierPF2e[] = [], rollOptions: string[] | Set<string> = new Set()) {
+    constructor(slug: string, modifiers: Modifier[] = [], rollOptions: string[] | Set<string> = new Set()) {
         rollOptions = rollOptions instanceof Set ? rollOptions : new Set(rollOptions);
         this.slug = slug;
 
         // De-duplication. Prefer higher valued, and deprioritize disabled ones
         // This behavior is used by kingmaker to create "custom modifier types" via slugs,
         // as well as special skill modifiers when rolling manually
-        const seen = modifiers.reduce((result: Record<string, ModifierPF2e>, modifier) => {
+        const seen = modifiers.reduce((result: Record<string, Modifier>, modifier) => {
             const existing = result[modifier.slug];
             if (!existing?.enabled || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
                 result[modifier.slug] = modifier;
@@ -560,12 +557,12 @@ class StatisticModifier {
     }
 
     /** Get the list of all modifiers in this collection */
-    get modifiers(): ModifierPF2e[] {
+    get modifiers(): Modifier[] {
         return [...this._modifiers];
     }
 
     /** Add a modifier to the end of this collection. */
-    push(modifier: ModifierPF2e): number {
+    push(modifier: Modifier): number {
         // de-duplication. If an existing one exists, replace if higher valued
         const existingIdx = this._modifiers.findIndex((o) => o.slug === modifier.slug);
         const existing = this._modifiers[existingIdx];
@@ -581,7 +578,7 @@ class StatisticModifier {
     }
 
     /** Add a modifier to the beginning of this collection. */
-    unshift(modifier: ModifierPF2e): number {
+    unshift(modifier: Modifier): number {
         // de-duplication
         if (this._modifiers.find((o) => o.slug === modifier.slug) === undefined) {
             this._modifiers.unshift(modifier);
@@ -591,7 +588,7 @@ class StatisticModifier {
     }
 
     /** Delete a modifier from this collection by name or reference */
-    delete(modifierSlug: string | ModifierPF2e): boolean {
+    delete(modifierSlug: string | Modifier): boolean {
         const toDelete =
             typeof modifierSlug === "object"
                 ? modifierSlug
@@ -621,7 +618,7 @@ class StatisticModifier {
     }
 }
 
-function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
+function adjustModifiers(modifiers: Modifier[], rollOptions: Set<string>): void {
     // Reset all adjustments for consistent behavior between repeat runs
     for (const modifier of modifiers) {
         for (const adjustment of modifier.adjustments) {
@@ -646,13 +643,13 @@ class CheckModifier extends StatisticModifier {
      */
     constructor(
         slug: string,
-        statistic: { modifiers: readonly ModifierPF2e[] },
-        modifiers: ModifierPF2e[] = [],
+        statistic: { modifiers: readonly Modifier[] },
+        modifiers: Modifier[] = [],
         rollOptions: string[] | Set<string> = new Set(),
     ) {
         const baseModifiers = statistic.modifiers
             .filter((modifier: unknown) => {
-                if (modifier instanceof ModifierPF2e) return true;
+                if (modifier instanceof Modifier) return true;
                 if (R.isObjectType(modifier) && "slug" in modifier && typeof modifier.slug === "string") {
                     ui.notifications.error(`Unsupported modifier object (slug: ${modifier.slug}) passed`);
                 }
@@ -817,8 +814,8 @@ export {
     createProficiencyModifier,
     DamageDicePF2e,
     ensureProficiencyOption,
+    Modifier,
     MODIFIER_TYPES,
-    ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 };

@@ -3,20 +3,20 @@ import {
     DamageDicePF2e,
     DeferredDamageDiceOptions,
     DeferredValueParams,
+    Modifier,
     ModifierAdjustment,
-    ModifierPF2e,
     StatisticModifier,
 } from "@actor/modifiers.ts";
-import { ItemPF2e } from "@item";
-import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/base/data/index.ts";
-import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ConditionSource, EffectSource, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
+import type { PickableThing } from "@module/apps/pick-a-thing-prompt/app.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { BaseDamageData } from "@system/damage/index.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
 import * as R from "remeda";
 import { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
-import { BracketedValue, RuleElementPF2e, RuleElementSource } from "./rule-element/index.ts";
+import { BracketedValue, RuleElement, RuleElementSource } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
@@ -24,7 +24,7 @@ function extractModifiers(
     synthetics: RuleElementSynthetics,
     domains: string[],
     options: DeferredValueParams = {},
-): ModifierPF2e[] {
+): Modifier[] {
     domains = R.unique(domains);
     const modifiers = domains.flatMap((s) => synthetics.modifiers[s] ?? []).flatMap((d) => d(options) ?? []);
     for (const modifier of modifiers) {
@@ -67,8 +67,8 @@ function extractDamageDice(synthetics: DamageDiceSynthetics, options: DeferredDa
 
 function processDamageCategoryStacking(
     base: BaseDamageData[],
-    options: { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[]; test: Set<string> },
-): { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[] } {
+    options: { modifiers: Modifier[]; dice: DamageDicePF2e[]; test: Set<string> },
+): { modifiers: Modifier[]; dice: DamageDicePF2e[] } {
     const dice = options.dice;
     const groupedModifiers = R.groupBy(options.modifiers, (m) => (m.category === "persistent" ? "persistent" : "main"));
 
@@ -107,17 +107,18 @@ async function extractEphemeralEffects({
     )
         .filter(R.isNonNull)
         .map((effect) => {
-            effect.system.context = {
-                origin: {
-                    actor: effectsFrom.uuid,
-                    token: null,
-                    item: null,
-                    spellcasting: null,
-                },
-                target: { actor: effectsTo.uuid, token: null },
-                roll: null,
-            };
             if (effect.type === "effect") {
+                effect.system.context = {
+                    origin: {
+                        actor: effectsFrom.uuid,
+                        token: null,
+                        item: null,
+                        spellcasting: null,
+                        rollOptions: [],
+                    },
+                    target: { actor: effectsTo.uuid, token: null },
+                    roll: null,
+                };
                 effect.system.duration = { value: -1, unit: "unlimited", expiry: null, sustained: false };
             }
             return effect;
@@ -185,8 +186,8 @@ async function processPreUpdateActorHooks(
     if (!(actor instanceof ActorPF2e)) return;
 
     // Run preUpdateActor rule element callbacks
-    type WithPreUpdateActor = RuleElementPF2e & {
-        preUpdateActor: NonNullable<RuleElementPF2e["preUpdateActor"]>;
+    type WithPreUpdateActor = RuleElement & {
+        preUpdateActor: NonNullable<RuleElement["preUpdateActor"]>;
     };
     const rules = actor.rules.filter((r): r is WithPreUpdateActor => !!r.preUpdateActor);
     if (rules.length === 0) return;
@@ -217,18 +218,35 @@ async function processPreUpdateActorHooks(
     }
 }
 
+/** Helper that retrieves the items between the current item and the root item. The first is the root */
+function getSubItemPath(item: ItemPF2e): PhysicalItemPF2e[] | null {
+    if (item.isOfType("physical") && item.parentItem) {
+        const path = getSubItemPath(item.parentItem) ?? [item.parentItem];
+        path.push(item);
+        return path;
+    }
+    return null;
+}
+
 /** Gets the item update info that applies an update to all given rules */
 function createBatchRuleElementUpdate(
-    rules: RuleElementPF2e[],
+    rules: RuleElement[],
     update: Record<string, unknown>,
 ): EmbeddedDocumentUpdateData[] {
-    const itemUpdates: EmbeddedDocumentUpdateData[] = [];
-    const rulesByItem = R.groupBy(rules, (r) => r.item.id);
+    const itemUpdates: { _id: string; system: { rules?: RuleElementSource[]; subitems?: PhysicalItemSource[] } }[] = [];
+    const rulesByItem = R.groupBy(rules, (r) => r.item.uuid);
     const actor = rules[0]?.actor;
     if (!actor) return [];
 
-    for (const [itemId, rules] of Object.entries(rulesByItem)) {
-        const item = actor.items.get(itemId, { strict: true });
+    // Store nested item updates. The path is the id of each sub item excluding the root
+    const nestedUpdatesById: Record<
+        string,
+        { root: PhysicalItemPF2e; item: ItemPF2e; path: string[]; ruleSources: RuleElementSource[] }[]
+    > = {};
+
+    // Handle all rule updates grouped by item
+    for (const rules of Object.values(rulesByItem)) {
+        const item = rules[0].item;
         const ruleSources = item.toObject().system.rules;
         const rollOptionSources = rules
             .map((rule) => (typeof rule.sourceIndex === "number" ? ruleSources[rule.sourceIndex] : null))
@@ -236,7 +254,43 @@ function createBatchRuleElementUpdate(
         for (const ruleSource of rollOptionSources) {
             fu.mergeObject(ruleSource, update);
         }
-        itemUpdates.push({ _id: itemId, system: { rules: ruleSources } });
+
+        // If this is a sub item then store for later, otherwise add to item updates
+        const subItemPath = getSubItemPath(item);
+        if (subItemPath?.length) {
+            const root = subItemPath[0];
+            const path = subItemPath.slice(1).map((i) => i.id);
+            nestedUpdatesById[root.id] ??= [];
+            nestedUpdatesById[root.id].push({ root, item, path, ruleSources });
+        } else {
+            itemUpdates.push({ _id: item.id, system: { rules: ruleSources } });
+        }
+    }
+
+    // Handle sub item updates. This logic attempts to handle arbitrarily deep nesting
+    // Once the item we intend to update is found, we replace the rules with what we computed earlier
+    for (const nestedRuleGroup of Object.values(nestedUpdatesById)) {
+        const root = nestedRuleGroup[0].root;
+        const subitems = fu.deepClone(root.toObject().system.subitems);
+        if (!subitems) continue;
+
+        for (const update of nestedRuleGroup) {
+            const startingItem = subitems.find((s) => s._id === update.path[0]);
+            const item = update.path
+                .slice(1)
+                .reduce((item, id) => item?.system.subitems?.find((s) => s._id === id), startingItem);
+            if (item) {
+                item.system.rules = update.ruleSources;
+            }
+        }
+
+        // Add to item updates, though merge with an existing one if it already exists
+        const existingUpdate = itemUpdates.find((u) => u._id === root.id);
+        if (existingUpdate) {
+            existingUpdate.system.subitems = subitems;
+        } else {
+            itemUpdates.push({ _id: root.id, system: { subitems } });
+        }
     }
 
     return itemUpdates;

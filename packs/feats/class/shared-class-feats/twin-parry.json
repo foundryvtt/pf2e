@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> You are wielding two melee weapons, one in each hand.</p>\n<hr />\n<p>You use your two weapons to parry attacks. You gain a +1 circumstance bonus to AC until the start of your next turn, or a +2 circumstance bonus if either weapon has the parry trait. You lose this circumstance bonus if you no longer meet this feat's requirement.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Twin Parry]</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Twin Parry (Parry Trait)]</p>"
+            "value": "<p><strong>Requirements</strong> You are wielding two melee weapons, one in each hand.</p><hr /><p>You use your two weapons to parry attacks. You gain a +1 circumstance bonus to AC until the start of your next turn, or a +2 circumstance bonus if either weapon has the parry trait. You lose this circumstance bonus if you no longer meet this feat's requirement.</p>"
         },
         "level": {
             "value": 4
@@ -25,13 +25,41 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "gte": [
+                                    "hands-free",
+                                    1
+                                ]
+                            },
+                            "parry-bonus-upgrade:yes"
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "slug": "parry-bonus",
+                "value": 2
+            },
+            {
+                "key": "RollOption",
+                "option": "weapon-parry"
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Parry",
+            "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Parry"
+        },
         "traits": {
             "rarity": "common",
             "value": [
                 "fighter",
-                "ranger",
-                "swashbuckler"
+                "ranger"
             ]
         }
     },

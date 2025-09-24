@@ -1,0 +1,97 @@
+{
+    "_id": "lvK0DAuTYOnT6E5f",
+    "img": "icons/magic/control/debuff-chains-ropes-blue.webp",
+    "name": "Effect: Hobble Pursuit",
+    "system": {
+        "description": {
+            "value": "<p>You take a circumstance penalty to your Speeds. On a Failure or Critical Failure, you are Slowed 1</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "hobble-pursuit"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "slug": "hobble-pursuit-penalty",
+                "type": "circumstance",
+                "value": -5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "hobble-pursuit:failure"
+                ],
+                "selector": "all-speeds",
+                "slug": "hobble-pursuit-penalty",
+                "value": -10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "hobble-pursuit:critical-failure"
+                ],
+                "selector": "all-speeds",
+                "slug": "hobble-pursuit-penalty",
+                "value": -15
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "hobble-pursuit:critical-failure",
+                            "hobble-pursuit:failure"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -5,9 +5,6 @@
     "items": [
         {
             "_id": "dO3EXREMO84WeHGl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.5KojtpJA0T5xoum4.Item.4VbQq13CfCCwqfYt"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 100000,
@@ -95,7 +92,32 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "skill-mimicry",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.BonusLabel.PlusOne",
+                                "value": "1"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                                "value": "2"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "skill-mimicry"
+                        ],
+                        "selector": "skill-check",
+                        "type": "circumstance",
+                        "value": "{item|flags.pf2e.rulesSelections.skillMimicry}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -146,7 +168,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> A creature damaged the mime with a weapon Strike since their previous turn</p><hr /><p><strong>Effect</strong> The mime makes a Performance check against the Perception DC of the creature who damaged them, gesturing as if making an attack with the same weapon. On a success, the mime deals two dice of damage to the creature, using the same type and die size as the required weapon Strike.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> A creature damaged the mime with a weapon Strike since their previous turn</p><hr /><p><strong>Effect</strong> The mime makes a @Check[performance|against:perception] check against the Perception DC of the creature who damaged them, gesturing as if making an attack with the same weapon. On a success, the mime deals two dice of damage to the creature, using the same type and die size as the required weapon Strike.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -183,7 +205,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The mime uses exaggerated movements to emulate one of the following effects, which lasts until the end of their next turn. Any creature who sees this ability can attempt to disbelieve this ability as it is used with a @Check[will|dc:14] save. Creatures that disbelieve are temporarily immune to pantomime for 1 minute.</p>\n<p><em>Barrier</em>: The mime creates an @UUID[Compendium.pf2e.conditionitems.Item.Invisible] 10-foot-by-10-foot stretch of wall adjacent to them and within their reach. The wall has AC 10, 5 hardness, and 10 HP. If the mime Sustains this effect, they can add an additional wall in the same manner.</p>\n<p><em>Rope</em>: The mime tugs an invisible rope, trying to knock over or pull at a creature within 15 feet. If the creature fails to disbelieve the pantomime, the mime can choose to either knock the creature @UUID[Compendium.pf2e.conditionitems.Item.Prone] or to move it 5 feet towards them.</p>\n<p><em>Wind</em>: The mime creates a @Template[type:line|distance:30] of imaginary wind. Creatures who don't disbelieve the pantomime treat this area as difficult terrain, and if they enter or begin their turn in the area, they fall prone.</p>"
+                    "value": "<p>The mime uses exaggerated movements to emulate one of the following effects, which lasts until the end of their next turn. Any creature who sees this ability can attempt to disbelieve this ability as it is used with a @Check[will|dc:14] save. Creatures that disbelieve are temporarily immune to pantomime for 1 minute.</p>\n<p><em>Barrier</em>: The mime creates an invisible @Template[square|distance:10]{10-foot-by-10-foot} stretch of wall adjacent to them and within their reach. The wall has AC 10, 5 hardness, and 10 HP. If the mime Sustains this effect, they can add an additional wall in the same manner.</p>\n<p><em>Rope</em>: The mime tugs an invisible rope, trying to knock over or pull at a creature within 15 feet. If the creature fails to disbelieve the pantomime, the mime can choose to either knock the creature @UUID[Compendium.pf2e.conditionitems.Item.Prone] or to move it 5 feet towards them.</p>\n<p><em>Wind</em>: The mime creates a @Template[type:line|distance:30] of imaginary wind. Creatures who don't disbelieve the pantomime treat this area as difficult terrain, and if they enter or begin their turn in the area, they fall prone.</p>"
                 },
                 "publication": {
                     "license": "ORC",

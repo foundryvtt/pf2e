@@ -1,0 +1,119 @@
+{
+    "_id": "rNsdp5wDGQT5SZgf",
+    "img": "icons/magic/death/hand-dirt-undead-zombie.webp",
+    "name": "Trespasser In Death's Realm",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You slide through death's realm, not caring that death is jealous of those who escape. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Energized Spark] feat, with your choice of either vitality or void damage. When you critically succeed at a Strike, you pull your target closer to death from your stolen connection. The target must attempt a Will saving against your class DC. On a failure, they become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute. This has the curse trait.</p>\n<p>When you Spark Transcendence, your divine spark draws part of death closer to you. Until the start of your next turn, any living enemy that starts it turns adjacent to you or enters a space adjacent to you takes @Damage[1d6[void]] damage.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #217: Death Sails a Wine-Dark Sea"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "value": "vitality"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "energizedSpark",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "energizedSpark": "{item|flags.pf2e.rulesSelections.energizedSpark}"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Energized Spark"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "trespasser-in-deaths-realm"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:trespasser-in-deaths-realm"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.TrespasserInDeathsRealm.Description"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.CriticalSpecializationToggle",
+                "option": "epithet-critical-specialization",
+                "priority": 51,
+                "toggleable": true
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "epithet-critical-specialization"
+                ]
+            },
+            {
+                "alternate": true,
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "epithet-critical-specialization"
+                ],
+                "text": "PF2E.SpecificRule.Exemplar.Epithet.TrespasserInDeathsRealm.CriticalSpecialization"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "exemplar-dominion-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -219,7 +219,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     /** Treat this item like a strike in this context and post it as one */
     override async toMessage(
-        _event?: MouseEvent,
+        _event?: PointerEvent,
         { create = true }: { create?: boolean } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!create) return undefined; // Nothing useful to do

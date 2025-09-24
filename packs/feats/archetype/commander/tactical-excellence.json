@@ -1,0 +1,109 @@
+{
+    "_id": "a7sCZ2ehfsLQutvO",
+    "folder": "3es60s1TTpSIWqPI",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Tactical Excellence",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You add two new mobility or offensive tactics to your folio and increase your maximum number of tactics prepared by 1.</p><hr /><p><strong>Special</strong> You can select this feat a second time at 8th level; when you do, you may choose your new tactics from either mobility or offensive tactics you do not already know or from any of the expert tactics you have access to.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "maxTakable": 2,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Commander Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "count": true,
+                "key": "RollOption",
+                "option": "tactical-excellence"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:trait:tactic",
+                        {
+                            "or": [
+                                "item:tag:commander-mobility-tactic",
+                                "item:tag:commander-offensive-tactic",
+                                {
+                                    "and": [
+                                        "item:tag:commander-expert-tactic",
+                                        "tactical-excellence:2"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "action"
+                },
+                "flag": "firstTactic",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Commander.Tactics.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.firstTactic}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:trait:tactic",
+                        {
+                            "or": [
+                                "item:tag:commander-mobility-tactic",
+                                "item:tag:commander-offensive-tactic",
+                                {
+                                    "and": [
+                                        "item:tag:commander-expert-tactic",
+                                        "tactical-excellence:2"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "action"
+                },
+                "flag": "secondTactic",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Commander.Tactics.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.secondTactic}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

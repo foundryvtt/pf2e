@@ -1,11 +1,12 @@
 import type { ActorPF2e } from "@actor";
+import type { DataModelConstructionContext } from "@common/abstract/_module.d.mts";
 import type { SenseData } from "./data.ts";
 import type { SenseAcuity, SenseType } from "./index.ts";
 import { SENSES_WITH_MANDATORY_ACUITIES, SENSE_ACUITIES, SENSE_TYPES } from "./values.ts";
 import fields = foundry.data.fields;
 
 class Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema> {
-    constructor(data: SenseConstructorParams, options: DataModelConstructionOptions<ActorPF2e>) {
+    constructor(data: SenseConstructorParams, options: DataModelConstructionContext<ActorPF2e>) {
         if (data.range === Infinity) data.range = null;
         super(data, { ...options, strict: false });
         this.range ??= Infinity;
@@ -119,7 +120,7 @@ type SenseSchema = {
     source: fields.StringField<string, string, false, true, true>;
 };
 
-type LabeledSenseData<TModel extends Sense = Sense> = RawObject<TModel> & {
+type LabeledSenseData<TModel extends Sense = Sense> = TModel["_source"] & {
     range: number;
     label: string | null;
     emphasizeLabel: boolean;

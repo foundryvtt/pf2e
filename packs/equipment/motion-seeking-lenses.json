@@ -1,0 +1,66 @@
+{
+    "_id": "RSxLBjGTCADULQV3",
+    "img": "icons/equipment/head/goggles-leather-grey.webp",
+    "name": "Motion-Seeking Lenses",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>When you wear these green-tinted glasses, all the movement in the surrounding area seems to jump out at you. You gain a +1 item bonus to your Perception DC against Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak], and anyone attempting to Sneak doesn't benefit from the circumstance bonus from cover against your Perception DC.</p>\n<p><strong>Activate—Find the Hidden</strong> <span class=\"action-glyph\">1</span> (detection, manipulate)</p><hr /><p>You twist the lenses of your glasses as you look for someone @UUID[Compendium.pf2e.conditionitems.Item.Hidden]. You @UUID[Compendium.pf2e.actionspf2e.Item.Seek] with a +1 item bonus. If you find a hidden creature or object, you can Point Out as a free action.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 55
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": "perception-dc",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worneyepiece"
+        }
+    },
+    "type": "equipment"
+}

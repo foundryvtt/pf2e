@@ -1,6 +1,9 @@
+.sheet.actor.loot .window-resizable-handle {
+    cursor: var(--cursor-grab);
+}
+
 .sheet.actor.loot form {
     --color-pf-inventory-header-bg: var(--primary-background);
-
     display: flex;
     flex-direction: row;
     height: 100%;
@@ -26,9 +29,9 @@
                 flex: none;
             }
 
-            [data-action="show-image"] {
-                bottom: 3px;
-                right: 2px;
+            a[data-action="show-image"] {
+                bottom: 4px;
+                right: 4px;
             }
         }
 
@@ -78,19 +81,27 @@
             flex: 1;
         }
 
-        > .editor {
-            > .tox-tinymce {
-                .tox-edit-area {
-                    min-height: 120px;
+        .description {
+            overflow: hidden;
+            :not(:has(prose-mirror[open])) {
+                padding: var(--space-4);
+            }
+
+            prose-mirror.inactive {
+                overflow: hidden;
+
+                button.toggle {
+                    height: 2rem;
+                    line-height: 1rem;
+                    margin: var(--space-4) var(--space-10);
+                    width: 2rem;
+
+                    i {
+                        margin: 0;
+                        padding: 0;
+                    }
                 }
             }
-        }
-
-        .description,
-        .editor-content {
-            padding: 0.25rem;
-            overflow: hidden auto;
-            scrollbar-gutter: stable;
         }
     }
 
@@ -210,6 +221,10 @@
                 outline: 1px dotted rgba(75, 74, 68, 0.5);
                 opacity: 0.9;
             }
+        }
+
+        .total-bulk {
+            margin-bottom: 0;
         }
     }
 }

@@ -9,7 +9,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.x1TOpwH755Ami5bC"
             },
             "img": "icons/weapons/swords/sword-guard-brown.webp",
-            "name": "Wooden Sword",
+            "name": "Wooden Sword (Functions as a Light Mace)",
             "sort": 100000,
             "system": {
                 "baseItem": "light-mace",
@@ -191,7 +191,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "light-mace",
+                "slug": "wooden-sword",
                 "traits": {
                     "value": [
                         "agile",
@@ -204,9 +204,6 @@
         },
         {
             "_id": "k4NbO19e7XHHGiYN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.5KojtpJA0T5xoum4.Item.4VbQq13CfCCwqfYt"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 400000,
@@ -258,7 +255,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The traveling actor takes any damage</p><hr /><p><strong>Effect</strong> The traveling actor falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and dramatically announces their death. They appear to have died. Anyone who is suspicious of this \"death\" can @UUID[Compendium.pf2e.actionspf2e.Item.Seek] to attempt a secret Perception check against the traveling actor's Performance DC. On a success, they see through the ruse.</p>"
+                    "value": "<p><strong>Trigger</strong> The traveling actor takes any damage</p><hr /><p><strong>Effect</strong> The traveling actor falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and dramatically announces their death. They appear to have died. Anyone who is suspicious of this \"death\" can @UUID[Compendium.pf2e.actionspf2e.Item.Seek] to attempt a secret @Check[perception|against:performance|rollerRole:target|traits:secret] check against the traveling actor's Performance DC. On a success, they see through the ruse.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -275,9 +272,6 @@
         },
         {
             "_id": "O0QloD5rVQ3q3Ij3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.sAurhtXSqv3kPAlJ.Item.esZ7IFO1aPcIn4T5"
-            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Versatile Performance",
             "sort": 600000,
@@ -410,8 +404,10 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "",
-                "value": []
+                "details": "up to 4 other languages",
+                "value": [
+                    "common"
+                ]
             },
             "level": {
                 "value": 3
@@ -470,7 +466,8 @@
                 "value": "med"
             },
             "value": [
-                "human"
+                "human",
+                "humanoid"
             ]
         }
     },

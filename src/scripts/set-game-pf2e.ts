@@ -1,14 +1,13 @@
 import { Action } from "@actor/actions/index.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
-import { CheckModifier, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { CoinsPF2e, generateItemName } from "@item/physical/helpers.ts";
+import { CheckModifier, Modifier, StatisticModifier } from "@actor/modifiers.ts";
+import { Coins, generateItemName } from "@item/physical/helpers.ts";
 import { CompendiumBrowser } from "@module/apps/compendium-browser/browser.ts";
 import { EffectsPanel } from "@module/apps/effects-panel.ts";
-import { LicenseViewer } from "@module/apps/license-viewer/app.ts";
 import { WorldClock } from "@module/apps/world-clock/index.ts";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
-import { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
+import { RuleElement, RuleElements } from "@module/rules/index.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import {
     calculateXP,
@@ -30,7 +29,7 @@ import {
 } from "@scripts/macros/index.ts";
 import { remigrate } from "@scripts/system/remigrate.ts";
 import { ActionMacros, SystemActions } from "@system/action-macros/index.ts";
-import { CheckPF2e } from "@system/check/check.ts";
+import { Check } from "@system/check/check.ts";
 import { ConditionManager } from "@system/conditions/index.ts";
 import { EffectTracker } from "@system/effect-tracker.ts";
 import { ModuleArt } from "@system/module-art.ts";
@@ -71,16 +70,16 @@ export const SetGamePF2e = {
         } as const;
 
         const initSafe: Partial<(typeof game)["pf2e"]> = {
-            Check: CheckPF2e,
+            Check: Check,
             CheckModifier,
-            Coins: CoinsPF2e,
+            Coins: Coins,
             ConditionManager,
             Dice: DicePF2e,
             ElementalBlast,
-            Modifier: ModifierPF2e,
+            Modifier: Modifier,
             ModifierType: MODIFIER_TYPE,
             Predicate: Predicate,
-            RuleElement: RuleElementPF2e,
+            RuleElement: RuleElement,
             RuleElements: RuleElements,
             StatisticModifier: StatisticModifier,
             StatusEffects: StatusEffects,
@@ -97,7 +96,6 @@ export const SetGamePF2e = {
                 stealthForSelected,
                 xpFromEncounter,
             },
-            licenseViewer: new LicenseViewer(),
             rollActionMacro,
             rollItemMacro,
             system: { generateItemName, moduleArt: new ModuleArt(), remigrate, sluggify },
@@ -109,6 +107,7 @@ export const SetGamePF2e = {
         game.pf2e.settings = {
             automation: {
                 flanking: game.settings.get("pf2e", "automation.flankingDetection"),
+                reachEnforcement: game.settings.get("pf2e", "automation.reachEnforcement"),
                 removeEffects: game.settings.get("pf2e", "automation.removeExpiredEffects"),
             },
             campaign: {
@@ -124,6 +123,7 @@ export const SetGamePF2e = {
                 buttons: game.settings.get("pf2e", "critFumbleButtons"),
                 cards: game.settings.get("pf2e", "drawCritFumble"),
             },
+            distanceDisplay: game.settings.get("pf2e", "distanceDisplay"),
             encumbrance: game.settings.get("pf2e", "automation.encumbrance"),
             gmVision: game.settings.get("pf2e", "gmVision"),
             iwr: game.settings.get("pf2e", "automation.iwr"),

@@ -25,7 +25,13 @@ class HazardSystemData extends ActorSystemModel<HazardPF2e, HazardSystemSchema> 
         const resistanceTypes: Record<ResistanceType, string> = CONFIG.PF2E.resistanceTypes;
 
         const requiredInteger = ({ min, initial = min }: { min: number; initial?: number }) =>
-            new fields.NumberField({ required: true, nullable: false, integer: true, min, initial });
+            new fields.NumberField<number, number, true, false, boolean>({
+                required: true,
+                nullable: false,
+                integer: true,
+                min,
+                initial,
+            });
         const blankableString = () =>
             new fields.StringField({ required: true, nullable: false, blank: true, initial: "" });
 
@@ -148,7 +154,7 @@ class HazardSystemData extends ActorSystemModel<HazardPF2e, HazardSystemSchema> 
                 ),
             }),
             details: new fields.SchemaField({
-                description: blankableString(),
+                description: new fields.HTMLField({ required: true, nullable: false, initial: "" }),
                 level: new fields.SchemaField({
                     value: requiredInteger({ min: -1, initial: 1 }),
                 }),
@@ -252,7 +258,7 @@ type HazardAttributesSchema = {
 type HazardAttributesSource = fields.SourceFromSchema<HazardAttributesSchema>;
 
 type HazardDetailsSchema = {
-    description: fields.StringField<string, string, true, false, true>;
+    description: fields.HTMLField;
     level: fields.SchemaField<{
         value: fields.NumberField<number, number, true, false, true>;
     }>;

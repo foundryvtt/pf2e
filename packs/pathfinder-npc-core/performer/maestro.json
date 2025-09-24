@@ -59,7 +59,7 @@
         {
             "_id": "Fq2Oh8hqTb1F5bAK",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Focus Spells",
+            "name": "Bard Composition Spells",
             "sort": 200000,
             "system": {
                 "autoHeightenLevel": {
@@ -1690,9 +1690,6 @@
         },
         {
             "_id": "2WtH2UBuqytTBXMU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.5KojtpJA0T5xoum4.Item.4VbQq13CfCCwqfYt"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 2500000,
@@ -1932,14 +1929,33 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The maestro funnels musical energy from their compositions into attacks, dealing additional @Damage[1d6[sonic]] damage with their weapon Strikes on any turn they cast a composition spell.</p>"
+                    "value": "<p>The maestro funnels musical energy from their compositions into attacks, dealing additional 1d6 sonic damage with their weapon Strikes on any turn they cast a composition spell.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "resonating-weaponry",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "sonic",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "resonating-weaponry",
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1948,10 +1964,36 @@
             "type": "action"
         },
         {
+            "_id": "Xhz4kMj9ugcGH9Qw",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Bardic Lore",
+            "sort": 3200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
             "_id": "9TeCf359pvesngb3",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Music Lore",
-            "sort": 3200000,
+            "sort": 3300000,
             "system": {
                 "description": {
                     "value": ""
@@ -2019,7 +2061,9 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common"
+                ]
             },
             "level": {
                 "value": 11

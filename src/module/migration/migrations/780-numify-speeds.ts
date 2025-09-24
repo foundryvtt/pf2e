@@ -6,10 +6,7 @@ export class Migration780NumifySpeeds extends MigrationBase {
     static override version = 0.78;
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
-        if (source.type !== "npc" && source.type !== "character") {
-            return;
-        }
-
+        if (source.type !== "npc") return;
         const speeds = source.system.attributes.speed;
         speeds.value = this.#updateSpeed(speeds.value);
         if (!Array.isArray(speeds.otherSpeeds)) speeds.otherSpeeds = [];

@@ -1,0 +1,114 @@
+{
+    "_id": "ion3VOiLan6ga3QC",
+    "folder": "x5tjEh1N0FHzbHkv",
+    "img": "icons/sundries/flags/banner-symbol-claw.webp",
+    "name": "Conquering Soldiers",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {},
+        "defense": null,
+        "description": {
+            "value": "<p>You tap into the glories of the armies of old, bringing forth their might to your battlefield and making their strength and power your own. This army manifests as glimmering forms of a conquering military of old, replete with banners and colors of their nation. The army occupies the space of a Gargantuan creature and has a Speed of 80 feet.</p>\n<p><strong>Arrive</strong> (auditory, emotion, fear, mental) <em>Banner's Call</em> The conquering army manifests before you and your allies, letting out a battle cry of victory and devotion. Each enemy within an 80-foot emanation must attempt a Will save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Failure</strong> The creature takes 6d12 mental damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[12d12[mental]|options:area-damage|traits:auditory,emotion,fear,mental] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}, and is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<p><strong>Depart</strong> (emotion, healing, mental) <em>Trumpets of War</em> As the conquering soldiers begin to fade, their military musicians play one more triumphant song in your honor. You and all allies within 100 feet of the soldiers immediately reduce the value of any @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], @UUID[Compendium.pf2e.conditionitems.Item.Frightened], @UUID[Compendium.pf2e.conditionitems.Item.Sickened], and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] conditions by 2 and gain a +2 status bonus to all attacks, saving throws, skill checks, and DCs for 3 rounds.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Conquering Soldiers (Depart)]</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": "until the end of your next turn"
+        },
+        "level": {
+            "value": 10
+        },
+        "overlays": {
+            "evaWr2jGYPR5pIk2": {
+                "name": "Conquering Soldiers (Depart)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "defense": null,
+                    "traits": {
+                        "value": [
+                            "concentrate",
+                            "emotion",
+                            "healing",
+                            "incarnate",
+                            "manipulate",
+                            "mental"
+                        ]
+                    }
+                }
+            },
+            "piacrBDRUklYkrlB": {
+                "name": "Conquering Soldiers (Arrive)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "area": {
+                        "type": "emanation",
+                        "value": 80
+                    },
+                    "damage": {
+                        "KaRWEL7jcDgLfFQW": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "6d12",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "mental"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": false,
+                            "statistic": "will"
+                        }
+                    },
+                    "traits": {
+                        "value": [
+                            "auditory",
+                            "concentrate",
+                            "emotion",
+                            "fear",
+                            "incarnate",
+                            "manipulate",
+                            "mental"
+                        ]
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "range": {
+            "value": "500 feet"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": ""
+        },
+        "time": {
+            "value": "3"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [
+                "arcane",
+                "divine"
+            ],
+            "value": [
+                "concentrate",
+                "incarnate",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "spell"
+}

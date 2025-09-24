@@ -40,7 +40,7 @@ async function add(actor: CharacterPF2e): Promise<void> {
     dialog.render(true);
 }
 
-function remove(actor: CharacterPF2e, event: MouseEvent): void {
+function remove(actor: CharacterPF2e, event: PointerEvent): void {
     const weaponGroups = CONFIG.PF2E.weaponGroups;
     const baseWeapons: Record<string, string | undefined> = CONFIG.PF2E.baseWeaponTypes;
     const baseShields: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;

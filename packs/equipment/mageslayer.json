@@ -1,0 +1,114 @@
+{
+    "_id": "lSnYM1j5C4A9a3Mn",
+    "img": "icons/weapons/swords/scimitar-worn-blue.webp",
+    "name": "Mageslayer",
+    "system": {
+        "baseItem": "scimitar",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>This roughly forged <em>+1 striking scimitar</em> is a favorite instrument of battlefield operatives seeking to weaken an enemy's forces by strategically eliminating their magical support. A mageslayer deals an additional 1d6 spirit damage to any creature it Strikes that's capable of casting spells from the arcane tradition. When wearing or wielding a mageslayer, you gain resistance 5 to damage from spells from the arcane tradition.</p>"
+        },
+        "expend": null,
+        "group": "sword",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 8
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "Mageslayer - vs. Arcane casters.",
+                "option": "mageslayer",
+                "toggleable": true
+            },
+            {
+                "damageType": "mental",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "mageslayer"
+                ],
+                "selector": "{item|id}-damage"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "origin:action:trait:arcane"
+                ],
+                "type": "all-damage",
+                "value": 5
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "forceful",
+                "magical",
+                "sweep"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

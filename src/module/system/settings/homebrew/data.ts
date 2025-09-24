@@ -180,7 +180,7 @@ interface ModuleHomebrewData {
     traitDescriptions: Record<string, string>;
 }
 
-type RawLanguageSettings<TModel extends LanguageSettings = LanguageSettings> = RawObject<TModel> & {
+type RawLanguageSettings<TModel extends LanguageSettings = LanguageSettings> = TModel["_source"] & {
     common: LanguageNotCommon[];
     homebrew: LanguageNotCommon[];
 };

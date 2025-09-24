@@ -122,32 +122,23 @@
                 },
                 "rules": [
                     {
-                        "definition": [
+                        "exceptions": [
                             {
-                                "or": [
-                                    "item:from-spell",
-                                    "item:trait:impulse",
-                                    "item:type:spell"
-                                ]
-                            },
-                            {
-                                "not": {
-                                    "and": [
-                                        "item:type:spell",
-                                        {
-                                            "or": [
-                                                "item:slug:force-barrage",
-                                                "item:slug:quandary",
-                                                "item:slug:revealing-light"
-                                            ]
-                                        }
-                                    ]
-                                }
+                                "definition": [
+                                    "item:type:spell",
+                                    {
+                                        "or": [
+                                            "item:slug:force-barrage",
+                                            "item:slug:quandary",
+                                            "item:slug:revealing-light"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.WispVulnerabilities"
                             }
                         ],
                         "key": "Immunity",
-                        "label": "PF2E.Damage.IWR.Type.magic",
-                        "type": "custom"
+                        "type": "magic"
                     }
                 ],
                 "slug": null,

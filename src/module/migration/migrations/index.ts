@@ -239,3 +239,6 @@ export { Migration937RemoveInvalidAuraTraits } from "./937-remove-invalid-aura-t
 export { Migration938RenameBroochesAndThroned } from "./938-rename-brooches-and-throned.ts";
 export { Migration939SetTokenDimensions } from "./939-set-token-dimensions.ts";
 export { Migration940WeaponExpend } from "./940-weapon-expend.ts";
+export { Migration941InvestedGrafts } from "./941-invested-grafts.ts";
+export { Migration942EquipmentGrade } from "./942-equipment-grade.ts";
+export { Migration943UpdateSpeedPath } from "./943-update-speed-paths.ts";

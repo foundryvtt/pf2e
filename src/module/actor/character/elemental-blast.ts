@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import type { ImageFilePath } from "@common/constants.d.mts";
@@ -155,7 +155,7 @@ class ElementalBlast {
         if (!item || !statistic) return [];
         const kineticist = this.actor.flags.pf2e.kineticist;
         if (!R.isPlainObject(kineticist) || !R.isPlainObject(kineticist.elementalBlast)) {
-            return [];
+            return [this.#getDisabledBlast(statistic, item.name)];
         }
         const schema = ElementalBlast.#blastConfigSchema;
         const damageTypeSelections = ((): Record<string, unknown> => {
@@ -233,8 +233,9 @@ class ElementalBlast {
             return {
                 ...blast,
                 statistic,
-                maps,
                 item,
+                ready: true,
+                maps,
                 actionCost,
                 damageTypes,
                 range,
@@ -263,6 +264,23 @@ class ElementalBlast {
         }
 
         return config;
+    }
+
+    #getDisabledBlast(statistic: Statistic, label: string): ElementalBlastConfig {
+        if (!this.item) throw ErrorPF2e("Unexpected missing Elemental Blast item");
+        return {
+            ready: false,
+            statistic,
+            item: this.item,
+            img: "icons/magic/sonic/projectile-shock-wave-blue.webp",
+            element: "fire",
+            dieFaces: 6,
+            label,
+            maps: { melee: { map0: "", map1: "", map2: "" }, ranged: { map0: "", map1: "", map2: "" } },
+            actionCost: this.actionCost,
+            damageTypes: [{ value: "fire", label: "", icon: "", selected: true }],
+            range: { increment: null, max: 30, label: "" },
+        };
     }
 
     #createModifiedItem({
@@ -383,6 +401,10 @@ class ElementalBlast {
         const actionCost = Math.clamp(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
         const actionSlug = "elemental-blast";
         const domains = ["damage", "attack-damage", "impulse-damage", `${actionSlug}-damage`];
+
+        // Data issue: a lot of abilities that affect ranged strike damage are using the "melee-damage" selector
+        if (melee) domains.push("melee-damage");
+
         const targetToken = game.user.targets.first()?.document ?? null;
         const damageCategory = DamageCategorization.fromDamageType(params.damageType);
         item.flags.pf2e.attackItemBonus =
@@ -459,14 +481,14 @@ class ElementalBlast {
         if (item.system.traits.value.includes("forceful")) {
             const diceNumber = processedDamage.dice;
             extraModifiers.push(
-                new ModifierPF2e({
+                new Modifier({
                     slug: "forceful-second",
                     label: "PF2E.Item.Weapon.Forceful.Second",
                     modifier: diceNumber,
                     type: "circumstance",
                     ignored: true,
                 }),
-                new ModifierPF2e({
+                new Modifier({
                     slug: "forceful-third",
                     label: "PF2E.Item.Weapon.Forceful.Third",
                     modifier: 2 * diceNumber,
@@ -518,7 +540,7 @@ class ElementalBlast {
         return DamagePF2e.roll(damageTemplate, damageContext);
     }
 
-    #strengthModToDamage(item: AbilityItemPF2e, domains: string[]): ModifierPF2e | null {
+    #strengthModToDamage(item: AbilityItemPF2e, domains: string[]): Modifier | null {
         if (!item.range) return null;
         const strengthModValue = this.actor.abilities.str.mod;
         const { traits } = item;
@@ -531,7 +553,7 @@ class ElementalBlast {
               : null;
 
         return typeof modifierValue === "number"
-            ? new ModifierPF2e({
+            ? new Modifier({
                   slug: "str",
                   label: CONFIG.PF2E.abilities.str,
                   ability: "str",
@@ -606,7 +628,9 @@ interface ElementalBlastConfig extends Omit<fields.ModelPropsFromSchema<BlastCon
     damageTypes: BlastConfigDamageType[];
     range: RangeData & { label: string };
     statistic: Statistic;
+    item: AbilityItemPF2e<CharacterPF2e>;
     actionCost: 1 | 2;
+    ready: boolean;
     maps: {
         melee: { map0: string; map1: string; map2: string };
         ranged: { map0: string; map1: string; map2: string };

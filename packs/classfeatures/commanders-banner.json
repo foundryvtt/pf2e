@@ -1,0 +1,71 @@
+{
+    "_id": "8NtRuNYGiU2iTwgL",
+    "img": "icons/sundries/flags/banner-sword-blue.webp",
+    "name": "Commander's Banner",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>A commander needs a battle standard to help guide their allies on the field. You start play with a custom banner that you can use to signal allies when using tactics (see below) or to deploy specific abilities. Your banner can be affixed to a weapon or shield you are wielding, attached to a simple pole or handle and held in one hand, or worn affixed to a pole alongside your backpack. Your banner might be a literal flag or pennant, a decorated fan, a personalized totem, or some other highly visible and item of negligible or light Bulk. Your banner requires customization and influences your allies' morale, so you can have only one banner at a time designated as your commander's banner; designating a new banner or standard as your commander's banner takes 1 minute.</p>\n<p>As long as your banner is visible and in your possession, it provides an aura that gives you and all allies in a @Template[type:emanation|distance:30] a +1 status bonus to Will saves and DCs against fear effects. You can pause or resume this effect as part of any action you would typically use to stow or retrieve your banner. If your banner is destroyed or stolen, allies currently benefiting from its bonuses become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. This effect has the aura, emotion, mental, and visual traits.</p>\n<p>Some abilities allow you to place your banner in a specialized manner, such as the Commander's Companion and Plant Banner feats. As long as you have placed your banner in this way, any banner abilities originate from your banner's space instead of your own, and you gain the same basic benefits as when it is in your possession. An unattended banner has the base Hardness and Hit Points of a standard item of its type (usually cloth, thin leather, or thin wood) or the Hardness and Hit Points of the object it is affixed to, whichever is greater.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "commanders-banner",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Commander's Banner"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "commanders-banner",
+                    {
+                        "not": "feat:glorious-banner"
+                    }
+                ],
+                "radius": 30,
+                "slug": "commanders-banner",
+                "traits": [
+                    "emotion",
+                    "mental",
+                    "visual",
+                    "aura"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "commander"
+            ]
+        }
+    },
+    "type": "feat"
+}

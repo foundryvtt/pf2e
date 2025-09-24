@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You have a nearly encyclopedic knowledge of all creatures of the world. You can use Nature to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] to identify any creature. In addition, you gain the benefits of @UUID[Compendium.pf2e.feats-srd.Item.Monster Hunter] (and @UUID[Compendium.pf2e.feats-srd.Item.Monster Warden], if you have it) on a success as well as a critical success.</p>"
+            "value": "<p>You have a nearly encyclopedic knowledge of all creatures of the world. You can use [[/act recall-knowledge skill=nature]]{Nature} to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] to identify any creature. In addition, you gain the benefits of @UUID[Compendium.pf2e.feats-srd.Item.Monster Hunter] (and @UUID[Compendium.pf2e.feats-srd.Item.Monster Warden], if you have it) on a success as well as a critical success.</p>"
         },
         "level": {
             "value": 10
@@ -32,7 +32,22 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:monster-hunter"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

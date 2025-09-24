@@ -775,9 +775,6 @@
         },
         {
             "_id": "lmoWwE8kKafo5PXF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.5KojtpJA0T5xoum4.Item.4VbQq13CfCCwqfYt"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 1300000,
@@ -807,7 +804,6 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "finesse",
                         "nonlethal",
                         "unarmed"
                     ]
@@ -829,7 +825,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The street musician is playing their instrument</p><hr /><p><strong>Effect</strong> The street musician attempts a @Check[type:performance|against:will] check compared to the Will DC of an observer within 30 feet. On a success, the target is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the street musician and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>"
+                    "value": "<p><strong>Requirements</strong> The street musician is playing their instrument</p><hr /><p><strong>Effect</strong> The street musician attempts a @Check[type:performance|against:will|options:inflicts:fascinated,inflicts:off-guard] check compared to the Will DC of an observer within 30 feet. On a success, the target is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the street musician and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -861,7 +857,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The street musician deals an additional 1d4 precision damage to offguard creatures. This increases to 1d6 against creatures @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] due to the street musician's @UUID[Compendium.pf2e.actionspf2e.Item.Feint] or distracting drone.</p>"
+                    "value": "<p>The street musician deals an additional 1d4 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures. This increases to 1d6 against creatures off-guard due to the street musician's @UUID[Compendium.pf2e.actionspf2e.Item.Feint] or distracting drone.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -901,7 +897,7 @@
                     },
                     {
                         "key": "RollOption",
-                        "label": "Target is Off-guard from Feint or Distracting Drone",
+                        "label": "PF2E.NPCAbility.StreetMusician.SneakAttackFeintDistractingDrone",
                         "option": "off-guard-feint-distracting-drone",
                         "toggleable": true
                     }

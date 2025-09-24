@@ -171,11 +171,6 @@
                     "JwDlv0NmLQikonCY": {
                         "damage": "2d4+8",
                         "damageType": "piercing"
-                    },
-                    "KaygKPNedSnziu1s": {
-                        "category": "persistent",
-                        "damage": "4d4",
-                        "damageType": "poison"
                     }
                 },
                 "description": {
@@ -217,11 +212,6 @@
                     "value": 22
                 },
                 "damageRolls": {
-                    "QgD85IGOgQ0gjALS": {
-                        "category": "persistent",
-                        "damage": "4d4",
-                        "damageType": "poison"
-                    },
                     "VpPq3WS71gcD9Isl": {
                         "damage": "2d4+8",
                         "damageType": "piercing"
@@ -250,9 +240,6 @@
         },
         {
             "_id": "HloTdHxZG5TbObFy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.5KojtpJA0T5xoum4.Item.4VbQq13CfCCwqfYt"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 500000,
@@ -332,7 +319,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The jester blows chalk or face powder in an adjacent enemy's face. The target must make a @Check[fortitude|dc:29] saving throw.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> target is dazzled and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+                    "value": "<p>The jester blows chalk or face powder in an adjacent enemy's face. The target must make a @Check[fortitude|dc:29|options:inflicts:blinded,inflicts:dazzled,inflicts:off-guard] saving throw.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> target is dazzled and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -361,14 +348,23 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The jester coats their dagger in poison. These daggers inflict an additional @Damage[4d4[persistent,poison]] damage. The poison expires 1 hour after leaving the jester's possession.</p>"
+                    "value": "<p>The jester coats their dagger in poison. These daggers inflict an additional 4d4 persistent poison damage. The poison expires 1 hour after leaving the jester's possession.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "damageType": "poison",
+                        "diceNumber": 4,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "dagger-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -429,8 +425,10 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "",
-                "value": []
+                "details": "up to 4 others",
+                "value": [
+                    "common"
+                ]
             },
             "level": {
                 "value": 10

@@ -5,12 +5,12 @@ import { sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
 import type { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
-import { ResolvableValueField, RuleElementPF2e } from "../index.ts";
+import { ResolvableValueField, RuleElement } from "../index.ts";
 import { DamageAlteration } from "./alteration.ts";
 import fields = foundry.data.fields;
 
 /** Alter certain aspects of individual components (modifiers and dice) of a damage roll. */
-class DamageAlterationRuleElement extends RuleElementPF2e<DamageAlterationSchema> {
+class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
     static override defineSchema(): DamageAlterationSchema {
         return {
             ...super.defineSchema(),
@@ -105,7 +105,7 @@ class DamageAlterationRuleElement extends RuleElementPF2e<DamageAlterationSchema
 }
 
 interface DamageAlterationRuleElement
-    extends RuleElementPF2e<DamageAlterationSchema>,
+    extends RuleElement<DamageAlterationSchema>,
         ModelPropsFromRESchema<DamageAlterationSchema> {}
 
 type DamageAlterationProperty = "dice-faces" | "dice-number" | "damage-type" | "tags";

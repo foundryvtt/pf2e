@@ -88,7 +88,9 @@ describe("test migration runner", () => {
     (global as any).ui = {
         notifications: {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            info(_msg: string, _other?: any) {},
+            info(_msg: string, _other?: any) {
+                return { update(): void {} };
+            },
         },
     };
 

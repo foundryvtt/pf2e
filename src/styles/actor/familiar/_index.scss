@@ -410,23 +410,18 @@
         }
     }
 
-    .skills-sidebar-placeholder {
-        visibility: hidden;
-        width: 172px;
-    }
+    .skills-sidebar {
+        flex: 0 0 172px;
+        max-height: fit-content;
 
-    .skills-content {
-        display: flex;
-        flex-direction: column;
-        width: 150px;
-        gap: 10px;
+        &.placeholder {
+            visibility: hidden;
+        }
 
-        .skills-list {
-            display: flex;
-            column-gap: 0.25em;
-            row-gap: 0.25em;
-            flex-direction: column;
-            justify-content: center;
+        .section-body {
+            flex-wrap: nowrap;
+            gap: var(--space-4);
+            overflow: hidden auto;
 
             a {
                 display: flex;
@@ -435,37 +430,41 @@
                 border: 1px solid #999;
                 border-radius: 3px;
                 height: var(--font-size-20);
-                cursor: pointer;
                 font-size: var(--font-size-14);
                 font-family: var(--serif);
+                width: 100%;
 
                 &:hover {
                     padding: none;
                     border: 1px solid #323232;
                 }
 
+                &.perception {
+                    margin-bottom: var(--space-6);
+                }
+
+                &.attack-roll {
+                    border-color: transparent;
+                    font-family: var(--sans-serif);
+                    gap: var(--space-4);
+                    justify-content: center;
+                    margin-top: var(--space-6);
+
+                    &:hover {
+                        border-bottom: 1px solid #323232;
+                    }
+                }
+
                 .mod {
                     flex: 1;
                     text-align: center;
-                    padding-left: 1em;
-                    color: var(--primary);
+                    color: var(--color-pf-primary);
                     font-weight: bold;
                 }
 
                 .name {
                     flex: 4;
                 }
-            }
-        }
-
-        .skills-attack {
-            flex: 1;
-            align-self: center;
-            border: 1px solid transparent;
-            cursor: pointer;
-
-            &:hover {
-                border-bottom: 1px solid #323232;
             }
         }
     }

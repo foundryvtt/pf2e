@@ -329,7 +329,6 @@
                     "value": [
                         "agile",
                         "deadly-d6",
-                        "finesse",
                         "magical",
                         "versatile-s"
                     ]
@@ -384,9 +383,6 @@
         },
         {
             "_id": "P55LeUT1YfsMBYt2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.Aktz95gNNzfAiTzk.Item.i6RGiBt0UOTBg3go"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 700000,
@@ -425,9 +421,6 @@
         },
         {
             "_id": "c1bS4tIX6I420ZJa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.vfFB2za4zaQnXYIa.Item.BpD2byfrbMItSgfy"
-            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+3 to Sense Motive",
             "sort": 800000,
@@ -450,7 +443,6 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Sense Motive",
                         "predicate": [
                             "action:sense-motive"
                         ],
@@ -520,7 +512,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>\n<p>If the grand inquisitor's attack hits and this reaction was triggered by a frightened creature, the triggering action is disrupted.</p>"
+                    "value": "<p>If the grand inquisitor's attack hits and this reaction was triggered by a @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creature, the triggering action is disrupted.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -549,7 +541,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. When an opponent ends its turn in the aura, it must attempt a @Check[will|dc:36] save or it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure), and the grand inquisitor learns its surface thoughts (and underlying motive on a critical failure).</p>"
+                    "value": "<p>30 feet. When an opponent ends its turn in the aura, it must attempt a @Check[will|dc:36|options:inflicts:frightened] save or it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure), and the grand inquisitor learns its surface thoughts (and underlying motive on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -559,7 +551,13 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 30
+                        "radius": 30,
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental",
+                            "visual"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -606,7 +604,12 @@
                             }
                         ],
                         "key": "Aura",
-                        "radius": 60
+                        "radius": 60,
+                        "traits": [
+                            "emotion",
+                            "mental",
+                            "visual"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -635,7 +638,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The grand inquisitor @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes}. On a success, the target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] with a value equal to its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition.</p>"
+                    "value": "<p>The grand inquisitor [[/act demoralize]]{Demoralizes}. On a success, the target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] with a value equal to its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -655,7 +658,7 @@
         },
         {
             "_id": "78gWMcfr2uEc8zqO",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "I Am the Law!",
             "sort": 1400000,
             "system": {
@@ -663,11 +666,11 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The grand inquisitor vows to bring down all the fury of a nation down upon their foes. Up to three lower-level allies within 60 feet of the grand inquisitor can use their reaction to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], @UUID[Compendium.pf2e.actionspf2e.Item.Strike], or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] with a +2 status bonus.</p>"
+                    "value": "<p>The grand inquisitor vows to bring down all the fury of a nation down upon their foes. Up to three lower-level allies within @Template[emanation|distance:60]{60 feet} of the grand inquisitor can use their reaction to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], @UUID[Compendium.pf2e.actionspf2e.Item.Strike], or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] with a +2 status bonus.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: I Am the Law!]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -722,7 +725,7 @@
                     },
                     {
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "label": "PF2E.SpecificRule.TOTMToggle.Frightened",
                         "option": "target:condition:frightened",
                         "toggleable": "totm"
                     }
@@ -763,7 +766,7 @@
                 "value": 38
             },
             "allSaves": {
-                "value": "+23 reflex vs damaging effects"
+                "value": "+23 Reflex vs. damaging effects"
             },
             "hp": {
                 "details": "",
@@ -780,7 +783,9 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common"
+                ]
             },
             "level": {
                 "value": 15
@@ -797,7 +802,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "+31 to Sense Motive",
+            "details": "(+31 to Sense Motive)",
             "mod": 28,
             "senses": []
         },

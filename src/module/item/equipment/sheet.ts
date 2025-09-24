@@ -7,9 +7,11 @@ export class EquipmentSheetPF2e extends PhysicalItemSheetPF2e<EquipmentPF2e> {
     override async getData(options?: Partial<ItemSheetOptions>): Promise<EquipmentSheetData> {
         const item = this.item;
         const sheetData = await super.getData(options);
+        const category = item.system.usage.type === "installed" ? "upgrade" : null;
 
         return {
             ...sheetData,
+            itemType: category ? game.i18n.format(`PF2E.Item.Equipment.Category.${category}`) : sheetData.itemType,
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, item.system.traits.otherTags),
         };
     }

@@ -1,0 +1,77 @@
+{
+    "_id": "GFR5RwR8qW2jIJKP",
+    "img": "systems/pf2e/icons/spells/cast-into-time.webp",
+    "name": "Effect: Halt Death",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Halt Death]</p>\n<p>You are guarded against death, gaining a status bonus to saving throws against death effects. If the result of the ritual was a critical success, when you succeed at a recovery check, you get a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 2
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:death"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.bonus}"
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "gte": [
+                            "{item|flags.pf2e.rulesSelections.bonus}",
+                            4
+                        ]
+                    }
+                ],
+                "selector": "dying-recovery-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

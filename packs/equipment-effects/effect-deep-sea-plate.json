@@ -1,0 +1,52 @@
+{
+    "_id": "g3jJKZ36kF3YHFtU",
+    "img": "icons/equipment/chest/breastplate-cuirass-steel-blue.webp",
+    "name": "Effect: Deep Sea Plate",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Deep Sea Plate]</p>\n<p>You gain a swim Speed equal to half your Speed while in depths of 500 feet or less.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "deep-sea-plate",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "deep-sea-plate"
+                ],
+                "selector": "swim",
+                "value": "floor(@actor.system.movement.speeds.land.value / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -9,7 +9,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jJZbdMHMdh8UL2j8"
             },
             "img": "icons/equipment/chest/breastplate-purple.webp",
-            "name": "Court Garb",
+            "name": "Court Garb (Functions as Fine Clothing)",
             "sort": 100000,
             "system": {
                 "baseItem": null,
@@ -44,7 +44,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -66,7 +66,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hywANJCzT7hMgWna"
             },
             "img": "icons/sundries/books/book-open-turquoise.webp",
-            "name": "Law Book",
+            "name": "Law Book (Functions as Scholarly Journal)",
             "sort": 200000,
             "system": {
                 "baseItem": null,
@@ -102,7 +102,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -160,7 +160,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -171,7 +171,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 }
             },
             "type": "equipment"
@@ -258,7 +258,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A barrister gains a +2 circumstance bonus to Diplomacy checks to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] or @UUID[Compendium.pf2e.actionspf2e.Item.Request] something of the deciding members within a courtroom.</p>\n<p>If the barrister successfully @UUID[Compendium.pf2e.actionspf2e.Item.Perform]{Performs} against a @Check[performance|dc:20] during the 20 minutes prior to the check, they increase the circumstance bonus to +4.</p>"
+                    "value": "<p>A barrister gains a +2 circumstance bonus to Diplomacy checks to [[/act make-an-impression]] or [[/act request]] something of the deciding members within a courtroom.</p>\n<p>If the barrister successfully @Check[performance|dc:20]{Performs} against a DC of 20 during the 20 minutes prior to the check, they increase the circumstance bonus to +4.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -269,12 +269,16 @@
                     {
                         "key": "RollOption",
                         "option": "sway-judge-and-jury",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "RollOption",
-                        "label": "Sway the Judge and Jury - Successful Performance",
-                        "option": "sway-judge-and-jury-perform",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.BonusLabel.PlusFour",
+                                "value": "4"
+                            }
+                        ],
                         "toggleable": true
                     },
                     {
@@ -290,22 +294,7 @@
                         ],
                         "selector": "diplomacy",
                         "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "sway-judge-and-jury-perform",
-                            {
-                                "or": [
-                                    "action:make-an-impression",
-                                    "action:request"
-                                ]
-                            }
-                        ],
-                        "selector": "diplomacy",
-                        "type": "circumstance",
-                        "value": 4
+                        "value": "{item|flags.pf2e.rulesSelections.swayJudgeAndJury}"
                     }
                 ],
                 "slug": null,
@@ -378,7 +367,7 @@
     "system": {
         "abilities": {
             "cha": {
-                "mod": 2
+                "mod": 4
             },
             "con": {
                 "mod": 1

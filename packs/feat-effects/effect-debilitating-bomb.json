@@ -1,13 +1,13 @@
 {
     "_id": "VTJ8D23sOIfApEt3",
-    "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
+    "img": "icons/weapons/thrown/bomb-purple.webp",
     "name": "Effect: Debilitating Bomb",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Debilitating Bomb]</p>\n<p>You are dazzled, deafened, off-guard, or take a -5 foot status penalty to Speeds.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Debilitating Bomb]</p>\n<p>You are dazzled, deafened, off-guard, or take a –5-foot status penalty to Speeds.</p>\n<p>If the origin has Greater Debilitating Bomb, add clumsy 1, enfeebled 1 and stupefied 1 to the list, and the status penalty to Speeds increases to –10.</p>\n<p>If the origin has True Debilitating Bomb, the value of the enfeebled and stupefied conditions increase to 2, and the status penalty to Speeds increases to –15.</p>"
         },
         "duration": {
-            "expiry": "turn-end",
+            "expiry": "turn-start",
             "sustained": false,
             "unit": "rounds",
             "value": 1
@@ -25,6 +25,13 @@
                 "adjustName": false,
                 "choices": [
                     {
+                        "label": "PF2E.condition.clumsy.name",
+                        "predicate": [
+                            "parent:origin:item:tag:greater-debilitating-bomb"
+                        ],
+                        "value": "clumsy"
+                    },
+                    {
                         "label": "PF2E.condition.dazzled.name",
                         "value": "dazzled"
                     },
@@ -33,12 +40,26 @@
                         "value": "deafened"
                     },
                     {
+                        "label": "PF2E.condition.enfeebled.name",
+                        "predicate": [
+                            "parent:origin:item:tag:greater-debilitating-bomb"
+                        ],
+                        "value": "enfeebled"
+                    },
+                    {
                         "label": "PF2E.condition.off-guard.name",
                         "value": "off-guard"
                     },
                     {
                         "label": "PF2E.SpecificRule.Alchemist.DebilitatingBomb.SpeedPenalty.Label",
                         "value": "speed-penalty"
+                    },
+                    {
+                        "label": "PF2E.condition.stupefied.name",
+                        "predicate": [
+                            "parent:origin:item:tag:greater-debilitating-bomb"
+                        ],
+                        "value": "stupefied"
                     }
                 ],
                 "key": "ChoiceSet",
@@ -50,7 +71,8 @@
                 "predicate": [
                     "debilitating-bomb:speed-penalty"
                 ],
-                "selector": "speed",
+                "selector": "all-speeds",
+                "slug": "debilitating-bomb",
                 "type": "status",
                 "value": -5
             },
@@ -77,6 +99,88 @@
                     "debilitating-bomb:dazzled"
                 ],
                 "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "debilitating-bomb:clumsy"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "debilitating-bomb:enfeebled",
+                    {
+                        "not": "parent:origin:item:tag:true-debilitating-bomb"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "upgrade",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "debilitating-bomb:enfeebled",
+                    "parent:origin:item:tag:true-debilitating-bomb"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "debilitating-bomb:stupefied",
+                    {
+                        "not": "parent:origin:item:tag:true-debilitating-bomb"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "upgrade",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "debilitating-bomb:stupefied",
+                    "parent:origin:item:tag:true-debilitating-bomb"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "parent:origin:item:tag:greater-debilitating-bomb"
+                ],
+                "selector": "all-speeds",
+                "slug": "debilitating-bomb",
+                "value": -10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "parent:origin:item:tag:true-debilitating-bomb"
+                ],
+                "selector": "all-speeds",
+                "slug": "debilitating-bomb",
+                "value": -15
             }
         ],
         "start": {

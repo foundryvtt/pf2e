@@ -4,7 +4,7 @@ import type { PackInfo, TabName } from "./data.ts";
 class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
     #tabSettings: Record<TabName, CompendiumBrowserSettingsData> = {
         action: {
-            label: "PF2E.CompendiumBrowser.TabAction",
+            label: "PF2E.CompendiumBrowser.TabAbilities",
         },
         bestiary: {
             label: "PF2E.CompendiumBrowser.TabBestiary",
@@ -13,16 +13,16 @@ class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.
             label: "PF2E.CompendiumBrowser.TabCampaign",
         },
         equipment: {
-            label: "TYPES.Item.equipment",
+            label: "PF2E.CompendiumBrowser.TabEquipment",
         },
         feat: {
             label: "PF2E.CompendiumBrowser.TabFeat",
         },
         hazard: {
-            label: "PF2E.Actor.Hazard.Plural",
+            label: "PF2E.CompendiumBrowser.TabHazard",
         },
         spell: {
-            label: "PF2E.Item.Spell.Plural",
+            label: "PF2E.CompendiumBrowser.TabSpell",
         },
     };
 

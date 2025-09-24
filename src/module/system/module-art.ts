@@ -1,4 +1,3 @@
-import type { CompendiumDocument } from "@client/documents/_module.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
 import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import { isImageFilePath, isImageOrVideoPath } from "@util";
@@ -14,7 +13,9 @@ class ModuleArt {
         const activeModules = [...game.modules.entries()].filter(([_key, m]) => m.active);
 
         for (const [moduleKey, foundryModule] of activeModules) {
-            const moduleArt = await this.#getArtMap(foundryModule.flags[moduleKey]?.["pf2e-art"]);
+            const flags = foundryModule.flags[moduleKey];
+            if (!R.isPlainObject(flags)) continue;
+            const moduleArt = await this.#getArtMap(flags["pf2e-art"]);
             if (!moduleArt) continue;
 
             for (const [packName, art] of Object.entries(moduleArt)) {
@@ -57,9 +58,9 @@ class ModuleArt {
             }
         }
 
-        const apps = Object.values(ui.windows).filter(
-            (w): w is fa.sidebar.apps.Compendium<CompendiumDocument> => w instanceof fa.sidebar.apps.Compendium,
-        );
+        const apps = foundry.applications.instances
+            .values()
+            .filter((w): w is fa.sidebar.apps.Compendium => w instanceof fa.sidebar.apps.Compendium);
         for (const compendium of apps) {
             compendium.render();
         }

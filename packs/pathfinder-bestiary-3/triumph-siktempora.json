@@ -272,7 +272,9 @@
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "unarmed"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -407,7 +409,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>50 feet. A creature within the aura who uses or benefits from an effect with the fortune trait must succeed at a @Check[will|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure).</p>"
+                    "value": "<p>50 feet. A creature within the aura who uses or benefits from an effect with the fortune trait must succeed at a @Check[will|dc:34|options:inflicts:slowed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -530,7 +532,7 @@
                     {
                         "key": "Note",
                         "predicate": [
-                            "dimension-of-time-lore"
+                            "check:statistic:base:dimension-of-time-lore"
                         ],
                         "selector": "initiative",
                         "text": "{item|system.description.value}",
@@ -560,7 +562,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The triumph siktempora pushes themself beyond their limits to secure victory over a chosen foe. They choose one target they can see and reach with a single Stride action. They attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] that target, ignoring the typical limitations on distance and with no penalty for not sharing a language with the target. They then Stride and attempt one Athletics attack action (such as @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] or @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]) against the target.</p>"
+                    "value": "<p>The triumph siktempora pushes themself beyond their limits to secure victory over a chosen foe. They choose one target they can see and reach with a single Stride action. They attempt to [[/act demoralize]] that target, ignoring the typical limitations on distance and with no penalty for not sharing a language with the target. They then Stride and attempt one Athletics attack action (such as [[/act grapple]] or [[/act disarm]]) against the target.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -590,7 +592,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The triumph siktempora flashes their disarming grin at one creature within 15 feet. The target takes @Damage[10d8[mental]] damage (@Check[will|dc:34|basic] save). On a failure, the target's attacks against the triumph siktempora also become nonlethal until the end of the target's next turn.</p>"
+                    "value": "<p>The triumph siktempora flashes their disarming grin at one creature within 15 feet. The target takes @Damage[10d8[mental]] damage (@Check[will|dc:34|basic] save). On a failure, the target's attacks against the triumph siktempora also become nonlethal until the end of the target's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Winning Smile]</p>"
                 },
                 "publication": {
                     "license": "OGL",

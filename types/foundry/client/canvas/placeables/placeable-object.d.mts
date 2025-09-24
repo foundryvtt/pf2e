@@ -182,8 +182,9 @@ export default abstract class PlaceableObject<
     /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
     protected _onCreate(data: TDocument["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
-    /** Define additional steps taken when an existing placeable object of this type is updated with new data */
-
+    /**
+     * Define additional steps taken when an existing placeable object of this type is updated with new data
+     */
     protected _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
         options: DatabaseUpdateCallbackOptions,

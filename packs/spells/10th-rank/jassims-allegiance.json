@@ -1,0 +1,140 @@
+{
+    "_id": "JEMSVySuS4jvTepQ",
+    "folder": "x5tjEh1N0FHzbHkv",
+    "img": "icons/magic/light/explosion-beam-impact-silhouette.webp",
+    "name": "Jassim's Allegiance",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {},
+        "defense": null,
+        "description": {
+            "value": "<p>You bartered for this spell in some strange market or perhaps gained it while wandering the desert, hopelessly lost and surrounded by nothing but the remnants of time and fallen empires. With a gesture and words of a language not spoken since the fall of the Hanging City of Teskra, you summon Jassim the Wanderer. Jassim, a true Jistkan automaton, occupies the space of a Gargantuan creature and has a Speed of 60 feet.</p>\n<p><strong>Arrive</strong> (fire) <em>Eyes of Fire</em> Jassim emerges from the ground and glares at your enemies, a fearsome look forming on a face of ancient metal and glass. He shoots an energy beam in a 60-foot line, dealing 5d12 fire damage and 5d12 piercing damage (basic Reflex save). Enemies that critically fail are @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>\n<p><strong>Depart</strong> (metal) <em>Heart of Rust</em> Jassim takes a metal piece from his chest and holds it out, crushing it in his fist and allowing the powder to spread across a 60-foot emanation. These particles deal 10d6 slashing damage to all creatures and unattended objects within the area (basic Fortitude save). A metal creature that fails its save also takes @Damage[2d8[persistent,slashing]|traits:metal] damage. A non-metal creature that fails this save is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": "until the end of your next turn"
+        },
+        "level": {
+            "value": 10
+        },
+        "overlays": {
+            "MhuuLUrCZfVUPNnq": {
+                "name": "Jassim's Allegiance (Depart)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "area": {
+                        "type": "emanation",
+                        "value": 60
+                    },
+                    "damage": {
+                        "gMGjOdtDmnXmsKql": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "10d6",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "slashing"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": true,
+                            "statistic": "fortitude"
+                        }
+                    },
+                    "traits": {
+                        "value": [
+                            "concentrate",
+                            "incarnate",
+                            "manipulate",
+                            "metal"
+                        ]
+                    }
+                }
+            },
+            "slfptI2Lk8o15lvF": {
+                "name": "Jassim's Allegiance (Arrive)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "area": {
+                        "type": "line",
+                        "value": 60
+                    },
+                    "damage": {
+                        "lGkhCA0xn55Y9fNr": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "5d12",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "fire"
+                        },
+                        "remPA0DQIRVycSg3": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "5d12",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "piercing"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": true,
+                            "statistic": "reflex"
+                        }
+                    },
+                    "traits": {
+                        "value": [
+                            "concentrate",
+                            "fire",
+                            "incarnate",
+                            "manipulate"
+                        ]
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "range": {
+            "value": "500 feet"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": ""
+        },
+        "time": {
+            "value": "3"
+        },
+        "traits": {
+            "rarity": "rare",
+            "traditions": [
+                "arcane",
+                "occult"
+            ],
+            "value": [
+                "concentrate",
+                "incarnate",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "spell"
+}

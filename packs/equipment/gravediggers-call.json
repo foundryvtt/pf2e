@@ -1,0 +1,122 @@
+{
+    "_id": "GQHPI84ilXlglr27",
+    "img": "icons/weapons/polearms/glaive-simple.webp",
+    "name": "Gravedigger's Call",
+    "system": {
+        "baseItem": "glaive",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 2
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>This rusted shovel functions as a <em>+2 striking decaying glaive</em> when wielded as a weapon, but it more closely resembles a neglected tool. Its haft was carved from the trunk of a long-dead tree that once grew among the broken stones of an abandoned cemetery, and its blade was forged from shattered remnants of the armor that failed to protect those buried there. When you carry or wield a gravedigger's call, you gain a +1 item bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] haunts and to skill checks to determine the reasons for a haunt or spirit's existence.</p><hr /><p><strong>Activate—Call the Fallen</strong> <span class=\"action-glyph\">2</span> (concentrate, manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Rouse Skeletons] as a 5th-rank occult spell. The DC is 30.</p><hr /><p><strong>Craft Requirements</strong> Supply one casting of <em>rouse skeletons</em> (5th rank).</p>"
+        },
+        "expend": null,
+        "group": "polearm",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 12
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 1700
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    "gravediggers-call"
+                ],
+                "selector": "perception",
+                "slug": "gravediggers-call-seek-bonus",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "gravediggers-call",
+                    {
+                        "or": [
+                            "action:recall-knowledge"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "slug": "gravediggers-call-knowledge-bonus",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [
+                "decaying"
+            ],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 2,
+                "property": [
+                    "decaying"
+                ],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "deadly-d8",
+                "forceful",
+                "magical",
+                "occult",
+                "reach"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "weapon"
+}

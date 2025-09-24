@@ -1,0 +1,48 @@
+{
+    "_id": "c5zOwEre2Uy9MCFo",
+    "img": "icons/commodities/claws/claw-blue-grey.webp",
+    "name": "Effect: Predator's Advantage",
+    "system": {
+        "description": {
+            "value": "<p>You take a –2 circumstance penalty to Reflex saves against a deinonychus pack's Jaws and Claws.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:jaws-and-claws",
+                    "self:condition:persistent-damage:bleed"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

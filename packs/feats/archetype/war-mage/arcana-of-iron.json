@@ -1,0 +1,74 @@
+{
+    "_id": "4Ocw1VITuw3Or2Cc",
+    "folder": "h3LLD3BmWA4ndNhV",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Arcana of Iron",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You eschew wands and staves for more advanced weaponry. You become trained in advanced weapons. If you gain the @UUID[Compendium.pf2e.classfeatures.Item.Weapon Expertise] class feature, your proficiency in martial and advanced weapons increases to expert. The extra damage you deal with @UUID[Compendium.pf2e.feats-srd.Item.Bespell Strikes] increases to 1d8.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "War Mage Dedication"
+                },
+                {
+                    "value": "Bespell Strikes"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.advanced.rank",
+                "predicate": [
+                    "feature:weapon-expertise"
+                ],
+                "value": 2
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "bespell-strikes",
+                "value": 8
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "advanced": {
+                    "attribute": null,
+                    "rank": 1
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

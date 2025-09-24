@@ -3,9 +3,9 @@ import type { CreatureTrait } from "@actor/creature/index.ts";
 import {
     DamageDicePF2e,
     DamageDiceParameters,
+    Modifier,
     ModifierAdjustment,
     ModifierObjectParams,
-    ModifierPF2e,
 } from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
 import type { ArmorPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
@@ -22,6 +22,8 @@ import { sluggify } from "@util";
 import * as R from "remeda";
 
 function getPropertyRuneSlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
+    if (item.system.grade) return 0; // skip sf2e gear
+
     const fromMaterial = item.system.material.type === "orichalcum" ? 1 : 0;
     const getABPPotency = item.isOfType("weapon") ? ABP.getAttackPotency : ABP.getDefensePotency;
 
@@ -101,7 +103,7 @@ function getPropertyRuneDamage(
     weapon: WeaponPF2e | MeleePF2e,
     runes: WeaponPropertyRuneType[],
     options: Set<string>,
-): (DamageDicePF2e | ModifierPF2e)[] {
+): (DamageDicePF2e | Modifier)[] {
     return runes.flatMap((rune) => {
         const runeData = WEAPON_PROPERTY_RUNES[rune];
         return fu.deepClone(runeData.damage?.additional ?? []).map((data) => {
@@ -112,7 +114,7 @@ function getPropertyRuneDamage(
                     typeof data.modifier === "string"
                         ? Number(Roll.replaceFormulaData(data.modifier, resolvables)) || 0
                         : data.modifier;
-                return new ModifierPF2e({ ...data, slug, modifier: value });
+                return new Modifier({ ...data, slug, modifier: value });
             } else {
                 const dice = new DamageDicePF2e({
                     selector: "strike-damage",

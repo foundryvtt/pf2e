@@ -1,0 +1,51 @@
+{
+    "_id": "NETXs01Vn0Q7ZRAs",
+    "img": "icons/commodities/stone/paver-cobble-white.webp",
+    "name": "Effect: Phasing Trine (Reduce AC)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Phasing Trine] via Ephemeral Effect</p>\n<p>The origin's Strikes against you ignore all cover and circumstance bonuses to AC from shields.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "bonus:slug:raised-shield",
+                            "bonus:slug:cover"
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "suppress": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

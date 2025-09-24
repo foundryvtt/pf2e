@@ -1,5 +1,5 @@
 import { LaxSchemaField } from "@system/schema-data-fields.ts";
-import { RuleElementPF2e } from "./rule-element/base.ts";
+import { RuleElement } from "./rule-element/base.ts";
 
 import { ActorTraitsRuleElement } from "./rule-element/actor-traits.ts";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success.ts";
@@ -101,8 +101,8 @@ class RuleElements {
         return { ...this.builtin, ...this.custom };
     }
 
-    static fromOwnedItem(options: RuleElementOptions): RuleElementPF2e[] {
-        const rules: RuleElementPF2e[] = [];
+    static fromOwnedItem(options: RuleElementOptions): RuleElement[] {
+        const rules: RuleElement[] = [];
         const item = options.parent;
         for (const [sourceIndex, source] of item.system.rules.entries()) {
             if (typeof source.key !== "string") {
@@ -136,6 +136,6 @@ class RuleElements {
 type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (new (
     data: RuleElementSource,
     options: RuleElementOptions,
-) => RuleElementPF2e);
+) => RuleElement);
 
-export { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource };
+export { RuleElement, RuleElementOptions, RuleElements, RuleElementSource };

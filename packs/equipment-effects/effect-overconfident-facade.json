@@ -1,0 +1,63 @@
+{
+    "_id": "I0dtunqG9psJpc64",
+    "img": "icons/magic/movement/trail-streak-impact-blue.webp",
+    "name": "Effect: Overconfident Facade",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Feather of Unfounded Bravado]</p>\n<p>you gain a +1 item bonus to Intimidation checks to Demoralize and Diplomacy checks to Make an Impression, but a –1 item penalty on Acrobatics and Athletics checks</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:demoralize",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "slug": "overconfident-facade-bonus",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "athletics",
+                    "acrobatics"
+                ],
+                "slug": "overconfident-facade-bonus",
+                "type": "item",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

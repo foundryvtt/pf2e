@@ -5,17 +5,17 @@ import type { Action } from "@actor/actions/index.ts";
 import type { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { FeatGroupData } from "@actor/character/feats/index.ts";
-import type { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
+import type { CheckModifier, Modifier, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
+import type { SettingConfig } from "@client/_types.d.mts";
 import type Hotbar from "@client/applications/ui/hotbar.d.mts";
 import type Config from "@client/config.d.mts";
 import type WallDocument from "@client/documents/wall.d.mts";
 import type { FoundryUI } from "@client/ui.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
-import type { SettingConfig } from "@common/_types.d.mts";
 import type { ImageFilePath, RollMode, UserRole } from "@common/constants.d.mts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
-import type { CoinsPF2e } from "@item/physical/helpers.ts";
+import type { Coins } from "@item/physical/helpers.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type {
     CompendiumBrowser,
@@ -23,12 +23,12 @@ import type {
     CompendiumBrowserSources,
 } from "@module/apps/compendium-browser/browser.ts";
 import type { EffectsPanel } from "@module/apps/effects-panel.ts";
-import type { LicenseViewer } from "@module/apps/license-viewer/app.ts";
 import type {
     ActorDirectoryPF2e,
     ChatLogPF2e,
     CompendiumDirectoryPF2e,
     EncounterTracker,
+    ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
 import type { WorldClock } from "@module/apps/world-clock/app.ts";
 import type { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas/index.ts";
@@ -37,7 +37,7 @@ import type { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { ActorsPF2e } from "@module/collection/actors.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";
-import type { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
+import type { RuleElement, RuleElements } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type {
     AmbientLightDocumentPF2e,
@@ -62,7 +62,7 @@ import type {
     xpFromEncounter,
 } from "@scripts/macros/index.ts";
 import type { remigrate } from "@scripts/system/remigrate.ts";
-import type { CheckPF2e } from "@system/check/index.ts";
+import type { Check } from "@system/check/index.ts";
 import type { ConditionManager } from "@system/conditions/manager.ts";
 import type { EffectTracker } from "@system/effect-tracker.ts";
 import type { ModuleArt } from "@system/module-art.ts";
@@ -90,6 +90,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(module: "pf2e", setting: "automation.flankingDetection"): boolean;
     get(module: "pf2e", setting: "automation.iwr"): boolean;
     get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
+    get(module: "pf2e", setting: "automation.reachEnforcement"): Set<"doors" | "corpses" | "loot" | "merchants">;
     get(module: "pf2e", setting: "automation.removeExpiredEffects"): boolean;
     get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
 
@@ -139,7 +140,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(module: "pf2e", setting: "critFumbleButtons"): boolean;
     get(module: "pf2e", setting: "critRule"): "doubledamage" | "doubledice";
     get(module: "pf2e", setting: "deathIcon"): ImageFilePath;
-    get(module: "pf2e", setting: "dragMeasurement"): "always" | "encounters" | "never";
+    get(module: "pf2e", setting: "distanceDisplay"): "always" | "encounters" | "never";
     get(module: "pf2e", setting: "drawCritFumble"): boolean;
     get(module: "pf2e", setting: "gmVision"): boolean;
     get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
@@ -169,7 +170,6 @@ interface GamePF2e
         // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         actions: Record<string, Function> & Collection<string, Action>;
         compendiumBrowser: CompendiumBrowser;
-        licenseViewer: LicenseViewer;
         worldClock: WorldClock;
         effectPanel: EffectsPanel;
         effectTracker: EffectTracker;
@@ -193,16 +193,16 @@ interface GamePF2e
         variantRules: {
             AutomaticBonusProgression: typeof AutomaticBonusProgression;
         };
-        Check: typeof CheckPF2e;
+        Check: typeof Check;
         CheckModifier: typeof CheckModifier;
-        Coins: typeof CoinsPF2e;
+        Coins: typeof Coins;
         ConditionManager: typeof ConditionManager;
         Dice: typeof DicePF2e;
         ElementalBlast: typeof ElementalBlast;
-        Modifier: typeof ModifierPF2e;
+        Modifier: typeof Modifier;
         ModifierType: { [K in Uppercase<ModifierType>]: Lowercase<K> };
         Predicate: typeof Predicate;
-        RuleElement: typeof RuleElementPF2e;
+        RuleElement: typeof RuleElement;
         RuleElements: typeof RuleElements;
         StatisticModifier: typeof StatisticModifier;
         StatusEffects: typeof StatusEffects;
@@ -212,6 +212,7 @@ interface GamePF2e
             automation: {
                 /** Flanking detection */
                 flanking: boolean;
+                reachEnforcement: Set<"doors" | "corpses" | "loot" | "merchants">;
                 removeEffects: boolean;
             };
             /** Campaign feat slots */
@@ -228,6 +229,7 @@ interface GamePF2e
                 buttons: boolean;
                 cards: boolean;
             };
+            distanceDisplay: "always" | "encounters" | "never";
             /** Encumbrance automation */
             encumbrance: boolean;
             gmVision: boolean;
@@ -327,14 +329,15 @@ declare global {
 
         const ui: FoundryUI<
             ActorDirectoryPF2e,
-            fa.sidebar.tabs.ItemDirectory<ItemPF2e<null>>,
+            ItemDirectoryPF2e,
             ChatLogPF2e,
             CompendiumDirectoryPF2e,
             EncounterTracker<EncounterPF2e | null>,
             Hotbar<MacroPF2e>
         >;
 
-        const AutomaticBonusProgression: typeof ABP;
+        // eslint-disable-next-line no-var
+        var AutomaticBonusProgression: typeof ABP;
 
         // Add functions to the `Math` namespace for use in `Roll` formulas
         interface Math {

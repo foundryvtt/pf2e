@@ -3,6 +3,7 @@ import { RegionShape } from "@client/data/region-shapes/shape.mjs";
 import RegionDocument from "@client/documents/region.mjs";
 import Scene from "@client/documents/scene.mjs";
 import User from "@client/documents/user.mjs";
+import { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
 import * as ClipperLib from "js-angusj-clipper";
 import { Point } from "../../../common/_types.mjs";
 import PlaceableObject from "./placeable-object.mjs";
@@ -104,6 +105,16 @@ export default class Region<
     protected override _onHoverOut(event: PIXI.FederatedPointerEvent, options?: { updateLegend?: boolean }): void;
 
     protected override _overlapsSelection(rectangle: PIXI.Rectangle): boolean;
+
+    /* -------------------------------------------- */
+    /*  Document Event Handlers                     */
+    /* -------------------------------------------- */
+
+    override _onUpdate(
+        changed: DeepPartial<TDocument["_source"]>,
+        options: DatabaseUpdateCallbackOptions,
+        userId: string,
+    ): void;
 
     /* -------------------------------------------- */
     /*  Shape Methods                               */

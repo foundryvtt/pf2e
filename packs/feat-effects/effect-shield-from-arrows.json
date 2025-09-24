@@ -1,0 +1,58 @@
+{
+    "_id": "XFnNmos2R1nOFl9O",
+    "img": "icons/skills/melee/shield-damaged-broken-brown.webp",
+    "name": "Effect: Shield from Arrows",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Shield from Arrows]</p>\n<p>You gain a +4 circumstance bonus to AC.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:ranged",
+                    {
+                        "or": [
+                            "item:damage:category:physical",
+                            {
+                                "and": [
+                                    "item:type:spell",
+                                    "parent:origin:item:tag:shield-from-spells"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

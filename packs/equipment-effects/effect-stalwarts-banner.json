@@ -1,0 +1,153 @@
+{
+    "_id": "f2r7r0t8n7LKuj6C",
+    "img": "icons/sundries/flags/banner-blue.webp",
+    "name": "Effect: Stalwart's Banner",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Stalwart's Banner], @UUID[Compendium.pf2e.equipment-srd.Item.Stalwart's Banner (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Stalwart's Banner (Major)]</p>\n<p>You gain temporary Hit Points and a status bonus to your Fortitude DC and Reflex DC against any effect that would move you or knock you prone.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:stalwarts-banner",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Stalwart's Banner"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:stalwarts-banner-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Stalwart's Banner (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:stalwarts-banner-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Stalwart's Banner (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "stalwarts-banner"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "stalwarts-banner:stalwarts-banner"
+                ],
+                "value": 5
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "stalwarts-banner:stalwarts-banner-greater"
+                ],
+                "value": 10
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "stalwarts-banner:stalwarts-banner-major"
+                ],
+                "value": 15
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Effect Would Move or Knock Prone",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:trip",
+                            "action:reposition",
+                            "action:shove",
+                            "inflicts:prone",
+                            "forced-movement"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "slug": "stalwarts-banner",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "stalwarts-banner:stalwarts-banner-greater"
+                ],
+                "selectors": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "slug": "stalwarts-banner",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "stalwarts-banner:stalwarts-banner-major"
+                ],
+                "selectors": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "slug": "stalwarts-banner",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,63 @@
+{
+    "_id": "mzKV3lHPni85EMFM",
+    "img": "icons/equipment/shield/targe-steel-blue.webp",
+    "name": "Adept Benefit (Shield)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>When you have your shield implement raised, you gain a status bonus to your saves against spells and other magic effects equal to your circumstance bonus to AC from your shield. In addition, damage you take as a result of a spell or magical effect while your @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield]{Shield is Raised} can trigger your @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction, even if the damage isn't physical.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.thaumaturge.paragonChoices",
+                "priority": 20,
+                "value": {
+                    "label": "PF2E.SpecificRule.Thaumaturge.Implement.Shield.Label",
+                    "value": "Compendium.pf2e.classfeatures.Item.Paragon Benefit (Shield)"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:magical",
+                    "shield-implement:equipped",
+                    "self:shield:raised"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "@actor.system.attributes.shield.ac"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

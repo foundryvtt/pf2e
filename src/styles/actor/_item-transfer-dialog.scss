@@ -1,37 +1,36 @@
-.dialog.item-transfer {
-    width: 22rem;
-    .item-row {
-        background-color: rgba(0, 0, 0, 0.08);
-        border-radius: 5px;
-        align-items: center;
-        display: flex;
-        gap: var(--space-6);
-        margin-top: var(--space-8);
-        padding: var(--space-4);
+#item-transfer-dialog {
+    p {
+        margin: 0;
+    }
+
+    .transfer-data {
+        --input-height: 1.75rem;
+
+        column-gap: var(--space-12);
+        display: grid;
+        grid-template:
+            "img name" minmax(0, auto)
+            "img quantity" minmax(0, auto)
+            / 2.75rem auto;
+        padding: 0 var(--space-4);
 
         img {
-            width: 1.5rem;
-            height: 1.5rem;
+            grid-area: img;
+            width: 2.75rem;
+            height: 2.75rem;
+            object-fit: contain;
         }
 
         .name {
-            font-weight: 500;
-            line-height: 0.9;
-            text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.5);
+            grid-area: name;
+            font-size: var(--font-size-16);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        .quantity {
-            align-items: baseline;
-            display: flex;
-            gap: var(--space-4);
-            margin-left: auto;
-            input {
-                width: 6ch;
-            }
+        range-picker input[type="number"] {
+            font-size: 1em;
         }
-    }
-
-    .dialog-buttons {
-        white-space: nowrap;
     }
 }
