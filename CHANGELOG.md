@@ -1,3 +1,51 @@
+## 7.5.2
+
+### System Improvements
+
+- (stwlam) Add support for configuring PC hand count from ancestries
+
+### Bugfixes
+
+- (In3luki) Fix filtering of some disabled sources in the Compendium Browser
+- (stwlam) Avoid some issues from too-closely managing hover distance line
+- (stwlam) Disallow interactive rolling of blind rolls from chat log
+- (stwlam) Don't load packs with lower than LIMITED ownership for compendium browser
+- (stwlam) Exclude grenades from getting strength to damage
+- (stwlam) Fix extraction of adjustments of non-synthetic speed modifiers
+- (stwlam) Fix most issues with calculation of derived speeds
+- (stwlam) Ignore check/speed penalties from battle forms via modifier adjustments
+- (stwlam) Limit AE purges during migrations
+- (stwlam) Link action to Reset World Time button in World Clock settings
+- (stwlam) Retrieve land speeds created by BaseSpeed RE
+- (stwlam) Undo setting of weapon dice-upgraded flag by damage alterations after rolling
+- (Supe) Fix closing choice set without selection
+
+### Data Updates
+
+- (Ambrose) Add `immutable:true` to Sacred Defense inline rolls
+- (Ambrose) Correct Choir Politic Patron Skill to Society
+- (Ambrose) Update immunities on additional Wisp variant actors
+- (Clemente) Add PreparationType localization strings for Focus and Ritual entries
+- (CotillionTheRope) Fix the extra precision damage of the item Mantis Embrace's Crushing Embrace
+- (CotillionTheRope) Fix the weapon damage dice upgrade from the item clay sphere
+- (Dire Weasel) Add automation and inline scaling damage to Blazing Spirit
+- (Dire Weasel) Fix some missing NPC `compendiumSource`
+- (Rigo) Add Consume Flesh action to Priest of Kabriri
+- (Rigo) Automate Officer's Education
+- (Rigo) Ensure Energized Spark's Damage Alteration occurs after other similar rules
+- (Rigo) Lower Gate Junction roll option priority to fire before default AELike upgrades
+- (Rigo) Prevent multiple instances of Precise Debilitations Damage Dice from stacking
+- (Rigo) Push priority of skill-based Crafting Abilities after default AE-Like upgrades and overrides
+- (Rigo) Reduce penalty from drained and enfeebled conditions with Sanguine Tenacity
+- (Rigo) Update Settlement Scholastics to Player Core 2
+- (stwlam) Fix selector of Blessed Swiftness's speed bonus
+- (stwlam) Include full description of Shield Throw trait
+
+### Under the Hood
+
+- (stwlam) Guard against modules assigning frozen point objects to `RulerPF2e#path`
+- (stwlam) Include distance roll options in roll-context actor clones
+
 ## 7.5.1
 
 ### System Improvements
