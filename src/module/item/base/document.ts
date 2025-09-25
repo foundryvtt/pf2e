@@ -398,7 +398,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 if (refreshedSpell instanceof ItemPF2e && refreshedSpell.isOfType("spell")) {
                     const spellConsumableData = await createConsumableFromSpell(refreshedSpell, {
                         type: currentSource.system.category,
-                        heightenedLevel: currentSource.system.spell.system.location.heightenedLevel,
+                        rank: currentSource.system.spell.system.location.heightenedLevel,
                     });
                     fu.mergeObject(updates, {
                         name: spellConsumableData.name,

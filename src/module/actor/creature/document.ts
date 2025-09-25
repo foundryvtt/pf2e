@@ -740,28 +740,36 @@ abstract class CreaturePF2e<
      * @param modifiers Modifiers in addition to those extracted
      */
     prepareMovementData(modifiers: Modifier[] = []): void {
-        const baseSpeed = this.system.movement.speeds.land.base;
+        const synthetics = this.synthetics.movementTypes;
+        const baseSpeedOptions = this.getRollOptions();
+
+        // Construct land-speed statistic first since others may derive from it
+        const baseSpeed = [
+            this.system.movement.speeds.land.base,
+            ...(synthetics.land?.flatMap((d) => d({ test: baseSpeedOptions })?.value ?? []) ?? []),
+        ].reduce((highest, v) => Math.max(highest, v), 0);
         if (baseSpeed > 0) this.flags.pf2e.rollOptions.all["speed:land"] = true;
         const landSpeed = new SpeedStatistic(this, { type: "land", base: baseSpeed, modifiers });
         this.system.movement.speeds.land = landSpeed.getTraceData();
-        const baseSpeedOptions = this.getRollOptions();
+
         const otherSpeeds = Object.fromEntries(
             MOVEMENT_TYPES.filter((t) => t !== "land").map((type) => {
                 const fromSynthetics = R.filter(
-                    this.synthetics.movementTypes[type]?.map((d) => d({ test: baseSpeedOptions })) ?? [],
+                    synthetics[type]?.map((d) => d({ test: baseSpeedOptions })) ?? [],
                     R.isNonNull,
                 );
-                const syntheticSpeed = R.firstBy(fromSynthetics, [(s) => s.value ?? 0, "desc"]);
-                if (!syntheticSpeed && !this.system.movement.speeds[type]) return [type, null];
-                this.flags.pf2e.rollOptions.all[`speed:${type}`] = true;
                 const systemDataSpeed = this.system.movement.speeds[type] ?? { value: -Infinity, source: null };
+                const syntheticSpeed = R.firstBy(fromSynthetics, [(s) => s.value ?? 0, "desc"]);
+                if (!syntheticSpeed && systemDataSpeed.value <= 0) return [type, null];
+
+                this.flags.pf2e.rollOptions.all[`speed:${type}`] = true;
                 const selected: { value: number; source?: string | null; derivedFromLand?: boolean } =
                     syntheticSpeed && syntheticSpeed.value > systemDataSpeed.value ? syntheticSpeed : systemDataSpeed;
                 if (selected === syntheticSpeed && syntheticSpeed.derivedFromLand) {
                     const domain = (this.flags.pf2e.rollOptions[`${type}-speed`] ??= {});
                     domain["derived-from-land"] = true;
                 }
-                const statistic = selected?.derivedFromLand
+                const statistic = selected.derivedFromLand
                     ? landSpeed.extend({ type, base: selected.value, source: selected.source })
                     : new SpeedStatistic(this, {
                           type,

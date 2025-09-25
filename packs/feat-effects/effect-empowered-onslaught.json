@@ -5,6 +5,7 @@
     "system": {
         "badge": {
             "max": 3,
+            "min": null,
             "type": "counter",
             "value": 1
         },
@@ -27,26 +28,30 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.spells-srd.Item.Bane"
-                    },
-                    {
-                        "predicate": [
-                            "parent:origin:item:tag:aura-enhancement"
-                        ],
-                        "value": "Compendium.pf2e.spells-srd.Item.Benediction"
-                    },
-                    {
-                        "value": "Compendium.pf2e.spells-srd.Item.Bless"
-                    },
-                    {
-                        "predicate": [
-                            "parent:origin:item:tag:aura-enhancement"
-                        ],
-                        "value": "Compendium.pf2e.spells-srd.Item.Malediction"
-                    }
-                ],
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:slug:bane",
+                                "item:slug:bless",
+                                {
+                                    "and": [
+                                        {
+                                            "or": [
+                                                "item:slug:benediction",
+                                                "item:slug:malediction"
+                                            ]
+                                        },
+                                        "parent:origin:item:tag:aura-enhancement"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "spell",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Spell",
                 "rollOption": "empowered-onslaught"
@@ -55,20 +60,11 @@
                 "key": "AdjustModifier",
                 "mode": "add",
                 "predicate": [
+                    "bonus:slug:{item|flags.pf2e.rulesSelections.spell}",
                     {
                         "or": [
-                            {
-                                "and": [
-                                    "bonus:slug:bless",
-                                    "empowered-onslaught:bless"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "bonus:slug:benediction",
-                                    "empowered-onslaught:benediction"
-                                ]
-                            }
+                            "empowered-onslaught:benediction",
+                            "empowered-onslaught:bless"
                         ]
                     }
                 ],
@@ -82,20 +78,11 @@
                 "key": "AdjustModifier",
                 "mode": "remove",
                 "predicate": [
+                    "penalty:slug:{item|flags.pf2e.rulesSelections.spell}",
                     {
                         "or": [
-                            {
-                                "and": [
-                                    "penalty:slug:bane",
-                                    "empowered-onslaught:bane"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "penalty:slug:malediction",
-                                    "empowered-onslaught:malediction"
-                                ]
-                            }
+                            "empowered-onslaught:bane",
+                            "empowered-onslaught:malediction"
                         ]
                     }
                 ],

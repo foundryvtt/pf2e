@@ -251,6 +251,11 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
                 rule.ignored = false;
             }
         } else {
+            if (this.choices.length > 0 && !this.allowNoSelection) {
+                ui.notifications.warn("PF2E.UI.RuleElements.Prompt.NoSelectionMade", {
+                    format: { item: this.item.name },
+                });
+            }
             ruleSource.ignored = true;
         }
     }

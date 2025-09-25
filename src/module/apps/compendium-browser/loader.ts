@@ -64,9 +64,9 @@ class PackLoader {
 
     #getSources(): Set<string> {
         const sources = new Set<string>();
-        for (const source of Object.values(this.sourcesSettings.sources)) {
+        for (const [slug, source] of Object.entries(this.sourcesSettings.sources)) {
             if (source?.load) {
-                sources.add(source.name);
+                sources.add(slug);
             }
         }
         return sources;
@@ -86,7 +86,7 @@ class PackLoader {
         }
 
         const filteredIndex = new Collection<string, CompendiumIndexData>();
-        const knownSources = Object.values(this.sourcesSettings.sources).map((value) => value?.name);
+        const knownSources = Object.keys(this.sourcesSettings.sources);
 
         for (const data of index) {
             const source = this.#getSourceFromIndexData(data);
@@ -160,12 +160,12 @@ class PackLoader {
         if (!system) return "";
 
         // Handle unmigrated data
-        return (
+        return sluggify(
             system.publication?.title ??
-            system.details?.publication?.title ??
-            system.source?.value ??
-            system.details?.source?.value ??
-            ""
+                system.details?.publication?.title ??
+                system.source?.value ??
+                system.details?.source?.value ??
+                "",
         );
     }
 

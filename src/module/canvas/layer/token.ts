@@ -3,8 +3,13 @@ import type { Point } from "@common/_types.d.mts";
 import type { TokenPF2e } from "../index.ts";
 
 class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TObject> {
+    constructor() {
+        super();
+        this.#hoverDistanceLine = this._rulerPaths.addChild(new PIXI.Graphics());
+    }
+
     /** A line drawn between two tokens when checking distance */
-    #hoverDistanceLine = new PIXI.Graphics();
+    #hoverDistanceLine: PIXI.Graphics;
 
     /** Prevent redirection of event to `Ruler` when ctrl key is pressed. */
     protected override _onClickLeft(event: PlaceablesLayerPointerEvent<TObject>): void {
@@ -57,12 +62,13 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
         return true;
     }
 
-    clearDistanceLine(): void {
-        const line = this._rulerPaths.removeChild(this.#hoverDistanceLine) ?? this.#hoverDistanceLine;
-        line.clear();
-    }
+    refreshDistanceLine(): void;
+    refreshDistanceLine(from: TObject, to: TObject): void;
+    refreshDistanceLine(from?: TObject, to?: TObject): void {
+        this.#hoverDistanceLine.clear();
+        if (!(from && to)) return;
+        this._rulerPaths.addChild(this._rulerPaths.removeChild(this.#hoverDistanceLine));
 
-    renderDistanceLine(from: TObject, to: TObject): void {
         const centers = { from: from.center, to: to.center };
         const footprints = {
             from: from.footprint
@@ -101,7 +107,6 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
             .lineTo(closest.to.x, closest.to.y);
         this.#drawCap(line, closest.from, colors);
         this.#drawCap(line, closest.to, colors);
-        this._rulerPaths.addChild(line);
     }
 
     #drawCap(line: PIXI.Graphics, p: Point, colors: { outline: number; fill: number }): PIXI.Graphics {
@@ -114,21 +119,6 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
             .beginFill(colors.fill)
             .drawCircle(p.x, p.y, radius)
             .endFill();
-    }
-
-    protected override _activate(): void {
-        super._activate();
-        if (this.#hoverDistanceLine.destroyed) this.#hoverDistanceLine = new PIXI.Graphics();
-    }
-
-    protected override _deactivate(): void {
-        super._deactivate();
-        this.#hoverDistanceLine.clear();
-    }
-
-    protected override _tearDown(options?: object): Promise<void> {
-        this.#hoverDistanceLine.destroy();
-        return super._tearDown(options);
     }
 }
 

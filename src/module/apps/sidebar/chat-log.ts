@@ -62,9 +62,8 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         options: { speaker?: ChatSpeakerData } = {},
     ): Promise<ChatMessage | undefined> {
         const [command, matches] = ChatLogPF2e.parse(message) ?? [];
-        if (!["roll", "publicroll", "gmroll", "blindroll", "selfroll"].includes(command) || !Array.isArray(matches)) {
-            return super.processMessage(message, options);
-        }
+        const isRollCommand = ["roll", "publicroll", "gmroll", "blindroll", "selfroll"].includes(command);
+        if (!isRollCommand || !Array.isArray(matches)) return super.processMessage(message, options);
 
         const speaker = (options.speaker ??= ChatMessagePF2e.getSpeaker());
         const chatData: DeepPartial<ChatMessageSource> = { speaker, author: game.user.id, flavor: "" };
@@ -77,7 +76,9 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             const roll = await ((): Promise<Rolled<DamageRoll>> | null => {
                 try {
                     const damageRoll = new DamageRoll(formula, rollData);
-                    return looksLikeDamageRoll(damageRoll) ? damageRoll.evaluate() : null;
+                    const rollMode = command === "roll" ? game.settings.get("core", "rollMode") : command;
+                    const allowInteractive = rollMode !== "blindroll";
+                    return looksLikeDamageRoll(damageRoll) ? damageRoll.evaluate({ allowInteractive }) : null;
                 } catch {
                     return null;
                 }

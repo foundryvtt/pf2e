@@ -121,7 +121,31 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:type:spell",
+                                    {
+                                        "or": [
+                                            "item:slug:glitterdust",
+                                            "item:slug:magic-missile",
+                                            "item:slug:maze",
+                                            "item:slug:faerie-fire",
+                                            "item:slug:force-barrage",
+                                            "item:slug:quandary",
+                                            "item:slug:revealing-light"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.WispVulnerabilities"
+                            }
+                        ],
+                        "key": "Immunity",
+                        "type": "magic"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -255,11 +279,7 @@
                 "temp": 0,
                 "value": 50
             },
-            "immunities": [
-                {
-                    "type": "magic"
-                }
-            ],
+            "immunities": [],
             "speed": {
                 "otherSpeeds": [
                     {
