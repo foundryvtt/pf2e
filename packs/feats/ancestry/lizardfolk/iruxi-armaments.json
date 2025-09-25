@@ -132,6 +132,17 @@
                 ]
             },
             {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:claw",
+                    "iruxi-armaments:claw"
+                ],
+                "property": "other-tags",
+                "value": "iruxi-armaments-claws"
+            },
+            {
                 "key": "CriticalSpecialization",
                 "predicate": [
                     {
@@ -143,12 +154,7 @@
                     {
                         "or": [
                             "item:id:{item|id}",
-                            {
-                                "and": [
-                                    "item:slug:claw",
-                                    "iruxi-armaments:claw"
-                                ]
-                            }
+                            "item:tag:iruxi-armaments-claws"
                         ]
                     }
                 ]
