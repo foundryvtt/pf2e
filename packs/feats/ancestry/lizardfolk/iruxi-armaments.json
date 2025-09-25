@@ -68,7 +68,8 @@
                     "dieSize": "d6"
                 },
                 "predicate": [
-                    "iruxi-armaments:claw"
+                    "iruxi-armaments:claw",
+                    "item:tag:lizardfolk-claws"
                 ],
                 "selector": "claw-damage"
             },
@@ -77,7 +78,7 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:claw",
+                    "item:tag:lizardfolk-claws",
                     "iruxi-armaments:claw"
                 ],
                 "property": "traits",
@@ -136,11 +137,20 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:claw",
-                    "iruxi-armaments:claw"
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:claw",
+                                    "iruxi-armaments:claw"
+                                ]
+                            },
+                            "item:id:{item|id}"
+                        ]
+                    }
                 ],
                 "property": "other-tags",
-                "value": "iruxi-armaments-claws"
+                "value": "iruxi-armaments"
             },
             {
                 "key": "CriticalSpecialization",
@@ -151,12 +161,7 @@
                             5
                         ]
                     },
-                    {
-                        "or": [
-                            "item:id:{item|id}",
-                            "item:tag:iruxi-armaments-claws"
-                        ]
-                    }
+                    "item:tag:iruxi-armaments"
                 ]
             }
         ],
