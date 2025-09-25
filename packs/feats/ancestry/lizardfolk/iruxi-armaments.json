@@ -63,15 +63,17 @@
                 "rollOption": "iruxi-armaments"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d6"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "iruxi-armaments:claw",
                     "item:tag:lizardfolk-claws"
                 ],
-                "selector": "claw-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "claw-damage"
+                ],
+                "value": 6
             },
             {
                 "itemType": "weapon",
@@ -145,7 +147,7 @@
                         "or": [
                             {
                                 "and": [
-                                    "item:tag:lizardfolk-claw",
+                                    "item:tag:lizardfolk-claws",
                                     "iruxi-armaments:claw"
                                 ]
                             },
