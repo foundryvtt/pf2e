@@ -133,10 +133,14 @@
                 ]
             },
             {
-                "itemType": "weapon",
-                "key": "ItemAlteration",
-                "mode": "add",
+                "key": "CriticalSpecialization",
                 "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
                     {
                         "or": [
                             {
@@ -148,20 +152,6 @@
                             "item:id:{item|id}"
                         ]
                     }
-                ],
-                "property": "other-tags",
-                "value": "iruxi-armaments"
-            },
-            {
-                "key": "CriticalSpecialization",
-                "predicate": [
-                    {
-                        "gte": [
-                            "self:level",
-                            5
-                        ]
-                    },
-                    "item:tag:iruxi-armaments"
                 ]
             }
         ],
