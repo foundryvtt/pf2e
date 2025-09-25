@@ -4,7 +4,7 @@ import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import { PhysicalItemPF2e, type ItemPF2e } from "@item";
-import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { isSpellConsumableUUID } from "@item/consumable/spell-consumables.ts";
 import { Coins } from "@item/physical/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
@@ -229,7 +229,7 @@ class ChatCards {
                     return;
                 }
 
-                if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
+                if (isSpellConsumableUUID(physicalItem.uuid) && physicalItem.isOfType("consumable")) {
                     craftSpellConsumable(physicalItem, quantity, actor);
                     ChatMessagePF2e.create({
                         author: game.user.id,
@@ -280,7 +280,7 @@ class ChatCards {
                     });
                 }
             } else if (action === "receieve-crafting-item" && physicalItem) {
-                if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
+                if (isSpellConsumableUUID(physicalItem.uuid) && physicalItem.isOfType("consumable")) {
                     return craftSpellConsumable(physicalItem, quantity, actor);
                 } else {
                     return craftItem(physicalItem, quantity, actor);

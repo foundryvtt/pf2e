@@ -11,7 +11,7 @@ import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
 import type { AbilityTrait, ActionCategory } from "@item/ability/types.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
-import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
+import { SpellcastingItemCreator } from "@item/consumable/apps/spellcasting-item-creator/app.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import type { RawCoins } from "@item/physical/data.ts";
@@ -70,7 +70,6 @@ import type {
 import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
-import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog.ts";
 import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
@@ -1174,20 +1173,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             if (item.isRitual) {
                 return this._onDropItemCreate(item.clone().toObject());
             } else if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
-                const popup = new CastingItemCreateDialog(
-                    actor,
-                    {},
-                    async (heightenedLevel, itemType, spell) => {
-                        const createdItem = await createConsumableFromSpell(spell, {
-                            type: itemType,
-                            heightenedLevel,
-                            mystified,
-                        });
-                        await this._onDropItemCreate(createdItem);
-                    },
-                    item,
-                );
-                popup.render(true);
+                new SpellcastingItemCreator({ actor, spell: item, mystified }).render({ force: true });
                 return [item];
             } else {
                 return [];

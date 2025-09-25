@@ -569,6 +569,41 @@ export const PF2ECONFIG = {
         ritual: "PF2E.PreparationTypeRitual",
     },
 
+    spellcastingItems: {
+        scroll: {
+            name: "PF2E.Item.Consumable.Category.scroll",
+            nameTemplate: "PF2E.Item.Physical.FromSpell.Scroll",
+            compendiumUuids: {
+                1: "Compendium.pf2e.equipment-srd.Item.RjuupS9xyXDLgyIr",
+                2: "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx",
+                3: "Compendium.pf2e.equipment-srd.Item.ZmefGBXGJF3CFDbn",
+                4: "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153",
+                5: "Compendium.pf2e.equipment-srd.Item.tjLvRWklAylFhBHQ",
+                6: "Compendium.pf2e.equipment-srd.Item.4sGIy77COooxhQuC",
+                7: "Compendium.pf2e.equipment-srd.Item.fomEZZ4MxVVK3uVu",
+                8: "Compendium.pf2e.equipment-srd.Item.iPki3yuoucnj7bIt",
+                9: "Compendium.pf2e.equipment-srd.Item.cFHomF3tty8Wi1e5",
+                10: "Compendium.pf2e.equipment-srd.Item.o1XIHJ4MJyroAHfF",
+            },
+        },
+        wand: {
+            name: "PF2E.Item.Consumable.Category.wand",
+            nameTemplate: "PF2E.Item.Physical.FromSpell.Wand",
+            compendiumUuids: {
+                1: "Compendium.pf2e.equipment-srd.Item.UJWiN0K3jqVjxvKk",
+                2: "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD",
+                3: "Compendium.pf2e.equipment-srd.Item.wrDmWkGxmwzYtfiA",
+                4: "Compendium.pf2e.equipment-srd.Item.Sn7v9SsbEDMUIwrO",
+                5: "Compendium.pf2e.equipment-srd.Item.5BF7zMnrPYzyigCs",
+                6: "Compendium.pf2e.equipment-srd.Item.kiXh4SUWKr166ZeM",
+                7: "Compendium.pf2e.equipment-srd.Item.nmXPj9zuMRQBNT60",
+                8: "Compendium.pf2e.equipment-srd.Item.Qs8RgNH6thRPv2jt",
+                9: "Compendium.pf2e.equipment-srd.Item.Fgv722039TVM5JTc",
+                10: null,
+            },
+        },
+    },
+
     attitude: {
         hostile: "PF2E.Attitudes.Hostile",
         unfriendly: "PF2E.Attitudes.Unfriendly",

@@ -21,7 +21,7 @@ import type {
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { TraitToggleViewData } from "@item/ability/trait-toggles.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { isSpellConsumableUUID } from "@item/consumable/spell-consumables.ts";
 import { Coins } from "@item/physical/coins.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
 import type { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
@@ -1021,8 +1021,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
 
             if (this.actor.flags.pf2e.freeCrafting) {
-                const itemId = uuid?.split(".").pop() ?? "";
-                if (isSpellConsumable(itemId) && formula.item.isOfType("consumable")) {
+                if (isSpellConsumableUUID(uuid) && formula.item.isOfType("consumable")) {
                     return craftSpellConsumable(formula.item, quantity, this.actor);
                 }
 
