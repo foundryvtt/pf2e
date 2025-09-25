@@ -2,11 +2,13 @@ import type { ActorPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { objectHasKey } from "@util";
 import * as R from "remeda";
 import { AELikeRuleElement } from "../ae-like.ts";
 import { RuleElement, RuleElementOptions } from "../base.ts";
 import type { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource } from "../data.ts";
 import { ItemAlteration, ItemAlterationProperty, ItemAlterationSchema } from "./alteration.ts";
+import { ITEM_ALTERATION_HANDLERS, ItemAlterationPrepPhase } from "./handlers.ts";
 import fields = foundry.data.fields;
 
 class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
@@ -45,6 +47,17 @@ class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
                 initial: undefined,
             }),
             battleForm: new fields.BooleanField(),
+            phase: new fields.StringField({
+                required: true,
+                choices: ["applyAEs", "beforeDerived", "afterDerived"],
+                initial: (data: unknown) => {
+                    const property = R.isPlainObject(data) ? data["property"] : null;
+                    const handler = objectHasKey(ITEM_ALTERATION_HANDLERS, property)
+                        ? ITEM_ALTERATION_HANDLERS[property]
+                        : null;
+                    return (handler?.supportedPhases ?? ["applyAEs"])[0];
+                },
+            }),
             ...ItemAlteration.defineSchema(),
         };
     }
@@ -55,10 +68,14 @@ class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
         if (!data.itemId && !data.itemType) {
             throw Error("one of itemId and itemType must be defined");
         }
-    }
 
-    /** Alteration properties that should be processed at the end of data preparation */
-    static #DELAYED_PROPERTIES = ["pd-recovery-dc"];
+        // Validate that the phase is supported by the property
+        const { property, phase } = data;
+        const handler = objectHasKey(ITEM_ALTERATION_HANDLERS, property) ? ITEM_ALTERATION_HANDLERS[property] : null;
+        if (phase && handler && !handler.supportedPhases.includes(phase)) {
+            throw Error(`phase: ${phase} is not a valid choice, must be one of ${handler.supportedPhases.join(", ")}`);
+        }
+    }
 
     /** Alteration properties that should only be processed when requested directly */
     static #LAZY_PROPERTIES = ["description"];
@@ -103,21 +120,27 @@ class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
     }
 
     override onApplyActiveEffects(): void {
-        const actor = this.actor;
         if (this.ignored) return;
         if (this.battleForm && !this.predicate.includes("battle-form")) this.predicate.push("battle-form");
 
-        actor.synthetics.itemAlterations.push(this);
-        const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
-        if (!this.isLazy && !isDelayed) {
+        if (!this.isLazy && this.phase === "applyAEs") {
+            this.actor.synthetics.itemAlterations.push(this);
+            this.applyAlteration();
+        }
+    }
+
+    override beforePrepareData(): void {
+        if (this.ignored) return;
+        if (!this.isLazy && this.phase === "beforeDerived") {
+            this.actor.synthetics.itemAlterations.push(this);
             this.applyAlteration();
         }
     }
 
     override afterPrepareData(): void {
         if (this.ignored) return;
-        const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
-        if (!this.isLazy && isDelayed) {
+        if (!this.isLazy && this.phase === "afterDerived") {
+            this.actor.synthetics.itemAlterations.push(this);
             this.applyAlteration();
         }
     }
@@ -198,6 +221,8 @@ type ItemAlterationRuleSchema = RuleElementSchema &
         itemId: fields.StringField<string, string, false, false, false>;
         /** Whether this rule element is compatible with battle forms */
         battleForm: fields.BooleanField;
+        /** The phase to run the alteration in. Most only support applyAEs */
+        phase: fields.StringField<ItemAlterationPrepPhase, ItemAlterationPrepPhase, true, false, true>;
     };
 
 interface ApplyAlterationOptions {

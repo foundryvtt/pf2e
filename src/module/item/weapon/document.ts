@@ -112,6 +112,17 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return this.system.maxRange ?? (this.system.range ? this.system.range * 6 : null);
     }
 
+    /** The reach of this weapon if melee */
+    get reach(): number | null {
+        if (!this.isMelee) return null;
+
+        const actor = this.actor;
+        const baseReach = actor?.isOfType("creature") ? (actor.attributes.reach?.base ?? 5) : 5;
+        const traits = this.system.traits.value;
+        const reachIncrease = traits.includes("reach") ? 5 : 0;
+        return baseReach + reachIncrease;
+    }
+
     /** A single object containing range increment and maximum */
     get range(): RangeData | null {
         const rangeIncrement = this.system.range;
