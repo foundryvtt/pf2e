@@ -4,8 +4,32 @@
         &:has(+ .waypoint-label.last) .action-glyph {
             display: none;
         }
+
+        .total-measurement,
+        .delta-measurement {
+            .additional-cost {
+                text-decoration: underline wavy var(--color-text-subtle);
+            }
+        }
+
+        .total-measurement {
+            color: var(--color-text-emphatic);
+
+            .additional-cost {
+                color: var(--color-text-secondary);
+            }
+        }
+
+        .delta-measurement {
+            color: var(--color-text-secondary);
+
+            .additional-cost {
+                color: var(--color-text-tertiary);
+            }
+        }
+
         .action-glyph {
-            color: var(--color-text-primary);
+            color: var(--color-text-emphatic);
             font-size: 1.5em;
         }
     }

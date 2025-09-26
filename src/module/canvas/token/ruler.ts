@@ -87,36 +87,6 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         }
     }
 
-    /** Include action-cost information for showing a glyph. */
-    protected override _getWaypointLabelContext(
-        waypoint: DeepReadonly<TokenRulerWaypoint>,
-        state: WaypointLabelRenderState,
-    ): WaypointLabelRenderContext | void {
-        if (waypoint.action === "displace") return;
-        const context: WaypointRenderContextPF2e | void = super._getWaypointLabelContext(waypoint, state);
-        if (!context || !canvas.grid.isSquare) return context;
-
-        const speed = this.#getSpeed(waypoint.action);
-        if (!speed) return context;
-
-        const accruedCost = waypoint.measurement.cost;
-        if (accruedCost > 0 && (!waypoint.next || accruedCost % speed === 0)) {
-            const actionsSpent = Math.ceil(accruedCost / speed);
-            const clampedCost = Math.clamp(actionsSpent, 1, 3);
-            context.actionCost = { actions: clampedCost, overage: actionsSpent > 3 };
-        }
-        return context;
-    }
-
-    /** Abuse this method to log intermediate waypoints that should be rendered with action glyphs. */
-    protected override _getGridHighlightStyle(
-        waypoint: DeepReadonly<Omit<TokenRulerWaypoint, "index" | "center" | "size" | "ray">>,
-        offset: DeepReadonly<foundry.grid.GridOffset3D>,
-    ): { color?: PIXI.ColorSource; alpha?: number; texture?: PIXI.Texture; matrix?: PIXI.Matrix | null } {
-        this.#logGlyphMarkedPoint(waypoint);
-        return super._getGridHighlightStyle(waypoint, offset);
-    }
-
     /** Retrieve the actor's speed of a certain movement type, if any. */
     #getSpeed(rulerAction: string): number | null {
         const actor = this.token.actor;
@@ -136,6 +106,42 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         }
         if (actor.isOfType("vehicle")) return actor.system.movement.speeds.drive.value;
         return null;
+    }
+
+    /** Include action-cost information for showing a glyph. */
+    protected override _getWaypointLabelContext(
+        waypoint: DeepReadonly<TokenRulerWaypoint>,
+        state: WaypointLabelRenderState,
+    ): WaypointLabelRenderContext | void {
+        if (waypoint.action === "displace") return;
+        const context: WaypointRenderContextPF2e | void = super._getWaypointLabelContext(waypoint, state);
+        if (!context || !canvas.grid.isSquare) return context;
+
+        const speed = this.#getSpeed(waypoint.action);
+        if (!speed) return context;
+
+        const measurement = waypoint.measurement;
+        const accruedCost = measurement.cost;
+        const deltaDistance = measurement.backward?.distance ?? 0;
+        context.cost.additional = {
+            total: Math.max(0, measurement.cost - measurement.distance),
+            delta: Math.max(0, waypoint.cost - deltaDistance),
+        };
+        if (accruedCost > 0 && (!waypoint.next || accruedCost % speed === 0)) {
+            const actionsSpent = Math.ceil(accruedCost / speed);
+            const clampedCost = Math.clamp(actionsSpent, 1, 3);
+            context.actionCost = { actions: clampedCost, overage: actionsSpent > 3 };
+        }
+        return context;
+    }
+
+    /** Abuse this method to log intermediate waypoints that should be rendered with action glyphs. */
+    protected override _getGridHighlightStyle(
+        waypoint: DeepReadonly<Omit<TokenRulerWaypoint, "index" | "center" | "size" | "ray">>,
+        offset: DeepReadonly<foundry.grid.GridOffset3D>,
+    ): { color?: PIXI.ColorSource; alpha?: number; texture?: PIXI.Texture; matrix?: PIXI.Matrix | null } {
+        this.#logGlyphMarkedPoint(waypoint);
+        return super._getGridHighlightStyle(waypoint, offset);
     }
 
     /** If the provided waypoint should have an action glyph, track it for later rendering. */
@@ -184,4 +190,9 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
 
 interface WaypointRenderContextPF2e extends WaypointLabelRenderContext {
     actionCost?: { actions: number; overage: boolean };
+    cost: {
+        total: string;
+        units: string;
+        additional?: { total: number; delta: number };
+    };
 }

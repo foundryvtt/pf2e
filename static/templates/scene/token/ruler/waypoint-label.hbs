@@ -6,9 +6,20 @@
     {{else if action.label}}
         <label class="action-label">{{localize action.label}}</label>
     {{/if}}
-    <span class="total-measurement">{{distance.total}} {{units}}</span>
+    <span class="total-measurement">
+        {{~distance.total}}
+        {{#if cost.additional.total}}
+            + <span class="additional-cost">{{cost.additional.total}}</span>
+        {{/if}}
+        {{units~}}
+    </span>
     {{#if distance.delta}}
-        <span class="delta-measurement">({{distance.delta}})</span>
+        <span class="delta-measurement">(
+            {{~distance.delta}}
+            {{~#if cost.additional.delta}}
+                + <span class="additional-cost">{{cost.additional.delta}}</span>
+            {{~/if~}}
+        )</span>
     {{/if}}
 
     {{#if (and elevation (not elevation.hidden))}}
