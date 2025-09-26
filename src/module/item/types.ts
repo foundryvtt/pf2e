@@ -1,5 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import type * as ItemInstance from "@item";
+import type { ITEM_TYPES } from "./values.ts";
+
+type ItemType = (typeof ITEM_TYPES)[number];
 
 interface ItemInstances<TParent extends ActorPF2e | null> {
     action: ItemInstance.AbilityItemPF2e<TParent>;
@@ -34,4 +37,4 @@ type RangeData = {
     max: number;
 };
 
-export type { ItemInstances, RangeData };
+export type { ItemInstances, ItemType, RangeData };

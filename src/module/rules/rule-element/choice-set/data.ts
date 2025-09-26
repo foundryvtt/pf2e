@@ -1,4 +1,4 @@
-import type { ItemType } from "@item/base/data/index.ts";
+import type { ItemType } from "@item/types.ts";
 import type { PickableThing } from "@module/apps/pick-a-thing-prompt/app.ts";
 import type { RawPredicate } from "@system/predication.ts";
 import type {

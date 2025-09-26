@@ -1,13 +1,13 @@
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { setHitPointsRollOptions } from "@actor/helpers.ts";
 import { Modifier } from "@actor/modifiers.ts";
-import { ActorDimensions } from "@actor/types.ts";
-import { ItemType } from "@item/base/data/index.ts";
+import type { ActorDimensions } from "@actor/types.ts";
+import type { ItemType } from "@item/types.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ArmorStatistic, HitPointsStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { ActorPF2e, ActorUpdateCallbackOptions, HitPointsSummary } from "../base.ts";
-import { VehicleSource, VehicleSystemData } from "./data.ts";
+import type { VehicleSource, VehicleSystemData } from "./data.ts";
 
 class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare armorClass: StatisticDifficultyClass<ArmorStatistic>;

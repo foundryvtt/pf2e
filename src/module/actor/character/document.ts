@@ -41,8 +41,8 @@ import type {
 import { WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import type { ItemType } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import type { ItemType } from "@item/types.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import type { WeaponCategory } from "@item/weapon/types.ts";

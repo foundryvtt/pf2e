@@ -3,8 +3,9 @@ import type { ActorUUID, TokenDocumentUUID } from "@client/documents/_module.d.m
 import type { DocumentUUID } from "@client/utils/_module.d.mts";
 import type { RollMode } from "@common/constants.d.mts";
 import type { ChatMessageFlags } from "@common/documents/chat-message.d.mts";
-import type { ItemType, SpellSource } from "@item/base/data/index.ts";
+import type { SpellSource } from "@item/base/data/index.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
+import type { ItemType } from "@item/types.ts";
 import type { ZeroToTwo } from "@module/data.ts";
 import type { RollNoteSource } from "@module/notes.ts";
 import type { CheckCheckContext } from "@system/check/index.ts";

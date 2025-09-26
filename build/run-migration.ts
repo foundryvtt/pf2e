@@ -1,9 +1,8 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
-import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
+import { ACTOR_TYPES } from "@actor/values.ts";
 import type { CompendiumDocument } from "@client/documents/_module.d.mts";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { sluggify } from "@util";
@@ -15,6 +14,7 @@ import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 import type { PackEntry } from "./lib/types.ts";
 
+import { ITEM_TYPES } from "@item/values.ts";
 import { Migration913SpellSustainedText } from "@module/migration/migrations/913-spell-sustained-text.ts";
 import { Migration917ScrollWandSpellIds } from "@module/migration/migrations/917-scroll-wand-spell-ids.ts";
 import { Migration918DeitySkills } from "@module/migration/migrations/918-deity-skills.ts";
@@ -79,32 +79,15 @@ const packsDataPath = path.resolve(process.cwd(), "packs");
 
 type CompendiumSource = CompendiumDocument["_source"];
 
-const actorTypes = new Set([...CREATURE_ACTOR_TYPES, "army", "hazard", "loot", "vehicle"]);
-const itemTypes = new Set([
-    ...PHYSICAL_ITEM_TYPES,
-    "action",
-    "ancestry",
-    "background",
-    "campaignFeature",
-    "class",
-    "condition",
-    "deity",
-    "effect",
-    "feat",
-    "heritage",
-    "kit",
-    "lore",
-    "melee",
-    "spell",
-    "spellcastingEntry",
-]);
+const actorTypes: readonly string[] = ACTOR_TYPES;
+const itemTypes: readonly string[] = ITEM_TYPES;
 
 const isActorData = (docSource: CompendiumSource): docSource is ActorSourcePF2e => {
-    return "type" in docSource && actorTypes.has(docSource.type);
+    return "type" in docSource && actorTypes.includes(docSource.type);
 };
 
 const isItemData = (docSource: CompendiumSource): docSource is ItemSourcePF2e => {
-    return "type" in docSource && itemTypes.has(docSource.type);
+    return "type" in docSource && itemTypes.includes(docSource.type);
 };
 
 const isJournalEntryData = (docSource: CompendiumSource): docSource is foundry.documents.JournalEntrySource => {

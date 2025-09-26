@@ -1,11 +1,12 @@
 import type { DataFieldOptions } from "@common/data/_types.d.mts";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PersistentDamageValueSchema } from "@item/condition/data.ts";
 import { addOrUpgradeTrait, itemIsOfType, removeTrait } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
 import { Grade } from "@item/physical/types.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
+import type { ItemType } from "@item/types.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 import { RARITIES, ZeroToFour, ZeroToThree } from "@module/data.ts";

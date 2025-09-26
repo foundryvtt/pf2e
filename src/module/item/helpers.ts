@@ -2,13 +2,13 @@ import type { ActorPF2e } from "@actor";
 import { createHTMLElement, setHasElement } from "@util";
 import type { Converter } from "showdown";
 import { processSanctification } from "./ability/helpers.ts";
-import type { ItemSourcePF2e, ItemType } from "./base/data/index.ts";
-import { ItemTraits, ItemTraitsNoRarity } from "./base/data/system.ts";
+import type { ItemSourcePF2e } from "./base/data/index.ts";
+import type { ItemTraits, ItemTraitsNoRarity } from "./base/data/system.ts";
 import type { ItemPF2e } from "./base/document.ts";
 import { ItemTrait } from "./base/types.ts";
 import type { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
-import type { ItemInstances } from "./types.ts";
+import type { ItemInstances, ItemType } from "./types.ts";
 
 type ItemOrSource = PreCreate<ItemSourcePF2e> | ItemPF2e;
 
