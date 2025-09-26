@@ -214,6 +214,7 @@ export default interface Config<
         collection: ConstructorOf<collections.Actors<documents.Actor<null>>>;
         compendiumIndexFields: string[];
         compendiumBanner: ImageFilePath;
+        defaultType?: string;
         sidebarIcon: string;
         dataModels: Record<string, ConstructorOf<TypeDataModel<documents.Actor, DataSchema>>>;
         typeLabels: Record<string, string | undefined>;
@@ -268,11 +269,12 @@ export default interface Config<
 
     /** Configuration for Item document */
     Item: {
+        dataModels: Record<string, ConstructorOf<TypeDataModel<documents.Item, DataSchema>>>;
+        defaultType?: string;
+        collection: typeof collections.Items;
         documentClass: {
             new (data: PreCreate<TItem["_source"]>, context?: DocumentConstructionContext<TItem["parent"]>): TItem;
         };
-        collection: typeof collections.Items;
-        dataModels: Record<string, ConstructorOf<TypeDataModel<documents.Item, DataSchema>>>;
         typeIcons: Record<string, string>;
         typeLabels: Record<string, string | undefined>;
         sheetClasses: Record<
@@ -400,12 +402,12 @@ export default interface Config<
      * Configuration for the JournalEntryPage embedded document type.
      */
     JournalEntryPage: {
-        documentClass: typeof documents.JournalEntryPage;
         dataModels: Record<string, ConstructorOf<TypeDataModel<Document, DataSchema>>>;
-        typeLabels: Record<string, string>;
-        typeIcons: Record<string, string>;
         defaultType: string;
+        documentClass: typeof documents.JournalEntryPage;
         sidebarIcon: string;
+        typeIcons: Record<string, string>;
+        typeLabels: Record<string, string>;
     };
 
     /** Configuration for the MeasuredTemplate embedded document type and its representation on the game Canvas */
