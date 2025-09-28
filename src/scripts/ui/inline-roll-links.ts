@@ -5,7 +5,7 @@ import type { ClientDocument } from "@client/documents/abstract/client-document.
 import type { MeasuredTemplateType } from "@common/constants.d.mts";
 import { ItemPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
-import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
+import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";

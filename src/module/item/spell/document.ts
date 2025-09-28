@@ -17,11 +17,11 @@ import { ItemPF2e } from "@item";
 import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, RawItemChatData } from "@item/base/data/index.ts";
 import type { ItemDescriptionData } from "@item/base/data/system.ts";
-import { performLatePreparation } from "@item/helpers.ts";
+import { createEffectAreaLabel, performLatePreparation } from "@item/helpers.ts";
 import { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
 import { spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
-import { RangeData } from "@item/types.ts";
+import type { EffectAreaShape, RangeData } from "@item/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, Rarity, ZeroToThree, ZeroToTwo } from "@module/data.ts";
@@ -63,14 +63,9 @@ import {
 } from "@util";
 import * as R from "remeda";
 import { SpellArea, SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData } from "./data.ts";
-import {
-    createDescriptionPrepend,
-    createSpellAreaLabel,
-    createSpellRankLabel,
-    getPassiveDefenseLabel,
-} from "./helpers.ts";
+import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
-import { EffectAreaShape, MagicTradition, SpellTrait } from "./types.ts";
+import type { MagicTradition, SpellTrait } from "./types.ts";
 
 class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly parentItem: ConsumablePF2e<TParent> | null;
@@ -237,7 +232,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const areaData = this.system.area;
         if (!areaData) return null;
 
-        return { ...areaData, label: createSpellAreaLabel(areaData) };
+        return { ...areaData, label: createEffectAreaLabel(areaData) };
     }
 
     /** Whether the "damage" roll of this spell deals damage or heals (or both, depending on the target) */

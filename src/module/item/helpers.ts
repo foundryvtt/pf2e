@@ -8,7 +8,7 @@ import type { ItemPF2e } from "./base/document.ts";
 import { ItemTrait } from "./base/types.ts";
 import type { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
-import type { ItemInstances, ItemType } from "./types.ts";
+import type { EffectAreaShape, ItemInstances, ItemType } from "./types.ts";
 
 type ItemOrSource = PreCreate<ItemSourcePF2e> | ItemPF2e;
 
@@ -139,4 +139,34 @@ function _expectedValueOf(annotation: string): number {
         : Number(annotation);
 }
 
-export { addOrUpgradeTrait, itemIsOfType, markdownToHTML, performLatePreparation, reduceItemName, removeTrait };
+function createEffectAreaLabel(areaData: { type: EffectAreaShape; value: number }): string {
+    const formatString = "PF2E.Item.Spell.Area";
+    const shape = game.i18n.localize(`PF2E.Area.Shape.${areaData.type}`);
+
+    // Handle special cases of very large areas
+    const largeAreaLabel = {
+        1320: "PF2E.Area.Size.Quarter",
+        2640: "PF2E.Area.Size.Half",
+        5280: "1",
+    }[areaData.value];
+    if (largeAreaLabel) {
+        const size = game.i18n.localize(largeAreaLabel);
+        const unit = game.i18n.localize("PF2E.Area.Size.Mile");
+        return game.i18n.format(formatString, { shape, size, unit, units: unit });
+    }
+
+    const size = Number(areaData.value);
+    const unit = game.i18n.localize("PF2E.Foot.Label");
+    const units = game.i18n.localize("PF2E.Foot.Plural");
+    return game.i18n.format(formatString, { shape, size, unit, units });
+}
+
+export {
+    addOrUpgradeTrait,
+    createEffectAreaLabel,
+    itemIsOfType,
+    markdownToHTML,
+    performLatePreparation,
+    reduceItemName,
+    removeTrait,
+};

@@ -1,5 +1,5 @@
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
-import type { EffectAreaShape } from "@item/spell/types.ts";
+import type { EffectAreaShape } from "@item/types.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 

@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { Point } from "@common/_types.d.mts";
 import { GridSnappingMode } from "@common/constants.mjs";
 import type { ItemPF2e } from "@item";
-import type { EffectAreaShape } from "@item/spell/types.ts";
+import type { EffectAreaShape } from "@item/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { MeasuredTemplateDocumentPF2e, ScenePF2e } from "@scene";
 import { measureDistance } from "./helpers.ts";

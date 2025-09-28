@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type * as ItemInstance from "@item";
 import type { ITEM_TYPES } from "./values.ts";
+import { EFFECT_AREA_SHAPES } from "./values.ts";
 
 type ItemType = (typeof ITEM_TYPES)[number];
 
@@ -37,4 +38,6 @@ type RangeData = {
     max: number;
 };
 
-export type { ItemInstances, ItemType, RangeData };
+type EffectAreaShape = (typeof EFFECT_AREA_SHAPES)[number];
+
+export type { EffectAreaShape, ItemInstances, ItemType, RangeData };
