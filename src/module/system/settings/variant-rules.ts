@@ -58,6 +58,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
         },
         automaticBonusVariant: {
             type: new fields.StringField({
+                required: true,
                 label: "PF2E.SETTINGS.Variant.AutomaticBonus.Name",
                 hint: "PF2E.SETTINGS.Variant.AutomaticBonus.Hint",
                 choices: {
@@ -77,6 +78,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
         },
         mythic: {
             type: new fields.StringField({
+                required: true,
                 label: "PF2E.SETTINGS.Variant.Mythic.Name",
                 hint: "PF2E.SETTINGS.Variant.Mythic.Hint",
                 choices: R.mapToObj(["disabled", "enabled", "variant-tiers"], (key) => [
