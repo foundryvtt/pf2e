@@ -68,6 +68,7 @@ import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statisti
 import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
+import { WeaponAuxiliaryAction } from "./auxiliary.ts";
 import { CharacterCrafting } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
@@ -85,7 +86,6 @@ import {
 import { CharacterFeats } from "./feats/index.ts";
 import {
     PCAttackTraitHelpers,
-    WeaponAuxiliaryAction,
     createForceOpenPenalty,
     createShoddyPenalty,
     getItemProficiencyRank,
