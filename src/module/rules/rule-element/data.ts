@@ -39,7 +39,7 @@ type RuleElementSchema = {
     /** A test of whether the rules element is to be applied */
     predicate: PredicateField;
     /** Whether the rule element is ignored and deactivated */
-    ignored: fields.BooleanField<boolean, boolean, false, false, true>;
+    ignored: fields.BooleanField<boolean, boolean, true, false, true>;
     /** Whether the rule element requires that the parent item (if physical) be equipped */
     requiresEquipped: fields.BooleanField<boolean, boolean, false, true, true>;
     /** Whether the rule element requires that the parent item (if physical) be invested */

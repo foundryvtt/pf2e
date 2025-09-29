@@ -27,7 +27,7 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
             mode: new fields.StringField({
                 required: true,
                 choices: R.keys(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
-                initial: undefined,
+                initial: "add",
             }),
             property: new fields.StringField({
                 required: true,
@@ -105,7 +105,7 @@ type DamageAlterationProperty = "dice-faces" | "dice-number" | "damage-type" | "
 
 type DamageAlterationSchema = RuleElementSchema & {
     selectors: fields.SetField<fields.StringField<string, string, true, false, false>>;
-    mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, true>;
     property: fields.StringField<DamageAlterationProperty, DamageAlterationProperty, true, false, false>;
     value: ResolvableValueField<true, true, true>;
     /** An optional relabeling of the altered unit of damage */

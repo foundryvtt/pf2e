@@ -58,7 +58,7 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
             slug: new SlugField({ required: true, nullable: true }),
             label: new fields.StringField({ required: false, nullable: false, blank: false, initial: undefined }),
             priority: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 100 }),
-            ignored: new fields.BooleanField({ required: false, nullable: false, initial: false }),
+            ignored: new fields.BooleanField({ required: true, nullable: false, initial: false }),
             predicate: new PredicateField(),
             requiresEquipped: new NullableBooleanField({ required: false, nullable: true, initial: null }),
             requiresInvestment: new NullableBooleanField({ required: false, nullable: true, initial: null }),
