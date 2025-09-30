@@ -1,3 +1,6 @@
-type NPCAttackTrait = keyof typeof CONFIG.PF2E.npcAttackTraits;
+import { NPC_ATTACK_ACTIONS } from "./values.ts";
 
-export type { NPCAttackTrait };
+type NPCAttackTrait = keyof typeof CONFIG.PF2E.npcAttackTraits;
+type NPCAttackActionType = keyof typeof NPC_ATTACK_ACTIONS;
+
+export type { NPCAttackActionType, NPCAttackTrait };
