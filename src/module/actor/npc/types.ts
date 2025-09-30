@@ -61,6 +61,7 @@ interface NPCStrikeSheetData {
     breakdown: string;
     variants: NPCStrike["variants"];
     attackType: string;
+    glyph: string;
     traits: TraitViewData[];
     description: string | null;
     /** The damage formula of the strike for display on sheets */

@@ -3,13 +3,13 @@
         {{#if action.description}}
             <a class="name" data-action="toggle-summary">
                 <strong>{{localize action.attackType}}</strong>
-                <span class="action-glyph">1</span>
+                <span class="action-glyph">{{action.glyph}}</span>
                 {{action.name}}
             </a>
         {{else}}
             <span class="name">
                 <strong>{{localize action.attackType}}</strong>
-                <span class="action-glyph">1</span>
+                <span class="action-glyph">{{action.glyph}}</span>
                 {{action.name}}
             </span>
         {{/if}}
@@ -51,7 +51,6 @@
             {{~localize "PF2E.Actor.AttackEffects.PlusList" list=action.effects~}}
         </div>
     {{~/if}}
-
 
     {{#if action.description}}
         <div class="item-summary">

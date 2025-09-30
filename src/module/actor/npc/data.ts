@@ -209,7 +209,7 @@ interface NPCDetails extends NPCDetailsSource, CreatureDetails {
 interface NPCStrike extends StrikeData {
     item: MeleePF2e<ActorPF2e>;
     /** The type of attack as a localization string */
-    attackRollType?: string;
+    attackRollType: string;
     /** The id of the item this strike is generated from */
     sourceId?: string;
     /** Additional effects from a successful strike, like "Grab" */
