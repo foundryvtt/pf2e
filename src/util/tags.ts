@@ -1,11 +1,19 @@
 import { TraitViewData } from "@actor/data/base.ts";
+import { ItemPF2e } from "@item";
+import { createEffectAreaLabel } from "@item/helpers.ts";
 import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
+import { createHTMLElement } from "@util";
 import Tagify, { TagifySettings } from "@yaireo/tagify";
 import { DestroyableManager } from "./destroyables.ts";
 import { objectHasKey } from "./misc.ts";
-import { createHTMLElement } from "@util";
 
-function traitSlugToObject(trait: string, dictionary: Record<string, string | undefined>): TraitViewData {
+function traitSlugToObject(
+    trait: string,
+    dictionary: Record<string, string | undefined>,
+    options: { descriptions?: Record<string, string | undefined>; item?: ItemPF2e | null } = {},
+): TraitViewData {
+    const descriptions = options.descriptions ?? CONFIG.PF2E.traitsDescriptions;
+
     // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
     // in use, which can include what are normally NPC-only traits
     const traitObject: TraitViewData = {
@@ -13,8 +21,14 @@ function traitSlugToObject(trait: string, dictionary: Record<string, string | un
         label: game.i18n.localize(dictionary[trait] ?? trait),
         description: null,
     };
-    if (objectHasKey(CONFIG.PF2E.traitsDescriptions, trait)) {
-        traitObject.description = CONFIG.PF2E.traitsDescriptions[trait];
+    if (objectHasKey(descriptions, trait)) {
+        traitObject.description = descriptions[trait] ?? null;
+    }
+
+    // Area traits are rendered in a special way
+    const item = options.item;
+    if (trait === "area" && item?.isOfType("melee") && item.system.action !== "strike" && item.system.area) {
+        traitObject.label = createEffectAreaLabel(item.system.area);
     }
 
     return traitObject;

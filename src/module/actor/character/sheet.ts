@@ -634,7 +634,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 const modularSelect = htmlQuery(button, "select");
                 button.addEventListener("click", () => {
                     const auxiliaryActionIndex = Number(button.dataset.auxiliaryActionIndex ?? NaN);
-                    const strike = this.getStrikeFromDOM(button);
+                    const strike = this.getAttackActionFromDOM(button);
                     const selection = modularSelect?.value ?? null;
                     strike?.auxiliaryActions?.at(auxiliaryActionIndex)?.execute({ selection });
                 });
@@ -649,7 +649,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const ammoSelect = htmlQuery<HTMLSelectElement>(strikeElem, "select[data-action=link-ammo]");
             ammoSelect?.addEventListener("change", (event) => {
                 event.stopPropagation();
-                const action = this.getStrikeFromDOM(ammoSelect);
+                const action = this.getAttackActionFromDOM(ammoSelect);
                 const weapon = action?.item;
                 const ammo = this.actor.items.get(ammoSelect.value);
                 weapon?.update({ system: { selectedAmmoId: ammo?.id ?? null } });
@@ -852,7 +852,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         handlers["toggle-weapon-trait"] = async (_, button) => {
             if (!(button instanceof HTMLButtonElement)) return;
 
-            const weapon = this.getStrikeFromDOM(button)?.item;
+            const weapon = this.getAttackActionFromDOM(button)?.item;
             const trait = button.dataset.trait;
             const errorMessage = "Unexpected failure while toggling weapon trait";
 
@@ -1521,7 +1521,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 }
 
 interface CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
-    getStrikeFromDOM(target: HTMLElement): CharacterStrike | null;
+    getAttackActionFromDOM(target: HTMLElement): CharacterStrike | null;
 }
 
 type CharacterSheetOptions = ActorSheetOptions;

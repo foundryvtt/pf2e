@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { StrikeData } from "@actor/data/base.ts";
+import { AttackAction } from "@actor/data/base.ts";
 import { iterateAllItems } from "@actor/helpers.ts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
@@ -421,7 +421,7 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
     #choicesFromAttacks(predicate: Predicate, actorRollOptions: Set<string>): PickableThing<string>[] {
         if (!this.actor.isOfType("character", "npc")) return [];
 
-        const actions: StrikeData[] = this.actor.system.actions;
+        const actions: AttackAction[] = this.actor.system.actions;
         return actions
             .filter(
                 (a) =>

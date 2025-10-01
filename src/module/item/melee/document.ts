@@ -143,6 +143,12 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 attackDamage.category = "persistent";
             }
         }
+
+        // Add in the area trait for area and auto fire
+        // We assume that "5-foot burst" is actually an annotated "area" trait without the area label
+        if (this.system.action !== "strike") {
+            this.system.traits.value.push("area");
+        }
     }
 
     /** Set weapon category, group, and base if that information is available */

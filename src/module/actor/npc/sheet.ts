@@ -309,34 +309,35 @@ class NPCSheetPF2e extends AbstractNPCSheet {
      */
     async #prepareActions(sheetData: NPCSheetData): Promise<void> {
         const listFormatter = game.i18n.getListFormatter({ style: "long", type: "conjunction" });
-        const attacks: NPCStrikeSheetData[] = R.sortBy(
-            await Promise.all(
-                sheetData.data.actions.map(async (attack) => {
-                    const item = attack.item;
-                    const traits = item.system.traits.value.map((t) =>
-                        traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits),
-                    );
-                    const rollData = item.getRollData();
-                    const description = await TextEditorPF2e.enrichHTML(item.description, { rollData });
-                    const damageFormula = item.dealsDamage ? String(await attack.damage?.({ getFormula: true })) : null;
-                    const effects = ((): string => {
-                        const list = attack.additionalEffects.map((e) => game.i18n.localize(e.label));
-                        return listFormatter.format(list);
-                    })();
+        const attacks: NPCStrikeSheetData[] = await Promise.all(
+            sheetData.data.actions.map(async (attack) => {
+                const item = attack.item;
+                const traits = item.system.traits.value
+                    .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits, { item }))
+                    .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
+                const rollData = item.getRollData();
+                const description = await TextEditorPF2e.enrichHTML(item.description, { rollData });
+                const breakdown = attack.type === "strike" ? attack.breakdown : attack.statistic.dc.breakdown;
+                const damageFormula = item.dealsDamage ? String(await attack.damage?.({ getFormula: true })) : null;
+                const effects = ((): string => {
+                    const list = attack.additionalEffects.map((e) => game.i18n.localize(e.label));
+                    return listFormatter.format(list);
+                })();
 
-                    return {
-                        ...R.pick(item, ["id", "name", "sort"]),
-                        ...R.pick(attack, ["breakdown", "variants"]),
-                        attackType: item.isMelee ? "PF2E.NPCAttackMelee" : "PF2E.NPCAttackRanged",
-                        traits,
-                        effects,
-                        description,
-                        damageFormula,
-                    };
-                }),
-            ),
-            (a) => a.name,
-            (a) => a.sort,
+                return {
+                    ...R.pick(item, ["id", "name", "sort"]),
+                    attackType: attack.attackRollType,
+                    glyph: attack.glyph,
+                    variants: attack.variants.map((v, idx) => ({
+                        label: v.label,
+                        breakdown: idx === 0 ? breakdown : null,
+                    })),
+                    traits,
+                    effects,
+                    description,
+                    damageFormula,
+                };
+            }),
         );
         const actions: NPCActionSheetData = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },

@@ -1,4 +1,4 @@
-import { StrikeData } from "@actor/data/base.ts";
+import { NPCAttackAction } from "@actor/npc/data.ts";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
@@ -56,7 +56,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             reset: await enrich(system.details.reset),
         });
 
-        const strikesWithDescriptions: (StrikeData & { damageFormula?: string })[] = system.actions;
+        const strikesWithDescriptions: (NPCAttackAction & { damageFormula?: string })[] = system.actions;
         for (const attack of strikesWithDescriptions) {
             if (attack.description.length > 0) {
                 const rollData = attack.item.getRollData();

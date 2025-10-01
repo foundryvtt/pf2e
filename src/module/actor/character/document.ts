@@ -7,8 +7,8 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import {
     MultipleAttackPenaltyData,
     calculateMAPs,
+    getAttackDamageDomains,
     getStrikeAttackDomains,
-    getStrikeDamageDomains,
     isReallyPC,
     setHitPointsRollOptions,
 } from "@actor/helpers.ts";
@@ -1596,7 +1596,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     viewOnly: params.getFormula ?? false,
                     origin: { actor: this, statistic: action, item: weapon },
                     target: { token: targetToken?.document },
-                    domains: getStrikeDamageDomains(weapon, proficiencyRank),
+                    domains: getAttackDamageDomains(weapon, proficiencyRank),
                     outcome: method === "damage" ? "success" : "criticalSuccess",
                     options: new Set([...baseOptions, ...params.options]),
                     traits: actionTraits,

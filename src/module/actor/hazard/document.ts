@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import type { InitiativeData } from "@actor/data/base.ts";
 import { Immunity } from "@actor/data/iwr.ts";
-import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
+import { attackFromMeleeItem, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { Modifier } from "@actor/modifiers.ts";
 import type { SaveType } from "@actor/types.ts";
@@ -150,7 +150,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         }
 
         this.saves = this.prepareSaves();
-        this.system.actions = this.itemTypes.melee.map((m) => strikeFromMeleeItem(m));
+        this.system.actions = this.itemTypes.melee.map((m) => attackFromMeleeItem(m));
     }
 
     /**

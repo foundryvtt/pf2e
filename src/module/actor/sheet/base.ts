@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { StrikeData } from "@actor/data/base.ts";
+import type { AttackAction } from "@actor/data/base.ts";
 import { iterateAllItems } from "@actor/helpers.ts";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type Tabs from "@client/applications/ux/tabs.d.mts";
@@ -315,7 +315,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         );
     }
 
-    protected getStrikeFromDOM(button: HTMLElement, readyOnly = false): StrikeData | null {
+    protected getAttackActionFromDOM(button: HTMLElement, readyOnly = false): AttackAction | null {
         const actionIndex = Number(htmlClosest(button, "[data-action-index]")?.dataset.actionIndex ?? "NaN");
         const rootAction = this.actor.system.actions?.at(actionIndex) ?? null;
         const altUsage = tupleHasValue(["thrown", "melee"], button?.dataset.altUsage) ? button?.dataset.altUsage : null;
@@ -462,7 +462,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                         ? button.dataset.altUsage
                         : null;
 
-                    const strike = this.getStrikeFromDOM(button, true);
+                    const strike = this.getAttackActionFromDOM(button, true);
                     const variantIndex = Number(button.dataset.variantIndex);
                     await strike?.variants[variantIndex]?.roll({ event, altUsage });
                 });
@@ -471,7 +471,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             // Damage
             const damageSelectors = "button[data-action=strike-damage], button[data-action=strike-critical]";
             for (const button of htmlQueryAll(strikeElem, damageSelectors)) {
-                const strike = this.getStrikeFromDOM(button);
+                const strike = this.getAttackActionFromDOM(button);
                 const method = button.dataset.action === "strike-damage" ? "damage" : "critical";
                 button.addEventListener("click", async (event) => {
                     await strike?.[method]?.({ event });
