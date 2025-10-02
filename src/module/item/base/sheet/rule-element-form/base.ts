@@ -92,6 +92,7 @@ class RuleElementForm<
         if (!autogenerate) {
             const removeArrays = (object: Record<string, unknown>) => {
                 for (const [key, value] of Object.entries(object)) {
+                    if (["predicate", "definition"].includes(key)) continue;
                     if (Array.isArray(value)) {
                         delete object[key];
                     } else if (R.isPlainObject(value)) {
@@ -166,7 +167,7 @@ class RuleElementForm<
             resolvableValue: (property: string, options: { hash?: { fileInput?: boolean } } = {}) =>
                 valueTemplate({
                     ...getResolvableData(property),
-                    inputId: `${this.fieldIdPrefix}${property}`,
+                    inputId: `${this.sheet.id}-${property}`,
                     fileInput: options.hash?.fileInput ?? false,
                 }),
 
