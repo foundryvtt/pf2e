@@ -209,7 +209,8 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
             result.dc.modifiers = maybeMergeArrays(this.data.dc.modifiers, data.dc?.modifiers);
         }
 
-        const extended = new Statistic(this.actor, result, this.config);
+        const Cls = this.constructor as typeof Statistic;
+        const extended = new Cls(this.actor, result, this.config);
         extended.base = this;
         return extended;
     }
