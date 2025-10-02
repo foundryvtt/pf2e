@@ -12,7 +12,7 @@ import type { Rarity } from "@module/data.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { DamageType } from "@system/damage/index.ts";
 import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
-import { isObject, objectHasKey } from "@util";
+import { objectHasKey } from "@util";
 import * as R from "remeda";
 import { HazardSource, HazardSystemData } from "./data.ts";
 
@@ -55,7 +55,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         // Hazards without hit points are unaffected by damage
         const damageType = objectHasKey(CONFIG.PF2E.damageTypes, effect)
             ? effect
-            : isObject(effect)
+            : R.isObjectType(effect)
               ? (effect.system.persistent?.damageType ?? null)
               : null;
 

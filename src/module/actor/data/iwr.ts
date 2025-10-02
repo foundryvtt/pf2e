@@ -3,7 +3,8 @@ import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { IWRException } from "@module/rules/rule-element/iwr/base.ts";
 import { Predicate, PredicateStatement } from "@system/predication.ts";
-import { isObject, objectHasKey, setHasElement } from "@util";
+import { objectHasKey, setHasElement } from "@util";
+import * as R from "remeda";
 
 abstract class IWR<TType extends IWRType> {
     readonly type: TType;
@@ -83,7 +84,7 @@ abstract class IWR<TType extends IWRType> {
     }
 
     protected describe(iwrType: IWRException<TType>): PredicateStatement[] {
-        if (isObject(iwrType)) return iwrType.definition;
+        if (R.isPlainObject(iwrType)) return iwrType.definition;
 
         switch (iwrType) {
             case "air":
@@ -392,5 +393,5 @@ const APPLY_ONCE_WEAKNESSES: Set<WeaknessType> = new Set([
     "wood",
 ]);
 
-export { Immunity, APPLY_ONCE_WEAKNESSES, Resistance, Weakness };
+export { APPLY_ONCE_WEAKNESSES, Immunity, Resistance, Weakness };
 export type { ImmunitySource, IWRSource, ResistanceSource, WeaknessSource };

@@ -7,7 +7,7 @@ import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { ItemGrantDeleteAction, ItemGranterSource, ItemSourceFlagsPF2e } from "@item/base/data/system.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
-import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { RuleElement, RuleElementOptions } from "../base.ts";
@@ -30,7 +30,7 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
     preselectChoices: Record<string, string | number> = {};
 
     /** Actions taken when either the parent or child item are deleted */
-    onDeleteActions: Partial<OnDeleteActions> | null = null;
+    onDeleteActions: OnDeleteActions | null = null;
 
     constructor(data: GrantItemSource, options: RuleElementOptions) {
         // Run slightly earlier if granting an in-memory condition
@@ -279,19 +279,17 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
         }
     }
 
-    #getOnDeleteActions(data: GrantItemSource): Partial<OnDeleteActions> | null {
+    #getOnDeleteActions(data: GrantItemSource): OnDeleteActions | null {
         const actions = data.onDeleteActions;
-        if (isObject<OnDeleteActions>(actions)) {
-            const ACTIONS = GrantItemRuleElement.ON_DELETE_ACTIONS;
-            return tupleHasValue(ACTIONS, actions.granter) || tupleHasValue(ACTIONS, actions.grantee)
-                ? R.pick(
-                      actions,
-                      ([actions.granter ? "granter" : [], actions.grantee ? "grantee" : []] as const).flat(),
-                  )
-                : null;
-        }
-
-        return null;
+        if (!R.isPlainObject(actions)) return null;
+        const ACTIONS = GrantItemRuleElement.ON_DELETE_ACTIONS;
+        const { granter, grantee } = actions;
+        return granter || grantee
+            ? {
+                  granter: tupleHasValue(ACTIONS, granter) ? granter : null,
+                  grantee: tupleHasValue(ACTIONS, grantee) ? grantee : null,
+              }
+            : null;
     }
 
     /** Apply preselected choices to the granted item's choices sets. */
@@ -441,8 +439,8 @@ interface GrantItemSource extends RuleElementSource {
 }
 
 interface OnDeleteActions {
-    granter: ItemGrantDeleteAction;
-    grantee: ItemGrantDeleteAction;
+    granter: ItemGrantDeleteAction | null;
+    grantee: ItemGrantDeleteAction | null;
 }
 
 export { GrantItemRuleElement, type GrantItemSource };

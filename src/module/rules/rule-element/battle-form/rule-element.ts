@@ -9,7 +9,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { Predicate } from "@system/predication.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
 import { LandSpeedStatisticTraceData, SpeedStatistic } from "@system/statistic/speed.ts";
-import { isObject, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
+import { objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { RuleElement, RuleElementOptions } from "../base.ts";
 import { CreatureSizeRuleElement } from "../creature-size.ts";
@@ -459,13 +459,12 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         ruleSource: RuleElementSource & { value?: JSONValue; overrides?: JSONValue },
     ): Promise<void> {
         const value = ruleSource.overrides ? ruleSource.overrides : (ruleSource.value ??= {});
-        const hasStrikes = (v: unknown): v is ValueWithStrikes =>
-            isObject<{ strikes: unknown }>(v) && isObject<Record<string, unknown>>(v.strikes);
+        const hasStrikes = (v: unknown): v is ValueWithStrikes => R.isPlainObject(v) && R.isPlainObject(v.strikes);
 
         if (!hasStrikes(value)) return;
 
         const isStrikeQuery = (maybeQuery: unknown): maybeQuery is BattleFormStrikeQuery => {
-            if (!isObject<BattleFormStrikeQuery>(maybeQuery)) return false;
+            if (!R.isPlainObject(maybeQuery)) return false;
             return typeof maybeQuery.query === "string" && typeof maybeQuery.modifier === "number";
         };
 
@@ -478,14 +477,12 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
             const queryObject = ((): Record<string, unknown> | null => {
                 try {
                     const parsed = JSON.parse(String(this.resolveInjectedProperties(strike.query)));
-                    if (!isObject<Record<string, unknown>>(parsed) || Array.isArray(parsed)) {
+                    if (!R.isPlainObject(parsed) || Array.isArray(parsed)) {
                         throw Error("A strike query must be an NeDB query object");
                     }
                     return parsed;
                 } catch (error) {
-                    if (error instanceof Error) {
-                        this.failValidation(error.message);
-                    }
+                    if (error instanceof Error) this.failValidation(error.message);
                     ruleSource.ignored = true;
                     return null;
                 }

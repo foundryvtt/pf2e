@@ -1,5 +1,4 @@
 import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
-import { isObject } from "@util";
 import * as R from "remeda";
 import fields = foundry.data.fields;
 
@@ -76,7 +75,7 @@ class ResolvableValueField<
         if ((value === null && this.nullable) || (value === undefined && !this.required)) return value;
         if (typeof value === "number" || typeof value === "boolean") return value;
         if (typeof value === "string") return this.#coerceNumber(value);
-        if (isObject<BracketedValue>(value) && "brackets" in value) {
+        if (R.isPlainObject(value) && "brackets" in value) {
             value.field ||= "actor|level";
             const brackets = (value.brackets = Object.values(value.brackets ?? {}).filter(R.isTruthy));
             for (const bracket of brackets) {

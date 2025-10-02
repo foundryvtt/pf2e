@@ -2,7 +2,8 @@ import { DamageDiceOverride, DamageDicePF2e, DeferredDamageDiceOptions } from "@
 import { DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
-import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
+import { objectHasKey, sluggify, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { extractDamageAlterations } from "../helpers.ts";
 import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
@@ -154,11 +155,10 @@ class DamageDiceRuleElement extends RuleElement<DamageDiceRuleSchema> {
         }
     }
 
-    #isValidOverride(override: JSONValue): override is DamageDiceOverride | undefined {
+    #isValidOverride(override: unknown): override is DamageDiceOverride | undefined {
         if (override === undefined) return true;
-
         return (
-            isObject<DamageDiceOverride>(override) &&
+            R.isPlainObject(override) &&
             ((typeof override.upgrade === "boolean" && !("downgrade" in override)) ||
                 (typeof override.downgrade === "boolean" && !("upgrade" in override)) ||
                 typeof override.damageType === "string" ||
@@ -172,7 +172,7 @@ class DamageDiceRuleElement extends RuleElement<DamageDiceRuleSchema> {
     }
 
     #resolvedBracketsIsValid(value: JSONValue): value is ResolvedBrackets {
-        if (!isObject<ResolvedBrackets>(value)) return false;
+        if (!R.isPlainObject(value)) return false;
         const keysAreValid = Object.keys(value).every((k) => ["diceNumber", "dieSize", "override"].includes(k));
         const diceNumberIsValid = !("diceNumber" in value) || typeof value.diceNumber === "number";
         const dieSizeIsValid = !("dieSize" in value) || tupleHasValue(DAMAGE_DIE_SIZES, value.dieSize);
