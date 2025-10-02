@@ -799,7 +799,6 @@ const actionTraits = {
     ...consumableTraits,
     ...spellTraits,
     ...weaponActionTraits,
-    area: "PF2E.TraitArea",
     "certain-kill": "PF2E.TraitCertainKill",
     summon: "PF2E.TraitSummon",
 };

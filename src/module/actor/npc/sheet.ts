@@ -7,6 +7,7 @@ import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import { createEffectAreaLabel } from "@item/helpers.ts";
 import { createTagifyTraits, eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
@@ -24,6 +25,7 @@ import {
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,
+    NPCTraitOrTag,
 } from "./types.ts";
 
 abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
@@ -312,9 +314,6 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         const attacks: NPCStrikeSheetData[] = await Promise.all(
             sheetData.data.actions.map(async (attack) => {
                 const item = attack.item;
-                const traits = item.system.traits.value
-                    .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits, { item }))
-                    .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
                 const rollData = item.getRollData();
                 const description = await TextEditorPF2e.enrichHTML(item.description, { rollData });
                 const breakdown = attack.type === "strike" ? attack.breakdown : attack.statistic.dc.breakdown;
@@ -324,6 +323,15 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                     return listFormatter.format(list);
                 })();
 
+                const tags: NPCTraitOrTag[] = item.system.traits.value.map((t) =>
+                    traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits),
+                );
+
+                // Area/Auto fire adds a tag to the traits list in the npc sheet
+                if (item.system.action !== "strike" && item.system.area) {
+                    tags.push({ label: createEffectAreaLabel(item.system.area) });
+                }
+
                 return {
                     ...R.pick(item, ["id", "name", "sort"]),
                     attackType: attack.attackRollType,
@@ -332,7 +340,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                         label: v.label,
                         breakdown: idx === 0 ? breakdown : null,
                     })),
-                    traits,
+                    traitsAndTags: tags.sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang)),
                     effects,
                     description,
                     damageFormula,

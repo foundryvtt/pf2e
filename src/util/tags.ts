@@ -1,6 +1,4 @@
 import { TraitViewData } from "@actor/data/base.ts";
-import { ItemPF2e } from "@item";
-import { createEffectAreaLabel } from "@item/helpers.ts";
 import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import { createHTMLElement } from "@util";
 import Tagify, { TagifySettings } from "@yaireo/tagify";
@@ -10,7 +8,7 @@ import { objectHasKey } from "./misc.ts";
 function traitSlugToObject(
     trait: string,
     dictionary: Record<string, string | undefined>,
-    options: { descriptions?: Record<string, string | undefined>; item?: ItemPF2e | null } = {},
+    options: { descriptions?: Record<string, string | undefined> } = {},
 ): TraitViewData {
     const descriptions = options.descriptions ?? CONFIG.PF2E.traitsDescriptions;
 
@@ -23,12 +21,6 @@ function traitSlugToObject(
     };
     if (objectHasKey(descriptions, trait)) {
         traitObject.description = descriptions[trait] ?? null;
-    }
-
-    // Area traits are rendered in a special way
-    const item = options.item;
-    if (trait === "area" && item?.isOfType("melee") && item.system.action !== "strike" && item.system.area) {
-        traitObject.label = createEffectAreaLabel(item.system.area);
     }
 
     return traitObject;

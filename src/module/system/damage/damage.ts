@@ -1,6 +1,5 @@
 import { AttackAction } from "@actor/data/base.ts";
 import type { RollJSON, Rolled } from "@client/dice/_module.d.mts";
-import { ItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ChatMessagePF2e, DamageDamageContextFlag } from "@module/chat-message/index.ts";
 import type { ZeroToThree } from "@module/data.ts";
@@ -53,15 +52,13 @@ export class DamagePF2e {
                 descriptions?: Record<string, string | undefined>;
                 cssClass: string | null;
                 dataAttr: string;
-                // The item to use for processing. If omitted, it will not be used
-                item?: ItemPF2e;
             }
             const toTags = (
                 slugs: string[],
-                { labels = {}, descriptions = {}, cssClass, dataAttr, item }: ToTagsParams,
+                { labels = {}, descriptions = {}, cssClass, dataAttr }: ToTagsParams,
             ): string =>
                 slugs
-                    .map((s) => traitSlugToObject(s, labels, { descriptions, item }))
+                    .map((s) => traitSlugToObject(s, labels, { descriptions }))
                     .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
                     .map((tag) => {
                         return createHTMLElement("span", {
@@ -72,7 +69,6 @@ export class DamagePF2e {
                     })
                     .join("");
 
-            // Get tags for base action traits, avoid processing using the item (breaks area fire)
             const traits = toTags(context.traits, {
                 labels: CONFIG.PF2E.actionTraits,
                 descriptions: CONFIG.PF2E.traitsDescriptions,
@@ -89,7 +85,6 @@ export class DamagePF2e {
                           descriptions: CONFIG.PF2E.traitsDescriptions,
                           cssClass: "tag_alt",
                           dataAttr: "trait",
-                          item,
                       },
                   )
                 : "";

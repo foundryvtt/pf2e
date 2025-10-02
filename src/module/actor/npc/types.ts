@@ -1,5 +1,5 @@
 import type { CreatureSheetData } from "@actor/creature/sheet.ts";
-import type { HitPointsStatistic, TraitViewData } from "@actor/data/base.ts";
+import type { HitPointsStatistic } from "@actor/data/base.ts";
 import type { AbilityViewData } from "@actor/sheet/data-types.ts";
 import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
@@ -61,10 +61,21 @@ interface NPCStrikeSheetData {
     variants: { label: string; breakdown: string | null }[];
     attackType: string;
     glyph: string;
-    traits: TraitViewData[];
+    /** A list of traits or tags to show next to the strike. */
+    traitsAndTags: NPCAttackTraitOrTag[];
     description: string | null;
     /** The damage formula of the strike for display on sheets */
     damageFormula: string | null;
+}
+
+/**
+ * An NPC trait or tag to show next to a strike (or area/auto fire in SF2e).
+ * Sometimes Paizo will include a non-trait in the traits list.
+ * "As Melee, but also lists range or range increment *with* traits" - Monster Core Pg 5
+ */
+interface NPCAttackTraitOrTag {
+    label: string;
+    description?: string | null;
 }
 
 interface NPCSpellcastingSheetData extends SpellcastingSheetData {
@@ -139,5 +150,6 @@ export type {
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,
+    NPCAttackTraitOrTag as NPCTraitOrTag,
     VariantCloneParams,
 };

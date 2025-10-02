@@ -676,7 +676,6 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaFire {
         return { tag, label };
     });
 
-    const actionTraits: AbilityTrait[] = ["attack", "area"];
     const actionCost: ActionCost = { type: "action", value: item.system.traits.value.includes("consumable") ? 1 : 2 };
     const statistic = new Statistic(actor, {
         slug: attackSlug,
@@ -715,7 +714,7 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaFire {
                 },
             },
         ],
-        ...createDamageRollFunctions(item, { statistic, baseOptions, actionTraits }),
+        ...createDamageRollFunctions(item, { statistic, baseOptions, actionTraits: ["attack"] }),
     };
 }
 
@@ -820,8 +819,7 @@ async function createAreaFireMessage({
     const flavor = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
         action: { title, glyph },
         item,
-        // Avoid passing in the item to traits, to avoid item specific handling
-        traits: ["attack", "area"].map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
+        traits: [traitSlugToObject("attack", CONFIG.PF2E.actionTraits)],
     });
     const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/area-fire.hbs", {
         actor,

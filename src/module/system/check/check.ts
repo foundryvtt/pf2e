@@ -382,7 +382,7 @@ class Check {
                           const dictionary = item.isOfType("spell")
                               ? CONFIG.PF2E.spellTraits
                               : CONFIG.PF2E.npcAttackTraits;
-                          const obj = traitSlugToObject(t, dictionary, { item });
+                          const obj = traitSlugToObject(t, dictionary);
                           obj.label = game.i18n.localize(obj.label);
                           return obj;
                       })
