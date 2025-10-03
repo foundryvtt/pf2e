@@ -34,7 +34,6 @@ import {
     TokenPF2e,
 } from "@module/canvas/index.ts";
 import { TokenLayerPF2e } from "@module/canvas/layer/token.ts";
-import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
 import { TerrainDataPF2e } from "@module/canvas/token/movement/terrain-data.ts";
 import { TokenRulerPF2e } from "@module/canvas/token/ruler.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -141,7 +140,6 @@ export class Load {
         CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
         CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
         CONFIG.Canvas.rulerClass = RulerPF2e;
-        CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
 
         CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll, DamageInstance);
         for (const TermCls of [ArithmeticExpression, Grouping, InstancePool, IntermediateDie]) {

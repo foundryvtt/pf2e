@@ -1,14 +1,13 @@
 import type { CanvasVisibilityTest } from "@client/_types.d.mts";
 import type { TokenDetectionMode } from "@client/canvas/perception/detection-mode.d.mts";
 import { TokenPF2e } from "../token/object.ts";
-import type { PointVisionSourcePF2e } from "./point-vision-source.ts";
 
 const darkvision = new fc.perception.VisionMode({
     id: "darkvision",
     label: "VISION.ModeDarkvision",
     canvas: {
         shader: fc.rendering.shaders.ColorAdjustmentsSamplerShader,
-        uniforms: { enable: true, contrast: 0, saturation: -1.0, brightness: 0 },
+        uniforms: { enable: true, contrast: 0, saturation: -1, brightness: 0 },
     },
     lighting: {
         levels: {
@@ -19,7 +18,7 @@ const darkvision = new fc.perception.VisionMode({
     },
     vision: {
         darkness: { adaptive: true },
-        defaults: { attenuation: 0, contrast: 0, saturation: -1.0, brightness: 0 },
+        defaults: { attenuation: 0, contrast: 0, saturation: -1, brightness: 0 },
     },
 });
 
@@ -29,6 +28,7 @@ class LightPerceptionMode extends fc.perception.DetectionModeLightPerception {
             id: "lightPerception",
             label: "DETECTION.LightPerception",
             type: fc.perception.DetectionMode.DETECTION_TYPES.SIGHT,
+            angle: false,
         });
     }
 
@@ -37,7 +37,6 @@ class LightPerceptionMode extends fc.perception.DetectionModeLightPerception {
         if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
             return false;
         }
-
         return super._canDetect(visionSource, target);
     }
 }
@@ -48,6 +47,7 @@ class VisionDetectionMode extends fc.perception.DetectionModeDarkvision {
             id: "basicSight",
             label: "DETECTION.BasicSight",
             type: fc.perception.DetectionMode.DETECTION_TYPES.SIGHT,
+            angle: false,
         });
     }
 
@@ -56,7 +56,6 @@ class VisionDetectionMode extends fc.perception.DetectionModeDarkvision {
         if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
             return false;
         }
-
         return super._canDetect(visionSource, target);
     }
 }
@@ -67,13 +66,12 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
             id: "hearing",
             label: "PF2E.Actor.Creature.Sense.Type.Hearing",
             type: fc.perception.DetectionMode.DETECTION_TYPES.SOUND,
+            angle: false,
         });
     }
 
     static override getDetectionFilter(): fc.rendering.filters.OutlineOverlayFilter {
-        const filter = (this._detectionFilter ??= fc.rendering.filters.OutlineOverlayFilter.create({
-            wave: true,
-        }));
+        const filter = (this._detectionFilter ??= fc.rendering.filters.OutlineOverlayFilter.create({ wave: true }));
         filter.thickness = 1;
         return filter;
     }
@@ -110,9 +108,16 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
         test: CanvasVisibilityTestPF2e,
     ): boolean {
         test.loh ??= new Map();
-        const hasLOH = test.loh.get(visionSource) ?? !!visionSource.hearing?.contains(test.point.x, test.point.y);
+        const hasLOH =
+            test.loh.get(visionSource) ??
+            !CONFIG.Canvas.polygonBackends.sound.testCollision(visionSource.origin, test.point, {
+                type: "sound",
+                mode: "any",
+                source: visionSource,
+                wallDirectionMode: foundry.canvas.geometry.PointSourcePolygon.WALL_DIRECTION_MODES.REVERSED,
+                useThreshold: true,
+            });
         test.loh.set(visionSource, hasLOH);
-
         return hasLOH;
     }
 }
@@ -121,6 +126,8 @@ declare namespace HearingDetectionMode {
     // eslint-disable-next-line no-var
     var _detectionFilter: fc.rendering.filters.OutlineOverlayFilter | undefined;
 }
+
+type PointVisionSourcePF2e = fc.sources.PointVisionSource<TokenPF2e>;
 
 interface CanvasVisibilityTestPF2e extends CanvasVisibilityTest {
     loh?: Map<PointVisionSourcePF2e, boolean>;

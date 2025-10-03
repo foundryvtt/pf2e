@@ -54,7 +54,7 @@ export default abstract class BaseEffectSource<TObject extends PlaceableObject |
     /* -------------------------------------------- */
 
     /** Some other object which is responsible for this source. */
-    object: TObject | null;
+    object: TObject;
 
     /** The source id linked to this effect source */
     sourceId: string;
