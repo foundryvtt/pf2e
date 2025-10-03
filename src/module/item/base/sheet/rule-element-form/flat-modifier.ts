@@ -40,6 +40,7 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
 
             (t) => [t, game.i18n.localize(`PF2E.ModifierType.${t}`)],
         );
+        if (typeof this.rule.selector === "string") this.rule.selector = [this.rule.selector];
 
         return {
             ...data,

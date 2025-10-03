@@ -359,6 +359,7 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
     for (const [key, field] of Object.entries(schema)) {
         if (typeof data[key] === "string" && !(field instanceof fields.StringField)) {
             data[key] = field.clean(data[key]);
+            if (Array.isArray(data[key])) data[key] = data[key].filter((e) => e !== undefined);
         }
         if (deleteIfInitial(key, field)) continue;
 

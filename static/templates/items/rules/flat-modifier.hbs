@@ -13,15 +13,8 @@
 <div class="form-group">
     <label class="short" for="{{rootId}}-selector">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
     <div class="attached-input">
-        <button type="button" class="attachment" data-action="toggle-selector">
-            {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
-        </button>
-        {{#if selectorIsArray}}
-            <tagify-tags class="pf2e-tagify selector-list" name="{{basePath}}.selector" id="{{rootId}}-selector"
-                         value="{{json rule.selector}}" />
-        {{else}}
-            <input type="text" name="{{basePath}}.selector" id="{{rootId}}-selector" value="{{rule.selector}}" />
-        {{/if}}
+        <tagify-tags class="pf2e-tagify selector-list" name="{{basePath}}.selector" id="{{rootId}}-selector"
+                     value="{{json rule.selector}}"></tagify-tags>
     </div>
 </div>
 
