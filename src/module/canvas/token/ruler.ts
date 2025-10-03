@@ -18,11 +18,6 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         TokenRulerPF2e.#counterAlign();
     });
 
-    /** A scale value to counter the one for the HeadsUpDisplayContainer */
-    static get #counterScale() {
-        return canvas.stage.scale.x * 1.75;
-    }
-
     /** Observe changes to the attributes of the HeadsUpDisplayContainer's element. */
     static observeHudContainer(): void {
         TokenRulerPF2e.#hudContainerObserver.disconnect();
@@ -44,9 +39,8 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
 
     /** Recalculate the counter-scale. */
     static #counterAlign(): void {
-        document
-            .getElementById("measurement")
-            ?.style.setProperty("--counter-scale", TokenRulerPF2e.#counterScale.toFixed(4));
+        const style = document.getElementById("measurement")?.style;
+        style?.setProperty("--counter-scale", (1 / canvas.stage.scale.x).toFixed(4));
     }
 
     /** Fish out the value of the parent class's hard-private #path property. */
@@ -173,16 +167,15 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         if (!labelsEl) return;
         labelsEl.dataset.glyphMarked = "";
         const templatePath = TokenRulerPF2e.ACTION_MARKER_TEMPLATE;
-        const uiScale = canvas.dimensions.uiScale;
         for (const point of this.#glyphMarkedPoints) {
             const cost = Math.clamp(point.actionsSpent, 1, 3);
             const overage = point.actionsSpent - cost > 0;
             const html = await fa.handlebars.renderTemplate(templatePath, { cost, overage });
             const element = fu.parseHTML(html) as HTMLElement;
             const topLeft = canvas.grid.getTopLeftPoint(point);
-            element.style.setProperty("--position-x", `${Math.round(topLeft.x * uiScale)}px`);
-            element.style.setProperty("--position-y", `${Math.round(topLeft.y * uiScale)}px`);
-            element.style.setProperty("--grid-size", `${canvas.grid.size}px`);
+            element.style.setProperty("--position-x", `${Math.round(topLeft.x)}px`);
+            element.style.setProperty("--position-y", `${Math.round(topLeft.y)}px`);
+            element.style.setProperty("--ui-scale", canvas.dimensions.uiScale.toString());
             labelsEl.append(element);
         }
     }
