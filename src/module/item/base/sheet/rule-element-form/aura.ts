@@ -31,7 +31,6 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         this.#effectsMap = new Map(
             this.object.effects.map((e, index): [number, AuraEffectSource] => [index, fu.deepClone(e)]),
         );
-
         return super.getInitialValue();
     }
 
@@ -92,7 +91,6 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
 
             checkbox.addEventListener("change", (event) => {
                 event.stopPropagation();
-
                 if (checkbox.checked) {
                     checkbox.name = inputName;
                     colorPicker.removeAttribute("name");
@@ -126,25 +124,21 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     }
 
     override async getData(): Promise<AuraSheetData> {
+        const data = await super.getData();
         const { border, highlight } = this.object.appearance;
         const userColor = userColorForActor(this.object.actor);
-
-        return {
-            ...(await super.getData()),
+        return Object.assign(data, {
             affectsOptions: {
                 all: "PF2E.RuleEditor.Aura.Effects.AffectsOptions.All",
                 allies: "PF2E.RuleEditor.Aura.Effects.AffectsOptions.Allies",
                 enemies: "PF2E.RuleEditor.Aura.Effects.AffectsOptions.Enemies",
             },
-            effects: this.effectsArray.map((e) => ({
-                ...e,
-                item: fromUuidSync(e.uuid),
-            })),
+            effects: this.effectsArray.map((e) => ({ ...e, item: fromUuidSync(e.uuid) })),
             borderColor: border?.color === "user-color" ? userColor : (border?.color?.toString() ?? null),
             highlightColor: highlight.color === "user-color" ? userColor : highlight?.color?.toString(),
             saveTypes: CONFIG.PF2E.saves,
             isImageFile: isImageFilePath(this.rule.appearance?.texture?.src),
-        };
+        });
     }
 
     protected override async onDrop(event: DragEvent, element: HTMLElement): Promise<ItemPF2e | null> {
@@ -153,7 +147,6 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         const item = await super.onDrop(event, element);
         if (!item?.isOfType("effect") || !this.schema) return null;
         this.#addEffect(item.uuid);
-
         return item;
     }
 

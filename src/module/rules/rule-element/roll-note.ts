@@ -2,16 +2,15 @@ import type { StringField } from "@common/data/fields.d.mts";
 import { RollNotePF2e } from "@module/notes.ts";
 import type { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import { DataUnionField, StrictStringField } from "@system/schema-data-fields.ts";
 import { RuleElement } from "./base.ts";
-import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
 class RollNoteRuleElement extends RuleElement<RollNoteSchema> {
     static override defineSchema(): RollNoteSchema {
         return {
             ...super.defineSchema(),
-            selector: new fields.ArrayField(
+            selector: new fields.SetField(
                 new fields.StringField({ required: true, blank: false, initial: undefined }),
                 { required: true, nullable: false },
             ),
@@ -26,13 +25,7 @@ class RollNoteRuleElement extends RuleElement<RollNoteSchema> {
                 new fields.StringField({ required: true, blank: false, choices: DEGREE_OF_SUCCESS_STRINGS }),
                 { required: false, nullable: false, initial: undefined },
             ),
-            text: new DataUnionField(
-                [
-                    new StrictStringField<string, string, true, false, false>({ required: true, blank: false }),
-                    new ResolvableValueField(),
-                ],
-                { required: true, nullable: false },
-            ),
+            text: new fields.HTMLField({ required: true, blank: false }),
             battleForm: new fields.BooleanField({ required: false }),
         };
     }
@@ -68,7 +61,7 @@ interface RollNoteRuleElement extends RuleElement<RollNoteSchema>, ModelPropsFro
 
 type RollNoteSchema = RuleElementSchema & {
     /** The statistic(s) slugs of the rolls for which this note will be appended */
-    selector: fields.ArrayField<StringField<string, string, true, false, false>>;
+    selector: fields.SetField<StringField<string, string, true, false, false>>;
     /** An optional title prepended to the note */
     title: fields.StringField<string, string, false, true, true>;
     /** An optional limitation of the notes visibility to GMs */
@@ -83,9 +76,7 @@ type RollNoteSchema = RuleElementSchema & {
         false
     >;
     /** The main text of the note */
-    text: DataUnionField<
-        StrictStringField<string, string, true, false, false> | ResolvableValueField<true, false, false>
-    >;
+    text: fields.HTMLField<string, string, true, false, false>;
     /** Whether this rule element is for use with battle forms */
     battleForm: fields.BooleanField<boolean, boolean, false, false, true>;
 };

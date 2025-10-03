@@ -40,11 +40,9 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
 
             (t) => [t, game.i18n.localize(`PF2E.ModifierType.${t}`)],
         );
-        if (typeof this.rule.selector === "string") this.rule.selector = [this.rule.selector];
+        if (typeof data.rule.selector === "string") data.rule.selector = [data.rule.selector];
 
-        return {
-            ...data,
-            selectorIsArray: Array.isArray(this.rule.selector),
+        return Object.assign(data, {
             abilities: CONFIG.PF2E.abilities,
             types,
             damageCategories: R.pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
@@ -53,7 +51,7 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
                 { value: "false", label: "PF2E.RuleEditor.General.CriticalBehavior.false" },
                 { value: "true", label: "PF2E.RuleEditor.General.CriticalBehavior.true" },
             ],
-        };
+        });
     }
 
     override updateObject(
@@ -77,7 +75,6 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
 }
 
 interface FlatModifierFormSheetData extends RuleElementFormSheetData<FlatModifierSource, FlatModifierRuleElement> {
-    selectorIsArray: boolean;
     abilities: typeof CONFIG.PF2E.abilities;
     types: Record<ModifierType, string>;
     damageCategories: Record<DamageCategoryUnique, string>;
