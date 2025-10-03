@@ -146,17 +146,19 @@ export class Load {
             CONFIG.Dice.termTypes[TermCls.name] = TermCls;
         }
 
-        CONFIG.queries["pf2e.trade"] = TradeDialog.handleQuery;
+        Math.btwn = (v, lte, gte) => v <= lte && v >= gte;
+        Math.eq = (a, b) => a === b;
+        Math.gt = (a, b) => a > b;
+        Math.gte = (a, b) => a >= b;
+        Math.lt = (a, b) => a < b;
+        Math.lte = (a, b) => a <= b;
+        Math.ne = (a, b) => a !== b;
+        Math.ternary = (condition, ifTrue, ifFalse) => (condition ? ifTrue : ifFalse);
 
-        // Add functions to the `Math` namespace for use in `Roll` formulas
-        Math.eq = (a: number, b: number): boolean => a === b;
-        Math.gt = (a: number, b: number): boolean => a > b;
-        Math.gte = (a: number, b: number): boolean => a >= b;
-        Math.lt = (a: number, b: number): boolean => a < b;
-        Math.lte = (a: number, b: number): boolean => a <= b;
-        Math.ne = (a: number, b: number): boolean => a !== b;
-        Math.ternary = (condition: boolean | number, ifTrue: number, ifFalse: number): number =>
-            condition ? ifTrue : ifFalse;
+        Math.match = (...args) => args.find((a) => a !== null) ?? 0;
+        Math.when = (condition, then) => (condition ? then : null);
+
+        CONFIG.queries["pf2e.trade"] = TradeDialog.handleQuery;
 
         // Mystery Man but with a drop shadow
         Actor.DEFAULT_ICON = "systems/pf2e/icons/default-icons/mystery-man.svg";

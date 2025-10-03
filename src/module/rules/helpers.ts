@@ -16,7 +16,7 @@ import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
 import * as R from "remeda";
 import { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
-import { BracketedValue, RuleElement, RuleElementSource } from "./rule-element/index.ts";
+import { RuleElement, RuleElementSource } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
@@ -167,14 +167,6 @@ function extractDegreeOfSuccessAdjustments(
         adjustments.push(...forSelector);
         return adjustments;
     }, []);
-}
-
-function isBracketedValue(value: unknown): value is BracketedValue {
-    return (
-        R.isPlainObject(value) &&
-        Array.isArray(value.brackets) &&
-        (typeof value.field === "string" || !("fields" in value))
-    );
 }
 
 async function processPreUpdateActorHooks(
@@ -332,7 +324,6 @@ export {
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
-    isBracketedValue,
     processChoicesFromData,
     processDamageCategoryStacking,
     processPreUpdateActorHooks,

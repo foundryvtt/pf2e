@@ -3,6 +3,7 @@ import { ACTOR_TYPES } from "@actor/values.ts";
 import type { CompendiumDocument } from "@client/documents/_module.d.mts";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
+import { ITEM_TYPES } from "@item/values.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { sluggify } from "@util";
@@ -14,32 +15,13 @@ import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 import type { PackEntry } from "./lib/types.ts";
 
-import { ITEM_TYPES } from "@item/values.ts";
-import { Migration913SpellSustainedText } from "@module/migration/migrations/913-spell-sustained-text.ts";
-import { Migration917ScrollWandSpellIds } from "@module/migration/migrations/917-scroll-wand-spell-ids.ts";
-import { Migration918DeitySkills } from "@module/migration/migrations/918-deity-skills.ts";
-import { Migration919WeaponToggleStructure } from "@module/migration/migrations/919-trait-toggle-structure.ts";
-import { Migration920SuboptionSelection } from "@module/migration/migrations/920-suboption-selection.ts";
-import { Migration921SpellSlotArrays } from "@module/migration/migrations/921-spell-slot-arrays.ts";
-import { Migration922SwashbucklerFinishers } from "@module/migration/migrations/922-swashbuckler-finisher-suboptions.ts";
-import { Migration923KineticistRestructure } from "@module/migration/migrations/923-kineticist-restructure.ts";
-import { Migration924JiuHuanDoa } from "@module/migration/migrations/924-jiu-huan-dao.ts";
-import { Migration925TouchOfCorruption } from "@module/migration/migrations/925-touch-of-corruption.ts";
-import { Migration926RemoveVisionFeatureLinks } from "@module/migration/migrations/926-remove-vision-feature-links.ts";
-import { Migration927ClassBackgroundBattleFormSkillLongform } from "@module/migration/migrations/927-class-background-skill-longform.ts";
-import { Migration928CharacterSkillsLongform } from "@module/migration/migrations/928-character-skills-longform.ts";
-import { Migration929RemoveSkillAbbreviations } from "@module/migration/migrations/929-remove-skill-abbreviations.ts";
-import { Migration930ChoiceSetMedium } from "@module/migration/migrations/930-choice-set-medium.ts";
-import { Migration931ExpandREPermissions } from "@module/migration/migrations/931-expand-re-permissions.ts";
-import { Migration932NPCSystemSkills } from "@module/migration/migrations/932-npc-system-skills.ts";
-import { Migration933CraftingAbility } from "@module/migration/migrations/933-crafting-ability.ts";
-import { Migration934MythicCallingCategory } from "@module/migration/migrations/934-mythic-calling-category.ts";
-import { Migration935DeityIconPaths } from "@module/migration/migrations/935-deity-icon-paths.ts";
 import { Migration937RemoveInvalidAuraTraits } from "@module/migration/migrations/937-remove-invalid-aura-traits.ts";
 import { Migration938RenameBroochesAndThroned } from "@module/migration/migrations/938-rename-brooches-and-throned.ts";
 import { Migration940WeaponExpend } from "@module/migration/migrations/940-weapon-expend.ts";
 import { Migration942EquipmentGrade } from "@module/migration/migrations/942-equipment-grade.ts";
 import { Migration943UpdateSpeedPath } from "@module/migration/migrations/943-update-speed-paths.ts";
+import { Migration944RmDamageDiceValue } from "@module/migration/migrations/944-rm-damage-dice-value.ts";
+import { Migration945REBracketsToStrings } from "@module/migration/migrations/945-re-brackets-to-strings.ts";
 
 const { window } = new JSDOM();
 globalThis.document = window.document;
@@ -48,31 +30,13 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration913SpellSustainedText(),
-    new Migration917ScrollWandSpellIds(),
-    new Migration918DeitySkills(),
-    new Migration919WeaponToggleStructure(),
-    new Migration920SuboptionSelection(),
-    new Migration921SpellSlotArrays(),
-    new Migration922SwashbucklerFinishers(),
-    new Migration923KineticistRestructure(),
-    new Migration924JiuHuanDoa(),
-    new Migration925TouchOfCorruption(),
-    new Migration926RemoveVisionFeatureLinks(),
-    new Migration927ClassBackgroundBattleFormSkillLongform(),
-    new Migration928CharacterSkillsLongform(),
-    new Migration929RemoveSkillAbbreviations(),
-    new Migration930ChoiceSetMedium(),
-    new Migration931ExpandREPermissions(),
-    new Migration932NPCSystemSkills(),
-    new Migration933CraftingAbility(),
-    new Migration934MythicCallingCategory(),
-    new Migration935DeityIconPaths(),
     new Migration937RemoveInvalidAuraTraits(),
     new Migration938RenameBroochesAndThroned(),
     new Migration940WeaponExpend(),
     new Migration942EquipmentGrade(),
     new Migration943UpdateSpeedPath(),
+    new Migration944RmDamageDiceValue(),
+    new Migration945REBracketsToStrings(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

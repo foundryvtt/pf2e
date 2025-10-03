@@ -20,8 +20,8 @@ class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
         if (this.invalid) return;
 
         this.selector = this.selector.trim().replace(/-speed$/, "");
-        if (typeof this.value !== "string" && typeof this.value !== "number" && !this.isBracketedValue(this.value)) {
-            this.failValidation("A value must be a number, string, or bracketed value");
+        if (typeof this.value !== "string" && typeof this.value !== "number") {
+            this.failValidation("A value must be a number or string");
         }
     }
 

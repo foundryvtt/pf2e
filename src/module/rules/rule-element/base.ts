@@ -16,8 +16,7 @@ import { CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, NullableBooleanField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import { isBracketedValue } from "../helpers.ts";
-import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
+import { RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 import fields = foundry.data.fields;
 
 /**
@@ -288,18 +287,12 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
      * @param valueData can be one of 3 different formats:
      * * {value: 5}: returns 5
      * * {value: "4 + @details.level.value"}: uses foundry's built in roll syntax to evaluate it
-     * * {
-     *      field: "item|data.level.value",
-     *      brackets: [
-     *          {start: 1, end: 4, value: 5}],
-     *          {start: 5, end: 9, value: 10}],
-     *   }: compares the value from field to >= start and <= end of a bracket and uses that value
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
     resolveValue(
         value: unknown,
-        defaultValue: Exclude<RuleValue, BracketedValue> | null = 0,
+        defaultValue: RuleValue = 0,
         { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {},
     ): number | string | boolean | object | null {
         value ??= defaultValue ?? null;
@@ -307,21 +300,11 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
             return value;
         }
         value = this.resolveInjectedProperties(value, { warn });
-
         if (Array.isArray(value)) return value;
-
-        const resolvedFromBracket = this.isBracketedValue(value)
-            ? this.#resolveBracketedValue(value, defaultValue)
-            : value;
-        if (typeof resolvedFromBracket === "number") return resolvedFromBracket;
-
-        if (R.isPlainObject(resolvedFromBracket)) {
-            return R.isPlainObject(defaultValue)
-                ? fu.mergeObject(defaultValue, resolvedFromBracket, { inplace: false })
-                : resolvedFromBracket;
+        if (R.isPlainObject(value)) {
+            return R.isPlainObject(defaultValue) ? fu.mergeObject(defaultValue, value, { inplace: false }) : value;
         }
-
-        if (typeof resolvedFromBracket === "string") {
+        if (typeof value === "string") {
             const saferEval = (formula: string): number => {
                 try {
                     // If any resolvables were not provided for this formula, return the default value
@@ -349,7 +332,7 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
                 resolvables.armor = this.actor.wornArmor;
             }
 
-            const trimmed = resolvedFromBracket.trim();
+            const trimmed = value.trim();
             return (trimmed.includes("@") || /^-?\d+$/.test(trimmed)) && evaluate
                 ? saferEval(
                       Roll.replaceFormulaData(trimmed, {
@@ -362,55 +345,6 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
         }
 
         return defaultValue;
-    }
-
-    protected isBracketedValue(value: unknown): value is BracketedValue {
-        return isBracketedValue(value);
-    }
-
-    #resolveBracketedValue(
-        value: BracketedValue,
-        defaultValue: Exclude<RuleValue, BracketedValue> | null,
-    ): Exclude<RuleValue, BracketedValue> | null {
-        const bracketNumber = ((): number => {
-            if (!value.field) return this.actor.level;
-            const field = String(value.field);
-            const separator = field.indexOf("|");
-            const source = field.substring(0, separator);
-            const { actor, item } = this;
-
-            switch (source) {
-                case "actor":
-                    return Number(fu.getProperty(actor, field.substring(separator + 1))) || 0;
-                case "item":
-                    return Number(fu.getProperty(item, field.substring(separator + 1))) || 0;
-                case "rule":
-                    return Number(fu.getProperty(this, field.substring(separator + 1))) || 0;
-                default:
-                    return Number(fu.getProperty(actor, field.substring(0))) || 0;
-            }
-        })();
-        const brackets = value.brackets ?? [];
-        // Set the fallthrough (the value set when no bracket matches) to be of the same type as the default value
-        const bracketFallthrough = (() => {
-            switch (typeof defaultValue) {
-                case "number":
-                case "boolean":
-                case "object":
-                    return defaultValue;
-                case "string":
-                    return Number.isNaN(Number(defaultValue)) ? defaultValue : Number(defaultValue);
-                default:
-                    return null;
-            }
-        })();
-        return (
-            brackets.find((bracket) => {
-                const start = bracket.start ?? 0;
-                const end = bracket.end ?? Infinity;
-                return start <= bracketNumber && end >= bracketNumber;
-            })?.value ?? bracketFallthrough
-        );
     }
 }
 

@@ -341,6 +341,7 @@ declare global {
 
         // Add functions to the `Math` namespace for use in `Roll` formulas
         interface Math {
+            btwn: (v: number, lte: number, gte: number) => boolean;
             eq: (a: number, b: number) => boolean;
             gt: (a: number, b: number) => boolean;
             gte: (a: number, b: number) => boolean;
@@ -348,6 +349,8 @@ declare global {
             lte: (a: number, b: number) => boolean;
             ne: (a: number, b: number) => boolean;
             ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
+            match: (...args: (string | number | null)[]) => string | number;
+            when: (condition: boolean, then: string | number) => string | number | null;
         }
     }
 
@@ -355,16 +358,6 @@ declare global {
         interface ClientSettingsMap {
             get(key: "pf2e.worldClock"): SettingConfig & { default: WorldClockSettingData };
         }
-    }
-
-    interface RollMathProxy {
-        eq: (a: number, b: number) => boolean;
-        gt: (a: number, b: number) => boolean;
-        gte: (a: number, b: number) => boolean;
-        lt: (a: number, b: number) => boolean;
-        lte: (a: number, b: number) => boolean;
-        ne: (a: number, b: number) => boolean;
-        ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
     }
 
     const BUILD_MODE: "development" | "production";

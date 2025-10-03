@@ -14,18 +14,7 @@ type RuleElementSource = {
     removeUponCreate?: JSONValue;
 };
 
-type RuleValue = string | number | boolean | object | null | BracketedValue;
-
-interface Bracket<T extends object | number | string> {
-    start?: number;
-    end?: number;
-    value: T;
-}
-
-interface BracketedValue<T extends object | number | string = object | number | string> {
-    field?: string;
-    brackets: Bracket<T>[];
-}
+type RuleValue = Exclude<JSONValue, undefined>;
 
 type RuleElementSchema = {
     key: fields.StringField<string, string, true, false, false>;
@@ -97,4 +86,4 @@ class ResolvableValueField<
 type ModelPropsFromRESchema<TSchema extends RuleElementSchema> = Omit<fields.ModelPropsFromSchema<TSchema>, "label">;
 
 export { ResolvableValueField };
-export type { Bracket, BracketedValue, ModelPropsFromRESchema, RuleElementSchema, RuleElementSource, RuleValue };
+export type { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource, RuleValue };

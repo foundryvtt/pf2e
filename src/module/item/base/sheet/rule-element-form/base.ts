@@ -1,12 +1,11 @@
 import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import type { DataField, SourceFromSchema } from "@common/data/fields.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
-import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElements, type RuleElement, type RuleElementSource } from "@module/rules/index.ts";
 import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { LaxSchemaField } from "@system/schema-data-fields.ts";
-import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { htmlQuery, htmlQueryAll } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import type { ItemSheetPF2e } from "../index.ts";
@@ -147,22 +146,13 @@ class RuleElementForm<
     }
 
     async #getFormHelpers(rule: TSource): Promise<Record<string, unknown>> {
-        const valueTemplate = await fa.handlebars.getTemplate(
-            "systems/pf2e/templates/items/rules/partials/resolvable-value.hbs",
-        );
-        const bracketsTemplate = await fa.handlebars.getTemplate(
-            "systems/pf2e/templates/items/rules/partials/resolvable-brackets.hbs",
-        );
-        const dropZoneTemplate = await fa.handlebars.getTemplate(
-            "systems/pf2e/templates/items/rules/partials/drop-zone.hbs",
-        );
-
+        const partialsPath = "systems/pf2e/templates/items/rules/partials";
+        const valueTemplate = await fa.handlebars.getTemplate(`${partialsPath}/resolvable-value.hbs`);
+        const dropZoneTemplate = await fa.handlebars.getTemplate(`${partialsPath}/drop-zone.hbs`);
         const getResolvableData = (property: string) => {
             const value = fu.getProperty(rule, property);
-            const mode = isBracketedValue(value) ? "brackets" : R.isPlainObject(value) ? "object" : "primitive";
-            return { value, mode, property, path: `${this.basePath}.${property}` };
+            return { value, property, path: `${this.basePath}.${property}` };
         };
-
         return {
             resolvableValue: (property: string, options: { hash?: { fileInput?: boolean } } = {}) =>
                 valueTemplate({
@@ -170,18 +160,6 @@ class RuleElementForm<
                     inputId: `${this.sheet.id}-${property}`,
                     fileInput: options.hash?.fileInput ?? false,
                 }),
-
-            resolvableAddBracket: (property: string) => {
-                const data = getResolvableData(property);
-                if (data.mode !== "brackets") return "";
-                return createHTMLElement("a", {
-                    children: [fontAwesomeIcon("plus", { fixedWidth: true })],
-                    dataset: { action: "add-bracket", property },
-                }).outerHTML;
-            },
-            resolvableBrackets: (property: string) => {
-                return bracketsTemplate(getResolvableData(property));
-            },
             dropZone: (dropId: string, dropText: string, dropTooltip?: string) => {
                 return dropZoneTemplate({ dropId, dropText, dropTooltip });
             },
@@ -227,46 +205,9 @@ class RuleElementForm<
             }
         });
 
-        for (const button of htmlQueryAll(html, "[data-action=toggle-brackets]")) {
-            button.addEventListener("click", () => {
-                const property = button.dataset.property ?? "value";
-                const value = fu.getProperty(this.rule, property);
-                if (isBracketedValue(value)) {
-                    this.updateItem({ [property]: "" });
-                } else {
-                    this.updateItem({ [property]: { brackets: [{ value: "" }] } });
-                }
-            });
-        }
-
-        for (const button of htmlQueryAll(html, "[data-action=add-bracket]")) {
-            const property = button.dataset.property ?? "value";
-            button.addEventListener("click", () => {
-                const value = fu.getProperty(this.rule, property);
-                if (isBracketedValue(value)) {
-                    value.brackets.push({ value: "" });
-                    this.updateItem({ [property]: value });
-                }
-            });
-        }
-
-        for (const button of htmlQueryAll(html, "[data-action=delete-bracket]")) {
-            const property = button.dataset.property ?? "value";
-            button.addEventListener("click", () => {
-                const value = fu.getProperty(this.rule, property);
-                const idx = Number(htmlClosest(button, "[data-idx]")?.dataset.idx);
-                if (isBracketedValue(value)) {
-                    value.brackets.splice(idx, 1);
-                    this.updateItem({ [property]: value });
-                }
-            });
-        }
-
         if (this.tabs) {
             for (const anchor of htmlQueryAll(html, "a[data-rule-tab]")) {
-                anchor.addEventListener("click", () => {
-                    this.activateTab(html, anchor.dataset.ruleTab);
-                });
+                anchor.addEventListener("click", () => this.activateTab(html, anchor.dataset.ruleTab));
             }
             this.activateTab(html, this.#activeTab);
         }

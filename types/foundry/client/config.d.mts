@@ -143,6 +143,11 @@ export interface PartialTokenMovementActionConfig
     extends Pick<TokenMovementActionConfig, "label" | "icon" | "order">,
         Partial<Omit<TokenMovementActionConfig, "label" | "icon" | "order">> {}
 
+export interface RollFunction {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (...args: any[]): boolean | number | string | null | Promise<boolean | number | string | null>;
+}
+
 export default interface Config<
     TAmbientLightDocument extends documents.AmbientLightDocument<TScene | null>,
     TActiveEffect extends documents.ActiveEffect<TActor | TItem | null>,
@@ -677,6 +682,11 @@ export default interface Config<
             [key: string]: ConstructorOf<dice.terms.DiceTerm>;
         };
         randomUniform: () => number;
+
+        /**
+         * A collection of custom functions that can be included in roll expressions.
+         */
+        functions: Record<string, RollFunction>;
     };
 
     /** The control icons used for rendering common HUD operations */
