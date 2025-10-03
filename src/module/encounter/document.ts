@@ -316,6 +316,8 @@ class EncounterPF2e extends Combat {
 
     /** Disable the initiative link on PC sheets if this was the only encounter */
     protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
+        // Delete come V14: https://github.com/foundryvtt/foundryvtt/issues/13495
+        this.turn = null;
         super._onDelete(options, userId);
 
         if (this.started) {
