@@ -46,6 +46,117 @@
                 "rollOption": "ooze-form"
             },
             {
+                "brackets": [
+                    {
+                        "start": 3,
+                        "value": {
+                            "size": "med",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 14
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "modifier": 5
+                                    },
+                                    "modifier": 14
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 4,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 40
+                                }
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 16
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "modifier": 9,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "modifier": 16
+                                }
+                            },
+                            "tempHP": 30
+                        }
+                    },
+                    {
+                        "start": 5,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 60
+                                }
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 20
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "dice": 4,
+                                        "modifier": 6,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "modifier": 18
+                                }
+                            },
+                            "tempHP": 40
+                        }
+                    },
+                    {
+                        "start": 8,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 60
+                                }
+                            },
+                            "size": "grg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 29
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "dice": 4,
+                                        "modifier": 13,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-20"
+                                        ]
+                                    },
+                                    "modifier": 28
+                                }
+                            },
+                            "tempHP": 60
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "armorClass": {
@@ -67,7 +178,30 @@
                                 "piercing",
                                 "slashing"
                             ],
-                            "value": "match(when(btwn(@item.level, 3, 3), 5), when(btwn(@item.level, 4, 4), 7), when(btwn(@item.level, 5, 7), 10), when(gte(@item.level, 8), 12))"
+                            "value": {
+                                "brackets": [
+                                    {
+                                        "end": 3,
+                                        "start": 3,
+                                        "value": 5
+                                    },
+                                    {
+                                        "end": 4,
+                                        "start": 4,
+                                        "value": 7
+                                    },
+                                    {
+                                        "end": 7,
+                                        "start": 5,
+                                        "value": 10
+                                    },
+                                    {
+                                        "start": 8,
+                                        "value": 12
+                                    }
+                                ],
+                                "field": "item|system.level.value"
+                            }
                         }
                     ],
                     "senses": {
@@ -100,8 +234,7 @@
                 },
                 "predicate": [
                     "ooze-form:black-pudding"
-                ],
-                "value": "match(when(btwn(@item.level, 3, 3), \"size\"), when(btwn(@item.level, 4, 4), \"senses\"), when(btwn(@item.level, 5, 7), \"senses\"), when(gte(@item.level, 8), \"senses\"))"
+                ]
             },
             {
                 "damageType": "acid",
@@ -120,6 +253,117 @@
                 "selector": "strike-damage"
             },
             {
+                "brackets": [
+                    {
+                        "start": 3,
+                        "value": {
+                            "size": "med",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 14
+                                }
+                            },
+                            "strikes": {
+                                "cube-face": {
+                                    "damage": {
+                                        "modifier": 5
+                                    },
+                                    "modifier": 14
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 4,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 40
+                                }
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 16
+                                }
+                            },
+                            "strikes": {
+                                "cube-face": {
+                                    "damage": {
+                                        "modifier": 9,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "modifier": 16
+                                }
+                            },
+                            "tempHP": 30
+                        }
+                    },
+                    {
+                        "start": 5,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 60
+                                }
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 20
+                                }
+                            },
+                            "strikes": {
+                                "cube-face": {
+                                    "damage": {
+                                        "dice": 2,
+                                        "modifier": 6,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "modifier": 18
+                                }
+                            },
+                            "tempHP": 40
+                        }
+                    },
+                    {
+                        "start": 8,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 60
+                                }
+                            },
+                            "size": "grg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 29
+                                }
+                            },
+                            "strikes": {
+                                "cube-face": {
+                                    "damage": {
+                                        "dice": 2,
+                                        "modifier": 13,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-20"
+                                        ]
+                                    },
+                                    "modifier": 28
+                                }
+                            },
+                            "tempHP": 60
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "armorClass": {
@@ -141,7 +385,30 @@
                                 "piercing",
                                 "slashing"
                             ],
-                            "value": "match(when(btwn(@item.level, 3, 3), 5), when(btwn(@item.level, 4, 4), 7), when(btwn(@item.level, 5, 7), 10), when(gte(@item.level, 8), 12))"
+                            "value": {
+                                "brackets": [
+                                    {
+                                        "end": 3,
+                                        "start": 3,
+                                        "value": 5
+                                    },
+                                    {
+                                        "end": 4,
+                                        "start": 4,
+                                        "value": 7
+                                    },
+                                    {
+                                        "end": 7,
+                                        "start": 5,
+                                        "value": 10
+                                    },
+                                    {
+                                        "start": 8,
+                                        "value": 12
+                                    }
+                                ],
+                                "field": "item|system.level.value"
+                            }
                         }
                     ],
                     "senses": {
@@ -173,8 +440,7 @@
                 },
                 "predicate": [
                     "ooze-form:gelatinous-cube"
-                ],
-                "value": "match(when(btwn(@item.level, 3, 3), \"size\"), when(btwn(@item.level, 4, 4), \"senses\"), when(btwn(@item.level, 5, 7), \"senses\"), when(gte(@item.level, 8), \"senses\"))"
+                ]
             },
             {
                 "key": "Note",
@@ -186,6 +452,117 @@
                 "title": "{item|name}"
             },
             {
+                "brackets": [
+                    {
+                        "start": 3,
+                        "value": {
+                            "size": "med",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 14
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "modifier": 5
+                                    },
+                                    "modifier": 14
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 4,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 40
+                                }
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 16
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "modifier": 9,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "modifier": 16
+                                }
+                            },
+                            "tempHP": 30
+                        }
+                    },
+                    {
+                        "start": 5,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 60
+                                }
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 20
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "dice": 2,
+                                        "modifier": 6,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "modifier": 18
+                                }
+                            },
+                            "tempHP": 40
+                        }
+                    },
+                    {
+                        "start": 8,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 60
+                                }
+                            },
+                            "size": "grg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 29
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "dice": 2,
+                                        "modifier": 13,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-20"
+                                        ]
+                                    },
+                                    "modifier": 28
+                                }
+                            },
+                            "tempHP": 60
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "armorClass": {
@@ -207,7 +584,30 @@
                                 "piercing",
                                 "slashing"
                             ],
-                            "value": "match(when(btwn(@item.level, 3, 3), 5), when(btwn(@item.level, 4, 4), 7), when(btwn(@item.level, 5, 7), 10), when(gte(@item.level, 8), 12))"
+                            "value": {
+                                "brackets": [
+                                    {
+                                        "end": 3,
+                                        "start": 3,
+                                        "value": 5
+                                    },
+                                    {
+                                        "end": 4,
+                                        "start": 4,
+                                        "value": 7
+                                    },
+                                    {
+                                        "end": 7,
+                                        "start": 5,
+                                        "value": 10
+                                    },
+                                    {
+                                        "start": 8,
+                                        "value": 12
+                                    }
+                                ],
+                                "field": "item|system.level.value"
+                            }
                         }
                     ],
                     "senses": {
@@ -241,8 +641,7 @@
                 },
                 "predicate": [
                     "ooze-form:gray-ooze"
-                ],
-                "value": "match(when(btwn(@item.level, 3, 3), \"size\"), when(btwn(@item.level, 4, 4), \"senses\"), when(btwn(@item.level, 5, 7), \"senses\"), when(gte(@item.level, 8), \"senses\"))"
+                ]
             },
             {
                 "damageType": "acid",
@@ -265,6 +664,117 @@
                 "title": "{item|name}"
             },
             {
+                "brackets": [
+                    {
+                        "start": 3,
+                        "value": {
+                            "size": "med",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 14
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "modifier": 5
+                                    },
+                                    "modifier": 14
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 4,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 40
+                                }
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 16
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "modifier": 9,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "modifier": 16
+                                }
+                            },
+                            "tempHP": 30
+                        }
+                    },
+                    {
+                        "start": 5,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 60
+                                }
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 20
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "dice": 2,
+                                        "modifier": 6,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "modifier": 18
+                                }
+                            },
+                            "tempHP": 40
+                        }
+                    },
+                    {
+                        "start": 8,
+                        "value": {
+                            "senses": {
+                                "motion-sense": {
+                                    "range": 60
+                                }
+                            },
+                            "size": "grg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 29
+                                }
+                            },
+                            "strikes": {
+                                "pseudopod": {
+                                    "damage": {
+                                        "dice": 2,
+                                        "modifier": 13,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-20"
+                                        ]
+                                    },
+                                    "modifier": 28
+                                }
+                            },
+                            "tempHP": 60
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "armorClass": {
@@ -286,7 +796,30 @@
                                 "piercing",
                                 "slashing"
                             ],
-                            "value": "match(when(btwn(@item.level, 3, 3), 5), when(btwn(@item.level, 4, 4), 7), when(btwn(@item.level, 5, 7), 10), when(gte(@item.level, 8), 12))"
+                            "value": {
+                                "brackets": [
+                                    {
+                                        "end": 3,
+                                        "start": 3,
+                                        "value": 5
+                                    },
+                                    {
+                                        "end": 4,
+                                        "start": 4,
+                                        "value": 7
+                                    },
+                                    {
+                                        "end": 7,
+                                        "start": 5,
+                                        "value": 10
+                                    },
+                                    {
+                                        "start": 8,
+                                        "value": 12
+                                    }
+                                ],
+                                "field": "item|system.level.value"
+                            }
                         },
                         {
                             "type": "electricity",
@@ -323,8 +856,7 @@
                 },
                 "predicate": [
                     "ooze-form:ochre-jelly"
-                ],
-                "value": "match(when(btwn(@item.level, 3, 3), \"size\"), when(btwn(@item.level, 4, 4), \"senses\"), when(btwn(@item.level, 5, 7), \"senses\"), when(gte(@item.level, 8), \"senses\"))"
+                ]
             },
             {
                 "key": "Note",

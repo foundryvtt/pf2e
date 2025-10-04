@@ -22,6 +22,58 @@
         },
         "rules": [
             {
+                "brackets": [
+                    {
+                        "start": 5,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "19 + @actor.level"
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 19
+                                }
+                            },
+                            "strikes": {
+                                "vine": {
+                                    "damage": {
+                                        "modifier": 11
+                                    },
+                                    "modifier": 17
+                                }
+                            },
+                            "tempHP": 12
+                        }
+                    },
+                    {
+                        "start": 6,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "22 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 22
+                                }
+                            },
+                            "strikes": {
+                                "vine": {
+                                    "damage": {
+                                        "modifier": 16
+                                    },
+                                    "modifier": 21,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-20"
+                                    ]
+                                }
+                            },
+                            "tempHP": 24
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "resistances": [
@@ -59,8 +111,7 @@
                     "traits": [
                         "plant"
                     ]
-                },
-                "value": "match(when(btwn(@item.level, 5, 5), \"armorClass\"), when(gte(@item.level, 6), \"armorClass\"))"
+                }
             }
         ],
         "start": {

@@ -325,8 +325,8 @@ function sortObjByKey(value: unknown): unknown {
 }
 
 /** Walk an object tree and replace any string values found according to a provided function */
-function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
-function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
+function recursiveReplaceString<T>(source: T, replace: (s: string) => string | number): T;
+function recursiveReplaceString(source: unknown, replace: (s: string) => string | number): unknown {
     const clone = Array.isArray(source) || R.isPlainObject(source) ? fu.deepClone(source) : source;
     if (typeof clone === "string") {
         return replace(clone);

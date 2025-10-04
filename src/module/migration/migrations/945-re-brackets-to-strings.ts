@@ -1,4 +1,5 @@
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
@@ -77,9 +78,25 @@ export class Migration945REBracketsToStrings extends MigrationBase {
         return outer;
     }
 
+    #convertBattleFormBrackets(rule: RuleElementSource & { value?: unknown; brackets?: object }) {
+        if (!R.isPlainObject(rule.value)) return;
+        delete rule.value.field;
+        if (Array.isArray(rule.value.brackets)) {
+            for (const bracket of rule.value.brackets) {
+                if (R.isPlainObject(bracket)) delete bracket.end;
+            }
+            rule.brackets = rule.value.brackets;
+            delete rule.value;
+        }
+    }
+
     /** Update path to land base or derived speed in rule elements. */
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         for (const rule of source.system.rules) {
+            if (rule.key === "BattleForm") {
+                this.#convertBattleFormBrackets(rule);
+                continue;
+            }
             if ("value" in rule && R.isPlainObject(rule.value)) this.#moveDamageDiceValue(rule);
             this.#convertBrackets(rule);
         }

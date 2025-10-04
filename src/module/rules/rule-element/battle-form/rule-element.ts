@@ -11,7 +11,7 @@ import { RecordField } from "@system/schema-data-fields.ts";
 import { LandSpeedStatisticTraceData, SpeedStatistic } from "@system/statistic/speed.ts";
 import { objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { RuleElement, RuleElementOptions } from "../base.ts";
+import { RuleElement } from "../base.ts";
 import { CreatureSizeRuleElement } from "../creature-size.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
 import { ItemAlterationRuleElement } from "../item-alteration/rule-element.ts";
@@ -21,8 +21,8 @@ import { WeaknessRuleElement } from "../iwr/weakness.ts";
 import { SenseRuleElement } from "../sense.ts";
 import { StrikeRuleElement } from "../strike.ts";
 import { TempHPRuleElement } from "../temp-hp.ts";
-import { BattleFormRuleOverrideSchema, BattleFormRuleSchema } from "./schema.ts";
-import { BattleFormSource, BattleFormStrike, BattleFormStrikeQuery } from "./types.ts";
+import { BattleFormRuleSchema } from "./schema.ts";
+import { BattleFormStrike, BattleFormStrikeQuery } from "./types.ts";
 import { BATTLE_FORM_DEFAULT_ICONS } from "./values.ts";
 import fields = foundry.data.fields;
 
@@ -32,22 +32,9 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
     /** The label given to modifiers of AC, skills, and strikes */
     modifierLabel: string = "invalid";
 
-    constructor(data: BattleFormSource, options: RuleElementOptions) {
-        super(data, options);
-        if (this.invalid) return;
-
-        this.overrides = this.resolveValue(
-            this.value,
-            this.overrides,
-        ) as fields.ModelPropsFromSchema<BattleFormRuleOverrideSchema>;
-
-        this.modifierLabel = this.getReducedLabel();
-    }
-
     static override defineSchema(): BattleFormRuleSchema {
         return {
             ...super.defineSchema(),
-            value: new ResolvableValueField({ required: false, initial: undefined }),
             overrides: new fields.SchemaField({
                 traits: new fields.ArrayField(new fields.StringField()),
                 armorClass: new fields.SchemaField({
@@ -91,6 +78,19 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
                 weaknesses: new fields.ArrayField(new fields.ObjectField()),
                 resistances: new fields.ArrayField(new fields.ObjectField()),
             }),
+            brackets: new fields.ArrayField(
+                new fields.SchemaField({
+                    start: new fields.NumberField({
+                        required: true,
+                        nullable: false,
+                        integer: true,
+                        min: 0,
+                        max: 30,
+                        initial: 0,
+                    }),
+                    value: new fields.ObjectField(),
+                }),
+            ),
             ownUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             canCast: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             canSpeak: new fields.BooleanField({ required: false, nullable: false, initial: false }),
@@ -129,7 +129,6 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
 
     override beforePrepareData(): void {
         if (this.ignored) return;
-
         const actor = this.actor;
         const flags = actor.flags;
         if (flags.pf2e.polymorphed) {
@@ -142,11 +141,13 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         this.#prepareSenses();
         if (this.ignored) return;
 
+        this.modifierLabel = this.getReducedLabel();
+        const bracket = this.brackets.findLast((b) => b.start <= (this.item.system.level?.value ?? 0));
+        if (bracket) this.overrides = fu.mergeObject(this.overrides, bracket.value);
         for (const trait of this.overrides.traits) {
             const currentTraits = actor.system.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
-
         if (this.overrides.armorClass.ignoreCheckPenalty) {
             const synthetics = (this.actor.synthetics.modifierAdjustments["skill-check"] ??= []);
             synthetics.push({ slug: "armor-check-penalty", test: () => true, suppress: true });

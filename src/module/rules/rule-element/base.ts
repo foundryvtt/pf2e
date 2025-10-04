@@ -14,7 +14,7 @@ import { reduceItemName } from "@item/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, NullableBooleanField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
-import { tupleHasValue } from "@util";
+import { recursiveReplaceString, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 import fields = foundry.data.fields;
@@ -302,7 +302,13 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
         value = this.resolveInjectedProperties(value, { warn });
         if (Array.isArray(value)) return value;
         if (R.isPlainObject(value)) {
-            return R.isPlainObject(defaultValue) ? fu.mergeObject(defaultValue, value, { inplace: false }) : value;
+            const merged = R.isPlainObject(defaultValue)
+                ? fu.mergeObject(defaultValue, value, { inplace: false })
+                : value;
+            return recursiveReplaceString(merged, (s) => {
+                const resolved = this.resolveValue(s, s);
+                return typeof resolved === "number" ? resolved : String(resolved);
+            });
         }
         if (typeof value === "string") {
             const saferEval = (formula: string): number => {
@@ -343,7 +349,6 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
                   )
                 : trimmed;
         }
-
         return defaultValue;
     }
 }
