@@ -40,25 +40,7 @@
                 ],
                 "selector": "maneuver-check",
                 "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "start": 1,
-                            "value": 1
-                        },
-                        {
-                            "end": 16,
-                            "start": 9,
-                            "value": 2
-                        },
-                        {
-                            "start": 17,
-                            "value": 3
-                        }
-                    ],
-                    "field": "actor|level"
-                }
+                "value": "match(when(btwn(@actor.level, 1, 8), 1), when(btwn(@actor.level, 9, 16), 2), when(gte(@actor.level, 17), 3))"
             }
         ],
         "traits": {

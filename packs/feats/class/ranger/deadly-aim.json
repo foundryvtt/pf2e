@@ -51,24 +51,7 @@
                 ],
                 "selector": "strike-damage",
                 "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 10,
-                            "start": 8,
-                            "value": 4
-                        },
-                        {
-                            "end": 14,
-                            "start": 11,
-                            "value": 6
-                        },
-                        {
-                            "start": 15,
-                            "value": 8
-                        }
-                    ]
-                }
+                "value": "match(when(btwn(@actor.level, 8, 10), 4), when(btwn(@actor.level, 11, 14), 6), when(gte(@actor.level, 15), 8))"
             }
         ],
         "traits": {

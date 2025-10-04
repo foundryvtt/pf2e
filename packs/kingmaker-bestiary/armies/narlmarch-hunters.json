@@ -105,25 +105,7 @@
                         "key": "FlatModifier",
                         "selector": "melee-attack-roll",
                         "type": "status",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 8,
-                                    "start": 1,
-                                    "value": -2
-                                },
-                                {
-                                    "end": 14,
-                                    "start": 9,
-                                    "value": -1
-                                },
-                                {
-                                    "start": 15,
-                                    "value": 0
-                                }
-                            ],
-                            "field": "actor|level"
-                        }
+                        "value": "match(when(btwn(@actor.level, 1, 8), -2), when(btwn(@actor.level, 9, 14), -1), when(gte(@actor.level, 15), 0))"
                     }
                 ],
                 "slug": "sharpshooter",

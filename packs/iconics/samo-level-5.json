@@ -3678,24 +3678,7 @@
                         "key": "FlatModifier",
                         "selector": "skill-check",
                         "type": "proficiency",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "value": "@actor.level -2"
-                                },
-                                {
-                                    "end": 6,
-                                    "start": 5,
-                                    "value": "@actor.level -1"
-                                },
-                                {
-                                    "start": 7,
-                                    "value": "@actor.level"
-                                }
-                            ],
-                            "field": "actor|level"
-                        }
+                        "value": "match(when(lte(@actor.level, 4), @actor.level - 2), when(btwn(@actor.level, 5, 6), @actor.level - 1), when(gte(@actor.level, 7), @actor.level))"
                     }
                 ],
                 "slug": "untrained-improvisation",
@@ -3878,6 +3861,7 @@
                     "_stats": {
                         "compendiumSource": "Compendium.pf2e.spells-srd.Item.Fr58LDSrbndgld9n"
                     },
+                    "flags": {},
                     "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
                     "name": "Resist Energy",
                     "sort": 0,

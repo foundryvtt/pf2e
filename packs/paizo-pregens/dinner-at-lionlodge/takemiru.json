@@ -410,25 +410,7 @@
                         "mode": "add",
                         "path": "system.crafting.entries.snareCrafting.maxSlots",
                         "phase": "beforeDerived",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 2,
-                                    "start": 1,
-                                    "value": 4
-                                },
-                                {
-                                    "end": 3,
-                                    "start": 3,
-                                    "value": 6
-                                },
-                                {
-                                    "start": 4,
-                                    "value": 8
-                                }
-                            ],
-                            "field": "actor|system.skills.crafting.rank"
-                        }
+                        "value": "match(when(btwn(@actor.system.skills.crafting.rank, 1, 2), 4), when(btwn(@actor.system.skills.crafting.rank, 3, 3), 6), when(gte(@actor.system.skills.crafting.rank, 4), 8))"
                     }
                 ],
                 "slug": "snare-specialist",

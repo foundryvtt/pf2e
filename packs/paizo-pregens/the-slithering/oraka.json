@@ -2779,49 +2779,13 @@
                 "rules": [
                     {
                         "category": "precision",
+                        "diceNumber": "match(when(lte(@actor.level, 4), 1), when(btwn(@actor.level, 5, 8), 2), when(btwn(@actor.level, 9, 12), 3), when(btwn(@actor.level, 13, 16), 4), when(gte(@actor.level, 17), 5))",
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
                             "check:substitution:devise-a-stratagem"
                         ],
-                        "selector": "strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 8,
-                                    "start": 5,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "end": 12,
-                                    "start": 9,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                },
-                                {
-                                    "end": 16,
-                                    "start": 13,
-                                    "value": {
-                                        "diceNumber": 4
-                                    }
-                                },
-                                {
-                                    "start": 17,
-                                    "value": {
-                                        "diceNumber": 5
-                                    }
-                                }
-                            ]
-                        }
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": "strategic-strike",
@@ -3331,18 +3295,7 @@
                             "skill-check"
                         ],
                         "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 8,
-                                    "value": 1
-                                },
-                                {
-                                    "start": 9,
-                                    "value": 2
-                                }
-                            ]
-                        }
+                        "value": "match(when(lte(@actor.level, 8), 1), when(gte(@actor.level, 9), 2))"
                     }
                 ],
                 "slug": "pursue-a-lead",

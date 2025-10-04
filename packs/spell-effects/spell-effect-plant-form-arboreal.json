@@ -69,78 +69,7 @@
                         "plant"
                     ]
                 },
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "19 + @actor.level"
-                                },
-                                "size": "lg",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 19
-                                    }
-                                },
-                                "strikes": {
-                                    "branch": {
-                                        "damage": {
-                                            "modifier": 11
-                                        },
-                                        "modifier": 17
-                                    },
-                                    "foot": {
-                                        "damage": {
-                                            "modifier": 11
-                                        },
-                                        "modifier": 17
-                                    }
-                                },
-                                "tempHP": 12
-                            }
-                        },
-                        {
-                            "start": 6,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "22 + @actor.level"
-                                },
-                                "size": "huge",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 22
-                                    }
-                                },
-                                "strikes": {
-                                    "branch": {
-                                        "damage": {
-                                            "modifier": 16
-                                        },
-                                        "modifier": 21,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-20"
-                                        ]
-                                    },
-                                    "foot": {
-                                        "damage": {
-                                            "modifier": 16
-                                        },
-                                        "modifier": 21,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-5"
-                                        ]
-                                    }
-                                },
-                                "tempHP": 24
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "match(when(btwn(@item.level, 5, 5), \"armorClass\"), when(gte(@item.level, 6), \"armorClass\"))"
             }
         ],
         "start": {
