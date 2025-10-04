@@ -101,10 +101,13 @@ export class Migration946AmmoData extends MigrationBase {
         // SF2e Ammo
         if (slug.startsWith("chem-tank-")) {
             system.ammo = { baseType: "chem", categories: null };
+            return;
         } else if (slug.startsWith("battery-")) {
             system.ammo = { baseType: "battery", categories: null };
+            return;
         } else if (slug === "projectile-ammo") {
             system.ammo = { baseType: "projectile", categories: null };
+            return;
         }
 
         // Attempt to handle special ammo
