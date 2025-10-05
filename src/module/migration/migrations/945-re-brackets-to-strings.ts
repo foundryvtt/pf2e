@@ -64,7 +64,7 @@ export class Migration945REBracketsToStrings extends MigrationBase {
         return `match(${whens.join(", ")})`;
     }
 
-    #convertBrackets(outer: Record<string, unknown>): unknown {
+    #convertBrackets(outer: Record<string, unknown>): Record<string, unknown> {
         for (const [key, inner] of Object.entries(outer)) {
             if (R.isPlainObject(inner)) {
                 if ("brackets" in inner && Array.isArray(inner.brackets)) {
@@ -78,14 +78,25 @@ export class Migration945REBracketsToStrings extends MigrationBase {
         return outer;
     }
 
-    #convertBattleFormBrackets(rule: RuleElementSource & { value?: unknown; brackets?: object }) {
-        if (!R.isPlainObject(rule.value)) return;
-        delete rule.value.field;
-        if (Array.isArray(rule.value.brackets)) {
-            for (const bracket of rule.value.brackets) {
-                if (R.isPlainObject(bracket)) delete bracket.end;
+    #convertBattleFormBrackets(rule: RuleElementSource & { overrides?: unknown; value?: unknown; brackets?: object }) {
+        if (R.isPlainObject(rule.overrides)) {
+            for (const override of R.values(rule.overrides)) {
+                if (Array.isArray(override)) {
+                    for (const element of override) {
+                        console.log(element);
+                        override.splice(override.indexOf(element), 1, this.#convertBrackets(element));
+                    }
+                }
             }
-            rule.brackets = rule.value.brackets;
+        }
+        if (R.isPlainObject(rule.value)) {
+            delete rule.value.field;
+            if (Array.isArray(rule.value.brackets)) {
+                for (const bracket of rule.value.brackets) {
+                    if (R.isPlainObject(bracket)) delete bracket.end;
+                }
+                rule.brackets = rule.value.brackets;
+            }
             delete rule.value;
         }
     }
