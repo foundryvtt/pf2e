@@ -468,7 +468,7 @@ class PredicateField<
 
     protected override _toInput(config: foundry.data.FormInputConfig): HTMLInputElement {
         return foundry.applications.fields.createTextInput(
-            Object.assign(config, { value: JSON.stringify(config.value ?? []), dataset: { dtype: "JSON" } }),
+            Object.assign(config, { value: JSON.stringify(config.value ?? []) }),
         );
     }
 }

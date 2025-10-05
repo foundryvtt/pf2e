@@ -41,8 +41,8 @@ class ResolvableValueField<
     TNullable extends boolean,
     THasInitial extends boolean = false,
 > extends fields.DataField<RuleValue, RuleValue, TRequired, TNullable, THasInitial> {
-    protected override _validateType(value: JSONValue): boolean {
-        return value !== null && ["string", "number", "object", "boolean"].includes(typeof value);
+    protected override _validateType(value: JSONValue): false | void {
+        if (!["string", "number", "object", "boolean"].includes(typeof value)) return false;
     }
 
     /** No casting is applied to this value */

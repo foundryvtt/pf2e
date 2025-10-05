@@ -1,12 +1,13 @@
 import type { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES, DAMAGE_TYPES } from "@system/damage/values.ts";
-import { sluggify, tupleHasValue } from "@util";
+import { setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
 import type { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
 import { ResolvableValueField, RuleElement } from "../index.ts";
 import { DamageAlteration } from "./alteration.ts";
 import fields = foundry.data.fields;
+import DataModelValidationFailure = foundry.data.validation.DataModelValidationFailure;
 
 /** Alter certain aspects of individual components (modifiers and dice) of a damage roll. */
 class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
@@ -34,7 +35,52 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
                 nullable: false,
                 choices: ["damage-type", "dice-faces", "dice-number", "tags"],
             }),
-            value: new ResolvableValueField({ required: true, nullable: true, initial: null }),
+            value: new ResolvableValueField({
+                required: true,
+                nullable: true,
+                initial: null,
+                validate: (value, options): boolean | DataModelValidationFailure => {
+                    if (typeof value === "string" && /^(?:\{\w+\|.+\}|@.+\..+)$/.test(value)) return true;
+                    switch (options.source?.property) {
+                        case "damage-type":
+                            if (!setHasElement(DAMAGE_TYPES, value)) {
+                                return new DataModelValidationFailure({
+                                    invalidValue: value,
+                                    message: "must be a damage type or resolvable to one",
+                                });
+                            }
+                            break;
+                        case "dice-faces": {
+                            const faces = Number(value);
+                            if (!Number.isInteger(faces)) {
+                                return new DataModelValidationFailure({
+                                    invalidValue: value,
+                                    message: "must be an integer or resolvable to one",
+                                });
+                            }
+                            if (options.source?.mode === "override" && !tupleHasValue(DAMAGE_DICE_FACES, faces)) {
+                                const listFormatter = game.i18n.getListFormatter({ type: "disjunction" });
+                                const list = listFormatter.format(DAMAGE_DICE_FACES.map((f) => f.toString()));
+                                return new DataModelValidationFailure({
+                                    invalidValue: value,
+                                    message: `must override dice faces to ${list}`,
+                                });
+                            }
+                            break;
+                        }
+                        case "dice-number": {
+                            const number = Number(value);
+                            if (!Number.isInteger(number)) {
+                                return new DataModelValidationFailure({
+                                    invalidValue: value,
+                                    message: "must be an integer or resolvable to one",
+                                });
+                            }
+                        }
+                    }
+                    return true;
+                },
+            }),
             relabel: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
         };
     }

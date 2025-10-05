@@ -22,7 +22,10 @@ import { DataModelValidationFailure } from "./validation-failure.mjs";
  *
  * An Error may be thrown which provides a custom error message explaining the reason the value is invalid.
  */
-type DataFieldValidator = (value: unknown, options: DataFieldValidationOptions) => boolean | void;
+type DataFieldValidator = (
+    value: unknown,
+    options: DataFieldValidationOptions,
+) => boolean | DataModelValidationFailure | void;
 
 export interface DataFieldOptions<
     TSourceProp,
@@ -87,7 +90,7 @@ export interface DataFieldValidationOptions {
     /** Whether to allow replacing invalid values with valid fallbacks. */
     fallback?: boolean;
     /** The full source object being evaluated. */
-    source?: object;
+    source?: Record<string, JSONValue>;
     /**
      * If true, invalid embedded documents will emit a warning and be placed in the invalidDocuments collection rather
      * than causing the parent to be considered invalid.
