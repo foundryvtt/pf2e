@@ -8,6 +8,8 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from 
 class DexterityModifierCapRuleElement extends RuleElement<DexterityModifierCapRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
+    static override autogenForms = true;
+
     static override defineSchema(): DexterityModifierCapRuleSchema {
         return {
             ...super.defineSchema(),

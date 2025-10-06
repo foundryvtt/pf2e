@@ -325,12 +325,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
         const label = [distance, canvas.scene?.grid.units ?? ""].join(" ").trim();
         totalEl.textContent = label;
-        const center = this.center;
         labelEl.dataset.tokenId = this.document.id;
         labelEl.style.setProperty("--position-y", `${this.y}px`);
-        labelEl.style.setProperty("--position-x", `${center.x}px`);
+        labelEl.style.setProperty("--ui-scale", canvas.dimensions.uiScale.toString());
         labelEl.hidden = false;
-        this.layer.refreshDistanceLine(controlledToken, this);
+        const square = this.layer.refreshDistanceLine(controlledToken, this);
+        labelEl.style.setProperty("--position-x", `${square.x}px`);
     }
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */

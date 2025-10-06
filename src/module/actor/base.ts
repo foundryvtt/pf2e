@@ -22,7 +22,7 @@ import type { AbstractEffectPF2e, ArmorPF2e, ConditionPF2e, ContainerPF2e, Physi
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { AfflictionSource } from "@item/affliction/index.ts";
-import type { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import type { ConditionKey, ConditionSlug, ConditionSource } from "@item/condition/index.ts";
 import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
@@ -32,6 +32,7 @@ import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/coins.ts";
 import { getDefaultEquipStatus } from "@item/physical/helpers.ts";
+import { ItemType } from "@item/types.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -626,11 +627,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             context?: object;
         } & Partial<DialogV2Configuration> = {},
     ): Promise<Document | null> {
-        options.types &&= R.unique(options.types);
-        options.types ??= [...ACTOR_TYPES];
+        options.types = R.unique([options.types ?? ACTOR_TYPES].flat());
 
         // Determine omitted types. Army is hidden in most games, and party is hidden in folders
-        const omittedTypes = game.settings.get("pf2e", "campaignType") !== "kingmaker" ? ["army"] : [];
+        const omittedTypes: ActorType[] = game.settings.get("pf2e", "campaignType") !== "kingmaker" ? ["army"] : [];
         if (data?.folder) omittedTypes.push("party");
         for (const type of omittedTypes) {
             options.types.findSplice((t) => t === type);

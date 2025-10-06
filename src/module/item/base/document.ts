@@ -17,6 +17,7 @@ import type { ImageFilePath, RollMode } from "@common/constants.d.mts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { addOrUpgradeTrait, itemIsOfType, markdownToHTML } from "@item/helpers.ts";
+import { ITEM_TYPES } from "@item/values.ts";
 import type { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
@@ -41,7 +42,7 @@ import * as R from "remeda";
 import type { AfflictionSource } from "../affliction/data.ts";
 import { PHYSICAL_ITEM_TYPES } from "../physical/values.ts";
 import { MAGIC_TRADITIONS } from "../spell/values.ts";
-import type { ItemInstances } from "../types.ts";
+import type { ItemInstances, ItemType } from "../types.ts";
 import type {
     ConditionSource,
     EffectSource,
@@ -49,7 +50,6 @@ import type {
     ItemFlagsPF2e,
     ItemSourcePF2e,
     ItemSystemData,
-    ItemType,
     RawItemChatData,
     TraitChatData,
 } from "./data/index.ts";
@@ -398,7 +398,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 if (refreshedSpell instanceof ItemPF2e && refreshedSpell.isOfType("spell")) {
                     const spellConsumableData = await createConsumableFromSpell(refreshedSpell, {
                         type: currentSource.system.category,
-                        heightenedLevel: currentSource.system.spell.system.location.heightenedLevel,
+                        rank: currentSource.system.spell.system.location.heightenedLevel,
                     });
                     fu.mergeObject(updates, {
                         name: spellConsumableData.name,
@@ -599,16 +599,14 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             types?: string[];
         } & Partial<DialogV2Configuration> = {},
     ): Promise<Item | null> {
-        options.classes = [...(options.classes ?? []), "dialog-item-create"];
-        options.types &&= R.unique(options.types);
-        options.types ??= Object.keys(game.system.documentTypes.Item);
+        options.classes = [options.classes ?? [], "item-create"].flat();
+        options.types = R.unique([options.types ?? ITEM_TYPES].flat());
 
-        // Figure out the types to omit
-        const omittedTypes: ItemType[] = ["condition", "spellcastingEntry", "lore"];
-        if (BUILD_MODE === "production") omittedTypes.push("affliction", "book");
-        if (game.settings.get("pf2e", "campaignType") !== "kingmaker") omittedTypes.push("campaignFeature");
-
-        for (const type of omittedTypes) {
+        // Exclude certain types from being creatable
+        const excludedTypes: ItemType[] = ["condition", "spellcastingEntry", "lore"];
+        if (BUILD_MODE === "production") excludedTypes.push("affliction", "book");
+        if (game.settings.get("pf2e", "campaignType") !== "kingmaker") excludedTypes.push("campaignFeature");
+        for (const type of excludedTypes) {
             options.types.findSplice((t) => t === type);
         }
 

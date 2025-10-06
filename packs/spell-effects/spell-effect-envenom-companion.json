@@ -23,38 +23,14 @@
         "rules": [
             {
                 "damageType": "poison",
+                "diceNumber": "match(when(btwn(@item.level, 3, 5), 1), when(btwn(@item.level, 6, 8), 2), when(gte(@item.level, 9), 3))",
                 "dieSize": "d8",
                 "key": "DamageDice",
                 "predicate": [
                     "first-hit",
                     "unarmed"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 3,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 8,
-                            "start": 6,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "selector": "strike-damage"
             },
             {
                 "key": "Note",

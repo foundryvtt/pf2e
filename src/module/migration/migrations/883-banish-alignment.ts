@@ -6,7 +6,7 @@ import { ItemSourcePF2e, MeleeSource } from "@item/base/data/index.ts";
 import { DeitySystemSource } from "@item/deity/data.ts";
 import { Sanctification } from "@item/deity/types.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
-import { isObject, setHasElement } from "@util";
+import { setHasElement } from "@util";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
@@ -17,24 +17,24 @@ import { MigrationBase } from "../base.ts";
 export class Migration883BanishAlignment extends MigrationBase {
     static override version = 0.883;
 
-    #ALIGNMENTS = new Set(["good", "evil", "lawful", "chaotic"]);
+    #ALIGNMENTS = ["good", "evil", "lawful", "chaotic"];
 
     #migrateRule(
         rule: DeepPartial<RuleElementSource> & { key: string },
     ): (DeepPartial<RuleElementSource> & { key: string }) | never[] {
         // Remove school traits from aura REs
         if ("traits" in rule && Array.isArray(rule.traits)) {
-            rule.traits = rule.traits.filter((t) => !this.#ALIGNMENTS.has(t));
+            rule.traits = rule.traits.filter((t) => !this.#ALIGNMENTS.includes(t));
         }
         if (Array.isArray(rule.predicate)) {
-            rule.predicate = rule.predicate.filter((s) => !this.#ALIGNMENTS.has(s));
+            rule.predicate = rule.predicate.filter((s) => !this.#ALIGNMENTS.includes(s));
         }
         return rule;
     }
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const details: MaybeWithAlignment = source.system.details;
-        if (isObject<{ value: unknown }>(details.alignment) && typeof details.alignment.value === "string") {
+        if (R.isPlainObject(details.alignment) && typeof details.alignment.value === "string") {
             const traits: { value: string[] } = source.system.traits ?? { value: [] };
             switch (details.alignment.value) {
                 case "LG":

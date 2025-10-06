@@ -26,7 +26,6 @@ import {
     ErrorPF2e,
     fontAwesomeIcon,
     htmlClosest,
-    htmlQuery,
     htmlQueryAll,
     sluggify,
     SORTABLE_BASE_OPTIONS,
@@ -279,21 +278,19 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         if (mutuallyExclusive.includes(name)) {
             const html = this.element[0];
             for (const elementName of mutuallyExclusive.filter((n) => n !== name)) {
-                const element = htmlQuery(html, `[data-edit="${elementName}"]`);
-                const section = htmlClosest(element, ".editor-container");
-                if (section) {
-                    section.style.display = "none";
-                }
+                const section = html
+                    .querySelector(`[data-edit="${elementName}"]`)
+                    ?.closest<HTMLElement>(".editor-container");
+                if (section) section.style.display = "none";
             }
 
             // Remove other edit button. Will be restored by editor save rerender
             if (name === "system.description.value") {
-                htmlQuery(html, "a[data-action=add-gm-notes]")?.remove();
+                html.querySelector("a[data-action=add-gm-notes]")?.remove();
             } else if (name === "system.description.gm") {
-                htmlQuery(html, "a.editor-edit")?.remove();
+                html.querySelector("a.editor-edit")?.remove();
             }
-
-            htmlQuery(html, ".tab.description")?.classList.add("editing");
+            html.querySelector(".tab.description")?.classList.add("editing");
         }
 
         return super.activateEditor(name, options, sourceContent);
@@ -329,30 +326,31 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             anchor.addEventListener("click", () => this.onTagSelector(anchor));
         }
 
-        const rulesPanel = htmlQuery(html, ".tab[data-tab=rules]");
+        const rulesPanel = html.querySelector<HTMLElement>(".tab[data-tab=rules]");
 
         // Item slug
-        const slugInput = htmlQuery<HTMLInputElement>(rulesPanel, 'input[name="system.slug"]');
+        const slugInput = rulesPanel?.querySelector<HTMLInputElement>('input[name="system.slug"]');
         if (slugInput) {
             slugInput.addEventListener("change", () => {
                 slugInput.value = sluggify(slugInput.value);
             });
-            htmlQuery(rulesPanel, "a[data-action=regenerate-slug]")?.addEventListener("click", () => {
+            rulesPanel?.querySelector("a[data-action=regenerate-slug]")?.addEventListener("click", () => {
                 if (this._submitting) return;
-
                 slugInput.value = sluggify(this.item._source.name);
                 const event = new Event("change");
                 slugInput.dispatchEvent(event);
             });
         }
 
-        const ruleElementSelect = htmlQuery<HTMLSelectElement>(rulesPanel, "select[data-action=select-rule-element]");
+        const ruleElementSelect = rulesPanel?.querySelector<HTMLSelectElement>(
+            "select[data-action=select-rule-element]",
+        );
         ruleElementSelect?.addEventListener("change", () => {
             this.#selectedRuleElementType = ruleElementSelect.value;
         });
 
         // Add implementation for viewing an item's roll options
-        const viewRollOptionsElement = htmlQuery(rulesPanel, "a[data-action=view-roll-options]");
+        const viewRollOptionsElement = rulesPanel?.querySelector<HTMLElement>("a[data-action=view-roll-options]");
         viewRollOptionsElement?.addEventListener("click", async () => {
             const path = "systems/pf2e/templates/system/roll-options-tooltip.hbs";
             const content = await fa.handlebars.renderTemplate(path, {
@@ -375,7 +373,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             });
         }
 
-        for (const anchor of htmlQueryAll(rulesPanel, "a.edit-rule-element")) {
+        for (const anchor of htmlQueryAll(rulesPanel, "a[data-action=edit-rule-element]")) {
             anchor.addEventListener("click", async () => {
                 if (this._submitting) return; // Don't open if already submitting
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN");
@@ -385,9 +383,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             });
         }
 
-        for (const anchor of htmlQueryAll(rulesPanel, ".rules a.remove-rule-element")) {
-            anchor.addEventListener("click", async (event) => {
-                await this._onSubmit(event); // Submit any unsaved changes
+        for (const anchor of htmlQueryAll(rulesPanel, "a[data-action=remove-rule-element]")) {
+            anchor.addEventListener("click", async () => {
                 const rules = this.item.toObject().system.rules;
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN");
                 if (rules && Number.isInteger(index) && rules.length > index) {
@@ -397,7 +394,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             });
         }
 
-        for (const anchor of htmlQueryAll<HTMLAnchorElement>(rulesPanel, "a[data-clipboard]")) {
+        for (const anchor of htmlQueryAll<HTMLElement>(rulesPanel, "a[data-action=copy-to-clipboard]")) {
             anchor.addEventListener("click", () => {
                 const clipText = anchor.dataset.clipboard;
                 if (clipText) {
@@ -461,15 +458,14 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         }
 
         // Activate rule element sub forms
-        const ruleSections = html.querySelectorAll<HTMLElement>(".rules .rule-form");
-        for (const ruleSection of Array.from(ruleSections)) {
+        for (const ruleSection of html.querySelectorAll<HTMLElement>(".rules .rule-form")) {
             const idx = ruleSection.dataset.idx ? Number(ruleSection.dataset.idx) : NaN;
             this.#ruleElementForms.at(idx)?.activateListeners(ruleSection);
         }
 
         // Set up traits selection in the header
-        const { validTraits } = this;
-        const tagElement = htmlQuery<HTMLTagifyTagsElement>(this.form, ":scope > header tagify-tags");
+        const validTraits = this.validTraits;
+        const tagElement = this.form.querySelector<HTMLTagifyTagsElement>(":scope > header tagify-tags");
         const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
         if (validTraits !== null && tagElement) {
             const tags = tagify(tagElement, { whitelist: validTraits });
@@ -478,11 +474,12 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             }
         } else if (traitsPrepend) {
             // If there are no traits, we still need to show elements like rarity
-            htmlQuery(html, "div.paizo-style.tags")?.append(traitsPrepend.content);
+            html.querySelector("div.paizo-style.tags")?.append(traitsPrepend.content);
         }
 
         // Tagify other-tags input if present
-        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), { maxTags: 6 });
+        const maxTags = 6;
+        tagify(html.querySelector<HTMLTagifyTagsElement>('tagify-tags[name="system.traits.otherTags"]'), { maxTags });
 
         // Handle select and input elements that show modified prepared values until focused
         const modifiedPropertyFields = html.querySelectorAll<HTMLSelectElement | HTMLInputElement>(
@@ -514,8 +511,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             !this.item.system.description.gm &&
             !(this.item.isOfType("spell") && this.item.isVariant)
         ) {
-            const descriptionEditors = htmlQuery(html, ".tab[data-tab=description]");
-            const mainEditor = htmlQuery(descriptionEditors, ".main .editor");
+            const descriptionEditors = html.querySelector(".tab[data-tab=description]");
+            const mainEditor = descriptionEditors?.querySelector(".main .editor");
             if (!mainEditor) throw ErrorPF2e("Unexpected error retrieving description editor");
 
             const addGMNotesLink = document.createElement("a");
@@ -524,13 +521,13 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             addGMNotesLink.dataset.tooltip = "PF2E.Item.GMNotes.Add";
             mainEditor.prepend(addGMNotesLink);
             addGMNotesLink.addEventListener("click", () => {
-                htmlQuery(descriptionEditors, ".gm-notes")?.classList.add("has-content");
+                descriptionEditors?.querySelector(".gm-notes")?.classList.add("has-content");
                 this.activateEditor("system.description.gm");
             });
         }
 
         // Allow drag/drop sorting of rule elements
-        const rules = htmlQuery(html, ".rule-element-forms");
+        const rules = html.querySelector<HTMLElement>(".rule-element-forms");
         if (rules) {
             createSortable(rules, {
                 ...SORTABLE_BASE_OPTIONS,
@@ -558,7 +555,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             });
         }
 
-        const refreshAnchor = htmlQuery(html.closest("div.item.sheet"), "a.refresh-from-compendium");
+        const refreshAnchor = html.closest("div.item.sheet")?.querySelector<HTMLElement>("a.refresh-from-compendium");
         if (refreshAnchor) {
             if (
                 this.item.system.rules.some(
@@ -575,14 +572,13 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         // View a referenced item
         for (const link of htmlQueryAll(html, "a[data-action=view-item]")) {
             link.addEventListener("click", async (): Promise<void> => {
-                const uuid = htmlClosest(link, "li")?.dataset.uuid ?? "";
+                const uuid = link.closest("li")?.dataset.uuid ?? "";
                 const item = await fromUuid(uuid);
                 if (!(item instanceof ItemPF2e)) {
                     this.render(false);
                     ui.notifications.error(`An item with the UUID "${uuid}" no longer exists`);
                     return;
                 }
-
                 item.sheet.render(true);
             });
         }
@@ -618,15 +614,14 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
 
         // If the submission is coming from a rule element, update that rule element
         // This avoids updates from forms if that form has a problematic implementation
-        const form = htmlClosest(event.target, ".rule-form[data-idx]");
-        if (form) {
-            const idx = Number(form.dataset.idx);
+        const ruleSection = htmlClosest(event.target, ".rule-form[data-idx]");
+        if (ruleSection) {
+            const idx = Number(ruleSection.dataset.idx);
             const ruleForm = this.#ruleElementForms[idx];
             const itemRules = this.item.toObject().system.rules;
             if (idx >= itemRules.length || !ruleForm) {
                 throw ErrorPF2e(`Invalid rule form update, no rule form available at index ${idx}`);
             }
-
             const incomingData = expanded.system?.rules?.[idx];
             if (incomingData) {
                 ruleForm.updateObject(incomingData as RuleElementSource);
@@ -648,10 +643,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         // Maintain last rules panel scroll position when opening/closing the codemirror editor
         if (this.#editingRuleElementIndex === null && this.#rulesLastScrollTop) {
             const html = this.element[0];
-            const rulesTab = htmlQuery(html, ".tab[data-tab=rules]");
-            if (rulesTab) {
-                rulesTab.scrollTop = this.#rulesLastScrollTop;
-            }
+            const rulesTab = html.querySelector(".tab[data-tab=rules]");
+            if (rulesTab) rulesTab.scrollTop = this.#rulesLastScrollTop;
             this.#rulesLastScrollTop = null;
         }
     }

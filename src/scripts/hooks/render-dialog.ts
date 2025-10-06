@@ -13,7 +13,7 @@ export const RenderDialog = {
                 if (select && option) {
                     const localize = localizer("PF2E.Item.CreationDialog.Categories");
                     select.append(extractOptGroup(select, localize("Physical"), [...PHYSICAL_ITEM_TYPES, "kit"]));
-                    select.append(extractOptGroup(select, localize("Character"), Array.from(PC_ITEM_TYPES)));
+                    select.append(extractOptGroup(select, localize("Character"), [...PC_ITEM_TYPES]));
                     select.append(extractOptGroup(select, localize("Other")));
                     option.selected = true;
                 }

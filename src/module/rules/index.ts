@@ -50,7 +50,7 @@ export type { RuleElementSynthetics } from "./synthetics.ts";
  * @category RuleElement
  */
 class RuleElements {
-    static readonly builtin: Record<string, RuleElementConstructor | undefined> = {
+    static readonly builtin: Record<string, RuleElementConstructor> = {
         ActiveEffectLike: AELikeRuleElement,
         ActorTraits: ActorTraitsRuleElement,
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
@@ -95,9 +95,9 @@ class RuleElements {
         WeaponPotency: WeaponPotencyRuleElement,
     };
 
-    static custom: Record<string, RuleElementConstructor | undefined> = {};
+    static custom: Record<string, RuleElementConstructor> = {};
 
-    static get all(): Record<string, RuleElementConstructor | undefined> {
+    static get all(): Record<string, RuleElementConstructor> {
         return { ...this.builtin, ...this.custom };
     }
 
@@ -133,7 +133,7 @@ class RuleElements {
     }
 }
 
-type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (new (
+type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema>; LOCALIZATION_PREFIXES: string[] } & (new (
     data: RuleElementSource,
     options: RuleElementOptions,
 ) => RuleElement);

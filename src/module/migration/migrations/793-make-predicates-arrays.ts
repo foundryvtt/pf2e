@@ -2,7 +2,7 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { PredicateStatement, RawPredicate } from "@system/predication.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Convert predicate properties of rule elements to arrays  */
@@ -35,7 +35,7 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
     /** Clear predicates in custom modifiers */
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if ("customModifiers" in source.system) {
-            if (!isObject(source.system.customModifiers)) {
+            if (!R.isPlainObject(source.system.customModifiers)) {
                 source.system.customModifiers = {};
             }
             for (const modifier of Object.values(source.system.customModifiers).flat()) {
@@ -90,7 +90,7 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
 
     #isOldRawPredicate(predicate: unknown): predicate is OldRawPredicate {
         if (!predicate || Array.isArray(predicate)) return false;
-        if (isObject<{ predicate?: unknown }>(predicate) && Array.isArray(predicate["predicate"])) return false;
+        if (R.isPlainObject<{ predicate?: unknown }>(predicate) && Array.isArray(predicate["predicate"])) return false;
         return predicate instanceof Object;
     }
 
@@ -99,9 +99,7 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
     }
 
     #isObjectChoiceSet(rule: MaybeWithOldPredicates): rule is ObjectChoiceSet {
-        return (
-            rule.key === "ChoiceSet" && isObject<{ predicate?: unknown }>(rule.choices) && !Array.isArray(rule.choices)
-        );
+        return rule.key === "ChoiceSet" && R.isPlainObject(rule.choices) && !Array.isArray(rule.choices);
     }
 }
 

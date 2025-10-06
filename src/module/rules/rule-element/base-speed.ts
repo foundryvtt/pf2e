@@ -13,13 +13,15 @@ import fields = foundry.data.fields;
 class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
+    static override autogenForms = true;
+
     constructor(data: RuleElementSource, options: RuleElementOptions) {
         super(data, options);
         if (this.invalid) return;
 
         this.selector = this.selector.trim().replace(/-speed$/, "");
-        if (typeof this.value !== "string" && typeof this.value !== "number" && !this.isBracketedValue(this.value)) {
-            this.failValidation("A value must be a number, string, or bracketed value");
+        if (typeof this.value !== "string" && typeof this.value !== "number") {
+            this.failValidation("A value must be a number or string");
         }
     }
 

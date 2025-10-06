@@ -115,6 +115,7 @@
         "ActionsActionsHeader": "Actions",
         "ActionsFreeActionsHeader": "Free Actions",
         "ActionsReactionsHeader": "Reactions",
+        "ActionWithDC": "{label} (DC {dc})",
         "Actor": {
             "ApplyDamage": {
                 "AtFullHealth": "<actor>{actor}</actor> is already at full health.",
@@ -585,6 +586,10 @@
                 }
             },
             "NPC": {
+                "BonusLabel": {
+                    "modifier": "Attack Modifier",
+                    "save": "Save DC"
+                },
                 "Configure": {
                     "Lootable": {
                         "DefaultLootable": "Global Default (Lootable)",
@@ -918,17 +923,6 @@
             "worn-in-slot": "Worn (In Slot)"
         },
         "CastLabel": "Cast",
-        "CastingItemCreateDialog": {
-            "10thLevelWand": "10th level wands don't exist",
-            "cantripDeck5": "Cantrip Deck (5-pack)",
-            "itemTypeLabel": "Item type: ",
-            "label": "Create a spellcasting item from the dropped spell",
-            "scroll": "Scroll",
-            "spellLevelLabel": "Heightened Rank: ",
-            "submit": "Create item",
-            "title": "Create a spellcasting item",
-            "wand": "Wand"
-        },
         "Category": "Category",
         "CharacterDetails": "Character Details",
         "CharacterLevelLabel": "Level",
@@ -1964,6 +1958,101 @@
                 }
             },
             "Consumable": {
+                "FIELDS": {
+                    "ammo": {
+                        "baseType": {
+                            "label": "Ammunition Type"
+                        },
+                        "categories": {
+                            "label": "Ammo Categories",
+                            "hint": "The types of ammo this item can be crafted as, or any if omitted"
+                        }
+                    }
+                },
+                "AmmoCategory": {
+                    "arrow": "Arrow",
+                    "battery": "Battery",
+                    "blowgun-dart": "Blowgun Dart",
+                    "bolt": "Bolt",
+                    "chem": "Chem",
+                    "cutlery": "Cutlery",
+                    "magazine": "Magazine",
+                    "projectile": "Projectile",
+                    "round": "Round",
+                    "sling-bullet": "Sling Bullet",
+                    "spray-pellet": "Spray Pellet",
+                    "weapon": "Weapon",
+                    "wooden-taw": "Wooden Taw"
+                },
+                "AmmoType": {
+                    "arrow": "Arrows",
+                    "backpack-catapult-stone": "Stone (Backpack Catapult)",
+                    "blowgun-dart": "Blowgun Darts",
+                    "battery": "Battery",
+                    "bolt": "Bolts",
+                    "chem": "Chem",
+                    "cutlery": "Cutlery",
+                    "magazine-air-repeater": "Magazine (Air Repeater)",
+                    "magazine-barricade-buster": "Magazine (Barricade Buster)",
+                    "magazine-long-air-repeater": "Magazine (Long Air Repeater)",
+                    "magazine-repeating-crossbow": "Magazine (Repeating Crossbow)",
+                    "magazine-repeating-hand-crossbow": "Magazine (Repeating Hand Crossbow)",
+                    "magazine-repeating-heavy-crossbow": "Magazine (Repeating Heavy Crossbow)",
+                    "magazine": "Magazine",
+                    "projectile": "Projectile",
+                    "round": "Rounds (Unspecified)",
+                    "round-arquebus": "Rounds (Arquebus)",
+                    "round-alicorn-trigger": "Rounds (Alicorn Trigger)",
+                    "round-axe-musket": "Rounds (Axe Musket)",
+                    "round-black-powder-knuckle-dusters": "Rounds (Black Powder Knuckle Dusters)",
+                    "round-blunderbuss": "Rounds (Blunderbuss)",
+                    "round-breath-blaster": "Rounds (Breath Blaster)",
+                    "round-cane-pistol": "Rounds (Cane Pistol)",
+                    "round-clan-pistol": "Rounds (Clan Pistol)",
+                    "round-coat-pistol": "Rounds (Coat Pistol)",
+                    "round-dagger-pistol": "Rounds (Dagger Pistol)",
+                    "round-double-barreled-musket": "Rounds (Double-Barreled Musket)",
+                    "round-double-barreled-pistol": "Rounds (Double-Barreled Pistol)",
+                    "round-dragon-mouth-pistol": "Rounds (Dragon Mouth Pistol)",
+                    "round-drake-rifle": "Rounds (Drake Rifle)",
+                    "round-dueling-pistol": "Rounds (Dueling Pistol)",
+                    "round-dwarven-scattergun": "Rounds (Dwarven Scattergun)",
+                    "round-explosive-dogslicer": "Rounds (Explosive Dogslicer)",
+                    "round-fire-lance": "Rounds (Fire Lance)",
+                    "round-flingflenser": "Rounds (Flingflenser)",
+                    "round-flintlock-musket": "Rounds (Flintlock Musket)",
+                    "round-flintlock-pistol": "Rounds (Flintlock Pistol)",
+                    "round-fulmination-fang": "Rounds (Fulmination Fang)",
+                    "round-gnome-amalgam-musket": "Rounds (Gnome Amalgam Musket)",
+                    "round-gun-sword": "Rounds (Gun Sword)",
+                    "round-hammer-gun": "Rounds (Hammer Gun)",
+                    "round-hand-cannon": "Rounds (Hand Cannon)",
+                    "round-harmona-gun": "Rounds (Harmona Gun)",
+                    "round-howler-pistol": "Rounds (Howler Pistol)",
+                    "round-jezail": "Rounds (Jezail)",
+                    "round-leydroth-spellbreaker": "Rounds (Leydroth Spellbreaker)",
+                    "round-mace-multipistol": "Rounds (Mace Multipistol)",
+                    "round-mithral-tree": "Rounds (Dawnsilver Tree)",
+                    "round-nightmares-lament": "Rounds (Nightmare's Lament)",
+                    "round-pepperbox": "Rounds (Pepperbox)",
+                    "round-petrification-cannon": "Rounds (Petrification Cannon)",
+                    "round-piercing-wind": "Rounds (Piercing Wind)",
+                    "round-rapier-pistol": "Rounds (Rapier Pistol)",
+                    "round-screech-shooter": "Rounds (Screech Shooter)",
+                    "round-shield-pistol": "Rounds (Shield Pistol)",
+                    "round-shobhad-longrifle": "Rounds (Shobhad Longrifle)",
+                    "round-slide-pistol": "Rounds (Slide Pistol)",
+                    "round-spider-gun": "Rounds (Spider Gun)",
+                    "round-spike-launcher": "Rounds (Spike Launcher)",
+                    "round-tentacle-cannon": "Rounds (Tentacle Cannon)",
+                    "round-three-peaked-tree": "Rounds (Three Peaked Tree)",
+                    "round-triggerbrand": "Rounds (Triggerbrand)",
+                    "sling-bullet": "Sling Bullets",
+                    "spray-pellet": "Spray Pellets",
+                    "weapon": "Weapon (Any Usable As Ammo)",
+                    "weapon-dart": "Weapon (Darts)",
+                    "wooden-taw": "Wooden Taws"
+                },
                 "Damage": {
                     "Add": "Add Damage/Healing",
                     "Label": "Damage/Healing",
@@ -1987,7 +2076,21 @@
                     "toolkit": "Toolkit",
                     "wand": "Wand"
                 },
+                "IsSpecialAmmo": {
+                    "label": "Is Special Ammunition",
+                    "hint": "Special ammunition such as magical and alchemical ammo can be crafted as a specific type of ammo"
+                },
+                "SpecialAmmoPicker": {
+                    "Prompt": "Select an ammo type for this item",
+                    "OwnWeapons": "Own Weapons",
+                    "WeaponSpecific": "Weapon Specific",
+                    "General": "General"
+                },
                 "Plural": "Consumables",
+                "Spell": {
+                    "Empty": "Empty",
+                    "Label": "Embedded Spell"
+                },
                 "Uses": {
                     "AutoDestroy": "Destroy on Use",
                     "Label": "Uses",
@@ -2774,8 +2877,20 @@
                     "expend": {
                         "hint": "This indicates how much ammunition is consumed with each ranged Strike you make with the weapon. Other abilities might cite the use of Expend as the amount of ammo required to complete the action.",
                         "label": "Expend"
+                    },
+                    "ammo": {
+                        "baseType": {
+                            "label": "Ammunition Type"
+                        },
+                        "builtIn": {
+                            "label": "Ammo is Built In"
+                        },
+                        "capacity": {
+                            "label": "Capacity"
+                        }
                     }
                 },
+                "AnyBasicAmmo": "Any Basic Ammo",
                 "CanBeAmmo": {
                     "Label": "Usable as Ammo",
                     "Hint": "Indicate that this weapon can be loaded into another weapon as ammunition."
@@ -3156,7 +3271,6 @@
         "NPCNotesTitle": "Write any notes for this NPC here.",
         "NPCWeaponAddDamage": "Add Damage Partial",
         "NPCWeaponAttackEffect": "Additional Attack Effects",
-        "NPCWeaponAttackLabel": "Attack Modifier",
         "NPCWeaponDamageLabel": "Damage Formula",
         "Nationality": "Nationality",
         "NewLabel": "New",
@@ -3281,7 +3395,9 @@
         "PreciousMaterialWarpglassDescription": "This bizarre substance is fashioned from the raw, chaotic quintessence of the Maelstrom. It can be fashioned into weapons and items, but is too unstable to make into useful armor or shields. Raw warpglass is an opalescent glassy material with surprising strength. When worked, it changes its appearance-though not its properties-to appear as random striations of other metals and types of stone.",
         "PreparationTypeInnate": "Innate",
         "PreparationTypeItems": "Items Only",
+        "PreparationTypeFocus": "Focus",
         "PreparationTypePrepared": "Prepared",
+        "PreparationTypeRitual": "Ritual",
         "PreparationTypeSpontaneous": "Spontaneous",
         "Prerequisite1": "Prerequisite 1",
         "Prerequisite2": "Prerequisite 2",
@@ -3295,7 +3411,6 @@
         "ProficiencyLevel2": "Expert",
         "ProficiencyLevel3": "Master",
         "ProficiencyLevel4": "Legendary",
-        "ProficiencyRankLabel": "Prof",
         "ProgressBar": {
             "LoadingComplete": "Loading complete",
             "LoadingPack": "Loading {pack}"
@@ -3749,7 +3864,7 @@
                     "Choices": {
                         "ABPFundamentalPotency": "ABP: Allow Property Runes",
                         "ABPRulesAsWritten": "ABP: Disallow Property Runes",
-                        "noABP": "Do not use ABP"
+                        "noABP": "Disabled"
                     },
                     "Hint": "Enable the Automatic Bonus Progression variant rule. Skill potency must currently be managed manually.",
                     "Name": "Automatic Bonus Progression"
@@ -3771,9 +3886,17 @@
                 },
                 "Name": "Variant Rules",
                 "Proficiency": {
-                    "Hint": "Play with the proficiency without level variant from GM Core pg 85.",
+                    "Hint": "Play with the Proficiency without Level variant from GM Core pg 85. If enabled, alternative proficiency bonuses can also be set (defaults recommended by GM Core).",
+                    "Legend": "Proficiency without Level",
                     "ModifiersHint": "Set the modifier value for each proficiency rank (proficiency without level only).",
-                    "Name": "Proficiency without Level"
+                    "Name": "Enabled",
+                    "Rank": {
+                        "Expert": "E",
+                        "Legendary": "L",
+                        "Master": "M",
+                        "Trained": "T",
+                        "Untrained": "U"
+                    }
                 },
                 "Stamina": {
                     "Hint": "Play with the stamina variant from Gamemastery Guide pg 200.",
@@ -3950,6 +4073,14 @@
         "SpellTraditionsLabel": "Traditions",
         "SpellUnlimitedLabel": "Unlimited",
         "SpellUsesLabel": "Uses",
+        "SpellcastingItemCreator": {
+            "CantripDeck5": "Cantrip Deck (5-pack)",
+            "ItemType": "Item type",
+            "Label": "Create an item from {name}",
+            "NoValidRanks": "No Valid Ranks",
+            "Title": "Creating Spellcasting Item",
+            "ViewItem": "View Item"
+        },
         "SpellcastingSettings": {
             "AutoHeightenDefault": "Default (Use Actor Level)",
             "AutoHeightenLabel": "Auto Heighten Rank",
@@ -3957,17 +4088,9 @@
         },
         "SpellcastingTypeLabel": "Spellcasting Type",
         "SpellsActionHeader": "Action",
-        "StackGroupArrows": "Arrows",
-        "StackGroupBlowgunDarts": "Blowgun Darts",
-        "StackGroupBolts": "Bolts",
         "StackGroupCoins": "Coins",
         "StackGroupGems": "Gems",
         "StackGroupLabel": "Stack Group",
-        "StackGroupRounds10": "Rounds (10)",
-        "StackGroupRounds5": "Rounds (5)",
-        "StackGroupSlingBullets": "Sling Bullets",
-        "StackGroupSprayPellets": "Spray Pellets",
-        "StackGroupWoodenTaws": "Wooden Taws",
         "StaminaPointsHeader": "Stamina Points",
         "StaminaPointsShortLabel": "Stamina",
         "StatusBonusShortLabel": "Status",
@@ -4206,6 +4329,7 @@
         "TraitArchetype": "Archetype",
         "TraitArchon": "Archon",
         "TraitArdande": "Ardande",
+        "TraitArea": "Area",
         "TraitAreaDamage": "Area Damage",
         "TraitArtifact": "Artifact",
         "TraitAstral": "Astral",
@@ -5506,6 +5630,7 @@
                 "asp-coil": "Asp Coil",
                 "atlatl": "Atlatl",
                 "axe-musket": "Axe Musket",
+                "backpack-catapult": "Backpack Catapult",
                 "barricade-buster": "Barricade Buster",
                 "bastard-sword": "Bastard Sword",
                 "battle-axe": "Battle Axe",

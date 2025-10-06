@@ -1,67 +1,20 @@
-import { ConsumablePF2e, type SpellPF2e } from "@item";
+import { ConsumablePF2e, ItemPF2e, type SpellPF2e } from "@item";
 import { ConsumableSource } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { traditionSkills } from "@item/spellcasting-entry/trick.ts";
 import { DCOptions, calculateDC } from "@module/dc.ts";
-import { ErrorPF2e, setHasElement } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
 
-const CANTRIP_DECK_ID = "tLa4bewBhyqzi6Ow";
+const CANTRIP_DECK_UUID = "Compendium.pf2e.equipment-srd.Item.tLa4bewBhyqzi6Ow";
 
-const scrollCompendiumIds: Record<number, string | undefined> = {
-    1: "RjuupS9xyXDLgyIr",
-    2: "Y7UD64foDbDMV9sx",
-    3: "ZmefGBXGJF3CFDbn",
-    4: "QSQZJ5BC3DeHv153",
-    5: "tjLvRWklAylFhBHQ",
-    6: "4sGIy77COooxhQuC",
-    7: "fomEZZ4MxVVK3uVu",
-    8: "iPki3yuoucnj7bIt",
-    9: "cFHomF3tty8Wi1e5",
-    10: "o1XIHJ4MJyroAHfF",
-};
+type SpellConsumableItemType = "cantripDeck5" | keyof ConfigPF2e["PF2E"]["spellcastingItems"];
 
-type SpellConsumableItemType = "cantripDeck5" | "scroll" | "wand";
-const SPELL_CONSUMABLE_NAME_TEMPLATES = {
-    cantripDeck5: "PF2E.Item.Physical.FromSpell.CantripDeck5",
-    scroll: "PF2E.Item.Physical.FromSpell.Scroll",
-    wand: "PF2E.Item.Physical.FromSpell.Wand",
-};
-
-const wandCompendiumIds: Record<number, string | undefined> = {
-    1: "UJWiN0K3jqVjxvKk",
-    2: "vJZ49cgi8szuQXAD",
-    3: "wrDmWkGxmwzYtfiA",
-    4: "Sn7v9SsbEDMUIwrO",
-    5: "5BF7zMnrPYzyigCs",
-    6: "kiXh4SUWKr166ZeM",
-    7: "nmXPj9zuMRQBNT60",
-    8: "Qs8RgNH6thRPv2jt",
-    9: "Fgv722039TVM5JTc",
-};
-
-function getIdForSpellConsumable(type: SpellConsumableItemType, heightenedLevel: number): string | null {
-    switch (type) {
-        case "cantripDeck5":
-            return CANTRIP_DECK_ID;
-        case "scroll":
-            return scrollCompendiumIds[heightenedLevel] ?? null;
-        default:
-            return wandCompendiumIds[heightenedLevel] ?? null;
-    }
-}
-
-function getNameForSpellConsumable(type: SpellConsumableItemType, spellName: string, heightenedLevel: number): string {
-    const templateId = SPELL_CONSUMABLE_NAME_TEMPLATES[type] || `${type} of {name} (Level {level})`;
-    return game.i18n.format(templateId, { name: spellName, level: heightenedLevel });
-}
-
-function isSpellConsumable(itemId: string): boolean {
+function isSpellConsumableUUID(itemId: string): boolean {
     return (
-        itemId === CANTRIP_DECK_ID ||
-        Object.values(scrollCompendiumIds).includes(itemId) ||
-        Object.values(wandCompendiumIds).includes(itemId)
+        itemId === CANTRIP_DECK_UUID ||
+        Object.values(CONFIG.PF2E.spellcastingItems).some((c) => Object.values(c.compendiumUuids).includes(itemId))
     );
 }
 
@@ -69,18 +22,19 @@ async function createConsumableFromSpell(
     spell: SpellPF2e,
     {
         type,
-        heightenedLevel = spell.baseRank,
+        rank = spell.baseRank,
         mystified = false,
     }: {
-        type: SpellConsumableItemType;
-        heightenedLevel?: number;
+        type: string;
+        rank?: number;
         mystified?: boolean;
     },
 ): Promise<ConsumableSource> {
-    const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
-    const itemId = getIdForSpellConsumable(type, heightenedLevel);
-    const consumable = await pack?.getDocument(itemId ?? "");
-    if (!(consumable instanceof ConsumablePF2e)) {
+    const data = objectHasKey(CONFIG.PF2E.spellcastingItems, type) ? CONFIG.PF2E.spellcastingItems[type] : null;
+    const uuids: Record<number, string | null | undefined> = data?.compendiumUuids ?? [];
+    const uuid = uuids?.[rank] ?? (type === "cantripDeck5" ? CANTRIP_DECK_UUID : null);
+    const consumable = uuid ? await fromUuid<ItemPF2e>(uuid) : null;
+    if (!consumable?.isOfType("consumable")) {
         throw ErrorPF2e("Failed to retrieve consumable item");
     }
 
@@ -94,7 +48,10 @@ async function createConsumableFromSpell(
     }
     traits.value.sort();
 
-    consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
+    const nameTemplate = type === "cantripDeck5" ? "PF2E.Item.Physical.FromSpell.CantripDeck5" : data?.nameTemplate;
+    consumableSource.name = nameTemplate
+        ? game.i18n.format(nameTemplate, { name: spell.name, level: rank })
+        : `${type} of ${spell.name} (Rank ${rank})`;
     const description = consumableSource.system.description.value;
 
     consumableSource.system.description.value = (() => {
@@ -113,7 +70,7 @@ async function createConsumableFromSpell(
     if (type !== "cantripDeck5") {
         consumableSource.system.spell = fu.mergeObject(
             spell._source,
-            { _id: fu.randomID(), system: { location: { value: null, heightenedLevel } } },
+            { _id: fu.randomID(), system: { location: { value: null, heightenedLevel: rank } } },
             { inplace: false },
         );
     }
@@ -147,5 +104,5 @@ function calculateTrickMagicItemCheckDC(
     return Object.fromEntries(skills);
 }
 
-export { calculateTrickMagicItemCheckDC, createConsumableFromSpell, isSpellConsumable };
+export { CANTRIP_DECK_UUID, calculateTrickMagicItemCheckDC, createConsumableFromSpell, isSpellConsumableUUID };
 export type { SpellConsumableItemType, TrickMagicItemDifficultyData };

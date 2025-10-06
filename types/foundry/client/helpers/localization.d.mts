@@ -82,7 +82,10 @@ export default class Localization {
      * }
      * ```
      */
-    static localizeDataModel(model: typeof DataModel, options?: { prefixes?: string[]; prefixPath?: string }): void;
+    static localizeDataModel(
+        model: AbstractConstructorOf<DataModel>,
+        options?: { prefixes?: string[]; prefixPath?: string },
+    ): void;
 
     /**
    * Localize the "label" and "hint" properties for all fields in a data schema.

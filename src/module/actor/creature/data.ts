@@ -9,7 +9,6 @@ import type {
     ActorTraitsSource,
     AttributeBasedTraceData,
     BaseActorSourcePF2e,
-    StrikeData,
 } from "@actor/data/base.ts";
 import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { Modifier, RawModifier } from "@actor/modifiers.ts";
@@ -119,7 +118,6 @@ interface CreatureSystemData extends Omit<CreatureSystemSource, "attributes">, A
 
     skills: Record<string, SkillData>;
 
-    actions?: StrikeData[];
     resources: CreatureResources;
 }
 

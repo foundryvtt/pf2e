@@ -539,28 +539,7 @@
                         "key": "ActiveEffectLike",
                         "mode": "add",
                         "path": "system.attributes.familiarAbilities.value",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 5,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 11,
-                                    "start": 6,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 17,
-                                    "start": 12,
-                                    "value": 3
-                                },
-                                {
-                                    "start": 18,
-                                    "value": 4
-                                }
-                            ]
-                        }
+                        "value": "match(when(lte(@actor.level, 5), 1), when(btwn(@actor.level, 6, 11), 2), when(btwn(@actor.level, 12, 17), 3), when(gte(@actor.level, 18), 4))"
                     }
                 ],
                 "slug": "familiar-witch",
@@ -4834,24 +4813,7 @@
                         "key": "FlatModifier",
                         "selector": "skill-check",
                         "type": "proficiency",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "value": "@actor.level -2"
-                                },
-                                {
-                                    "end": 6,
-                                    "start": 5,
-                                    "value": "@actor.level -1"
-                                },
-                                {
-                                    "start": 7,
-                                    "value": "@actor.level"
-                                }
-                            ],
-                            "field": "actor|level"
-                        }
+                        "value": "match(when(lte(@actor.level, 4), @actor.level - 2), when(btwn(@actor.level, 5, 6), @actor.level - 1), when(gte(@actor.level, 7), @actor.level))"
                     }
                 ],
                 "slug": "untrained-improvisation",

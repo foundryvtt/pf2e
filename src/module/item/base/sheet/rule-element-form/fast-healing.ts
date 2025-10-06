@@ -22,13 +22,13 @@ class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRule
     }
 
     override async getData(): Promise<FastHealingSheetData> {
-        return {
-            ...(await super.getData()),
+        const data = await super.getData();
+        return Object.assign(data, {
             types: {
                 "fast-healing": "PF2E.Encounter.Broadcast.FastHealing.fast-healing.Name",
                 regeneration: "PF2E.Encounter.Broadcast.FastHealing.regeneration.Name",
             },
-        };
+        });
     }
 
     override updateObject(source: FastHealingSource): void {

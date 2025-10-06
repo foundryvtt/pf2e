@@ -8,7 +8,7 @@ import type {
 } from "@common/abstract/_module.d.mts";
 import type { UserAction } from "@common/constants.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
-import type { ItemType } from "@item/base/data/index.ts";
+import type { ItemType } from "@item/types.ts";
 import { RuleElement } from "@module/rules/index.ts";
 import type { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";

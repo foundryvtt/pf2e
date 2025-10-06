@@ -22,6 +22,63 @@
         },
         "rules": [
             {
+                "brackets": [
+                    {
+                        "start": 7,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "22 + @actor.level"
+                            },
+                            "size": "med",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 9
+                                }
+                            },
+                            "strikes": {
+                                "bastard-sword": {
+                                    "ability": "str",
+                                    "baseType": "bastard-sword",
+                                    "category": "martial",
+                                    "damage": {
+                                        "damageType": "slashing",
+                                        "dice": 1,
+                                        "die": "d8",
+                                        "modifier": 12
+                                    },
+                                    "group": "sword",
+                                    "img": null,
+                                    "label": "PF2E.Weapon.Base.bastard-sword",
+                                    "modifier": 25,
+                                    "traits": [
+                                        "two-hand-d12"
+                                    ]
+                                }
+                            },
+                            "tempHP": 40
+                        }
+                    },
+                    {
+                        "start": 9,
+                        "value": {
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 33
+                                }
+                            },
+                            "strikes": {
+                                "bastard-sword": {
+                                    "damage": {
+                                        "modifier": 20
+                                    },
+                                    "modifier": 30
+                                }
+                            },
+                            "tempHP": 60
+                        }
+                    }
+                ],
                 "hasHands": true,
                 "key": "BattleForm",
                 "overrides": {
@@ -66,67 +123,6 @@
                             "value": "10+ 5*floor((@item.level -7)/2)"
                         }
                     ]
-                },
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "start": 7,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "22 + @actor.level"
-                                },
-                                "size": "med",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 9
-                                    }
-                                },
-                                "strikes": {
-                                    "bastard-sword": {
-                                        "ability": "str",
-                                        "baseType": "bastard-sword",
-                                        "category": "martial",
-                                        "damage": {
-                                            "damageType": "slashing",
-                                            "dice": 1,
-                                            "die": "d8",
-                                            "modifier": 12
-                                        },
-                                        "group": "sword",
-                                        "img": null,
-                                        "label": "PF2E.Weapon.Base.bastard-sword",
-                                        "modifier": 25,
-                                        "traits": [
-                                            "two-hand-d12"
-                                        ]
-                                    }
-                                },
-                                "tempHP": 40
-                            }
-                        },
-                        {
-                            "start": 9,
-                            "value": {
-                                "size": "lg",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 33
-                                    }
-                                },
-                                "strikes": {
-                                    "bastard-sword": {
-                                        "damage": {
-                                            "modifier": 20
-                                        },
-                                        "modifier": 30
-                                    }
-                                },
-                                "tempHP": 60
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
                 }
             },
             {

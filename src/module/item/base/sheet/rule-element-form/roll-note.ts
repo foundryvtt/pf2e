@@ -6,14 +6,13 @@ import { tagify } from "@util/tags.ts";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 /** Form handler for the RollNote rule element */
-class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
+export class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
     override template = "systems/pf2e/templates/items/rules/note.hbs";
 
-    override async getData(): Promise<RollNoteFormSheetData> {
-        return {
-            ...(await super.getData()),
-            selectorIsArray: Array.isArray(this.rule.selector),
-        };
+    override async getData(): Promise<RuleElementFormSheetData<NoteRESource, RollNoteRuleElement>> {
+        const data = await super.getData();
+        if (typeof data.rule.selector === "string") data.rule.selector = [data.rule.selector];
+        return data;
     }
 
     override activateListeners(html: HTMLElement): void {
@@ -32,18 +31,10 @@ class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
     override updateObject(ruleData: { key: string } & Partial<Record<string, JSONValue>>): void {
         const shouldBeHidden = htmlQuery<HTMLInputElement>(this.element, ".hidden-value")?.checked;
         const isHidden = ["gm", "owner"].includes(String(this.rule.visibility));
-        if (shouldBeHidden !== isHidden) {
-            if (shouldBeHidden) {
-                ruleData.visibility = "owner";
-            } else {
-                ruleData.visibility = null;
-            }
-        }
-
+        if (shouldBeHidden !== isHidden) ruleData.visibility = shouldBeHidden ? "owner" : null;
         if (Array.isArray(ruleData.outcome) && ruleData.outcome.length === 0) {
             delete ruleData.outcome;
         }
-
         if (typeof ruleData.title === "string") {
             ruleData.title = ruleData.title.trim();
         }
@@ -51,9 +42,3 @@ class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
         super.updateObject(ruleData);
     }
 }
-
-interface RollNoteFormSheetData extends RuleElementFormSheetData<NoteRESource, RollNoteRuleElement> {
-    selectorIsArray: boolean;
-}
-
-export { RollNoteForm };

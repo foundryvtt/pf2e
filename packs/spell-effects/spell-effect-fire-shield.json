@@ -44,69 +44,7 @@
                         ]
                     }
                 ],
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": {
-                                "ac": 1,
-                                "broken": false,
-                                "brokenThreshold": 0,
-                                "destroyed": false,
-                                "hardness": 10,
-                                "hp": {
-                                    "max": 40,
-                                    "value": 40
-                                }
-                            }
-                        },
-                        {
-                            "end": 7,
-                            "start": 6,
-                            "value": {
-                                "ac": 1,
-                                "broken": false,
-                                "brokenThreshold": 0,
-                                "destroyed": false,
-                                "hardness": 10,
-                                "hp": {
-                                    "max": 50,
-                                    "value": 50
-                                }
-                            }
-                        },
-                        {
-                            "end": 9,
-                            "start": 8,
-                            "value": {
-                                "ac": 1,
-                                "broken": false,
-                                "brokenThreshold": 0,
-                                "destroyed": false,
-                                "hardness": 10,
-                                "hp": {
-                                    "max": 60,
-                                    "value": 60
-                                }
-                            }
-                        },
-                        {
-                            "start": 10,
-                            "value": {
-                                "ac": 1,
-                                "broken": false,
-                                "brokenThreshold": 0,
-                                "destroyed": false,
-                                "hardness": 10,
-                                "hp": {
-                                    "max": 70,
-                                    "value": 70
-                                }
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "match(when(lte(@item.level, 5), \"ac\"), when(btwn(@item.level, 6, 7), \"ac\"), when(btwn(@item.level, 8, 9), \"ac\"), when(gte(@item.level, 10), \"ac\"))"
             },
             {
                 "key": "RollOption",

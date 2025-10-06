@@ -1,5 +1,5 @@
 import type { DataModel, DataSchema } from "@common/abstract/_module.d.mts";
-import { ItemType } from "@item/base/data/index.ts";
+import type { ItemType } from "@item/types.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import type { PartySystemData } from "./data.ts";
 

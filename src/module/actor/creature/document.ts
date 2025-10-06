@@ -4,7 +4,7 @@ import { CORE_RESOURCES } from "@actor/character/values.ts";
 import type { CreatureSource } from "@actor/data/index.ts";
 import { Modifier, MODIFIER_TYPES, RawModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
-import { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
+import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type {
@@ -13,14 +13,15 @@ import type {
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
 import { ArmorPF2e, ItemPF2e, PhysicalItemPF2e, ShieldPF2e, SpellcastingEntryPF2e } from "@item";
-import { ArmorSource, ItemType } from "@item/base/data/index.ts";
+import { ArmorSource } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
-import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
+import type { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
 import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 import { ItemSpellcasting } from "@item/spellcasting-entry/item-spellcasting.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
+import type { ItemType } from "@item/types.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { ItemAttacher } from "@module/apps/item-attacher.ts";
 import { Rarity, SIZE_SLUGS, SIZES, ZeroToFour, ZeroToTwo } from "@module/data.ts";

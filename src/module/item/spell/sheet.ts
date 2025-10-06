@@ -1,7 +1,9 @@
 import type { ActorPF2e } from "@actor";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
-import { OneToTen } from "@module/data.ts";
+import type { EffectAreaShape } from "@item/types.ts";
+import { EFFECT_AREA_SHAPES } from "@item/values.ts";
+import type { OneToTen } from "@module/data.ts";
 import { TagifyEntry, createTagifyTraits } from "@module/sheet/helpers.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
@@ -22,14 +24,13 @@ import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import { createSpellRankLabel } from "./helpers.ts";
 import type {
-    EffectAreaShape,
     SpellDamageSource,
     SpellHeighteningInterval,
     SpellPF2e,
     SpellSystemData,
     SpellSystemSource,
 } from "./index.ts";
-import { EFFECT_AREA_SHAPES, MAGIC_TRADITIONS } from "./values.ts";
+import { MAGIC_TRADITIONS } from "./values.ts";
 
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {

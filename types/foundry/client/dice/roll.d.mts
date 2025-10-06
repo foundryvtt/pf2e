@@ -1,3 +1,4 @@
+import RollResolver from "@client/applications/dice/roll-resolver.mjs";
 import ChatMessage from "@client/documents/chat-message.mjs";
 import { RollMode } from "@common/constants.mjs";
 import { ChatMessageSource } from "@common/documents/chat-message.mjs";
@@ -39,17 +40,41 @@ export default class Roll {
     /** The identified terms of the Roll */
     terms: RollTerm[];
 
-    /** An array of inner DiceTerms which were evaluated as part of the Roll evaluation */
+    /**
+     * An array of inner DiceTerms which were evaluated as part of the Roll evaluation
+     * @internal
+     */
     protected _dice: DiceTerm[];
 
-    /** Store the original cleaned formula for the Roll, prior to any internal evaluation or simplification */
+    /**
+     * Store the original cleaned formula for the Roll, prior to any internal evaluation or simplification
+     * @internal
+     */
     _formula: string;
 
-    /** Track whether this Roll instance has been evaluated or not. Once evaluated the Roll is immutable. */
+    /**
+     * Track whether this Roll instance has been evaluated or not. Once evaluated the Roll is immutable.
+     * @internal
+     */
     _evaluated: boolean;
 
-    /** Cache the numeric total generated through evaluation of the Roll. */
+    /**
+     * Cache the numeric total generated through evaluation of the Roll.
+     * @internal
+     */
     protected _total: number | undefined;
+
+    /**
+     * A reference to the Roll at the root of the evaluation tree.
+     * @internal
+     */
+    protected _root: Roll;
+
+    /**
+     * A reference to the RollResolver app being used to externally resolve this Roll.
+     * @internal
+     */
+    protected _resolver: RollResolver;
 
     /** A Proxy environment for safely evaluating a string using only available Math functions */
     static MATH_PROXY: RollMathProxy;
@@ -59,6 +84,11 @@ export default class Roll {
 
     /** The HTML template used to render an expanded Roll tooltip to the chat log */
     static TOOLTIP_TEMPLATE: string;
+
+    /**
+     * A mapping of Roll instances to currently-active resolvers.
+     */
+    static RESOLVERS: Map<Roll, RollResolver>;
 
     /**
      * Prepare the data structure used for the Roll.
@@ -81,8 +111,15 @@ export default class Roll {
     /** The resulting arithmetic expression after rolls have been evaluated */
     get result(): string;
 
-    /** Return the total result of the Roll expression if it has been evaluated. */
+    /**
+     * Return the total result of the Roll expression if it has been evaluated.
+     */
     get total(): number | undefined;
+
+    /**
+     * Return the arbitrary product of evaluating this Roll.
+     */
+    get product(): unknown;
 
     /** Whether this Roll contains entirely deterministic terms or whether there is some randomness. */
     get isDeterministic(): boolean;
@@ -509,4 +546,4 @@ export interface EvaluateRollSyncParams extends EvaluateRollParams {
 }
 
 // Empty extended interface that can be expanded by the system without polluting Math itself
-export interface RollMathProxy extends Math {}
+export interface RollMathProxy extends Math, Record<string, number | ((...args: any[]) => unknown)> {}

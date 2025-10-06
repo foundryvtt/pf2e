@@ -1,12 +1,6 @@
 import { createBatchRuleElementUpdate, processChoicesFromData } from "@module/rules/helpers.ts";
 import { Predicate } from "@system/predication.ts";
-import {
-    DataUnionField,
-    PredicateField,
-    StrictArrayField,
-    StrictBooleanField,
-    StrictStringField,
-} from "@system/schema-data-fields.ts";
+import { DataUnionField, PredicateField, StrictArrayField, StrictBooleanField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import * as R from "remeda";
 import { RollOptionToggle } from "../../synthetics.ts";
@@ -93,12 +87,7 @@ class RollOptionRuleElement extends RuleElement<RollOptionSchema> {
             selection: new fields.StringField({ required: false, blank: false, nullable: false, initial: undefined }),
             toggleable: new DataUnionField(
                 [
-                    new StrictStringField<"totm">({
-                        required: false,
-                        nullable: false,
-                        choices: ["totm"],
-                        initial: undefined,
-                    }),
+                    new fields.StringField<"totm">({ required: false, nullable: false, choices: ["totm"] }),
                     new StrictBooleanField({ required: false, nullable: false, initial: false }),
                 ],
                 { required: false, nullable: false, initial: undefined },

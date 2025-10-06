@@ -28,7 +28,6 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "property": "materials",
-                "selector": "strike-damage",
                 "value": "cold-iron"
             },
             {
@@ -38,13 +37,15 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "property": "materials",
-                "selector": "strike-damage",
                 "value": "silver"
             },
             {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
                 "mode": "add",
+                "predicate": [
+                    "item:category:unarmed"
+                ],
                 "property": "traits",
                 "value": "earth"
             },
@@ -66,13 +67,12 @@
                 "predicate": [
                     {
                         "gte": [
-                            "{item|level}",
+                            "parent:level",
                             9
                         ]
                     }
                 ],
                 "property": "materials",
-                "selector": "strike-damage",
                 "value": "adamantine"
             }
         ],

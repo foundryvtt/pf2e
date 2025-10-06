@@ -114,11 +114,9 @@ export async function craftSpellConsumable(
 ): Promise<void> {
     const consumableType = item.category;
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
-    const spellLevel = (
-        consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)
-    ) as OneToTen;
+    const rank = (consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)) as OneToTen;
     const validSpells = actor.itemTypes.spell
-        .filter((s) => s.baseRank <= spellLevel && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
+        .filter((s) => s.baseRank <= rank && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
         .reduce(
             (result, spell) => {
                 result[spell.baseRank] = [...(result[spell.baseRank] || []), spell];
@@ -148,7 +146,7 @@ export async function craftSpellConsumable(
                     if (!spell?.isOfType("spell")) return;
                     const data = await createConsumableFromSpell(spell, {
                         type: consumableType,
-                        heightenedLevel: spellLevel,
+                        rank,
                     });
                     return craftItem(new ItemProxyPF2e(data) as PhysicalItemPF2e, itemQuantity, actor);
                 },

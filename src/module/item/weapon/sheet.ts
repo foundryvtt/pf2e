@@ -90,11 +90,25 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         const specificMagicData =
             weapon._source.system.specific ?? R.pick(weapon._source.system, ["material", "runes"]);
+        const ammoTypes = R.pipe(
+            CONFIG.PF2E.ammoTypes,
+            R.entries(),
+            R.map(([key, data]) => ({
+                value: key,
+                label: game.i18n.localize(data.label),
+                group: data.weapon
+                    ? game.i18n.localize("PF2E.Item.Consumable.SpecialAmmoPicker.WeaponSpecific")
+                    : undefined,
+            })),
+            R.sortBy((o) => o.label),
+        );
 
         return {
             ...sheetData,
             abpEnabled,
             adjustedDiceHint,
+            isAmmoLocked: this.item.system.traits.value.includes("repeating"),
+            ammoTypes: [{ value: "", label: game.i18n.localize("PF2E.Item.Weapon.AnyBasicAmmo") }, ...ammoTypes],
             baseTypes: sortStringRecord(CONFIG.PF2E.baseWeaponTypes),
             categories: CONFIG.PF2E.weaponCategories,
             conditionTypes: sortStringRecord(CONFIG.PF2E.conditionTypes),
@@ -201,9 +215,10 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             }
         }
 
-        // Set reload to null if its empty string
-        if (formData["system.reload.value"] === "") {
-            formData["system.reload.value"] = null;
+        // Set certain properties to null if its empty string
+        const emptyIsNull = ["system.reload.value", "system.ammo.baseType"];
+        for (const prop of emptyIsNull) {
+            if (!formData[prop]) formData[prop] = null;
         }
 
         return super._updateObject(event, formData);
@@ -222,6 +237,8 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     adjustedDiceHint: string | null;
     adjustedLevelHint: string | null;
     adjustedPriceHint: string | null;
+    isAmmoLocked: boolean;
+    ammoTypes: foundry.applications.fields.FormSelectOption[];
     baseTypes: typeof CONFIG.PF2E.baseWeaponTypes;
     categories: typeof CONFIG.PF2E.weaponCategories;
     conditionTypes: typeof CONFIG.PF2E.conditionTypes;

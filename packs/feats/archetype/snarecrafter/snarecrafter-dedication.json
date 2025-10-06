@@ -41,6 +41,7 @@
                 "key": "CraftingAbility",
                 "label": "PF2E.SpecificRule.DedicationCraftingEntry.Snarecrafter",
                 "maxSlots": "max(4,2*@actor.system.skills.crafting.rank)",
+                "priority": 60,
                 "slug": "snarecrafter"
             },
             {
@@ -50,12 +51,21 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.crafting.entries.snareSpecialist.maxSlots",
+                "path": "system.crafting.entries.snarecrafter.maxSlots",
                 "phase": "beforeDerived",
                 "predicate": [
                     "class:ranger"
                 ],
                 "value": "max(4,2*@actor.system.skills.survival.rank)"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:category:snare"
+                ],
+                "selector": "inline-dc",
+                "value": "@actor.system.attributes.classDC.totalModifier"
             }
         ],
         "traits": {

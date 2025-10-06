@@ -7,13 +7,14 @@ import { RawItemChatData } from "@item/base/data/index.ts";
 import { performLatePreparation } from "@item/helpers.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
+import { PickAThingPrompt } from "@module/apps/pick-a-thing-prompt/app.ts";
 import type { ValueAndMax } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";
 import type { ConsumableSource, ConsumableSystemData } from "./data.ts";
-import type { ConsumableCategory, ConsumableTrait, OtherConsumableTag } from "./types.ts";
+import { AmmoType, type ConsumableCategory, type ConsumableTrait, type OtherConsumableTag } from "./types.ts";
 import { DAMAGE_ONLY_CONSUMABLE_CATEGORIES, DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES } from "./values.ts";
 
 class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
@@ -73,9 +74,13 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         this._embeddedSpell = undefined;
 
         this.system.uses.max ||= 1;
+        this.prepareAmmoData();
+    }
+
+    private prepareAmmoData() {
+        if (!this.isAmmo) return;
 
         // Refuse to serve rule elements if this item is ammunition and has types that perform writes
-        if (!this.isAmmo) return;
         for (const rule of this.system.rules) {
             if (rule.key === "RollOption" && "toggleable" in rule && !!rule.toggleable) {
                 console.warn("Toggleable RollOption rule elements may not be added to ammunition");
@@ -87,6 +92,20 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 break;
             }
         }
+
+        // Initialize ammo data
+        const ammoData = (this.system.ammo = {
+            baseType: null,
+            categories: null,
+            behavior: "single",
+            ...(this.system.ammo ?? {}),
+        });
+
+        // Determine ammo behavior and stack group from ammo type
+        const ammoTypeData = ammoData.baseType ? CONFIG.PF2E.ammoTypes[ammoData.baseType] : null;
+        const category = ammoTypeData?.category ?? ammoData.categories?.[0];
+        ammoData.behavior = CONFIG.PF2E.ammoCategories[category ?? "arrow"]?.behavior ?? "single";
+        this.system.stackGroup = ammoTypeData?.stackGroup ?? null;
     }
 
     override async getChatData(
@@ -150,7 +169,25 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             return false;
         }
 
-        return this.isAmmo;
+        // If this is not ammo or the weapon doesn't take ammo, return
+        const thisData = this.system.ammo;
+        const weaponData = weapon.system.ammo;
+        if (!this.isAmmo || !thisData || !weaponData || weaponData.builtIn) {
+            return false;
+        }
+
+        const thisAmmoTypeData = thisData.baseType ? CONFIG.PF2E.ammoTypes[thisData.baseType] : null;
+        const weaponAmmoTypeData = weaponData.baseType ? CONFIG.PF2E.ammoTypes[weaponData.baseType] : null;
+        return (
+            // Return true if the weapon accepts anything
+            (thisData.behavior === "single" && weaponData.baseType === null) ||
+            // Return true if it is an exact match
+            thisData.baseType === weaponData.baseType ||
+            // Return true if one is a general variant of the other
+            (!!thisAmmoTypeData &&
+                thisAmmoTypeData.category === weaponAmmoTypeData?.category &&
+                (!thisAmmoTypeData.weapon || !weaponAmmoTypeData.weapon))
+        );
     }
 
     /** Use a consumable item, sending the result to chat */
@@ -237,6 +274,50 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return entry?.cast(spell, { consume: false });
     }
 
+    protected override async _preCreate(
+        data: DeepPartial<this["_source"]>,
+        options: foundry.abstract.DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
+    ): Promise<boolean | void> {
+        // Check if this is special ammo being added to an actor, if so, show a prompt
+        const ammoData = this._source.system.ammo;
+        if (this.parent && this.isAmmo && ammoData && ammoData.categories && !ammoData.baseType) {
+            const categories = ammoData.categories;
+            const allAmmoTypes = R.entries(CONFIG.PF2E.ammoTypes).map(([slug, data]) => ({
+                slug,
+                ...data,
+                option: { value: slug, label: game.i18n.localize(data.label) },
+            }));
+            const compatibleTypes = ammoData.categories.length
+                ? allAmmoTypes.filter((t) => categories.includes(t.category))
+                : allAmmoTypes.filter((t) => CONFIG.PF2E.ammoCategories[t.category].behavior === "single");
+            const supported: string[] = R.unique(
+                this.parent.itemTypes.weapon.map((w) => w.system.ammo?.baseType).filter((t) => !!t),
+            );
+            const result = await new PickAThingPrompt<AmmoType>({
+                title: this.name,
+                prompt: game.i18n.localize("PF2E.Item.Consumable.SpecialAmmoPicker.Prompt"),
+                item: this,
+                choices: compatibleTypes.map((t) => ({
+                    value: t.slug,
+                    label: game.i18n.localize(t.label),
+                    group: game.i18n.localize(
+                        `PF2E.Item.Consumable.SpecialAmmoPicker.${supported.includes(t.slug) ? "OwnWeapons" : t.weapon ? "WeaponSpecific" : "General"}`,
+                    ),
+                })),
+            }).resolveSelection();
+            ammoData.baseType = result?.value ?? null;
+
+            // If this item can stack, add to the existing quantity and reject creation
+            const stackableItem = this.actor?.inventory.findStackableItem(this._source);
+            if (stackableItem) {
+                stackableItem.update({ "system.quantity": stackableItem.quantity + 1 });
+                return false;
+            }
+        }
+        return super._preCreate(data, options, user);
+    }
+
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DatabaseUpdateCallbackOptions,
@@ -257,10 +338,33 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             }
         }
 
-        // Clear stack group if this isn't ammo
+        // Clear the ammo categories if this isn't ammo, or initialize certain data if it is
         const newCategory = changed.system.category ?? this.system.category;
         if (newCategory !== "ammo") {
-            changed.system.stackGroup = null;
+            changed.system.ammo = null;
+        } else {
+            // Ensure ammo data exists if it is ammo
+            if (!this._source.system.ammo) {
+                changed.system.ammo = {
+                    categories: null,
+                    baseType: "arrow",
+                    ...(changed.system.ammo ?? {}),
+                };
+            }
+
+            // If ammo data has changed, apply certain changes
+            const ammoData = changed.system.ammo;
+            if (ammoData) {
+                ammoData.baseType = (ammoData.baseType as unknown) === "" ? null : ammoData.baseType;
+                const sourceAmmoData = this._source.system.ammo;
+                const categories = ammoData.categories ?? sourceAmmoData?.categories ?? [];
+                const data = categories?.map((c) => CONFIG.PF2E.ammoCategories[c]).filter((a) => !!a) ?? [];
+                const behavior = !categories.length ? "single" : (data[0]?.behavior ?? "single");
+                // Lock uses to once only if it is non-magazine ammo
+                if (behavior !== "magazine") {
+                    changed.system.uses = { value: 1, max: 1 };
+                }
+            }
         }
 
         if (changed.system.uses) {

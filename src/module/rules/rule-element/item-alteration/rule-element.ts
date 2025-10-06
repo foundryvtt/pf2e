@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
-import type { ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import type { ItemType } from "@item/types.ts";
 import * as R from "remeda";
 import { AELikeRuleElement } from "../ae-like.ts";
 import { RuleElement, RuleElementOptions } from "../base.ts";

@@ -10,7 +10,7 @@ class GrantItemForm extends RuleElementForm<GrantItemSource, GrantItemRuleElemen
         const data = await super.getData();
         const uuid = this.rule.uuid ? String(this.rule.uuid) : null;
         const granted = UUIDUtils.isItemUUID(uuid) ? await fromUuid(uuid) : null;
-        return { ...data, granted };
+        return Object.assign(data, { granted });
     }
 
     override updateObject(ruleData: { key: string } & Partial<Record<string, JSONValue>>): void {

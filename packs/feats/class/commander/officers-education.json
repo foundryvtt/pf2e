@@ -26,11 +26,84 @@
             "remaster": true,
             "title": "Pathfinder Battlecry!"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "flag": "firstTrainedSkill",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.firstTrainedSkill}",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "flag": "secondTrainedSkill",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.secondTrainedSkill}.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:1"
+                    ]
+                },
+                "flag": "expertSkill",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.expertSkill}.rank",
+                "value": 2
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "gte": [
+                                "self:level",
+                                "item:level"
+                            ]
+                        },
+                        "item:trait:general"
+                    ]
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
         "subfeatures": {
-            "proficiencies": {},
-            "senses": {},
-            "suppressedFeatures": []
+            "languages": {
+                "slots": 1
+            }
         },
         "traits": {
             "rarity": "common",

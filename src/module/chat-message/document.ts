@@ -149,7 +149,9 @@ class ChatMessagePF2e extends ChatMessage {
             return null;
         }
 
-        const strikeData = actor?.system.actions?.find((s) => s.slug === slug && s.item.id === itemId);
+        const strikeData = actor?.system.actions?.find(
+            (s): s is StrikeData => s.type === "strike" && s.slug === slug && s.item.id === itemId,
+        );
         const itemMeleeOrRanged = strikeData?.item.isMelee ? "melee" : "ranged";
 
         return meleeOrRanged === itemMeleeOrRanged

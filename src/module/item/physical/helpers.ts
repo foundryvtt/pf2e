@@ -5,7 +5,7 @@ import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
-import { tupleHasValue } from "@util";
+import { objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { Coins } from "./coins.ts";
@@ -293,7 +293,9 @@ function prepareBulkData<TItem extends PhysicalItemPF2e>(
     item: TItem,
 ): TItem extends ContainerPF2e ? ContainerBulkData : BulkData;
 function prepareBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData {
-    const stackData = STACK_DEFINITIONS[item.system.stackGroup ?? ""] ?? null;
+    const stackData = objectHasKey(STACK_DEFINITIONS, item.system.stackGroup)
+        ? (STACK_DEFINITIONS[item.system.stackGroup] ?? null)
+        : null;
     const per = stackData?.size ?? 1;
 
     const sourceBulk = item._source.system.bulk;

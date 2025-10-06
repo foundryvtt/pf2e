@@ -91,7 +91,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 ? { enabled: this.actor.inventory.coins.copperValue > 0 && members.some(isReallyPC) }
                 : null;
         const travelSpeed = this.actor.system.movement.speeds.travel.value;
-        const hexplorationActivities = Object.keys(CONFIG.PF2E.hexplorationActivities).map((k) => Number(k));
+        const hexplorationActivities = Object.entries(CONFIG.PF2E.hexplorationActivities).map(([key, activities]) => ({
+            speed: Number(key),
+            activities,
+        }));
         return {
             ...base,
             playerRestricted: !game.pf2e.settings.metagame.partyStats,
@@ -115,7 +118,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 feetPerMinute: travelSpeed * 10,
                 milesPerHour: travelSpeed / 10,
                 milesPerDay: travelSpeed * 0.8,
-                activities: hexplorationActivities.find((max) => max >= travelSpeed) ?? 0,
+                activities: hexplorationActivities.find((max) => max.speed >= travelSpeed)?.activities ?? 0,
             },
             orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
         };

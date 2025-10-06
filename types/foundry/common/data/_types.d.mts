@@ -147,7 +147,7 @@ interface FormInputConfig<TValue = unknown> {
     /**
      * The current value of the form element
      */
-    value?: TValue;
+    value?: Maybe<TValue>;
     /**
      * An id to assign to the element
      */
@@ -191,7 +191,7 @@ interface FormInputConfig<TValue = unknown> {
     input?: CustomFormInput;
 }
 
-interface StringFieldInputConfig {
+interface StringFieldInputConfig<TValue extends string = string> extends FormInputConfig<TValue> {
     /** The element to create for this form field
      */
     elementType?: "input" | "textarea" | "prose-mirror" | "code-mirror";

@@ -289,13 +289,6 @@ function fontAwesomeIcon(
     return icon;
 }
 
-/** Short form of type and non-null check */
-function isObject<T extends object>(value: unknown): value is DeepPartial<T>;
-function isObject<T extends string>(value: unknown): value is { [K in T]?: unknown };
-function isObject(value: unknown): boolean {
-    return typeof value === "object" && value !== null;
-}
-
 /** Create a copy of a record with its insertion order sorted by label */
 function sortLabeledRecord<T extends Record<string, { label: string }>>(record: T): T {
     return Object.entries(record)
@@ -332,8 +325,8 @@ function sortObjByKey(value: unknown): unknown {
 }
 
 /** Walk an object tree and replace any string values found according to a provided function */
-function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
-function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
+function recursiveReplaceString<T>(source: T, replace: (s: string) => string | number): T;
+function recursiveReplaceString(source: unknown, replace: (s: string) => string | number): unknown {
     const clone = Array.isArray(source) || R.isPlainObject(source) ? fu.deepClone(source) : source;
     if (typeof clone === "string") {
         return replace(clone);
@@ -417,7 +410,6 @@ export {
     groupBy,
     isImageFilePath,
     isImageOrVideoPath,
-    isObject,
     isVideoFilePath,
     localizeList,
     localizer,

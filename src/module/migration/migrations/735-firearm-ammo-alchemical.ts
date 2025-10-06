@@ -6,7 +6,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration735FirearmAmmoAlchemical extends MigrationBase {
     static override version = 0.735;
 
-    #needsTrait(source: ConsumableSource): boolean {
+    #needsTrait(source: MaybeWithStackGroup): boolean {
         return (
             "consumableType" in source.system &&
             R.isPlainObject(source.system.consumableType) &&
@@ -23,3 +23,9 @@ export class Migration735FirearmAmmoAlchemical extends MigrationBase {
         }
     }
 }
+
+type MaybeWithStackGroup = ConsumableSource & {
+    system: {
+        stackGroup?: string | null;
+    };
+};

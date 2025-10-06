@@ -1831,19 +1831,7 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "{item|flags.pf2e.rulesSelections.cannyAcumen}",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 16,
-                                    "start": 1,
-                                    "value": 2
-                                },
-                                {
-                                    "start": 17,
-                                    "value": 3
-                                }
-                            ]
-                        }
+                        "value": "match(when(btwn(@actor.level, 1, 16), 2), when(gte(@actor.level, 17), 3))"
                     }
                 ],
                 "slug": "canny-acumen",

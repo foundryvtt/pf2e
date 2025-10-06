@@ -17,7 +17,7 @@ import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import { RuleElement, RuleElementOptions } from "@module/rules/index.ts";
 import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
-import { createHTMLElement, ErrorPF2e, isObject, localizer, setHasElement, tupleHasValue } from "@util";
+import { createHTMLElement, ErrorPF2e, localizer, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk } from "./bulk.ts";
@@ -865,25 +865,21 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (operation.checkHP ?? true) handleHPChange(this, changed);
 
         // Clear 0 price denominations and per fields with values 0 or 1
-        if (isObject<Record<string, unknown>>(changed.system.price)) {
+        if (R.isPlainObject(changed.system.price)) {
             const price: Record<string, unknown> = changed.system.price;
-            if (isObject<Record<string, number | null>>(price.value)) {
+            if (R.isPlainObject(price.value)) {
                 const coins = price.value;
                 for (const denomination of DENOMINATIONS) {
-                    if (coins[denomination] === 0) {
-                        coins[`-=${denomination}`] = null;
-                    }
+                    if (coins[denomination] === 0) coins[`-=${denomination}`] = null;
                 }
             }
-
             if ("per" in price && (!price.per || Number(price.per) <= 1)) {
                 price["-=per"] = null;
             }
         }
 
-        const equipped: Record<string, unknown> = changed.system.equipped ?? {};
-
         // Uninvest if dropping
+        const equipped: Record<string, unknown> = changed.system.equipped ?? {};
         if (equipped.carryType === "dropped" && this.system.equipped.invested) {
             equipped.invested = false;
         }

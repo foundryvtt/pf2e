@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { StrikeData } from "@actor/data/base.ts";
+import type { AttackAction } from "@actor/data/base.ts";
 import { iterateAllItems } from "@actor/helpers.ts";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type Tabs from "@client/applications/ux/tabs.d.mts";
@@ -11,7 +11,7 @@ import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
 import type { AbilityTrait, ActionCategory } from "@item/ability/types.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
-import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
+import { SpellcastingItemCreator } from "@item/consumable/apps/spellcasting-item-creator/app.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import type { RawCoins } from "@item/physical/data.ts";
@@ -70,7 +70,6 @@ import type {
 import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
-import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog.ts";
 import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
@@ -316,7 +315,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         );
     }
 
-    protected getStrikeFromDOM(button: HTMLElement, readyOnly = false): StrikeData | null {
+    protected getAttackActionFromDOM(button: HTMLElement, readyOnly = false): AttackAction | null {
         const actionIndex = Number(htmlClosest(button, "[data-action-index]")?.dataset.actionIndex ?? "NaN");
         const rootAction = this.actor.system.actions?.at(actionIndex) ?? null;
         const altUsage = tupleHasValue(["thrown", "melee"], button?.dataset.altUsage) ? button?.dataset.altUsage : null;
@@ -463,7 +462,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                         ? button.dataset.altUsage
                         : null;
 
-                    const strike = this.getStrikeFromDOM(button, true);
+                    const strike = this.getAttackActionFromDOM(button, true);
                     const variantIndex = Number(button.dataset.variantIndex);
                     await strike?.variants[variantIndex]?.roll({ event, altUsage });
                 });
@@ -472,7 +471,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             // Damage
             const damageSelectors = "button[data-action=strike-damage], button[data-action=strike-critical]";
             for (const button of htmlQueryAll(strikeElem, damageSelectors)) {
-                const strike = this.getStrikeFromDOM(button);
+                const strike = this.getAttackActionFromDOM(button);
                 const method = button.dataset.action === "strike-damage" ? "damage" : "critical";
                 button.addEventListener("click", async (event) => {
                     await strike?.[method]?.({ event });
@@ -1174,20 +1173,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             if (item.isRitual) {
                 return this._onDropItemCreate(item.clone().toObject());
             } else if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
-                const popup = new CastingItemCreateDialog(
-                    actor,
-                    {},
-                    async (heightenedLevel, itemType, spell) => {
-                        const createdItem = await createConsumableFromSpell(spell, {
-                            type: itemType,
-                            heightenedLevel,
-                            mystified,
-                        });
-                        await this._onDropItemCreate(createdItem);
-                    },
-                    item,
-                );
-                popup.render(true);
+                new SpellcastingItemCreator({ actor, spell: item, mystified }).render({ force: true });
                 return [item];
             } else {
                 return [];

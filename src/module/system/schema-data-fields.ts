@@ -83,9 +83,36 @@ class StrictNumberField<
     }
 }
 
+/** A `BooleanField` when genuine nullability support */
+class NullableBooleanField<
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true,
+> extends fields.BooleanField<boolean, boolean, TRequired, TNullable, THasInitial> {
+    protected override _cast(value: unknown): boolean | null {
+        if (value === "true") return true;
+        if (value === "false") return false;
+        if (value === "null" || value === "") return this.nullable ? null : false;
+        if (typeof value === "object") return false;
+        return !!value;
+    }
+
+    /** Create a select element for nullable fields. */
+    protected override _toInput(config: foundry.data.FormInputConfig<boolean>): HTMLElement {
+        if (!this.nullable) return super._toInput(config);
+        const value = String(config.value ?? null);
+        const options = [
+            { value: "true", label: game.i18n.localize("Yes"), selected: value === "true" },
+            { value: "false", label: game.i18n.localize("No"), selected: value === "false" },
+            { value: "null", label: "", selected: value === "null" },
+        ];
+        return fa.fields.createSelectInput(fu.mergeObject(config, { value, options, dataset: { data: "JSON" } }));
+    }
+}
+
 /** A `BooleanField` that does not cast the source value */
 class StrictBooleanField<
-    TRequired extends boolean = false,
+    TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
 > extends fields.BooleanField<boolean, boolean, TRequired, TNullable, THasInitial> {
@@ -421,7 +448,7 @@ class PredicateField<
     THasInitial extends boolean = true,
 > extends StrictArrayField<PredicateStatementField, RawPredicate, Predicate, TRequired, TNullable, THasInitial> {
     constructor(options: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial> = {}) {
-        super(new PredicateStatementField(), { label: "PF2E.RuleEditor.General.Predicate", ...options });
+        super(new PredicateStatementField(), options);
     }
 
     /** Construct a `PredicatePF2e` from the initialized `PredicateStatement[]` */
@@ -437,6 +464,12 @@ class PredicateField<
     ): Predicate | null | undefined {
         const statements = super.initialize(value, model, options);
         return Array.isArray(statements) ? new Predicate(...statements) : statements;
+    }
+
+    protected override _toInput(config: foundry.data.FormInputConfig): HTMLInputElement {
+        return foundry.applications.fields.createTextInput(
+            Object.assign(config, { value: JSON.stringify(config.value ?? []), dataset: { dtype: "JSON" } }),
+        );
     }
 }
 
@@ -625,6 +658,7 @@ export {
     DataUnionField,
     LaxArrayField,
     LaxSchemaField,
+    NullableBooleanField,
     NullField,
     PredicateField,
     RecordField,

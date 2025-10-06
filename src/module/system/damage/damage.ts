@@ -1,7 +1,5 @@
-import type { ActorPF2e } from "@actor";
-import { StrikeData } from "@actor/data/base.ts";
+import { AttackAction } from "@actor/data/base.ts";
 import type { RollJSON, Rolled } from "@client/dice/_module.d.mts";
-import type { ItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ChatMessagePF2e, DamageDamageContextFlag } from "@module/chat-message/index.ts";
 import type { ZeroToThree } from "@module/data.ts";
@@ -9,6 +7,8 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { createHTMLElement, objectHasKey } from "@util";
+import { traitSlugToObject } from "@util/tags.ts";
+import * as R from "remeda";
 import { DamageRoll, DamageRollData } from "./roll.ts";
 import type { DamageDamageContext, DamageTemplate } from "./types.ts";
 
@@ -45,6 +45,8 @@ export class DamagePF2e {
               : "";
 
         if (context.traits) {
+            const item = context.self?.item;
+
             interface ToTagsParams {
                 labels?: Record<string, string | undefined>;
                 descriptions?: Record<string, string | undefined>;
@@ -56,19 +58,14 @@ export class DamagePF2e {
                 { labels = {}, descriptions = {}, cssClass, dataAttr }: ToTagsParams,
             ): string =>
                 slugs
-                    .map((s) => ({ value: s, label: game.i18n.localize(labels[s] ?? "") }))
+                    .map((s) => traitSlugToObject(s, labels, { descriptions }))
                     .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
                     .map((tag) => {
-                        const description = descriptions[tag.value] ?? "";
-
-                        const span = document.createElement("span");
-                        span.className = "tag";
-                        if (cssClass) span.classList.add(cssClass);
-                        span.dataset[dataAttr] = tag.value;
-                        if (description) span.dataset.tooltip = description;
-                        span.innerText = tag.label;
-
-                        return span.outerHTML;
+                        return createHTMLElement("span", {
+                            classes: ["tag", cssClass].filter(R.isTruthy),
+                            children: [tag.label],
+                            dataset: { tooltip: tag.description, [dataAttr]: tag.name },
+                        }).outerHTML;
                     })
                     .join("");
 
@@ -79,7 +76,6 @@ export class DamagePF2e {
                 dataAttr: "trait",
             });
 
-            const item = context.self?.item;
             const itemTraits = item?.isOfType("weapon", "melee")
                 ? toTags(
                       // Materials are listed in a separate group of tags
@@ -216,18 +212,14 @@ export class DamagePF2e {
         const strike = (() => {
             const isStrike = item?.isOfType("melee", "weapon");
             if (isStrike && item && self?.actor?.isOfType("character", "npc")) {
-                const strikes: StrikeData[] = self.actor.system.actions;
-                const strike = strikes.find(
-                    (a): a is StrikeData & { item: ItemPF2e<ActorPF2e> } =>
-                        a.item?.id === item.id && a.item.slug === item.slug,
-                );
-
-                if (strike) {
+                const attacks: AttackAction[] = self.actor.system.actions;
+                const attack = attacks.find((a) => a.item?.id === item.id && a.item.slug === item.slug);
+                if (attack) {
                     return {
                         actor: self.actor.uuid,
-                        index: strikes.indexOf(strike),
+                        index: attacks.indexOf(attack),
                         damaging: true,
-                        name: strike.item.name,
+                        name: attack.item.name,
                         altUsage: item.isOfType("weapon") ? item.altUsageType : null,
                     };
                 }

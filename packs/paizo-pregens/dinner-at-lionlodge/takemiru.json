@@ -399,11 +399,10 @@
                         "craftableItems": [
                             "item:trait:snare"
                         ],
-                        "isDailyPrep": false,
                         "isPrepared": true,
                         "key": "CraftingAbility",
                         "label": "Snare Crafting",
-                        "prepared": [],
+                        "priority": 60,
                         "slug": "snare-crafting"
                     },
                     {
@@ -411,25 +410,7 @@
                         "mode": "add",
                         "path": "system.crafting.entries.snareCrafting.maxSlots",
                         "phase": "beforeDerived",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 2,
-                                    "start": 1,
-                                    "value": 4
-                                },
-                                {
-                                    "end": 3,
-                                    "start": 3,
-                                    "value": 6
-                                },
-                                {
-                                    "start": 4,
-                                    "value": 8
-                                }
-                            ],
-                            "field": "actor|system.skills.crafting.rank"
-                        }
+                        "value": "match(when(btwn(@actor.system.skills.crafting.rank, 1, 2), 4), when(btwn(@actor.system.skills.crafting.rank, 3, 3), 6), when(gte(@actor.system.skills.crafting.rank, 4), 8))"
                     }
                 ],
                 "slug": "snare-specialist",
@@ -2116,6 +2097,9 @@
         },
         {
             "_id": "fscqiq92Ef00Samd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestries.Item.4BL5wf1VF9feC2rY"
+            },
             "flags": {
                 "pf2e": {
                     "itemGrants": {
@@ -2170,6 +2154,7 @@
                         "value": []
                     }
                 },
+                "hands": 2,
                 "hp": 8,
                 "items": {},
                 "languages": {
@@ -2231,6 +2216,9 @@
         },
         {
             "_id": "XiHYRoyJyHHZHYoD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.34E7k2YRcsOU5uyl"
+            },
             "flags": {
                 "pf2e": {
                     "grantedBy": {
@@ -2294,6 +2282,9 @@
         },
         {
             "_id": "bXxS6D6kxPMgzrOl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.Wk4HyaZtC1j221i1"
+            },
             "folder": "RQK8iClIsUamNc1W",
             "img": "systems/pf2e/icons/default-icons/heritage.svg",
             "name": "Earthly Wilds Kitsune",

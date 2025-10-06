@@ -22,6 +22,107 @@
         },
         "rules": [
             {
+                "brackets": [
+                    {
+                        "start": 2,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "16 + @actor.level"
+                            },
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 9
+                                }
+                            },
+                            "strikes": {
+                                "antler": {
+                                    "damage": {
+                                        "modifier": 1
+                                    },
+                                    "modifier": 9
+                                }
+                            },
+                            "tempHP": 5
+                        }
+                    },
+                    {
+                        "start": 3,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "17 + @actor.level"
+                            },
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 14
+                                }
+                            },
+                            "strikes": {
+                                "antler": {
+                                    "damage": {
+                                        "modifier": 5
+                                    },
+                                    "modifier": 14
+                                }
+                            },
+                            "tempHP": 10
+                        }
+                    },
+                    {
+                        "start": 4,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "18 + @actor.level"
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 16
+                                }
+                            },
+                            "strikes": {
+                                "antler": {
+                                    "damage": {
+                                        "modifier": 9
+                                    },
+                                    "modifier": 16,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach"
+                                    ]
+                                }
+                            },
+                            "tempHP": 15
+                        }
+                    },
+                    {
+                        "start": 5,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "18 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 20
+                                }
+                            },
+                            "strikes": {
+                                "antler": {
+                                    "damage": {
+                                        "dice": 4,
+                                        "modifier": 7
+                                    },
+                                    "modifier": 18,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15"
+                                    ]
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "senses": {
@@ -54,113 +155,6 @@
                     "traits": [
                         "animal"
                     ]
-                },
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 2,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "16 + @actor.level"
-                                },
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 9
-                                    }
-                                },
-                                "strikes": {
-                                    "antler": {
-                                        "damage": {
-                                            "modifier": 1
-                                        },
-                                        "modifier": 9
-                                    }
-                                },
-                                "tempHP": 5
-                            }
-                        },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "17 + @actor.level"
-                                },
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 14
-                                    }
-                                },
-                                "strikes": {
-                                    "antler": {
-                                        "damage": {
-                                            "modifier": 5
-                                        },
-                                        "modifier": 14
-                                    }
-                                },
-                                "tempHP": 10
-                            }
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "18 + @actor.level"
-                                },
-                                "size": "lg",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 16
-                                    }
-                                },
-                                "strikes": {
-                                    "antler": {
-                                        "damage": {
-                                            "modifier": 9
-                                        },
-                                        "modifier": 16,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach"
-                                        ]
-                                    }
-                                },
-                                "tempHP": 15
-                            }
-                        },
-                        {
-                            "start": 5,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "18 + @actor.level"
-                                },
-                                "size": "huge",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 20
-                                    }
-                                },
-                                "strikes": {
-                                    "antler": {
-                                        "damage": {
-                                            "dice": 4,
-                                            "modifier": 7
-                                        },
-                                        "modifier": 18,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-15"
-                                        ]
-                                    }
-                                },
-                                "tempHP": 20
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
                 }
             }
         ],

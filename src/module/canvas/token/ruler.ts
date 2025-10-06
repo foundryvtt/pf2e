@@ -18,11 +18,6 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         TokenRulerPF2e.#counterAlign();
     });
 
-    /** A scale value to counter the one for the HeadsUpDisplayContainer */
-    static get #counterScale() {
-        return canvas.stage.scale.x * 1.75;
-    }
-
     /** Observe changes to the attributes of the HeadsUpDisplayContainer's element. */
     static observeHudContainer(): void {
         TokenRulerPF2e.#hudContainerObserver.disconnect();
@@ -44,9 +39,8 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
 
     /** Recalculate the counter-scale. */
     static #counterAlign(): void {
-        document
-            .getElementById("measurement")
-            ?.style.setProperty("--counter-scale", TokenRulerPF2e.#counterScale.toFixed(4));
+        const style = document.getElementById("measurement")?.style;
+        style?.setProperty("--counter-scale", (1 / canvas.stage.scale.x).toFixed(4));
     }
 
     /** Fish out the value of the parent class's hard-private #path property. */
@@ -87,36 +81,6 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         }
     }
 
-    /** Include action-cost information for showing a glyph. */
-    protected override _getWaypointLabelContext(
-        waypoint: DeepReadonly<TokenRulerWaypoint>,
-        state: WaypointLabelRenderState,
-    ): WaypointLabelRenderContext | void {
-        if (waypoint.action === "displace") return;
-        const context: WaypointRenderContextPF2e | void = super._getWaypointLabelContext(waypoint, state);
-        if (!context || !canvas.grid.isSquare) return context;
-
-        const speed = this.#getSpeed(waypoint.action);
-        if (!speed) return context;
-
-        const accruedCost = waypoint.measurement.cost;
-        if (accruedCost > 0 && (!waypoint.next || accruedCost % speed === 0)) {
-            const actionsSpent = Math.ceil(accruedCost / speed);
-            const clampedCost = Math.clamp(actionsSpent, 1, 3);
-            context.actionCost = { actions: clampedCost, overage: actionsSpent > 3 };
-        }
-        return context;
-    }
-
-    /** Abuse this method to log intermediate waypoints that should be rendered with action glyphs. */
-    protected override _getGridHighlightStyle(
-        waypoint: DeepReadonly<Omit<TokenRulerWaypoint, "index" | "center" | "size" | "ray">>,
-        offset: DeepReadonly<foundry.grid.GridOffset3D>,
-    ): { color?: PIXI.ColorSource; alpha?: number; texture?: PIXI.Texture; matrix?: PIXI.Matrix | null } {
-        this.#logGlyphMarkedPoint(waypoint);
-        return super._getGridHighlightStyle(waypoint, offset);
-    }
-
     /** Retrieve the actor's speed of a certain movement type, if any. */
     #getSpeed(rulerAction: string): number | null {
         const actor = this.token.actor;
@@ -136,6 +100,42 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         }
         if (actor.isOfType("vehicle")) return actor.system.movement.speeds.drive.value;
         return null;
+    }
+
+    /** Include action-cost information for showing a glyph. */
+    protected override _getWaypointLabelContext(
+        waypoint: DeepReadonly<TokenRulerWaypoint>,
+        state: WaypointLabelRenderState,
+    ): WaypointLabelRenderContext | void {
+        if (waypoint.action === "displace") return;
+        const context: WaypointRenderContextPF2e | void = super._getWaypointLabelContext(waypoint, state);
+        if (!context || !canvas.grid.isSquare) return context;
+
+        const speed = this.#getSpeed(waypoint.action);
+        if (!speed) return context;
+
+        const measurement = waypoint.measurement;
+        const accruedCost = measurement.cost;
+        const deltaDistance = measurement.backward?.distance ?? 0;
+        context.cost.additional = {
+            total: Math.max(0, measurement.cost - measurement.distance),
+            delta: Math.max(0, waypoint.cost - deltaDistance),
+        };
+        if (accruedCost > 0 && (!waypoint.next || accruedCost % speed === 0)) {
+            const actionsSpent = Math.ceil(accruedCost / speed);
+            const clampedCost = Math.clamp(actionsSpent, 1, 3);
+            context.actionCost = { actions: clampedCost, overage: actionsSpent > 3 };
+        }
+        return context;
+    }
+
+    /** Abuse this method to log intermediate waypoints that should be rendered with action glyphs. */
+    protected override _getGridHighlightStyle(
+        waypoint: DeepReadonly<Omit<TokenRulerWaypoint, "index" | "center" | "size" | "ray">>,
+        offset: DeepReadonly<foundry.grid.GridOffset3D>,
+    ): { color?: PIXI.ColorSource; alpha?: number; texture?: PIXI.Texture; matrix?: PIXI.Matrix | null } {
+        this.#logGlyphMarkedPoint(waypoint);
+        return super._getGridHighlightStyle(waypoint, offset);
     }
 
     /** If the provided waypoint should have an action glyph, track it for later rendering. */
@@ -167,16 +167,15 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
         if (!labelsEl) return;
         labelsEl.dataset.glyphMarked = "";
         const templatePath = TokenRulerPF2e.ACTION_MARKER_TEMPLATE;
-        const uiScale = canvas.dimensions.uiScale;
         for (const point of this.#glyphMarkedPoints) {
             const cost = Math.clamp(point.actionsSpent, 1, 3);
             const overage = point.actionsSpent - cost > 0;
             const html = await fa.handlebars.renderTemplate(templatePath, { cost, overage });
             const element = fu.parseHTML(html) as HTMLElement;
             const topLeft = canvas.grid.getTopLeftPoint(point);
-            element.style.setProperty("--position-x", `${Math.round(topLeft.x * uiScale)}px`);
-            element.style.setProperty("--position-y", `${Math.round(topLeft.y * uiScale)}px`);
-            element.style.setProperty("--grid-size", `${canvas.grid.size}px`);
+            element.style.setProperty("--position-x", `${Math.round(topLeft.x)}px`);
+            element.style.setProperty("--position-y", `${Math.round(topLeft.y)}px`);
+            element.style.setProperty("--ui-scale", canvas.dimensions.uiScale.toString());
             labelsEl.append(element);
         }
     }
@@ -184,4 +183,9 @@ export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<
 
 interface WaypointRenderContextPF2e extends WaypointLabelRenderContext {
     actionCost?: { actions: number; overage: boolean };
+    cost: {
+        total: string;
+        units: string;
+        additional?: { total: number; delta: number };
+    };
 }

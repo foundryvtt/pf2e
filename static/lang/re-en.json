@@ -1855,6 +1855,69 @@
                 "success": "@Damage[4d6[persistent,poison]]"
             }
         },
+        "RULES": {
+            "Common": {
+                "FIELDS": {
+                    "key": {
+                        "label": "Key"
+                    },
+                    "label": {
+                        "label": "Label"
+                    },
+                    "mode": {
+                        "choices": {
+                            "add": "Add",
+                            "downgrade": "Downgrade",
+                            "multiply": "Multiply",
+                            "override": "Override",
+                            "remove": "Remove",
+                            "subtract": "Subtract",
+                            "upgrade": "Upgrade"
+                        },
+                        "label": "Mode"
+                    },
+                    "predicate": {
+                        "label": "Predicate"
+                    },
+                    "selector": {
+                        "label": "Selector"
+                    },
+                    "selectors": {
+                        "label": "Selectors"
+                    },
+                    "slug": {
+                        "label": "Slug"
+                    },
+                    "value": {
+                        "label": "Value"
+                    },
+                    "relabel": {
+                        "label": "Relabel"
+                    }
+                }
+            },
+            "DamageAlteration": {
+                "FIELDS": {
+                    "property": {
+                        "choices": {
+                            "damage-type": "Damage Type",
+                            "dice-faces": "Dice Faces",
+                            "dice-number": "Dice Number",
+                            "tags": "Tags"
+                        },
+                        "label": "Property"
+                    }
+                }
+            },
+            "TokenMark": {
+                "FIELDS": {
+                    "uuid": {
+                        "hint": "The UUID of a marked token: automatically filled upon marking.",
+                        "label": "Token UUID"
+                    }
+                }
+            }
+        },
         "RuleEditor": {
             "Aura": {
                 "Appearance": {
@@ -1922,7 +1985,6 @@
             "General": {
                 "Add": "Add",
                 "Basics": "Basics",
-                "Brackets": "Brackets",
                 "CriticalBehavior": {
                     "false": "1x Damage on Crit",
                     "null": "2x Damage on Crit",
@@ -1932,7 +1994,6 @@
                 "Label": "Label",
                 "Opacity": "Opacity",
                 "Predicate": "Predicate",
-                "Primitive": "Primitive",
                 "PriorityHint": "Priority determines the order in which rule elements are executed within the same phase. Rule elements with lower priority values are executed first.",
                 "Range": "Range",
                 "Remove": "Remove",
@@ -3201,6 +3262,9 @@
             },
             "Cleric": {
                 "BattleHarbinger": {
+                    "BattleFont": {
+                        "Label": "Battle Font"
+                    },
                     "DivineFont": "Instead of preparing @UUID[Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs]{Heal} or @UUID[Compendium.pf2e.spells-srd.Item.wdA52JJnsuQWeyqz]{Harm} spells with your divine font, you instead gain the battle font, which allows you to prepare battle aura spells. You gain 4 additional spell slots each day at your highest rank of cleric spell slots. You can prepare only @UUID[Compendium.pf2e.spells-srd.Item.7ZinJNzxq0XF0oMx]{Bane} or @UUID[Compendium.pf2e.spells-srd.Item.XSujb7EsSwKl19Uu]{Bless} in these slots. Any feats and effects that refer to a battle aura refers to these spells, regardless of whether they were cast with your standard spell slots or your divine font spell slots. At 5th level, the number of additional slots increases to 5, and at 15th level, the total number of additional slots increases to 6. Your battle auras use your class DC instead of your spell DC."
                 },
                 "CastigatingWeapon": {
@@ -4001,7 +4065,7 @@
                     },
                     "PlundererOfTheHivesRiches": {
                         "CriticalSpecialization": "When you critically succeed at a Strike, the taste of honey fills your mouth as you plunder part of your foe's vitality for yourself, gaining temporary Hit Points equal to half the creature's level that last for 1 minute.",
-                        "Description": "When you Spark Transcendence, you gain temporary Hit Points equal to half your level as you are reinvigorated by the changing of the seasons; these temporary Hit Points last until the start of your next turn."
+                        "Description": "When you Spark Transcendence, a mass of buzzing insects fill the air around you, granting you @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealment} until the beginning of your next turn."
                     },
                     "RestlessAsTheTide": {
                         "CriticalSpecialization": "When you critically succeed on a Strike, water blasts the target and those nearby. This deals bludgeoning splash damage equal to the number of weapon damage dice to the target and all creatures within 10 feet of it. This effect has the water trait.",
@@ -5550,6 +5614,9 @@
                         "Heightened": "You twist space so completely you don't need to travel the interposing distance. You can choose to instead teleport to a space within your line of sight and line of effect with a range equal to your double your Speed (after applying the status bonus from warp step). This grants the spell the teleportation trait."
                     },
                     "WhisperingSteps": "Choose one enemy who is a target of the spell. If that enemy fails its save or the spell hits it, you whisper in the creature's mind, forcing it to Step in a direction of your choosing; as this is forced movement, you can't force the creature to Step into hazardous terrain, off a ledge, or the like. After it Steps, the creature becomes temporarily immune to this amp for 24 hours."
+                },
+                "Mindshift": {
+                    "Addendum": "You replace any save this action requires with a @Check[will|against:occult] save."
                 },
                 "OscillatingWave": {
                     "AddEnergy": "Add Energy",

@@ -38,23 +38,7 @@
                     "bone-missile"
                 ],
                 "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 11,
-                            "value": 2
-                        },
-                        {
-                            "end": 18,
-                            "start": 12,
-                            "value": 3
-                        },
-                        {
-                            "start": 19,
-                            "value": 4
-                        }
-                    ]
-                }
+                "value": "match(when(lte(@actor.level, 11), 2), when(btwn(@actor.level, 12, 18), 3), when(gte(@actor.level, 19), 4))"
             }
         ],
         "traits": {

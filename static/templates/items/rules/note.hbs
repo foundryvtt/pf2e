@@ -10,20 +10,19 @@
 </div>
 
 <div class="form-group">
-    <label for="selector" class="short">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
-    <div class="attached-input">
-        <button type="button" class="attachment" data-action="toggle-selector">
-            {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
-        </button>
-        {{#if selectorIsArray}}
-            <tagify-tags class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" />
-        {{else}}
-            <input type="text" name="system.rules.{{index}}.selector" value="{{rule.selector}}" />
-        {{/if}}
+    <label class="short" for="{{rootId}}-selector">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
+    <div class="form-fields">
+        <tagify-tags class="pf2e-tagify selector-list" id="{{rootId}}-selector" name="system.rules.{{index}}.selector"
+                     value="{{json rule.selector}}"></tagify-tags>
     </div>
 </div>
 
-<textarea name="system.rules.{{index}}.text" spellcheck="false" placeholder="{{localize "PF2E.RuleEditor.Note.Text"}}">{{rule.text}}</textarea>
+<div class="form-group stacked">
+    <label for="{{rootId}}-text"></label>
+    <div class="form-fields">
+        <code-mirror name="system.rules.{{index}}.text" id="{{rootId}}-text" language="html">{{rule.text}}</code-mirror>
+    </div>
+</div>
 
 <div class="form-group">
     <label class="short">{{localize "PF2E.RuleEditor.Note.Outcome"}}</label>

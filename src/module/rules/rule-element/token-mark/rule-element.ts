@@ -9,6 +9,8 @@ import fields = foundry.data.fields;
 
 /** Remember a token for later referencing */
 class TokenMarkRuleElement extends RuleElement<TokenMarkSchema> {
+    static override autogenForms = true;
+
     static override defineSchema(): TokenMarkSchema {
         return {
             ...super.defineSchema(),
@@ -16,6 +18,8 @@ class TokenMarkRuleElement extends RuleElement<TokenMarkSchema> {
             uuid: new fields.StringField({ required: false, nullable: true, initial: null }),
         };
     }
+
+    static override LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("PF2E.RULES.TokenMark");
 
     override async preCreate({ ruleSource, itemSource, pendingItems }: RuleElement.PreCreateParams): Promise<void> {
         if (this.ignored) return;

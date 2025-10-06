@@ -31,7 +31,7 @@ import { Check, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckCheckContext, CheckType, RollTwiceOption } from "@system/check/types.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
-import { ErrorPF2e, isObject, signedInteger, sluggify } from "@util";
+import { ErrorPF2e, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
 import {
@@ -209,7 +209,8 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
             result.dc.modifiers = maybeMergeArrays(this.data.dc.modifiers, data.dc?.modifiers);
         }
 
-        const extended = new Statistic(this.actor, result, this.config);
+        const Cls = this.constructor as typeof Statistic;
+        const extended = new Cls(this.actor, result, this.config);
         extended.base = this;
         return extended;
     }
@@ -403,8 +404,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
         // Allow use of events for modules and macros but don't allow it for internal system use
         const { rollMode, skipDialog } = (() => {
-            if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
-                const event = args.event?.originalEvent ?? args.event;
+            if (R.isPlainObject(args) && R.isObjectType(args.event)) {
+                const event = "originalEvent" in args.event ? args.event.originalEvent : args.event;
                 if (event instanceof PointerEvent) {
                     const { rollMode, skipDialog } = args;
                     return fu.mergeObject({ rollMode, skipDialog }, eventToRollParams(event, { type: "check" }));
