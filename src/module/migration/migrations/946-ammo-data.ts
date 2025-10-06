@@ -1,4 +1,3 @@
-import { ActorSource } from "@common/documents/actor.mjs";
 import { ConsumableSource, ItemSourcePF2e, WeaponSource } from "@item/base/data/index.ts";
 import { ConsumableSystemSource } from "@item/consumable/data.ts";
 import { AmmoCategory, AmmoType } from "@item/consumable/types.ts";
@@ -10,8 +9,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration946AmmoData extends MigrationBase {
     static override version = 0.946;
 
-    override async updateItem(source: ItemSourcePF2e, actor?: ActorSource): Promise<void> {
-        if (actor) return;
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "weapon") {
             this.#updateWeapon(source);
         } else if (source.type === "consumable") {
