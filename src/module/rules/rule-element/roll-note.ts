@@ -33,9 +33,8 @@ class RollNoteRuleElement extends RuleElement<RollNoteSchema> {
     override beforePrepareData(): void {
         if (this.ignored) return;
         if (this.battleForm && !this.predicate.includes("battle-form")) this.predicate.push("battle-form");
-        for (const selector of this.resolveInjectedProperties(this.selector)) {
+        for (const selector of this.resolveInjectedProperties(this.selector.values().toArray())) {
             if (selector === "null") continue;
-
             const title = this.resolveInjectedProperties(this.title)?.trim() ?? null;
             const text = this.resolveInjectedProperties(
                 String(this.resolveValue(this.text, "", { evaluate: false })),

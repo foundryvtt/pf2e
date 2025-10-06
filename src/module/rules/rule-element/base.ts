@@ -220,6 +220,7 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
      * @param options.warn Whether to warn on a failed resolution
      * @return the looked up value on the specific object
      */
+    resolveInjectedProperties(source: Set<unknown>, options?: object): never;
     resolveInjectedProperties<T extends string | number | object | null | undefined>(
         source: T,
         options?: { injectables?: Record<string, unknown>; warn?: boolean },

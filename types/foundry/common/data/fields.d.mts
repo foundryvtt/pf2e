@@ -42,7 +42,7 @@ export abstract class DataField<
     TModelProp = TSourceProp,
     TRequired extends boolean = boolean,
     TNullable extends boolean = boolean,
-    THasInitial extends boolean = boolean,
+    THasInitial extends boolean = TNullable,
 > implements Omit<DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>, "validate">
 {
     /**
