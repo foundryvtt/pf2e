@@ -60,7 +60,9 @@
                 "toggleable": true
             },
             {
-                "key": "WeaponPotency",
+                "itemId": "{item|_id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     {
                         "or": [
@@ -69,11 +71,13 @@
                         ]
                     }
                 ],
-                "selector": "{item|_id}-attack",
+                "property": "runes-potency",
                 "value": 2
             },
             {
-                "key": "Striking",
+                "itemId": "{item|_id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     {
                         "or": [
@@ -82,7 +86,7 @@
                         ]
                     }
                 ],
-                "selector": "{item|_id}-damage",
+                "property": "runes-striking",
                 "value": 1
             },
             {

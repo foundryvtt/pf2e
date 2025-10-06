@@ -61,8 +61,13 @@
                 "value": "magical"
             },
             {
-                "key": "Striking",
-                "selector": "xxxxxxFISTxxxxxx-damage",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:slug:xxxxxxFISTxxxxxx"
+                ],
+                "property": "runes-striking",
                 "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,7),2,ternary(gte(@item.level,3),1,0)))"
             }
         ],

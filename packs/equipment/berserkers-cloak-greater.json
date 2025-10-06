@@ -87,29 +87,39 @@
                 ]
             },
             {
-                "key": "WeaponPotency",
-                "selector": "{item|id}-attack",
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "runes-potency",
                 "value": 2
             },
             {
-                "key": "Striking",
-                "selector": "{item|id}-damage",
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "runes-striking",
                 "value": 2
             },
             {
-                "key": "WeaponPotency",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
+                    "item:category:unarmed",
                     "item:tag:instinct-unarmed-strike"
                 ],
-                "selector": "unarmed-attack-roll",
+                "property": "runes-potency",
                 "value": 3
             },
             {
-                "key": "Striking",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
+                    "item:category:unarmed",
                     "item:tag:instinct-unarmed-strike"
                 ],
-                "selector": "unarmed-damage",
+                "property": "runes-striking",
                 "value": 3
             }
         ],

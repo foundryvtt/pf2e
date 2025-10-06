@@ -92,19 +92,23 @@
                 ]
             },
             {
-                "key": "Striking",
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "augmented-body:clockwork-arm"
                 ],
-                "selector": "{item|id}-damage",
+                "property": "runes-striking",
                 "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,7),2,ternary(gte(@item.level,3),1,0)))"
             },
             {
-                "key": "WeaponPotency",
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "augmented-body:clockwork-arm"
                 ],
-                "selector": "{item|id}-attack",
+                "property": "runes-potency",
                 "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,5),2,ternary(gte(@item.level,3),1,0)))"
             }
         ],
