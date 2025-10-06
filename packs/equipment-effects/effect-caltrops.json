@@ -4,7 +4,7 @@
     "name": "Effect: Caltrops",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Caltrops]</p>\n<p>While taking persistent bleed damage from caltrops, you take a –5-foot penalty to your Speed.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Caltrops]</p>\n<p>You take 1 persistent bleed damage. While taking this persistent bleed damage, you take a –5-foot penalty to your Speed.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,6 +22,23 @@
             "title": "Pathfinder Player Core"
         },
         "rules": [
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "bleed",
+                            "formula": "1"
+                        }
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            },
             {
                 "key": "FlatModifier",
                 "predicate": [
