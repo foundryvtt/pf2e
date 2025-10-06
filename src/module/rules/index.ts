@@ -35,7 +35,6 @@ import { SenseRuleElement } from "./rule-element/sense.ts";
 import { SpecialResourceRuleElement } from "./rule-element/special-resource.ts";
 import { SpecialStatisticRuleElement } from "./rule-element/special-statistic.ts";
 import { StrikeRuleElement } from "./rule-element/strike.ts";
-import { StrikingRuleElement } from "./rule-element/striking.ts";
 import { SubstituteRollRuleElement } from "./rule-element/substitute-roll.ts";
 import { TempHPRuleElement } from "./rule-element/temp-hp.ts";
 import { TokenEffectIconRuleElement } from "./rule-element/token-effect-icon.ts";
@@ -43,7 +42,6 @@ import { TokenImageRuleElement } from "./rule-element/token-image.ts";
 import { TokenLightRuleElement } from "./rule-element/token-light.ts";
 import { TokenMarkRuleElement } from "./rule-element/token-mark/rule-element.ts";
 import { TokenNameRuleElement } from "./rule-element/token-name.ts";
-import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency.ts";
 export type { RuleElementSynthetics } from "./synthetics.ts";
 
 /**
@@ -83,7 +81,6 @@ class RuleElements {
         SpecialResource: SpecialResourceRuleElement,
         SpecialStatistic: SpecialStatisticRuleElement,
         Strike: StrikeRuleElement,
-        Striking: StrikingRuleElement,
         SubstituteRoll: SubstituteRollRuleElement,
         TempHP: TempHPRuleElement,
         TokenEffectIcon: TokenEffectIconRuleElement,
@@ -92,7 +89,6 @@ class RuleElements {
         TokenMark: TokenMarkRuleElement,
         TokenName: TokenNameRuleElement,
         Weakness: WeaknessRuleElement,
-        WeaponPotency: WeaponPotencyRuleElement,
     };
 
     static custom: Record<string, RuleElementConstructor> = {};

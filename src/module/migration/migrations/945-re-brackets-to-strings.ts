@@ -83,7 +83,6 @@ export class Migration945REBracketsToStrings extends MigrationBase {
             for (const override of R.values(rule.overrides)) {
                 if (Array.isArray(override)) {
                     for (const element of override) {
-                        console.log(element);
                         override.splice(override.indexOf(element), 1, this.#convertBrackets(element));
                     }
                 }

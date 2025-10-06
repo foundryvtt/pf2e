@@ -14,7 +14,7 @@ class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
         super(data, options);
 
         // Force false if there is no way this RE is relevant to ABP. This doesn't lead to any runtime changes
-        const abpRelevantProperties: ItemAlterationProperty[] = ["potency", "striking", "resilient"];
+        const abpRelevantProperties: ItemAlterationProperty[] = ["runes-potency", "runes-resilient", "runes-striking"];
         if (!this.item.isOfType("physical") && !abpRelevantProperties.includes(this.property)) {
             this.fromEquipment = false;
         }
