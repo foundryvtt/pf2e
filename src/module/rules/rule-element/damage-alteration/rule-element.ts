@@ -40,7 +40,7 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
                 nullable: true,
                 initial: null,
                 validate: (value, options): boolean | DataModelValidationFailure => {
-                    if (typeof value === "string" && /^(?:\{\w+\|.+\}|@.+\..+)$/.test(value)) return true;
+                    if (typeof value === "string" && /^\{\w+\|.+\}$/.test(value)) return true;
                     switch (options.source?.property) {
                         case "damage-type":
                             if (!setHasElement(DAMAGE_TYPES, value)) {
@@ -51,6 +51,7 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
                             }
                             break;
                         case "dice-faces": {
+                            if (typeof value === "string" && /|@.+\..+/.test(value)) return true;
                             const faces = Number(value);
                             if (!Number.isInteger(faces)) {
                                 return new DataModelValidationFailure({
@@ -69,6 +70,7 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
                             break;
                         }
                         case "dice-number": {
+                            if (typeof value === "string" && /|@.+\..+/.test(value)) return true;
                             const number = Number(value);
                             if (!Number.isInteger(number)) {
                                 return new DataModelValidationFailure({

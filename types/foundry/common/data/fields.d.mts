@@ -1241,7 +1241,7 @@ export class HTMLField<
     TModelProp extends NonNullable<JSONValue> = TSourceProp,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
-    THasInitial extends boolean = true,
+    THasInitial extends boolean = TNullable extends true ? true : boolean,
 > extends StringField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
     protected static override get _defaults(): StringFieldOptions<string, boolean, boolean, boolean>;
 }
