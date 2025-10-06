@@ -44,40 +44,24 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
                     switch (options.source?.property) {
                         case "damage-type":
                             if (!setHasElement(DAMAGE_TYPES, value)) {
-                                return new DataModelValidationFailure({
-                                    invalidValue: value,
-                                    message: "must be a damage type or resolvable to one",
-                                });
+                                throw Error("must be a damage type or resolvable to one");
                             }
                             break;
                         case "dice-faces": {
                             if (typeof value === "string" && /|@.+\..+/.test(value)) return true;
                             const faces = Number(value);
-                            if (!Number.isInteger(faces)) {
-                                return new DataModelValidationFailure({
-                                    invalidValue: value,
-                                    message: "must be an integer or resolvable to one",
-                                });
-                            }
+                            if (!Number.isInteger(faces)) throw Error("must be an integer or resolvable to one");
                             if (options.source?.mode === "override" && !tupleHasValue(DAMAGE_DICE_FACES, faces)) {
                                 const listFormatter = game.i18n.getListFormatter({ type: "disjunction" });
                                 const list = listFormatter.format(DAMAGE_DICE_FACES.map((f) => f.toString()));
-                                return new DataModelValidationFailure({
-                                    invalidValue: value,
-                                    message: `must override dice faces to ${list}`,
-                                });
+                                throw Error(`must override dice faces to ${list}`);
                             }
                             break;
                         }
                         case "dice-number": {
                             if (typeof value === "string" && /|@.+\..+/.test(value)) return true;
                             const number = Number(value);
-                            if (!Number.isInteger(number)) {
-                                return new DataModelValidationFailure({
-                                    invalidValue: value,
-                                    message: "must be an integer or resolvable to one",
-                                });
-                            }
+                            if (!Number.isInteger(number)) throw Error("must be an integer or resolvable to one");
                         }
                     }
                     return true;
