@@ -1,6 +1,7 @@
 import { AttributeString } from "@actor/types.ts";
+import type { AmmoType } from "@item/ammo/types.ts";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
-import { ItemFlagsPF2e, TraitConfig } from "@item/base/data/system.ts";
+import type { ItemFlagsPF2e, TraitConfig } from "@item/base/data/system.ts";
 import type {
     BasePhysicalItemSource,
     Grade,
@@ -70,6 +71,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     reload: {
         value: WeaponReloadTime | null;
     };
+    ammo: WeaponAmmunitionData | null;
     usage: {
         canBeAmmo?: boolean;
         value: "worngloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
@@ -131,6 +133,18 @@ interface WeaponMaterialSource extends ItemMaterialSource {
     type: WeaponMaterialType | null;
 }
 
+interface WeaponAmmunitionData {
+    /** True if the ammunition is built into the weapon. baseType is expected to be null */
+    builtIn: boolean;
+    /** The supported ammo type for this weapon. Null means its built-in or supports any non-magazine ammo (Erraticannon) */
+    baseType: AmmoType | BaseWeaponType | null;
+    /**
+     * The amount of ammunition that can be loaded into this weapon. Null if reload 0 without magazines.
+     * Starfinder 2e refers to this stat as "magazine", but a magazine is something different in PF2e.
+     */
+    capacity: number | null;
+}
+
 type WeaponRuneSource = {
     potency: ZeroToFour;
     striking: ZeroToFour;
@@ -148,8 +162,6 @@ interface WeaponSystemData
     expend: number | null;
     reload: {
         value: WeaponReloadTime | null;
-        /** Whether the ammunition (or the weapon itself, if thrown) should be consumed upon firing */
-        consume: boolean | null;
         /** A display label for use in any view */
         label: string | null;
     };

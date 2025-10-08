@@ -31,10 +31,10 @@ import type { AttributeString, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type {
+    AmmoPF2e,
     AncestryPF2e,
     BackgroundPF2e,
     ClassPF2e,
-    ConsumablePF2e,
     DeityPF2e,
     FeatPF2e,
     HeritagePF2e,
@@ -1070,7 +1070,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             : null;
 
         const ammos = [
-            ...itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed),
+            ...itemTypes.ammo.filter((i) => !i.isStowed),
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
         const offensiveCategories = R.keys(CONFIG.PF2E.weaponCategories);
@@ -1087,7 +1087,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 .filter((s) => !s.isStowed && !s.isBroken && !s.isDestroyed)
                 .map((s) => s.generateWeapon()),
             this.inventory.flatMap((i) =>
-                i.isEquipped ? i.subitems.filter((i): i is WeaponPF2e<this> => i.isOfType("weapon")) : [],
+                i.isEquipped
+                    ? i.subitems.filter(
+                          (sub): sub is WeaponPF2e<this> =>
+                              sub.isOfType("weapon") && i.isOfType("weapon") && !sub.isAmmoFor(i),
+                      )
+                    : [],
             ),
         ]
             .flat()
@@ -1147,7 +1152,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     private prepareAreaAttack(
         weapon: WeaponPF2e<CharacterPF2e>,
-        { ammos = [] }: { ammos?: (ConsumablePF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[] } = {},
+        { ammos = [] }: { ammos?: (AmmoPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[] } = {},
     ): CharacterAreaAttack {
         const actor = weapon.actor;
         const isAutomatic = weapon.system.traits.value.includes("automatic");
@@ -1526,12 +1531,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const expend = weapon.system.expend ?? 0;
                 const configuredAmmo = weapon.ammo;
-                const ammoRemaining = configuredAmmo?.isOfType("consumable")
+                const ammoRemaining = configuredAmmo?.isOfType("ammo")
                     ? configuredAmmo.uses.max > 1
                         ? configuredAmmo.uses.value
                         : configuredAmmo.quantity
                     : (configuredAmmo?.quantity ?? 0);
-                params.consumeAmmo ??= expend > 0;
+                params.consumeAmmo = weapon.system.ammo?.builtIn ? false : (params.consumeAmmo ?? expend > 0);
 
                 if (params.consumeAmmo && expend > ammoRemaining) {
                     ui.notifications.warn(
@@ -1970,7 +1975,7 @@ interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
 interface PrepareStrikeOptions {
     categories: WeaponCategory[];
     handsReallyFree: number;
-    ammos?: (ConsumablePF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
+    ammos?: (AmmoPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
 }
 
 export { CharacterPF2e };

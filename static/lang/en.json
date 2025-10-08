@@ -1788,6 +1788,97 @@
                 "Stage": "Stage {stage}",
                 "StageLabel": "Stage"
             },
+            "Ammo": {
+                "FIELDS": {
+                    "baseItem": {
+                        "label": "Ammunition Type"
+                    },
+                    "craftableAs": {
+                        "label": "Craftable As",
+                        "hint": "The types of ammo this item can be crafted as. If blank, any non-magazine can be crafted."
+                    }
+                },
+                "Base": {
+                    "8-round-magazine": "Magazine (Barricade Buster)",
+                    "arrows": "Arrows",
+                    "backpack-catapult-stone": "Stone (Backpack Catapult)",
+                    "battery": "Battery",
+                    "blowgun-darts": "Blowgun Darts",
+                    "bolts": "Bolts",
+                    "chem-tank": "Chem Tank",
+                    "cutlery": "Cutlery",
+                    "magazine-with-5-bolts": "Magazine (Repeating Hand Crossbow)",
+                    "magazine-with-6-pellets": "Magazine (Air Repeater)",
+                    "magazine-with-8-pellets": "Magazine (Long Air Repeater)",
+                    "magazine": "Magazine",
+                    "projectile-ammo": "Projectile Ammo",
+                    "repeating-crossbow-magazine": "Magazine (Repeating Crossbow)",
+                    "repeating-heavy-crossbow-magazine": "Magazine (Repeating Heavy Crossbow)",
+                    "rounds-alicorn-trigger": "Rounds (Alicorn Trigger)",
+                    "rounds-arquebus": "Rounds (Arquebus)",
+                    "rounds-axe-musket": "Rounds (Axe Musket)",
+                    "rounds-black-powder-knuckle-dusters": "Rounds (Black Powder Knuckle Dusters)",
+                    "rounds-blunderbuss": "Rounds (Blunderbuss)",
+                    "rounds-breath-blaster": "Rounds (Breath Blaster)",
+                    "rounds-cane-pistol": "Rounds (Cane Pistol)",
+                    "rounds-clan-pistol": "Rounds (Clan Pistol)",
+                    "rounds-coat-pistol": "Rounds (Coat Pistol)",
+                    "rounds-dagger-pistol": "Rounds (Dagger Pistol)",
+                    "rounds-double-barreled-musket": "Rounds (Double-Barreled Musket)",
+                    "rounds-double-barreled-pistol": "Rounds (Double-Barreled Pistol)",
+                    "rounds-dragon-mouth-pistol": "Rounds (Dragon Mouth Pistol)",
+                    "rounds-drake-rifle": "Rounds (Drake Rifle)",
+                    "rounds-dueling-pistol": "Rounds (Dueling Pistol)",
+                    "rounds-dwarven-scattergun": "Rounds (Dwarven Scattergun)",
+                    "rounds-explosive-dogslicer": "Rounds (Explosive Dogslicer)",
+                    "rounds-fire-lance": "Rounds (Fire Lance)",
+                    "rounds-flingflenser": "Rounds (Flingflenser)",
+                    "rounds-flintlock-musket": "Rounds (Flintlock Musket)",
+                    "rounds-flintlock-pistol": "Rounds (Flintlock Pistol)",
+                    "rounds-fulmination-fang": "Rounds (Fulmination Fang)",
+                    "rounds-gnome-amalgam-musket": "Rounds (Gnome Amalgam Musket)",
+                    "rounds-gun-sword": "Rounds (Gun Sword)",
+                    "rounds-hammer-gun": "Rounds (Hammer Gun)",
+                    "rounds-hand-cannon": "Rounds (Hand Cannon)",
+                    "rounds-harmona-gun": "Rounds (Harmona Gun)",
+                    "rounds-howler-pistol": "Rounds (Howler Pistol)",
+                    "rounds-jezail": "Rounds (Jezail)",
+                    "rounds-leydroth-spellbreaker": "Rounds (Leydroth Spellbreaker)",
+                    "rounds-mace-multipistol": "Rounds (Mace Multipistol)",
+                    "rounds-mithral-tree": "Rounds (Dawnsilver Tree)",
+                    "rounds-nightmares-lament": "Rounds (Nightmare's Lament)",
+                    "rounds-pepperbox": "Rounds (Pepperbox)",
+                    "rounds-petrification-cannon": "Rounds (Petrification Cannon)",
+                    "rounds-piercing-wind": "Rounds (Piercing Wind)",
+                    "rounds-rapier-pistol": "Rounds (Rapier Pistol)",
+                    "rounds-screech-shooter": "Rounds (Screech Shooter)",
+                    "rounds-shield-pistol": "Rounds (Shield Pistol)",
+                    "rounds-shobhad-longrifle": "Rounds (Shobhad Longrifle)",
+                    "rounds-slide-pistol": "Rounds (Slide Pistol)",
+                    "rounds-spider-gun": "Rounds (Spider Gun)",
+                    "rounds-spike-launcher": "Rounds (Spike Launcher)",
+                    "rounds-tentacle-cannon": "Rounds (Tentacle Cannon)",
+                    "rounds-three-peaked-tree": "Rounds (Three Peaked Tree)",
+                    "rounds-triggerbrand": "Rounds (Triggerbrand)",
+                    "rounds": "Rounds",
+                    "sling-bullets": "Sling Bullets",
+                    "spray-pellets": "Spray Pellets",
+                    "wooden-taws": "Wooden Taws"
+                },
+                "IsSpecialAmmo": {
+                    "label": "Is Special Ammunition",
+                    "hint": "Special ammunition such as magical and alchemical ammo can be crafted as a specific type of ammo"
+                },
+                "Groups": {
+                    "General": "General",
+                    "OwnWeapons": "Own Weapons",
+                    "Weapons": "Weapons",
+                    "WeaponSpecific": "Weapon Specific"
+                },
+                "SpecialAmmoPicker": {
+                    "Prompt": "Select an ammo type for this item"
+                }
+            },
             "Ancestry": {
                 "DropFeatures": "Drop ancestry features here.",
                 "FIELDS": {
@@ -2791,8 +2882,20 @@
                     "expend": {
                         "hint": "This indicates how much ammunition is consumed with each ranged Strike you make with the weapon. Other abilities might cite the use of Expend as the amount of ammo required to complete the action.",
                         "label": "Expend"
+                    },
+                    "ammo": {
+                        "baseType": {
+                            "label": "Ammunition Type"
+                        },
+                        "builtIn": {
+                            "label": "Ammo is Built In"
+                        },
+                        "capacity": {
+                            "label": "Capacity"
+                        }
                     }
                 },
+                "AnyBasicAmmo": "Any Basic Ammo",
                 "CanBeAmmo": {
                     "Label": "Usable as Ammo",
                     "Hint": "Indicate that this weapon can be loaded into another weapon as ammunition."
@@ -2840,6 +2943,11 @@
                 "Reload": {
                     "LabelN": "Reload {value}",
                     "OneMinute": "1 min"
+                },
+                "Reloader": {
+                    "EmptyMessage": "No Compatible Ammo in Inventory",
+                    "Reload1": "Reload",
+                    "ReloadAll": "Reload All"
                 },
                 "Rune": {
                     "Potency": "Weapon Potency",
@@ -3990,17 +4098,9 @@
         },
         "SpellcastingTypeLabel": "Spellcasting Type",
         "SpellsActionHeader": "Action",
-        "StackGroupArrows": "Arrows",
-        "StackGroupBlowgunDarts": "Blowgun Darts",
-        "StackGroupBolts": "Bolts",
         "StackGroupCoins": "Coins",
         "StackGroupGems": "Gems",
         "StackGroupLabel": "Stack Group",
-        "StackGroupRounds10": "Rounds (10)",
-        "StackGroupRounds5": "Rounds (5)",
-        "StackGroupSlingBullets": "Sling Bullets",
-        "StackGroupSprayPellets": "Spray Pellets",
-        "StackGroupWoodenTaws": "Wooden Taws",
         "StaminaPointsHeader": "Stamina Points",
         "StaminaPointsShortLabel": "Stamina",
         "StatusBonusShortLabel": "Status",
@@ -5469,6 +5569,7 @@
                 "asp-coil": "Asp Coil",
                 "atlatl": "Atlatl",
                 "axe-musket": "Axe Musket",
+                "backpack-catapult": "Backpack Catapult",
                 "barricade-buster": "Barricade Buster",
                 "bastard-sword": "Bastard Sword",
                 "battle-axe": "Battle Axe",
@@ -6677,6 +6778,7 @@
         "Item": {
             "action": "Ability",
             "affliction": "Affliction",
+            "ammo": "Ammo",
             "ancestry": "Ancestry",
             "armor": "Armor",
             "background": "Background",

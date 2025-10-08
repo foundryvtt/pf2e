@@ -521,7 +521,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
      * Detach a subitem from another physical item, either creating it as a new, independent item or incrementing the
      * quantity of an existing stack.
      */
-    async detach({ skipConfirm }: { skipConfirm?: boolean }): Promise<void> {
+    async detach({ skipConfirm }: { skipConfirm?: boolean } = {}): Promise<void> {
         const parentItem = this.parentItem;
         if (!parentItem) throw ErrorPF2e("Subitem has no parent item");
 
@@ -541,9 +541,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                 // Find a stack match, cloning the subitem as worn so the search won't fail due to it being equipped
                 const subitemData: PhysicalItemSource = this.toObject();
                 subitemData.system.equipped.carryType = "worn";
-                const stack = this.isOfType("consumable")
-                    ? parentItem.actor?.inventory.findStackableItem(subitemData)
-                    : null;
+                const isWeaponAmmo =
+                    this.isOfType("weapon") && parentItem.isOfType("weapon") && this.isAmmoFor(parentItem);
+                const stack =
+                    this.isOfType("consumable", "ammo") || isWeaponAmmo
+                        ? parentItem.actor?.inventory.findStackableItem(subitemData)
+                        : null;
                 const keepId = !!parentItem.actor && !parentItem.actor.items.has(this.id);
                 return (
                     stack?.update({ "system.quantity": stack.quantity + this.quantity }) ??

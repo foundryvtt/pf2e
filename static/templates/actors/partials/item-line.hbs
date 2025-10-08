@@ -143,9 +143,9 @@
         {{/if}}
     </div>
 
-    {{#if item.subitems.size}}
+    {{#if subitems.length}}
         <ul class="items subitems">
-            {{#each item.subitems as |subitem|}}
+            {{#each subitems as |subitem|}}
                 {{> "systems/pf2e/templates/actors/partials/item-line.hbs" item=subitem isSubitem=true}}
             {{/each}}
         </ul>

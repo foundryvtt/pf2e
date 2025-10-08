@@ -93,8 +93,6 @@ function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): ImageFilePath 
             return "shields";
         } else if (item.isOfType("consumable")) {
             switch (item.category) {
-                case "ammo":
-                    return "ammunition";
                 case "oil":
                     return "oils";
                 case "scroll":
@@ -121,6 +119,8 @@ function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): ImageFilePath 
                         return "other-consumables";
                     }
             }
+        } else if (item.isOfType("ammo")) {
+            return "ammunition";
         } else if (item.isOfType("equipment")) {
             if (item.traits.has("precious")) {
                 return "material-chunk";

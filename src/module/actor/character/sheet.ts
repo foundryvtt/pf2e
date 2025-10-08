@@ -25,6 +25,7 @@ import { isSpellConsumableUUID } from "@item/consumable/spell-consumables.ts";
 import { Coins } from "@item/physical/coins.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
 import type { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
+import { WeaponReloader } from "@item/weapon/apps/weapon-reloader/app.ts";
 import type { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
@@ -646,6 +647,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 }
             }
 
+            // Change ammo dropdown
             const ammoSelect = htmlQuery<HTMLSelectElement>(strikeElem, "select[data-action=link-ammo]");
             ammoSelect?.addEventListener("change", (event) => {
                 event.stopPropagation();
@@ -653,6 +655,26 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 const weapon = action?.item;
                 const ammo = this.actor.items.get(ammoSelect.value);
                 weapon?.update({ system: { selectedAmmoId: ammo?.id ?? null } });
+            });
+
+            const ammoQuantity = strikeElem.querySelector<HTMLInputElement>("input[data-action=change-ammo-quantity]");
+            ammoQuantity?.addEventListener("blur", (event) => {
+                event.stopPropagation();
+                const weapon = this.getAttackActionFromDOM(ammoQuantity)?.item;
+                if (!weapon) return;
+
+                const itemId = htmlClosest(ammoQuantity, "[data-item-id]")?.dataset.itemId;
+                const item = weapon.subitems.get(itemId, { strict: true });
+                if (!item.isOfType("ammo", "weapon")) return;
+
+                const value = Number(ammoQuantity.value);
+                if (value === 0) {
+                    item.delete();
+                } else if (item.isOfType("ammo") && item.system.uses.max > 1) {
+                    item.update({ "system.uses.value": value });
+                } else {
+                    item.update({ "system.quantity": value });
+                }
             });
         }
 
@@ -892,6 +914,21 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             return item.system.traits.toggles?.update({ trait, selected: !toggle.selected });
         };
 
+        handlers["unload"] = async (_, button) => {
+            const weapon = this.getAttackActionFromDOM(button)?.item;
+            if (weapon) {
+                const itemId = htmlClosest(button, "[data-item-id]")?.dataset.itemId;
+                weapon.subitems.get(itemId, { strict: true }).detach();
+            }
+        };
+
+        handlers["reload"] = async (_, button) => {
+            const weapon = this.getAttackActionFromDOM(button)?.item;
+            if (weapon) {
+                new WeaponReloader({ weapon }).activate(button);
+            }
+        };
+
         handlers["toggle-exploration"] = async (event) => {
             const actionId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             if (!actionId) return;
@@ -903,6 +940,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             await this.actor.update({ "system.exploration": exploration });
         };
+
         handlers["clear-exploration"] = async () => {
             await this.actor.update({ "system.exploration": [] });
         };

@@ -5,6 +5,7 @@
     import { ItemPF2e } from "@item";
     import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
     import { sluggify } from "@util/misc.ts";
+    import * as R from "remeda";
 
     const { state: data, updateSelection, resolve, testAllowedDrop }: PickAThingRenderContext = $props();
     const { containsItems, selectMenu, allowNoSelection, includeDropZone } = $derived(data);
@@ -19,8 +20,15 @@
     // The select cannot handle complex value objects, so we use index or bonus instead
     const selectChoices = $derived.by(() => {
         if (!selectMenu) return [];
-        type SelectOption = { value: number | "bonus"; label: string };
-        const options = data.choices.map((c, index): SelectOption => ({ value: index, label: c.label }));
+        const allOptions = data.choices.map((c, index) => ({ value: index, label: c.label, group: c.group }));
+
+        type SelectOption = { value: number | "bonus"; label: string } | { label: string; options: SelectOption[] };
+        const groups = R.groupBy(allOptions, (c) => c.group ?? "");
+        const options: SelectOption[] = groups[""] ?? [];
+        for (const [key, value] of Object.entries(groups)) {
+            if (key === "") continue;
+            options.push({ label: key, options: value });
+        }
         if (droppedOption) options.push({ value: "bonus", label: droppedOption.label });
         return options;
     });

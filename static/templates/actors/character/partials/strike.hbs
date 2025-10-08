@@ -24,7 +24,7 @@
             <span class="hands-occupied">{{localize "PF2E.Actor.Character.HandsOccupied"}}</span>
         {{/if}}
 
-        {{#if (and action.altUsages action.ready)}}
+        {{#if action.ready}}
             {{#each action.altUsages as |usage index|}}
                 <div class="alt-usage" data-tooltip-direction="LEFT">
                     {{#if usage.item.isThrown}}
@@ -35,22 +35,55 @@
                     {{#> attackDamage usage altUsageIndex=index}}{{/attackDamage}}
                 </div>
             {{/each}}
-        {{/if}}
 
-        {{#if (and action.ammunition action.ready)}}
-            <div class="ammo auxiliary-actions">
-                <select class="linked"
-                    data-action="link-ammo"
-                    {{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
-                    {{selectOptions action.ammunition.compatible selected=action.ammunition.selected.id valueAttr="id" blank="PF2E.NoAmmoLabel" localize=true}}
-                </select>
-
-                <span class="magazine" data-item-id="{{action.item.id}}">
-                    {{#if (gt action.item.ammo.uses.max 1)}}
-                        <span class="remaining"><i class="icon"></i> {{action.item.ammo.uses.value}}</span>
+            {{#if action.ammunition.requiresReload}}
+                <div class="ammo">
+                    {{#each action.ammunition.loaded as |ammo|}}
+                        <div class="loaded" data-item-id="{{ammo.id}}">
+                            <img src="{{ammo.img}}" />
+                            <span class="name">{{ammo.name}}</span>
+                            <span class="magazine" >
+                                <i class="icon"></i>
+                                <input
+                                    type="text"
+                                    data-action="change-ammo-quantity"
+                                    data-allow-delta
+                                    value="{{ammo.quantity}}"
+                                    data-min="0"
+                                    data-max="{{ammo.max}}"
+                                    data-refocus="{{../action.item.id}}-{{ammo.id}}"
+                                />
+                            </span>
+                            <a data-action="unload">
+                                <span class="fa-stack fa-fw fa-2xs">
+                                    <i class="fa-solid fa-paperclip fa-stack-2x" inert></i>
+                                    <i class="fa-solid fa-slash fa-stack-2x"inert></i>
+                                </span>
+                            </a>
+                        </div>
+                    {{/each}}
+                    {{#if action.ammunition.remaining}}
+                        <div class="empty plain">
+                            <a class="name" data-action="reload" data-anchor-id="{{action.item.uuid}}-actions">
+                                <span>Reload <span class="action-glyph">{{action.ammunition.reloadGlyph}}</span></span>
+                            </a>
+                                <span class="remaining">
+                                    {{#if (gt action.ammunition.capacity 1)}}
+                                        {{action.ammunition.remaining}} Empty
+                                    {{else}}
+                                        Empty
+                                    {{/if}}
+                                </span>
+                        </div>
                     {{/if}}
-                </span>
-            </div>
+                </div>
+            {{else if action.ammunition}}
+                <div class="ammo auxiliary-actions">
+                    <select data-action="link-ammo">
+                        {{selectOptions action.ammunition.compatible selected=action.ammunition.selected.id valueAttr="id" blank="PF2E.NoAmmoLabel" localize=true}}
+                    </select>
+                </div>
+            {{/if}}
         {{/if}}
 
         {{#if action.handsAvailable}}

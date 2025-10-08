@@ -42,6 +42,32 @@
             </select>
         </div>
 
+        {{#if data.ammo}}
+            <div class="form-group">
+                <label for="{{fieldIdPrefix}}ammo.builtIn">
+                    {{localize "PF2E.Item.Weapon.FIELDS.ammo.builtIn.label"}}
+                </label>
+                <div class="form-fields">
+                    <input
+                        type="checkbox"
+                        name="system.ammo.builtIn"
+                        id="{{fieldIdPrefix}}ammo.builtIn"
+                        {{checked data.ammo.builtIn}}
+                    />
+                </div>
+            </div>
+            {{#unless data.ammo.builtIn}}
+                <div class="form-group">
+                    <label for="{{fieldIdPrefix}}ammo.baseType">
+                        {{localize "PF2E.Item.Weapon.FIELDS.ammo.baseType.label"}}
+                    </label>
+                    <select id="{{fieldIdPrefix}}ammo.baseType" name="system.ammo.baseType" class="force-fit">
+                        {{selectOptions ammoTypes selected=data.ammo.baseType}}
+                    </select>
+                </div>
+            {{/unless}}
+        {{/if}}
+
         {{#if expend}}
             <div class="form-group">
                 <label for="{{fieldIdPrefix}}expend">
@@ -49,6 +75,15 @@
                     <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Weapon.FIELDS.expend.hint"></i>
                 </label>
                 <input type="number" id="{{fieldIdPrefix}}expend" class="{{expend.adjustmentClass}}" data-property="system.expend" value="{{expend.value}}" min="1">
+            </div>
+        {{/if}}
+
+        {{#if (and data.ammo.capacity canHaveCapacity)}}
+            <div class="form-group">
+                <label for="{{fieldIdPrefix}}capacity">
+                    {{localize "PF2E.Item.Weapon.FIELDS.ammo.capacity.label"}}
+                </label>
+                <input type="number" id="{{fieldIdPrefix}}capacity" data-property="system.ammo.capacity" value="{{data.ammo.capacity}}" min="1">
             </div>
         {{/if}}
     {{/if}}
@@ -69,6 +104,7 @@
             <label for="{{fieldIdPrefix}}material">{{localize "PF2E.PreciousMaterialLabel"}}</label>
             <select
                 id="{{fieldIdPrefix}}material"
+                class="force-fit"
                 data-property="system.material"
                 data-value-base="{{json item._source.system.material}}"
                 data-dtype="JSON"

@@ -3,6 +3,7 @@
     import type { RawItemChatData } from "@item/base/data/index.ts";
     import { slide } from "svelte/transition";
     import ItemTraits from "./item-traits.svelte";
+    import type { ItemUUID } from "@common/documents/_module.mjs";
 
     interface ItemSummaryProps {
         open: boolean;

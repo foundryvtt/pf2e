@@ -642,6 +642,7 @@ class PackExtractor {
             "armor",
             "equipment",
             "consumable",
+            "ammo",
             "treasure",
             "backpack",
             "condition",

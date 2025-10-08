@@ -1,5 +1,6 @@
 import type { AbilitySource } from "@item/ability/data.ts";
 import type { AfflictionSource } from "@item/affliction/data.ts";
+import type { AmmoSource } from "@item/ammo/data.ts";
 import type { AncestrySource } from "@item/ancestry/data.ts";
 import type { ArmorSource } from "@item/armor/data.ts";
 import type { BackgroundSource } from "@item/background/data.ts";
@@ -48,6 +49,7 @@ type NonPhysicalItemType =
 type AbstractEffectSource = EffectSource | ConditionSource | AfflictionSource;
 
 type PhysicalItemSource =
+    | AmmoSource
     | ArmorSource
     | BookSource
     | ConsumableSource

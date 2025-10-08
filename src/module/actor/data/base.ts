@@ -5,6 +5,7 @@ import type { InitiativeTraceData } from "@actor/initiative.ts";
 import type { Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { ActorAlliance, AttributeString, SkillSlug } from "@actor/types.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
+import type { ImageFilePath } from "@common/constants.mjs";
 import type { DocumentFlags, DocumentFlagsSource } from "@common/data/_module.d.mts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
@@ -249,11 +250,15 @@ interface BasicAttackAction {
 
 interface AttackAmmunitionData {
     compatible: { id: string; label: string }[];
-    incompatible: { id: string; label: string }[];
+    loaded: { id: string; img: ImageFilePath; name: string; quantity: number; max: number }[];
     selected: {
         id: string;
         compatible: boolean;
     } | null;
+    requiresReload: boolean;
+    reloadGlyph: string | null;
+    capacity: number;
+    remaining: number;
 }
 
 /** An strike which an actor can use. */

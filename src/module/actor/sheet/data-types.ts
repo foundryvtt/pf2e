@@ -14,6 +14,7 @@ import type { SheetOptions } from "@module/sheet/helpers.ts";
 
 interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
     item: TItem;
+    subitems: PhysicalItemPF2e[];
     /** Item size if it causes any weight difference relative to the actor */
     itemSize?: ActorSizePF2e | null;
     isContainer: boolean;

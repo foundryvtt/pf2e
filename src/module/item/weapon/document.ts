@@ -4,7 +4,7 @@ import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type { DatabaseDeleteCallbackOptions, DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
-import type { ConsumablePF2e, MeleePF2e, ShieldPF2e } from "@item";
+import type { AmmoPF2e, ItemPF2e, MeleePF2e, ShieldPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import type { ItemSourcePF2e, MeleeSource, RawItemChatData } from "@item/base/data/index.ts";
@@ -186,17 +186,34 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
-    get ammo(): ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | null {
-        const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
-        return ammo?.isOfType("consumable", "weapon") ? ammo : null;
+    get ammo(): AmmoPF2e<TParent> | WeaponPF2e<TParent> | null {
+        if (!this.system.ammo) return null; // omit if this usage doesn't support ammo
+
+        const requiresReload = this.reload !== "0" || this.system.traits.value.includes("repeating");
+        if (!requiresReload) {
+            const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "") as ItemPF2e<TParent>;
+            return ammo?.isOfType("ammo", "weapon") ? ammo : null;
+        }
+
+        return (
+            this.subitems.find<AmmoPF2e<TParent> | WeaponPF2e<TParent>>(
+                (i) => i.isOfType("ammo", "weapon") && i.isAmmoFor(this),
+            ) ?? null
+        );
     }
 
     get otherTags(): Set<OtherWeaponTag> {
         return new Set(this.system.traits.otherTags);
     }
 
+    /** Returns true if the given item can be embedded in this one */
     override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {
         if (candidate === this) return false;
+
+        // Return true if loadable ammo, or weapon as ammo
+        if (candidate.isOfType("ammo", "weapon") && candidate.isAmmoFor(this) && !!this.system.ammo?.capacity) {
+            return true;
+        }
 
         if (candidate.isOfType("weapon")) {
             return (
@@ -228,7 +245,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Whether this weapon can serve as ammunition for another weapon */
     isAmmoFor(weapon: WeaponPF2e): boolean {
-        return this.system.usage.canBeAmmo && !weapon.system.traits.value.includes("repeating");
+        return this.system.usage.canBeAmmo && !!weapon.system.ammo && weapon.system.ammo?.baseType === this.baseType;
     }
 
     /** Generate a list of strings for use in predication */
@@ -258,7 +275,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const propertyRunes = R.mapToObj(this.system.runes.property, (p) => [`rune:property:${sluggify(p)}`, true]);
 
         // Ammunition
-        const ammunitionRollOptions = ((ammunition: ConsumablePF2e | WeaponPF2e | null) => {
+        const ammunitionRollOptions = ((ammunition: AmmoPF2e | WeaponPF2e | null) => {
             const rollOptions: Record<string, boolean> = {};
             if (ammunition) {
                 rollOptions[`ammo:id:${ammunition.id}`] = true;
@@ -395,9 +412,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             traits.value = traits.value.filter((t) => !MELEE_ONLY_TRAITS.has(t) && !t.startsWith("thrown-"));
         }
 
-        // Whether the ammunition or weapon itself should be consumed
-        this.system.reload.consume = this.isMelee ? null : this.reload !== null;
-
         // Whether the weapon is also usable as ammunition: set from source since parent prepares initial (clean) usage
         // object
         this.system.usage.canBeAmmo = this._source.system.usage.canBeAmmo ?? false;
@@ -434,12 +448,47 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             this.system.usage.canBeAmmo = false;
         }
 
-        // Initialize expend value. Valid expend values depend on the reload value
+        // Initialize ammo and expend value. Valid values depend on the reload value
         if (this.isRanged && !this.isThrown && this.reload !== null) {
-            const isDoubleBarrel = this.system.traits.toggles.doubleBarrel.selected;
-            const minValue = isDoubleBarrel ? 2 : 1;
-            this.system.expend = Math.max(minValue, this.system.expend ?? 1);
+            const isRepeating = this.system.traits.value.includes("repeating");
+            const minExpend = this.system.traits.toggles.doubleBarrel.selected ? 2 : 1;
+            this.system.expend = Math.max(minExpend, this.system.expend ?? 1);
+
+            const existingBaseType = this.system.ammo?.baseType;
+            const existingTypeData = objectHasKey(CONFIG.PF2E.ammoTypes, existingBaseType)
+                ? CONFIG.PF2E.ammoTypes[existingBaseType]
+                : null;
+
+            // Initialize ammunition data. If the weapon has the repeating trait, it must use a magazine
+            if (isRepeating) {
+                this.system.ammo = {
+                    builtIn: false,
+                    baseType:
+                        existingBaseType && existingTypeData?.parent === "magazine" ? existingBaseType : "magazine",
+                    capacity: 1, // it can load one magazine
+                };
+            } else {
+                this.system.ammo = {
+                    builtIn: false,
+                    capacity: null,
+                    ...(this.system.ammo ?? {}),
+                    baseType: existingBaseType ?? null,
+                };
+            }
+
+            // Determine capacity from traits. Weapons that load magazines cannot load more than one
+            if (!existingTypeData?.magazine) {
+                const capacityTrait = this.system.traits.value.find((t) => /^capacity-\d+$/.test(t));
+                const capacityFromTrait = capacityTrait ? Number(capacityTrait.replace("capacity-", "")) : null;
+                const capacityFromDoubleBarrel = this.system.traits.value.includes("double-barrel") ? 2 : null;
+                const requiresReload = this.reload !== "0" || isRepeating;
+                this.system.ammo.capacity =
+                    capacityFromTrait ??
+                    capacityFromDoubleBarrel ??
+                    (requiresReload ? (this.system.ammo.capacity ?? 1) : null);
+            }
         } else {
+            this.system.ammo = null;
             this.system.expend = null;
         }
     }
@@ -771,7 +820,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /** Consume a unit of ammunition used by this weapon */
     async consumeAmmo(): Promise<void> {
         const ammo = this.ammo;
-        if (this.system.expend && ammo?.isOfType("consumable")) {
+        if (this.system.expend && ammo?.isOfType("ammo")) {
             return ammo.consume(this.system.expend);
         } else if (ammo?.isOfType("weapon")) {
             if (!ammo.system.usage.canBeAmmo) {
@@ -834,10 +883,22 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const isRanged =
             setHasElement(MANDATORY_RANGED_GROUPS, changed.system.group ?? this.system.group) ||
             !!("range" in changed.system ? changed.system.range : this._source.system.range);
-        const mustHaveExpend = isRanged && !isThrown && reload !== null;
-        changed.system.expend = mustHaveExpend
-            ? Math.max(1, changed.system.expend ?? this._source.system.expend ?? 1)
-            : null;
+        const mustHaveAmmo = isRanged && !isThrown && reload !== null;
+        if (mustHaveAmmo) {
+            changed.system.ammo = {
+                builtIn: false,
+                baseType: R.entries(CONFIG.PF2E.ammoTypes).find(([_, v]) => v.weapon === this.baseType)?.[0] ?? null,
+                ...(this._source.system.ammo ?? {}),
+                ...changed.system.ammo,
+            };
+            if (changed.system.ammo.builtIn) {
+                changed.system.ammo.baseType = null;
+            }
+            changed.system.expend = Math.max(1, changed.system.expend ?? this._source.system.expend ?? 1);
+        } else {
+            changed.system.ammo = null;
+            changed.system.expend = null;
+        }
 
         return super._preUpdate(changed, options, user);
     }

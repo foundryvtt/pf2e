@@ -2,12 +2,13 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import type { AttackAmmunitionData } from "@actor/data/base.ts";
 import { Modifier } from "@actor/modifiers.ts";
-import { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, ConsumablePF2e, ItemProxyPF2e, WeaponPF2e } from "@item";
+import { AbilityItemPF2e, AmmoPF2e, ArmorPF2e, ConditionPF2e, ItemProxyPF2e, WeaponPF2e } from "@item";
+import { getLoadedAmmo } from "@item/weapon/helpers.ts";
 import type { ZeroToFour } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { Predicate } from "@system/predication.ts";
-import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { WeaponAuxiliaryAction } from "./auxiliary.ts";
 import type { MartialProficiency } from "./data.ts";
@@ -298,22 +299,45 @@ function getWeaponAuxiliaryActions(weapon: WeaponPF2e<CharacterPF2e>): WeaponAux
     return auxiliaryActions;
 }
 
-/** Returns data for usable ammo if the weapon requires ammo */
+/**
+ * Returns data for usable ammo if the weapon requires ammo.
+ * Built in ammo will require special handling, and isn't supported yet.
+ */
 function getAttackAmmo(
     weapon: WeaponPF2e<CharacterPF2e>,
-    { ammos }: { ammos: (ConsumablePF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[] },
+    { ammos }: { ammos: (AmmoPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[] },
 ): AttackAmmunitionData | null {
     if (!weapon.system.expend) return null;
 
-    const compatible = ammos
-        .filter((a) => a.isAmmoFor(weapon))
-        .map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` }));
-    const incompatible = ammos
-        .filter((a) => !a.isAmmoFor(weapon))
-        .map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` }));
     const ammo = weapon.ammo;
+    const compatible = ammos.filter((a) => a.isAmmoFor(weapon));
     const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
-    return { compatible, incompatible, selected };
+    const loaded = getLoadedAmmo(weapon);
+    const capacity = weapon.system.ammo?.capacity ?? 0;
+    const remaining = Math.max(0, capacity - R.sumBy(loaded, (l) => l.quantity));
+
+    // Get reload glyph. Repeating weapons always take 3 actions total
+    const numActions = weapon.system.traits.value.includes("repeating") ? 3 : Number(weapon.reload);
+    const reloadGlyph = numActions > 0 && Number.isInteger(numActions) ? getActionGlyph(numActions) : null;
+
+    return {
+        compatible: compatible.map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` })),
+        selected,
+        loaded: loaded.map((ammo) => {
+            // A magazine can have max uses 1, but in those cases the quantity would be the same
+            const isMagazine = ammo.isOfType("ammo") && ammo.system.uses.max > 1;
+            return {
+                ...R.pick(ammo, ["id", "name", "img"]),
+                quantity: isMagazine ? ammo.system.uses.value : ammo.quantity,
+                max: isMagazine ? ammo.system.uses.max : remaining + ammo.quantity,
+            };
+        }),
+        // A repeating weapon may have reload 0, and still requires reloading
+        requiresReload: weapon.reload !== "0" || weapon.system.traits.value.includes("repeating"),
+        reloadGlyph,
+        capacity,
+        remaining,
+    };
 }
 
 export {

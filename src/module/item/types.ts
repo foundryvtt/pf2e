@@ -9,6 +9,7 @@ type ItemType = (typeof ITEM_TYPES)[number];
 interface ItemInstances<TParent extends ActorPF2e | null> {
     action: ItemInstance.AbilityItemPF2e<TParent>;
     affliction: ItemInstance.AfflictionPF2e<TParent>;
+    ammo: ItemInstance.AmmoPF2e<TParent>;
     ancestry: ItemInstance.AncestryPF2e<TParent>;
     armor: ItemInstance.ArmorPF2e<TParent>;
     background: ItemInstance.BackgroundPF2e<TParent>;

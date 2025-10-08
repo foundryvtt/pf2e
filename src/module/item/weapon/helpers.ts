@@ -1,3 +1,5 @@
+import { ActorPF2e } from "@actor";
+import { ConsumablePF2e } from "@item/consumable/document.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { tupleHasValue } from "@util";
@@ -25,4 +27,15 @@ function processTwoHandTrait(weapon: WeaponPF2e): void {
     }
 }
 
-export { processTwoHandTrait, upgradeWeaponTrait };
+/** Returns all ammo currently loaded in this weapon */
+function getLoadedAmmo<T extends WeaponPF2e<A>, A extends ActorPF2e | null>(
+    weapon: T,
+): (WeaponPF2e<A> | ConsumablePF2e<A>)[] {
+    if (!weapon.system.ammo?.capacity) return [];
+    return weapon.subitems.filter(
+        (i): i is WeaponPF2e<A> | ConsumablePF2e<A> =>
+            i.isOfType("ammo") || (i.isOfType("weapon") && i.isAmmoFor(weapon)),
+    );
+}
+
+export { getLoadedAmmo, processTwoHandTrait, upgradeWeaponTrait };

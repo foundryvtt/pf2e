@@ -248,3 +248,4 @@ export { Migration946RetirePotencyStrikingREs } from "./946-retire-potency-strik
 export { Migration947FixPostPotencyStrikingPredicates } from "./947-fix-post-potency-striking-predicates.ts";
 export { Migration948MoreBadPredicatesAndSolarianCrystals } from "./948-more-bad-predicates-and-solarian-crystals.ts";
 export { Migration949NPCRangeData } from "./949-npc-range-data.ts";
+export { Migration950AmmoConsumableToAmmoAmmo } from "./950-ammo-consumable-to-ammo-ammo.ts";

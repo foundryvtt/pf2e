@@ -42,8 +42,7 @@
     </div>
 {{/if}}
 
-
-{{#unless (or item.isAmmo (eq data.damage.kind "healing"))}}
+{{#unless (eq data.damage.kind "healing")}}
     <div class="form-group stacked">
         <label>
             <span>{{localize "PF2E.Item.MaterialEffects.Label"}}</span>

@@ -215,6 +215,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 types: ["consumable"],
                 items: [],
             },
+            { label: game.i18n.localize("TYPES.Item.ammo"), types: ["ammo"], items: [] },
             { label: game.i18n.localize("TYPES.Item.treasure"), types: ["treasure"], items: [] },
             { label: game.i18n.localize("PF2E.Item.Container.Plural"), types: ["backpack"], items: [] },
         ];
@@ -249,8 +250,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
         return {
             item,
+            // Sort subitems to get a certain logical order
+            // 0 = usable weapons, 1 = upgrades, 2 = temp attachables, 3 = ammo
+            subitems: R.sortBy(item.subitems.contents, (i) => {
+                const isAmmo =
+                    i.isOfType("ammo") || (i.isOfType("weapon") && item.isOfType("weapon") && i.isAmmoFor(item));
+                const isEquipment = i.system.usage.type === "installed";
+                return isAmmo ? 3 : i.isOfType("weapon") ? 0 : isEquipment ? 1 : 2;
+            }),
             canBeEquipped: !item.isStowed,
-            hasCharges: item.isOfType("consumable") && item.system.uses.max > 0,
+            hasCharges:
+                (item.isOfType("consumable") && item.system.uses.max > 0) ||
+                (item.isOfType("ammo") && item.system.uses.max > 1),
             heldItems,
             isContainer: item.isOfType("backpack"),
             isInvestable: false,
@@ -1454,6 +1465,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                     element,
                     `${tagName}[data-item-id="${itemId}"][data-item-property="${itemProperty}"]`,
                 )?.focus();
+            } else if (focused.dataset.refocus) {
+                htmlQuery(element, `${tagName}[data-refocus="${focused.dataset.refocus}"]`)?.focus();
             }
         }
 

@@ -57,7 +57,7 @@ class CharacterCrafting {
                 const formula = formulaMap.get(item.uuid);
                 if (!formula) return null;
 
-                const isAmmo = item.isOfType("consumable") && item.isAmmo;
+                const isAmmo = item.isOfType("ammo");
                 const isMundaneAmmo = isAmmo && !item.isMagical;
                 const isConsumable = item.system.traits.value.includes("consumable");
 

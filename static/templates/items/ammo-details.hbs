@@ -1,0 +1,64 @@
+<div class="form-group">
+    <label for="{{fieldIdPrefix}}special-ammo">
+        {{localize "PF2E.Item.Ammo.IsSpecialAmmo.label"}}
+        <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Ammo.IsSpecialAmmo.hint"></i>
+    </label>
+    <div class="form-fields">
+        <input id="{{fieldIdPrefix}}special-ammo" type="checkbox" data-action="set-special-ammo" {{checked isSpecialAmmo}} />
+    </div>
+</div>
+
+{{#if isSpecialAmmo}}
+    <div class="form-group">
+        <label>
+            {{localize "PF2E.Item.Ammo.FIELDS.craftableAs.label"}}
+            <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Ammo.FIELDS.craftableAs.hint"></i>
+        </label>
+        <div class="form-fields">
+            <tagify-tags
+                class="pf2e-tagify"
+                {{disabled item.parentItem}}
+                name="system.craftableAs"
+                value="{{json data.craftableAs}}"
+                placeholder="Any"
+            ></tagify-tags>
+        </div>
+    </div>
+{{/if}}
+
+<div class="form-group">
+    <label>{{localize "PF2E.Item.Ammo.FIELDS.baseItem.label"}}</label>
+    <select
+        class="force-fit"
+        name="system.baseItem"
+        {{disabled item.parentItem}}
+    >
+        {{selectOptions ammoTypes selected=data.baseItem}}
+    </select>
+</div>
+
+{{#if canHaveUses}}
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}uses-value">{{localize "PF2E.Item.Consumable.Uses.Label"}}</label>
+        <div class="form-fields">
+            <input
+                id="{{fieldIdPrefix}}uses-value"
+                type="number"
+                name="system.uses.value"
+                value="{{data.uses.value}}"
+            />
+            /
+            <input type="number" name="system.uses.max" value="{{data.uses.max}}" />
+        </div>
+    </div>
+{{/if}}
+
+<div class="form-group">
+    <label for="{{fieldIdPrefix}}uses-auto-destroy">{{localize "PF2E.Item.Consumable.Uses.AutoDestroy"}}</label>
+    <input
+        type="checkbox"
+        name="system.uses.autoDestroy"
+        id="{{fieldIdPrefix}}uses-auto-destroy"
+        {{checked data.uses.autoDestroy}}
+    />
+</div>
