@@ -19,11 +19,6 @@ type PreciousMaterialGrade = SetElement<typeof PRECIOUS_MATERIAL_GRADES>;
 
 type Grade = keyof typeof CONFIG.PF2E.grades;
 
-interface StackDefinition {
-    size: number;
-    lightBulk: number;
-}
-
 export type {
     BaseMaterial,
     CoinDenomination,
@@ -32,5 +27,4 @@ export type {
     PhysicalItemType,
     PreciousMaterialGrade,
     PreciousMaterialType,
-    StackDefinition,
 };

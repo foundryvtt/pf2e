@@ -228,10 +228,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Whether this weapon can serve as ammunition for another weapon */
     isAmmoFor(weapon: WeaponPF2e): boolean {
-        if (!this.system.usage.canBeAmmo) return false;
-        const weaponAmmoType = weapon.system.ammo?.baseType;
-        const ammoData = weaponAmmoType ? CONFIG.PF2E.ammoTypes[weaponAmmoType] : null;
-        return ammoData?.category === "weapon" && tupleHasValue([null, this.baseType], ammoData.weapon);
+        return this.system.usage.canBeAmmo && !weapon.system.traits.value.includes("repeating");
     }
 
     /** Generate a list of strings for use in predication */
@@ -398,6 +395,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             traits.value = traits.value.filter((t) => !MELEE_ONLY_TRAITS.has(t) && !t.startsWith("thrown-"));
         }
 
+        // Whether the ammunition or weapon itself should be consumed
+        this.system.reload.consume = this.isMelee ? null : this.reload !== null;
+
         // Whether the weapon is also usable as ammunition: set from source since parent prepares initial (clean) usage
         // object
         this.system.usage.canBeAmmo = this._source.system.usage.canBeAmmo ?? false;
@@ -434,50 +434,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             this.system.usage.canBeAmmo = false;
         }
 
-        // Initialize ammo and expend value. Valid values depend on the reload value
+        // Initialize expend value. Valid expend values depend on the reload value
         if (this.isRanged && !this.isThrown && this.reload !== null) {
-            const isRepeating = this.system.traits.value.includes("repeating");
-            const minExpend = this.system.traits.toggles.doubleBarrel.selected ? 2 : 1;
-            this.system.expend = Math.max(minExpend, this.system.expend ?? 1);
-
-            const existingBaseType = this.system.ammo?.baseType;
-            const existingTypeData = existingBaseType ? CONFIG.PF2E.ammoTypes[existingBaseType] : null;
-
-            // Initialize ammunition data. If the weapon has the repeating trait, it must use a magazine
-            if (isRepeating) {
-                this.system.ammo = {
-                    builtIn: false,
-                    baseType:
-                        existingBaseType && existingTypeData?.category === "magazine" ? existingBaseType : "magazine",
-                    behavior: "magazine",
-                    capacity: 1, // it can load one magazine
-                };
-            } else {
-                const category = objectHasKey(CONFIG.PF2E.ammoCategories, existingTypeData?.category)
-                    ? CONFIG.PF2E.ammoCategories[existingTypeData.category]
-                    : null;
-                this.system.ammo = {
-                    builtIn: false,
-                    capacity: null,
-                    ...(this.system.ammo ?? {}),
-                    baseType: existingBaseType ?? null,
-                    behavior: category?.behavior ?? "single",
-                };
-            }
-
-            // Determine capacity from traits
-            if (this.system.ammo.behavior !== "magazine") {
-                const capacityTrait = this.system.traits.value.find((t) => /^capacity-\d+$/.test(t));
-                const capacityFromTrait = capacityTrait ? Number(capacityTrait.replace("capacity-", "")) : null;
-                const capacityFromDoubleBarrel = this.system.traits.value.includes("double-barrel") ? 2 : null;
-                const requiresReload = this.reload !== "0" || isRepeating;
-                this.system.ammo.capacity =
-                    capacityFromTrait ??
-                    capacityFromDoubleBarrel ??
-                    (requiresReload ? (this.system.ammo.capacity ?? 1) : null);
-            }
+            const isDoubleBarrel = this.system.traits.toggles.doubleBarrel.selected;
+            const minValue = isDoubleBarrel ? 2 : 1;
+            this.system.expend = Math.max(minValue, this.system.expend ?? 1);
         } else {
-            this.system.ammo = null;
             this.system.expend = null;
         }
     }
@@ -874,22 +836,10 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const isRanged =
             setHasElement(MANDATORY_RANGED_GROUPS, changed.system.group ?? this.system.group) ||
             !!("range" in changed.system ? changed.system.range : this._source.system.range);
-        const mustHaveAmmo = isRanged && !isThrown && reload !== null;
-        if (mustHaveAmmo) {
-            changed.system.ammo = {
-                builtIn: false,
-                baseType: R.entries(CONFIG.PF2E.ammoTypes).find(([_, v]) => v.weapon === this.baseType)?.[0] ?? null,
-                ...(this._source.system.ammo ?? {}),
-                ...changed.system.ammo,
-            };
-            if (changed.system.ammo.builtIn) {
-                changed.system.ammo.baseType = null;
-            }
-            changed.system.expend = Math.max(1, changed.system.expend ?? this._source.system.expend ?? 1);
-        } else {
-            changed.system.ammo = null;
-            changed.system.expend = null;
-        }
+        const mustHaveExpend = isRanged && !isThrown && reload !== null;
+        changed.system.expend = mustHaveExpend
+            ? Math.max(1, changed.system.expend ?? this._source.system.expend ?? 1)
+            : null;
 
         return super._preUpdate(changed, options, user);
     }

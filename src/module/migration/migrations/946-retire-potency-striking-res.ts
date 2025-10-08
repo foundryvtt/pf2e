@@ -2,8 +2,8 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Retire Striking and WeaponPotency rule elements, migrating them to item alterations. */
-export class Migration947RetirePotencyStrikingREs extends MigrationBase {
-    static override version = 0.947;
+export class Migration946RetirePotencyStrikingREs extends MigrationBase {
+    static override version = 0.946;
 
     #migrateProperty(rule: { key: string; property?: JSONValue }): void {
         switch (rule.property) {

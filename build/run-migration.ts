@@ -22,8 +22,7 @@ import { Migration942EquipmentGrade } from "@module/migration/migrations/942-equ
 import { Migration943UpdateSpeedPath } from "@module/migration/migrations/943-update-speed-paths.ts";
 import { Migration944RmDamageDiceValue } from "@module/migration/migrations/944-rm-damage-dice-value.ts";
 import { Migration945REBracketsToStrings } from "@module/migration/migrations/945-re-brackets-to-strings.ts";
-import { Migration946AmmoData } from "@module/migration/migrations/946-ammo-data.ts";
-import { Migration947RetirePotencyStrikingREs } from "@module/migration/migrations/947-retire-potency-striking-res.ts";
+import { Migration946RetirePotencyStrikingREs } from "@module/migration/migrations/946-retire-potency-striking-res.ts";
 
 const { window } = new JSDOM();
 globalThis.document = window.document;
@@ -39,8 +38,7 @@ const migrations: MigrationBase[] = [
     new Migration943UpdateSpeedPath(),
     new Migration944RmDamageDiceValue(),
     new Migration945REBracketsToStrings(),
-    new Migration946AmmoData(),
-    new Migration947RetirePotencyStrikingREs(),
+    new Migration946RetirePotencyStrikingREs(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

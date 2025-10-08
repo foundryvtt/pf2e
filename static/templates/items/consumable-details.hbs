@@ -5,30 +5,18 @@
     </select>
 </div>
 
-{{#if canHaveUses}}
-    <div class="form-group">
-        <label for="{{fieldIdPrefix}}uses-value">{{localize "PF2E.Item.Consumable.Uses.Label"}}</label>
-        <div class="form-fields">
-            <input
-                id="{{fieldIdPrefix}}uses-value"
-                type="number"
-                name="system.uses.value"
-                value="{{data.uses.value}}"
-            />
-            /
-            <input type="number" name="system.uses.max" value="{{data.uses.max}}" />
-        </div>
+<div class="form-group">
+    <label for="{{fieldIdPrefix}}uses-value">{{localize "PF2E.Item.Consumable.Uses.Label"}}</label>
+    <div class="form-fields">
+        <input id="{{fieldIdPrefix}}uses-value" type="number" name="system.uses.value" value="{{data.uses.value}}" />
+        /
+        <input type="number" name="system.uses.max" value="{{data.uses.max}}" />
     </div>
-{{/if}}
+</div>
 
 <div class="form-group">
     <label for="{{fieldIdPrefix}}uses-auto-destroy">{{localize "PF2E.Item.Consumable.Uses.AutoDestroy"}}</label>
-    <input
-        type="checkbox"
-        name="system.uses.autoDestroy"
-        id="{{fieldIdPrefix}}uses-auto-destroy"
-        {{checked data.uses.autoDestroy}}
-    />
+    <input type="checkbox" name="system.uses.autoDestroy" id="{{fieldIdPrefix}}uses-auto-destroy" {{checked data.uses.autoDestroy}} />
 </div>
 
 {{#if canHaveDamageOrHealing}}
@@ -36,21 +24,14 @@
         <label for="{{fieldIdPrefix}}damage">{{localize "PF2E.Item.Consumable.Damage.Label"}}</label>
         {{#if data.damage}}
             <div class="form-fields">
-                <input
-                    type="text"
-                    name="system.damage.formula"
-                    id="{{fieldIdPrefix}}damage"
-                    value="{{data.damage.formula}}"
-                />
+                <input type="text" name="system.damage.formula" id="{{fieldIdPrefix}}damage" value="{{data.damage.formula}}" />
                 <select name="system.damage.type">
-                    {{selectOptions @root.damageTypes selected=data.damage.type localize=true}}
+                     {{selectOptions @root.damageTypes selected=data.damage.type localize=true}}
                 </select>
                 <select class="kinds" name="system.damage.kind" {{disabled (not canHaveHealing)}}>
                     {{selectOptions @root.damageKindOptions selected=data.damage.kind localize=true}}
                 </select>
-                <a data-action="remove-damage" data-tooltip="PF2E.DeleteShortLabel"><i
-                        class="fa-solid fa-trash"
-                    ></i></a>
+                <a data-action="remove-damage" data-tooltip="PF2E.DeleteShortLabel"><i class="fa-solid fa-trash"></i></a>
             </div>
         {{else}}
             <button type="button" id="{{fieldIdPrefix}}damage" data-action="add-damage">
@@ -61,50 +42,6 @@
     </div>
 {{/if}}
 
-{{#if item.isAmmo}}
-    <fieldset>
-        <legend>{{localize "PF2E.Item.Consumable.Category.ammo"}}</legend>
-        <div class="form-group">
-            <label for="{{fieldIdPrefix}}special-ammo">
-                {{localize "PF2E.Item.Consumable.IsSpecialAmmo.label"}}
-                <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Consumable.IsSpecialAmmo.hint"></i>
-            </label>
-            <div class="form-fields">
-                <input id="{{fieldIdPrefix}}special-ammo" type="checkbox" data-action="set-special-ammo" {{checked isSpecialAmmo}} />
-            </div>
-        </div>
-
-        {{#if isSpecialAmmo}}
-            <div class="form-group">
-                <label>
-                    {{localize "PF2E.Item.Consumable.FIELDS.ammo.categories.label"}}
-                    <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Consumable.FIELDS.ammo.categories.hint"></i>
-                </label>
-                <div class="form-fields">
-                    <tagify-tags
-                        class="pf2e-tagify"
-                        {{disabled item.parentItem}}
-                        name="system.ammo.categories"
-                        value="{{json data.ammo.categories}}"
-                        placeholder="Any"
-                    ></tagify-tags>
-                </div>
-            </div>
-        {{/if}}
-
-        <div class="form-group">
-            <label>{{localize "PF2E.Item.Consumable.FIELDS.ammo.baseType.label"}}</label>
-            <select
-                class="force-fit"
-                name="system.ammo.baseType"
-                value="{{data.ammo.baseType}}"
-                {{disabled item.parentItem}}
-            >
-                {{selectOptions ammoTypes selected=data.ammo.baseType}}
-            </select>
-        </div>
-    </fieldset>
-{{/if}}
 
 {{#unless (or item.isAmmo (eq data.damage.kind "healing"))}}
     <div class="form-group stacked">

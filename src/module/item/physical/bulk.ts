@@ -6,6 +6,8 @@ interface StackDefinition {
     lightBulk: number;
 }
 
+type StackDefinitions = Record<string, StackDefinition | undefined>;
+
 /**
  * hard coded for now but could be made configurable later on.
  * Describes each stack group by how much items belong in a stack
@@ -13,7 +15,7 @@ interface StackDefinition {
  * included because coins don't add light bulk below 1000, just 1
  * bulk per 1000 coins
  */
-const STACK_DEFINITIONS = {
+const STACK_DEFINITIONS: StackDefinitions = {
     bolts: {
         size: 10,
         lightBulk: 1,
@@ -50,7 +52,7 @@ const STACK_DEFINITIONS = {
         size: 2000,
         lightBulk: 10,
     },
-} satisfies Record<string, StackDefinition | undefined>;
+};
 
 class Bulk {
     /** The bulk value as a number, with negligible being 0, light being 0.1, and bulk (the unit) as an integer */
