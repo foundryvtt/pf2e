@@ -1,3 +1,4 @@
+import Tagify from "@yaireo/tagify";
 import Sortable from "sortablejs";
 import { ErrorPF2e } from "./misc.ts";
 
@@ -80,7 +81,11 @@ class DestroyableManager {
                         continue;
                     }
                     for (const element of context.elements) {
-                        element.destroyable.destroy();
+                        try {
+                            element.destroyable.destroy();
+                        } catch {
+                            continue;
+                        }
                     }
                     context.observer?.disconnect();
                     this.#appObservers.delete(node);
@@ -104,9 +109,21 @@ type Destroyable =
     | JQueryTooltipster.ITooltipsterInstance;
 
 function createSortable(list: HTMLElement, options: Sortable.Options): Sortable {
-    const sortable = new Sortable(list, options);
+    const sortable = new Sortable(list, Object.assign(options, { noJQuery: true }));
     DestroyableManager.instance.observe(sortable);
     return sortable;
+}
+
+class NoJQueryPlugin {
+    static pluginName = "noJQuery";
+
+    setupClone(): void {
+        if ("jQuery" in window) window.jQuery = null;
+    }
+
+    clone(): void {
+        if ("jQuery" in window && "$" in window) window.jQuery = window.$;
+    }
 }
 
 function createTooltipster(target: HTMLElement, options: JQueryTooltipster.ITooltipsterOptions): JQuery {
@@ -115,4 +132,4 @@ function createTooltipster(target: HTMLElement, options: JQueryTooltipster.ITool
     return $element;
 }
 
-export { createSortable, createTooltipster, DestroyableManager };
+export { createSortable, createTooltipster, DestroyableManager, NoJQueryPlugin };
