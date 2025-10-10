@@ -7,13 +7,14 @@ import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource } from "./
 import fields = foundry.data.fields;
 
 class RollNoteRuleElement extends RuleElement<RollNoteSchema> {
+    static override autogenForms = true;
+
+    static override LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("PF2E.RULES.Note");
+
     static override defineSchema(): RollNoteSchema {
         return {
             ...super.defineSchema(),
-            selector: new fields.SetField(
-                new fields.StringField({ required: true, blank: false, initial: undefined }),
-                { required: true, nullable: false },
-            ),
+            selector: new fields.SetField(new fields.StringField({ required: true, blank: false }), { min: 1 }),
             title: new fields.StringField({ required: false, nullable: true, blank: false, initial: null }),
             visibility: new fields.StringField({
                 required: true,
@@ -21,9 +22,8 @@ class RollNoteRuleElement extends RuleElement<RollNoteSchema> {
                 choices: ["gm", "owner"],
                 initial: null,
             }),
-            outcome: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, choices: DEGREE_OF_SUCCESS_STRINGS }),
-                { required: false, nullable: false, initial: undefined },
+            outcome: new fields.SetField(
+                new fields.StringField({ required: true, choices: DEGREE_OF_SUCCESS_STRINGS }),
             ),
             text: new fields.HTMLField({ required: true, blank: false }),
             battleForm: new fields.BooleanField({ required: false }),
@@ -46,7 +46,7 @@ class RollNoteRuleElement extends RuleElement<RollNoteSchema> {
                 title: title ? this.getReducedLabel(title) : null,
                 text,
                 predicate: this.resolveInjectedProperties(this.predicate),
-                outcome: this.outcome,
+                outcome: this.outcome.values().toArray(),
                 visibility: this.visibility,
                 rule: this,
             });
@@ -66,14 +66,7 @@ type RollNoteSchema = RuleElementSchema & {
     /** An optional limitation of the notes visibility to GMs */
     visibility: fields.StringField<UserVisibility, UserVisibility, true, true, true>;
     /** Applicable degree-of-success outcomes for the note */
-    outcome: fields.ArrayField<
-        StringField<DegreeOfSuccessString, DegreeOfSuccessString, true, false, false>,
-        DegreeOfSuccessString[],
-        DegreeOfSuccessString[],
-        false,
-        false,
-        false
-    >;
+    outcome: fields.SetField<StringField<DegreeOfSuccessString, DegreeOfSuccessString, true, false, false>>;
     /** The main text of the note */
     text: fields.HTMLField<string, string, true, false, false>;
     /** Whether this rule element is for use with battle forms */

@@ -16,15 +16,7 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
     static override defineSchema(): DamageAlterationSchema {
         return {
             ...super.defineSchema(),
-            selectors: new fields.SetField(
-                new fields.StringField({
-                    required: true,
-                    nullable: false,
-                    blank: false,
-                    initial: undefined,
-                }),
-                { required: true, initial: undefined, min: 1 },
-            ),
+            selectors: new fields.SetField(new fields.StringField({ required: true, blank: false }), { min: 1 }),
             mode: new fields.StringField({
                 required: true,
                 choices: R.keys(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
@@ -144,7 +136,9 @@ type DamageAlterationSchema = RuleElementSchema & {
     relabel: fields.StringField<string, string, false, true, true>;
 };
 
+type DamageAlterationSource = fields.SourceFromSchema<DamageAlterationSchema>;
+
 type DamageAlterationValue = DamageType | number | string[];
 
 export { DamageAlterationRuleElement };
-export type { DamageAlterationProperty, DamageAlterationValue };
+export type { DamageAlterationProperty, DamageAlterationSource, DamageAlterationValue };

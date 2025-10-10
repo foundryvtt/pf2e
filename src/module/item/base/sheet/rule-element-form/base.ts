@@ -139,13 +139,14 @@ class RuleElementForm<
             form: await this.#getFormHelpers(mergedRule),
             autogenerate,
             rootId: this.sheet.id,
-            hiddenFields: ["ignored", "requiresEquipped", "requiresInvestment", "removeUponCreate"],
+            hiddenFields: ["ignored", "requiresEquipped", "requiresInvestment", "removeUponCreate", "battleForm"],
             omittedFields: ["key", "priority", "spinoff"],
             validationFailures,
         };
     }
 
-    async #getFormHelpers(rule: TSource): Promise<Record<string, unknown>> {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    async #getFormHelpers(rule: TSource): Promise<Record<string, Function>> {
         const partialsPath = "systems/pf2e/templates/items/rules/partials";
         const valueTemplate = await fa.handlebars.getTemplate(`${partialsPath}/resolvable-value.hbs`);
         const dropZoneTemplate = await fa.handlebars.getTemplate(`${partialsPath}/drop-zone.hbs`);
@@ -160,8 +161,14 @@ class RuleElementForm<
                     inputId: `${this.sheet.id}-${property}`,
                     fileInput: options.hash?.fileInput ?? false,
                 }),
-            dropZone: (dropId: string, dropText: string, dropTooltip?: string) => {
+            dropZone: (dropId: string, dropText: string, dropTooltip?: string): string => {
                 return dropZoneTemplate({ dropId, dropText, dropTooltip });
+            },
+            elementType: (field: fields.DataField): string | undefined => {
+                if (!(field instanceof fields.StringField)) return undefined;
+                if (field instanceof fields.FilePathField) return "file-picker";
+                if (field instanceof fields.HTMLField) return "code-mirror";
+                return "input";
             },
         };
     }
@@ -368,8 +375,11 @@ interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject ex
     basePath: string;
     fields: RuleElementSchema | undefined;
     /** A collection of additional handlebars functions */
-    form: Record<string, unknown>;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    form: Record<string, Function>;
     validationFailures: string[];
+    hiddenFields: string[];
+    omittedFields: string[];
 }
 
 interface RuleElementFormTabData {

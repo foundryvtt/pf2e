@@ -15,15 +15,19 @@ export const I18nInit = {
             for (const RuleClass of Object.values(RuleElements.all)) {
                 fh.Localization.localizeDataModel(RuleClass);
                 for (const [key, field] of Object.entries(RuleClass.schema.fields)) {
-                    if ("choices" in field) {
-                        const choices = "choices" in field ? field.choices : null;
-                        if (
-                            !Array.isArray(choices) ||
-                            !choices.every((c) => typeof c === "string" || typeof c === "number")
-                        ) {
-                            continue;
-                        }
-                        field.choices = R.mapToObj(choices, (choice) => {
+                    const fieldWithChoices =
+                        "choices" in field && field.choices
+                            ? field
+                            : "element" in field && R.isObjectType(field.element) && "choices" in field.element
+                              ? field.element
+                              : null;
+                    if (!fieldWithChoices?.choices) continue;
+                    const choices = fieldWithChoices.choices;
+                    if (
+                        Array.isArray(choices) &&
+                        choices.every((c) => typeof c === "string" || typeof c === "number")
+                    ) {
+                        fieldWithChoices.choices = R.mapToObj(choices, (choice) => {
                             const prefix = RuleClass.LOCALIZATION_PREFIXES[1];
                             if (!prefix) return [String(choice), choice];
                             const locPath = RuleClass.LOCALIZATION_PREFIXES.map(
