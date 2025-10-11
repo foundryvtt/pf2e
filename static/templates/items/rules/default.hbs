@@ -13,8 +13,10 @@
         {{/unless}}
     {{/each}}
     {{#unless (includes omittedFields "predicate")}}
-        {{formGroup fields.predicate name=(concat "system.rules." index ".predicate") value=(lookup ../rule "predicate")
-                    rootId=rootId placeholder="[]"}}
+        <div class="form-group">
+            <label class="short" for="{{rootId}}-predicate">{{localize "PF2E.RULES.Common.FIELDS.predicate.label"}}</label>
+            <input type="text" name="{{basePath}}.predicate" id="{{rootId}}-predicate" value="{{json rule.predicate}}" />
+        </div>
     {{/unless}}
 {{~else~}}
     <textarea name="system.rules.{{index}}" spellcheck="false">{{json rule}}</textarea>
