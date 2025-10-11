@@ -1,3 +1,9 @@
+## 7.6.1
+
+### Bugfixes
+
+- (stwlam) Fix error and corruption when closing item sheets with auto generated RE forms
+
 ## 7.6.0
 
 ### System Improvements
