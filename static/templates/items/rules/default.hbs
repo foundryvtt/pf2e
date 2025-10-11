@@ -15,7 +15,7 @@
         {{/unless}}
     {{/each}}
     {{#unless (includes omittedFields "predicate")}}
-        {{formGroup fields.predicate name=(basePath ".predicate")
+        {{formGroup fields.predicate name=(concat basePath ".predicate")
                     value=(lookup rule "predicate") placeholder="[]" rootId=rootId}}
     {{/unless}}
 {{~else~}}
