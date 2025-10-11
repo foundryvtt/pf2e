@@ -521,7 +521,28 @@
                     "remaster": true,
                     "title": "Pathfinder War of Immortals"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "mythic-skill",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.Skill.Athletics",
+                                "value": "athletics"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "{item|flags.pf2e.rulesSelections.mythicSkill}"
+                        ],
+                        "slug": "mythic-skill-bonus",
+                        "type": "untyped",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -598,6 +619,14 @@
                 "temp": 0,
                 "value": 130
             },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "mythic",
+                    "value": 7
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
