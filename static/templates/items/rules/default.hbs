@@ -2,8 +2,10 @@
     {{#each fields as |field key|}}
         {{#unless (includes ../omittedFields key)}}
             {{#if (includes ../hiddenFields key)}}
-                <input type="hidden" name="system.rules.{{../index}}.{{key}}" value="{{json (lookup ../rule key)}}"
-                       data-dtype="JSON" />
+                {{#unless (eq (lookup ../rule key) undefined)}}
+                    <input type="hidden" name="system.rules.{{../index}}.{{key}}" value="{{json (lookup ../rule key)}}"
+                           data-dtype="JSON" />
+                {{/unless}}
             {{else if (ne key "predicate")}}
                 {{formGroup field name=(concat "system.rules." ../index "." key) value=(lookup ../rule key)
                             rootId=../rootId
@@ -13,8 +15,8 @@
         {{/unless}}
     {{/each}}
     {{#unless (includes omittedFields "predicate")}}
-        {{formGroup fields.predicate name=(concat "system.rules." index ".predicate") value=(lookup ../rule "predicate")
-                    rootId=rootId placeholder="[]"}}
+        {{formGroup fields.predicate name=(concat "system.rules." index ".predicate")
+                    value=(lookup rule "predicate") placeholder="[]" rootId=rootId}}
     {{/unless}}
 {{~else~}}
     <textarea name="system.rules.{{index}}" spellcheck="false">{{json rule}}</textarea>
