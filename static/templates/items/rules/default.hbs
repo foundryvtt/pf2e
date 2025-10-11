@@ -3,11 +3,11 @@
         {{#unless (includes ../omittedFields key)}}
             {{#if (includes ../hiddenFields key)}}
                 {{#unless (eq (lookup ../rule key) undefined)}}
-                    <input type="hidden" name="system.rules.{{../index}}.{{key}}" value="{{json (lookup ../rule key)}}"
+                    <input type="hidden" name="{{basePath}}.{{key}}" value="{{json (lookup ../rule key)}}"
                            data-dtype="JSON" />
                 {{/unless}}
             {{else if (ne key "predicate")}}
-                {{formGroup field name=(concat "system.rules." ../index "." key) value=(lookup ../rule key)
+                {{formGroup field name=(concat basePath "." key) value=(lookup ../rule key)
                             rootId=../rootId
                             elementType=(../form.elementType field)
                             placeholder=(ifThen (eq key "label") ../item.name "")}}
@@ -15,7 +15,7 @@
         {{/unless}}
     {{/each}}
     {{#unless (includes omittedFields "predicate")}}
-        {{formGroup fields.predicate name=(concat "system.rules." index ".predicate")
+        {{formGroup fields.predicate name=(basePath ".predicate")
                     value=(lookup rule "predicate") placeholder="[]" rootId=rootId}}
     {{/unless}}
 {{~else~}}
