@@ -40,8 +40,6 @@ import { CheckRoll, CheckRollDataPF2e } from "./roll.ts";
 import { CheckCheckContext } from "./types.ts";
 
 interface RerollOptions {
-    /** @deprecated Use `resource: "hero-points"` instead. */
-    heroPoint?: boolean;
     resource?: string;
     keep?: "new" | "higher" | "lower";
 }
@@ -455,23 +453,16 @@ class Check {
             ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
             return;
         }
+
         const rerollingActor = actor.isOfType("familiar") ? actor.master : actor;
-
-        let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${options.keep}`);
-
-        if (options.heroPoint) {
-            fu.logCompatibilityWarning('The heroPoint option is deprecated. Use resource: "hero-points" instead.', {
-                since: "7.3",
-                until: "7.4",
-            });
-        }
-        const resourceKey = options.resource ?? (options.heroPoint ? "hero-points" : "");
-        const resource = rerollingActor?.getResource(resourceKey);
+        const resourceKey = options.resource;
+        const resource = rerollingActor?.getResource(resourceKey ?? "");
 
         if (resource && resource.slug !== "hero-points" && resource.slug !== "mythic-points") {
             console.warn(`${resource.label} is not a supported resource. Using it might lead to unexpected results.`);
         }
 
+        let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${options.keep}`);
         if (resource) {
             // If the reroll costs a hero or mythic point, first check if the actor has one to spare and spend it
             if (rerollingActor?.isOfType("character")) {
@@ -501,8 +492,6 @@ class Check {
         context.isReroll = true;
         context.options.push("check:reroll");
         if (resource) context.options.push(`check:reroll:${resource.slug}`);
-        // For backwards compatibility. Remove once the `heroPoint` option is removed.
-        if (options.heroPoint) context.options.push(`check:hero-point`);
 
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
