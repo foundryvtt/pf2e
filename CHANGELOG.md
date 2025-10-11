@@ -1,3 +1,9 @@
+## 7.6.2
+
+### Bugfixes
+
+- (stwlam) Musical refrain
+
 ## 7.6.1
 
 ### Bugfixes
