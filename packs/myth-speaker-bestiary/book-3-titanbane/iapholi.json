@@ -2043,21 +2043,17 @@
                     {
                         "key": "RollOption",
                         "option": "mythic-skill",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.Skill.Diplomacy",
-                                "value": "diplomacy"
-                            }
-                        ],
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
+                        "predicate": [
+                            "mythic-skill"
+                        ],
                         "selector": [
-                            "{item|flags.pf2e.rulesSelections.mythicSkill}"
+                            "diplomacy"
                         ],
                         "slug": "mythic-skill-bonus",
-                        "type": "untyped",
                         "value": 4
                     }
                 ],
