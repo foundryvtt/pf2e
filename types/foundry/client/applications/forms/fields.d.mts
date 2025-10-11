@@ -98,7 +98,7 @@ export interface FormSelectOption {
     selected?: boolean;
 }
 
-export interface SelectInputConfig {
+export interface SelectInputConfig extends FormInputConfig<string> {
     /** The name of the form element */
     name: string;
     /** The select options */

@@ -2,14 +2,14 @@ import { CreaturePF2e } from "@actor";
 import type { Abilities } from "@actor/creature/data.ts";
 import type { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
+import { attackFromMeleeItem, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { MovementType, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { UserAction } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e } from "@item";
-import type { ItemType } from "@item/base/data/index.ts";
+import type { ItemType } from "@item/types.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
@@ -263,11 +263,12 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         const generatedMelee = syntheticWeapons.flatMap((w) => w.toNPCAttacks({ keepId: true }));
         const meleeItems = R.sortBy(
             [this.itemTypes.melee, generatedMelee].flat(),
+            (m) => (m.system.action === "strike" ? 0 : 1),
             (m) => m.name,
             (m) => m.sort,
         );
         for (const item of meleeItems) {
-            system.actions.push(strikeFromMeleeItem(item));
+            system.actions.push(attackFromMeleeItem(item));
         }
 
         // Initiative

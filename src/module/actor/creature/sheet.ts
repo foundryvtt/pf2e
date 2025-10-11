@@ -365,20 +365,38 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
      * @returns whether a trade initiation request was sent
      */
     async #attemptTrade(data: DropCanvasItemData, event: DragEvent): Promise<boolean> {
+        if (game.user.isGM) return false;
         const traderActor = this.actor;
         if (traderActor.isLootableBy(game.user)) return false;
         const item = await ItemPF2e.fromDropData(data);
         const selfActor = item?.actor;
-        if (!selfActor) return false;
+        if (!item?.isOfType("physical") || !selfActor?.isOfType("creature")) return false;
         const traderUser = game.users
             .filter((u) => u.active && !u.isSelf && traderActor.testUserPermission(u, "OWNER"))
             .sort((a, b) => Number(a.isGM) - Number(b.isGM))[0];
+
+        // Check reach separately: if a trade would be possible except for it being out of reach, still proceed no
+        // further in item-drop workflow
         const args = {
             self: { actor: selfActor, item, gift: event.shiftKey },
             trader: { user: traderUser, actor: traderActor },
-            checkReach: game.pf2e.settings.automation.reachEnforcement,
         };
-        return TradeDialog.canTrade(args) ? !!TradeDialog.requestTrade(args) : false;
+        if (!TradeDialog.canTrade(args)) return false;
+        const checkReach = game.pf2e.settings.automation.reachEnforcement.has("merchants");
+        if (checkReach) {
+            const traderTokens = traderActor.getActiveTokens(true, false);
+            const selfReach = selfActor.system.attributes.reach.manipulate;
+            const traderReach = traderActor.system.attributes.reach.manipulate;
+            const inReach = selfActor.getActiveTokens(true, false).some((selfToken) =>
+                traderTokens.some((traderToken) => {
+                    const distance = selfToken.distanceTo(traderToken);
+                    return selfReach >= distance && traderReach >= distance;
+                }),
+            );
+            if (!inReach) return true;
+        }
+        TradeDialog.requestTrade(args);
+        return true;
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */

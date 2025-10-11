@@ -19,6 +19,8 @@ class ConsumableSheetPF2e extends PhysicalItemSheetPF2e<ConsumablePF2e> {
             item.system.category !== "snare" &&
             !!item.system.damage &&
             ["vitality", "void", "untyped"].includes(item.system.damage.type);
+        const embeddedSpell = item.actor ? item.embeddedSpell : null;
+        const shouldHaveSpell = !!embeddedSpell || ["scroll", "wand"].includes(item.system.category);
 
         return {
             ...sheetData,
@@ -33,6 +35,14 @@ class ConsumableSheetPF2e extends PhysicalItemSheetPF2e<ConsumablePF2e> {
             materialEffects: createSheetTags(CONFIG.PF2E.materialDamageEffects, item.system.material.effects),
             otherTags: createSheetTags(CONFIG.PF2E.otherConsumableTags, item.system.traits.otherTags),
             stackGroups: this.item.isAmmo ? R.omit(CONFIG.PF2E.stackGroups, ["coins", "gems"]) : null,
+            embeddedSpell: shouldHaveSpell
+                ? {
+                      uuid: embeddedSpell?.uuid ?? null,
+                      img: embeddedSpell?.img,
+                      name: embeddedSpell?.name,
+                      rank: embeddedSpell?.rank,
+                  }
+                : null,
         };
     }
 
@@ -71,6 +81,13 @@ interface ConsumableSheetData extends PhysicalItemSheetData<ConsumablePF2e> {
     materialEffects: SheetOptions;
     otherTags: SheetOptions;
     stackGroups: Omit<typeof CONFIG.PF2E.stackGroups, "coins" | "gems"> | null;
+    embeddedSpell: {
+        /** The embedded spell uuid, or null if this item *should* have a spell but doesn't */
+        uuid: string | null;
+        img?: string;
+        name?: string;
+        rank?: number;
+    } | null;
 }
 
 export { ConsumableSheetPF2e };

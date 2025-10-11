@@ -1,7 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { AELikeChangeMode } from "@module/rules/rule-element/ae-like.ts";
-import { BracketedValue } from "@module/rules/rule-element/data.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
@@ -27,13 +26,10 @@ export class Migration854BracketedAbilityScoresToModifiers extends MigrationBase
             aeLike.path = aeLike.path.replace(/\.value$/, ".mod");
             aeLike.value.field &&= aeLike.value.field.replace(/\.value$/, ".mod");
             for (const bracket of aeLike.value.brackets) {
-                if (typeof bracket.start === "number") {
-                    bracket.start = Math.trunc((bracket.start - 10) / 2);
-                }
-                if (typeof bracket.end === "number") {
-                    bracket.end = Math.trunc((bracket.end - 10) / 2);
-                }
-                bracket.value = bracket.value / 2;
+                const { start, end, value } = bracket;
+                if (typeof start === "number") bracket.start = Math.trunc((start - 10) / 2);
+                if (typeof end === "number") bracket.end = Math.trunc((end - 10) / 2);
+                if (typeof value === "number") bracket.value = value / 2;
             }
         }
     }
@@ -48,5 +44,8 @@ interface MaybeAELikeSource extends RuleElementSource {
 interface BracketedAELikeSource extends RuleElementSource {
     mode: AELikeChangeMode;
     path: string;
-    value: BracketedValue<number>;
+    value: {
+        brackets: { start?: unknown; end?: unknown; value: unknown }[];
+        field?: string;
+    };
 }

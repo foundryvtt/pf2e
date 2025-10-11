@@ -2,7 +2,7 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Add support for multiple class DCs  */
@@ -20,7 +20,7 @@ export class Migration790MultipleClassDCs extends MigrationBase {
         return (
             source.type === "feat" &&
             "featType" in source.system &&
-            isObject<{ value: string }>(source.system.featType) &&
+            R.isPlainObject(source.system.featType) &&
             source.system.featType.value === "classfeature"
         );
     }

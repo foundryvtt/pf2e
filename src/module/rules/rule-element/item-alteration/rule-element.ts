@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
-import type { ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import type { ItemType } from "@item/types.ts";
 import * as R from "remeda";
 import { AELikeRuleElement } from "../ae-like.ts";
 import { RuleElement, RuleElementOptions } from "../base.ts";
@@ -14,7 +14,7 @@ class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
         super(data, options);
 
         // Force false if there is no way this RE is relevant to ABP. This doesn't lead to any runtime changes
-        const abpRelevantProperties: ItemAlterationProperty[] = ["potency", "striking", "resilient"];
+        const abpRelevantProperties: ItemAlterationProperty[] = ["runes-potency", "runes-resilient", "runes-striking"];
         if (!this.item.isOfType("physical") && !abpRelevantProperties.includes(this.property)) {
             this.fromEquipment = false;
         }

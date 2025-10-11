@@ -66,6 +66,21 @@
     </div>
 {{/unless}}
 
+{{#if embeddedSpell}}
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.Consumable.Spell.Label"}}</label>
+        <div class="item-ref {{#unless embeddedSpell.uuid}}empty{{/unless}}">
+            {{#if embeddedSpell.uuid}}
+                <img src="{{embeddedSpell.img}}" />
+                <span class="name">{{embeddedSpell.name}}</span>
+                <span class="rank">{{ordinal embeddedSpell.rank}}</span>
+            {{else}}
+                {{localize "PF2E.Item.Consumable.Spell.Empty"}}
+            {{/if}}
+        </div>
+    </div>
+{{/if}}
+
 <div class="form-group stacked">
     <label>
         <span>{{localize "PF2E.Item.Physical.OtherTags.Label"}}</span>

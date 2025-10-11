@@ -88,7 +88,7 @@ export interface WaypointLabelRenderContext {
     units: string;
     uiScale: number;
     position: { x: number; y: number };
-    distance: { total: string };
+    distance: { total: string; delta?: string };
     cost: { total: string; units: string };
 }
 

@@ -3,7 +3,7 @@ import { Immunity, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ActorHitPointsSchema, ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
 import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { InitiativeTraceData } from "@actor/initiative.ts";
-import type { NPCStrike } from "@actor/npc/index.ts";
+import type { NPCAttackAction } from "@actor/npc/index.ts";
 import type { ImmunityType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import type { Rarity, Size } from "@module/data.ts";
 import { PublicationField, RarityField } from "@module/model.ts";
@@ -179,7 +179,7 @@ interface HazardSystemData
     traits: HazardTraits;
     attributes: HazardAttributes;
     details: HazardDetails;
-    actions: NPCStrike[];
+    actions: NPCAttackAction[];
     initiative?: InitiativeTraceData;
 }
 

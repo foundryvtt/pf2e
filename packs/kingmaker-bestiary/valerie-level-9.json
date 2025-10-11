@@ -1598,34 +1598,12 @@
                 },
                 "rules": [
                     {
+                        "diceNumber": "match(when(lte(@actor.level, 9), 1), when(btwn(@actor.level, 10, 17), 2), when(gte(@actor.level, 18), 3))",
                         "key": "DamageDice",
                         "predicate": [
                             "power-attack"
                         ],
-                        "selector": "melee-strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 9,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 17,
-                                    "start": 10,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "start": 18,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                }
-                            ]
-                        }
+                        "selector": "melee-strike-damage"
                     },
                     {
                         "domain": "damage",
@@ -2194,21 +2172,7 @@
                         "selector": "intimidation",
                         "slug": "intimidating-prowess",
                         "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": "round(@actor.abilities.str.mod / 3)"
-                                },
-                                {
-                                    "end": 2,
-                                    "start": 2,
-                                    "value": 1
-                                }
-                            ],
-                            "field": "actor|system.skills.intimidation.rank"
-                        }
+                        "value": "match(when(btwn(@actor.system.skills.intimidation.rank, 3, 4), round(@actor.abilities.str.mod / 3)), when(btwn(@actor.system.skills.intimidation.rank, 2, 2), 1))"
                     }
                 ],
                 "slug": "intimidating-prowess",

@@ -25,30 +25,7 @@
                 "key": "FlatModifier",
                 "selector": "intimidation",
                 "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 2,
-                            "value": 1
-                        },
-                        {
-                            "end": 5,
-                            "start": 4,
-                            "value": 2
-                        },
-                        {
-                            "end": 7,
-                            "start": 6,
-                            "value": 3
-                        },
-                        {
-                            "start": 8,
-                            "value": 4
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "match(when(btwn(@item.level, 2, 3), 1), when(btwn(@item.level, 4, 5), 2), when(btwn(@item.level, 6, 7), 3), when(gte(@item.level, 8), 4))"
             },
             {
                 "key": "GrantItem",

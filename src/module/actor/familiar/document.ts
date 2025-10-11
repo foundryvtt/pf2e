@@ -8,7 +8,7 @@ import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { DatabaseDeleteCallbackOptions } from "@common/abstract/_types.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
-import type { ItemType } from "@item/base/data/index.ts";
+import type { ItemType } from "@item/types.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElement } from "@module/rules/index.ts";
 import type { TokenDocumentPF2e } from "@scene";

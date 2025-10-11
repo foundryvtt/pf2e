@@ -22,6 +22,85 @@
         },
         "rules": [
             {
+                "brackets": [
+                    {
+                        "start": 4,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "18 + @actor.level"
+                            },
+                            "size": "med",
+                            "skills": {
+                                "acrobatics": {
+                                    "modifier": 16
+                                }
+                            },
+                            "strikes": {
+                                "beak": {
+                                    "damage": {
+                                        "modifier": 5
+                                    },
+                                    "modifier": 16
+                                }
+                            },
+                            "tempHP": 5
+                        }
+                    },
+                    {
+                        "start": 5,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "18 + @actor.level"
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "acrobatics": {
+                                    "modifier": 20
+                                }
+                            },
+                            "strikes": {
+                                "beak": {
+                                    "damage": {
+                                        "modifier": 8
+                                    },
+                                    "modifier": 18,
+                                    "traits": [
+                                        "unarmed"
+                                    ]
+                                }
+                            },
+                            "tempHP": 10
+                        }
+                    },
+                    {
+                        "start": 6,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "21 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "acrobatics": {
+                                    "modifier": 23
+                                }
+                            },
+                            "strikes": {
+                                "beak": {
+                                    "damage": {
+                                        "dice": 6,
+                                        "modifier": 4
+                                    },
+                                    "modifier": 21,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-10"
+                                    ]
+                                }
+                            },
+                            "tempHP": 15
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "senses": {
@@ -53,110 +132,13 @@
                     "traits": [
                         "animal"
                     ]
-                },
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "18 + @actor.level"
-                                },
-                                "size": "med",
-                                "skills": {
-                                    "acrobatics": {
-                                        "modifier": 16
-                                    }
-                                },
-                                "strikes": {
-                                    "beak": {
-                                        "damage": {
-                                            "modifier": 5
-                                        },
-                                        "modifier": 16
-                                    }
-                                },
-                                "tempHP": 5
-                            }
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "18 + @actor.level"
-                                },
-                                "size": "lg",
-                                "skills": {
-                                    "acrobatics": {
-                                        "modifier": 20
-                                    }
-                                },
-                                "strikes": {
-                                    "beak": {
-                                        "damage": {
-                                            "modifier": 8
-                                        },
-                                        "modifier": 18,
-                                        "traits": [
-                                            "unarmed"
-                                        ]
-                                    }
-                                },
-                                "tempHP": 10
-                            }
-                        },
-                        {
-                            "start": 6,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "21 + @actor.level"
-                                },
-                                "size": "huge",
-                                "skills": {
-                                    "acrobatics": {
-                                        "modifier": 23
-                                    }
-                                },
-                                "strikes": {
-                                    "beak": {
-                                        "damage": {
-                                            "dice": 6,
-                                            "modifier": 4
-                                        },
-                                        "modifier": 21,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-10"
-                                        ]
-                                    }
-                                },
-                                "tempHP": 15
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
                 }
             },
             {
                 "key": "FlatModifier",
                 "selector": "fly-speed",
                 "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 10
-                        },
-                        {
-                            "start": 6,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "match(when(btwn(@item.level, 5, 5), 10), when(gte(@item.level, 6), 15))"
             }
         ],
         "start": {

@@ -28,11 +28,10 @@ class SubstituteRollRuleElement extends RuleElement<SubstituteRollSchema> {
             }),
             removeAfterRoll: new DataUnionField(
                 [
-                    new fields.StringField<"if-enabled", "if-enabled">({
+                    new fields.StringField<"if-enabled">({
                         required: false,
                         nullable: false,
                         choices: ["if-enabled"],
-                        initial: undefined,
                     }),
                     new StrictBooleanField({
                         required: false,
@@ -99,7 +98,7 @@ type SubstituteRollSchema = RuleElementSchema & {
      * The value may be a boolean, "if-enabled", or a predicate to be tested against the roll options from the roll.
      */
     removeAfterRoll: DataUnionField<
-        fields.StringField<"if-enabled"> | StrictBooleanField | PredicateField<false, false, false>,
+        fields.StringField<"if-enabled"> | StrictBooleanField<false> | PredicateField<false, false, false>,
         false,
         false,
         true

@@ -7,6 +7,8 @@ import fields = foundry.data.fields;
  * @category RuleElement
  */
 class TokenNameRuleElement extends RuleElement<TokenNameRuleSchema> {
+    static override autogenForms = true;
+
     static override defineSchema(): TokenNameRuleSchema {
         return {
             ...super.defineSchema(),

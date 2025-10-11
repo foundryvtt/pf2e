@@ -23,65 +23,13 @@
                 "key": "ActiveEffectLike",
                 "mode": "add",
                 "path": "inventory.bulk.encumberedAfterAddend",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 1
-                        },
-                        {
-                            "end": 9,
-                            "start": 6,
-                            "value": 2
-                        },
-                        {
-                            "end": 13,
-                            "start": 10,
-                            "value": 3
-                        },
-                        {
-                            "end": 17,
-                            "start": 14,
-                            "value": 4
-                        },
-                        {
-                            "start": 18,
-                            "value": 5
-                        }
-                    ]
-                }
+                "value": "match(when(lte(@actor.level, 5), 1), when(btwn(@actor.level, 6, 9), 2), when(btwn(@actor.level, 10, 13), 3), when(btwn(@actor.level, 14, 17), 4), when(gte(@actor.level, 18), 5))"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
                 "path": "inventory.bulk.maxAddend",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 2
-                        },
-                        {
-                            "end": 9,
-                            "start": 6,
-                            "value": 4
-                        },
-                        {
-                            "end": 13,
-                            "start": 10,
-                            "value": 6
-                        },
-                        {
-                            "end": 17,
-                            "start": 14,
-                            "value": 8
-                        },
-                        {
-                            "start": 18,
-                            "value": 10
-                        }
-                    ]
-                }
+                "value": "match(when(lte(@actor.level, 5), 2), when(btwn(@actor.level, 6, 9), 4), when(btwn(@actor.level, 10, 13), 6), when(btwn(@actor.level, 14, 17), 8), when(gte(@actor.level, 18), 10))"
             }
         ],
         "traits": {

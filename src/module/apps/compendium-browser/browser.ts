@@ -1,7 +1,8 @@
 import { AbilityTrait, ActionCategory } from "@item/ability/index.ts";
-import { ActionType, ItemType } from "@item/base/data/index.ts";
+import type { ActionType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
+import type { ItemType } from "@item/types.ts";
 import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";

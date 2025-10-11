@@ -40,7 +40,9 @@
                 ]
             },
             {
-                "key": "Striking",
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     {
                         "gte": [
@@ -49,7 +51,7 @@
                         ]
                     }
                 ],
-                "selector": "{item|id}-damage",
+                "property": "runes-striking",
                 "value": "ternary(gte(@actor.level,20),3,ternary(gte(@actor.level,12),2,1))"
             }
         ],

@@ -1,11 +1,17 @@
 import { TraitViewData } from "@actor/data/base.ts";
 import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
+import { createHTMLElement } from "@util";
 import Tagify, { TagifySettings } from "@yaireo/tagify";
 import { DestroyableManager } from "./destroyables.ts";
 import { objectHasKey } from "./misc.ts";
-import { createHTMLElement } from "@util";
 
-function traitSlugToObject(trait: string, dictionary: Record<string, string | undefined>): TraitViewData {
+function traitSlugToObject(
+    trait: string,
+    dictionary: Record<string, string | undefined>,
+    options: { descriptions?: Record<string, string | undefined> } = {},
+): TraitViewData {
+    const descriptions = options.descriptions ?? CONFIG.PF2E.traitsDescriptions;
+
     // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
     // in use, which can include what are normally NPC-only traits
     const traitObject: TraitViewData = {
@@ -13,8 +19,8 @@ function traitSlugToObject(trait: string, dictionary: Record<string, string | un
         label: game.i18n.localize(dictionary[trait] ?? trait),
         description: null,
     };
-    if (objectHasKey(CONFIG.PF2E.traitsDescriptions, trait)) {
-        traitObject.description = CONFIG.PF2E.traitsDescriptions[trait];
+    if (objectHasKey(descriptions, trait)) {
+        traitObject.description = descriptions[trait] ?? null;
     }
 
     return traitObject;

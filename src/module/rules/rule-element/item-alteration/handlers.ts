@@ -1,11 +1,12 @@
 import type { DataFieldOptions } from "@common/data/_types.d.mts";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PersistentDamageValueSchema } from "@item/condition/data.ts";
 import { addOrUpgradeTrait, itemIsOfType, removeTrait } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
 import { Grade } from "@item/physical/types.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
+import type { ItemType } from "@item/types.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 import { RARITIES, ZeroToFour, ZeroToThree } from "@module/data.ts";
@@ -875,7 +876,7 @@ const ITEM_ALTERATION_HANDLERS = {
             }
         },
     }),
-    potency: new ItemAlterationHandler({
+    "runes-potency": new ItemAlterationHandler({
         fields: {
             itemType: new fields.StringField({ required: true, choices: ["weapon", "armor"] }),
             mode: new fields.StringField({ required: true, choices: ["upgrade", "override"] }),
@@ -909,7 +910,7 @@ const ITEM_ALTERATION_HANDLERS = {
             }
         },
     }),
-    resilient: new ItemAlterationHandler({
+    "runes-resilient": new ItemAlterationHandler({
         fields: {
             itemType: new fields.StringField({ required: true, choices: ["armor"] }),
             mode: new fields.StringField({ required: true, choices: ["upgrade", "override"] }),
@@ -928,6 +929,31 @@ const ITEM_ALTERATION_HANDLERS = {
 
             // If this is a constructed item, have the displayed name reflect the new rune
             if (data.item instanceof ItemPF2e && data.item.system.runes.resilient !== previousValue) {
+                data.item.name = game.pf2e.system.generateItemName(data.item);
+            }
+        },
+    }),
+    "runes-striking": new ItemAlterationHandler({
+        fields: {
+            itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
+            mode: new fields.StringField({ required: true, choices: ["upgrade", "override"] }),
+            value: new fields.NumberField({ required: true, nullable: false, min: 0, max: 4, integer: true } as const),
+        },
+        handle: function (data: AlterationApplicationData) {
+            const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(data.rule.actor);
+            if ((abpEnabled && data.fromEquipment) || !this.isValid(data)) return;
+
+            const previousValue = data.item.system.runes.striking;
+            data.item.system.runes.striking = Math.clamp(
+                AELikeRuleElement.getNewValue(data.alteration.mode, previousValue, data.alteration.value),
+                0,
+                4,
+            ) as ZeroToFour;
+
+            // Update number of damage dice if the value changed
+            // If this is a constructed item, have the displayed name reflect the new rune
+            if (data.item instanceof ItemPF2e && data.item.system.runes.striking !== previousValue) {
+                data.item.system.damage.dice = 1 + data.item.system.runes.striking;
                 data.item.name = game.pf2e.system.generateItemName(data.item);
             }
         },
@@ -987,31 +1013,6 @@ const ITEM_ALTERATION_HANDLERS = {
                 data.alteration.value,
             );
             data.item.system.strength = Math.max(newValue, -2);
-        },
-    }),
-    striking: new ItemAlterationHandler({
-        fields: {
-            itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
-            mode: new fields.StringField({ required: true, choices: ["upgrade", "override"] }),
-            value: new fields.NumberField({ required: true, nullable: false, min: 0, max: 4, integer: true } as const),
-        },
-        handle: function (data: AlterationApplicationData) {
-            const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(data.rule.actor);
-            if ((abpEnabled && data.fromEquipment) || !this.isValid(data)) return;
-
-            const previousValue = data.item.system.runes.striking;
-            data.item.system.runes.striking = Math.clamp(
-                AELikeRuleElement.getNewValue(data.alteration.mode, previousValue, data.alteration.value),
-                0,
-                4,
-            ) as ZeroToFour;
-
-            // Update number of damage dice if the value changed
-            // If this is a constructed item, have the displayed name reflect the new rune
-            if (data.item instanceof ItemPF2e && data.item.system.runes.striking !== previousValue) {
-                data.item.system.damage.dice = 1 + data.item.system.runes.striking;
-                data.item.name = game.pf2e.system.generateItemName(data.item);
-            }
         },
     }),
     traits: new ItemAlterationHandler({

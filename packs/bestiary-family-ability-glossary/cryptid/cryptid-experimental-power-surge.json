@@ -21,42 +21,13 @@
         },
         "rules": [
             {
+                "diceNumber": "match(when(lte(@actor.level, 8), 1), when(btwn(@actor.level, 9, 14), 2), when(btwn(@actor.level, 5, 17), 3), when(gte(@actor.level, 18), 4))",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
                     "power-surge"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": "14",
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "end": "17",
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        },
-                        {
-                            "start": 18,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        }
-                    ]
-                }
+                "selector": "strike-damage"
             },
             {
                 "domain": "damage",

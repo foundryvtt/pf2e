@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> You successfully reduce one or more non-mindless enemies to 0 Hit Points with a spell.</p>\n<hr />\n<p>As your overwhelming psyche fells a creature, you use its flickering consciousness to detonate psychic energy from the creature's head. Each enemy you reduced to 0 Hit Points dies and its head explodes. Each exploding head generates a shockwave in a @Template[emanation|distance:15] around that enemy. Each creature in any of the emanations takes @Damage[10d6[bludgeoning]|options:area-damage] damage with a @Check[reflex|against:spell|basic|options:area-effect]. If this damage reduces an enemy to 0 Hit Points, its head also explodes, potentially damaging more creatures and potentially causing more detonations. A given creature can take damage only once from a single use of Cranial Detonation.</p>"
+            "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> You successfully reduce one or more non-mindless enemies to 0 Hit Points with a spell.</p><hr /><p>As your overwhelming psyche fells a creature, you use its flickering consciousness to detonate psychic energy from the creature's head. Each enemy you reduced to 0 Hit Points dies and its head explodes. Each exploding head generates a shockwave in a @Template[emanation|distance:15] around that enemy. Each creature in any of the emanations takes @Damage[10d6[bludgeoning]|options:area-damage] damage with a @Check[reflex|against:occult|basic|options:area-effect]. If this damage reduces an enemy to 0 Hit Points, its head also explodes, potentially damaging more creatures and potentially causing more detonations. A given creature can take damage only once from a single use of Cranial Detonation.</p>"
         },
         "frequency": {
             "max": 1,
@@ -30,7 +30,23 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "label": "PF2E.TraitMindshift",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:mindshifted"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.Mindshift.Addendum"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

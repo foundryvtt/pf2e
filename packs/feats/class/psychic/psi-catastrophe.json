@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You stop holding your power back, unleashing it all in a catastrophic blast. All creatures in a @Template[emanation|distance:20] take @Damage[(@actor.level)d6[bludgeoning]|options:area-damage]{1d6 bludgeoning damage per level} with a @Check[reflex|against:spell|basic|options:area-effect]. Your psyche subsides as your power is expended.</p>"
+            "value": "<p>You stop holding your power back, unleashing it all in a catastrophic blast. All creatures in a @Template[emanation|distance:20] take @Damage[(@actor.level)d6[bludgeoning]|options:area-damage]{1d6 bludgeoning damage per level} with a @Check[reflex|against:occult|basic|options:area-effect]. Your psyche subsides as your power is expended.</p>"
         },
         "level": {
             "value": 12
@@ -25,7 +25,23 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "label": "PF2E.TraitMindshift",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:mindshifted"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.Mindshift.Addendum"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

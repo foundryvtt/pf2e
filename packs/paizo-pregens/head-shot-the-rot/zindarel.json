@@ -309,6 +309,10 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> You're wielding a loaded firearm or crossbow.</p>\n<hr />\n<p>You lay down suppressive fire to protect allies by forcing foes to take cover from your wild attacks. Make a firearm or crossbow Strike; the target must decide before you roll your attack whether it will duck out of the way. If the target ducks, it gains a +2 circumstance bonus to AC against your attack, or a +4 circumstance bonus to AC if it has cover. It also takes a -2 circumstance penalty to ranged attack rolls until the end of its next turn. If the target chooses not to duck, you gain a +1 circumstance bonus to your attack roll for that Strike.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
                 "level": {
                     "taken": 1,
                     "value": 1
@@ -1907,6 +1911,7 @@
                     },
                     {
                         "category": "precision",
+                        "diceNumber": "match(when(lte(@actor.level, 8), 1), when(btwn(@actor.level, 9, 14), 2), when(gte(@actor.level, 15), 3))",
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
@@ -1918,30 +1923,7 @@
                                 ]
                             }
                         ],
-                        "selector": "strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 8,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 14,
-                                    "start": 9,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "start": 15,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                }
-                            ]
-                        }
+                        "selector": "strike-damage"
                     },
                     {
                         "key": "Note",

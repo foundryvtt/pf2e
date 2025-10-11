@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per round</p><hr /><p>With a passing thought, you direct violent psychic energies at a nearby creature. Target one creature within 30 feet. It takes @Damage[(ceil(@actor.level/2)d4)[bludgeoning]] damage with a @Check[reflex|basic] save. At 3rd level and every 2 levels thereafter, the damage increases by 1d4.</p>"
+            "value": "<p><strong>Frequency</strong> once per round</p><hr /><p>With a passing thought, you direct violent psychic energies at a nearby creature. Target one creature within 30 feet. It takes @Damage[(ceil(@actor.level/2)d4)[bludgeoning]] damage with a @Check[reflex|against:occult|basic] save. At 3rd level and every 2 levels thereafter, the damage increases by 1d4.</p>"
         },
         "frequency": {
             "max": 1,
@@ -30,7 +30,23 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "label": "PF2E.TraitMindshift",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:mindshifted"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.Mindshift.Addendum"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

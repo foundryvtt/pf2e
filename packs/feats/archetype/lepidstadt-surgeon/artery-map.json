@@ -34,29 +34,13 @@
                 "category": "persistent",
                 "damageType": "bleed",
                 "diceNumber": 1,
+                "dieSize": "match(when(lte(@actor.system.skills.medicine.rank, 3), \"d6\"), when(gte(@actor.system.skills.medicine.rank, 4), \"d10\"))",
                 "key": "DamageDice",
                 "predicate": [
                     "target:condition:off-guard",
                     "item:group:knife"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "value": {
-                                "dieSize": "d6"
-                            }
-                        },
-                        {
-                            "start": 4,
-                            "value": {
-                                "dieSize": "d10"
-                            }
-                        }
-                    ],
-                    "field": "actor|system.skills.medicine.rank"
-                }
+                "selector": "strike-damage"
             }
         ],
         "subfeatures": {

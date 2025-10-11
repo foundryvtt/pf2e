@@ -55,6 +55,82 @@
                 "rollOption": "monstrosity-form"
             },
             {
+                "brackets": [
+                    {
+                        "start": 8,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "20 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 30
+                                }
+                            },
+                            "strikes": {
+                                "body": {
+                                    "modifier": 28
+                                },
+                                "jaws": {
+                                    "modifier": 28
+                                },
+                                "stinger": {
+                                    "modifier": 28
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 9,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "22 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 33
+                                }
+                            },
+                            "strikes": {
+                                "body": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-10"
+                                    ]
+                                },
+                                "jaws": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-10"
+                                    ]
+                                },
+                                "stinger": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-10",
+                                        "agile"
+                                    ]
+                                }
+                            },
+                            "tempHP": 25
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "immunities": [
@@ -121,87 +197,7 @@
                 },
                 "predicate": [
                     "monstrosity-form:cave-worm"
-                ],
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "start": 8,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "20 + @actor.level"
-                                },
-                                "size": "huge",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 30
-                                    }
-                                },
-                                "strikes": {
-                                    "body": {
-                                        "modifier": 28
-                                    },
-                                    "jaws": {
-                                        "modifier": 28
-                                    },
-                                    "stinger": {
-                                        "modifier": 28
-                                    }
-                                },
-                                "tempHP": 20
-                            }
-                        },
-                        {
-                            "start": 9,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "22 + @actor.level"
-                                },
-                                "size": "huge",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 33
-                                    }
-                                },
-                                "strikes": {
-                                    "body": {
-                                        "damage": {
-                                            "dice": 3
-                                        },
-                                        "modifier": 31,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-10"
-                                        ]
-                                    },
-                                    "jaws": {
-                                        "damage": {
-                                            "dice": 3
-                                        },
-                                        "modifier": 31,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-10"
-                                        ]
-                                    },
-                                    "stinger": {
-                                        "damage": {
-                                            "dice": 3
-                                        },
-                                        "modifier": 31,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-10",
-                                            "agile"
-                                        ]
-                                    }
-                                },
-                                "tempHP": 25
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                ]
             },
             {
                 "category": "persistent",
@@ -215,6 +211,69 @@
                 "selector": "stinger-damage"
             },
             {
+                "brackets": [
+                    {
+                        "start": 8,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "20 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 30
+                                }
+                            },
+                            "strikes": {
+                                "beak": {
+                                    "modifier": 28
+                                },
+                                "talon": {
+                                    "modifier": 28
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 9,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "22 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 33
+                                }
+                            },
+                            "strikes": {
+                                "beak": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15"
+                                    ]
+                                },
+                                "talon": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15",
+                                        "agile"
+                                    ]
+                                }
+                            },
+                            "tempHP": 25
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "senses": {
@@ -261,74 +320,7 @@
                 },
                 "predicate": [
                     "monstrosity-form:phoenix"
-                ],
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "start": 8,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "20 + @actor.level"
-                                },
-                                "size": "huge",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 30
-                                    }
-                                },
-                                "strikes": {
-                                    "beak": {
-                                        "modifier": 28
-                                    },
-                                    "talon": {
-                                        "modifier": 28
-                                    }
-                                },
-                                "tempHP": 20
-                            }
-                        },
-                        {
-                            "start": 9,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "22 + @actor.level"
-                                },
-                                "size": "huge",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 33
-                                    }
-                                },
-                                "strikes": {
-                                    "beak": {
-                                        "damage": {
-                                            "dice": 3
-                                        },
-                                        "modifier": 31,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-15"
-                                        ]
-                                    },
-                                    "talon": {
-                                        "damage": {
-                                            "dice": 3
-                                        },
-                                        "modifier": 31,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-15",
-                                            "agile"
-                                        ]
-                                    }
-                                },
-                                "tempHP": 25
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                ]
             },
             {
                 "damageType": "fire",
@@ -383,6 +375,60 @@
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Blazing Conflagration"
             },
             {
+                "brackets": [
+                    {
+                        "start": 8,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "20 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 30
+                                }
+                            },
+                            "strikes": {
+                                "jaws": {
+                                    "modifier": 28
+                                },
+                                "tail": {
+                                    "modifier": 28
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 9,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "22 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 33
+                                }
+                            },
+                            "strikes": {
+                                "jaws": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31
+                                },
+                                "tail": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31
+                                }
+                            },
+                            "tempHP": 25
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "senses": {
@@ -428,65 +474,7 @@
                 },
                 "predicate": [
                     "monstrosity-form:sea-serpent"
-                ],
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "start": 8,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "20 + @actor.level"
-                                },
-                                "size": "huge",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 30
-                                    }
-                                },
-                                "strikes": {
-                                    "jaws": {
-                                        "modifier": 28
-                                    },
-                                    "tail": {
-                                        "modifier": 28
-                                    }
-                                },
-                                "tempHP": 20
-                            }
-                        },
-                        {
-                            "start": 9,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "22 + @actor.level"
-                                },
-                                "size": "huge",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 33
-                                    }
-                                },
-                                "strikes": {
-                                    "jaws": {
-                                        "damage": {
-                                            "dice": 3
-                                        },
-                                        "modifier": 31
-                                    },
-                                    "tail": {
-                                        "damage": {
-                                            "dice": 3
-                                        },
-                                        "modifier": 31
-                                    }
-                                },
-                                "tempHP": 25
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                ]
             }
         ],
         "start": {

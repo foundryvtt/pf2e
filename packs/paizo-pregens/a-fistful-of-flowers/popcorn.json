@@ -158,21 +158,7 @@
                         ],
                         "selector": "crafting",
                         "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 2,
-                                    "start": 1,
-                                    "value": 1
-                                }
-                            ],
-                            "field": "actor|system.skills.crafting.rank"
-                        }
+                        "value": "match(when(btwn(@actor.system.skills.crafting.rank, 3, 4), 2), when(btwn(@actor.system.skills.crafting.rank, 1, 2), 1))"
                     }
                 ],
                 "slug": "seasoned",

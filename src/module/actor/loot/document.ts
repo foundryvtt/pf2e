@@ -7,9 +7,9 @@ import type {
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
 import type { UserAction } from "@common/constants.d.mts";
-import { ItemType } from "@item/base/data/index.ts";
+import type { ItemType } from "@item/types.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
-import { LootSource, LootSystemData } from "./data.ts";
+import type { LootSource, LootSystemData } from "./data.ts";
 
 class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;

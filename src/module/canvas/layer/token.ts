@@ -63,8 +63,8 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
     }
 
     refreshDistanceLine(): void;
-    refreshDistanceLine(from: TObject, to: TObject): void;
-    refreshDistanceLine(from?: TObject, to?: TObject): void {
+    refreshDistanceLine(from: TObject, to: TObject): Point;
+    refreshDistanceLine(from?: TObject, to?: TObject): Point | void {
         this.#hoverDistanceLine.clear();
         if (!(from && to)) return;
         this._rulerPaths.addChild(this._rulerPaths.removeChild(this.#hoverDistanceLine));
@@ -107,6 +107,7 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
             .lineTo(closest.to.x, closest.to.y);
         this.#drawCap(line, closest.from, colors);
         this.#drawCap(line, closest.to, colors);
+        return closest.to;
     }
 
     #drawCap(line: PIXI.Graphics, p: Point, colors: { outline: number; fill: number }): PIXI.Graphics {

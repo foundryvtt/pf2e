@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Trigger</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.Unleash Psyche]{Unleash your Psyche}.</p><hr /><p>The force of your mind unleashing itself wracks your enemies with a violent shockwave. You deal @Damage[ceil(@actor.level/2)d6[force]|options:area-damage] damage to all creatures in a @Template[emanation|distance:20], with a @Check[reflex|basic|options:area-effect] save. This explosion is taxing, making you @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. At 5th level and every 2 levels thereafter, the damage increases by 1d6.</p>"
+            "value": "<p><strong>Trigger</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.Unleash Psyche]{Unleash your Psyche}.</p><hr /><p>The force of your mind unleashing itself wracks your enemies with a violent shockwave. You deal @Damage[ceil(@actor.level/2)d6[force]|options:area-damage] damage to all creatures in a @Template[emanation|distance:20], with a @Check[reflex|against:occult|basic|options:area-effect] save. This explosion is taxing, making you @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. At 5th level and every 2 levels thereafter, the damage increases by 1d6.</p>"
         },
         "level": {
             "value": 4
@@ -25,7 +25,23 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "label": "PF2E.TraitMindshift",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:mindshifted"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.Mindshift.Addendum"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

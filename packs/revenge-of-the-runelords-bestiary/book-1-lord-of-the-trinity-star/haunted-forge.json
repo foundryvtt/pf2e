@@ -1,0 +1,155 @@
+{
+    "_id": "3GTmXjedhveXBBGK",
+    "folder": "Ca9MPJiDZRxlgQIX",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "XyKn6QoY8VOtwJhr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Searing Heat",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature comes within 30 feet of either forge</p><hr /><p><strong>Effect</strong> The eastern wall appears to transform into molten lava, and dozens of shrieking human spirits made of fire fly out of the lava to spiral and scorch through the room. Creatures in area <strong>B5</strong> must attempt a @Check[reflex|dc:34] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[4d6[fire]] damage</p>\n<p><strong>Failure</strong> The creature takes @Damage[8d6[fire]] damage, @Damage[1d6[persistent,fire]] damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[16d6[fire]] damage, @Damage[2d6[persistent,fire]] damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XIFHD5mHIhRpTSRX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Molten Dawnsilver",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "8ZHazESYzhS8i2LH": {
+                        "damage": "3d10+11",
+                        "damageType": "bludgeoning"
+                    },
+                    "EIoFzO34Hbo7ZOqc": {
+                        "damage": "2d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Haunted Forge",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 36
+            },
+            "emitsSound": "encounter",
+            "hardness": 24,
+            "hp": {
+                "details": "to destroy one of the forges (both must be destroyed to disable the haunt completely)",
+                "max": 94,
+                "temp": 0,
+                "value": 94
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 28
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The rundown furnaces blaze to life, filling with metal and fire, while the wall of hardened lava to the east appears to revert to red hot molten rock.</p>",
+            "disable": "<p>@Check[religion|dc:38] (master) to exorcise the spirits or @Check[intimidation|dc:41] to quell them with furious anger; three total successes are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 14
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #219: Lord of the Trinity Star"
+            },
+            "reset": "<p>1 hour.</p>",
+            "routine": "<p>(4 actions) The burning spirits shriek and howl, swooping in and out of the forges to the south, which roar into scorching life. The spirits scoop up gobs of phantasmal molten dawnsilver and hurl them at different targets in the room. Up to four randomly determined creatures are targeted in this way with molten dawnsilver Strikes (the spirits can target any creature in area <strong>B5</strong>). A single creature may be targeted only once per round, so if there are fewer than four different targets, the haunt's extra actions are lost. The haunt also loses two actions from its routine if one of the two forges are destroyed.</p><p>On a critical hit from a molten dawnsilver Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as the molten dawnsilver swiftly cools and encases the target. Molten dawnsilver produced by the haunt vanishes entirely 1 round after it's been thrown.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 30
+            },
+            "reflex": {
+                "value": 22
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

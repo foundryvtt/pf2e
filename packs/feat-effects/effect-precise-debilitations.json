@@ -27,11 +27,15 @@
             },
             {
                 "category": "precision",
-                "diceNumber": "2",
+                "diceNumber": 2,
                 "dieSize": "d6",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
                 "predicate": [
-                    "target:mark:precise-debilitations"
+                    "target:mark:precise-debilitations",
+                    {
+                        "not": "parent:tag:precise-debilitations-dice-added"
+                    }
                 ],
                 "selector": "strike-damage"
             }

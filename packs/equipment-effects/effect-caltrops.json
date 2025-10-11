@@ -1,0 +1,63 @@
+{
+    "_id": "5DaEI4I7cVdOD507",
+    "img": "icons/weapons/thrown/bomb-spiked-purple.webp",
+    "name": "Effect: Caltrops",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Caltrops]</p>\n<p>You take 1 persistent bleed damage. While taking this persistent bleed damage, you take a –5-foot penalty to your Speed.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "bleed",
+                            "formula": "1"
+                        }
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:persistent-damage:bleed"
+                ],
+                "selector": "land-speed",
+                "value": -5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

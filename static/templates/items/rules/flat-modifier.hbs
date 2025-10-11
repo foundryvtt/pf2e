@@ -1,7 +1,8 @@
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.Label"}}</label>
+    <label class="short" for="{{rootId}}-label">{{localize "PF2E.RuleEditor.General.Label"}}</label>
     <div class="form-fields">
-        <input type="text" name="{{basePath}}.label" value="{{rule.label}}" placeholder="{{object.label}}" />
+        <input type="text" name="{{basePath}}.label" id="{{rootId}}-label" value="{{rule.label}}"
+               placeholder="{{object.label}}" />
         <label>
             {{localize "PF2E.RuleEditor.FlatModifier.HideIfDisabled"}}
             <input type="checkbox" name="{{basePath}}.hideIfDisabled" {{checked rule.hideIfDisabled}}>
@@ -10,21 +11,15 @@
 </div>
 
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
+    <label class="short" for="{{rootId}}-selector">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
     <div class="attached-input">
-        <button type="button" class="attachment" data-action="toggle-selector">
-            {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
-        </button>
-        {{#if selectorIsArray}}
-            <tagify-tags class="pf2e-tagify selector-list" name="{{basePath}}.selector" value="{{json rule.selector}}" />
-        {{else}}
-            <input type="text" name="{{basePath}}.selector" value="{{rule.selector}}" />
-        {{/if}}
+        <tagify-tags class="pf2e-tagify selector-list" name="{{basePath}}.selector" id="{{rootId}}-selector"
+                     value="{{json rule.selector}}"></tagify-tags>
     </div>
 </div>
 
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.Value"}}</label>
+    <label class="short" for="{{rootId}}-value">{{localize "PF2E.RuleEditor.General.Value"}}</label>
     <div class="form-fields">
         {{#if (eq rule.type "ability")}}
             <select name="{{basePath}}.ability">
@@ -40,12 +35,8 @@
         <select name="{{basePath}}.type" class="short">
             {{selectOptions types selected=rule.type localize=true}}
         </select>
-
-        {{{form.resolvableAddBracket "value"}}}
     </div>
 </div>
-
-{{{form.resolvableBrackets "value"}}}
 
 {{#if isDamage}}
 <div class="form-group">
@@ -63,6 +54,6 @@
 {{/if}}
 
 <div class="form-group">
-    <label class="short">{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
-    <input type="text" name="{{basePath}}.predicate" value="{{json rule.predicate}}" />
+    <label class="short" for="{{rootId}}-predicate">{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
+    <input type="text" name="{{basePath}}.predicate" id="{{rootId}}-predicate" value="{{json rule.predicate}}" />
 </div>

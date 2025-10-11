@@ -475,29 +475,7 @@
                         "predicate": [
                             "class:witch"
                         ],
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 5,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 11,
-                                    "start": 6,
-                                    "value": 3
-                                },
-                                {
-                                    "end": 17,
-                                    "start": 12,
-                                    "value": 4
-                                },
-                                {
-                                    "start": 18,
-                                    "value": 5
-                                }
-                            ],
-                            "field": "actor|level"
-                        }
+                        "value": "match(when(lte(@actor.level, 5), 2), when(btwn(@actor.level, 6, 11), 3), when(btwn(@actor.level, 12, 17), 4), when(gte(@actor.level, 18), 5))"
                     },
                     {
                         "flag": "pet",

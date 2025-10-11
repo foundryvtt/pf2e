@@ -42,27 +42,12 @@
                 "toggleable": true
             },
             {
+                "diceNumber": "match(when(lte(@actor.level, 13), 2), when(gte(@actor.level, 14), 3))",
                 "key": "DamageDice",
                 "predicate": [
                     "tiger-slash"
                 ],
-                "selector": "tiger-claw-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 13,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 14,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ]
-                }
+                "selector": "tiger-claw-damage"
             },
             {
                 "critical": true,

@@ -1,15 +1,19 @@
 import { ActorPF2e } from "@actor";
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
+import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import { PhysicalItemPF2e, type ItemPF2e } from "@item";
-import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { isSpellConsumableUUID } from "@item/consumable/spell-consumables.ts";
+import { placeItemTemplate } from "@item/helpers.ts";
 import { Coins } from "@item/physical/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
 import { CheckRoll } from "@system/check/index.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { CheckDCReference } from "@system/statistic/index.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e, CheckContextChatFlag } from "../index.ts";
 
@@ -41,9 +45,9 @@ class ChatCards {
             return;
         }
 
-        // Handle strikes
+        // Handle attacks
         const strikeAction = message._strike;
-        if (strikeAction && action?.startsWith("strike-")) {
+        if (strikeAction?.type === "strike" && action?.startsWith("strike-")) {
             const context = (
                 message.rolls.some((r) => r instanceof CheckRoll) ? (message.flags.pf2e.context ?? null) : null
             ) as CheckContextChatFlag | null;
@@ -97,8 +101,8 @@ class ChatCards {
         // Handle everything else
         if (item) {
             const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
+            const attack = item.isOfType("melee") ? actor.system.actions?.find((a) => a.item.id === item.id) : null;
 
-            // Spell actions
             switch (action) {
                 case "spell-attack":
                     await spell?.rollAttack(event);
@@ -112,8 +116,15 @@ class ChatCards {
                 case "spell-damage":
                     spell?.rollDamage(event);
                     return;
-                case "spell-save":
-                    return this.#rollActorSaves({ event, button, actor, item });
+                case "spell-save": {
+                    const saveType = button.dataset.save;
+                    const dcValue = Number(button.dataset.dc ?? "NaN");
+                    const dc = Number.isInteger(dcValue) ? { value: Number(dcValue) } : null;
+                    if (!tupleHasValue(SAVE_TYPES, saveType)) {
+                        throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
+                    }
+                    return this.#rollActorSaves({ event, saveType, origin: actor, item, dc });
+                }
                 case "affliction-save":
                     if (item?.isOfType("affliction")) {
                         item.rollRecovery();
@@ -207,6 +218,20 @@ class ChatCards {
                             event,
                         });
                     }
+                    return;
+                }
+                case "roll-area-save": {
+                    const dc = attack && "statistic" in attack ? attack.statistic.dc : null;
+                    return this.#rollActorSaves({ event, saveType: "reflex", origin: actor, item, dc });
+                }
+                case "roll-area-damage":
+                    attack?.damage?.({ event });
+                    return;
+                case "place-area-template": {
+                    const area = item.isOfType("melee") ? item.system.area : null;
+                    if (!area) return;
+                    placeItemTemplate(area, { item, message });
+                    return;
                 }
             }
         } else if (action && actor.isOfType("character", "npc")) {
@@ -229,7 +254,7 @@ class ChatCards {
                     return;
                 }
 
-                if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
+                if (isSpellConsumableUUID(physicalItem.uuid) && physicalItem.isOfType("consumable")) {
                     craftSpellConsumable(physicalItem, quantity, actor);
                     ChatMessagePF2e.create({
                         author: game.user.id,
@@ -280,7 +305,7 @@ class ChatCards {
                     });
                 }
             } else if (action === "receieve-crafting-item" && physicalItem) {
-                if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
+                if (isSpellConsumableUUID(physicalItem.uuid) && physicalItem.isOfType("consumable")) {
                     return craftSpellConsumable(physicalItem, quantity, actor);
                 } else {
                     return craftItem(physicalItem, quantity, actor);
@@ -303,28 +328,18 @@ class ChatCards {
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
-    static async #rollActorSaves({ event, button, actor, item }: RollActorSavesParams): Promise<void> {
+    static async #rollActorSaves({ event, saveType, origin, item, dc }: RollActorSavesParams): Promise<void> {
         const tokens = game.user.getActiveTokens();
         if (tokens.length === 0) {
             ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
             return;
         }
-        const saveType = button.dataset.save;
-        if (!tupleHasValue(SAVE_TYPES, saveType)) {
-            throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
-        }
 
-        const dc = Number(button.dataset.dc ?? "NaN");
         for (const token of tokens) {
             const save = token.actor?.saves?.[saveType];
             if (!save) return;
 
-            save.check.roll({
-                ...eventToRollParams(event, { type: "check" }),
-                dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
-                item,
-                origin: actor,
-            });
+            save.check.roll({ ...eventToRollParams(event, { type: "check" }), dc, item, origin });
         }
     }
 }
@@ -338,9 +353,10 @@ interface OnClickButtonParams {
 
 interface RollActorSavesParams {
     event: PointerEvent;
-    button: HTMLButtonElement;
-    actor: ActorPF2e;
+    saveType: SaveType;
+    origin: ActorPF2e;
     item: ItemPF2e<ActorPF2e>;
+    dc: CheckDC | CheckDCReference | null;
 }
 
 export { ChatCards };

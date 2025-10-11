@@ -1855,6 +1855,99 @@
                 "success": "@Damage[4d6[persistent,poison]]"
             }
         },
+        "RULES": {
+            "Common": {
+                "FIELDS": {
+                    "key": {
+                        "label": "Key"
+                    },
+                    "label": {
+                        "label": "Label"
+                    },
+                    "mode": {
+                        "choices": {
+                            "add": "Add",
+                            "downgrade": "Downgrade",
+                            "multiply": "Multiply",
+                            "override": "Override",
+                            "remove": "Remove",
+                            "subtract": "Subtract",
+                            "upgrade": "Upgrade"
+                        },
+                        "label": "Mode"
+                    },
+                    "predicate": {
+                        "label": "Predicate"
+                    },
+                    "selector": {
+                        "label": "Selector"
+                    },
+                    "selectors": {
+                        "label": "Selectors"
+                    },
+                    "slug": {
+                        "label": "Slug"
+                    },
+                    "value": {
+                        "label": "Value"
+                    },
+                    "relabel": {
+                        "label": "Relabel"
+                    }
+                }
+            },
+            "DamageAlteration": {
+                "FIELDS": {
+                    "property": {
+                        "choices": {
+                            "damage-type": "Damage Type",
+                            "dice-faces": "Dice Faces",
+                            "dice-number": "Dice Number",
+                            "tags": "Tags"
+                        },
+                        "label": "Property"
+                    }
+                }
+            },
+            "Note": {
+                "FIELDS": {
+                    "outcome": {
+                        "choices": {
+                            "criticalFailure": "Critical Failure",
+                            "criticalSuccess": "Critical Success",
+                            "failure": "Failure",
+                            "success": "Success"
+                        },
+                        "label": "Outcomes"
+                    },
+                    "selector": {
+                        "label": "Selectors"
+                    },
+                    "text": {
+                        "label": "Text"
+                    },
+                    "title": {
+                        "label": "Title"
+                    },
+                    "visibility": {
+                        "choices": {
+                            "gm": "Gamemaster Only",
+                            "owner": "Item Owner"
+                        },
+                        "hint": "Who this note should be visible to when posted to chat: no selection makes it visible to all users.",
+                        "label": "Visibility"
+                    }
+                }
+            },
+            "TokenMark": {
+                "FIELDS": {
+                    "uuid": {
+                        "hint": "The UUID of a marked token: automatically filled upon marking.",
+                        "label": "Token UUID"
+                    }
+                }
+            }
+        },
         "RuleEditor": {
             "Aura": {
                 "Appearance": {
@@ -1922,7 +2015,6 @@
             "General": {
                 "Add": "Add",
                 "Basics": "Basics",
-                "Brackets": "Brackets",
                 "CriticalBehavior": {
                     "false": "1x Damage on Crit",
                     "null": "2x Damage on Crit",
@@ -1932,7 +2024,6 @@
                 "Label": "Label",
                 "Opacity": "Opacity",
                 "Predicate": "Predicate",
-                "Primitive": "Primitive",
                 "PriorityHint": "Priority determines the order in which rule elements are executed within the same phase. Rule elements with lower priority values are executed first.",
                 "Range": "Range",
                 "Remove": "Remove",
@@ -1992,7 +2083,6 @@
             "SpecialResource": "Special Resource",
             "SpecialStatistic": "Special Statistic",
             "Strike": "Strike",
-            "Striking": "Striking",
             "SubstituteRoll": "Substitute Roll",
             "TempHP": "Temporary Hit Points",
             "TempHPShortLabel": "Temp",
@@ -2002,8 +2092,7 @@
             "TokenMark": "Token Mark",
             "TokenName": "Token Name",
             "Unrecognized": "Unrecognized Rule Element",
-            "Weakness": "Weakness",
-            "WeaponPotency": "Weapon Potency"
+            "Weakness": "Weakness"
         },
         "SkillVariant": {
             "AboutCaves": "About Caves",
@@ -3201,6 +3290,9 @@
             },
             "Cleric": {
                 "BattleHarbinger": {
+                    "BattleFont": {
+                        "Label": "Battle Font"
+                    },
                     "DivineFont": "Instead of preparing @UUID[Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs]{Heal} or @UUID[Compendium.pf2e.spells-srd.Item.wdA52JJnsuQWeyqz]{Harm} spells with your divine font, you instead gain the battle font, which allows you to prepare battle aura spells. You gain 4 additional spell slots each day at your highest rank of cleric spell slots. You can prepare only @UUID[Compendium.pf2e.spells-srd.Item.7ZinJNzxq0XF0oMx]{Bane} or @UUID[Compendium.pf2e.spells-srd.Item.XSujb7EsSwKl19Uu]{Bless} in these slots. Any feats and effects that refer to a battle aura refers to these spells, regardless of whether they were cast with your standard spell slots or your divine font spell slots. At 5th level, the number of additional slots increases to 5, and at 15th level, the total number of additional slots increases to 6. Your battle auras use your class DC instead of your spell DC."
                 },
                 "CastigatingWeapon": {
@@ -4001,7 +4093,7 @@
                     },
                     "PlundererOfTheHivesRiches": {
                         "CriticalSpecialization": "When you critically succeed at a Strike, the taste of honey fills your mouth as you plunder part of your foe's vitality for yourself, gaining temporary Hit Points equal to half the creature's level that last for 1 minute.",
-                        "Description": "When you Spark Transcendence, you gain temporary Hit Points equal to half your level as you are reinvigorated by the changing of the seasons; these temporary Hit Points last until the start of your next turn."
+                        "Description": "When you Spark Transcendence, a mass of buzzing insects fill the air around you, granting you @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealment} until the beginning of your next turn."
                     },
                     "RestlessAsTheTide": {
                         "CriticalSpecialization": "When you critically succeed on a Strike, water blasts the target and those nearby. This deals bludgeoning splash damage equal to the number of weapon damage dice to the target and all creatures within 10 feet of it. This effect has the water trait.",
@@ -5147,6 +5239,16 @@
                 "DragonRoar": {
                     "Label": "First attack vs. frightened creature"
                 },
+                "FiveGodsRam": {
+                    "FailureNote": "You become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                    "FirstStrike": {
+                        "Note": "You immediately push the target back 10 feet."
+                    },
+                    "RollOptionLabel": "Five-Gods Ram",
+                    "SecondStrike": {
+                        "Note": "You immediately knock the target @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]"
+                    }
+                },
                 "OneInchPunch": {
                     "ThreeActionLabel": "One Inch Punch (Three Actions)",
                     "TwoActionLabel": "One Inch Punch (Two Actions)"
@@ -5551,6 +5653,9 @@
                     },
                     "WhisperingSteps": "Choose one enemy who is a target of the spell. If that enemy fails its save or the spell hits it, you whisper in the creature's mind, forcing it to Step in a direction of your choosing; as this is forced movement, you can't force the creature to Step into hazardous terrain, off a ledge, or the like. After it Steps, the creature becomes temporarily immune to this amp for 24 hours."
                 },
+                "Mindshift": {
+                    "Addendum": "You replace any save this action requires with a @Check[will|against:occult] save."
+                },
                 "OscillatingWave": {
                     "AddEnergy": "Add Energy",
                     "ConservationOfEnergyLabel": "Conservation of Energy",
@@ -5775,6 +5880,18 @@
                 },
                 "TrainSkill": {
                     "Prompt": "Select a skill to become trained in."
+                }
+            },
+            "Runelord": {
+                "School": {
+                    "Envy": "Envy",
+                    "Gluttony": "Gluttony",
+                    "Greed": "Greed",
+                    "Lust": "Lust",
+                    "Pride": "Pride",
+                    "Prompt": "Select a Thassilonian school",
+                    "Sloth": "Sloth",
+                    "Wrath": "Wrath"
                 }
             },
             "SaveCriticalFailureToFailure": {

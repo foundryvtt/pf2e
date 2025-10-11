@@ -12,11 +12,10 @@ class TokenImageForm extends RuleElementForm<RuleElementSource, TokenImageRuleEl
     };
 
     override async getData(): Promise<TokenImageFormSheetData> {
-        return {
-            ...(await super.getData()),
+        return Object.assign(await super.getData(), {
             alphaEnabled: this.object.alpha !== null,
             scaleEnabled: this.object.scale !== null,
-        };
+        });
     }
 
     override activateListeners(html: HTMLElement): void {

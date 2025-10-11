@@ -2227,34 +2227,7 @@
                         "selector": "land-speed",
                         "slug": "incredible-movement",
                         "type": "status",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 6,
-                                    "start": 3,
-                                    "value": 10
-                                },
-                                {
-                                    "end": 10,
-                                    "start": 7,
-                                    "value": 15
-                                },
-                                {
-                                    "end": 14,
-                                    "start": 11,
-                                    "value": 20
-                                },
-                                {
-                                    "end": 18,
-                                    "start": 15,
-                                    "value": 25
-                                },
-                                {
-                                    "start": 19,
-                                    "value": 30
-                                }
-                            ]
-                        }
+                        "value": "match(when(btwn(@actor.level, 3, 6), 10), when(btwn(@actor.level, 7, 10), 15), when(btwn(@actor.level, 11, 14), 20), when(btwn(@actor.level, 15, 18), 25), when(gte(@actor.level, 19), 30))"
                     }
                 ],
                 "slug": "incredible-movement",

@@ -1,23 +1,45 @@
 #variant-rules-settings form {
-    --form-field-height: 1.5rem;
-
-    .form-group.abp select {
-        flex: 0;
+    .form-group:first-child {
+        margin-top: 0;
     }
 
-    .proficiency-modifiers {
-        column-gap: 0.5em;
-        display: grid;
-        grid-template:
-            "untrained trained expert master legendary" auto "hint hint hint hint hint" auto
-            / 1fr 1fr 1fr 1fr 1fr;
+    .pwol-modifiers {
+        flex-wrap: nowrap;
+        justify-content: start;
 
-        .hint {
-            grid-area: hint;
-        }
+        .form-group {
+            flex-wrap: nowrap;
 
-        .modifier label {
-            font-size: var(--font-size-12);
+            label {
+                flex: 0;
+                padding: 0 0.5rem;
+                text-align: center;
+
+                &:has(+ .form-fields input:not(:disabled)) {
+                    color: var(--color-light-2);
+                }
+            }
+
+            .form-fields {
+                justify-content: start;
+                flex: 0;
+            }
+
+            &:nth-child(1) label:has(+ .form-fields input:not(:disabled)) {
+                background: var(--color-proficiency-untrained);
+            }
+            &:nth-child(2) label:has(+ .form-fields input:not(:disabled)) {
+                background: var(--color-proficiency-trained);
+            }
+            &:nth-child(3) label:has(+ .form-fields input:not(:disabled)) {
+                background: var(--color-proficiency-expert);
+            }
+            &:nth-child(4) label:has(+ .form-fields input:not(:disabled)) {
+                background: var(--color-proficiency-master);
+            }
+            &:nth-child(5) label:has(+ .form-fields input:not(:disabled)) {
+                background: var(--color-proficiency-legendary);
+            }
         }
     }
 }

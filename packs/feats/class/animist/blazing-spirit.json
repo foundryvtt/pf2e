@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> A creature damages you with a melee attack.</p>\n<p><strong>Requirements</strong> Your attuned apparition grants Battlegrounds Lore or Volcano Lore as an apparition skill.</p><hr /><p>Your apparition grants fiery defenses. You gain resistance equal to your level against the triggering damage, and the triggering creature takes @Damage[1d6[fire],1[persistent,fire]]{1d6 fire damage and 1 persistent fire} damage. This damage increases to @Damage[2d6[fire],2[persistent,fire]]{2d6 fire damage and 2 persistent fire} damage at 12th level, and @Damage[3d6[fire],3[persistent,fire]]{3d6 fire damage and 3 persistent fire} damage at 18th level.</p>"
+            "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> A creature damages you with a melee attack.</p>\n<p><strong>Requirements</strong> Your attuned apparition grants Battlegrounds Lore or Volcano Lore as an apparition skill.</p><hr /><p>Your apparition grants fiery defenses. You gain resistance equal to your level against the triggering damage, and the triggering creature takes @Damage[(ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,12),2,1)))d6[fire],(ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,12),2,1)))[persistent,fire]] damage. This damage increases to 2d6 fire damage and 2 persistent fire damage at 12th level, and 3d6 fire damage and 3 persistent fire damage at 18th level.</p>"
         },
         "frequency": {
             "max": 1,
@@ -29,7 +29,21 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "blazing-spirit",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "blazing-spirit"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

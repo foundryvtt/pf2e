@@ -5,7 +5,7 @@ import { SAVE_TYPES } from "@actor/values.ts";
 import type { EnrichmentOptions } from "@client/applications/ux/text-editor.d.mts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
-import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
+import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
     extractDamageDice,

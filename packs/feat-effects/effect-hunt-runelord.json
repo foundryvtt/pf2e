@@ -1,0 +1,107 @@
+{
+    "_id": "s7qDwnyVqMqDaFal",
+    "img": "systems/pf2e/icons/features/classes/sihedron.webp",
+    "name": "Effect: Hunt Runelord",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Hunt Runelord]</p>\n<p>Choose a Thassilonian rune school. You gain a +2 circumstance bonus to Perception checks when you seek a creature that serves these ideals and a +2 circumstance bonus to Intimidation checks made to Demoralize such creatures. Your Strikes also deal 1d4 extra precision to these creatures when they're frightened.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Revenge of the Runelords Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Envy",
+                        "value": "envy"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Gluttony",
+                        "value": "gluttony"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Greed",
+                        "value": "greed"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Lust",
+                        "value": "lust"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Pride",
+                        "value": "pride"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Sloth",
+                        "value": "sloth"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Wrath",
+                        "value": "wrath"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Runelord.School.Prompt",
+                "rollOption": "thassilonian-school"
+            },
+            {
+                "key": "RollOption",
+                "option": "hunt-runelord",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hunt-runelord",
+                    {
+                        "or": [
+                            "action:seek",
+                            "action:demoralize"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "hunt-runelord",
+                    "target:condition:frightened"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

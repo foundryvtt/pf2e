@@ -52,7 +52,7 @@ class ClassSystemData extends ItemSystemModel<ClassPF2e, ClassSystemSchema> {
             hp: new fields.NumberField({
                 required: true,
                 nullable: false,
-                min: 6,
+                min: 4,
                 max: 12,
                 initial: 6,
             }),

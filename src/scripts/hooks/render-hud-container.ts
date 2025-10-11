@@ -8,7 +8,9 @@ export const RenderHUDContainer = {
             TokenRulerPF2e.observeHudContainer();
 
             // Create a distance label to show above hovered tokens
-            document.getElementById("measurement")?.append(
+            const measurementEl = document.getElementById("measurement");
+            measurementEl?.style.setProperty("--counter-scale", (1 / canvas.stage.scale.x).toFixed(4));
+            measurementEl?.append(
                 createHTMLElement("div", {
                     id: "token-hover-distance",
                     classes: ["waypoint-label"],

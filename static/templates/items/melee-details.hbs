@@ -1,6 +1,29 @@
+{{#developMode}}
+    {{formGroup systemFields.action label=(localize "PF2E.ActionTypeAction") value=data.action choices=attackActions}}
+
+    {{#unless (eq data.action "strike")}}
+        <div class="form-group">
+            <label for="{{fieldIdPrefix}}area-size">{{localize "PF2E.Area.InFeet"}}</label>
+            <div class="details-container-two-columns">
+                <input
+                    id="{{fieldIdPrefix}}area-size"
+                    type="number"
+                    data-property="system.area.value"
+                    min="5"
+                    step="5"
+                    value="{{data.area.value}}"
+                />
+                <select id="{{fieldIdPrefix}}area-type" name="system.area.type">
+                    {{selectOptions areaShapes selected=data.area.type blank="" localize=true}}
+                </select>
+            </div>
+        </div>
+    {{/unless}}
+{{/developMode}}
+
 <div class="form-group attack-modifier">
-    <label>{{localize "PF2E.NPCWeaponAttackLabel"}}</label>
-    <input type="number" name="system.bonus.value" value="{{data.bonus.value}}" />
+    <label>{{modifierOrSave.label}}</label>
+    <input type="number" name="system.bonus.value" value="{{modifierOrSave.value}}" />
 </div>
 
 <ol class="form-list">

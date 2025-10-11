@@ -32,7 +32,28 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:precise-debilitations"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "itemType": "effect",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:effect-precise-debilitations"
+                ],
+                "property": "other-tags",
+                "value": "precise-debilitations-dice-added"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

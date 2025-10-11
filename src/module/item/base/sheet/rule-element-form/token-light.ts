@@ -11,12 +11,11 @@ class TokenLightForm extends RuleElementForm<TokenLightRuleSource, TokenLightRul
 
     override async getData(): Promise<TokenLightSheetData> {
         const data = await super.getData();
-        return {
-            ...data,
+        return Object.assign(data, {
             colorationTechniques: fc.rendering.shaders.AdaptiveLightingShader.SHADER_TECHNIQUES,
             light: data.rule.value,
             lightAnimations: R.mapValues(CONFIG.Canvas.lightAnimations, (value) => value.label),
-        };
+        });
     }
 }
 

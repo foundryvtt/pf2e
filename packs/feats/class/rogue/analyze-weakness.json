@@ -38,35 +38,13 @@
             },
             {
                 "category": "precision",
+                "diceNumber": "match(when(lte(@actor.level, 10), 2), when(btwn(@actor.level, 11, 16), 3), when(gte(@actor.level, 17), 4))",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
                     "analyze-weakness"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 10,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "end": 16,
-                            "start": 11,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        },
-                        {
-                            "start": 17,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        }
-                    ]
-                }
+                "selector": "strike-damage"
             }
         ],
         "traits": {

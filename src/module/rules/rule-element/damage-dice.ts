@@ -1,8 +1,8 @@
 import { DamageDiceOverride, DamageDicePF2e, DeferredDamageDiceOptions } from "@actor/modifiers.ts";
-import { DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
-import { SlugField } from "@system/schema-data-fields.ts";
-import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
+import { NullableBooleanField, SlugField } from "@system/schema-data-fields.ts";
+import { objectHasKey, sluggify, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { extractDamageAlterations } from "../helpers.ts";
 import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
@@ -12,9 +12,6 @@ class DamageDiceRuleElement extends RuleElement<DamageDiceRuleSchema> {
     constructor(data: DamageDiceSource, options: RuleElementOptions) {
         super(data, options);
         if (this.invalid) return;
-
-        this.brackets = this.isBracketedValue(data.value) ? data.value : null;
-
         if (data.override && !this.#isValidOverride(data.override)) {
             this.failValidation(
                 "The override property must be an object with one property of 'upgrade' (boolean),",
@@ -28,31 +25,21 @@ class DamageDiceRuleElement extends RuleElement<DamageDiceRuleSchema> {
     static override defineSchema(): DamageDiceRuleSchema {
         return {
             ...super.defineSchema(),
-            selector: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, initial: undefined }),
-            ),
-            diceNumber: new ResolvableValueField({ required: false, initial: undefined }),
-            dieSize: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
-            damageType: new fields.StringField({
-                required: false,
+            selector: new fields.ArrayField(new fields.StringField({ required: true, blank: false })),
+            diceNumber: new ResolvableValueField({ required: true, nullable: true, initial: null }),
+            dieSize: new fields.StringField({ required: true, blank: false, nullable: true, initial: null }),
+            damageType: new fields.StringField({ required: true, nullable: true, blank: false, initial: null }),
+            critical: new NullableBooleanField({ required: true, nullable: true, initial: null }),
+            category: new fields.StringField({
+                choices: ["persistent", "precision", "splash"],
+                required: true,
                 nullable: true,
                 blank: false,
                 initial: null,
             }),
-            critical: new fields.BooleanField({ required: false, nullable: true, initial: null }),
-            category: new fields.StringField({
-                choices: ["persistent", "precision", "splash"],
-                required: false,
-                blank: false,
-                initial: undefined,
-            }),
-            brackets: new ResolvableValueField({ required: false, nullable: true, initial: undefined }),
-            tags: new fields.ArrayField(new SlugField({ required: true, nullable: false, initial: undefined }), {
-                required: false,
-                nullable: false,
-            }),
+            tags: new fields.ArrayField(new SlugField({ required: true, blank: false }), { required: true }),
             override: new fields.ObjectField({ required: false, nullable: true, initial: undefined }),
-            hideIfDisabled: new fields.BooleanField({ required: false }),
+            hideIfDisabled: new fields.BooleanField(),
             battleForm: new fields.BooleanField(),
         };
     }
@@ -81,12 +68,6 @@ class DamageDiceRuleElement extends RuleElement<DamageDiceRuleSchema> {
                 const diceNumber = Number(this.resolveValue(this.diceNumber, 0, resolveOptions)) || 0;
                 // Warning may have been suppressed, but return early if validation failed
                 if (this.ignored) return null;
-
-                const resolvedBrackets = this.resolveValue(this.brackets, {}, resolveOptions);
-                if (!this.#resolvedBracketsIsValid(resolvedBrackets)) {
-                    if (testPassed) this.failValidation("Brackets failed to validate");
-                    return null;
-                }
 
                 const damageType = this.resolveInjectedProperties(this.damageType, resolveOptions);
                 if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
@@ -145,7 +126,6 @@ class DamageDiceRuleElement extends RuleElement<DamageDiceRuleSchema> {
                     enabled: testPassed,
                     hideIfDisabled: this.hideIfDisabled,
                     alterations,
-                    ...resolvedBrackets,
                 });
             };
 
@@ -154,11 +134,10 @@ class DamageDiceRuleElement extends RuleElement<DamageDiceRuleSchema> {
         }
     }
 
-    #isValidOverride(override: JSONValue): override is DamageDiceOverride | undefined {
+    #isValidOverride(override: unknown): override is DamageDiceOverride | undefined {
         if (override === undefined) return true;
-
         return (
-            isObject<DamageDiceOverride>(override) &&
+            R.isPlainObject(override) &&
             ((typeof override.upgrade === "boolean" && !("downgrade" in override)) ||
                 (typeof override.downgrade === "boolean" && !("upgrade" in override)) ||
                 typeof override.damageType === "string" ||
@@ -170,21 +149,6 @@ class DamageDiceRuleElement extends RuleElement<DamageDiceRuleSchema> {
                     override.diceNumber <= 256))
         );
     }
-
-    #resolvedBracketsIsValid(value: JSONValue): value is ResolvedBrackets {
-        if (!isObject<ResolvedBrackets>(value)) return false;
-        const keysAreValid = Object.keys(value).every((k) => ["diceNumber", "dieSize", "override"].includes(k));
-        const diceNumberIsValid = !("diceNumber" in value) || typeof value.diceNumber === "number";
-        const dieSizeIsValid = !("dieSize" in value) || tupleHasValue(DAMAGE_DIE_SIZES, value.dieSize);
-        const overrideIsValid = !("override" in value) || this.#isValidOverride(value.override);
-        return keysAreValid && diceNumberIsValid && dieSizeIsValid && overrideIsValid;
-    }
-}
-
-interface ResolvedBrackets {
-    dieSize?: DamageDieSize;
-    diceNumber?: number;
-    override?: DamageDiceOverride;
 }
 
 interface DamageDiceSource extends RuleElementSource {
@@ -193,7 +157,6 @@ interface DamageDiceSource extends RuleElementSource {
     diceNumber?: JSONValue;
     dieSize?: JSONValue;
     override?: JSONValue;
-    value?: JSONValue;
     damageType?: JSONValue;
     critical?: JSONValue;
     category?: JSONValue;
@@ -209,11 +172,11 @@ type DamageDiceRuleSchema = RuleElementSchema & {
     /** All domains to add a modifier to */
     selector: fields.ArrayField<fields.StringField<string, string, true, false, false>>;
     /** The number of dice to add */
-    diceNumber: ResolvableValueField<false, false, false>;
+    diceNumber: ResolvableValueField<true, true, true>;
     /** The damage die size */
-    dieSize: fields.StringField<string, string, false, true, true>;
+    dieSize: fields.StringField<string, string, true, true, true>;
     /** The damage type */
-    damageType: fields.StringField<string, string, false, true, true>;
+    damageType: fields.StringField<string, string, true, true, true>;
     /**
      * Control whether and how these damage dice are included in a roll depending on the result of the preceding check.
      * - `true`: the dice are added only to critical damage rolls, without doubling.
@@ -221,23 +184,21 @@ type DamageDiceRuleSchema = RuleElementSchema & {
      * - `null` (default): the dice are added to both normal and critical damage rolls and are doubled in critical
      *   damage rolls.
      */
-    critical: fields.BooleanField<boolean, boolean, false, true, true>;
+    critical: NullableBooleanField<true, true, true>;
     /** The damage category */
     category: fields.StringField<
         "persistent" | "precision" | "splash",
         "persistent" | "precision" | "splash",
-        false,
-        false,
-        false
+        true,
+        true,
+        true
     >;
     /** A list of tags associated with this damage */
-    tags: fields.ArrayField<SlugField<true, false, false>, string[], string[], false, false, true>;
-    /** Resolvable bracket data */
-    brackets: ResolvableValueField<false, true, false>;
+    tags: fields.ArrayField<SlugField<true, false, false>, string[], string[]>;
     /** Damage dice override data */
     override: fields.ObjectField<DamageDiceOverride, DamageDiceOverride, false, true, false>;
     /** Hide this dice change from breakdown tooltips if it is disabled */
-    hideIfDisabled: fields.BooleanField<boolean, boolean, false, false, true>;
+    hideIfDisabled: fields.BooleanField<boolean, boolean, true, false, true>;
     /** Whether this rule element is for use with battle forms */
     battleForm: fields.BooleanField;
 };

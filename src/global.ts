@@ -84,7 +84,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(module: "core", key: "fontSize"): number;
     get(module: "core", key: "noCanvas"): boolean;
     get(module: "core", key: "rollMode"): RollMode;
-    get(module: "core", key: "uiConfig"): { colorScheme: { applications: string; interface: string } };
+    get(module: "core", key: "uiConfig"): { colorScheme: { applications: string; interface: string }; uiScale: number };
     get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
     get(module: "pf2e", setting: "automation.encumbrance"): boolean;
     get(module: "pf2e", setting: "automation.flankingDetection"): boolean;
@@ -341,6 +341,7 @@ declare global {
 
         // Add functions to the `Math` namespace for use in `Roll` formulas
         interface Math {
+            btwn: (v: number, lte: number, gte: number) => boolean;
             eq: (a: number, b: number) => boolean;
             gt: (a: number, b: number) => boolean;
             gte: (a: number, b: number) => boolean;
@@ -348,6 +349,8 @@ declare global {
             lte: (a: number, b: number) => boolean;
             ne: (a: number, b: number) => boolean;
             ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
+            match: (...args: (string | number | null)[]) => string | number;
+            when: (condition: boolean, then: string | number) => string | number | null;
         }
     }
 
@@ -355,16 +358,6 @@ declare global {
         interface ClientSettingsMap {
             get(key: "pf2e.worldClock"): SettingConfig & { default: WorldClockSettingData };
         }
-    }
-
-    interface RollMathProxy {
-        eq: (a: number, b: number) => boolean;
-        gt: (a: number, b: number) => boolean;
-        gte: (a: number, b: number) => boolean;
-        lt: (a: number, b: number) => boolean;
-        lte: (a: number, b: number) => boolean;
-        ne: (a: number, b: number) => boolean;
-        ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
     }
 
     const BUILD_MODE: "development" | "production";

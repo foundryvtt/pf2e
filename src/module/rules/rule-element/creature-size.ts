@@ -20,8 +20,8 @@ class CreatureSizeRuleElement extends RuleElement<CreatureSizeRuleSchema> {
     constructor(data: RuleElementSource, options: RuleElementOptions) {
         super(data, options);
 
-        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
-            this.failValidation("value must be a number, string, or bracketed value");
+        if (typeof this.value !== "string" && typeof this.value !== "number") {
+            this.failValidation("value must be a number or string");
         }
     }
 

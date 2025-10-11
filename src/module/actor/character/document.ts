@@ -7,8 +7,8 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import {
     MultipleAttackPenaltyData,
     calculateMAPs,
+    getAttackDamageDomains,
     getStrikeAttackDomains,
-    getStrikeDamageDomains,
     isReallyPC,
     setHitPointsRollOptions,
 } from "@actor/helpers.ts";
@@ -41,8 +41,8 @@ import type {
 import { WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import type { ItemType } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import type { ItemType } from "@item/types.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import type { WeaponCategory } from "@item/weapon/types.ts";
@@ -68,6 +68,7 @@ import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statisti
 import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
+import { WeaponAuxiliaryAction } from "./auxiliary.ts";
 import { CharacterCrafting } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
@@ -85,7 +86,6 @@ import {
 import { CharacterFeats } from "./feats/index.ts";
 import {
     PCAttackTraitHelpers,
-    WeaponAuxiliaryAction,
     createForceOpenPenalty,
     createShoddyPenalty,
     getItemProficiencyRank,
@@ -1596,7 +1596,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     viewOnly: params.getFormula ?? false,
                     origin: { actor: this, statistic: action, item: weapon },
                     target: { token: targetToken?.document },
-                    domains: getStrikeDamageDomains(weapon, proficiencyRank),
+                    domains: getAttackDamageDomains(weapon, proficiencyRank),
                     outcome: method === "damage" ? "success" : "criticalSuccess",
                     options: new Set([...baseOptions, ...params.options]),
                     traits: actionTraits,

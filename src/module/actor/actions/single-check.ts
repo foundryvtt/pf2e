@@ -14,7 +14,8 @@ import {
     CheckResultCallback,
 } from "@system/action-macros/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { getActionGlyph, isObject, tupleHasValue } from "@util";
+import { getActionGlyph, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionUseOptions } from "./types.ts";
 
@@ -25,9 +26,7 @@ function toRollNoteSource(data: SingleCheckActionRollNoteData): RollNoteSource {
 }
 
 function isValidDifficultyClass(dc: unknown): dc is CheckDC | DCSlug {
-    if (isObject<{ value: unknown }>(dc) && typeof dc.value === "number") {
-        return true;
-    }
+    if (R.isObjectType(dc) && "value" in dc && typeof dc.value === "number") return true;
 
     const slug = String(dc);
     return (

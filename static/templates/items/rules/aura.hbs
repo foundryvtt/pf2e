@@ -11,10 +11,6 @@
         <label>{{localize fields.radius.label}}</label>
         <div class="resolvable">
             {{{form.resolvableValue "radius"}}}
-            {{{form.resolvableAddBracket "radius"}}}
-        </div>
-        <div class="brackets-container">
-            {{{form.resolvableBrackets "radius"}}}
         </div>
     </div>
 
@@ -25,10 +21,6 @@
         </label>
         <div class="resolvable">
             {{{form.resolvableValue "level"}}}
-            {{{form.resolvableAddBracket "level"}}}
-        </div>
-        <div class="brackets-container">
-            {{{form.resolvableBrackets "level"}}}
         </div>
     </div>
 
@@ -90,34 +82,6 @@
                 <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.includesSelf" {{checked (ne effect.includesSelf false)}}/>
             </div>
         </div>
-
-        {{!-- Not fully implemented
-        <div class="grid-item">
-            <label>{{localize ../fields.effects.element.fields.events.label}}</label>
-            <input type="text" class="pf2e-tagify tagify-events" name="system.rules.{{../index}}.effects.{{eid}}.events" value="{{json effect.events}}" data-dtype="JSON"/>
-        </div>
-
-        <fieldset>
-            <legend>{{localize ../fields.effects.element.fields.save.label}}</legend>
-            <div class="saves-container">
-                <label>{{localize ../fields.effects.element.fields.save.fields.type.label}}</label>
-                <select name="system.rules.{{../index}}.effects.{{eid}}.save.type">
-                    {{selectOptions ../saveTypes selected=effect.save.type localize=true blank=""}}
-                </select>
-
-                <div class="resolvable">
-                    <label>{{localize ../fields.effects.element.fields.save.fields.dc.label}}</label>
-                    {{{../form.resolvableValue (concat "effects." eid ".save.dc")}}}
-                    {{{../form.resolvableAddBracket (concat "effects." eid ".save.dc")}}}
-                </div>
-                {{#if effect.save.dc.brackets}}
-                    <div class="brackets-container">
-                        {{{../form.resolvableBrackets (concat "effects." eid ".save.dc")}}}
-                    </div>
-                {{/if}}
-            </div>
-        </fieldset>
-        --}}
 
         <div class="grid-item column-span-two">
             <label>{{localize ../fields.effects.element.fields.predicate.label}}</label>

@@ -1,53 +1,69 @@
 import type { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES, DAMAGE_TYPES } from "@system/damage/values.ts";
-import { StrictArrayField } from "@system/schema-data-fields.ts";
-import { sluggify, tupleHasValue } from "@util";
+import { setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
 import type { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
 import { ResolvableValueField, RuleElement } from "../index.ts";
 import { DamageAlteration } from "./alteration.ts";
 import fields = foundry.data.fields;
+import DataModelValidationFailure = foundry.data.validation.DataModelValidationFailure;
 
 /** Alter certain aspects of individual components (modifiers and dice) of a damage roll. */
 class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
+    static override autogenForms = true;
+
     static override defineSchema(): DamageAlterationSchema {
         return {
             ...super.defineSchema(),
-            selectors: new StrictArrayField(
-                new fields.StringField({
-                    required: true,
-                    nullable: false,
-                    blank: false,
-                    initial: undefined,
-                }),
-                {
-                    required: true,
-                    initial: undefined,
-                    validate: (value) => {
-                        if (Array.isArray(value) && value.length > 0) return true;
-                        const failure = new foundry.data.validation.DataModelValidationFailure({
-                            invalidValue: value,
-                            message: "must have at least one",
-                        });
-                        throw new foundry.data.validation.DataModelValidationError(failure);
-                    },
-                },
-            ),
+            selectors: new fields.SetField(new fields.StringField({ required: true, blank: false }), { min: 1 }),
             mode: new fields.StringField({
                 required: true,
                 choices: R.keys(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
-                initial: undefined,
+                initial: "add",
             }),
             property: new fields.StringField({
                 required: true,
                 nullable: false,
                 choices: ["damage-type", "dice-faces", "dice-number", "tags"],
             }),
-            value: new ResolvableValueField({ required: true, nullable: true, initial: null }),
+            value: new ResolvableValueField({
+                required: true,
+                nullable: true,
+                initial: null,
+                validate: (value, options): boolean | DataModelValidationFailure => {
+                    if (typeof value === "string" && /^\{\w+\|.+\}$/.test(value)) return true;
+                    switch (options.source?.property) {
+                        case "damage-type":
+                            if (!setHasElement(DAMAGE_TYPES, value)) {
+                                throw Error("must be a damage type or resolvable to one");
+                            }
+                            break;
+                        case "dice-faces": {
+                            if (typeof value === "string" && /|@.+\..+/.test(value)) return true;
+                            const faces = Number(value);
+                            if (!Number.isInteger(faces)) throw Error("must be an integer or resolvable to one");
+                            if (options.source?.mode === "override" && !tupleHasValue(DAMAGE_DICE_FACES, faces)) {
+                                const listFormatter = game.i18n.getListFormatter({ type: "disjunction" });
+                                const list = listFormatter.format(DAMAGE_DICE_FACES.map((f) => f.toString()));
+                                throw Error(`must override dice faces to ${list}`);
+                            }
+                            break;
+                        }
+                        case "dice-number": {
+                            if (typeof value === "string" && /|@.+\..+/.test(value)) return true;
+                            const number = Number(value);
+                            if (!Number.isInteger(number)) throw Error("must be an integer or resolvable to one");
+                        }
+                    }
+                    return true;
+                },
+            }),
             relabel: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
         };
     }
+
+    static override LOCALIZATION_PREFIXES = ["PF2E.RULES.Common", "PF2E.RULES.DamageAlteration"];
 
     override resolveValue(
         value: unknown,
@@ -97,7 +113,8 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
         if (this.ignored) return;
 
         const alteration = new DamageAlteration(this);
-        for (const selector of this.resolveInjectedProperties(this.selectors)) {
+        const selectors = this.selectors.values().toArray();
+        for (const selector of this.resolveInjectedProperties(selectors)) {
             const synthetics = (this.actor.synthetics.damageAlterations[selector] ??= []);
             synthetics.push(alteration);
         }
@@ -111,15 +128,17 @@ interface DamageAlterationRuleElement
 type DamageAlterationProperty = "dice-faces" | "dice-number" | "damage-type" | "tags";
 
 type DamageAlterationSchema = RuleElementSchema & {
-    selectors: StrictArrayField<fields.StringField<string, string, true, false, false>>;
-    mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    selectors: fields.SetField<fields.StringField<string, string, true, false, false>>;
+    mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, true>;
     property: fields.StringField<DamageAlterationProperty, DamageAlterationProperty, true, false, false>;
     value: ResolvableValueField<true, true, true>;
     /** An optional relabeling of the altered unit of damage */
     relabel: fields.StringField<string, string, false, true, true>;
 };
 
+type DamageAlterationSource = fields.SourceFromSchema<DamageAlterationSchema>;
+
 type DamageAlterationValue = DamageType | number | string[];
 
 export { DamageAlterationRuleElement };
-export type { DamageAlterationProperty, DamageAlterationValue };
+export type { DamageAlterationProperty, DamageAlterationSource, DamageAlterationValue };

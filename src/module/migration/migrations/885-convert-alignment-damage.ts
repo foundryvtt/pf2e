@@ -1,9 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { NPCAttackDamage } from "@item/melee/data.ts";
-import { SpellSystemSource } from "@item/spell/data.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
-import { isObject } from "@util";
+import type { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { NPCAttackDamage } from "@item/melee/data.ts";
+import type { SpellSystemSource } from "@item/spell/data.ts";
+import type { RuleElementSource } from "@module/rules/index.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
@@ -63,7 +62,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             for (const obj of [...(iwr[key] ?? [])]) {
                 obj.type = obj.type.replace("good", "holy").replace("evil", "unholy");
                 obj.exceptions = obj.exceptions
-                    ?.filter((e) => isObject(e) || !["chaotic", "lawful"].includes(e))
+                    ?.filter((e) => R.isPlainObject(e) || (typeof e === "string" && !["chaotic", "lawful"].includes(e)))
                     .map((e) => (e === "evil" ? "unholy" : e === "good" ? "holy" : e));
                 if (obj.type === "holy") {
                     traits.value.push(key === "immunities" ? "holy" : "unholy");
@@ -119,8 +118,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
 
             const partials: Record<string, NPCAttackDamage | null> = source.system.damageRolls;
             for (const [key, partial] of Object.entries(partials)) {
-                if (!isObject(partial)) continue;
-
+                if (!R.isPlainObject(partial)) continue;
                 const damageType: string = partial.damageType;
                 if (["chaotic", "lawful"].includes(damageType)) {
                     partial.damageType = "spirit";
@@ -145,7 +143,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             actorTraits.value = R.unique(actorTraits.value.sort());
         } else if (source.type === "spell") {
             const damage: { type: string }[] = Object.values(source.system.damage).filter(
-                (d) => isObject(d) && typeof d.type === "string",
+                (d) => R.isPlainObject(d) && typeof d.type === "string",
             );
             const traits: { value: string[] } = source.system.traits;
 
@@ -165,15 +163,15 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
                 // Special case for Divine Decree spell
                 const system: Pick<SpellSystemSource, "damage"> & { "-=overlays"?: null } = source.system;
                 const damage = Object.values(system.damage).shift();
-                if (isObject(damage)) damage.type = "spirit";
+                if (R.isPlainObject(damage)) damage.type = "spirit";
                 system["-=overlays"] = null;
             } else {
                 // Let's play this one safe
                 try {
                     const overlayPartials = Object.values(source.system.overlays ?? {})
-                        .filter((o) => isObject(o) && o.overlayType === "override")
+                        .filter((o) => R.isPlainObject(o) && o.overlayType === "override")
                         .map((o) => (o.system ??= {})?.damage)
-                        .flatMap((p) => (isObject(p) ? Object.values(p) : []))
+                        .flatMap((p) => (R.isPlainObject(p) ? Object.values(p) : []))
                         .flat()
                         .filter(R.isTruthy);
                     for (const partial of overlayPartials) {

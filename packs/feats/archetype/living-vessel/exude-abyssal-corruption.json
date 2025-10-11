@@ -41,36 +41,13 @@
             },
             {
                 "damageType": "poison",
+                "diceNumber": "match(when(btwn(@actor.level, 8, 13), 1), when(btwn(@actor.level, 14, 19), 2), when(gte(@actor.level, 20), 3))",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
                     "abyssal-corruption"
                 ],
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 13,
-                            "start": 8,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 19,
-                            "start": 14,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 20,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ]
-                }
+                "selector": "damage"
             }
         ],
         "traits": {

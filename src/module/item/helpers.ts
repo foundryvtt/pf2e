@@ -1,14 +1,17 @@
 import type { ActorPF2e } from "@actor";
-import { createHTMLElement, setHasElement } from "@util";
+import { MeasuredTemplateType } from "@common/constants.mjs";
+import { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { createHTMLElement, ErrorPF2e, setHasElement } from "@util";
 import type { Converter } from "showdown";
 import { processSanctification } from "./ability/helpers.ts";
-import type { ItemSourcePF2e, ItemType } from "./base/data/index.ts";
-import { ItemTraits, ItemTraitsNoRarity } from "./base/data/system.ts";
+import type { ItemSourcePF2e } from "./base/data/index.ts";
+import type { ItemTraits, ItemTraitsNoRarity } from "./base/data/system.ts";
 import type { ItemPF2e } from "./base/document.ts";
 import { ItemTrait } from "./base/types.ts";
 import type { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
-import type { ItemInstances } from "./types.ts";
+import type { EffectAreaShape, ItemInstances, ItemType } from "./types.ts";
 
 type ItemOrSource = PreCreate<ItemSourcePF2e> | ItemPF2e;
 
@@ -139,4 +142,90 @@ function _expectedValueOf(annotation: string): number {
         : Number(annotation);
 }
 
-export { addOrUpgradeTrait, itemIsOfType, markdownToHTML, performLatePreparation, reduceItemName, removeTrait };
+function createEffectAreaLabel(areaData: { type: EffectAreaShape; value: number }): string {
+    const formatString = "PF2E.Item.Spell.Area";
+    const shape = game.i18n.localize(`PF2E.Area.Shape.${areaData.type}`);
+
+    // Handle special cases of very large areas
+    const largeAreaLabel = {
+        1320: "PF2E.Area.Size.Quarter",
+        2640: "PF2E.Area.Size.Half",
+        5280: "1",
+    }[areaData.value];
+    if (largeAreaLabel) {
+        const size = game.i18n.localize(largeAreaLabel);
+        const unit = game.i18n.localize("PF2E.Area.Size.Mile");
+        return game.i18n.format(formatString, { shape, size, unit, units: unit });
+    }
+
+    const size = Number(areaData.value);
+    const unit = game.i18n.localize("PF2E.Foot.Label");
+    const units = game.i18n.localize("PF2E.Foot.Plural");
+    return game.i18n.format(formatString, { shape, size, unit, units });
+}
+
+function placeItemTemplate(
+    area: { type: EffectAreaShape; value: number },
+    { message, item }: { message?: ChatMessagePF2e; item: ItemPF2e },
+): Promise<MeasuredTemplatePF2e> {
+    if (!canvas.ready) throw ErrorPF2e("No canvas");
+
+    const templateConversion: Record<EffectAreaShape, MeasuredTemplateType> = {
+        burst: "circle",
+        cone: "cone",
+        cube: "rect",
+        cylinder: "circle",
+        emanation: "circle",
+        line: "ray",
+        square: "rect",
+    } as const;
+
+    const templateType = templateConversion[area.type];
+
+    const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = {
+        t: templateType,
+        distance: (Number(area.value) / 5) * canvas.dimensions.distance,
+        fillColor: game.user.color.toString(),
+        flags: {
+            pf2e: {
+                messageId: message?.id,
+                origin: {
+                    name: item.name,
+                    slug: item.slug,
+                    traits: fu.deepClone(item.system.traits.value),
+                    ...item.getOriginData(),
+                },
+                areaShape: area.type,
+            },
+        },
+    };
+
+    switch (templateType) {
+        case "ray":
+            templateData.width = CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
+            break;
+        case "cone":
+            templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
+            break;
+        case "rect": {
+            const distance = templateData.distance ?? 0;
+            templateData.distance = Math.hypot(distance, distance);
+            templateData.width = distance;
+            templateData.direction = 45;
+            break;
+        }
+    }
+
+    return canvas.templates.createPreview(templateData);
+}
+
+export {
+    addOrUpgradeTrait,
+    createEffectAreaLabel,
+    itemIsOfType,
+    markdownToHTML,
+    performLatePreparation,
+    placeItemTemplate,
+    reduceItemName,
+    removeTrait,
+};

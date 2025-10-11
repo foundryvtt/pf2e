@@ -250,16 +250,6 @@ export function registerSettings(): void {
     });
     MetagameSettings.registerSettings();
 
-    game.settings.registerMenu("pf2e", "variantRules", {
-        name: "PF2E.SETTINGS.Variant.Name",
-        label: "PF2E.SETTINGS.Variant.Label",
-        hint: "PF2E.SETTINGS.Variant.Hint",
-        icon: "fa-solid fa-book",
-        type: VariantRulesSettings,
-        restricted: true,
-    });
-    VariantRulesSettings.registerSettings();
-
     game.settings.registerMenu("pf2e", "homebrew", {
         name: "PF2E.SETTINGS.Homebrew.Name",
         label: "PF2E.SETTINGS.Homebrew.Label",
@@ -270,7 +260,8 @@ export function registerSettings(): void {
     });
     HomebrewElements.registerSettings();
 
-    WorldClockSettings.registerSettings();
+    VariantRulesSettings.register();
+    WorldClockSettings.register();
 
     // Secret for now until the user side is complete and a UI is built
     game.settings.register("pf2e", "campaignFeatSections", {
