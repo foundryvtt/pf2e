@@ -1204,7 +1204,31 @@
                     "remaster": true,
                     "title": "Pathfinder War of Immortals"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "mythic-skill",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.Skill.Crafting",
+                                "value": "crafting"
+                            },
+                            {
+                                "label": "PF2E.Skill.Occultism",
+                                "value": "occultism"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "{item|flags.pf2e.rulesSelections.mythicSkill}"
+                        ],
+                        "slug": "mythic-skill-bonus",
+                        "value": 4
+                    }
+                ],
                 "slug": "mythic-mythic-skill",
                 "traits": {
                     "value": []

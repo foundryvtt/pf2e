@@ -250,21 +250,17 @@
                     {
                         "key": "RollOption",
                         "option": "mythic-skill",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.Skill.Acrobatics",
-                                "value": "acrobatics"
-                            }
-                        ],
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
+                        "predicate": [
+                            "mythic-skill"
+                        ],
                         "selector": [
-                            "{item|flags.pf2e.rulesSelections.mythicSkill}"
+                            "acrobatics"
                         ],
                         "slug": "mythic-skill-bonus",
-                        "type": "untyped",
                         "value": 4
                     }
                 ],

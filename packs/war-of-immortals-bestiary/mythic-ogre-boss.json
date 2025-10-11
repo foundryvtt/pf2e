@@ -525,21 +525,17 @@
                     {
                         "key": "RollOption",
                         "option": "mythic-skill",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.Skill.Athletics",
-                                "value": "athletics"
-                            }
-                        ],
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
+                        "predicate": [
+                            "mythic-skill"
+                        ],
                         "selector": [
-                            "{item|flags.pf2e.rulesSelections.mythicSkill}"
+                            "athletics"
                         ],
                         "slug": "mythic-skill-bonus",
-                        "type": "untyped",
                         "value": 4
                     }
                 ],
