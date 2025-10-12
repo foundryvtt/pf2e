@@ -591,6 +591,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         thisData.containerId = otherData.containerId;
         thisData._migration = otherData._migration;
         thisData.identification = otherData.identification;
+        thisData.publication = otherData.publication;
 
         return R.isDeepEqual(thisData, otherData);
     }
