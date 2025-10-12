@@ -46,20 +46,23 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
     }
 
     /** Find an item already owned by the actor that can stack with the given item */
-    findStackableItem(item: PhysicalItemPF2e | ItemSourcePF2e): PhysicalItemPF2e<TActor> | null {
+    findStackableItem(
+        item: PhysicalItemPF2e | ItemSourcePF2e,
+        { containerId = null }: { containerId?: string | null } = {},
+    ): PhysicalItemPF2e<TActor> | null {
         // Prevent upstream from mutating property descriptors
         const testItem = item instanceof PhysicalItemPF2e ? item.clone() : new ItemProxyPF2e(fu.deepClone(item));
         if (!testItem.isOfType("physical")) return null;
 
-        const stackCandidates = this.filter((i) => !i.isInContainer && i.isStackableWith(testItem));
-        if (stackCandidates.length === 0) {
-            return null;
-        } else if (stackCandidates.length > 1) {
+        const stackCandidates = this.filter(
+            (i) => (containerId ? i.container?.id === containerId : !i.isInContainer) && i.isStackableWith(testItem),
+        );
+        if (stackCandidates.length > 1) {
             // Prefer stacking with unequipped items
             const notEquipped = stackCandidates.filter((item) => !item.isEquipped);
             return notEquipped.length > 0 ? notEquipped[0] : stackCandidates[0];
         } else {
-            return stackCandidates[0];
+            return stackCandidates.at(0) ?? null;
         }
     }
 

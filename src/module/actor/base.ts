@@ -1592,7 +1592,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         newStack?: boolean,
     ): Promise<PhysicalItemPF2e<this> | null> {
         // Stack with an existing item if possible
-        const stackItem = this.inventory.findStackableItem(itemSource);
+        const containerId = container?.id ?? null;
+        const stackItem = !newStack ? this.inventory.findStackableItem(itemSource, { containerId }) : null;
         if (!newStack && stackItem && stackItem.type !== "backpack") {
             const stackQuantity = stackItem.quantity + itemSource.system.quantity;
             await stackItem.update({ "system.quantity": stackQuantity });

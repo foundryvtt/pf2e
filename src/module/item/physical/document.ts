@@ -564,7 +564,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /**
-     * Can the provided item stack with this item?
+     * Can the provided item stack with this item? This should be used on existing items.
      * @param item an item we are trying to add to the inventory
      */
     isStackableWith(item: PhysicalItemPF2e): boolean {
@@ -577,8 +577,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (!preCheck) return false;
 
         // Additional checks to make sure the worn state is what we want
-        // These checks are skipped for sub-items
-        if (!this.parentItem) {
+        // These checks are skipped for sub-items or items that are in a container
+        if (!this.parentItem && !this.container) {
             const secondPreCheck =
                 this.isHeld === item.isHeld && (!this.isHeld || this.quantity === 0 || item.quantity === 0);
             if (!secondPreCheck) return false;
