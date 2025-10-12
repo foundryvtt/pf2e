@@ -1174,25 +1174,18 @@
                     {
                         "key": "RollOption",
                         "option": "mythic-skill",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.Skill.Deception",
-                                "value": "deception"
-                            },
-                            {
-                                "label": "PF2E.Skill.Thievery",
-                                "value": "thievery"
-                            }
-                        ],
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
+                        "predicate": [
+                            "mythic-skill"
+                        ],
                         "selector": [
-                            "{item|flags.pf2e.rulesSelections.mythicSkill}"
+                            "deception",
+                            "thievery"
                         ],
                         "slug": "mythic-skill-bonus",
-                        "type": "untyped",
                         "value": 4
                     }
                 ],
