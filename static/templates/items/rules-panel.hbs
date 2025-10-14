@@ -20,7 +20,7 @@
                 </div>
                 <div class="item-controls">
                     <a role="button" class="icon fa-solid fa-fw fa-clipboard" data-action="copy-to-clipboard"
-                       data-clipboard="{{item.uuid}}"></a>
+                       data-clipboard="{{item.uuid}}" data-allow-readonly></a>
                 </div>
             </div>
             {{#if item.sourceId}}
@@ -31,7 +31,8 @@
                     </label>
                     <input type="text" id="{{rootId}}-source-id" value="{{item.sourceId}}" readonly />
                     <div class="item-controls">
-                        <a role="button" class="icon fa-solid fa-fw fa-clipboard" data-clipboard="{{item.sourceId}}"></a>
+                        <a role="button" class="icon fa-solid fa-fw fa-clipboard" data-action="copy-to-clipboard"
+                           data-clipboard="{{item.sourceId}}" data-allow-readonly></a>
                     </div>
                 </div>
             {{/if}}
@@ -49,7 +50,7 @@
             </div>
             <div class="form-group">
                 <a role="button" data-action="view-roll-options"
-                   data-tooltip-class="pf2e roll-options" data-tooltip-direction="RIGHT">
+                   data-tooltip-class="pf2e roll-options" data-tooltip-direction="RIGHT" data-allow-readonly>
                     {{localize "PF2E.Item.Rules.ViewRollOptions"}}
                     <i class="fa-solid fa-circle-info" inert></i>
                 </a>
