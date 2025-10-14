@@ -417,13 +417,16 @@
                 },
                 "rules": [
                     {
-                        "category": "precision",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:frightened",
-                            "target:condition:sickened"
+                            {
+                                "or": [
+                                    "target:condition:frightened",
+                                    "target:condition:sickened"
+                                ]
+                            }
                         ],
                         "selector": "strike-damage"
                     }

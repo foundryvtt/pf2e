@@ -1275,8 +1275,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             throw ErrorPF2e("Unexpected missing actor(s)");
         }
 
-        const containerId = htmlClosest(event.target, "[data-is-container]")?.dataset.containerId?.trim();
-        const stackable = !!recipient.inventory.findStackableItem(item._source);
+        const containerId = htmlClosest(event.target, "[data-is-container]")?.dataset.itemId?.trim();
+        const stackable = !!recipient.inventory.findStackableItem(item._source, { containerId });
         const mode = sourceActor.isOfType("loot") && sourceActor.isMerchant ? "purchase" : "move";
 
         // If more than one item can be moved, show a popup to ask how many to move

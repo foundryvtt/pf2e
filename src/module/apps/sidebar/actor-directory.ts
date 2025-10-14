@@ -231,7 +231,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
     /** Overriden to not fire folder events on party actors */
     protected override _createContextMenus(): void {
-        this._createContextMenu(this._getFolderContextOptions, ".folder:not([data-party]) .folder-header", {
+        this._createContextMenu(this._getFolderContextOptions, ".folder:not([data-party]) > .folder-header", {
             fixed: true,
             hookName: "getFolderContextOptions",
             parentClassHooks: false,
