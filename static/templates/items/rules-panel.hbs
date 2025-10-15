@@ -19,8 +19,9 @@
                     <input type="text" id="{{rootId}}-uuid" value="{{item.uuid}}" readonly />
                 </div>
                 <div class="item-controls">
-                    <a role="button" class="icon fa-solid fa-fw fa-clipboard" data-action="copy-to-clipboard"
-                       data-clipboard="{{item.uuid}}"></a>
+                    <button type="button" class="inline-control icon fa-solid fa-clipboard"
+                            data-action="copy-to-clipboard" data-clipboard="{{item.uuid}}"
+                            data-tooltip aria-label="{{localize "PF2E.Item.Rules.CopyToClipboard"}}"></button>
                 </div>
             </div>
             {{#if item.sourceId}}
@@ -31,7 +32,9 @@
                     </label>
                     <input type="text" id="{{rootId}}-source-id" value="{{item.sourceId}}" readonly />
                     <div class="item-controls">
-                        <a role="button" class="icon fa-solid fa-fw fa-clipboard" data-clipboard="{{item.sourceId}}"></a>
+                        <button type="button" class="inline-control icon fa-solid fa-clipboard"
+                                data-action="copy-to-clipboard" data-clipboard="{{item.sourceId}}"
+                                data-tooltip aria-label="{{localize "PF2E.Item.Rules.CopyToClipboard"}}"></button>
                     </div>
                 </div>
             {{/if}}
@@ -43,16 +46,16 @@
                 </label>
                 <input id="{{rootId}}-slug" type="text" name="system.slug" value="{{item.system.slug}}" />
                 <div class="item-controls">
-                    <a role="button" class="icon fa-solid fa-fw fa-sync-alt" data-action="regenerate-slug"
-                       data-tooltip aria-label="{{localize "PF2E.Item.Rules.RegenerateSlug"}}"></a>
+                    <button type="button" class="inline-control icon fa-solid fa-sync-alt" data-action="regenerate-slug"
+                            data-tooltip aria-label="{{localize "PF2E.Item.Rules.RegenerateSlug"}}"></button>
                 </div>
             </div>
             <div class="form-group">
-                <a role="button" data-action="view-roll-options"
+                <button type="button" class="inline-control view-roll-options" data-action="view-roll-options"
                    data-tooltip-class="pf2e roll-options" data-tooltip-direction="RIGHT">
-                    {{localize "PF2E.Item.Rules.ViewRollOptions"}}
+                    <span>{{localize "PF2E.Item.Rules.ViewRollOptions"}}</span>
                     <i class="fa-solid fa-circle-info" inert></i>
-                </a>
+                </button>
             </div>
         </div>
         <div class="rule-element-forms flexcol">
@@ -64,10 +67,10 @@
             <select data-action="select-rule-element">
                 {{selectOptions rules.selection.types selected=rules.selection.selected}}
             </select>
-            <a role="button" data-action="add-rule-element">
+            <button type="button" class="inline-control" data-action="add-rule-element">
                 <i class="fa-solid fa-plus" inert></i>
-                {{localize "PF2E.Item.Rules.New"}}
-            </a>
+                <span>{{localize "PF2E.Item.Rules.New"}}</span>
+            </button>
         </div>
     </div>
 {{/if}}
