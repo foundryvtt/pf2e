@@ -91,7 +91,7 @@ class UUIDUtils {
         if (typeof uuid !== "string") return false;
         try {
             const parsed = fu.parseUuid(uuid);
-            return parsed?.documentType === "Scene" && parsed.embedded[0] === "Token";
+            return parsed?.primaryType === "Scene" && parsed.embedded[0] === "Token";
         } catch {
             return false;
         }

@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { StrikeData } from "@actor/data/base.ts";
+import type { StrikeData } from "@actor/data/base.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import type { DataModelConstructionContext } from "@common/abstract/_module.d.mts";
 import type {
@@ -114,30 +114,35 @@ class ChatMessagePF2e extends ChatMessage {
         const strike = this._strike;
         if (strike?.item) return strike.item;
 
-        const item = ((): ItemPF2e<ActorPF2e> | null => {
-            const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
-            if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
-
-            const origin = this.flags.pf2e?.origin ?? null;
-            const item = origin?.uuid && !origin.uuid.startsWith("Compendium.") ? fromUuidSync(origin.uuid) : null;
-            return item instanceof ItemPF2e ? item : null;
-        })();
-        if (!item) return null;
-
+        const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
+        const origin = this.flags.pf2e.origin;
+        const item =
+            actor && embeddedSpell
+                ? (new ItemProxyPF2e(embeddedSpell, { parent: actor }) as ItemPF2e<ActorPF2e>)
+                : origin?.uuid && !origin.uuid.startsWith("Compendium.")
+                  ? fromUuidSync<ItemPF2e<ActorPF2e>>(origin.uuid)
+                  : null;
+        if (!(item instanceof ItemPF2e)) return null;
         if (item?.isOfType("spell")) {
             const entryId = this.flags.pf2e?.casting?.id ?? null;
-            const overlayIds = this.flags.pf2e.origin?.variant?.overlays;
-            const castRank = this.flags.pf2e.origin?.castRank ?? item.rank;
+            const overlayIds = origin?.variant?.overlays;
+            const castRank = origin?.castRank ?? item.rank;
             const modifiedSpell = item.loadVariant({ overlayIds, castRank, entryId });
             return modifiedSpell ?? item;
         }
-
         return item;
     }
 
     /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
         const actor = this.speakerActor;
+
+        // Handle in-memory unarmed attacks
+        const origin = this.flags.pf2e.origin;
+        const parsedUUID = fu.parseUuid(origin?.uuid ?? "") ?? { id: "" };
+        if (actor?.isOfType("character") && ["xxxxxxFISTxxxxxx", "xxPF2ExUNARMEDxx"].includes(parsedUUID.id)) {
+            return actor?.system.actions?.find((s) => s.item.id === parsedUUID.id) ?? null;
+        }
 
         // Get strike data from the roll identifier
         const roll = this.rolls.find((r): r is Rolled<CheckRoll> => r instanceof CheckRoll);

@@ -98,7 +98,7 @@ async function applyDamageFromMessage({
     const messageRollOptions = [...(message.flags.pf2e.context?.options ?? [])];
     const originRollOptions = messageRollOptions
         .filter((o) => o.startsWith("self:"))
-        .map((o) => o.replace(/^self/, "origin"));
+        .map((o) => o.replace(/^self\b/, "origin"));
     const messageItem = message.item;
     const effectRollOptions = messageItem?.isOfType("affliction", "condition", "effect")
         ? messageItem.getRollOptions("item")
@@ -123,7 +123,7 @@ async function applyDamageFromMessage({
                       affects: "target",
                       origin: message.actor,
                       target: token.actor,
-                      item: message.item,
+                      item: messageItem,
                       domains: [domain],
                       options: messageRollOptions,
                   })
@@ -139,7 +139,7 @@ async function applyDamageFromMessage({
         await contextClone.applyDamage({
             damage,
             token,
-            item: message.item,
+            item: messageItem,
             skipIWR: multiplier <= 0,
             rollOptions,
             shieldBlockRequest,

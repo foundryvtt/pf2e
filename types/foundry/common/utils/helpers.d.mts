@@ -286,21 +286,25 @@ export function randomID(length?: number): string;
 export function parseUuid(uuid: Maybe<string>, options?: { relative?: Maybe<Document> }): ResolvedUUID | null;
 
 export interface ResolvedUUID {
+    /** The original UUID. */
     uuid?: string;
     /**
      * The type of Document referenced. Legacy compendium UUIDs will not populate this field if the compendium is
      * not active in the World.
      */
     type: string | undefined;
-    /** The parent collection. */
+    /** The ID of the Document referenced. */
+    id: string;
+    /** The primary Document type of this UUID. Only present if the Document is embedded. */
+    primaryType: string | undefined;
+    /** The primary Document ID of this UUID. Only present if the Document is embedded. */
+    primaryId: string | undefined;
+    /**
+     * The Collection containing the referenced Document unless that Documentis embedded, in which case the Collection
+     * of the primary Document.
+     */
     collection?: DocumentCollection<ClientDocument> | undefined;
-    /** The parent document. */
-    documentId?: string | undefined;
-    /** The parent document type. */
-    documentType?: string;
-    /** An already-resolved document. */
-    doc?: ClientDocument | null;
-    /** Any remaining Embedded Document parts. */
+    /** Additional Embedded Document parts. */
     embedded: string[];
 }
 
