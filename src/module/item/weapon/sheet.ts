@@ -221,7 +221,6 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     abpEnabled: boolean;
     adjustedDiceHint: string | null;
     adjustedLevelHint: string | null;
-    adjustedPriceHint: string | null;
     baseTypes: typeof CONFIG.PF2E.baseWeaponTypes;
     categories: typeof CONFIG.PF2E.weaponCategories;
     conditionTypes: typeof CONFIG.PF2E.conditionTypes;

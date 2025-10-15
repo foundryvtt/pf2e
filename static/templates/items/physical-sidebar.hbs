@@ -48,21 +48,21 @@
     <div class="form-group price">
         <label for="{{fieldIdPrefix}}price">
             {{localize "PF2E.PriceLabel"}}
-            {{#if adjustedPriceHint}}<i class="fa-solid fa-circle-info" data-tooltip="{{adjustedPriceHint}}"></i>{{/if}}
+            {{#if price.adjustmentHint}}<i class="fa-solid fa-circle-info" data-tooltip="{{adjustedPriceHint}}"></i>{{/if}}
         </label>
         <div class="form-fields">
             <input
                 type="text"
-                {{#if priceAdjustment}}class="{{priceAdjustment}}"{{/if}}
+                {{#if price.adjustment}}class="{{price.adjustment}}"{{/if}}
                 id="{{fieldIdPrefix}}price"
-                value="{{item.system.price.value}}"
+                value="{{price.label}}"
                 data-property="system.price.value"
-                data-value-base="{{basePrice}}"
+                data-value-base="{{price.base}}"
                 spellcheck="false"
             />
             {{#if (eq item.type "consumable")}}
                 <span class="slash">/</span>
-                <input type="number" class="per" name="system.price.per" value="{{item.system.price.per}}" />
+                <input type="number" class="per" name="system.price.per" value="{{price.per}}" />
             {{/if}}
         </div>
     </div>

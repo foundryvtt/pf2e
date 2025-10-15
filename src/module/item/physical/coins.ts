@@ -2,6 +2,9 @@ import { Size } from "@module/data.ts";
 import { PartialPrice, RawCoins } from "./data.ts";
 import { DENOMINATIONS } from "./values.ts";
 
+// TEMPORARY test flag to get the current system. Replace with getting the current system id once separate builds are implemented
+const CURRENT_SYSTEM: "pf2e" | "sf2e" = "pf2e";
+
 /** Coins class that exposes methods to perform operations on coins without side effects */
 class Coins implements RawCoins {
     declare cp: number;
@@ -14,6 +17,14 @@ class Coins implements RawCoins {
         for (const denomination of DENOMINATIONS) {
             this[denomination] = Math.max(Math.floor(Math.abs(data[denomination] ?? 0)), 0);
         }
+    }
+
+    get credits(): number {
+        return this.sp;
+    }
+
+    set credits(value: number) {
+        this.sp = value;
     }
 
     /** The total value of this coins in copper */
@@ -90,10 +101,13 @@ class Coins implements RawCoins {
 
     /** Parses a price string such as "5 gp" and returns a new CoinsPF2e object */
     static fromString(coinString: string, quantity = 1): Coins {
-        if (/^\s*\d+\s*$/.test(coinString)) coinString = `${coinString.trim()} gp`;
+        if (/^\s*\d+\s*$/.test(coinString)) {
+            const denomination = CURRENT_SYSTEM === "pf2e" ? "gp" : "sp";
+            coinString = `${coinString.trim()} ${denomination}`;
+        }
 
         // This requires preprocessing, as large gold values contain , for their value
-        const priceTag = DENOMINATIONS.reduce(
+        const priceTag = [...DENOMINATIONS, "credits"].reduce(
             (s, denomination) => {
                 const localizedDenomination = game.i18n.localize(`PF2E.CurrencyAbbreviations.${denomination}`);
                 if (localizedDenomination === denomination) return s;
@@ -103,9 +117,10 @@ class Coins implements RawCoins {
             },
             coinString.trim().replace(/,/g, ""),
         );
-        return [...priceTag.matchAll(/(\d+)\s*([pgsc]p)/g)]
+        return [...priceTag.matchAll(/(\d+)\s*([pgsc]p|credits)/g)]
             .map((match) => {
-                const [value, denomination] = match.slice(1, 3);
+                const [value, denominationRaw] = match.slice(1, 3);
+                const denomination = denominationRaw === "credits" ? "sp" : denominationRaw;
                 const computedValue = (Number(value) || 0) * quantity;
                 return { [denomination]: computedValue };
             })
@@ -118,17 +133,30 @@ class Coins implements RawCoins {
     }
 
     /** Creates a new price string such as "5 gp" from this object */
-    toString(): string {
-        if (DENOMINATIONS.every((denomination) => !this[denomination])) {
+    toString({ short = false }: { short?: boolean } = {}): string {
+        if (CURRENT_SYSTEM === "sf2e") {
+            const value = Math.ceil(this.copperValue / 10);
+            return short ? String(value) : `${value} ${game.i18n.localize("PF2E.CurrencyAbbreviations.credits")}`;
+        }
+
+        // Simplify to GP
+        const normalized = new Coins({ cp: this.copperValue });
+        normalized.sp += Math.floor(normalized.cp / 10);
+        normalized.cp = normalized.cp % 10;
+        normalized.gp = Math.floor(normalized.sp / 10);
+        normalized.sp = normalized.sp % 10;
+
+        // Return 0 gp if there's nothing
+        if (DENOMINATIONS.every((denomination) => !normalized[denomination])) {
             return `0 ${game.i18n.localize("PF2E.CurrencyAbbreviations.gp")}`;
         }
 
-        const DENOMINATIONS_REVERSED = [...DENOMINATIONS].reverse();
+        // Display all denomations from biggest to smallest (see Adventurer's Pack)
         const parts: string[] = [];
-        for (const denomination of DENOMINATIONS_REVERSED) {
-            if (this[denomination]) {
-                parts.push(`${this[denomination]} ${game.i18n.localize(`PF2E.CurrencyAbbreviations.${denomination}`)}`);
-            }
+        for (const denomination of DENOMINATIONS) {
+            const value = normalized[denomination];
+            const unit = game.i18n.localize(`PF2E.CurrencyAbbreviations.${denomination}`);
+            if (value) parts.push(`${value} ${unit}`);
         }
 
         return parts.join(", ");

@@ -26,6 +26,10 @@ interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
     heldItems?: InventoryItem[] | null;
     notifyEquip?: boolean;
     notifyInvest?: boolean;
+    /** The sale price label per sold minimum unit. For example, arrows are 1sp per 10 */
+    unitPrice: string;
+    /** Total asset value of the entire stack of the inventory item */
+    assetValue: string;
     /** Whether the item should be hidden if the user isn't the owner */
     hidden: boolean;
 }

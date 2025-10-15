@@ -265,11 +265,6 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         this.system.stackGroup ??= null;
         this.system.hp.brokenThreshold = Math.floor(this.system.hp.max / 2);
 
-        // Temporary: prevent noise from items pre migration 746
-        if (typeof this.system.price.value === "string") {
-            this.system.price.value = Coins.fromString(this.system.price.value);
-        }
-
         // Ensure infused items are always temporary
         const traits: PhysicalItemTrait[] = this.system.traits.value;
         if (traits.includes("infused")) this.system.temporary = true;
@@ -586,6 +581,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         const thisData = this.toObject().system;
         const otherData = item.toObject().system;
+        thisData.price.value = { cp: new Coins(thisData.price.value).copperValue };
+        otherData.price.value = { cp: new Coins(otherData.price.value).copperValue };
         thisData.quantity = otherData.quantity;
         thisData.equipped = otherData.equipped;
         thisData.containerId = otherData.containerId;
