@@ -4,7 +4,8 @@
         <h3{{#if (not recognized)}} class="unrecognized"{{/if}}>{{label}}</h3>
         <label class="priority" data-tooltip aria-label="{{localize "PF2E.RuleEditor.General.PriorityHint"}}">
             <i class="fa-solid fa-fw fa-list-ol" inert></i>
-            <input type="number" value="{{rule.priority}}" {{#unless rule.priority includeZero=true}}placeholder="{{object.priority}}"{{/unless}}/>
+            <input type="number" value="{{rule.priority}}" data-priority
+                   {{#unless rule.priority includeZero=true}}placeholder="{{object.priority}}"{{/unless}} />
         </label>
         <div class="item-controls">
             <button type="button" class="inline-control icon fa-solid fa-edit" data-action="edit-rule-element"

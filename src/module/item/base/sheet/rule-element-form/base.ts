@@ -201,7 +201,7 @@ class RuleElementForm<
         tagify(selectorElement);
 
         // Add event listener for priority. This exists because normal form submission won't work for text-area forms
-        const priorityInput = htmlQuery<HTMLInputElement>(html, ".rule-element-header .priority input");
+        const priorityInput = htmlQuery<HTMLInputElement>(html, "header input[data-priority]");
         priorityInput?.addEventListener("change", (event) => {
             event.stopPropagation();
             const value = priorityInput.value;
