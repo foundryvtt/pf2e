@@ -1,3 +1,29 @@
+## 7.6.3
+
+### Bugfixes
+
+- (stwlam) Fix handling of copy-to-clipboard buttons on item sheet RE panel
+- (stwlam) Fix pathing to certain variable in default Rule Element template
+- (Supe) Fix certain invalid predicates from potency and striking migration
+- (Supe) Fix context menu for other parties in Actor Directory
+- (Supe) Fix transferring physical items into a container
+- (Supe) Open up area and auto fire in production
+
+### Data Updates
+
+- (Ambrose) Add Alchemical Food tag to Sparking Pepper String
+- (Ambrose) Add description to Time trait
+- (Ambrose) Correct price for Lion's Call equipment
+- (Dire Weasel) Brush up automation for Bullyrag Beatdown and Frightening Critical
+- (Dire Weasel) Fix automation for Sedacthy Speaker's Exploit Weakness
+- (Dire Weasel) Set showDC:all for some PC-facing flat checks that mitigate critical hits
+- (rectulo) Fix backlink in Effect: Runelord Researcher
+- (stwlam) Fix setting shield data in Fire Shield REs
+
+### Under the Hood
+
+- (Supe) Ignore publication source when stacking items
+
 ## 7.6.2
 
 ### Bugfixes
