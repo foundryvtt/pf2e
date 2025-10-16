@@ -415,8 +415,9 @@ class CompendiumPack {
             fs.rmSync(packDir, { recursive: true });
         }
 
-        const db = new LevelDatabase(packDir, { packName: path.basename(packDir) });
+        const db = await LevelDatabase.connect(packDir, { packName: path.basename(packDir) });
         await db.createPack(this.finalizeAll(), this.folders);
+        await db.close();
         console.log(`Pack "${this.packId}" with ${this.data.length} entries built successfully.`);
 
         return this.data.length;
