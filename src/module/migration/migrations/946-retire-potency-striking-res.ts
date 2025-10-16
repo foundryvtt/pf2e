@@ -26,7 +26,7 @@ export class Migration946RetirePotencyStrikingREs extends MigrationBase {
             typeof rule.selector === "string" &&
             !predicate.some((p) => typeof p === "string" && p.startsWith("item:"))
         ) {
-            predicate.push(`item:slug:${rule.selector.replace(/-(?:attack|damage)$/, "")}`);
+            predicate.push(`item:slug:${rule.selector.replace(/-(?:attack|damage|attack-roll)$/, "")}`);
         }
         const unarmedIndex = predicate.findIndex((p) => p === "unarmed");
         if (unarmedIndex !== undefined && unarmedIndex >= 0) {

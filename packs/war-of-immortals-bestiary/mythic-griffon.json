@@ -214,13 +214,7 @@
                     "remaster": true,
                     "title": "Pathfinder War of Immortals"
                 },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "mythic-power",
-                        "toggleable": true
-                    }
-                ],
+                "rules": [],
                 "slug": "mythic-mythic-power",
                 "traits": {
                     "value": []
@@ -234,7 +228,7 @@
                 "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.gNxphcYARRn2bZ1i"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Mythic Skill (Acrobatics)",
+            "name": "Mythic Skill",
             "sort": 700000,
             "system": {
                 "actionType": {
@@ -254,11 +248,18 @@
                 },
                 "rules": [
                     {
+                        "key": "RollOption",
+                        "option": "mythic-skill",
+                        "toggleable": true
+                    },
+                    {
                         "key": "FlatModifier",
                         "predicate": [
-                            "mythic-power"
+                            "mythic-skill"
                         ],
-                        "selector": "acrobatics",
+                        "selector": [
+                            "acrobatics"
+                        ],
                         "slug": "mythic-skill-bonus",
                         "value": 4
                     }
