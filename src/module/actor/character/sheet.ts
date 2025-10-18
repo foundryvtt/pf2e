@@ -1288,11 +1288,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         // Assign categories
-        const category = filter.checkboxes.category;
+        const category = filter.chips.category;
         for (const value of featFilters.categories ?? []) {
             category.isExpanded = true;
-            category.options[value].selected = true;
-            category.selected.push(value);
+            category.selected.push({ value });
         }
 
         // Assign traits
@@ -1301,6 +1300,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             (featFilters?.traits ?? []).map((trait) => ({ trait, not: false })),
             (featFilters?.omitTraits ?? []).map((trait) => ({ trait, not: true })),
         ].flat();
+        // Add a trait filter entry for ancestry items without ancestry traits
+        if (category.selected.some((c) => c.value === "ancestry")) {
+            filterTraits.push({
+                trait: "ancestry:universal",
+                not: true,
+            });
+        }
         for (const { trait, not } of filterTraits) {
             const data = traits.options.find((t) => t.value === trait);
             if (data) {

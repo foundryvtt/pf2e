@@ -19,7 +19,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
-    override storeFields = ["type", "name", "img", "uuid", "level", "actorSize", "traits", "rarity", "source"];
+    override storeFields = ["name", "originalName", "img", "uuid", "level", "rarity", "domains"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -50,24 +50,34 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-
+                const domains = new Set<string>();
+                const system = actorData.system;
                 // Prepare publication source
-                const { details } = actorData.system;
+                const details = system.details;
                 const pubSource = String(details.publication?.title ?? details.source?.value ?? "").trim();
                 const sourceSlug = sluggify(pubSource);
-                if (pubSource) publications.add(pubSource);
+                if (pubSource) {
+                    publications.add(pubSource);
+                    domains.add(`source:${sourceSlug}`);
+                }
+
+                for (const trait of system.traits.value) {
+                    domains.add(`trait:${trait.replace(/^hb_/, "")}`);
+                }
+
+                domains.add(`level:${system.details.level.value}`);
+                domains.add(`rarity:${system.traits.rarity}`);
+                domains.add(`size:${system.traits.size.value}`);
+                domains.add(`type:${actorData.type}`);
 
                 bestiaryActors.push({
-                    type: actorData.type,
                     name: actorData.name,
                     originalName: actorData.originalName, // Added by Babele
                     img: actorData.img,
                     uuid: actorData.uuid,
                     level: actorData.system.details.level.value,
-                    actorSize: actorData.system.traits.size.value,
-                    traits: actorData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                     rarity: actorData.system.traits.rarity,
-                    source: sourceSlug,
+                    domains,
                 });
             }
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
@@ -77,60 +87,37 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         this.indexData = bestiaryActors;
 
         // Filters
-        this.filterData.checkboxes.sizes.options = this.generateCheckboxOptions(CONFIG.PF2E.actorSizes);
+        this.filterData.chips.sizes.options = this.generateOptions(CONFIG.PF2E.actorSizes);
+        this.filterData.chips.rarity.options = this.generateOptions(CONFIG.PF2E.rarityTraits, { sort: false });
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.creatureTraits);
-        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading Bestiary actors");
     }
 
-    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, source, traits, level } = this.filterData;
-
-        // Level
-        if (!(entry.level >= level.from && entry.level <= level.to)) return false;
-
-        // Size
-        if (checkboxes.sizes.selected.length) {
-            if (!checkboxes.sizes.selected.includes(entry.actorSize)) return false;
-        }
-
-        // Traits
-        if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) return false;
-
-        // Source
-        if (source.selected.length) {
-            if (!source.selected.includes(entry.source)) return false;
-        }
-
-        // Rarity
-        if (checkboxes.rarity.selected.length) {
-            if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
-        }
-        return true;
-    }
-
     protected override prepareFilterData(): BestiaryFilters {
         return {
-            checkboxes: {
+            chips: {
                 sizes: {
+                    conjunction: "or",
                     isExpanded: true,
                     label: "PF2E.CompendiumBrowser.Filter.Sizes",
-                    options: {},
+                    options: [],
+                    optionPrefix: "size",
                     selected: [],
                 },
                 rarity: {
+                    conjunction: "or",
                     isExpanded: false,
                     label: "PF2E.CompendiumBrowser.Filter.Rarities",
-                    options: {},
+                    options: [],
                     selected: [],
                 },
             },
             source: {
                 isExpanded: false,
                 label: "PF2E.CompendiumBrowser.Filter.Source",
-                options: {},
+                options: [],
                 selected: [],
             },
             traits: {

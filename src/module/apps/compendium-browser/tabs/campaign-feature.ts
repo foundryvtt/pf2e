@@ -12,7 +12,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
-    override storeFields = ["type", "name", "img", "uuid", "level", "category", "traits", "source"];
+    override storeFields = ["name", "originalName", "img", "uuid", "level", "rarity", "domains"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -45,26 +45,33 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const featData of index.filter((i) => i.type === "campaignFeature")) {
-                featData.filters = {};
+                const domains = new Set<string>();
+                const system = featData.system;
+
+                for (const trait of system.traits.value.map((t: string) => t.replace(/^hb_/, ""))) {
+                    domains.add(`trait:${trait}`);
+                }
 
                 // Prepare publication source
-                const { system } = featData;
                 const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
                 const sourceSlug = sluggify(pubSource);
-                if (pubSource) publications.add(pubSource);
+                if (pubSource) {
+                    publications.add(pubSource);
+                    domains.add(`source:${sourceSlug}`);
+                }
 
-                // Only store essential data
+                domains.add(`category:${system.category}`);
+                domains.add(`level:${system.level?.value ?? 0}`);
+                domains.add(`rarity:${system.traits.rarity}`);
+
                 feats.push({
-                    type: featData.type,
                     name: featData.name,
                     originalName: featData.originalName, // Added by Babele
                     img: featData.img,
                     uuid: featData.uuid,
                     level: featData.system.level?.value,
-                    category: featData.system.category,
-                    traits: featData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
-                    rarity: featData.system.traits.rarity,
-                    source: sourceSlug,
+                    rarity: system.traits.rarity,
+                    domains,
                 });
             }
         }
@@ -73,62 +80,36 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
         this.indexData = feats;
 
         // Filters
-        this.filterData.checkboxes.category.options = this.generateCheckboxOptions(KINGMAKER_CATEGORIES);
-        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
+        this.filterData.chips.category.options = this.generateOptions(KINGMAKER_CATEGORIES);
+        this.filterData.chips.rarity.options = this.generateOptions(CONFIG.PF2E.rarityTraits);
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.kingmakerTraits);
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
     }
 
-    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, source, traits, level } = this.filterData;
-
-        const entryLevel = entry.level ?? 0;
-
-        // Level
-        if (!(entryLevel >= level.from && entryLevel <= level.to)) {
-            return false;
-        }
-        // Campaign category type
-        if (checkboxes.category.selected.length) {
-            if (!checkboxes.category.selected.includes(entry.category)) return false;
-        }
-        // Traits
-        if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) {
-            return false;
-        }
-        // Source
-        if (source.selected.length) {
-            if (!source.selected.includes(entry.source)) return false;
-        }
-        // Rarity
-        if (checkboxes.rarity.selected.length) {
-            if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
-        }
-        return true;
-    }
-
     protected override prepareFilterData(): CampaignFeatureFilters {
         return {
-            checkboxes: {
+            chips: {
                 category: {
+                    conjunction: "or",
                     isExpanded: false,
                     label: "PF2E.CompendiumBrowser.Filter.Categories",
-                    options: {},
+                    options: [],
                     selected: [],
                 },
                 rarity: {
+                    conjunction: "or",
                     isExpanded: false,
                     label: "PF2E.CompendiumBrowser.Filter.Rarities",
-                    options: {},
+                    options: [],
                     selected: [],
                 },
             },
             source: {
                 isExpanded: false,
                 label: "PF2E.CompendiumBrowser.Filter.Source",
-                options: {},
+                options: [],
                 selected: [],
             },
             traits: {

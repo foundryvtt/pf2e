@@ -946,14 +946,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         const levelString = element.dataset.level;
         const tab = game.pf2e.compendiumBrowser.tabs.equipment;
         const filter = await tab.getFilterData();
-        const checkboxes = filter.checkboxes;
+        const chipsFilters = filter.chips;
 
         for (const itemType of checkboxesFilterCodes) {
-            const checkbox = checkboxes.itemTypes;
-            if (objectHasKey(checkbox.options, itemType)) {
-                checkbox.options[itemType].selected = true;
-                checkbox.selected.push(itemType);
-                checkbox.isExpanded = true;
+            const chips = chipsFilters.itemTypes;
+            if (chips.options.some((o) => o.value === itemType)) {
+                chips.selected.push({ value: itemType });
+                chips.isExpanded = true;
             }
         }
 

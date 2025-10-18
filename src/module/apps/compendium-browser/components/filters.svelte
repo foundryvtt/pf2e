@@ -1,11 +1,11 @@
 <script lang="ts">
     import * as R from "remeda";
-    import FilterContainer from "./filters/filter-container.svelte";
     import Traits from "./filters/traits.svelte";
     import Level from "./filters/level.svelte";
     import Ranges from "./filters/ranges.svelte";
     import Checkboxes from "./filters/checkboxes.svelte";
-    import type { BrowserFilter, CheckboxData, LevelData, RangesInputData } from "../tabs/data.ts";
+    import Chips from "./filters/chips.svelte";
+    import type { BrowserFilter, ChipsData } from "../tabs/data.ts";
 
     interface FilterProps {
         filter: BrowserFilter;
@@ -24,29 +24,6 @@
         if (!data) return;
         filter.order.type = data.type;
         filter.order.direction = "asc";
-    }
-
-    function getClearFunction(
-        data: CheckboxData | RangesInputData | LevelData,
-        options?: { name?: string },
-    ): () => void {
-        return () => {
-            if ("selected" in data) {
-                for (const opt of data.selected) {
-                    data.options[opt].selected = false;
-                }
-                data.selected = [];
-            } else if ("from" in data) {
-                data.from = data.min;
-                data.to = data.max;
-                data.changed = false;
-            } else if ("values" in data && options?.name) {
-                const activeTab = game.pf2e.compendiumBrowser.activeTab;
-                if (!activeTab) return;
-                data.values = activeTab.parseRangeFilterInput(options.name, data.defaultMin, data.defaultMax);
-                data.changed = false;
-            }
-        };
     }
 
     const onSearch = fu.debounce((event: Event) => {
@@ -91,8 +68,8 @@
                         <div class="select-container">
                             <select bind:value={filter.selects[key].selected} data-key={key}>
                                 <option value="">-</option>
-                                {#each R.entries(data.options) as [key, label]}
-                                    <option value={key}>{game.i18n.localize(label)}</option>
+                                {#each data.options as option}
+                                    <option value={option.value}>{game.i18n.localize(option.label)}</option>
                                 {/each}
                             </select>
                         </div>
@@ -104,55 +81,23 @@
             {game.i18n.localize("PF2E.CompendiumBrowser.Filter.ClearAllFilters")}
         </button>
     </div>
-    <FilterContainer label="PF2E.Traits">
-        <Traits bind:traits={filter.traits} />
-    </FilterContainer>
-    {#each Object.entries(filter.checkboxes) as [key, checkbox]}
-        <FilterContainer
-            isExpanded={checkbox.isExpanded}
-            clearButton={{
-                options: { visible: checkbox.selected.length > 0 },
-                clear: getClearFunction(checkbox),
-            }}
-            label={checkbox.label}
-        >
-            <Checkboxes bind:checkbox={filter.checkboxes[key as keyof BrowserFilter["checkboxes"]]} />
-        </FilterContainer>
-    {/each}
+    <Traits bind:traits={filter.traits} />
+    {#if "chips" in filter}
+        {@const chips: Record<string, ChipsData> = filter.chips}
+        {#each R.keys(chips) as key}
+            <Chips chipsKey={key} bind:chips={chips[key]} />
+        {/each}
+    {/if}
     {#if filter.source}
-        <FilterContainer
-            isExpanded={filter.source.isExpanded}
-            clearButton={{
-                options: { visible: filter.source.selected.length > 0 },
-                clear: getClearFunction(filter.source),
-            }}
-            label="PF2E.CompendiumBrowser.Filter.Source"
-        >
-            <Checkboxes bind:checkbox={filter.source} searchable />
-        </FilterContainer>
+        <Checkboxes bind:checkbox={filter.source} searchable />
     {/if}
     {#if "ranges" in filter}
-        {#each R.entries(filter.ranges) as [name, range]}
-            <FilterContainer
-                isExpanded={range.isExpanded}
-                clearButton={{ options: { visible: range.changed }, clear: getClearFunction(range, { name }) }}
-                label={range.label}
-            >
-                <Ranges bind:range={filter.ranges[name]} {name} />
-            </FilterContainer>
+        {#each R.keys(filter.ranges) as name}
+            <Ranges bind:range={filter.ranges[name]} {name} />
         {/each}
     {/if}
     {#if "level" in filter}
-        <FilterContainer
-            isExpanded={filter.level.isExpanded}
-            clearButton={{
-                options: { visible: filter.level.changed },
-                clear: getClearFunction(filter.level),
-            }}
-            label="PF2E.CompendiumBrowser.Filter.Levels"
-        >
-            <Level bind:level={filter.level} />
-        </FilterContainer>
+        <Level bind:level={filter.level} />
     {/if}
 </div>
 

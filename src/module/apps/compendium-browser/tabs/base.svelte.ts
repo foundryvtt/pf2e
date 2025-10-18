@@ -1,12 +1,20 @@
 import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import type { TableResultSource } from "@common/documents/table-result.d.mts";
 import { CompendiumDirectoryPF2e } from "@module/apps/sidebar/compendium-directory.ts";
+import { CachedPredicate, type PredicateStatement } from "@system/predication.ts";
 import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
 import * as R from "remeda";
 import { CompendiumBrowser, CompendiumBrowserOpenTabOptions } from "../browser.ts";
 import { BrowserTabs, ContentTabName } from "../data.ts";
-import type { BrowserFilter, CheckboxOptions, CompendiumBrowserIndexData, RangesInputData, TraitData } from "./data.ts";
+import type {
+    BrowserFilter,
+    CheckboxData,
+    ChipsData,
+    CompendiumBrowserIndexData,
+    LabeledValue,
+    RangesInputData,
+} from "./data.ts";
 
 export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
@@ -18,11 +26,9 @@ export abstract class CompendiumBrowserTab {
         if (!this.filterData) return [];
         this.browser.resetListElement();
         const searchText = fa.ux.SearchFilter.cleanQuery(this.filterData.search.text);
-        if (searchText) {
-            const searchResult = this.searchEngine.search(searchText);
-            return this.sortResult(searchResult.filter(this.filterIndexData.bind(this)));
-        }
-        return this.sortResult(this.indexData.filter(this.filterIndexData.bind(this)));
+        const baseResults = this.sortResult(searchText ? this.searchEngine.search(searchText) : this.indexData);
+        const predicate = this.buildPredicate();
+        return baseResults.filter((i) => predicate.test(i.domains));
     });
     /** The maximum number of items shown in the result list element */
     resultLimit = $state(CompendiumBrowser.RESULT_LIMIT);
@@ -141,30 +147,93 @@ export abstract class CompendiumBrowserTab {
     /** Prepare the the filterData object of this tab */
     protected abstract prepareFilterData(): this["filterData"];
 
-    /** Filter indexData */
-    protected abstract filterIndexData(entry: CompendiumBrowserIndexData): boolean;
+    /** Build a `CachedPredicate` from the applied filters */
+    protected buildPredicate(): CachedPredicate {
+        if (!this.filterData) {
+            throw ErrorPF2e(`Tab "${this.tabLabel}" is not initialized!`);
+        }
+        const statements: PredicateStatement[] = [];
 
-    protected filterTraits(
-        traits: string[],
-        selected: TraitData["selected"],
-        condition: TraitData["conjunction"],
-    ): boolean {
-        const selectedTraits = selected.filter((s) => !s.not).map((s) => s.value);
-        const notTraits = selected.filter((t) => t.not).map((s) => s.value);
-        if (notTraits.some((t) => traits.includes(t))) {
-            return false;
+        if ("checkboxes" in this.filterData) {
+            const checkboxes = this.filterData.checkboxes as Record<string, CheckboxData>;
+            for (const [key, checkbox] of R.entries(checkboxes)) {
+                if (checkbox.selected.length === 0) continue;
+                const prefix = checkbox.optionPrefix ?? key;
+                statements.push({ and: checkbox.selected.map((s) => `${prefix}:${s}`) });
+            }
         }
-        if (selectedTraits.length) {
-            return condition === "and"
-                ? selectedTraits.every((t) => traits.includes(t))
-                : selectedTraits.some((t) => traits.includes(t));
+
+        if ("chips" in this.filterData) {
+            const chipsFilters = this.filterData.chips as Record<string, ChipsData>;
+            for (const [key, chips] of R.entries(chipsFilters)) {
+                const conjunction = chips.conjunction;
+                if (chips.selected.length === 0) continue;
+                const prefix = chips.optionPrefix ?? key;
+                const include = chips.selected.filter((s) => !s.exclude).map((s) => `${prefix}:${s.value}`);
+                if (include.length > 0) {
+                    const statement = { [conjunction]: include } as PredicateStatement;
+                    statements.push(statement);
+                }
+                const exclude: string[] = chips.selected.filter((s) => s.exclude).map((s) => `${prefix}:${s.value}`);
+                if (exclude.length > 0) {
+                    statements.push({ not: { or: exclude } });
+                }
+            }
         }
-        return true;
+
+        if ("level" in this.filterData) {
+            const level = this.filterData.level;
+            if (level.from !== level.min || level.to !== level.max) {
+                statements.push({ and: [{ gte: ["level", level.from] }, { lte: ["level", level.to] }] });
+            }
+        }
+
+        if ("ranges" in this.filterData) {
+            const ranges = this.filterData.ranges;
+            for (const [key, range] of R.entries(ranges)) {
+                if (!range.changed) continue;
+                const prefix = range.optionPrefix ?? key;
+                const min = range.values.min;
+                const max = range.values.max;
+                statements.push({ and: [{ gte: [prefix, min] }, { lte: [prefix, max] }] });
+            }
+        }
+
+        if ("selects" in this.filterData) {
+            const selects = this.filterData.selects;
+            for (const [key, select] of R.entries(selects)) {
+                if (!select.selected) continue;
+                const prefix = select.optionPrefix ?? key;
+                statements.push(`${prefix}:${select.selected}`);
+            }
+        }
+
+        if ("source" in this.filterData) {
+            const source = this.filterData.source;
+            if (source.selected.length > 0) {
+                statements.push({ or: source.selected });
+            }
+        }
+
+        const traits = this.filterData.traits;
+        if (traits.selected.length > 0) {
+            const include = traits.selected.filter((t) => !t.not).map((t) => `trait:${t.value}`);
+            if (include.length > 0) {
+                const includeStatement = { [traits.conjunction]: include } as PredicateStatement;
+                statements.push(includeStatement);
+            }
+            const exclude = traits.selected.filter((t) => t.not).map((t) => `trait:${t.value}`);
+            if (exclude.length > 0) {
+                statements.push({ not: { or: exclude } });
+            }
+        }
+
+        return new CachedPredicate([{ and: statements }]);
     }
 
     /** Sort result array by name, level or price */
     protected sortResult(result: CompendiumBrowserIndexData[]): CompendiumBrowserIndexData[] {
-        if (!this.filterData) return [];
+        if (!this.filterData) return result;
         const order = this.filterData.order;
         const lang = game.i18n.lang;
         const sorted = result.sort((entryA, entryB) => {
@@ -194,61 +263,52 @@ export abstract class CompendiumBrowserTab {
         };
     }
 
-    /** Check if an array includes any keys of another array */
-    protected arrayIncludes(array: string[], other: string[]): boolean {
-        return other.some((value) => array.includes(value));
-    }
-
-    /** Generates a localized and sorted CheckBoxOptions object from config data */
-    protected generateCheckboxOptions(
+    /** Generates a localized and sorted options from config data
+     * @param configData The object to convert to options
+     * @param [options] Additional options for the conversion
+     * @param [options.prefix] An additional prefix for these options. The final value will be `filterPrefix:thisPrefix:option`
+     * @param [options.sort] Wether to sort the resulting options alphabetically
+     */
+    protected generateOptions<T extends string>(
+        configData: Record<T, string | { label: string }>,
+        options?: { prefix?: string; sort?: boolean },
+    ): LabeledValue<T>[];
+    protected generateOptions(
         configData: Record<string, string | { label: string }>,
-        sort = true,
-    ): CheckboxOptions {
+        { prefix, sort }: { prefix?: string; sort?: boolean } = { sort: true },
+    ): LabeledValue[] {
         // Localize labels for sorting. Return localized and sorted CheckBoxOptions
-        const localized = R.mapValues(configData, (v) => game.i18n.localize(R.isObjectType(v) ? v.label : v));
-        return Object.entries(sort ? this.sortedConfig(localized) : localized).reduce(
-            (result: CheckboxOptions, [key, label]) => ({
-                ...result,
-                [key]: {
-                    label,
-                    selected: false,
-                },
-            }),
-            {},
-        );
+        const locale = game.i18n.lang;
+        const localized = R.mapValues(configData, (v) => game.i18n.localize(R.isPlainObject(v) ? v.label : v));
+        const options: LabeledValue[] = R.entries(localized).map(([value, label]) => ({
+            label,
+            value: prefix ? `${prefix}:${value}` : value,
+        }));
+        if (sort) options.sort((a, b) => a.label.localeCompare(b.label, locale));
+        return options;
     }
 
     protected generateMultiselectOptions<T extends string>(
         optionsRecord: Record<T, string>,
-        sort?: boolean,
-    ): { value: T; label: string }[];
+        options?: { prefix?: string; sort?: boolean },
+    ): LabeledValue<T>[];
     protected generateMultiselectOptions(
         optionsRecord: Record<string, string>,
-        sort = true,
-    ): { value: string; label: string }[] {
+        { prefix, sort }: { prefix?: string; sort?: boolean } = { sort: true },
+    ): LabeledValue[] {
         const options = Object.entries(optionsRecord).map(([value, label]) => ({
-            value,
             label: game.i18n.localize(label),
+            value: prefix ? `${prefix}:${value}` : value,
         }));
-        if (sort) {
-            options.sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
-        }
-
+        if (sort) options.sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
         return options;
     }
 
     /** Generates a sorted CheckBoxOptions object from a sources Set */
-    protected generateSourceCheckboxOptions(sources: Set<string>): CheckboxOptions {
-        return [...sources].sort().reduce(
-            (result: CheckboxOptions, source) => ({
-                ...result,
-                [sluggify(source)]: {
-                    label: source,
-                    selected: false,
-                },
-            }),
-            {},
-        );
+    protected generateSourceCheckboxOptions(sources: Set<string>): LabeledValue[] {
+        const locale = game.i18n.lang;
+        const sorted = [...sources].sort(([a, b]) => a.localeCompare(b, locale));
+        return sorted.map((s) => ({ label: s, value: `source:${sluggify(s)}` }));
     }
 
     /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */

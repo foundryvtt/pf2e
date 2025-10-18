@@ -17,7 +17,7 @@
                 buyPhysicalItem(uuid);
                 break;
             case "open-sheet":
-                (await fromUuid(uuid))?.sheet.render(true);
+                (await fromUuid(uuid))?.sheet?.render(true);
                 break;
             case "take-item":
                 takePhysicalItem(uuid);
@@ -42,7 +42,7 @@
         event.dataTransfer.setData(
             "text/plain",
             JSON.stringify({
-                type: fu.parseUuid(uuid).documentType,
+                type: fu.parseUuid(uuid)?.documentType,
                 uuid: uuid,
             }),
         );

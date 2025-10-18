@@ -1,22 +1,18 @@
 <script lang="ts">
-    import * as R from "remeda";
     import { slide } from "svelte/transition";
-    import type { CheckboxData, CheckboxOption } from "../../tabs/data.ts";
+    import FilterContainer from "./filter-container.svelte";
+    import type { CheckboxData } from "../../tabs/data.ts";
 
     const { checkbox = $bindable(), searchable }: { checkbox: CheckboxData; searchable?: boolean } = $props();
     let searchTerm = $state("");
 
-    function onChangeCheckbox(
-        event: Event & { currentTarget: HTMLInputElement },
-        data: { name: string; option: CheckboxOption },
-    ): void {
+    function onChangeCheckbox(event: Event & { currentTarget: HTMLInputElement }, value: string): void {
         const checked = event.currentTarget.checked;
         if (checked) {
-            checkbox.selected.push(data.name);
+            checkbox.selected.push(value);
         } else {
-            checkbox.selected = checkbox.selected.filter((name) => name !== data.name);
+            checkbox.selected = checkbox.selected.filter((v) => v !== value);
         }
-        data.option.selected = checked;
     }
 
     const onSearchSource = fu.debounce((event: Event) => {
@@ -25,32 +21,40 @@
     }, 250);
 </script>
 
-<div class="checkbox-container" transition:slide>
-    {#if searchable}
-        <input
-            type="search"
-            class="filter-sources"
-            spellcheck="false"
-            placeholder={game.i18n.localize("PF2E.CompendiumBrowser.Filter.FilterSources")}
-            oninput={onSearchSource}
-        />
-    {/if}
-    {#each R.entries(checkbox.options) as [name, option]}
-        {#if !searchable || !searchTerm || option.selected || option.label
-                .toLocaleLowerCase(game.i18n.lang)
-                .includes(searchTerm)}
-            <label>
-                <input
-                    type="checkbox"
-                    {name}
-                    checked={option.selected}
-                    onchange={(event) => onChangeCheckbox(event, { name, option })}
-                />
-                {game.i18n.localize(option.label)}
-            </label>
+<FilterContainer
+    isExpanded={checkbox.isExpanded}
+    clearButton={{
+        options: { visible: checkbox.selected.length > 0 },
+        clear: () => (checkbox.selected.length = 0),
+    }}
+    label={checkbox.label}
+>
+    <div class="checkbox-container" transition:slide>
+        {#if searchable}
+            <input
+                type="search"
+                class="filter-sources"
+                spellcheck="false"
+                placeholder={game.i18n.localize("PF2E.CompendiumBrowser.Filter.FilterSources")}
+                oninput={onSearchSource}
+            />
         {/if}
-    {/each}
-</div>
+        {#each checkbox.options as option}
+            {#if !searchable || !searchTerm || checkbox.selected.includes(option.value) || option.label
+                    .toLocaleLowerCase(game.i18n.lang)
+                    .includes(searchTerm)}
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={checkbox.selected.includes(option.value)}
+                        onchange={(event) => onChangeCheckbox(event, option.value)}
+                    />
+                    {game.i18n.localize(option.label)}
+                </label>
+            {/if}
+        {/each}
+    </div>
+</FilterContainer>
 
 <style lang="scss">
     .checkbox-container {

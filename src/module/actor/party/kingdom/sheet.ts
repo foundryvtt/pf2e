@@ -454,9 +454,8 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 levels.isExpanded = levels.to !== levels.max;
 
                 // Set category
-                filter.checkboxes.category.options["kingdom-feat"].selected = true;
-                filter.checkboxes.category.selected.push("kingdom-feat");
-                filter.checkboxes.category.isExpanded = true;
+                filter.chips.category.selected.push({ value: "kingdom-feat" });
+                filter.chips.category.isExpanded = true;
 
                 compendiumTab.open({ filter });
             });

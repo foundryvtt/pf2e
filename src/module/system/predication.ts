@@ -41,7 +41,7 @@ class Predicate extends Array<PredicateStatement> {
         }
 
         const domain = options instanceof Set ? options : new Set(options);
-        return this.every((s) => this.#isTrue(s, domain));
+        return this.every((s) => this.isTrue(s, domain));
     }
 
     toObject(): RawPredicate {
@@ -53,15 +53,15 @@ class Predicate extends Array<PredicateStatement> {
     }
 
     /** Is the provided statement true? */
-    #isTrue(statement: PredicateStatement, domain: Set<string>): boolean {
+    protected isTrue(statement: PredicateStatement, domain: Set<string>): boolean {
         return (
             (typeof statement === "string" && domain.has(statement)) ||
-            (StatementValidator.isBinaryOp(statement) && this.#testBinaryOp(statement, domain)) ||
-            (StatementValidator.isCompound(statement) && this.#testCompound(statement, domain))
+            (StatementValidator.isBinaryOp(statement) && this.testBinaryOp(statement, domain)) ||
+            (StatementValidator.isCompound(statement) && this.testCompound(statement, domain))
         );
     }
 
-    #testBinaryOp(statement: BinaryOperation, domain: Set<string>): boolean {
+    protected testBinaryOp(statement: BinaryOperation, domain: Set<string>): boolean {
         if ("eq" in statement) {
             return typeof statement.eq[1] === "string"
                 ? statement.eq[0] === statement.eq[1]
@@ -102,19 +102,41 @@ class Predicate extends Array<PredicateStatement> {
     }
 
     /** Is the provided compound statement true? */
-    #testCompound(statement: Exclude<PredicateStatement, Atom>, domain: Set<string>): boolean {
+    protected testCompound(statement: Exclude<PredicateStatement, Atom>, domain: Set<string>): boolean {
         return (
-            ("and" in statement && statement.and.every((s) => this.#isTrue(s, domain))) ||
-            ("nand" in statement && !statement.nand.every((s) => this.#isTrue(s, domain))) ||
-            ("or" in statement && statement.or.some((s) => this.#isTrue(s, domain))) ||
-            ("xor" in statement && statement.xor.filter((s) => this.#isTrue(s, domain)).length === 1) ||
-            ("nor" in statement && !statement.nor.some((s) => this.#isTrue(s, domain))) ||
-            ("not" in statement && !this.#isTrue(statement.not, domain)) ||
-            ("if" in statement && !(this.#isTrue(statement.if, domain) && !this.#isTrue(statement.then, domain))) ||
+            ("and" in statement && statement.and.every((s) => this.isTrue(s, domain))) ||
+            ("nand" in statement && !statement.nand.every((s) => this.isTrue(s, domain))) ||
+            ("or" in statement && statement.or.some((s) => this.isTrue(s, domain))) ||
+            ("xor" in statement && statement.xor.filter((s) => this.isTrue(s, domain)).length === 1) ||
+            ("nor" in statement && !statement.nor.some((s) => this.isTrue(s, domain))) ||
+            ("not" in statement && !this.isTrue(statement.not, domain)) ||
+            ("if" in statement && !(this.isTrue(statement.if, domain) && !this.isTrue(statement.then, domain))) ||
             ("iff" in statement &&
-                (statement.iff.every((s) => this.#isTrue(s, domain)) ||
-                    statement.iff.every((s) => !this.#isTrue(s, domain))))
+                (statement.iff.every((s) => this.isTrue(s, domain)) ||
+                    statement.iff.every((s) => !this.isTrue(s, domain))))
         );
+    }
+}
+
+/** A `Predicate` that caches the test method for all contained `PredicateStatements`.
+ *  This is a 4-5x speed increase for cases where the same predicate is tested against 1000+
+ *  different domains.
+ */
+class CachedPredicate extends Predicate {
+    #statementCache = new Map<PredicateStatement, (d: Set<string>) => boolean>();
+
+    protected override isTrue(statement: PredicateStatement, domain: Set<string>): boolean {
+        if (typeof statement === "string") return domain.has(statement);
+
+        if (!this.#statementCache.has(statement)) {
+            if (StatementValidator.isBinaryOp(statement)) {
+                this.#statementCache.set(statement, (d) => this.testBinaryOp(statement, d));
+            } else if (StatementValidator.isCompound(statement)) {
+                this.#statementCache.set(statement, (d) => this.testCompound(statement, d));
+            }
+        }
+
+        return !!this.#statementCache.get(statement)?.(domain);
     }
 }
 
@@ -250,5 +272,5 @@ type PredicateStatement = Atom | CompoundStatement;
 
 type RawPredicate = PredicateStatement[];
 
-export { Predicate, StatementValidator };
+export { CachedPredicate, Predicate, StatementValidator };
 export type { PredicateStatement, RawPredicate };

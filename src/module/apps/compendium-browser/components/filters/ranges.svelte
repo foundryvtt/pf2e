@@ -1,5 +1,6 @@
 <script lang="ts">
     import { slide } from "svelte/transition";
+    import FilterContainer from "./filter-container.svelte";
     import type { RangesInputData } from "../../tabs/data.ts";
 
     const { name, range = $bindable() }: { name: string; range: RangesInputData } = $props();
@@ -16,29 +17,45 @@
         }
         range.changed = true;
     }
+
+    function clear(): void {
+        const activeTab = game.pf2e.compendiumBrowser.activeTab;
+        if (!activeTab) return;
+        range.values = activeTab.parseRangeFilterInput(name, range.defaultMin, range.defaultMax);
+        range.changed = false;
+    }
 </script>
 
-<div class="ranges-container" transition:slide>
-    <div class="inputs">
-        <input
-            type="text"
-            autocomplete="off"
-            name="lowerBound"
-            placeholder={range.defaultMin}
-            bind:value={range.values.inputMin}
-            onchange={onChangeRange}
-        />
-        -
-        <input
-            type="text"
-            autocomplete="off"
-            name="upperBound"
-            placeholder={range.defaultMax}
-            bind:value={range.values.inputMax}
-            onchange={onChangeRange}
-        />
+<FilterContainer
+    isExpanded={range.isExpanded}
+    clearButton={{
+        options: { visible: range.changed },
+        clear,
+    }}
+    label={range.label}
+>
+    <div class="ranges-container" transition:slide>
+        <div class="inputs">
+            <input
+                type="text"
+                autocomplete="off"
+                name="lowerBound"
+                placeholder={range.defaultMin}
+                bind:value={range.values.inputMin}
+                onchange={onChangeRange}
+            />
+            -
+            <input
+                type="text"
+                autocomplete="off"
+                name="upperBound"
+                placeholder={range.defaultMax}
+                bind:value={range.values.inputMax}
+                onchange={onChangeRange}
+            />
+        </div>
     </div>
-</div>
+</FilterContainer>
 
 <style lang="scss">
     .ranges-container {

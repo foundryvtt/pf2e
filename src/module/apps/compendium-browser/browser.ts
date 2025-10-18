@@ -192,14 +192,13 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }): Promise<void> {
         const actionTab = this.tabs.action;
         const filter = await actionTab.getFilterData();
-        const types = filter.checkboxes.types;
+        const types = filter.chips.types;
         const traits = filter.traits;
 
         types.selected = [];
-        for (const type in types.options) {
-            if (options.types?.includes(type as ActionType)) {
-                types.options[type].selected = true;
-                types.selected.push(type);
+        for (const option of types.options) {
+            if (options.types?.includes(option.value)) {
+                types.selected.push({ value: option.value });
             }
         }
 
@@ -209,9 +208,10 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             : [];
 
         if (options.categories?.length) {
-            const optionsToSwitch = R.pick(filter.checkboxes.category.options, options.categories);
-            Object.values(optionsToSwitch).forEach((o) => (o.selected = true));
-            filter.checkboxes.category.selected = Object.keys(optionsToSwitch);
+            const categoryFilters = R.filter(options.categories, R.isTruthy).map((value) => ({ value }));
+            filter.chips.category.selected = filter.chips.category.options.filter((c) =>
+                categoryFilters.some((f) => f.value === c.value),
+            );
         }
 
         actionTab.open({ filter });
@@ -220,33 +220,28 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     async openSpellTab(entry: BaseSpellcastingEntry, maxRank = 10, category: string | null = null): Promise<void> {
         const spellTab = this.tabs.spell;
         const filter = await spellTab.getFilterData();
-        const traditions = filter.checkboxes.traditions;
+        const traditions = filter.chips.traditions;
 
-        if (category && filter.checkboxes.category.options[category]) {
-            filter.checkboxes.category.options[category].selected = true;
-            filter.checkboxes.category.selected.push(category);
+        if (category) {
+            filter.chips.category.selected.push({ value: category });
         }
 
         if (entry.category === "ritual" || entry.isFocusPool) {
-            filter.checkboxes.category.options[entry.category].selected = true;
-            filter.checkboxes.category.selected.push(entry.category);
+            filter.chips.category.selected.push({ value: entry.category });
         }
 
         if (maxRank) {
             const ranks = Array.from(Array(maxRank).keys()).map((l) => String(l + 1));
             for (const rank of ranks) {
-                filter.checkboxes.rank.options[rank].selected = true;
-                filter.checkboxes.rank.selected.push(rank);
+                filter.chips.rank.selected.push({ value: rank });
             }
             if (["prepared", "spontaneous", "innate"].includes(entry.category) && !category) {
-                filter.checkboxes.category.options["spell"].selected = true;
-                filter.checkboxes.category.selected.push("spell");
+                filter.chips.category.selected.push({ value: "spell" });
             }
         }
 
         if (entry.tradition && !entry.isFocusPool && entry.category !== "ritual") {
-            traditions.options[entry.tradition].selected = true;
-            traditions.selected.push(entry.tradition);
+            traditions.selected.push({ value: entry.tradition });
         }
 
         spellTab.open({ filter });

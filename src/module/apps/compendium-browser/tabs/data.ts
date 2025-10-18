@@ -2,35 +2,46 @@ import { CreatureTrait } from "@actor/creature/types.ts";
 import { HazardTrait } from "@actor/hazard/types.ts";
 import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import { AbilityTrait } from "@item/ability/index.ts";
+import { ActionType } from "@item/base/data/index.ts";
 import { KingmakerTrait } from "@item/campaign-feature/types.ts";
 import { FeatTrait } from "@item/feat/types.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
 import type { SearchResult } from "minisearch";
-import { SortDirection } from "../data.ts";
+import type { SortDirection } from "../data.ts";
 
-interface CheckboxOption {
-    label: string;
-    selected: boolean;
-}
-
-type CheckboxOptions = Record<string, CheckboxOption>;
+type LabeledValue<T extends string = string> = { label: string; value: T };
 
 interface CheckboxData {
     isExpanded: boolean;
     label: string;
-    options: CheckboxOptions;
+    options: LabeledValue[];
+    /** Defaults to the object key of this filter */
+    optionPrefix?: string;
     selected: string[];
+}
+
+interface ChipsData<T extends string = string> {
+    conjunction: "and" | "or";
+    isExpanded: boolean;
+    label: string;
+    options: LabeledValue<T>[];
+    /** Defaults to the object key of this filter */
+    optionPrefix?: string;
+    selected: { exclude?: boolean; value: string }[];
+    showConjunction?: boolean;
 }
 
 interface TraitData<T extends string = string> {
     conjunction: "and" | "or";
-    options: { label: string; value: T }[];
-    selected: { label: string; not?: boolean; value: T }[];
+    options: LabeledValue<T>[];
+    selected: { label: string; not?: boolean; value: string }[];
 }
 
 interface SelectData {
     label: string;
-    options: Record<string, string>;
+    options: LabeledValue[];
+    /** Defaults to the object key of this filter */
+    optionPrefix?: string;
     selected: string;
 }
 
@@ -54,6 +65,8 @@ interface RangesInputData {
         inputMax: string;
     };
     label: string;
+    /** Defaults to the object key of this filter */
+    optionPrefix?: string;
 }
 
 interface LevelData {
@@ -70,22 +83,22 @@ interface BaseFilterData {
     search: {
         text: string;
     };
-    traits: TraitData<string>;
+    traits: TraitData;
 }
 
 interface ActionFilters extends BaseFilterData {
-    checkboxes: {
-        types: CheckboxData;
-        category: CheckboxData;
+    chips: {
+        types: ChipsData<ActionType>;
+        category: ChipsData;
     };
     source: CheckboxData;
     traits: TraitData<AbilityTrait>;
 }
 
 interface BestiaryFilters extends BaseFilterData {
-    checkboxes: {
-        rarity: CheckboxData;
-        sizes: CheckboxData;
+    chips: {
+        rarity: ChipsData;
+        sizes: ChipsData;
     };
     source: CheckboxData;
     level: LevelData;
@@ -93,18 +106,18 @@ interface BestiaryFilters extends BaseFilterData {
 }
 
 interface CampaignFeatureFilters extends BaseFilterData {
-    checkboxes: Record<"category" | "rarity", CheckboxData>;
+    chips: Record<"category" | "rarity", ChipsData>;
     level: LevelData;
     source: CheckboxData;
     traits: TraitData<KingmakerTrait>;
 }
 
 interface EquipmentFilters extends BaseFilterData {
-    checkboxes: {
-        armorTypes: CheckboxData;
-        itemTypes: CheckboxData;
-        rarity: CheckboxData;
-        weaponTypes: CheckboxData;
+    chips: {
+        armorTypes: ChipsData;
+        itemTypes: ChipsData;
+        rarity: ChipsData;
+        weaponTypes: ChipsData;
     };
     ranges: {
         price: RangesInputData;
@@ -114,17 +127,19 @@ interface EquipmentFilters extends BaseFilterData {
     traits: TraitData<PhysicalItemTrait>;
 }
 
+type AdditionalFeatTrait = "ancestry:universal";
+
 interface FeatFilters extends BaseFilterData {
-    checkboxes: Record<"category" | "skills" | "rarity", CheckboxData>;
+    chips: Record<"category" | "skills" | "rarity", ChipsData>;
     level: LevelData;
     source: CheckboxData;
-    traits: TraitData<FeatTrait>;
+    traits: TraitData<FeatTrait | AdditionalFeatTrait>;
 }
 
 interface HazardFilters extends BaseFilterData {
-    checkboxes: {
-        complexity: CheckboxData;
-        rarity: CheckboxData;
+    chips: {
+        complexity: ChipsData;
+        rarity: ChipsData;
     };
     level: LevelData;
     source: CheckboxData;
@@ -132,11 +147,12 @@ interface HazardFilters extends BaseFilterData {
 }
 
 interface SpellFilters extends BaseFilterData {
-    checkboxes: {
-        category: CheckboxData;
-        rank: CheckboxData;
-        rarity: CheckboxData;
-        traditions: CheckboxData;
+    chips: {
+        category: ChipsData;
+        rank: ChipsData;
+        rarity: ChipsData;
+        defense: ChipsData;
+        traditions: ChipsData;
     };
     selects: {
         timefilter: SelectData;
@@ -171,12 +187,12 @@ export type {
     BrowserFilterData,
     CampaignFeatureFilters,
     CheckboxData,
-    CheckboxOption,
-    CheckboxOptions,
+    ChipsData,
     CompendiumBrowserIndexData,
     EquipmentFilters,
     FeatFilters,
     HazardFilters,
+    LabeledValue,
     LevelData,
     RangesInputData,
     RenderResultListOptions,

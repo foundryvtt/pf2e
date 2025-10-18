@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import type { Action } from "svelte/action";
     import { SvelteSet } from "svelte/reactivity";
+    import FilterContainer from "./filter-container.svelte";
     import TraitsSelect from "./partials/traits-select.svelte";
     import type { TraitData } from "../../tabs/data.ts";
 
@@ -11,7 +12,7 @@
         traits: TraitData;
     }
     const { traits = $bindable() }: Props = $props();
-    const exclude = $state(new SvelteSet<string>());
+    const exclude = new SvelteSet<string>();
 
     function onChangeConjunction(event: Event & { currentTarget: HTMLInputElement }): void {
         const value = event.currentTarget.value;
@@ -45,39 +46,41 @@
     });
 </script>
 
-<TraitsSelect
-    options={traits.options}
-    multiple
-    closeAfterSelect
-    clearable
-    creatable={false}
-    selection={traitSelection}
-    onChange={onChangeTraits}
-    placeholder={game.i18n.localize("PF2E.SelectLabel")}
-    value={traits.selected.map((s) => s.value)}
-/>
-<div class="filter-conjunction">
-    <label class="checkbox">
-        <input
-            type="radio"
-            name="filter-conjunction-and"
-            value="and"
-            checked={traits.conjunction === "and"}
-            onchange={onChangeConjunction}
-        />
-        {game.i18n.localize("PF2E.CompendiumBrowser.Filter.Conjunction.AndLabel")}
-    </label>
-    <label class="checkbox">
-        <input
-            type="radio"
-            name="filter-conjunction-or"
-            value="or"
-            checked={traits.conjunction === "or"}
-            onchange={onChangeConjunction}
-        />
-        {game.i18n.localize("PF2E.CompendiumBrowser.Filter.Conjunction.OrLabel")}
-    </label>
-</div>
+<FilterContainer label="PF2E.Traits" notExpandable={true}>
+    <TraitsSelect
+        options={traits.options}
+        multiple
+        closeAfterSelect
+        clearable
+        creatable={false}
+        selection={traitSelection}
+        onChange={onChangeTraits}
+        placeholder={game.i18n.localize("PF2E.SelectLabel")}
+        value={traits.selected.map((t) => t.value)}
+    />
+    <div class="filter-conjunction">
+        <label class="checkbox">
+            <input
+                type="radio"
+                name="filter-conjunction-and"
+                value="and"
+                checked={traits.conjunction === "and"}
+                onchange={onChangeConjunction}
+            />
+            {game.i18n.localize("PF2E.CompendiumBrowser.Filter.Conjunction.AndLabel")}
+        </label>
+        <label class="checkbox">
+            <input
+                type="radio"
+                name="filter-conjunction-or"
+                value="or"
+                checked={traits.conjunction === "or"}
+                onchange={onChangeConjunction}
+            />
+            {game.i18n.localize("PF2E.CompendiumBrowser.Filter.Conjunction.OrLabel")}
+        </label>
+    </div>
+</FilterContainer>
 
 {#snippet traitSelection(options: TraitOption[], itemAction: Action<HTMLElement, TraitOption>)}
     {#each options as opt, index (opt.value)}
@@ -102,6 +105,7 @@
                 aria-label="deslect"
                 data-action="deselect"
                 use:itemAction={opt}
+                onclick={() => exclude.delete(opt.value)}
             >
                 <svg height="16" width="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
                     <path

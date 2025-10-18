@@ -12,7 +12,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
-    override storeFields = ["type", "name", "img", "uuid", "traits", "source", "category", "actionType"];
+    override storeFields = ["name", "originalName", "img", "uuid", "domains"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -43,34 +43,41 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
             for (const actionData of index) {
-                if (actionData.type === "action") {
-                    if (!this.hasAllIndexFields(actionData, indexFields)) {
-                        console.warn(
-                            `Action '${actionData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
-                        );
-                        continue;
-                    }
-                    // update icons for any passive actions
-                    if (actionData.system.actionType.value === "passive") actionData.img = getActionIcon("passive");
-
-                    // Prepare publication source
-                    const { system } = actionData;
-                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
-                    const sourceSlug = sluggify(pubSource);
-                    if (pubSource) publications.add(pubSource);
-
-                    actions.push({
-                        type: actionData.type,
-                        name: actionData.name,
-                        originalName: actionData.originalName, // Added by Babele
-                        img: actionData.img,
-                        uuid: actionData.uuid,
-                        traits: actionData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
-                        actionType: actionData.system.actionType.value,
-                        category: actionData.system.category,
-                        source: sourceSlug,
-                    });
+                if (actionData.type !== "action") continue;
+                if (!this.hasAllIndexFields(actionData, indexFields)) {
+                    console.warn(
+                        `Action '${actionData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                    );
+                    continue;
                 }
+                const domains = new Set<string>();
+                const system = actionData.system;
+                // update icons for any passive actions
+                if (system.actionType.value === "passive") actionData.img = getActionIcon("passive");
+                domains.add(`action-type:${system.actionType.value}`);
+
+                for (const trait of system.traits.value) {
+                    domains.add(`trait:${trait.replace(/^hb_/, "")}`);
+                }
+
+                // Prepare publication source
+                const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                const sourceSlug = sluggify(pubSource);
+                if (pubSource) {
+                    publications.add(pubSource);
+                    domains.add(`source:${sourceSlug}`);
+                }
+
+                domains.add(`type:${actionData.type}`);
+                domains.add(`category:${system.category}`);
+
+                actions.push({
+                    name: actionData.name,
+                    originalName: actionData.originalName, // Added by Babele
+                    img: actionData.img,
+                    uuid: actionData.uuid,
+                    domains,
+                });
             }
         }
 
@@ -79,8 +86,8 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
 
         // Set Filters
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.actionTraits);
-        this.filterData.checkboxes.types.options = this.generateCheckboxOptions(CONFIG.PF2E.actionTypes);
-        this.filterData.checkboxes.category.options = this.generateCheckboxOptions(
+        this.filterData.chips.types.options = this.generateOptions(CONFIG.PF2E.actionTypes);
+        this.filterData.chips.category.options = this.generateOptions(
             R.pick(CONFIG.PF2E.actionCategories, ["familiar"]),
         );
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
@@ -88,47 +95,29 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading actions");
     }
 
-    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, source, traits } = this.filterData;
-
-        // Types
-        if (checkboxes.types.selected.length) {
-            if (!checkboxes.types.selected.includes(entry.actionType)) return false;
-        }
-        // Categories
-        if (checkboxes.category.selected.length) {
-            const selected = checkboxes.category.selected;
-            if (!selected.includes(entry.category)) return false;
-        }
-        // Traits
-        if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) return false;
-        // Source
-        if (source.selected.length) {
-            if (!source.selected.includes(entry.source)) return false;
-        }
-        return true;
-    }
-
     protected override prepareFilterData(): ActionFilters {
         return {
-            checkboxes: {
+            chips: {
                 types: {
+                    conjunction: "or",
                     isExpanded: true,
                     label: "PF2E.ActionActionTypeLabel",
-                    options: {},
+                    options: [],
+                    optionPrefix: "action-type",
                     selected: [],
                 },
                 category: {
+                    conjunction: "or",
                     isExpanded: true,
                     label: "PF2E.CompendiumBrowser.Filter.Categories",
-                    options: {},
+                    options: [],
                     selected: [],
                 },
             },
             source: {
                 isExpanded: false,
                 label: "PF2E.CompendiumBrowser.Filter.Source",
-                options: {},
+                options: [],
                 selected: [],
             },
             traits: {

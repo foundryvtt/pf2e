@@ -10,15 +10,15 @@
             clear: () => void;
         };
         isExpanded?: boolean;
+        notExpandable?: boolean;
         label: string;
     }
-    const props: Props = $props();
-    let isExpanded = $state(props.isExpanded);
+    let { isExpanded = $bindable(), ...props }: Props = $props();
 </script>
 
 <fieldset>
     <legend>
-        {#if "isExpanded" in props}
+        {#if !props.notExpandable}
             <button
                 type="button"
                 class="flat expand-section"
@@ -75,7 +75,7 @@
 
             button.clear-filter {
                 &:not(:hover) {
-                    background-color: var(--background);
+                    background: var(--background);
                 }
                 line-height: 1.5em;
                 position: absolute;
