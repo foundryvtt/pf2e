@@ -496,6 +496,7 @@
                 "traits": {
                     "value": [
                         "agile",
+                        "unarmed",
                         "unholy"
                     ]
                 },
@@ -589,7 +590,7 @@
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.Label",
                         "option": "bone-club",
-                        "selection": "shattered",
+                        "selection": "new",
                         "suboptions": [
                             {
                                 "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.New",
@@ -600,10 +601,12 @@
                                 "value": "shattered"
                             }
                         ],
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": true
                     },
                     {
                         "attackModifier": 10,
+                        "category": "simple",
                         "damage": {
                             "base": {
                                 "damageType": "bludgeoning",
@@ -613,7 +616,7 @@
                             }
                         },
                         "key": "Strike",
-                        "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.Label",
+                        "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.NewLabel",
                         "predicate": [
                             "bone-club:new"
                         ],
@@ -624,6 +627,7 @@
                     },
                     {
                         "attackModifier": 10,
+                        "category": "simple",
                         "damage": {
                             "base": {
                                 "damageType": "slashing",
@@ -643,13 +647,10 @@
                         ]
                     },
                     {
-                        "damageCategory": "persistent",
                         "damageType": "bleed",
                         "key": "FlatModifier",
-                        "predicate": [
-                            "item:slug:shattered-bone-club"
-                        ],
-                        "selector": "strike-damage",
+                        "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.ShatteredLabel",
+                        "selector": "shattered-bone-club-damage",
                         "value": 1
                     }
                 ],
@@ -706,7 +707,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The meokdan attempts a bite Strike against an adjacent creature or chews on a handheld object they're carrying. If the creature is living or the object is food, the meokdan gurgles in delight and restores @Damage[(1d8+8)[healing]] Hit Points. If the creature is undead or a construct, or the object is inedible, the meokdan shrieks in frustration and gains a +1 status bonus to attack rolls and saving throws until the end of its next turn. The meokdan can't Snack again for 1 round.</p>"
+                    "value": "<p>The meokdan attempts a bite Strike against an adjacent creature or chews on a handheld object they're carrying. If the creature is living or the object is food, the meokdan gurgles in delight and restores @Damage[(1d8+8)[healing]] Hit Points. If the creature is undead or a construct, or the object is inedible, the meokdan shrieks in frustration and gains a +1 status bonus to attack rolls and saving throws until the end of its next turn. The meokdan can't Snack again for 1 round.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Snack]</p>"
                 },
                 "publication": {
                     "license": "OGL",
