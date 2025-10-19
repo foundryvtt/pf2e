@@ -3,7 +3,7 @@ import type { DexterityModifierCapData } from "@actor/character/types.ts";
 import type { Abilities } from "@actor/creature/data.ts";
 import type { InitiativeTraceData } from "@actor/initiative.ts";
 import type { Modifier, StatisticModifier } from "@actor/modifiers.ts";
-import type { NPCAreaFire } from "@actor/npc/data.ts";
+import type { NPCAreaAttack } from "@actor/npc/data.ts";
 import type { ActorAlliance, AttributeString, SkillSlug } from "@actor/types.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import type { DocumentFlags, DocumentFlagsSource } from "@common/data/_module.d.mts";
@@ -241,6 +241,17 @@ interface BasicAttackAction {
     /** Roll critical damage for this weapon. */
     critical?: DamageRollFunction;
     readonly modifiers: Modifier[];
+    /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
+    ammunition?: AttackAmmunitionData | null;
+}
+
+interface AttackAmmunitionData {
+    compatible: { id: string; label: string }[];
+    incompatible: { id: string; label: string }[];
+    selected: {
+        id: string;
+        compatible: boolean;
+    } | null;
 }
 
 /** An strike which an actor can use. */
@@ -266,19 +277,9 @@ interface StrikeData extends StatisticModifier, BasicAttackAction {
     altUsages?: StrikeData[];
     /** A list of attack variants which apply the Multiple Attack Penalty. */
     variants: { label: string; roll: RollFunction<AttackRollParams> }[];
-
-    /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
-    ammunition?: {
-        compatible: { id: string; label: string }[];
-        incompatible: { id: string; label: string }[];
-        selected: {
-            id: string;
-            compatible: boolean;
-        } | null;
-    };
 }
 
-type AttackAction = StrikeData | NPCAreaFire;
+type AttackAction = StrikeData | NPCAreaAttack;
 
 /** Any skill or similar which provides a roll option for rolling this save. */
 interface Rollable {
@@ -318,6 +319,7 @@ export type {
     ActorTraitsSource,
     ArmorClassData,
     AttackAction,
+    AttackAmmunitionData,
     AttributeBasedTraceData,
     BaseActorSourcePF2e,
     BaseHitPointsSource,

@@ -36,7 +36,7 @@ import { AttackTraitHelpers } from "./creature/helpers.ts";
 import type { DamageRollFunction } from "./data/base.ts";
 import type { ActorSourcePF2e } from "./data/index.ts";
 import { CheckModifier, Modifier, StatisticModifier, createAttributeModifier } from "./modifiers.ts";
-import type { NPCAreaFire, NPCAttackAction, NPCStrike } from "./npc/data.ts";
+import type { NPCAreaAttack, NPCAttackAction, NPCStrike } from "./npc/data.ts";
 import { CheckContext } from "./roll-context/check.ts";
 import { DamageContext } from "./roll-context/damage.ts";
 import type { ActorGroupUpdate, AttributeString, AuraEffectData } from "./types.ts";
@@ -642,7 +642,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     return strike;
 }
 
-function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaFire {
+function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
     if (item.system.action === "strike") throw ErrorPF2e("Unexpected action type");
     const action = item.system.action;
 

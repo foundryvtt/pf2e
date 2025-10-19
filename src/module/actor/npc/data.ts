@@ -220,7 +220,7 @@ interface NPCStrike extends StrikeData {
     altUsages?: never;
 }
 
-interface NPCAreaFire extends BasicAttackAction {
+interface NPCAreaAttack extends BasicAttackAction {
     type: "area-fire" | "auto-fire";
     item: MeleePF2e<ActorPF2e>;
     /** The type of attack as a localization string */
@@ -232,7 +232,7 @@ interface NPCAreaFire extends BasicAttackAction {
     variants: { label: string; roll: () => void }[];
 }
 
-type NPCAttackAction = NPCStrike | NPCAreaFire;
+type NPCAttackAction = NPCStrike | NPCAreaAttack;
 
 /** Save data with an additional "base" value */
 interface NPCSaveData extends SaveData {
@@ -273,7 +273,7 @@ interface NPCResources extends CreatureResources {
 }
 
 export type {
-    NPCAreaFire,
+    NPCAreaAttack,
     NPCAttackAction,
     NPCAttributes,
     NPCAttributesSource,

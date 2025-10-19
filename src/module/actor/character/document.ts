@@ -68,7 +68,6 @@ import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statisti
 import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
-import { WeaponAuxiliaryAction } from "./auxiliary.ts";
 import { CharacterCrafting } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
@@ -88,7 +87,9 @@ import {
     PCAttackTraitHelpers,
     createForceOpenPenalty,
     createShoddyPenalty,
+    getAttackAmmo,
     getItemProficiencyRank,
+    getWeaponAuxiliaryActions,
     imposeOversizedWeaponCondition,
 } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
@@ -1237,90 +1238,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...extractModifiers(synthetics, attackDomains, { injectables: { weapon }, resolvables: { weapon } }),
         );
 
-        const auxiliaryActions: WeaponAuxiliaryAction[] = [];
-        const isRealItem = this.items.has(weapon.id);
-        const traitsArray = weapon.system.traits.value;
-
-        if (weapon.system.traits.toggles.modular.options.length > 0) {
-            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
-        }
-        if (weapon.isEquipped) {
-            if (traitsArray.includes("parry") && !this.rollOptions.all["self:effect:parry"]) {
-                auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "parry" }));
-            }
-        }
-        if (isRealItem && weapon.category !== "unarmed" && !weapon.parentItem) {
-            const usage = weapon.system.usage;
-            const weaponAsShield = weapon.shield;
-            const canWield2H =
-                usage.hands === 2 ||
-                (usage.hands === 1 && this.handsFree > 0 && !!weaponAsShield) ||
-                traitsArray.some((t) => t.startsWith("fatal-aim")) ||
-                traitsArray.some((t) => t.startsWith("two-hand"));
-
-            switch (weapon.carryType) {
-                case "held": {
-                    if (weaponAsShield) {
-                        const hasShieldRaised = !!this.rollOptions.all["self:effect:raise-a-shield"];
-                        const hasGreaterCover = !!this.rollOptions.all["self:cover-level:greater"];
-                        if (!hasShieldRaised) {
-                            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "raise-a-shield" }));
-                        } else if (weaponAsShield.isTowerShield && weaponAsShield.isRaised) {
-                            const action = hasGreaterCover ? "end-cover" : "take-cover";
-                            const annotation = "tower-shield";
-                            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action, annotation }));
-                        }
-                    }
-
-                    if (weapon.handsHeld === 2) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "grip", hands: 1 }),
-                        );
-                    } else if (weapon.handsHeld === 1 && canWield2H) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "grip", hands: 2 }),
-                        );
-                    }
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "sheathe", hands: 0 }),
-                    );
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "drop", hands: 0 }),
-                    );
-
-                    break;
-                }
-                case "worn": {
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 1 }),
-                    );
-                    if (canWield2H) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 2 }),
-                        );
-                    }
-                    break;
-                }
-                case "stowed": {
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "retrieve", hands: 1 }),
-                    );
-                    break;
-                }
-                case "dropped": {
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 1 }),
-                    );
-                    if (canWield2H) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 2 }),
-                        );
-                    }
-                    break;
-                }
-            }
-        }
-
         const weaponSlug = weapon.slug ?? sluggify(weapon.name);
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = [
@@ -1396,9 +1313,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             selectedAmmoId: weapon.system.selectedAmmoId,
             canStrike: true,
             altUsages,
-            auxiliaryActions,
+            auxiliaryActions: getWeaponAuxiliaryActions(weapon),
             doubleBarrel,
             versatileOptions,
+            ammunition: getAttackAmmo(weapon, { ammos }),
         });
 
         if (action.versatileOptions.length > 0) {
@@ -1408,19 +1326,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 label: CONFIG.PF2E.damageTypes[weapon.system.damage.damageType],
                 glyph: DAMAGE_TYPE_ICONS[weapon.system.damage.damageType],
             });
-        }
-
-        // Show the ammo list if the weapon requires ammo
-        if (weapon.system.expend) {
-            const compatible = ammos
-                .filter((a) => a.isAmmoFor(weapon))
-                .map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` }));
-            const incompatible = ammos
-                .filter((a) => !a.isAmmoFor(weapon))
-                .map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` }));
-            const ammo = weapon.ammo;
-            const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
-            action.ammunition = { compatible, incompatible, selected };
         }
 
         action.breakdown = action.modifiers
