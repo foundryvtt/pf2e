@@ -1,5 +1,5 @@
 import type { ActorType, CharacterPF2e } from "@actor";
-import { CharacterStrike } from "@actor/character/data.ts";
+import { CharacterAttack } from "@actor/character/data.ts";
 import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DamageDicePF2e, Modifier, StatisticModifier } from "@actor/modifiers.ts";
@@ -334,13 +334,13 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         }
 
         actor.system.actions = actor
-            .prepareStrikes({ includeBasicUnarmed: this.ownUnarmed })
+            .prepareAttacks({ includeBasicUnarmed: this.ownUnarmed })
             .filter((a) => a.item.flags.pf2e.battleForm || (this.ownUnarmed && a.item.category === "unarmed"));
-        const strikeActions = actor.system.actions.flatMap((s): CharacterStrike[] => [s, ...s.altUsages]);
+        const strikeActions = actor.system.actions.flatMap((s): CharacterAttack[] => [s, ...s.altUsages]);
 
         for (const action of strikeActions) {
             const strike = strikes[action.slug ?? ""];
-            if (!strike) continue;
+            if (!strike || action.type !== "strike") continue;
             const addend = action.modifiers
                 .filter((m) => m.enabled && this.#filterModifier(m))
                 .reduce((sum, m) => sum + m.modifier, 0);

@@ -1,6 +1,6 @@
 import type { DocumentFlags, DocumentFlagsSource } from "@common/data/_types.d.mts";
 import type * as fields from "@common/data/fields.d.mts";
-import type { ItemType } from "@item/types.ts";
+import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
 import type { Predicate } from "@system/predication.ts";
@@ -24,7 +24,8 @@ interface TraitConfig {
     volley?: number;
     tracking?: number;
     resilient?: number;
-    [key: string]: number | undefined;
+    area?: { type: EffectAreaShape; value: number | null };
+    [key: string]: unknown | undefined;
 }
 
 interface ItemTraits<T extends ItemTrait = ItemTrait> {

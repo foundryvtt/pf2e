@@ -2,16 +2,16 @@ import type { ApplicationV1HeaderButton } from "@client/appv1/api/application-v1
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery } from "@util";
-import type { CharacterStrike } from "../data.ts";
+import type { CharacterAttack } from "../data.ts";
 import type { CharacterPF2e } from "../document.ts";
 import type { ElementalBlastConfig } from "../elemental-blast.ts";
 import { CharacterSheetPF2e, type CharacterSheetData } from "../sheet.ts";
 
 class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TActor> {
-    type: "strike" | "blast" = "strike";
-    #strikeItemId = "";
-    #strikeSlug = "";
-    #strike?: CharacterStrike;
+    type: AttackPopoutOptions["type"] = "strike";
+    #itemId = "";
+    #slug = "";
+    #attack?: CharacterAttack;
     #elementTrait?: EffectTrait;
     #blasts: ElementalBlastConfig[] = [];
 
@@ -21,9 +21,9 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
 
     override get id(): string {
         const id = super.id;
-        return this.type === "strike"
-            ? `${id}-strike-${this.#strikeItemId}-${this.#strikeSlug}`
-            : `${id}-blast-${this.#elementTrait}`;
+        return this.type === "blast"
+            ? `${id}-blast-${this.#elementTrait}`
+            : `${id}-${this.type}-${this.#itemId}-${this.#slug}`;
     }
 
     static override get defaultOptions(): ActorSheetOptions {
@@ -43,7 +43,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
         if (this.type === "blast") {
             return this.#blasts.at(0)?.label ?? null;
         }
-        return this.#strike?.label ?? null;
+        return this.#attack?.label ?? null;
     }
 
     constructor(object: TActor, options: AttackPopoutOptions) {
@@ -59,14 +59,14 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
             }
             this.#elementTrait = options.elementTrait;
         } else {
-            if (!options.strikeSlug) {
-                throw ErrorPF2e('AttackPopout of type "strike" is missing mandatory "strikeSlug" option.');
+            if (!options.slug) {
+                throw ErrorPF2e('AttackPopout of type "strike" is missing mandatory "slug" option.');
             }
-            if (!options.strikeItemId) {
-                throw ErrorPF2e('AttackPopout of type "strike" is missing mandatory "strikeItemId" option.');
+            if (!options.itemId) {
+                throw ErrorPF2e('AttackPopout of type "strike" is missing mandatory "itemId" option.');
             }
-            this.#strikeSlug = options.strikeSlug;
-            this.#strikeItemId = options.strikeItemId;
+            this.#slug = options.slug;
+            this.#itemId = options.itemId;
         }
         this.type = options.type;
     }
@@ -80,17 +80,15 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
             base.toggles.actions = base.toggles.actions?.filter((t) => t.domain === "elemental-blast") ?? [];
         } else {
             base.elementalBlasts = [];
-            if (this.#strikeSlug && this.#strikeItemId) {
-                this.#strike = base.data.actions.find(
-                    (a) => a.item.id === this.#strikeItemId && a.slug === this.#strikeSlug,
-                );
+            if (this.#slug && this.#itemId) {
+                this.#attack = base.data.actions.find((a) => a.item.id === this.#itemId && a.slug === this.#slug);
             }
         }
 
         return {
             ...base,
-            strike: this.#strike,
-            strikeIndex: base.data.actions.findIndex((a) => a === this.#strike),
+            attack: this.#attack,
+            index: base.data.actions.findIndex((a) => a === this.#attack),
             popoutType: this.type,
         };
     }
@@ -120,9 +118,9 @@ interface BaseAttackPopoutOptions extends Partial<ActorSheetOptions> {
 }
 
 interface StrikePopoutOptions extends BaseAttackPopoutOptions {
-    type: "strike";
-    strikeSlug?: string;
-    strikeItemId?: string;
+    type: "strike" | "area-fire" | "auto-fire";
+    slug?: string;
+    itemId?: string;
 }
 
 interface BlastPopoutOptions extends BaseAttackPopoutOptions {
@@ -133,8 +131,8 @@ interface BlastPopoutOptions extends BaseAttackPopoutOptions {
 type AttackPopoutOptions = StrikePopoutOptions | BlastPopoutOptions;
 
 interface AttackPopoutData<TActor extends CharacterPF2e> extends CharacterSheetData<TActor> {
-    strike?: CharacterStrike;
-    strikeIndex?: number;
+    attack?: CharacterAttack;
+    index?: number;
     popoutType: AttackPopoutOptions["type"];
 }
 

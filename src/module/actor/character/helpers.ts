@@ -1,6 +1,6 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
-import { AttackAmmunitionData } from "@actor/data/base.ts";
+import type { AttackAmmunitionData } from "@actor/data/base.ts";
 import { Modifier } from "@actor/modifiers.ts";
 import { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, ConsumablePF2e, ItemProxyPF2e, WeaponPF2e } from "@item";
 import type { ZeroToFour } from "@module/data.ts";

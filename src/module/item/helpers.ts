@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { MeasuredTemplateType } from "@common/constants.mjs";
 import { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { createHTMLElement, ErrorPF2e, setHasElement } from "@util";
+import { createHTMLElement, ErrorPF2e, setHasElement, tupleHasValue } from "@util";
 import type { Converter } from "showdown";
 import { processSanctification } from "./ability/helpers.ts";
 import type { ItemSourcePF2e } from "./base/data/index.ts";
@@ -12,6 +12,7 @@ import { ItemTrait } from "./base/types.ts";
 import type { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
 import type { EffectAreaShape, ItemInstances, ItemType } from "./types.ts";
+import { EFFECT_AREA_SHAPES } from "./values.ts";
 
 type ItemOrSource = PreCreate<ItemSourcePF2e> | ItemPF2e;
 
@@ -93,6 +94,32 @@ function addOrUpgradeTrait<TTrait extends ItemTrait>(
     const value = isArray ? traits : traits.value;
     const config = isArray ? null : (traits.config ??= {});
 
+    // Check if its an SF2e area trait, which has special handling
+    const areaRegexp = /^area-([\w]+)(?:-(\d+))?$/;
+    const areaMatch = newTrait.match(areaRegexp);
+    if (areaMatch) {
+        const type = areaMatch.at(1);
+        const range = areaMatch.at(2) ? Number(areaMatch.at(2)) : null;
+        if (!tupleHasValue(EFFECT_AREA_SHAPES, type)) {
+            console.error(`Unexpected area shape ${type}`);
+            return;
+        }
+        if (
+            mode === "upgrade" &&
+            range &&
+            config?.area?.type === type &&
+            (!config.area.value || range > config.area.value)
+        ) {
+            config.area.value = range;
+        } else {
+            if (config) config.area = { type, value: range };
+            const existing = value.find((t) => t.match(areaRegexp));
+            if (existing) value.splice(value.indexOf(existing), 1, newTrait);
+            value.push(newTrait);
+        }
+        return;
+    }
+
     // Check first if its not an annotated trait
     const annotatedTraitMatch = newTrait.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
     if (!annotatedTraitMatch) {
@@ -121,7 +148,7 @@ function addOrUpgradeTrait<TTrait extends ItemTrait>(
  * @param trait the trait being removed, either the full one or an unannotated variant (like "volley")
  */
 function removeTrait<TTrait extends ItemTrait>(
-    traits: ItemTraits<TTrait> | ItemTraitsNoRarity<TTrait>,
+    traits: Pick<ItemTraits<TTrait>, "value" | "config">,
     trait: string,
 ): void {
     const idx = traits.value.findIndex((t) => t === trait);

@@ -413,6 +413,7 @@ const weaponTraits = {
     "attached-to-shield": "PF2E.TraitAttachedToShield",
     "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
     auditory: "PF2E.TraitAuditory",
+    automatic: "PF2E.TraitAutomatic",
     backstabber: "PF2E.TraitBackstabber",
     backswing: "PF2E.TraitBackswing",
     bomb: "PF2E.TraitBomb",

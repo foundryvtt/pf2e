@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { StrikeData } from "@actor/data/base.ts";
+import type { AttackAction, StrikeData } from "@actor/data/base.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import type { DataModelConstructionContext } from "@common/abstract/_module.d.mts";
 import type {
@@ -133,9 +133,16 @@ class ChatMessagePF2e extends ChatMessage {
         return item;
     }
 
-    /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
+        // todo: deprecation warning
+        const attack = this._attack;
+        return attack?.type === "strike" ? attack : null;
+    }
+
+    /** If this message was for a strike, return the strike. Strikes will change in a future release */
+    get _attack(): AttackAction | null {
         const actor = this.speakerActor;
+        if (!actor) return null;
 
         // Handle in-memory unarmed attacks
         const origin = this.flags.pf2e.origin;
@@ -145,18 +152,27 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         // Get strike data from the roll identifier
+        const context = this.flags.pf2e.context;
         const roll = this.rolls.find((r): r is Rolled<CheckRoll> => r instanceof CheckRoll);
         const identifier =
             roll?.options.identifier ??
+            (context && "identifier" in context ? context.identifier : null) ??
             htmlQuery(document.body, `li.message[data-message-id="${this.id}"] [data-identifier]`)?.dataset.identifier;
+
+        // First check for an exact match with the identifier, which is a bit more specific (this catches area/auto fire rn, expand later)
+        for (const action of actor.system.actions ?? []) {
+            if (action.slug === identifier) return action;
+            const altUsageMatch = action.altUsages?.find((u) => u.slug === identifier);
+            if (altUsageMatch) return action;
+        }
+
+        // Parse the identifier and attempt to figure it out based on weapon type matching
         const [itemId, slug, meleeOrRanged] = identifier?.split(".") ?? [null, null, null];
         if (!meleeOrRanged || !["melee", "ranged"].includes(meleeOrRanged)) {
             return null;
         }
 
-        const strikeData = actor?.system.actions?.find(
-            (s): s is StrikeData => s.type === "strike" && s.slug === slug && s.item.id === itemId,
-        );
+        const strikeData = actor.system.actions?.find((s) => s.slug === slug && s.item.id === itemId);
         const itemMeleeOrRanged = strikeData?.item.isMelee ? "melee" : "ranged";
 
         return meleeOrRanged === itemMeleeOrRanged

@@ -18,6 +18,7 @@ import { CreatureInitiativeSource, Language } from "@actor/creature/index.ts";
 import {
     ActorAttributesSource,
     ActorFlagsPF2e,
+    AreaAttack,
     AttributeBasedTraceData,
     HitPointsStatistic,
     InitiativeData,
@@ -268,7 +269,7 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission
     skills: Record<string, CharacterSkillData>;
 
     /** Special strikes which the character can take. */
-    actions: CharacterStrike[];
+    actions: CharacterAttack[];
 
     resources: CharacterResources;
 
@@ -388,21 +389,32 @@ interface ClassDCData extends Required<AttributeBasedTraceData> {
     primary: boolean;
 }
 
-/** The full data for a character strike */
-interface CharacterStrike extends StrikeData {
-    item: WeaponPF2e<CharacterPF2e>;
+interface BasicAttackData {
     /** Whether this attack is visible on the sheet */
     visible: boolean;
+    auxiliaryActions: WeaponAuxiliaryAction[];
+    weaponTraits: TraitViewData[];
+}
+
+/** The full data for a character strike */
+interface CharacterStrike extends StrikeData, BasicAttackData {
+    item: WeaponPF2e<CharacterPF2e>;
     /** Domains/selectors from which modifiers are drawn */
     domains: string[];
     /** Whether the character has sufficient hands available to wield this weapon or use this unarmed attack */
     handsAvailable: boolean;
-    altUsages: CharacterStrike[];
-    auxiliaryActions: WeaponAuxiliaryAction[];
-    weaponTraits: TraitViewData[];
+    altUsages: CharacterAttack[];
     doubleBarrel: { selected: boolean } | null;
     versatileOptions: VersatileWeaponOption[];
 }
+
+interface CharacterAreaAttack extends AreaAttack, BasicAttackData {
+    item: WeaponPF2e<CharacterPF2e>;
+    /** Whether this attack is visible on the sheet */
+    altUsages: CharacterAttack[];
+}
+
+type CharacterAttack = CharacterStrike | CharacterAreaAttack;
 
 interface VersatileWeaponOption {
     value: DamageType;
@@ -504,6 +516,8 @@ export type {
     BaseWeaponProficiencyKey,
     CategoryProficiencies,
     CharacterAbilities,
+    CharacterAreaAttack,
+    CharacterAttack,
     CharacterAttributes,
     CharacterAttributesSource,
     CharacterBiography,

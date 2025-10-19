@@ -3,7 +3,6 @@ import type { DexterityModifierCapData } from "@actor/character/types.ts";
 import type { Abilities } from "@actor/creature/data.ts";
 import type { InitiativeTraceData } from "@actor/initiative.ts";
 import type { Modifier, StatisticModifier } from "@actor/modifiers.ts";
-import type { NPCAreaAttack } from "@actor/npc/data.ts";
 import type { ActorAlliance, AttributeString, SkillSlug } from "@actor/types.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import type { DocumentFlags, DocumentFlagsSource } from "@common/data/_module.d.mts";
@@ -15,6 +14,7 @@ import type { AttackRollParams, DamageRollParams, RollParameters } from "@module
 import type { CheckRoll } from "@system/check/roll.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticTraceData } from "@system/statistic/data.ts";
+import type { Statistic } from "@system/statistic/statistic.ts";
 import type { Immunity, ImmunitySource, Resistance, ResistanceSource, Weakness, WeaknessSource } from "./iwr.ts";
 import type { ActorSizePF2e } from "./size.ts";
 
@@ -233,9 +233,11 @@ interface BasicAttackAction {
      * strike is equipped)
      */
     ready: boolean;
+    /** Whether striking itself, independent of the auxiliary actions, is possible */
+    canAttack: boolean;
     /** The weapon or melee item--possibly ephemeral--being used for the strike */
     item: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>;
-    altUsages?: StrikeData[];
+    altUsages?: AttackAction[];
     /** Roll normal (non-critical) damage for this weapon. */
     damage?: DamageRollFunction;
     /** Roll critical damage for this weapon. */
@@ -267,19 +269,27 @@ interface StrikeData extends StatisticModifier, BasicAttackAction {
     traits: TraitViewData[];
     /** Any options always applied to this strike */
     options: string[];
-    /** Whether striking itself, independent of the auxiliary actions, is possible */
-    canStrike: boolean;
     /** Alias for `attack`. */
     roll?: RollFunction<AttackRollParams>;
     /** Roll to attack with the given strike (with no MAP; see `variants` for MAPs.) */
     attack?: RollFunction<AttackRollParams>;
     /** Alternative usages of a strike weapon: thrown, combination-melee, etc. */
-    altUsages?: StrikeData[];
+    altUsages?: AttackAction[];
     /** A list of attack variants which apply the Multiple Attack Penalty. */
     variants: { label: string; roll: RollFunction<AttackRollParams> }[];
 }
 
-type AttackAction = StrikeData | NPCAreaAttack;
+interface AreaAttack extends BasicAttackAction {
+    type: "area-fire" | "auto-fire";
+    item: MeleePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e>;
+    /** The type of attack as a localization string */
+    attackRollType: string;
+    statistic: Statistic;
+    /** A list of buttons to show. In practice there is only one */
+    variants: { label: string; roll: () => void }[];
+}
+
+type AttackAction = StrikeData | AreaAttack;
 
 /** Any skill or similar which provides a roll option for rolling this save. */
 interface Rollable {
@@ -317,6 +327,7 @@ export type {
     ActorSystemSource,
     ActorTraitsData,
     ActorTraitsSource,
+    AreaAttack,
     ArmorClassData,
     AttackAction,
     AttackAmmunitionData,

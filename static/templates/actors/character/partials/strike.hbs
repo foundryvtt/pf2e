@@ -19,20 +19,20 @@
 
         {{#if action.ready}}
             <!-- ATTACK/DAMAGE -->
-            {{#if action.canStrike}}{{#> attackDamage action}}{{/attackDamage}}{{/if}}
+            {{#if action.canAttack}}{{#> attackDamage action}}{{/attackDamage}}{{/if}}
         {{else if (not action.handsAvailable)}}
             <span class="hands-occupied">{{localize "PF2E.Actor.Character.HandsOccupied"}}</span>
         {{/if}}
 
         {{#if (and action.altUsages action.ready)}}
-            {{#each action.altUsages as |usage|}}
+            {{#each action.altUsages as |usage index|}}
                 <div class="alt-usage" data-tooltip-direction="LEFT">
                     {{#if usage.item.isThrown}}
                         <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/thrown.svg" data-tooltip="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
                     {{else}}
                         <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/sword.svg" data-tooltip="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
                     {{/if}}
-                    {{#> attackDamage usage isAltUsage=true}}{{/attackDamage}}
+                    {{#> attackDamage usage altUsageIndex=index}}{{/attackDamage}}
                 </div>
             {{/each}}
         {{/if}}
@@ -108,22 +108,27 @@
     <div class="button-group tags" data-tooltip-direction="UP">
         {{#each variants as |variant index|}}
             <button type="button" class="tag tag_secondary variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
-                {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                {{#if ../altUsageIndex includeZero=true}}data-alt-usage="{{../altUsageIndex}}"{{/if}}
                 {{#if (eq ../quantity 0)}} disabled data-tooltip="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
             >
-                {{#if (eq index 0)}}
-                    <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
+                {{#if (eq ../type "strike")}}
+                    {{#if (eq index 0)}}
+                        <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
+                        <span class="action-glyph">{{../glyph}}</span>
+                    {{/if}}
+                    {{variant.label}}
+                {{else}}
+                    {{variant.label}}
                     <span class="action-glyph">{{../glyph}}</span>
                 {{/if}}
-                {{variant.label}}
             </button>
         {{/each}}
         {{#if item.dealsDamage}}
             <button type="button" class="tag damage" data-action="strike-damage"
-                {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                {{#if altUsageIndex includeZero=true}}data-alt-usage="{{altUsageIndex}}"{{/if}}
                 >{{localize "PF2E.DamageLabel"}}</button>
             <button type="button" class="tag damage" data-action="strike-critical"
-                {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                {{#if altUsageIndex includeZero=true}}data-alt-usage="{{altUsageIndex}}"{{/if}}
             >{{localize "PF2E.CriticalDamageLabel"}}</button>
 
             {{#if (or doubleBarrel versatileOptions)}}
@@ -151,7 +156,7 @@
                             class="damage color {{option.value}}{{#if option.selected}} selected{{/if}}"
                             value="{{option.value}}"
                             {{disabled option.selected}}
-                            {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                            {{#if altUsageIndex includeZero=true}}data-alt-usage="{{altUsageIndex}}"{{/if}}
                             data-action="toggle-weapon-trait"
                             data-trait="versatile"
                             data-tooltip="{{localize option.label}}"

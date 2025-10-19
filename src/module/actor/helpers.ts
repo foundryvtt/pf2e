@@ -8,6 +8,7 @@ import { createEffectAreaLabel } from "@item/helpers.ts";
 import { NPC_ATTACK_ACTIONS } from "@item/melee/values.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { EffectAreaShape } from "@item/types.ts";
+import type { AreaAttackContextFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
@@ -509,7 +510,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         additionalEffects,
         item,
         weapon: item,
-        canStrike: true,
+        canAttack: true,
         options: Array.from(baseOptions),
         traits: [
             actionTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
@@ -635,7 +636,13 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     }));
     strike.roll = strike.attack = strike.variants[0].roll;
 
-    const damageRoll = createDamageRollFunctions(item, { statistic: strike, baseOptions, actionTraits });
+    const damageRoll = createDamageRollFunctions(item, {
+        action: "strike",
+        statistic: strike,
+        baseOptions,
+        actionTraits,
+        proficiencyRank: 1,
+    });
     strike.damage = damageRoll.damage;
     strike.critical = damageRoll.critical;
 
@@ -649,6 +656,7 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
     const actor = item.actor;
     const attackSlug = item.slug ?? sluggify(item.name);
     const meleeOrRanged = item.isMelee ? "melee" : "ranged";
+    const domains = ["all", `${action}-save`];
     const baseOptions = [
         `self:action:slug:${action}`,
         meleeOrRanged,
@@ -656,7 +664,6 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
         "area-damage",
         "area-effect",
     ];
-    const domains = ["all"];
 
     const synthetics = actor.synthetics;
     const modifiers = [
@@ -677,6 +684,7 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
     });
 
     const actionCost: ActionCost = { type: "action", value: item.system.traits.value.includes("consumable") ? 1 : 2 };
+    const identifier = `${item.id}.${attackSlug}.${action}`;
     const statistic = new Statistic(actor, {
         slug: attackSlug,
         label: item.name,
@@ -684,13 +692,14 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
     });
 
     return {
-        slug: attackSlug,
+        slug: identifier,
         type: action,
         attackRollType: NPC_ATTACK_ACTIONS[action],
         label: item.name,
         glyph: getActionGlyph(actionCost),
         description: item.description,
         ready: true,
+        canAttack: true,
         modifiers: [],
         item,
         statistic,
@@ -703,34 +712,56 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
                 }),
                 roll: () => {
                     if (!item.system.area) throw ErrorPF2e("Unexpected missing area data");
-                    createAreaFireMessage({
+                    createAreaAttackMessage({
                         actor,
                         item,
                         statistic,
                         action,
+                        identifier,
                         actionCost,
+                        domains,
+                        options: baseOptions,
                         area: item.system.area,
                     });
                 },
             },
         ],
-        ...createDamageRollFunctions(item, { statistic, baseOptions, actionTraits: ["attack"] }),
+        ...createDamageRollFunctions(item, {
+            action,
+            statistic,
+            baseOptions,
+            actionTraits: ["attack"],
+            proficiencyRank: 1,
+        }),
     };
 }
 
+/**
+ * Helper function that creates damage roll functions for character and npc attacks.
+ * While it used for character area/auto fire, its not used for character strikes yet.
+ *
+ */
 function createDamageRollFunctions(
-    item: MeleePF2e<ActorPF2e>,
+    item: MeleePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e>,
     {
+        action,
         statistic,
         actionTraits,
         baseOptions,
-    }: { statistic: NPCStrike | Statistic; actionTraits: AbilityTrait[]; baseOptions: Iterable<string> },
-) {
+        proficiencyRank,
+    }: {
+        action: "strike" | "area-fire" | "auto-fire";
+        statistic: NPCStrike | Statistic;
+        actionTraits: AbilityTrait[];
+        baseOptions: Iterable<string>;
+        proficiencyRank: ZeroToFour;
+    },
+): { damage: DamageRollFunction; critical: DamageRollFunction } {
     const actor = item.actor;
     const createDamageRoll =
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
-            const domains = getAttackDamageDomains(item, actor.isOfType("npc") ? 1 : null);
+            const domains = getAttackDamageDomains(item, proficiencyRank);
             const targetToken = (params.target ?? game.user.targets.first())?.document ?? null;
             const context = await new DamageContext({
                 viewOnly: params.getFormula ?? false,
@@ -751,7 +782,7 @@ function createDamageRollFunctions(
 
             const damageContext: DamageDamageContext = {
                 type: "damage-roll",
-                sourceType: "attack",
+                sourceType: action === "strike" ? "attack" : "save",
                 self: context.origin,
                 target: context.target,
                 outcome,
@@ -770,11 +801,18 @@ function createDamageRollFunctions(
 
             if (params.getFormula) damageContext.skipDialog = true;
 
-            const damage = await WeaponDamagePF2e.fromNPCAttack({
-                attack: context.origin.item,
-                actor: context.origin.actor,
-                context: damageContext,
-            });
+            const damage = item.isOfType("melee")
+                ? await WeaponDamagePF2e.fromNPCAttack({
+                      attack: item,
+                      actor: context.origin.actor,
+                      context: damageContext,
+                  })
+                : await WeaponDamagePF2e.calculate({
+                      weapon: item,
+                      actor: context.origin.actor,
+                      weaponPotency: item.flags.pf2e.attackItemBonus,
+                      context: damageContext,
+                  });
             if (!damage) return null;
 
             if (params.getFormula) {
@@ -791,22 +829,31 @@ function createDamageRollFunctions(
     };
 }
 
+interface AreaAttackOptions {
+    action: "area-fire" | "auto-fire";
+    actor: ActorPF2e;
+    item: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>;
+    // The statistic to area fire with. If omitted, will attempt to compute one if its a PC
+    statistic: Statistic;
+    identifier: string;
+    actionCost: ActionCost;
+    domains: string[];
+    options: string[];
+    area: { type: EffectAreaShape; value: number };
+}
+
 /** Creates an area fire message with buttons to roll saves and damage */
-async function createAreaFireMessage({
+async function createAreaAttackMessage({
+    action,
     actor,
     item,
-    action,
     statistic,
+    identifier,
     actionCost,
+    domains,
+    options,
     area,
-}: {
-    actor: ActorPF2e;
-    item: WeaponPF2e | MeleePF2e;
-    statistic: Statistic;
-    action: "area-fire" | "auto-fire";
-    actionCost: ActionCost;
-    area: { type: EffectAreaShape; value: number };
-}): Promise<void> {
+}: AreaAttackOptions): Promise<void> {
     const dc = statistic.dc;
 
     const key = sluggify(action, { camel: "bactrian" });
@@ -832,12 +879,21 @@ async function createAreaFireMessage({
         saveBreakdown: dc.breakdown,
     });
 
+    const context: AreaAttackContextFlag = {
+        type: action,
+        area,
+        identifier,
+        domains,
+        options,
+    };
+
     await ChatMessagePF2e.create({
         flavor,
         content,
         speaker,
         flags: {
             pf2e: {
+                context,
                 origin: item.getOriginData(),
             },
         },
@@ -994,6 +1050,8 @@ export {
     calculateRangePenalty,
     checkAreaEffects,
     createActorGroupUpdate,
+    createAreaAttackMessage,
+    createDamageRollFunctions,
     createEncounterRollOptions,
     createEnvironmentRollOptions,
     getAttackDamageDomains,

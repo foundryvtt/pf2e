@@ -320,12 +320,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     protected getAttackActionFromDOM(button: HTMLElement, readyOnly = false): AttackAction | null {
         const actionIndex = Number(htmlClosest(button, "[data-action-index]")?.dataset.actionIndex ?? "NaN");
         const rootAction = this.actor.system.actions?.at(actionIndex) ?? null;
-        const altUsage = tupleHasValue(["thrown", "melee"], button?.dataset.altUsage) ? button?.dataset.altUsage : null;
-
-        const strike = altUsage
-            ? (rootAction?.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null)
-            : rootAction;
-
+        const altUsage = "altUsage" in button?.dataset ? Number(button?.dataset.altUsage) : null;
+        const strike = typeof altUsage === "number" ? (rootAction?.altUsages?.at(altUsage) ?? null) : rootAction;
         return strike?.ready || !readyOnly ? strike : null;
     }
 

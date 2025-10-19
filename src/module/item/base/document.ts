@@ -281,14 +281,13 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // If this item has traits, filter for valid traits and check for annotations
         if (this.system.traits.value) {
-            this.system.traits.value = this.system.traits.value.filter((t) => t in this.constructor.validTraits);
+            const validTraits = this.constructor.validTraits;
+            const original = this.system.traits.value;
+            this.system.traits.value = [];
             this.system.traits.config = {};
-            for (const trait of this.system.traits.value) {
-                const annotatedTraitMatch = trait.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
-                if (annotatedTraitMatch) {
-                    const [_, traitBase, annotation] = annotatedTraitMatch;
-                    this.system.traits.config[traitBase] = Number(annotation);
-                }
+            for (const trait of original) {
+                if (!(trait in validTraits)) continue;
+                addOrUpgradeTrait(this.system.traits, trait);
             }
         }
 

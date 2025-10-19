@@ -193,7 +193,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
                 )
                 .map((action) => {
                     // Continue showing shields but disable strikes with them
-                    if (action.item.shield) action.canStrike = false;
+                    if (action.item.shield) action.canAttack = false;
                     return action;
                 });
         } else if (this.replaceBasicUnarmed) {
