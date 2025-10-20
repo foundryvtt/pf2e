@@ -10,7 +10,7 @@ import { Statistic, StatisticData } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import { RuleElement } from "../index.ts";
-import type { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
+import { ResolvableValueField, RuleValue, type ModelPropsFromRESchema, type RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
 
 /** Create a special-purpose statistic for use in checks and as a DC */
@@ -48,9 +48,9 @@ class SpecialStatisticRuleElement extends RuleElement<SpecialStatisticSchema> {
             }),
             baseModifier: new fields.SchemaField(
                 {
-                    mod: new fields.NumberField({ required: false, nullable: true, integer: true, initial: null }),
-                    check: new fields.NumberField({ required: false, nullable: true, integer: true, initial: null }),
-                    dc: new fields.NumberField({ required: false, nullable: true, integer: true, initial: null }),
+                    mod: new ResolvableValueField({ required: false, nullable: true, initial: null }),
+                    check: new ResolvableValueField({ required: false, nullable: true, initial: null }),
+                    dc: new ResolvableValueField({ required: false, nullable: true, initial: null }),
                 },
                 { required: false, nullable: true, initial: null },
             ),
@@ -83,15 +83,16 @@ class SpecialStatisticRuleElement extends RuleElement<SpecialStatisticSchema> {
 
         const label = this.itemCasting ? (extendedFrom?.label ?? this.label) : this.label;
         const checkType = this.type === "check" ? "check" : "attack-roll";
-        const modCheckDC =
-            this.baseModifier && actor.type === "npc"
-                ? R.mapValues(this.baseModifier, (value, key) => {
-                      const slug = typeof this.baseModifier?.mod === "number" && key !== "mod" ? `base-${key}` : "base";
-                      const label = "PF2E.ModifierTitle";
-                      const modifier = typeof value === "number" && key === "dc" ? value - 10 : value;
-                      return typeof modifier === "number" ? [new Modifier({ slug, label, modifier })] : [];
-                  })
-                : { mod: [], check: [], dc: [] };
+        const modCheckDC = this.baseModifier
+            ? R.mapValues(this.baseModifier, (value, key) => {
+                  const resolvedValue = this.resolveValue(value);
+                  const slug = typeof this.baseModifier?.mod === "number" && key !== "mod" ? `base-${key}` : "base";
+                  const label = "PF2E.ModifierTitle";
+                  const modifier =
+                      typeof resolvedValue === "number" && key === "dc" ? resolvedValue - 10 : resolvedValue;
+                  return typeof modifier === "number" ? [new Modifier({ slug, label, modifier })] : [];
+              })
+            : { mod: [], check: [], dc: [] };
 
         const data: Required<Omit<StatisticData, "filter" | "lore" | "proficient" | "rank" | "rollOptions">> = {
             slug: this.slug,
@@ -142,12 +143,12 @@ type SpecialStatisticSchema = RuleElementSchema & {
     /** A base modifier for use with NPC special statistics: separate check and DC values may also be specified. */
     baseModifier: fields.SchemaField<
         {
-            mod: fields.NumberField<number, number, false, true, true>;
-            check: fields.NumberField<number, number, false, true, true>;
-            dc: fields.NumberField<number, number, false, true, true>;
+            mod: ResolvableValueField<false, true, true>;
+            check: ResolvableValueField<false, true, true>;
+            dc: ResolvableValueField<false, true, true>;
         },
-        { mod: number | null; check: number | null; dc: number | null },
-        { mod: number | null; check: number | null; dc: number | null },
+        { mod: RuleValue; check: RuleValue; dc: RuleValue },
+        { mod: RuleValue; check: RuleValue; dc: RuleValue },
         false,
         true,
         true
