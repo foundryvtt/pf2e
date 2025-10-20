@@ -593,7 +593,7 @@ export class StringField<
         TModelProp extends NonNullable<JSONValue> = TSourceProp,
         TRequired extends boolean = false,
         TNullable extends boolean = false,
-        THasInitial extends boolean = boolean,
+        THasInitial extends boolean = TNullable extends true ? true : boolean,
     >
     extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial>
     implements Omit<StringFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>, "validate">

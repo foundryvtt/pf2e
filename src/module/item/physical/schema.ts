@@ -1,3 +1,4 @@
+import { PrunedSchemaField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import { Coins } from "./coins.ts";
 import type { Price } from "./index.ts";
@@ -7,24 +8,21 @@ import fields = foundry.data.fields;
 class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema<PriceSchema>, Price> {
     constructor() {
         const denominationField = (): fields.NumberField<number, number, false, false, false> =>
-            new fields.NumberField({ required: false, nullable: false, initial: undefined });
-        super(
-            {
-                value: new fields.SchemaField(
-                    R.mapToObj(DENOMINATIONS.toReversed(), (d) => [d, denominationField()]),
-                    { required: true, nullable: false },
-                ),
-                per: new fields.NumberField({
-                    required: true,
-                    nullable: false,
-                    positive: true,
-                    integer: true,
-                    initial: 1,
-                }),
-                sizeSensitive: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
-            },
-            { required: true, nullable: false },
-        );
+            new fields.NumberField({ required: false, nullable: false, integer: true, min: 0 });
+        super({
+            value: new PrunedSchemaField(
+                R.mapToObj(DENOMINATIONS.toReversed(), (d) => [d, denominationField()]),
+                { required: true, nullable: false },
+            ),
+            per: new fields.NumberField({
+                required: true,
+                nullable: false,
+                integer: true,
+                positive: true,
+                initial: 1,
+            }),
+            sizeSensitive: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+        });
     }
 
     override initialize(source: fields.SourceFromSchema<PriceSchema>): Price {
@@ -35,8 +33,6 @@ class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema
     }
 }
 
-type CoinsField = fields.SchemaField<CoinsSchema, fields.SourceFromSchema<CoinsSchema>, Coins, true, false, true>;
-
 type CoinsSchema = {
     cp: fields.NumberField<number, number, false, false, false>;
     sp: fields.NumberField<number, number, false, false, false>;
@@ -45,7 +41,7 @@ type CoinsSchema = {
 };
 
 type PriceSchema = {
-    value: CoinsField;
+    value: PrunedSchemaField<CoinsSchema>;
     per: fields.NumberField<number, number, true, false, true>;
     sizeSensitive: fields.BooleanField<boolean, boolean, false, false, false>;
 };

@@ -31,7 +31,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         // Enrich content
         const rollData = { ...item.getRollData(), ...this.actor?.getRollData() };
         sheetData.enrichedContent.unidentifiedDescription = await TextEditorPF2e.enrichHTML(
-            sheetData.item.system.identification.unidentified.data.description.value,
+            sheetData.item.system.identification.unidentified?.data.description.value ?? "",
             { rollData },
         );
 

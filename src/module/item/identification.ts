@@ -1,9 +1,10 @@
-import { SkillSlug } from "@actor/types.ts";
-import { Rarity } from "@module/data.ts";
+import type { SkillSlug } from "@actor/types.ts";
+import type { ImageFilePath } from "@common/constants.d.mts";
+import type { Rarity } from "@module/data.ts";
 import { setHasElement } from "@util";
 import { adjustDCByRarity, calculateDC, DCOptions } from "../dc.ts";
 import type { PhysicalItemPF2e } from "./physical/index.ts";
-import { MagicTradition } from "./spell/types.ts";
+import type { MagicTradition } from "./spell/types.ts";
 import { MAGIC_TRADITIONS } from "./spell/values.ts";
 
 /**
@@ -73,7 +74,7 @@ function getItemIdentificationDCs(
     }
 }
 
-function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string {
+function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): ImageFilePath {
     const iconName = ((): string => {
         if (item.isOfType("weapon")) {
             const { traits } = item;

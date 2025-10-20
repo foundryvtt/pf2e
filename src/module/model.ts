@@ -1,11 +1,10 @@
 import type { SkillSlug } from "@actor/types.ts";
-import type { Rarity, ZeroToFour } from "./data.ts";
+import { RARITIES, type Rarity, type ZeroToFour } from "./data.ts";
 import fields = foundry.data.fields;
 
 class RarityField extends fields.StringField<Rarity, Rarity, true, false, true> {
     constructor() {
-        const rarityChoices: Record<Rarity, string> = CONFIG.PF2E.rarityTraits;
-        super({ required: true, nullable: false, choices: rarityChoices, initial: "common" });
+        super({ required: true, nullable: false, choices: RARITIES, initial: "common" });
     }
 }
 

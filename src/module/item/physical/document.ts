@@ -677,16 +677,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
     getMystifiedData(status: IdentificationStatus, _options?: Record<string, boolean>): MystifiedData {
-        const mystifiedData: MystifiedData = this.system.identification[status];
-
-        const name = mystifiedData.name || this.generateUnidentifiedName();
-        const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this);
-
+        const mystifiedData = this.system.identification?.[status];
+        const name = mystifiedData?.name || this.generateUnidentifiedName();
+        const img = mystifiedData?.img || getUnidentifiedPlaceholderImage(this);
         const description =
-            mystifiedData.data.description.value ||
+            mystifiedData?.data.description.value ||
             (() => {
                 if (status === "identified") return this.description;
-
                 const itemType = this.generateUnidentifiedName({ typeOnly: true });
                 const caseCorrect = (noun: string) =>
                     game.i18n.lang.toLowerCase() === "de" ? noun : noun.toLowerCase();
@@ -891,7 +888,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const isSlotted = Boolean(equipped.inSlot ?? this.system.equipped.inSlot);
         if (hasSlot) {
             equipped.inSlot = isSlotted;
-        } else if ("inSlot" in this._source.system.equipped) {
+        } else if ("inSlot" in (this._source.system.equipped ?? {})) {
             equipped["-=inSlot"] = null;
         }
 

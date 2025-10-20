@@ -20,7 +20,15 @@ class MystifiedTraits {
     }
 }
 
-const ITEM_CARRY_TYPES = ["installed", "attached", "dropped", "held", "stowed", "worn", "implanted"] as const;
+const ITEM_CARRY_TYPES = Object.freeze([
+    "attached",
+    "dropped",
+    "held",
+    "implanted",
+    "installed",
+    "stowed",
+    "worn",
+] as const);
 
 const RANGE_TRAITS = [
     "range-5",

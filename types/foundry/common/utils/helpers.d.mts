@@ -40,6 +40,11 @@ export function deepClone<T>(original: T): T;
 export function duplicate<T>(original: T): T;
 
 /**
+ * Is a string key of an object used for certain deletion or forced replacement operations.
+ */
+export function isDeletionKey(key: string): key is "-=";
+
+/**
  * Test whether a value is empty-like; either undefined or a content-less object.
  * @param value The value to test
  * @returns Is the value empty-like?

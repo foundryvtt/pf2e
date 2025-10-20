@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type * as ItemInstance from "@item";
+import { Size } from "@module/data.ts";
 import type { ITEM_TYPES } from "./values.ts";
 import { EFFECT_AREA_SHAPES } from "./values.ts";
 
@@ -40,4 +41,6 @@ type RangeData = {
 
 type EffectAreaShape = (typeof EFFECT_AREA_SHAPES)[number];
 
-export type { EffectAreaShape, ItemInstances, ItemType, RangeData };
+type ItemSize = Exclude<Size, "sm">;
+
+export type { EffectAreaShape, ItemInstances, ItemSize, ItemType, RangeData };
