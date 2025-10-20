@@ -719,7 +719,13 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "snack"
+                            "snack",
+                            {
+                                "or": [
+                                    "target:condition:grabbed",
+                                    "target:condition:restrained"
+                                ]
+                            }
                         ],
                         "selector": "beak-attack",
                         "type": "circumstance",

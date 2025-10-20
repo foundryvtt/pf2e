@@ -251,7 +251,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A roc gains a +2 circumstance bonus to hit with its beak Strike if the target is grabbed or restrained in its talon.</p>"
+                    "value": "<p>A roc gains a +2 circumstance bonus to hit with its beak Strike if the target is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in its talon.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -268,7 +268,13 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "snack"
+                            "snack",
+                            {
+                                "or": [
+                                    "target:condition:grabbed",
+                                    "target:condition:restrained"
+                                ]
+                            }
                         ],
                         "selector": "beak-attack",
                         "type": "circumstance",

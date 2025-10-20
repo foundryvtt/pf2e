@@ -227,14 +227,19 @@
                     {
                         "domain": "attack-roll",
                         "key": "RollOption",
-                        "label": "The Target is Grabbed or Restrained in the Roc's Talon",
                         "option": "snack",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "snack"
+                            "snack",
+                            {
+                                "or": [
+                                    "target:condition:grabbed",
+                                    "target:condition:restrained"
+                                ]
+                            }
                         ],
                         "selector": "beak-attack",
                         "type": "circumstance",
