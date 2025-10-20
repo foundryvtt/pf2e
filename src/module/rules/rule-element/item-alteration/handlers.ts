@@ -726,6 +726,7 @@ const ITEM_ALTERATION_HANDLERS = {
             const pdObject = R.isPlainObject(data.alteration.value) ? data.alteration.value : { dc: NaN };
             const dc = Math.trunc(Math.abs(Number(pdObject?.dc) || 15));
             data.alteration.value = { ...pdObject, dc };
+            data.alteration = this.clean(data.alteration);
             if (this.isValid(data)) {
                 data.item.system.persistent = this.initialize(data.alteration).value;
             }
