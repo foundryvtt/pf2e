@@ -1,5 +1,4 @@
 import { ActorPF2e } from "@actor";
-import { Modifier } from "@actor/modifiers.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
 import type { MeasuredTemplateType } from "@common/constants.d.mts";
@@ -11,7 +10,7 @@ import { calculateDC } from "@module/dc.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { resolveActorAndItemFromHTML, resolveSheetDocument } from "@scripts/helpers.ts";
 import type { CheckDC } from "@system/degree-of-success.ts";
-import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
+import { CheckDCReference, Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, splitListString, tupleHasValue } from "@util";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
@@ -231,7 +230,6 @@ export class InlineRollLinks {
                 : isSavingThrow
                   ? "target"
                   : "origin";
-            const opposingRole = rollerRole === "target" ? "origin" : "target";
             const targetActor =
                 against && rollerRole === "target"
                     ? rollingActor
@@ -252,31 +250,14 @@ export class InlineRollLinks {
                     ? (itemFromDoc as ItemPF2e<ActorPF2e>)
                     : null;
 
-            const dc = ((): CheckDC | null => {
+            const dc = ((): CheckDC | CheckDCReference | null => {
                 const dcValue = pf2Dc === "@self.level" ? calculateDC(rollingActor.level) : Number(pf2Dc ?? "NaN");
                 const adjustment = Number(pf2Adjustment) || 0;
 
                 if (Number.isInteger(dcValue)) {
                     return { label: pf2Label, value: dcValue + adjustment };
-                } else if (against) {
-                    const defenseStat = opposingActor?.getStatistic(against)?.clone({
-                        modifiers: adjustment
-                            ? [new Modifier({ label: "PF2E.InlineCheck.DCAdjustment", modifier: adjustment })]
-                            : [],
-                        rollOptions: [
-                            item?.isOfType("action", "feat") ? `${opposingRole}:action:slug:${item.slug}` : null,
-                        ].filter(R.isTruthy),
-                    });
-                    if (defenseStat) {
-                        return {
-                            label:
-                                defenseStat.dc.label ??
-                                game.i18n.format("PF2E.InlineCheck.DCWithName", { name: defenseStat.label }),
-                            statistic: defenseStat.dc,
-                            scope: "check",
-                            value: defenseStat.dc.value,
-                        };
-                    }
+                } else if (against && opposingActor) {
+                    return { slug: against, adjustment };
                 }
 
                 return null;
@@ -287,7 +268,7 @@ export class InlineRollLinks {
                 extraRollOptions,
                 origin: originActor,
                 dc,
-                target: dc?.statistic ? targetActor : null,
+                target: dc?.slug ? opposingActor : null,
                 item,
                 traits: abilityTraits,
             };

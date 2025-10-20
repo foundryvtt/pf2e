@@ -559,7 +559,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 viewOnly: params.getFormula ?? false,
                 origin: { actor, statistic: strike, item },
                 target: { token: (params.target ?? game.user.targets.first())?.document ?? null },
-                against: "armor",
+                against: { slug: "armor" },
                 domains,
                 options: new Set([...baseOptions, ...params.options]),
                 traits: actionTraits,

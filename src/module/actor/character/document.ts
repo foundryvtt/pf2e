@@ -1488,7 +1488,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     domains: attackDomains,
                     origin: { actor: this, statistic: action, item: weapon },
                     target: { token: targetToken },
-                    against: "armor",
+                    against: { slug: "armor" },
                     options: new Set([...baseOptions, ...params.options]),
                     viewOnly: params.getFormula,
                     traits: actionTraits,

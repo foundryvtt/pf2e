@@ -461,7 +461,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                         token: targetToken,
                     },
                     domains,
-                    against: args.dc?.slug ?? "ac",
+                    against: args.dc?.slug ? (args.dc as CheckDCReference) : { slug: "ac" },
                     options: optionSet,
                 }).resolve();
             } else if (selfIsTarget) {
@@ -477,7 +477,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                         item: contextItem,
                     },
                     domains,
-                    against: args.dc?.slug ?? null,
+                    against: args.dc?.slug ? (args.dc as CheckDCReference) : null,
                     options: optionSet,
                 }).resolve();
             } else {
@@ -760,6 +760,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
 
 interface CheckDCReference {
     slug: string;
+    adjustment?: number;
     value?: never;
 }
 

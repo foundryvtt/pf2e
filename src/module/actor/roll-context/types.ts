@@ -6,7 +6,7 @@ import type { AbilityTrait } from "@item/ability/types.ts";
 import type { CheckContextChatFlag } from "@module/chat-message/data.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import type { Statistic } from "@system/statistic/statistic.ts";
+import type { CheckDCReference, Statistic } from "@system/statistic/statistic.ts";
 
 interface OpposingActorConstructorData<
     TActor extends ActorPF2e | null = ActorPF2e | null,
@@ -134,7 +134,7 @@ type CheckContextConstructorParams<
     TStatistic extends Statistic | StrikeData = Statistic | StrikeData,
     TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > = RollContextConstructorParams<TSelf, TStatistic, TItem> & {
-    against?: string | null;
+    against?: CheckDCReference | null;
 };
 
 type DamageContextConstructorParams<

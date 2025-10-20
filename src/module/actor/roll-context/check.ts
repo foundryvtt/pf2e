@@ -1,9 +1,10 @@
 import type { ActorPF2e } from "@actor";
 import type { StrikeData } from "@actor/data/base.ts";
 import { calculateRangePenalty } from "@actor/helpers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
 import { CheckDC } from "@system/degree-of-success.ts";
-import type { Statistic } from "@system/statistic/statistic.ts";
+import type { CheckDCReference, Statistic } from "@system/statistic/statistic.ts";
 import { RollContext } from "./base.ts";
 import { CheckContextConstructorParams, CheckContextData } from "./types.ts";
 
@@ -13,7 +14,7 @@ class CheckContext<
     TItem extends ItemPF2e<ActorPF2e> | null,
 > extends RollContext<TSelf, TStatistic, TItem> {
     /** The slug of a `Statistic` for use in building a DC */
-    against: string | null;
+    against: CheckDCReference | null;
 
     constructor(params: CheckContextConstructorParams<TSelf, TStatistic, TItem>) {
         super(params);
@@ -38,8 +39,26 @@ class CheckContext<
             const { domains, against } = this;
             if (!against) return null;
             const scope = domains.includes("attack") ? "attack" : "check";
-            const statistic = opposingActor?.getStatistic(against.replace(/-dc$/, ""))?.dc;
-            return statistic ? { scope, statistic, slug: against, value: statistic.value } : null;
+            let statistic = opposingActor?.getStatistic(against.slug.replace(/-dc$/, ""));
+            if (statistic && against.adjustment) {
+                statistic = statistic.clone({
+                    modifiers: against.adjustment
+                        ? [new Modifier({ label: "PF2E.InlineCheck.DCAdjustment", modifier: against.adjustment })]
+                        : [],
+                });
+            }
+
+            return statistic
+                ? {
+                      label:
+                          statistic.dc.label ??
+                          game.i18n.format("PF2E.InlineCheck.DCWithName", { name: statistic.label }),
+                      scope,
+                      statistic: statistic.dc,
+                      slug: against.slug,
+                      value: statistic.dc.value,
+                  }
+                : null;
         })();
 
         return { ...baseContext, dc: dcData };
