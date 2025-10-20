@@ -17,7 +17,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature crosses the cavern's midpoint (the dotted line on the map)</p>\n<hr />\n<p><strong>Effect</strong> The hazard deals @Damage[9d6[piercing]] damage (@Check[reflex|dc:32|basic] save) to the triggering creature and all other non-fiend creatures within 20 feet. A creature that critically fails the saving throw is confused for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature crosses the cavern's midpoint (the dotted line on the map)</p>\n<hr />\n<p><strong>Effect</strong> The hazard deals @Damage[9d6[piercing]|options:area-damage] damage (@Check[reflex|dc:32|basic|options:area-effect,inflicts:confused] save) to the triggering creature and all other non-fiend creatures within @Template[emanation|distance:20]{20 feet}. A creature that critically fails the saving throw is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -61,7 +61,7 @@
             "disable": "<p>@Check[survival|dc:28|name:Disrupt the Fog] (expert) to disrupt the fog before the hazard triggers or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (5th rank; counteract DC 26) to counteract the magic.</p>",
             "isComplex": false,
             "level": {
-                "value": 9
+                "value": 10
             },
             "publication": {
                 "license": "OGL",
