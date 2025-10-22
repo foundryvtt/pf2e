@@ -925,7 +925,31 @@
                     {
                         "key": "RollOption",
                         "option": "trident-of-dis",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Vordine.TridentOfDis.NoAlly",
+                                "value": "no-ally"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Vordine.TridentOfDis.UnholyAlly",
+                                "value": "unholy-ally"
+                            }
+                        ],
                         "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:trident",
+                            "trident-of-dis",
+                            {
+                                "not": "item:ranged"
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "reach-10"
                     },
                     {
                         "damageType": "spirit",
@@ -933,7 +957,7 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "trident-of-dis"
+                            "trident-of-dis:unholy-ally"
                         ],
                         "selector": "trident-damage"
                     }
