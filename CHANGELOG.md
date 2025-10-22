@@ -1,3 +1,36 @@
+## 7.6.4
+
+### Enhancements
+
+- (Supe) Normalize item prices to gp (sf2e will normalize to credits in the future)
+
+### Bugfixes
+
+- (Supe) Fix dropping actors to parties from compendium
+- (Supe) Fix player drag drop to their own items
+- (Supe) Fix solarian crystals when using sf2e anachronism
+- (Supe) Prevent errors when granting flat persistent damage (such as with Flames Oracle)
+
+### Data Updates
+
+- (Ambrose) Add Anointed Ground to Remaster journal spells page
+- (Ambrose) Add automation to Mythic Skill ability and add mythic resistance to missing actors
+- (Ambrose) Add You Can't Kill an Idea feat to Broken Chain Mythic Destiny journal page
+- (Ambrose) Clean up text on Avenging Runelord Mythic Destiny and add Martial Proficiency automation
+- (Ambrose) Correct embed link in Summoner class journal
+- (Ambrose) Separate Guarded Advance feat into Guardian and Archetype version
+- (Dire Weasel) Add automation for Bone Gladiator's "Loose Bones"
+- (Dire Weasel) Brush up Meokdan, Roc's "Snack", Trident of Dis abilities
+- (Dire Weasel) Fix action type and cost of Oracle of Zagresh's "Destructive Touch"
+- (Dire Weasel) Fix level of Daemonic Fog, various inline roll options, and several NPC ItemAlterations
+- (Dire Weasel) Update "Effect: Spin Tale" to use TokenMark and Digly's Oil of Sympathy inline rolls to use @Damage
+- (rectulo) Fix label on the effect of Runelord Researcher
+- (Rigo) Correct Detect Magic spell link in Nagaji Spell Familiarity
+- (Rigo) Increase emanation area of heightened Sepulchral Mask spell
+- (Rigo) Match deity favored weapon proficiency rank with martial weapons on Vindicator
+- (Trent) Fix forced movement and prone roll options
+- (websterguy) Clean up background lores
+
 ## 7.6.3
 
 ### Bugfixes
