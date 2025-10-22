@@ -212,21 +212,35 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
     }
 
     protected override async _handleDroppedEntry(target: HTMLElement, data: ActorSidebarDropData): Promise<void> {
-        await super._handleDroppedEntry(target, data);
+        if (!data.uuid) return super._handleDroppedEntry(target, data);
 
-        // Handle dragging members to and from parties (if relevant)
         const toPartyId = htmlClosest(target, "[data-party]")?.dataset.entryId;
+        const toParty = game.actors.get(toPartyId ?? "");
+        const droppedEntry = await this._getDroppedEntryFromData(data);
+
+        // If this is a entry we have to create in a party, then create it here without going upstream
+        if (
+            toParty?.isOfType("party") &&
+            !this._entryAlreadyExists(droppedEntry) &&
+            droppedEntry.isOfType("creature")
+        ) {
+            const entry = await ActorPF2e.create(droppedEntry.toObject(), { render: false });
+            await toParty.addMembers(entry as CreaturePF2e);
+            return;
+        }
+
+        // Handle dragging members from parties (if relevant)
         if (toPartyId !== data.fromParty && data.uuid) {
-            const toParty = game.actors.get(toPartyId ?? "");
             const fromParty = game.actors.get(data.fromParty ?? "");
-            const actor = fromUuidSync(data.uuid);
-            if (fromParty instanceof PartyPF2e) {
+            if (fromParty?.isOfType("party")) {
                 await fromParty.removeMembers(data.uuid as ActorUUID);
             }
-            if (toParty instanceof PartyPF2e && actor instanceof CreaturePF2e) {
-                await toParty.addMembers(actor);
+            if (toParty?.isOfType("party") && droppedEntry.isOfType("creature")) {
+                await toParty.addMembers(droppedEntry);
             }
         }
+
+        await super._handleDroppedEntry(target, data);
     }
 
     /** Overriden to not fire folder events on party actors */
