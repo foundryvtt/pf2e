@@ -23,7 +23,7 @@
 - (Dire Weasel) Brush up Meokdan, Roc's "Snack", Trident of Dis abilities
 - (Dire Weasel) Fix action type and cost of Oracle of Zagresh's "Destructive Touch"
 - (Dire Weasel) Fix level of Daemonic Fog, various inline roll options, and several NPC ItemAlterations
-- (Dire Weasel) Update "Effect: Spin Tale" to use TokenMark and Digly's Oil of Sympathy inline rolls to use @Damage
+- (Dire Weasel) Update "Effect: Spin Tale" to use TokenMark and Digly's Oil of Sympathy inline rolls to use `@Damage`
 - (rectulo) Fix label on the effect of Runelord Researcher
 - (Rigo) Correct Detect Magic spell link in Nagaji Spell Familiarity
 - (Rigo) Increase emanation area of heightened Sepulchral Mask spell
