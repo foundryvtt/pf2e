@@ -115,7 +115,7 @@ class CreatureSizeRuleElement extends RuleElement<CreatureSizeRuleSchema> {
             return;
         }
 
-        const { reach } = actor.system.attributes;
+        const reach = actor.system.attributes.reach;
         reach.base = this.#getReach(originalSize);
         reach.manipulate = Math.max(reach.manipulate, reach.base);
 
@@ -139,15 +139,13 @@ class CreatureSizeRuleElement extends RuleElement<CreatureSizeRuleSchema> {
         const current = this.actor.attributes.reach.base;
 
         if (this.reach) {
-            const changeValue = ((): number => {
-                const resolved = this.resolveValue(this.reach.add ?? this.reach.upgrade ?? this.reach.override);
-                return Math.trunc(Math.abs(Number(resolved)));
-            })();
-
-            if (this.ignored || !Number.isInteger(changeValue)) return current;
-            if (!R.isNullish(this.reach.add)) return current + changeValue;
+            const changeValue = Math.trunc(
+                Number(this.resolveValue(this.reach.add ?? this.reach.upgrade ?? this.reach.override)),
+            );
+            if (this.ignored || !Number.isFinite(changeValue)) return current;
+            if (!R.isNullish(this.reach.add)) return Math.max(0, current + changeValue);
             if (!R.isNullish(this.reach.upgrade)) return Math.max(current, changeValue);
-            if (!R.isNullish(this.reach.override)) return changeValue;
+            if (!R.isNullish(this.reach.override)) return Math.max(0, changeValue);
         }
 
         const newSize = this.actor.system.traits.size;
