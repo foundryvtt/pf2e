@@ -304,7 +304,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 grant.onDelete ??= "detach";
             }
         }
-        this.grantedBy = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
+        const actor = this.actor;
+        const grantedById = this.flags.pf2e.grantedBy?.id;
+        this.grantedBy = grantedById
+            ? (actor?.items.get(grantedById) ?? actor?.conditions.get(grantedById) ?? null)
+            : null;
     }
 
     prepareRuleElements(options: Omit<RuleElementOptions, "parent"> = {}): RuleElement[] {

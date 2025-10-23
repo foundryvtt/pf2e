@@ -134,18 +134,23 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
 
 function imposeEncumberedCondition(actor: CreaturePF2e): void {
     if (!game.pf2e.settings.encumbrance) return;
-    if (actor.inventory.bulk.isEncumbered && actor.conditions.bySlug("encumbered").length === 0) {
-        const source = game.pf2e.ConditionManager.getCondition("encumbered").toObject();
-        const encumbered = new ConditionPF2e(fu.mergeObject(source, { _id: "xxxENCUMBEREDxxx" }), {
-            parent: actor,
-        }) as ConditionPF2e<CreaturePF2e>;
-        actor.conditions.set(encumbered.id, encumbered);
-        encumbered.prepareSiblingData();
-        encumbered.prepareActorData();
-        for (const rule of encumbered.prepareRuleElements()) {
-            rule.onApplyActiveEffects?.();
-            rule.beforePrepareData?.();
-        }
+    if (!actor.inventory.bulk.isEncumbered || actor.conditions.bySlug("encumbered").length > 0) return;
+    const source = game.pf2e.ConditionManager.getCondition("encumbered").toObject();
+    const encumbered = new ConditionPF2e(Object.assign(source, { _id: "xxxENCUMBEREDxxx" }), {
+        parent: actor,
+    }) as ConditionPF2e<CreaturePF2e>;
+    actor.conditions.set(encumbered.id, encumbered);
+    encumbered.prepareSiblingData();
+    encumbered.prepareActorData();
+    for (const rule of encumbered.prepareRuleElements()) {
+        rule.onApplyActiveEffects?.();
+        rule.beforePrepareData?.();
+    }
+
+    /** @fixme This needs to be done in a less hacky way */
+    const clumsy = actor.conditions.bySlug("clumsy").find((c) => c.active && c.grantedBy === encumbered);
+    for (const rule of clumsy?.rules ?? []) {
+        rule.beforePrepareData?.();
     }
 }
 
