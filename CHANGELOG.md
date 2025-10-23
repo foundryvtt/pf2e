@@ -2,10 +2,12 @@
 
 ### Enhancements
 
-- (Supe) Normalize item prices to gp (sf2e will normalize to credits in the future)
+- (Supe) Prefer displaying item prices in gp if at least one gp (e.g. "15sp" -> "1 gp, 5 sp")
 
 ### Bugfixes
 
+- (stwlam) Fix application of Clumsy condition from auto-applied Encumbered
+- (stwlam) Set token distance label to be initially hidden
 - (Supe) Fix dropping actors to parties from compendium
 - (Supe) Fix player drag drop to their own items
 - (Supe) Fix solarian crystals when using sf2e anachronism
@@ -13,6 +15,7 @@
 
 ### Data Updates
 
+- (Abaddon) Add glitterspore tremorsense
 - (Ambrose) Add Anointed Ground to Remaster journal spells page
 - (Ambrose) Add automation to Mythic Skill ability and add mythic resistance to missing actors
 - (Ambrose) Add You Can't Kill an Idea feat to Broken Chain Mythic Destiny journal page
@@ -28,8 +31,13 @@
 - (Rigo) Correct Detect Magic spell link in Nagaji Spell Familiarity
 - (Rigo) Increase emanation area of heightened Sepulchral Mask spell
 - (Rigo) Match deity favored weapon proficiency rank with martial weapons on Vindicator
+- (Tikael) Automate Battle Planner skill feat
 - (Trent) Fix forced movement and prone roll options
 - (websterguy) Clean up background lores
+
+### Under the Hood
+
+- (stwlam) Don't apply absolute value on resolved reach value in CreatureSize RE
 
 ## 7.6.3
 
