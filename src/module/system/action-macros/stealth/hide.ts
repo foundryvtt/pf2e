@@ -32,7 +32,6 @@ const action = new SingleCheckAction({
     img: "systems/pf2e/icons/conditions/hidden.webp",
     name: `${PREFIX}.Title`,
     notes: [{ outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` }],
-    rollOptions: ["action:hide"],
     section: "skill",
     slug: "hide",
     statistic: "stealth",

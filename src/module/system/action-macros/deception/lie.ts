@@ -35,7 +35,6 @@ const action = new SingleCheckAction({
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
         { outcome: ["failure", "criticalFailure"], text: `${PREFIX}.Notes.failure` },
     ],
-    rollOptions: ["action:lie"],
     section: "skill",
     slug: "lie",
     statistic: "deception",

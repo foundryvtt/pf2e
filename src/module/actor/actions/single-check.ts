@@ -38,6 +38,8 @@ interface SingleCheckActionVariantData extends BaseActionVariantData {
     difficultyClass?: CheckDC | DCSlug;
     modifiers?: RawModifier[];
     notes?: SingleCheckActionRollNoteData[];
+
+    /** Additional roll options beyond the base action's and `action:${actionSlug}:${variantSlug}` */
     rollOptions?: string[];
     statistic?: string | string[];
 }
@@ -46,6 +48,8 @@ interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantD
     difficultyClass?: CheckDC | DCSlug;
     modifiers?: RawModifier[];
     notes?: SingleCheckActionRollNoteData[];
+
+    /** Additional roll options beyond `action:${slug}`, which is implicit */
     rollOptions?: string[];
     statistic: string | string[];
 }
@@ -88,8 +92,10 @@ class SingleCheckActionVariant extends BaseActionVariant {
             this.#difficultyClass = data.difficultyClass;
             this.#modifiers = data?.modifiers;
             this.#notes = data.notes ? data.notes.map(toRollNoteSource) : undefined;
-            this.#rollOptions = data.rollOptions;
             this.#statistic = data.statistic;
+            this.#rollOptions = data.slug
+                ? [`action:${action.slug}:${data.slug.trim()}`, ...(data.rollOptions ?? [])]
+                : data.rollOptions;
         }
     }
 
@@ -106,7 +112,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
     }
 
     get rollOptions(): string[] {
-        return this.#rollOptions ?? this.#action.rollOptions;
+        return this.#rollOptions ? [...this.#action.rollOptions, ...this.#rollOptions] : this.#action.rollOptions;
     }
 
     get statistic(): string | string[] {
@@ -222,7 +228,7 @@ class SingleCheckAction extends BaseAction<SingleCheckActionVariantData, SingleC
         this.difficultyClass = data.difficultyClass;
         this.modifiers = data.modifiers ?? [];
         this.notes = (data.notes ?? []).map(toRollNoteSource);
-        this.rollOptions = data.rollOptions ?? [];
+        this.rollOptions = [`action:${this.slug}`, ...(data.rollOptions ?? [])];
         this.statistic = data.statistic;
     }
 

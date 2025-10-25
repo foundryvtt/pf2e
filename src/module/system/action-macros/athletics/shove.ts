@@ -71,7 +71,7 @@ class ShoveAction extends SingleCheckAction {
                 { outcome: ["success"], text: `${PREFIX}.Notes.success` },
                 { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
             ],
-            rollOptions: ["action:shove", "forced-movement"],
+            rollOptions: ["forced-movement"],
             section: "skill",
             slug: "shove",
             statistic: "athletics",

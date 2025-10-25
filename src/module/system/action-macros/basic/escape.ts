@@ -179,7 +179,6 @@ class EscapeAction extends SingleCheckAction {
                 { outcome: ["success"], text: "PF2E.Actions.Escape.Notes.success" },
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.Escape.Notes.criticalFailure" },
             ],
-            rollOptions: ["action:escape"],
             section: "basic",
             slug: "escape",
             statistic: ["unarmed", "acrobatics", "athletics"],

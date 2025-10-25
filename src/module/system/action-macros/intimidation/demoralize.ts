@@ -50,7 +50,6 @@ const action = new SingleCheckAction({
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.Demoralize.Notes.criticalSuccess" },
         { outcome: ["success"], text: "PF2E.Actions.Demoralize.Notes.success" },
     ],
-    rollOptions: ["action:demoralize"],
     section: "skill",
     slug: "demoralize",
     statistic: "intimidation",

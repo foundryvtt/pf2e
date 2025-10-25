@@ -97,7 +97,7 @@ class TripAction extends SingleCheckAction {
                 { outcome: ["success"], text: "PF2E.Actions.Trip.Notes.success" },
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.Trip.Notes.criticalFailure" },
             ],
-            rollOptions: ["action:trip", "inflicts:prone"],
+            rollOptions: ["inflicts:prone"],
             section: "skill",
             slug: "trip",
             statistic: "athletics",

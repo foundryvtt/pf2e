@@ -71,7 +71,6 @@ class DisarmAction extends SingleCheckAction {
                 { outcome: ["success"], text: `${PREFIX}.Notes.success` },
                 { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
             ],
-            rollOptions: ["action:disarm"],
             section: "skill",
             slug: "disarm",
             statistic: "athletics",

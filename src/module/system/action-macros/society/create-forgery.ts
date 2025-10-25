@@ -152,7 +152,6 @@ class CreateForgeryAction extends SingleCheckAction {
                 { outcome: ["failure"], text: "PF2E.Actions.CreateForgery.Notes.failure" },
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.CreateForgery.Notes.criticalFailure" },
             ],
-            rollOptions: ["action:create-forgery"],
             section: "skill",
             slug: "create-forgery",
             statistic: "society",

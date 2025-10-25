@@ -33,7 +33,6 @@ const action = new SingleCheckAction({
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.Seek.Notes.criticalSuccess" },
         { outcome: ["success"], text: "PF2E.Actions.Seek.Notes.success" },
     ],
-    rollOptions: ["action:seek"],
     section: "basic",
     slug: "seek",
     statistic: "perception",

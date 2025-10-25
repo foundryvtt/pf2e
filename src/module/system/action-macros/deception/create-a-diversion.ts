@@ -74,19 +74,16 @@ const action = new SingleCheckAction({
     variants: [
         {
             name: `${PREFIX}.DistractingWords.Title`,
-            rollOptions: ["action:create-a-diversion", "action:create-a-diversion:distracting-words"],
             slug: "distracting-words",
             traits: ["auditory", "linguistic", "mental"],
         },
         {
             name: `${PREFIX}.Gesture.Title`,
-            rollOptions: ["action:create-a-diversion", "action:create-a-diversion:gesture"],
             slug: "gesture",
             traits: ["manipulate", "mental"],
         },
         {
             name: `${PREFIX}.Trick.Title`,
-            rollOptions: ["action:create-a-diversion", "action:create-a-diversion:trick"],
             slug: "trick",
             traits: ["manipulate", "mental"],
         },

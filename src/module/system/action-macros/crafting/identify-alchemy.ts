@@ -10,7 +10,6 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:identify-alchemy"],
     section: "skill",
     slug: "identify-alchemy",
     statistic: "crafting",
