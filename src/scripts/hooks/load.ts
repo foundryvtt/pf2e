@@ -19,6 +19,7 @@ import { FeatSystemData } from "@item/feat/data.ts";
 import { HeritageSystemData } from "@item/heritage/data.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
+import { TreasureSystemData } from "@item/treasure/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
 import { DoorControlPF2e } from "@module/canvas/door-control.ts";
@@ -130,6 +131,7 @@ export class Load {
         CONFIG.Item.dataModels.heritage = HeritageSystemData;
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
+        CONFIG.Item.dataModels.treasure = TreasureSystemData;
 
         // Assign canvas-related classes
         CONFIG.Canvas.doorControlClass = DoorControlPF2e;

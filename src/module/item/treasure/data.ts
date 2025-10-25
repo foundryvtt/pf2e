@@ -212,4 +212,5 @@ interface TreasureEquippedData extends EquippedData {
     invested?: never;
 }
 
-export type { TreasureSource, TreasureSystemData, TreasureSystemSource };
+export { TreasureSystemData };
+export type { TreasureSource, TreasureSystemSource };
