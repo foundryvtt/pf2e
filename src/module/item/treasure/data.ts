@@ -35,6 +35,7 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
                     nullable: false,
                     min: 0,
                     max: 1000,
+                    initial: 0.1,
                     validate: (v) => typeof v === "number" && (v === 0.1 || Number.isInteger(v)),
                 }),
             }),
@@ -106,7 +107,11 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
                 positive: true,
                 initial: 1,
             }),
-            size: new fields.StringField({ required: true, choices: ["tiny", "med", "lg", "huge", "grg"] }),
+            size: new fields.StringField({
+                required: true,
+                choices: ["tiny", "med", "lg", "huge", "grg"],
+                initial: "med",
+            }),
             stackGroup: new fields.StringField({ required: true, nullable: true, choices: ["coins", "gems"] }),
             temporary: new fields.BooleanField({ required: false }),
             traits: new fields.SchemaField({
