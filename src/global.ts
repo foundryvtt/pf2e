@@ -360,6 +360,7 @@ declare global {
         }
     }
 
+    const SYSTEM_ID: "pf2e" | "sf2e";
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;

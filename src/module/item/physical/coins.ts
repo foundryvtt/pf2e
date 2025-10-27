@@ -3,9 +3,6 @@ import type { PartialPrice, RawCoins } from "./data.ts";
 import type { CoinDenomination } from "./types.ts";
 import { DENOMINATIONS } from "./values.ts";
 
-// TEMPORARY test flag to get the current system. Replace with getting the current system id once separate builds are implemented
-const CURRENT_SYSTEM: "pf2e" | "sf2e" = "pf2e";
-
 /** Coins class that exposes methods to perform operations on coins without side effects */
 class Coins implements RawCoins {
     declare cp: number;
@@ -103,7 +100,7 @@ class Coins implements RawCoins {
     /** Parses a price string such as "5 gp" and returns a new CoinsPF2e object */
     static fromString(coinString: string, quantity = 1): Coins {
         if (/^\s*\d+\s*$/.test(coinString)) {
-            const denomination = CURRENT_SYSTEM === "pf2e" ? "gp" : "sp";
+            const denomination = SYSTEM_ID === "pf2e" ? "gp" : "sp";
             coinString = `${coinString.trim()} ${denomination}`;
         }
 
@@ -135,7 +132,7 @@ class Coins implements RawCoins {
 
     /** Creates a new price string such as "5 gp" from this object */
     toString({ short = false, defaultDenomination = "gp", normalize = true }: CoinStringParams = {}): string {
-        if (CURRENT_SYSTEM === "sf2e") {
+        if (SYSTEM_ID === "sf2e") {
             const value = Math.ceil(this.copperValue / 10);
             return short ? String(value) : `${value} ${game.i18n.localize("PF2E.CurrencyAbbreviations.credits")}`;
         }

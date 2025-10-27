@@ -16,8 +16,12 @@ aside {
     grid-area: sidebar;
     margin-left: 8px; // ignore font-size setting
 
-    img.logo {
+    .logo {
+        background: var(--logo) no-repeat;
+        background-size: contain;
+        margin: var(--space-5) calc(-1 * var(--space-6)) 0 calc(-1 * var(--space-6));
         width: calc(14rem + var(--space-10));
+        height: 53px;
     }
 
     input[type="number"],
@@ -48,13 +52,6 @@ aside {
         max-width: 100%;
         padding: var(--space-2) var(--space-6);
         width: 100%;
-    }
-
-    .logo {
-        border: none;
-        flex-shrink: 0;
-        margin: var(--space-5) calc(-1 * var(--space-6)) 0 calc(-1 * var(--space-6));
-        max-width: unset;
     }
 
     .sidebar {
@@ -249,9 +246,9 @@ aside {
                         background-color: var(--color-pf-primary);
                         background-image: linear-gradient(
                             90deg,
-                            color.adjust($primary-color, $lightness: -5%) 0%,
-                            color.adjust($primary-color, $lightness: 8%) 50%,
-                            color.adjust($primary-color, $lightness: -5%) 100%
+                            var(--color-pf-primary-dark) 0%,
+                            var(--color-pf-primary-light) 50%,
+                            var(--color-pf-primary-dark) 100%
                         );
                         border: 1px solid var(--sidebar-title);
                         border-radius: 0 0 4px 4px;

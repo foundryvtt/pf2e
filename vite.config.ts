@@ -15,6 +15,7 @@ import packageJSON from "./package.json" with { type: "json" };
 import { sluggify } from "./src/util/misc.ts";
 import systemJSON from "./static/system.json" with { type: "json" };
 
+const SYSTEM_ID = "pf2e" as "pf2e" | "sf2e";
 const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync("npm run build:conditions", { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
@@ -184,6 +185,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         base: command === "build" ? "./" : "/systems/pf2e/",
         publicDir: "static",
         define: {
+            SYSTEM_ID: JSON.stringify(SYSTEM_ID),
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
@@ -244,7 +246,16 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             },
         },
         plugins,
-        css: { devSourcemap: buildMode === "development" },
+        css: {
+            devSourcemap: buildMode === "development",
+            preprocessorOptions: {
+                scss: {
+                    additionalData: (existing: string) => {
+                        return SYSTEM_ID === "sf2e" ? `${existing}\n@import "sf2e/index";` : existing;
+                    },
+                },
+            },
+        },
     };
 });
 

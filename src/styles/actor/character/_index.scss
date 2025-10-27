@@ -1,10 +1,28 @@
 // TODO: copy the rest of the "crb" style to here and vehicle
 .actor.sheet.character section.window-content .crb-style {
     --font-primary: var(--body-serif);
+    --logo: url("/assets/pathfinder_logo.webp");
 
     @import "proficiency-ranks";
     @import "sidebar";
     @import "header";
+
+    display: grid;
+    grid:
+        "sidebar header" 4.625rem
+        "sidebar nav" minmax(min-content, max-content)
+        "sidebar content" 1fr
+        / 14.375rem 1fr;
+
+    font-family: var(--body-serif);
+
+    background: url("/assets/sheet/header.webp"), url("/assets/sheet/background.webp");
+    background-repeat: repeat-x, no-repeat;
+    background-size:
+        auto 5.625rem,
+        cover;
+    background-attachment: local;
+    height: 100%;
 
     nav.sheet-navigation {
         .item {
