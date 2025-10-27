@@ -1,6 +1,6 @@
 import { Coins } from "@item/physical/helpers.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { localizer, sluggify } from "@util";
+import { sluggify } from "@util";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
@@ -28,8 +28,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         "rarity",
         "source",
     ];
-
-    #localizeCoins = localizer("PF2E.CurrencyAbbreviations");
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -204,21 +202,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
     override parseRangeFilterInput(name: string, lower: string, upper: string): RangesInputData["values"] {
         if (name === "price") {
-            const coins = {
-                cp: this.#localizeCoins("cp"),
-                sp: this.#localizeCoins("sp"),
-                gp: this.#localizeCoins("gp"),
-                pp: this.#localizeCoins("pp"),
-            };
-            for (const [english, translated] of Object.entries(coins)) {
-                lower = lower.replaceAll(translated, english);
-                upper = upper.replaceAll(translated, english);
-            }
+            const minCoins = Coins.fromString(lower);
+            const maxCoins = Coins.fromString(upper);
             return {
-                min: Coins.fromString(lower).copperValue,
-                max: Coins.fromString(upper).copperValue,
-                inputMin: lower,
-                inputMax: upper,
+                min: minCoins.copperValue,
+                max: maxCoins.copperValue,
+                inputMin: minCoins.toString({ short: true, defaultDenomination: "cp", normalize: false }),
+                inputMax: maxCoins.toString({ short: true, normalize: false }),
             };
         }
 
@@ -226,6 +216,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     }
 
     protected override prepareFilterData(): EquipmentFilters {
+        const defaultMinPrice = new Coins({ cp: 0 });
+        const defaultMaxPrice = new Coins({ gp: 200000 });
+        const minPriceString = defaultMinPrice.toString({ short: true, defaultDenomination: "cp", normalize: false });
+        const maxPriceString = defaultMaxPrice.toString({ short: true, normalize: false });
+
         return {
             checkboxes: {
                 itemTypes: {
@@ -277,15 +272,15 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             ranges: {
                 price: {
                     changed: false,
-                    defaultMin: `0${this.#localizeCoins("cp")}`,
-                    defaultMax: `200,000${this.#localizeCoins("gp")}`,
+                    defaultMin: minPriceString,
+                    defaultMax: maxPriceString,
                     isExpanded: false,
                     label: "PF2E.PriceLabel",
                     values: {
-                        min: 0,
-                        max: 20_000_000,
-                        inputMin: `0${this.#localizeCoins("cp")}`,
-                        inputMax: `200,000${this.#localizeCoins("gp")}`,
+                        min: defaultMinPrice.copperValue,
+                        max: defaultMaxPrice.copperValue,
+                        inputMin: minPriceString,
+                        inputMax: maxPriceString,
                     },
                 },
             },
