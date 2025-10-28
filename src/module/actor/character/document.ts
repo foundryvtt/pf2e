@@ -1153,9 +1153,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const isAutomatic = weapon.system.traits.value.includes("automatic");
         const action = isAutomatic ? "auto-fire" : "area-fire";
 
-        const classDC = actor.getStatistic("class");
-        if (!classDC) throw ErrorPF2e("Statistic is required for actors without a class dc");
-
+        const classDC =
+            actor.getStatistic("class") ??
+            new Statistic(this, { slug: "class", label: "PF2E.Actor.Character.ClassDC.Label" });
         const tracking = weapon.system.traits.config?.tracking;
         const domains = ["all", `${action}-save`];
         const statistic = classDC.extend({
