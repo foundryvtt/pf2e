@@ -44,6 +44,43 @@
             "type": "spellcastingEntry"
         },
         {
+            "_id": "WHcrbPPmC96tjl0w",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Focus Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "BvdfIvDQwWd4EOFO",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
@@ -51,7 +88,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -124,7 +161,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate (At Will)",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -197,7 +234,7 @@
             "folder": "6JF73zNhT8zbp1qC",
             "img": "systems/pf2e/icons/spells/infernal-pact.webp",
             "name": "Diabolic Pact",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -256,13 +293,133 @@
             "type": "spell"
         },
         {
+            "_id": "L7z0810ey8nlSwJL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.jFmWSIpJGGebim6y"
+            },
+            "folder": "wnvibtD90h7CStDC",
+            "img": "systems/pf2e/icons/spells/touch-of-corruption.webp",
+            "name": "Touch of the Void",
+            "sort": 600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You infuse the target with void energy, healing undead or damaging a living creature.</p><ul><li><strong>Willing Undead Creature</strong> The target regains 6 Hit Points. If the target is yourself, you also gain a +2 status bonus to damage rolls for 1 round.</li><li><p><strong>Living Creature</strong> The target takes 1d6 void damage with a basic Fortitude save; on a failure, the target also takes a –2 status penalty to AC for 1 round.</p></li></ul><p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of the Void]</p><hr /><p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to a living target increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "WHcrbPPmC96tjl0w"
+                },
+                "overlays": {
+                    "2a6Vm4mIjBgrzlO2": {
+                        "name": "Touch of the Void (Vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "Esn7klJ9WRsIFnrE": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "void"
+                                }
+                            },
+                            "defense": {
+                                "save": {
+                                    "basic": true,
+                                    "statistic": "fortitude"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "Esn7klJ9WRsIFnrE": "1d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "gHIOzknAtexc6GUE": {
+                        "name": "Touch of the Void (Healing)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "cM137DAlBX1LcWAX": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "6",
+                                    "kinds": [
+                                        "healing"
+                                    ],
+                                    "materials": [],
+                                    "type": "untyped"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "cM137DAlBX1LcWAX": "6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "touch-of-the-void",
+                "target": {
+                    "value": "1 willing undead creature or 1 living creature"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "champion",
+                        "focus",
+                        "manipulate",
+                        "void"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
             "_id": "aA1Pt1vmD2n0trhU",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9"
             },
             "img": "systems/pf2e/icons/equipment/weapons/trident.webp",
             "name": "Trident",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "baseItem": "trident",
                 "bonus": {
@@ -352,7 +509,7 @@
             },
             "img": "systems/pf2e/icons/equipment/shields/steel-shield.webp",
             "name": "Steel Shield",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "acBonus": 2,
                 "baseItem": "steel-shield",
@@ -413,7 +570,7 @@
             },
             "img": "icons/equipment/chest/breastplate-collared-steel.webp",
             "name": "Breastplate",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "acBonus": 4,
                 "baseItem": "breastplate",
@@ -458,9 +615,9 @@
                 "quantity": 1,
                 "rules": [],
                 "runes": {
-                    "potency": 0,
+                    "potency": 1,
                     "property": [],
-                    "resilient": 0
+                    "resilient": 1
                 },
                 "size": "med",
                 "slug": "breastplate",
@@ -480,7 +637,7 @@
             },
             "img": "icons/equipment/neck/amulet-round-engraved-spiral-gold.webp",
             "name": "Charm of Cold Resistance",
-            "sort": 800000,
+            "sort": 1000000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -577,7 +734,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Returning Unholy Trident",
-            "sort": 900000,
+            "sort": 1100000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -621,7 +778,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Returning Unholy Trident",
-            "sort": 1000000,
+            "sort": 1200000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -650,7 +807,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "thrown-60"
+                        "thrown-60",
+                        "unholy"
                     ]
                 }
             },
@@ -660,7 +818,7 @@
             "_id": "TVLTSMr5ZBcGgKjJ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hoof",
-            "sort": 1100000,
+            "sort": 1300000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -671,13 +829,13 @@
                     "value": 21
                 },
                 "damageRolls": {
-                    "J4FEvwxobLKSNfqm": {
-                        "damage": "1d8",
-                        "damageType": "fire"
-                    },
                     "JzFdNjzCNdp8Kjgq": {
                         "damage": "1d8+9",
                         "damageType": "bludgeoning"
+                    },
+                    "mhkgL84P8ihpVAXy": {
+                        "damage": "1d8",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -707,7 +865,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1200000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -746,7 +904,7 @@
             "_id": "eFSn04VHXskAZuk0",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Infernal Command",
-            "sort": 1300000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -775,7 +933,7 @@
             "_id": "km7leU6HupTrnw62",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Mounted Force",
-            "sort": 1400000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -807,7 +965,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Strike",
-            "sort": 1500000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -839,7 +997,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Shield Block",
-            "sort": 1600000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -868,7 +1026,7 @@
             "_id": "coNa4wAvlNgz8Q2l",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Burning Hoofprints",
-            "sort": 1700000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -901,7 +1059,7 @@
             "_id": "FPs9Bi34nso7qlCA",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Trident of Dis",
-            "sort": 1800000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -970,7 +1128,7 @@
             "_id": "qvOjS82LRQAcCMUx",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
-            "sort": 1900000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1101,7 +1259,12 @@
                 }
             ]
         },
-        "resources": {},
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
                 "saveDetail": "",
