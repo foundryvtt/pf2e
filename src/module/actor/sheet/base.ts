@@ -1276,6 +1276,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         const containerId = htmlClosest(event.target, "[data-is-container]")?.dataset.itemId?.trim();
         const stackable = !!recipient.inventory.findStackableItem(item._source, { containerId });
         const mode = sourceActor.isOfType("loot") && sourceActor.isMerchant ? "purchase" : "move";
+        if (mode === "purchase" && item.isOfType("backpack") && item.contents.size) {
+            ui.notifications.error("PF2E.ErrorMessage.CantPurchaseContainerWithItems", { localize: true });
+            return;
+        }
 
         // If more than one item can be moved, show a popup to ask how many to move
         const result = await ItemTransferDialog.wait({ item, recipient, lockStack: !stackable, mode });

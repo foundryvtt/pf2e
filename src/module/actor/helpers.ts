@@ -1018,28 +1018,37 @@ function createActorGroupUpdate(data: Partial<ActorGroupUpdate> = {}): ActorGrou
 async function applyActorGroupUpdate(
     actor: ActorPF2e,
     data: Partial<ActorGroupUpdate>,
-    { render = true }: { render?: boolean } = {},
+    { render = true, keepId }: { render?: boolean; keepId?: boolean } = {},
 ): Promise<void> {
     const actorUpdates = data.actorUpdates && !R.isEmpty(data.actorUpdates) ? data.actorUpdates : null;
     const itemCreates = data.itemCreates ?? [];
     const itemUpdates = data.itemUpdates ?? [];
     const itemDeletes = data.itemDeletes ?? [];
 
+    // Determine which one is last so that we cause the re-render then
+    // If we manually re-render, other users will fail to re-render
+    const lastRender = !render
+        ? null
+        : itemDeletes.length
+          ? "delete"
+          : itemUpdates.length
+            ? "update"
+            : itemCreates.length
+              ? "create"
+              : "actorUpdate";
+
     if (actorUpdates) {
-        await actor.update(actorUpdates, { render: false });
+        await actor.update(actorUpdates, { render: lastRender === "actorUpdate" });
     }
     if (itemCreates.length > 0) {
-        await actor.createEmbeddedDocuments("Item", itemCreates, { render: false });
+        await actor.createEmbeddedDocuments("Item", itemCreates, { render: lastRender === "create", keepId });
     }
     if (itemUpdates.length > 0) {
-        await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
+        await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: lastRender === "update" });
     }
     if (itemDeletes.length > 0) {
-        await actor.deleteEmbeddedDocuments("Item", itemDeletes, { render: false });
+        await actor.deleteEmbeddedDocuments("Item", itemDeletes, { render: lastRender === "delete" });
     }
-
-    const changed = !!actorUpdates || itemCreates.length || itemUpdates.length || itemDeletes.length;
-    if (changed && render) actor.render();
 }
 
 export {
