@@ -676,8 +676,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 .filter(
                     // Omitted traits include ...
                     (t) =>
-                        // Creature traits (unless coming from a Strike RE)
-                        (["holy", "unholy"].includes(t) || !!this.rule || !(t in CONFIG.PF2E.creatureTraits)) &&
+                        // Creature traits (unless coming from a Strike RE or certain exceptions)
+                        (["holy", "unholy", "tech"].includes(t) || !!this.rule || !(t in CONFIG.PF2E.creatureTraits)) &&
                         // Thrown(-N) trait on melee attacks with thrown melee weapons
                         !(t.startsWith("thrown") && !this.isThrown) &&
                         // Finesse trait on thrown attacks with thrown melee weapons
