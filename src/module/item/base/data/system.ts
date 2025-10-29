@@ -3,6 +3,7 @@ import type * as fields from "@common/data/fields.d.mts";
 import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
+import type { DamageType } from "@system/damage/index.ts";
 import type { Predicate } from "@system/predication.ts";
 import type { ItemTrait } from "../types.ts";
 
@@ -21,10 +22,13 @@ interface ActionCost {
 }
 
 interface TraitConfig {
-    volley?: number;
-    tracking?: number;
-    resilient?: number;
     area?: { type: EffectAreaShape; value: number | null };
+    deadly?: string;
+    fatal?: string;
+    resilient?: number;
+    tracking?: number;
+    versatile?: DamageType[];
+    volley?: number;
     [key: string]: unknown | undefined;
 }
 

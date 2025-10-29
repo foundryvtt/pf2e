@@ -158,18 +158,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     getRollOptions(prefix = this.type, { includeGranter = true } = {}): string[] {
         if (prefix.length === 0) throw ErrorPF2e("`prefix` must be at least one character long");
 
-        const { value: traits = [], rarity = null, otherTags } = this.system.traits;
-        const traitOptions = ((): string[] => {
-            // Additionally include annotated traits without their annotations
-            const damageType = Object.keys(CONFIG.PF2E.damageTypes).join("|");
-            const diceOrNumber = /-(?:[0-9]*d)?[0-9]+(?:-min)?$/;
-            const versatile = new RegExp(`-(?:b|p|s|${damageType})$`);
-            const deannotated = traits
-                .filter((t) => diceOrNumber.test(t) || versatile.test(t))
-                .map((t) => t.replace(diceOrNumber, "").replace(versatile, ""));
-            return [traits, deannotated].flat().map((t) => `trait:${t}`);
-        })();
-
+        const { value: traits = [], rarity = null, otherTags, config = {} } = this.system.traits;
         const slug = this.slug ?? sluggify(this.name);
         const granterOptions = includeGranter
             ? (this.grantedBy?.getRollOptions("granter", { includeGranter: false }).map((o) => `${prefix}:${o}`) ?? [])
@@ -181,8 +170,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:slug:${slug}`,
             ...granterOptions,
             ...Array.from(this.specialOptions).map((o) => `${prefix}:${o}`),
-            ...traitOptions.map((t) => `${prefix}:${t}`),
             ...otherTags.map((t) => `${prefix}:tag:${t}`),
+            ...traits.map((t) => `${prefix}:trait:${t}`),
+            ...Object.keys(config).map((k) => `${prefix}:trait:${k}`),
         ];
 
         if (rarity) {
