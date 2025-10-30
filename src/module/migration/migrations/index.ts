@@ -247,3 +247,4 @@ export { Migration945REBracketsToStrings } from "./945-re-brackets-to-strings.ts
 export { Migration946RetirePotencyStrikingREs } from "./946-retire-potency-striking-res.ts";
 export { Migration947FixPostPotencyStrikingPredicates } from "./947-fix-post-potency-striking-predicates.ts";
 export { Migration948MoreBadPredicatesAndSolarianCrystals } from "./948-more-bad-predicates-and-solarian-crystals.ts";
+export { Migration949NPCRangeData } from "./949-npc-range-data.ts";

@@ -397,7 +397,6 @@ interface StrikeSource extends RuleElementSource {
     baseType?: unknown;
     damage?: unknown;
     range?: unknown;
-    maxRange?: unknown;
     traits?: unknown;
     traitToggles?: unknown;
     replaceAll?: unknown;
@@ -413,3 +412,4 @@ interface UpdateToggleParams {
 }
 
 export { StrikeRuleElement };
+export type { StrikeSource };

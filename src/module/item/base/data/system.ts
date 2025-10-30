@@ -26,6 +26,7 @@ interface TraitConfig {
     deadly?: string;
     fatal?: string;
     resilient?: number;
+    thrown?: number;
     tracking?: number;
     versatile?: DamageType[];
     volley?: number;

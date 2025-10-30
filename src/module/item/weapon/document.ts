@@ -663,14 +663,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         } as const;
 
         const toAttackTraits = (traits: WeaponTrait[]): NPCAttackTrait[] => {
-            const { increment: rangeIncrement, max: maxRange } = this.range ?? {};
-
+            const range = this.range;
             const newTraits: NPCAttackTrait[] = traits
                 .flatMap((t) =>
                     t === "reach"
                         ? (reachTraitToNPCReach[this.size] ?? [])
-                        : t === "thrown" && setHasElement(THROWN_RANGES, rangeIncrement)
-                          ? (`thrown-${rangeIncrement}` as const)
+                        : t === "thrown" && setHasElement(THROWN_RANGES, range?.increment)
+                          ? (`thrown-${range.increment}` as const)
                           : t,
                 )
                 .filter(
@@ -694,11 +693,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
             if (traits.some((t) => setHasElement(MAGIC_TRADITIONS, t))) {
                 newTraits.push("magical");
-            }
-
-            if (rangeIncrement && !this.isThrown) {
-                const prefix = maxRange === rangeIncrement * 6 ? "range-increment" : "range";
-                newTraits.push(`${prefix}-${rangeIncrement}` as `range-increment-${WeaponRangeIncrement}`);
             }
 
             const sizeToReach = SIZE_TO_REACH[actor.size];
@@ -735,6 +729,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
               }
             : [];
 
+        const newTraits = toAttackTraits(this.system.traits.value);
+        const isThrown = newTraits.some((t) => t.startsWith("thrown-"));
         const source: PreCreate<MeleeSource> = {
             _id: keepId ? this.id : null,
             name: this._source.name,
@@ -753,9 +749,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                         {},
                     ),
                 traits: {
-                    value: toAttackTraits(this.system.traits.value),
+                    value: newTraits,
                 },
                 rules: fu.deepClone(this._source.system.rules),
+                range: {
+                    increment: !isThrown ? this._source.system.range : null,
+                    max: !isThrown ? this._source.system.maxRange : null,
+                },
             },
             flags: { pf2e: { linkedWeapon: this.id } },
         };
