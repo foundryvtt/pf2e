@@ -381,7 +381,7 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
     #prepareSpeeds(): void {
         const actor = this.actor;
         for (const type of MOVEMENT_TYPES) {
-            const speedOverride = this.overrides.speeds[type];
+            const speedOverride = this.resolveValue(this.overrides.speeds[type]);
             if (typeof speedOverride !== "number") continue;
             actor.synthetics.movementTypes[type] = [];
             const statistic = new SpeedStatistic(actor, { type, base: speedOverride });
