@@ -16,7 +16,7 @@ const WEAKNESS_TYPES: Set<WeaknessType> = new Set(R.keys(weaknessTypes));
 
 const RESISTANCE_TYPES: Set<ResistanceType> = new Set(R.keys(resistanceTypes));
 
-const UNAFFECTED_TYPES = new Set(["bleed", "good", "evil", "lawful", "chaotic", "spirit", "vitality", "void"] as const);
+const UNAFFECTED_TYPES = new Set(["good", "evil", "lawful", "chaotic", "spirit", "vitality", "void"] as const);
 
 /** All skill slugs that are part of the core system. Used for validation. */
 const CORE_SKILL_SLUGS = new Set([
