@@ -29,7 +29,7 @@ export class Migration949NPCRangeData extends MigrationBase {
             source.system.range ??= { increment: null, max: null };
             source.system.range.increment ??= rangeData.increment;
             source.system.range.max ??= rangeData.max;
-        } else {
+        } else if (!source.system.range) {
             source.system.range = null;
         }
 
