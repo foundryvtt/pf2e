@@ -1,0 +1,19 @@
+{{#if modularConfigs.length includeZero=true}}
+    <fieldset>
+        <legend>
+            {{localize "PF2E.Item.Weapon.Modular.Title"}}
+            {{#if editable}}<a data-action="add-modular-config"><i class="fa-solid fa-fw fa-plus" ></i></a>{{/if}}
+        </legend>
+        <div class="modular-configurations">
+            {{#each modularConfigs as |config index|}}
+                <div class="config">
+                    <select name="{{basePath}}.damageType">
+                        {{selectOptions @root.damageTypes selected=config.damageType localize=true}}
+                    </select>
+                    <tagify-tags class="tags paizo-style modular-traits" name="{{basePath}}.traits" value="{{json config.traits}}"></tagify-tags>
+                    <button type="button" class="inline-control icon fa-solid fa-trash" data-action="remove-modular-config" data-index="{{index}}"></button>
+                </div>
+            {{/each}}
+        </div>
+    </fieldset>
+{{/if}}

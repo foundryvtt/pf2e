@@ -115,6 +115,7 @@ export function registerTemplates(): void {
         "items/partials/addendum.hbs",
         "items/partials/apex.hbs",
         "items/partials/duration.hbs",
+        "items/partials/modular.hbs",
         "items/partials/other-tags.hbs",
         "items/partials/self-applied-effect.hbs",
 

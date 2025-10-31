@@ -13,7 +13,8 @@ import {
     SheetOptions,
     TagifyEntry,
 } from "@module/sheet/helpers.ts";
-import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
+import type { DamageType } from "@system/damage/types.ts";
+import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import {
     BasicConstructorOptions,
     LanguageSelector,
@@ -122,6 +123,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             sourceTraits: item._source.system.traits.otherTags,
         });
 
+        const modularConfigs =
+            item.isOfType("weapon", "melee") && item.system.traits.value?.includes("modular")
+                ? (item._source.system.traits.config?.modular ?? [])
+                : null;
+
         return {
             itemType: null,
             showTraits: !R.isEmpty(this.validTraits),
@@ -151,6 +157,12 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
             traitTagifyData,
+            modularConfigs:
+                modularConfigs?.map((c, idx) => ({
+                    ...c,
+                    basePath: `system.traits.config.modular.${idx}`,
+                    traits: createTagifyTraits(c.traits, { record: validTraits }),
+                })) ?? null,
             otherTagsTagifyData,
             enabledRulesUI: game.user.hasRole(game.settings.get(SYSTEM_ID, "minimumRulesUI")),
             ruleEditing: !!this.editingRuleElement,
@@ -318,9 +330,39 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
+        const item = this.item;
 
         for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a.tag-selector")) {
             anchor.addEventListener("click", () => this.onTagSelector(anchor));
+        }
+
+        // Add implementation for data actions on the details sheet
+        const detailsPanel = html.querySelector<HTMLElement>(".tab[data-tab=details]");
+        for (const button of detailsPanel?.querySelectorAll<HTMLElement>("a[data-action], button[data-action]") ?? []) {
+            button.addEventListener("click", () => {
+                switch (button.dataset.action) {
+                    case "add-modular-config": {
+                        if (!item.isOfType("weapon", "melee")) break;
+                        const modular = fu.duplicate(item._source.system.traits.config?.modular ?? []);
+                        modular.push({ damageType: "bludgeoning", traits: [] });
+                        item.update({ "system.traits.config.modular": modular });
+                        break;
+                    }
+                    case "remove-modular-config": {
+                        if (!item.isOfType("weapon", "melee")) break;
+                        const index = Number(button.dataset.index);
+                        const modular = fu.duplicate(item._source.system.traits.config?.modular ?? []);
+                        modular.splice(index, 1);
+                        item.update({ "system.traits.config.modular": modular });
+                        break;
+                    }
+                }
+            });
+        }
+
+        // Modular config weapon traits
+        for (const tags of htmlQueryAll<HTMLTagifyTagsElement>(html, "tagify-tags.modular-traits")) {
+            tagify(tags, { whitelist: R.omit(CONFIG.PF2E.weaponTraits, ["modular"]) });
         }
 
         const rulesPanel = html.querySelector<HTMLElement>(".tab[data-tab=rules]");
@@ -640,6 +682,15 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         // Remove rules from submit data, it should be handled by the previous check
         delete expanded.system?.rules;
 
+        // Handle modular if present
+        const traits = expanded.system?.traits;
+        if (traits && "config" in traits && traits.config?.modular) {
+            traits.config.modular = Object.values(traits.config.modular);
+            for (const config of traits.config.modular) {
+                config.traits = config.traits?.sort();
+            }
+        }
+
         return super._updateObject(event, fu.flattenObject(expanded));
     }
 
@@ -682,6 +733,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemShee
     traits: SheetOptions | null;
     traitTagifyData: TagifyEntry[] | null;
     otherTagsTagifyData: TagifyEntry[] | null;
+    modularConfigs: ModularConfigSheetData[] | null;
     rules: {
         selection: {
             selected: string | null;
@@ -696,6 +748,12 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemShee
     proficiencyRanks: typeof CONFIG.PF2E.proficiencyLevels;
     /** A prefix for label and form elements ids */
     rootId: string;
+}
+
+interface ModularConfigSheetData {
+    basePath: string;
+    traits: TagifyEntry[];
+    damageType: DamageType | null;
 }
 
 interface ItemSheetOptions extends fav1.api.DocumentSheetV1Options {

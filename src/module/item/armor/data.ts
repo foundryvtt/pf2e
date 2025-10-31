@@ -1,4 +1,5 @@
 import { PhysicalItemSource } from "@item/base/data/index.ts";
+import type { TraitConfig } from "@item/base/data/system.ts";
 import {
     BasePhysicalItemSource,
     Investable,
@@ -68,6 +69,7 @@ type SourceOmission =
 
 interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {
     otherTags: OtherArmorTag[];
+    config: TraitConfig;
 }
 
 interface ArmorRuneData extends ArmorRuneSource {

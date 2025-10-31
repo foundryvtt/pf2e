@@ -3,15 +3,16 @@ import { SAVE_TYPES } from "@actor/values.ts";
 import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.d.mts";
 import type { ItemUUID } from "@common/documents/_module.d.mts";
 import { type DurationDataSchema, EffectContextField } from "@item/abstract-effect/data.ts";
-import type { EffectAuraData } from "@item/abstract-effect/index.ts";
+import type { AbstractEffectSchema, EffectAuraData } from "@item/abstract-effect/index.ts";
 import type { EffectTrait, TimeUnit } from "@item/abstract-effect/types.ts";
 import { EFFECT_TIME_UNITS } from "@item/abstract-effect/values.ts";
-import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
+import { ItemSystemModel } from "@item/base/data/model.ts";
 import type {
     BaseItemSourcePF2e,
     ItemFlagsPF2e,
     ItemSourceFlagsPF2e,
     ItemSystemSource,
+    ItemTraitsNoRarity,
 } from "@item/base/data/system.ts";
 import type { ConditionSlug } from "@item/condition/index.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
@@ -164,20 +165,9 @@ interface AfflictionSystemData
     extends ItemSystemModel<AfflictionPF2e, AfflictionSystemSchema>,
         Omit<ModelPropsFromSchema<AfflictionSystemSchema>, "description"> {}
 
-type AfflictionSystemSchema = Omit<ItemSystemSchema, "traits"> & {
+type AfflictionSystemSchema = AbstractEffectSchema & {
     level: fields.SchemaField<{
         value: fields.NumberField<number, number, true, false, true>;
-    }>;
-    traits: fields.SchemaField<{
-        otherTags: fields.ArrayField<SlugField<true, false, false>, string[], string[], true, false, true>;
-        value: fields.ArrayField<
-            fields.StringField<EffectTrait, EffectTrait, true, false, false>,
-            EffectTrait[],
-            EffectTrait[],
-            true,
-            false,
-            true
-        >;
     }>;
     save: fields.SchemaField<{
         type: fields.StringField<SaveType, SaveType, true, false, true>;
@@ -251,6 +241,7 @@ type AfflictionConditionSchema = {
 };
 
 type AfflictionSystemSource = SourceFromSchema<AfflictionSystemSchema> & {
+    traits: ItemTraitsNoRarity<EffectTrait>;
     schema?: ItemSystemSource["schema"];
 };
 

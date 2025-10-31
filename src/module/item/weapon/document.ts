@@ -164,13 +164,14 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
+        const traits = this.system.traits;
         return {
             ...fu.deepClone(this.system.damage),
             // Damage types from trait toggles are not applied as data mutations so as to delay it for rule elements to
             // add options
             damageType:
-                this.system.traits.toggles.versatile.selected ??
-                this.system.traits.toggles.modular.selected ??
+                traits.toggles.versatile.selected ??
+                traits.toggles.modular?.config.damageType ??
                 this.system.damage.damageType,
         };
     }
@@ -489,6 +490,14 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         } else {
             this.system.ammo = null;
             this.system.expend = null;
+        }
+
+        // Add traits from the current modular configuration
+        const config = traits.toggles.modular?.config;
+        if (config) {
+            for (const trait of config.traits) {
+                addOrUpgradeTrait(traits, trait);
+            }
         }
     }
 

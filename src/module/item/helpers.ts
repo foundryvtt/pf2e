@@ -99,7 +99,7 @@ function addOrUpgradeTrait<TTrait extends ItemTrait>(
     // Get traits and annotations object to potentially upgrade
     const isArray = Array.isArray(traits);
     const value = isArray ? traits : traits.value;
-    const config = isArray ? null : (traits.config ??= {});
+    const config = isArray ? null : (traits.config ??= { modular: undefined });
 
     // Any special non-numerical annotated trait like area or versatile. These need special handling.
     const specialTraitRegex = /^(area|versatile)-(.*)$/;
@@ -186,6 +186,11 @@ function removeTrait<TTrait extends ItemTrait>(
         } else {
             delete config[traitBase];
         }
+    }
+
+    // Remove modular config as well if its modular. Refactor once we have a list of all configurable traits
+    if (trait === "modular") {
+        delete config?.modular;
     }
 }
 

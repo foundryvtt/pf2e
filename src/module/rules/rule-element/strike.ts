@@ -73,11 +73,9 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
             ),
             traitToggles: new fields.SchemaField(
                 {
-                    modular: new fields.StringField({
+                    modular: new fields.NumberField({
                         required: true,
-                        blank: false,
                         nullable: true,
-                        choices: CONFIG.PF2E.damageTypes,
                         initial: null,
                     }),
                     versatile: new fields.StringField({
@@ -322,11 +320,11 @@ type StrikeSchema = RuleElementSchema & {
     traits: fields.ArrayField<fields.StringField<NPCAttackTrait, NPCAttackTrait, true, false, false>>;
     traitToggles: fields.SchemaField<
         {
-            modular: fields.StringField<DamageType, DamageType, true, true, true>;
+            modular: fields.NumberField<number, number, true, true, true>;
             versatile: fields.StringField<DamageType, DamageType, true, true, true>;
         },
-        { modular: DamageType | null; versatile: DamageType | null },
-        { modular: DamageType | null; versatile: DamageType | null },
+        { modular: number | null; versatile: DamageType | null },
+        { modular: number | null; versatile: DamageType | null },
         true,
         false,
         true
@@ -408,10 +406,9 @@ interface StrikeSource extends RuleElementSource {
     fist?: unknown;
 }
 
-interface UpdateToggleParams {
-    trait: "modular" | "versatile";
-    selected: DamageType | null;
-}
+type UpdateToggleParams =
+    | { trait: "modular"; selected: number | null }
+    | { trait: "versatile"; selected: DamageType | null };
 
 export { StrikeRuleElement };
 export type { StrikeSource };

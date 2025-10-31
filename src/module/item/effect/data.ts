@@ -15,6 +15,7 @@ import type {
     ItemFlagsPF2e,
     ItemSourceFlagsPF2e,
     ItemSystemSource,
+    ItemTraitsNoRarity,
 } from "@item/base/data/system.ts";
 import { LaxArrayField, SlugField } from "@system/schema-data-fields.ts";
 import type { EffectPF2e } from "./document.ts";
@@ -214,6 +215,7 @@ type EffectFlags = ItemFlagsPF2e & {
 
 type EffectSystemSource = SourceFromSchema<EffectSystemSchema> & {
     schema?: ItemSystemSource["schema"];
+    traits: ItemTraitsNoRarity<EffectTrait>;
 };
 
 export { EffectSystemData };

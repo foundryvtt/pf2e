@@ -1,8 +1,11 @@
 import type { ActorPF2e } from "@actor";
+import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.mjs";
+import type { WeaponTrait } from "@item/weapon/types.ts";
 import type { MigrationDataField } from "@module/data.ts";
 import { PublicationField } from "@module/model.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
-import { SlugField } from "@system/schema-data-fields.ts";
+import type { DamageType } from "@system/damage/types.ts";
+import { PrunedSchemaField, SlugField } from "@system/schema-data-fields.ts";
 import type { ItemPF2e } from "../document.ts";
 import type { ItemDescriptionData } from "./system.ts";
 import fields = foundry.data.fields;
@@ -81,4 +84,44 @@ type ItemSystemSchema = {
     _migration: MigrationDataField;
 };
 
-export { ItemSystemModel, type ItemSystemSchema };
+class TraitConfigField extends PrunedSchemaField<TraitConfigSchema> {
+    constructor() {
+        super({
+            modular: new fields.ArrayField(
+                new fields.SchemaField({
+                    damageType: new fields.StringField({
+                        required: true,
+                        nullable: false,
+                        initial: "bludgeoning" as DamageType,
+                        choices: CONFIG.PF2E.damageTypes,
+                    }),
+                    traits: new fields.ArrayField(
+                        new fields.StringField({
+                            required: true,
+                            nullable: false,
+                            choices: CONFIG.PF2E.weaponTraits,
+                        }),
+                    ),
+                }),
+                { required: false, nullable: false },
+            ),
+        });
+    }
+}
+
+type TraitConfigSchema = {
+    modular: fields.ArrayField<
+        fields.SchemaField<ModularConfigSchema>,
+        SourceFromSchema<ModularConfigSchema>[],
+        ModelPropsFromSchema<ModularConfigSchema>[],
+        false,
+        false
+    >;
+};
+
+type ModularConfigSchema = {
+    damageType: fields.StringField<DamageType, DamageType, true, false, true>;
+    traits: fields.ArrayField<fields.StringField<WeaponTrait, WeaponTrait, true, false>>;
+};
+
+export { ItemSystemModel, TraitConfigField, type ItemSystemSchema };
