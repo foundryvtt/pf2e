@@ -76,7 +76,7 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
         // Max has priority over increment in the document, so if we're adding an increment, remove the max range
         const incrementAdded =
             formData["system.range.increment"] &&
-            formData["system.range.increment"] !== this.item.system.range.increment;
+            formData["system.range.increment"] !== this.item.system.range?.increment;
         if (incrementAdded && formData["system.range.max"]) {
             formData["system.range.max"] = null;
         }

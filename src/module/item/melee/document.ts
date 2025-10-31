@@ -31,7 +31,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get isRanged(): boolean {
-        return !!this.system.range.increment || !!this.system.range.max;
+        return !!this.system.range;
     }
 
     get isThrown(): boolean {
@@ -59,9 +59,9 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // To mimic what weapon does, this getter computes max range from increment here rather than data prep
         // If this changes, the melee sheet and range item alterations must be changed in response
         const data = this.system.range;
-        return data.max
+        return data?.max
             ? (data as RangeData) // typescript fails to detect that data.max is not null and so we must cast
-            : data.increment
+            : data?.increment
               ? { increment: data.increment, max: data.increment * 6 }
               : null;
     }
@@ -233,8 +233,11 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Ensure ranges are in a valid state
-        if (changed.system.traits?.value?.some((t) => t.startsWith("thrown-"))) {
-            changed.system.range = { max: null, increment: null };
+        const isThrown = (changed.system.traits?.value ?? this._source.system.traits.value).some((t) =>
+            t.startsWith("thrown-"),
+        );
+        if (isThrown || (changed.system.range?.increment === null && changed.system.range.max === null)) {
+            changed.system.range = null;
         } else if (changed.system.range?.max) {
             changed.system.range.increment = null;
         }

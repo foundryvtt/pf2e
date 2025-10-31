@@ -731,6 +731,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         const newTraits = toAttackTraits(this.system.traits.value);
         const isThrown = newTraits.some((t) => t.startsWith("thrown-"));
+        const rangeData = { increment: this._source.system.range, max: this._source.system.maxRange };
         const source: PreCreate<MeleeSource> = {
             _id: keepId ? this.id : null,
             name: this._source.name,
@@ -752,10 +753,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     value: newTraits,
                 },
                 rules: fu.deepClone(this._source.system.rules),
-                range: {
-                    increment: !isThrown ? this._source.system.range : null,
-                    max: !isThrown ? this._source.system.maxRange : null,
-                },
+                range: !isThrown && (rangeData.increment || rangeData.max) ? rangeData : null,
             },
             flags: { pf2e: { linkedWeapon: this.id } },
         };

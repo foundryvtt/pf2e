@@ -25,9 +25,14 @@ export class Migration949NPCRangeData extends MigrationBase {
 
     #updateNPCAttack(source: MeleeSource) {
         const rangeData = this.#getDataFromTraits(source.system.traits.value);
-        source.system.range ??= { increment: null, max: null };
-        source.system.range.increment ??= rangeData.increment;
-        source.system.range.max ??= rangeData.max;
+        if (rangeData.increment || rangeData.max) {
+            source.system.range ??= { increment: null, max: null };
+            source.system.range.increment ??= rangeData.increment;
+            source.system.range.max ??= rangeData.max;
+        } else {
+            source.system.range = null;
+        }
+
         source.system.traits.value = this.#filterRangeTraits(source.system.traits.value);
     }
 

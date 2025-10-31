@@ -110,26 +110,29 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
                     new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
                 ),
             }),
-            range: new fields.SchemaField({
-                increment: new fields.NumberField({
-                    required: true,
-                    integer: true,
-                    min: 5,
-                    step: 5,
-                    max: 500,
-                    nullable: true,
-                    initial: null,
-                }),
-                max: new fields.NumberField({
-                    required: true,
-                    integer: true,
-                    min: 5,
-                    step: 5,
-                    max: 500,
-                    nullable: true,
-                    initial: null,
-                }),
-            }),
+            range: new fields.SchemaField(
+                {
+                    increment: new fields.NumberField({
+                        required: true,
+                        integer: true,
+                        min: 5,
+                        step: 5,
+                        max: 500,
+                        nullable: true,
+                        initial: null,
+                    }),
+                    max: new fields.NumberField({
+                        required: true,
+                        integer: true,
+                        min: 5,
+                        step: 5,
+                        max: 500,
+                        nullable: true,
+                        initial: null,
+                    }),
+                },
+                { required: true, nullable: true, initial: null },
+            ),
         };
     }
 
@@ -185,10 +188,17 @@ type NPCAttackSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     attackEffects: fields.SchemaField<{
         value: fields.ArrayField<fields.StringField<string, string, true, false, false>>;
     }>;
-    range: fields.SchemaField<{
-        increment: fields.NumberField<number, number, true, true, true>;
-        max: fields.NumberField<number, number, true, true, true>;
-    }>;
+    range: fields.SchemaField<
+        {
+            increment: fields.NumberField<number, number, true, true, true>;
+            max: fields.NumberField<number, number, true, true, true>;
+        },
+        { increment: number | null; max: number | null },
+        { increment: number | null; max: number | null },
+        true,
+        true,
+        true
+    >;
 };
 
 type EffectAreaSchema = {
