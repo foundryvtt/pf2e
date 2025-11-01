@@ -1452,6 +1452,11 @@
             "name": "Composite Shortbow",
             "sort": 1700000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "composite-shortbow",
                 "bonus": {
                     "value": 0
@@ -1693,31 +1698,17 @@
             "name": "Arrows",
             "sort": 2000000,
             "system": {
-                "baseItem": null,
+                "baseItem": "arrows",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -1734,13 +1725,9 @@
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
-                "stackGroup": "arrows",
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -1748,7 +1735,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "koLu6MS8Z8wsZsoR",
@@ -1763,27 +1750,15 @@
                 "bulk": {
                     "value": 0
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": [
+                    "arrows"
+                ],
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p><em>Sleep arrows</em> often have shafts of deep blue or black, and their fletching is exceptionally soft and downy. An activated <em>sleep arrow</em> deals no damage, but a living creature hit by it is subject to the effects of a @UUID[Compendium.pf2e.spells-srd.Item.Sleep] spell (DC 17).</p>\n<p><strong>Craft Requirements</strong> Supply one casting of <em>sleep</em>.</p>"
                 },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "value": {
@@ -1799,7 +1774,6 @@
                 "rules": [],
                 "size": "med",
                 "slug": "sleep-arrow",
-                "stackGroup": "arrows",
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1809,16 +1783,13 @@
                         "sleep"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "uses": {
                     "autoDestroy": true,
                     "max": 1,
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "5zthliRLGM96Nbxe",
