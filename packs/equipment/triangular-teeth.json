@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>Rows of triangles symbolizing shark teeth protect you from danger and enable you to take fierce retaliation against those who try to harm you. Seafarers, especially those on the seas of Minata, wear these tattoos in patterns, with multiple rows of regular triangles. You gain a +1 item bonus to Survival checks to navigate bodies of water.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You would be hit by an attack against your AC</p><hr /><p><strong>Effect</strong> You gain a +1 circumstance bonus to AC against the attack, or a +2 circumstance bonus if the attacker is in water or has the amphibious, aquatic, or water trait. Whether the attack hits or misses, you gain a +2 status bonus to damage with the next Strike you make against the attacker before the end of your next turn.</p>"
+            "value": "<p>Rows of triangles symbolizing shark teeth protect you from danger and enable you to take fierce retaliation against those who try to harm you. Seafarers, especially those on the seas of Minata, wear these tattoos in patterns, with multiple rows of regular triangles. You gain a +1 item bonus to Survival checks to navigate bodies of water.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You would be hit by an attack against your AC</p><hr /><p><strong>Effect</strong> You gain a +1 circumstance bonus to AC against the attack, or a +2 circumstance bonus if the attacker is in water or has the amphibious, aquatic, or water trait. Whether the attack hits or misses, you gain a +2 status bonus to damage with the next Strike you make against the attacker before the end of your next turn.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Triangular Teeth]</p>"
         },
         "hardness": 0,
         "hp": {
@@ -38,16 +38,19 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "water"
+                    "navigate-water"
                 ],
-                "selector": "survival",
+                "selector": [
+                    "survival"
+                ],
                 "type": "item",
                 "value": 1
             },
             {
                 "domain": "survival",
                 "key": "RollOption",
-                "option": "navwater"
+                "label": "PF2E.SpecificRule.TriangularTeeth.Survival.Label",
+                "option": "navigate-water"
             }
         ],
         "size": "med",
