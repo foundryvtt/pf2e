@@ -98,7 +98,7 @@ class WeaponReloader extends SvelteApplicationMixin<
         const capacity = weapon.system.ammo?.capacity ?? 0;
         const numLoaded = R.sumBy(getLoadedAmmo(weapon), (l) => l.quantity);
         const remainingSpace = Math.max(0, capacity - numLoaded);
-        const quantity = all ? remainingSpace : 1;
+        const quantity = all ? Math.min(remainingSpace, ammo.quantity) : 1;
         if (remainingSpace > 0) {
             await weapon.attach(ammo, { quantity, stack: true });
         }
