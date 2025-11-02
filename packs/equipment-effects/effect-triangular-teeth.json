@@ -4,7 +4,7 @@
     "name": "Effect: Triangular Teeth",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Triangular Teeth]</p>\n<p>You gain a +1 circumstance bonus to AC against the attack, or a +2 circumstance bonus if the attacker is in water or has the amphibious, aquatic, or water trait. Whether the attack hits or misses, you gain a +2 status bonus to damage with the next Strike you make against the attacker before the end of your next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Triangular Teeth]</p>\n<p>You gain a +2 status bonus to damage with the next Strike you make against the attacker before the end of your next turn.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -38,30 +38,6 @@
                 ],
                 "type": "status",
                 "value": 2
-            },
-            {
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.TriangularTeeth.AC.Label",
-                "option": "triangular-teeth-ac",
-                "suboptions": [
-                    {
-                        "label": "PF2E.SpecificRule.Numbers.One",
-                        "value": "1"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Numbers.One",
-                        "value": "2"
-                    }
-                ],
-                "toggleable": true
-            },
-            {
-                "key": "FlatModifier",
-                "selector": [
-                    "ac"
-                ],
-                "type": "circumstance",
-                "value": "{item|flags.pf2e.rulesSelections.triangularTeethAc}"
             }
         ],
         "start": {
