@@ -922,6 +922,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         };
 
+        handlers["link-ammo"] = async (_, button) => {
+            const weapon = this.getAttackActionFromDOM(button)?.item;
+            const ammoId = htmlClosest(button, "[data-item-id]")?.dataset.itemId;
+            if (!weapon || !ammoId) return;
+            weapon.update({ "system.selectedAmmoId": ammoId });
+        };
+
         handlers["reload"] = async (_, button) => {
             const weapon = this.getAttackActionFromDOM(button)?.item;
             if (weapon) {

@@ -195,11 +195,10 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             return ammo?.isOfType("ammo", "weapon") ? ammo : null;
         }
 
-        return (
-            this.subitems.find<AmmoPF2e<TParent> | WeaponPF2e<TParent>>(
-                (i) => i.isOfType("ammo", "weapon") && i.isAmmoFor(this),
-            ) ?? null
+        const subAmmo = this.subitems.filter((i): i is AmmoPF2e<TParent> | WeaponPF2e<TParent> =>
+            i.isOfType("ammo", "weapon"),
         );
+        return subAmmo.find((i) => i._id === this.system.selectedAmmoId) ?? subAmmo.find((i) => i.quantity > 0) ?? null;
     }
 
     get otherTags(): Set<OtherWeaponTag> {

@@ -14,6 +14,7 @@ import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import type { WeaponSystemSource } from "@item/weapon/data.ts";
 import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import { RuleElement, RuleElementOptions } from "@module/rules/index.ts";
 import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
@@ -469,10 +470,18 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         item: PhysicalItemPF2e,
         { quantity = 1, stack = false }: { quantity?: number; stack?: boolean } = {},
     ): Promise<boolean> {
-        const subitems = fu.deepClone(this._source.system.subitems);
-        if (!subitems) {
-            throw ErrorPF2e("This item does not accept attachments");
-        }
+        if (!this._source.system.subitems) throw ErrorPF2e("This item does not accept attachments");
+
+        // Get subitems, excluding those that will need to be purged this update
+        // Empty ammo removal is deferred for reloading, since the ammo may still needed for rule elements to function
+        const purgedItems = this.isOfType("weapon")
+            ? this.subitems
+                  .filter((i) => i.isOfType("ammo", "weapon") && i.isAmmoFor(this) && !i.quantity)
+                  .map((i) => i.id)
+            : [];
+        const subitems = fu
+            .deepClone(this._source.system.subitems)
+            .filter((i) => i._id && !purgedItems.includes(i._id));
 
         // Add to subitems, matching with a stackable item if stack is true
         const validCarryTypes = ["attached", "installed"] as const;
@@ -803,14 +812,19 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return super.update(data, operation);
     }
 
-    /** Redirect subitem deletes to parent-item updates */
+    /** Redirect subitem deletes to parent-item updates. Clear out selected ammo as well when doing so */
     override async delete(
         operation: Partial<Omit<DatabaseDeleteOperation<null>, "parent" | "pack">> = {},
     ): Promise<this | undefined> {
         if (this.parentItem) {
+            type SystemUpdateData = Pick<Partial<WeaponSystemSource>, "subitems" | "selectedAmmoId">;
             const parentItem = this.parentItem;
             const newSubitems = parentItem._source.system.subitems?.filter((i) => i._id !== this.id) ?? [];
-            const updated = await parentItem.update({ "system.subitems": newSubitems }, R.omit(operation, ["action"]));
+            const systemUpdateData: SystemUpdateData = { subitems: newSubitems };
+            if (this.parentItem.isOfType("weapon") && this.parentItem.system.selectedAmmoId === this.id) {
+                systemUpdateData.selectedAmmoId = null;
+            }
+            const updated = await parentItem.update({ system: systemUpdateData }, R.omit(operation, ["action"]));
             if (updated) {
                 this._onDelete(operation satisfies DatabaseDeleteCallbackOptions, game.user.id);
                 return this;
