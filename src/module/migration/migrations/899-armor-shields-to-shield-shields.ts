@@ -23,6 +23,7 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
         "resiliencyRune",
         "strength",
         "unequippedBulk",
+        "usage",
     ] as const;
 
     #BASE_SHIELD_TYPES = new Set([
@@ -117,28 +118,26 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
         "wovenwood-shield-true": "wooden-shield",
     };
 
-    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+    override async updateItem(source: MaybeShieldData): Promise<void> {
         if (itemIsOfType(source, "physical") && source.type !== "backpack") {
             // This only belongs in container items
-            const system: { slug: string | null; "-=negateBulk"?: null } = source.system;
-            if ("negateBulk" in system) system["-=negateBulk"] = null;
+            const system: { slug: string | null; category?: unknown; "-=negateBulk"?: null } = source.system;
+            if ("negateBulk" in system) {
+                if (system.category === "shield") delete system.negateBulk;
+                else system["-=negateBulk"] = null;
+            }
         }
 
         this.#migrateRules(source);
-
         if (source.type !== "armor") return;
 
         const category: string = source.system.category;
-
         if (category !== "shield") {
             source.system.checkPenalty ||= 0;
             source.system.dexCap ||= 0;
         }
         source.system.speedPenalty ||= 0;
         const system: ShieldConversionData = source.system;
-        // This doesn't belong in any armor data
-        if ("potency" in system) system["-=potency"] = null;
-
         if (category !== "shield") return;
 
         source.img = source.img.replace(/\barmor\.svg$/, "shield.svg") as ImageFilePath;
@@ -149,16 +148,13 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
             : null;
         system.usage = { value: "held-in-one-hand" };
         system.runes = { reinforcing: 0 };
-
         this.#validateOrRemoveMaterial(system);
         this.#setSpecificShieldData(system);
-
         source.type = "shield" as "armor";
         for (const key of this.#KEYS_TO_REMOVE) {
-            if (key in system) {
-                system[`-=${key}`] = null;
-            }
+            delete system[key];
         }
+        source["==system"] = system;
     }
 
     #migrateRules(source: ItemSourcePF2e): void {
@@ -263,20 +259,25 @@ type ShieldConversionData = Pick<ArmorSystemSource, "acBonus" | "material" | "sl
     traits: { value: string[]; integrated?: IntegratedWeaponSource | null };
     usage?: object;
 
-    "-=category"?: null;
-    "-=checkPenalty"?: null;
-    "-=dexCap"?: null;
-    "-=group"?: null;
-    "-=negateBulk"?: null;
+    category?: unknown;
+    checkPenalty?: unknown;
+    dexCap?: unknown;
+    group?: unknown;
+    negateBulk?: unknown;
+    potency?: unknown;
     "-=potency"?: null;
-    "-=potencyRune"?: null;
-    "-=propertyRune1"?: null;
-    "-=propertyRune2"?: null;
-    "-=propertyRune3"?: null;
-    "-=propertyRune4"?: null;
-    "-=resiliencyRune"?: null;
-    "-=strength"?: null;
-    "-=unequippedBulk"?: null;
+    potencyRune?: unknown;
+    propertyRune1?: unknown;
+    propertyRune2?: unknown;
+    propertyRune3?: unknown;
+    propertyRune4?: unknown;
+    resiliencyRune?: unknown;
+    strength?: unknown;
+    unequippedBulk?: unknown;
+};
+
+type MaybeShieldData = ItemSourcePF2e & {
+    "==system"?: object;
 };
 
 type MaybeShieldAlteration = RuleElementSource & {
