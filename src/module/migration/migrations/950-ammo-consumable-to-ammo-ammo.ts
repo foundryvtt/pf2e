@@ -124,6 +124,10 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
                       : slug.includes("-bolt")
                         ? (["bolts"] as const)
                         : []);
+        } else if (slug === "shield-pistol-rounds") {
+            system.baseItem = `rounds-shield-pistol`;
+            if (system.slug) system.slug = "rounds-shield-pistol";
+            if (source.name === "Shield Pistol Rounds") source.name = "Rounds (Shield Pistol)";
         } else if (tupleHasValue(AMMO_TYPES, slug)) {
             system.baseItem = slug;
         } else if (tupleHasValue(allBaseRoundWeapons, weaponSlug)) {
