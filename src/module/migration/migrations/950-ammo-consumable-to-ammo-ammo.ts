@@ -128,6 +128,8 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
             system.baseItem = `rounds-shield-pistol`;
             if (system.slug) system.slug = "rounds-shield-pistol";
             if (source.name === "Shield Pistol Rounds") source.name = "Rounds (Shield Pistol)";
+        } else if (objectHasKey(magazineAmmoMap, slug)) {
+            system.baseItem = magazineAmmoMap[slug];
         } else if (tupleHasValue(AMMO_TYPES, slug)) {
             system.baseItem = slug;
         } else if (tupleHasValue(allBaseRoundWeapons, weaponSlug)) {
@@ -231,14 +233,14 @@ const remapSlug: Record<string, string> = {
     "mithral-tree": "dawnsilver-tree",
 };
 
-const magazineWeaponMap = {
-    "barricade-buster": "8-round-magazine",
-    "air-repeater": "magazine-with-6-pellets",
-    "long-air-repeater": "magazine-with-8-pellets",
-    "repeating-hand-crossbow": "magazine-with-5-bolts",
-    "repeating-crossbow": "repeating-crossbow-magazine",
-    "repeating-heavy-crossbow": "repeating-heavy-crossbow-magazine",
-} satisfies Record<string, AmmoType>;
+const magazineWeapons = [
+    "barricade-buster",
+    "air-repeater",
+    "long-air-repeater",
+    "repeating-hand-crossbow",
+    "repeating-crossbow",
+    "repeating-heavy-crossbow",
+] as const satisfies BaseWeaponType[];
 
 const round5Firearms = [
     "dwarven-scattergun",
@@ -362,7 +364,7 @@ const SF2E_AMMO_CAPACITY: Record<string, number> = {
 // Maps weapons to specific ammo. Stuff that can be derived from group should be omitted
 const BASE_WEAPON_TO_AMMO = {
     ...R.mapToObj(allBaseRoundWeapons, (slug) => [slug, `rounds-${slug}`] as const),
-    ...magazineWeaponMap,
+    ...R.mapToObj(magazineWeapons, (slug) => [slug, `magazine-${slug}`] as const),
     ...R.mapToObj(beastGuns, (slug) => [slug, `rounds-${slug}`] as const),
     atlatl: "dart",
     "big-boom-gun": "rounds-hand-cannon",
@@ -373,9 +375,19 @@ const BASE_WEAPON_TO_AMMO = {
 
 const AMMO_TYPES: AmmoType[] = [
     ...allBaseRoundWeapons.map((slug): AmmoType => `rounds-${slug}`),
-    ...R.values(magazineWeaponMap),
+    ...magazineWeapons.map((slug): AmmoType => `magazine-${slug}`),
     ...beastGuns.map((slug): AmmoType => `rounds-${slug}`),
 ];
+
+// Maps uncorrected slugs to the actual magazine
+const magazineAmmoMap = {
+    "8-round-magazine": "magazine-barricade-buster",
+    "magazine-with-6-pellets": "magazine-air-repeater",
+    "magazine-with-8-pellets": "magazine-long-air-repeater",
+    "repeating-crossbow-magazine": "magazine-repeating-crossbow",
+    "magazine-with-5-bolts": "magazine-repeating-hand-crossbow",
+    "repeating-heavy-crossbow-magazine": "magazine-repeating-heavy-crossbow",
+} satisfies Record<string, AmmoType>;
 
 // Maps a stack group to a category, used for basic fallback conversions
 const AMMO_STACK_TO_CATEGORY = {

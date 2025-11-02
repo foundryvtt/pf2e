@@ -357,6 +357,15 @@ const round10Firearms = [
     "triggerbrand",
 ] satisfies BaseWeaponType[];
 
+const magazineWeapons = [
+    "barricade-buster",
+    "air-repeater",
+    "long-air-repeater",
+    "repeating-crossbow",
+    "repeating-hand-crossbow",
+    "repeating-heavy-crossbow",
+] satisfies BaseWeaponType[];
+
 // Beast guns aren't loaded with the same ammunition as other guns, but they do still use ammunition, ...
 // This ammunition comes as specially designed rounds, such as miniature tentacles fired from the tentacle gun or javelin-like spikes from the spike gun.
 // Unless otherwise stated, these rounds come in packs of 10 that cost 1 sp and have light Bulk.
@@ -452,23 +461,16 @@ const ammoTypes = {
         },
     ]),
     // Include all magazines. Magazine items don't map as cleanly
-    ...R.mapValues(
+    ...R.mapToObj(magazineWeapons, (baseWeapon) => [
+        `magazine-${baseWeapon}`,
         {
-            "8-round-magazine": "barricade-buster",
-            "magazine-with-6-pellets": "air-repeater",
-            "magazine-with-8-pellets": "long-air-repeater",
-            "repeating-crossbow-magazine": "repeating-crossbow",
-            "magazine-with-5-bolts": "repeating-hand-crossbow",
-            "repeating-heavy-crossbow-magazine": "repeating-heavy-crossbow",
-        } as const,
-        (baseWeapon, slug): BaseAmmoTypeData => ({
             parent: "magazine",
-            label: `PF2E.Item.Ammo.Base.${slug}`,
+            label: `PF2E.Item.Ammo.Base.magazine-${baseWeapon}`,
             magazine: true,
             stackGroup: null,
             weapon: baseWeapon,
-        }),
-    ),
+        },
+    ]),
     "backpack-catapult-stone": {
         parent: "sling-bullets",
         label: "PF2E.Item.Ammo.Base.backpack-catapult-stone",
