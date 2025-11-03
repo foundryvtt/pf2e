@@ -128,6 +128,10 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
             system.baseItem = `rounds-shield-pistol`;
             if (system.slug) system.slug = "rounds-shield-pistol";
             if (source.name === "Shield Pistol Rounds") source.name = "Rounds (Shield Pistol)";
+        } else if (slug === "spikes") {
+            system.baseItem = `rounds-spike-launcher`;
+            if (system.slug) system.slug = "rounds-spike-launcher";
+            if (source.name === "Spikes") source.name = "Rounds (Spike Launcher)";
         } else if (objectHasKey(magazineAmmoMap, slug)) {
             system.baseItem = magazineAmmoMap[slug];
         } else if (tupleHasValue(AMMO_TYPES, slug)) {
