@@ -922,11 +922,27 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         };
 
-        handlers["link-ammo"] = async (_, button) => {
+        handlers["select-ammo"] = async (_, button) => {
             const weapon = this.getAttackActionFromDOM(button)?.item;
             const ammoId = htmlClosest(button, "[data-item-id]")?.dataset.itemId;
-            if (!weapon || !ammoId) return;
-            weapon.update({ "system.selectedAmmoId": ammoId });
+            if (!weapon || !ammoId || !weapon.subitems) return;
+
+            // Sort the selected ammo to the top, and remove any 0 quantity ammo while we're at it (they may be out)
+            // The sorted sources have the same references, but we persist the original to maintain ordering
+            const ammoSubItems = weapon.subitems.filter((i) => i.isOfType("ammo", "weapon") && i.isAmmoFor(weapon));
+            const purgedItems = ammoSubItems.filter((i) => !i.quantity).map((i) => i.id);
+            const sources = R.sortBy(fu.deepClone(weapon._source.system.subitems), (s) => s.sort).filter(
+                (i) => !purgedItems.includes(i._id ?? ""),
+            );
+            const sourcesSorted = R.pipe(
+                sources,
+                R.sortBy((i) => i.sort),
+                R.sortBy((i) => (!ammoSubItems.some((a) => a.id === i._id) ? 0 : i._id === ammoId ? 1 : 2)),
+            );
+            for (const [idx, item] of sourcesSorted.entries()) {
+                item.sort = idx;
+            }
+            weapon.update({ "system.subitems": sources });
         };
 
         handlers["reload"] = async (_, button) => {

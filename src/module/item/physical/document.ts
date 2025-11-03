@@ -14,7 +14,6 @@ import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import type { WeaponSystemSource } from "@item/weapon/data.ts";
 import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import { RuleElement, RuleElementOptions } from "@module/rules/index.ts";
 import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
@@ -812,19 +811,14 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return super.update(data, operation);
     }
 
-    /** Redirect subitem deletes to parent-item updates. Clear out selected ammo as well when doing so */
+    /** Redirect subitem deletes to parent-item updates */
     override async delete(
         operation: Partial<Omit<DatabaseDeleteOperation<null>, "parent" | "pack">> = {},
     ): Promise<this | undefined> {
         if (this.parentItem) {
-            type SystemUpdateData = Pick<Partial<WeaponSystemSource>, "subitems" | "selectedAmmoId">;
             const parentItem = this.parentItem;
             const newSubitems = parentItem._source.system.subitems?.filter((i) => i._id !== this.id) ?? [];
-            const systemUpdateData: SystemUpdateData = { subitems: newSubitems };
-            if (this.parentItem.isOfType("weapon") && this.parentItem.system.selectedAmmoId === this.id) {
-                systemUpdateData.selectedAmmoId = null;
-            }
-            const updated = await parentItem.update({ system: systemUpdateData }, R.omit(operation, ["action"]));
+            const updated = await parentItem.update({ "system.subitems": newSubitems }, R.omit(operation, ["action"]));
             if (updated) {
                 this._onDelete(operation satisfies DatabaseDeleteCallbackOptions, game.user.id);
                 return this;
