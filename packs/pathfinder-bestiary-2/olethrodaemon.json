@@ -178,94 +178,13 @@
             "type": "spell"
         },
         {
-            "_id": "JJcg0fjSB8UhJeHw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.10VcmSYNBrvBphu1"
-            },
-            "img": "systems/pf2e/icons/spells/massacre.webp",
-            "name": "Massacre",
-            "sort": 300000,
-            "system": {
-                "area": {
-                    "type": "line",
-                    "value": 60
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "10d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "void"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>You unleash a wave of necromantic energy to snuff out the life force of those in its path. Each creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the void energy violently explodes back toward you, dealing an additional 30 void damage to every creature in the line (even those above 17th level) and 30 void damage to you.</p>\n<hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes 9d6 void damage.</p>\n<p><strong>Failure</strong> The creature takes 100 void damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p>\n<hr /><p><strong>Heightened (10th)</strong> The spell can affect creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 10
-                },
-                "location": {
-                    "value": "tXoIGwvSGdRcv6jU"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "massacre",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "death",
-                        "manipulate",
-                        "void"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
             "_id": "2tizdcbdj6rD6U6d",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki"
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -328,7 +247,7 @@
             },
             "img": "systems/pf2e/icons/spells/disintegrate.webp",
             "name": "Disintegrate",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -414,7 +333,7 @@
             },
             "img": "icons/magic/lightning/projectile-tendrils-teal.webp",
             "name": "Disjunction",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -462,6 +381,106 @@
                     "value": [
                         "concentrate",
                         "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "uSIi92kApeF6gTM0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.10VcmSYNBrvBphu1"
+            },
+            "folder": "fi1AYNmuCRvoT15b",
+            "img": "systems/pf2e/icons/spells/massacre.webp",
+            "name": "Massacre",
+            "sort": 600000,
+            "system": {
+                "area": {
+                    "type": "line",
+                    "value": 60
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "9d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You unleash a wave of death to snuff out the life force of those in its path. Each living creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from <em>massacre</em> reduces a creature to 0 Hit Points, that creature dies instantly. If <em>massacre</em> doesn't kill even a single creature, the void energy hungrily turns backward toward you, dealing an additional @Damage[30[void]] damage to every living creature in the line (even those above 17th level) and 30 void damage to you.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes 9d6 void damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(ternary(gte(@item.rank,10),115,100))[void]] damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p><hr /><p><strong>Heightened (10th)</strong> The spell can affect living creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "levels": {
+                        "10": {
+                            "damage": {
+                                "0": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "10d6",
+                                    "materials": [],
+                                    "type": "void"
+                                }
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 9
+                },
+                "location": {
+                    "heightenedLevel": 10,
+                    "value": "tXoIGwvSGdRcv6jU"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "massacre",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "death",
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
