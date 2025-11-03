@@ -30,6 +30,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -67,6 +68,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -106,6 +108,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -222,7 +225,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A frost roc gains a +2 circumstance bonus to hit with its beak Strike if the target is grabbed or restrained in its talon.</p>"
+                    "value": "<p>A frost roc gains a +2 circumstance bonus to hit with its beak Strike if the target is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in its talon.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -231,15 +234,21 @@
                 },
                 "rules": [
                     {
+                        "domain": "attack-roll",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.Target.GrabbedByNPC",
-                        "option": "target:in-talon",
+                        "option": "snack",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "target:in-talon"
+                            "snack",
+                            {
+                                "or": [
+                                    "target:condition:grabbed",
+                                    "target:condition:restrained"
+                                ]
+                            }
                         ],
                         "selector": "beak-attack",
                         "type": "circumstance",

@@ -35,6 +35,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -80,6 +81,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -126,12 +128,14 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": [
-                        "range-increment-20"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
                     "value": "ranged"
@@ -182,7 +186,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ore louse is adjacent to a creature that died within the last hour and had the metal trait or was another ore louse</p>\n<hr />\n<p><strong>Effect</strong> An ore louse can replenish its health by eating the remains of its kin or a once-living metal creature. The ore louse feasts upon the corpse, regaining 3d6 Hit Points. The ore louse can regain Hit Points from a given corpse only once.</p>"
+                    "value": "<p><strong>Requirements</strong> The ore louse is adjacent to a creature that died within the last hour and had the metal trait or was another ore louse</p>\n<hr />\n<p><strong>Effect</strong> An ore louse can replenish its health by eating the remains of its kin or a once-living metal creature. The ore louse feasts upon the corpse, regaining @Damage[3d6[healing]] Hit Points. The ore louse can regain Hit Points from a given corpse only once.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -242,7 +246,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>An ore louse's Strikes causes metal to rapidly rust and corrode. If it succeeds at a mandibles or oxidizing spit Strike, the ore louse deals 3d6 damage (or double damage on a critical hit) to a metal item the target is wearing or holding, ignoring its Hardness. If the ore louse hits an unattended metal item, the item takes this damage automatically. If a creature uses the Shield Block reaction with a metal shield against the attacks, the shield is automatically broken, but no other item is rusted on that attack.</p>"
+                    "value": "<p>An ore louse's Strikes causes metal to rapidly rust and corrode. If it succeeds at a mandibles or oxidizing spit Strike, the ore louse deals @Damage[3d6[untyped]] damage (or double damage on a critical hit) to a metal item the target is wearing or holding, ignoring its Hardness. If the ore louse hits an unattended metal item, the item takes this damage automatically. If a creature uses the Shield Block reaction with a metal shield against the attacks, the shield is automatically broken, but no other item is rusted on that attack.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -355,16 +359,11 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "metal scent 30 feet",
             "mod": 14,
             "senses": [
                 {
                     "type": "darkvision"
-                },
-                {
-                    "acuity": "imprecise",
-                    "range": 30,
-                    "type": "scent"
                 },
                 {
                     "acuity": "imprecise",

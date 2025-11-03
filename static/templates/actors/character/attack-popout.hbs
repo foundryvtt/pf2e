@@ -11,10 +11,9 @@
                     {{> "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs" action=blast omitName=true}}
                 {{/each}}
             </ol>
-        {{/if}}
-        {{#if (eq popoutType "strike")}}
+        {{else}}
             <ol class="actions-list item-list strikes-list" data-strikes>
-                {{> "systems/pf2e/templates/actors/character/partials/strike.hbs" action=strike index=strikeIndex omitName=true}}
+                {{> "systems/pf2e/templates/actors/character/partials/strike.hbs" action=attack index=index omitName=true}}
             </ol>
         {{/if}}
     </div>

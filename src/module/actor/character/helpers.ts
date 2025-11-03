@@ -1,13 +1,16 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
+import type { AttackAmmunitionData } from "@actor/data/base.ts";
 import { Modifier } from "@actor/modifiers.ts";
-import { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, ItemProxyPF2e, WeaponPF2e } from "@item";
+import { AbilityItemPF2e, AmmoPF2e, ArmorPF2e, ConditionPF2e, ItemProxyPF2e, WeaponPF2e } from "@item";
+import { getLoadedAmmo } from "@item/weapon/helpers.ts";
 import type { ZeroToFour } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { Predicate } from "@system/predication.ts";
-import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
+import { WeaponAuxiliaryAction } from "./auxiliary.ts";
 import type { MartialProficiency } from "./data.ts";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
@@ -206,11 +209,144 @@ function createPonderousPenalty(actor: CharacterPF2e): Modifier | null {
     });
 }
 
+function getWeaponAuxiliaryActions(weapon: WeaponPF2e<CharacterPF2e>): WeaponAuxiliaryAction[] {
+    const actor = weapon.actor;
+    const auxiliaryActions: WeaponAuxiliaryAction[] = [];
+    const isRealItem = actor.items.has(weapon.id);
+    const traitsArray = weapon.system.traits.value;
+
+    if (weapon.system.traits.toggles.modular.options.length > 0) {
+        auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
+    }
+    if (weapon.isEquipped) {
+        if (traitsArray.includes("parry") && !actor.rollOptions.all["self:effect:parry"]) {
+            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "parry" }));
+        }
+    }
+
+    if (isRealItem && weapon.category !== "unarmed" && !weapon.parentItem) {
+        const usage = weapon.system.usage;
+        const weaponAsShield = weapon.shield;
+        const canWield2H =
+            usage.hands === 2 ||
+            (usage.hands === 1 && actor.handsFree > 0 && !!weaponAsShield) ||
+            traitsArray.some((t) => t.startsWith("fatal-aim")) ||
+            traitsArray.some((t) => t.startsWith("two-hand"));
+
+        switch (weapon.carryType) {
+            case "held": {
+                if (weaponAsShield) {
+                    const hasShieldRaised = !!actor.rollOptions.all["self:effect:raise-a-shield"];
+                    const hasGreaterCover = !!actor.rollOptions.all["self:cover-level:greater"];
+                    if (!hasShieldRaised) {
+                        auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "raise-a-shield" }));
+                    } else if (weaponAsShield.isTowerShield && weaponAsShield.isRaised) {
+                        const action = hasGreaterCover ? "end-cover" : "take-cover";
+                        const annotation = "tower-shield";
+                        auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action, annotation }));
+                    }
+                }
+
+                if (weapon.handsHeld === 2) {
+                    auxiliaryActions.push(
+                        new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "grip", hands: 1 }),
+                    );
+                } else if (weapon.handsHeld === 1 && canWield2H) {
+                    auxiliaryActions.push(
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "grip", hands: 2 }),
+                    );
+                }
+                auxiliaryActions.push(
+                    new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "sheathe", hands: 0 }),
+                );
+                auxiliaryActions.push(
+                    new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "drop", hands: 0 }),
+                );
+
+                break;
+            }
+            case "worn": {
+                auxiliaryActions.push(
+                    new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 1 }),
+                );
+                if (canWield2H) {
+                    auxiliaryActions.push(
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 2 }),
+                    );
+                }
+                break;
+            }
+            case "stowed": {
+                auxiliaryActions.push(
+                    new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "retrieve", hands: 1 }),
+                );
+                break;
+            }
+            case "dropped": {
+                auxiliaryActions.push(
+                    new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 1 }),
+                );
+                if (canWield2H) {
+                    auxiliaryActions.push(
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 2 }),
+                    );
+                }
+                break;
+            }
+        }
+    }
+
+    return auxiliaryActions;
+}
+
+/**
+ * Returns data for usable ammo if the weapon requires ammo.
+ * Built in ammo will require special handling, and isn't supported yet.
+ */
+function getAttackAmmo(
+    weapon: WeaponPF2e<CharacterPF2e>,
+    { ammos }: { ammos: (AmmoPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[] },
+): AttackAmmunitionData | null {
+    if (!weapon.system.expend) return null;
+
+    const ammo = weapon.ammo;
+    const compatible = ammos.filter((a) => a.isAmmoFor(weapon));
+    const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
+    const loaded = getLoadedAmmo(weapon);
+    const capacity = weapon.system.ammo?.capacity ?? 0;
+    const remaining = Math.max(0, capacity - R.sumBy(loaded, (l) => l.quantity));
+
+    // Get reload glyph. Repeating weapons always take 3 actions total
+    const numActions = weapon.system.traits.value.includes("repeating") ? 3 : Number(weapon.reload);
+    const reloadGlyph = numActions > 0 && Number.isInteger(numActions) ? getActionGlyph(numActions) : null;
+
+    return {
+        compatible: compatible.map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` })),
+        selected,
+        loaded: loaded.map((ammo) => {
+            // A magazine can have max uses 1, but in those cases the quantity would be the same
+            const isMagazine = ammo.isOfType("ammo") && ammo.system.uses.max > 1;
+            return {
+                ...R.pick(ammo, ["id", "name", "img"]),
+                quantity: isMagazine ? ammo.system.uses.value : ammo.quantity,
+                max: isMagazine ? ammo.system.uses.max : remaining + ammo.quantity,
+            };
+        }),
+        // A repeating weapon may have reload 0, and still requires reloading
+        requiresReload: weapon.reload !== "0" || weapon.system.traits.value.includes("repeating"),
+        reloadGlyph,
+        capacity,
+        remaining,
+    };
+}
+
 export {
     createForceOpenPenalty,
     createPonderousPenalty,
     createShoddyPenalty,
+    getAttackAmmo,
     getItemProficiencyRank,
+    getWeaponAuxiliaryActions,
     imposeOversizedWeaponCondition,
     PCAttackTraitHelpers,
 };

@@ -21,7 +21,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
     #foldersDb: Sublevel<DBFolder>;
     #embeddedDb: Sublevel<EmbeddedEntry> | null = null;
 
-    constructor(location: string, options: LevelDatabaseOptions<DBEntry>) {
+    constructor(location: string, options: LevelDatabaseOptions) {
         const dbOptions = options.dbOptions ?? { keyEncoding: "utf8", valueEncoding: "json" };
         super(location, dbOptions);
 
@@ -38,6 +38,12 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
                 dbOptions,
             ) as unknown as Sublevel<EmbeddedEntry>;
         }
+    }
+
+    static async connect(location: string, options: LevelDatabaseOptions): Promise<LevelDatabase> {
+        const db = new LevelDatabase(location, options);
+        await db.open({ passive: true });
+        return db;
     }
 
     async createPack(docSources: DBEntry[], folders: DBFolder[]): Promise<void> {
@@ -174,9 +180,9 @@ interface DBFolder {
     };
 }
 
-interface LevelDatabaseOptions<T> {
+interface LevelDatabaseOptions {
     packName: string;
-    dbOptions?: DatabaseOptions<string, T>;
+    dbOptions?: DatabaseOptions<string, DBEntry>;
 }
 
 export { LevelDatabase, type DBFolder };

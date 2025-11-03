@@ -31,8 +31,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get isRanged(): boolean {
-        const traitPattern = /^(?:range|thrown)-/;
-        return this.system.traits.value.some((t) => traitPattern.test(t));
+        return !!this.system.range;
     }
 
     get isThrown(): boolean {
@@ -57,24 +56,13 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     /** The range maximum and possibly also increment if a ranged attack; otherwise null */
     get range(): RangeData | null {
-        if (this.isMelee) return null;
-
-        const specifiedMaxRange = ((): number | null => {
-            const rangeTrait = this.system.traits.value.find((t) => /^range-\d+$/.test(t));
-            const range = Number(rangeTrait?.replace(/\D/g, "") || "NaN");
-            return Number.isInteger(range) ? range : null;
-        })();
-
-        const rangeIncrement = ((): number | null => {
-            if (specifiedMaxRange) return null;
-            const incrementTrait = this.system.traits.value.find((t) => /^(?:range-increment|thrown)-\d+$/.test(t));
-            return Number(incrementTrait?.replace(/\D/g, "")) || 10;
-        })();
-
-        return specifiedMaxRange
-            ? { increment: null, max: specifiedMaxRange }
-            : rangeIncrement
-              ? { increment: rangeIncrement, max: rangeIncrement * 6 }
+        // To mimic what weapon does, this getter computes max range from increment here rather than data prep
+        // If this changes, the melee sheet and range item alterations must be changed in response
+        const data = this.system.range;
+        return data?.max
+            ? (data as RangeData) // typescript fails to detect that data.max is not null and so we must cast
+            : data?.increment
+              ? { increment: data.increment, max: data.increment * 6 }
               : null;
     }
 
@@ -142,6 +130,12 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             if (attackDamage.damageType === "bleed") {
                 attackDamage.category = "persistent";
             }
+        }
+
+        // If thrown, set range data to the thrown value
+        if (this.system.traits.config?.thrown) {
+            const increment = this.system.traits.config.thrown;
+            this.system.range = { increment, max: null };
         }
     }
 
@@ -225,6 +219,30 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (!create) return undefined; // Nothing useful to do
         const strike = this.actor?.system.actions?.find((s) => s.item === this);
         return strike ? game.pf2e.rollActionMacro({ itemId: this.id, slug: strike.slug }) : undefined;
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: foundry.abstract.DatabaseUpdateCallbackOptions,
+        user: fd.BaseUser,
+    ): Promise<boolean | void> {
+        if (!changed.system) return super._preUpdate(changed, options, user);
+
+        // Ensure ranges are in a valid state
+        const isThrown = (changed.system.traits?.value ?? this._source.system.traits.value).some((t) =>
+            t.startsWith("thrown-"),
+        );
+        if (isThrown || (changed.system.range?.increment === null && changed.system.range.max === null)) {
+            changed.system.range = null;
+        } else if (changed.system.range?.max) {
+            changed.system.range.increment = null;
+        }
+
+        return super._preUpdate(changed, options, user);
     }
 }
 

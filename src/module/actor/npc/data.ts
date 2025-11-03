@@ -22,8 +22,8 @@ import type {
 import type {
     ActorAttributesSource,
     ActorFlagsPF2e,
+    AreaAttack,
     AttributeBasedTraceData,
-    BasicAttackAction,
     HitPointsStatistic,
     StrikeData,
 } from "@actor/data/base.ts";
@@ -33,7 +33,6 @@ import type { ActorAlliance, SaveType, SkillSlug } from "@actor/types.ts";
 import type { MeleePF2e } from "@item";
 import type { PublicationData, ValueAndMax } from "@module/data.ts";
 import type { RawPredicate } from "@system/predication.ts";
-import type { Statistic } from "@system/statistic/index.ts";
 
 type NPCSource = BaseCreatureSource<"npc", NPCSystemSource> & {
     flags: DeepPartial<NPCFlags>;
@@ -220,19 +219,14 @@ interface NPCStrike extends StrikeData {
     altUsages?: never;
 }
 
-interface NPCAreaFire extends BasicAttackAction {
-    type: "area-fire" | "auto-fire";
+interface NPCAreaAttack extends AreaAttack {
     item: MeleePF2e<ActorPF2e>;
-    /** The type of attack as a localization string */
-    attackRollType: string;
-    altUsages?: never;
-    statistic: Statistic;
+    /** Additional effects from a successful strike, like "Grab" */
     additionalEffects: { tag: string; label: string }[];
-    /** A list of buttons to show. In practice there is only one */
-    variants: { label: string; roll: () => void }[];
+    altUsages?: never;
 }
 
-type NPCAttackAction = NPCStrike | NPCAreaFire;
+type NPCAttackAction = NPCStrike | NPCAreaAttack;
 
 /** Save data with an additional "base" value */
 interface NPCSaveData extends SaveData {
@@ -273,7 +267,7 @@ interface NPCResources extends CreatureResources {
 }
 
 export type {
-    NPCAreaFire,
+    NPCAreaAttack,
     NPCAttackAction,
     NPCAttributes,
     NPCAttributesSource,

@@ -5,7 +5,7 @@ import type { RollMode } from "@common/constants.d.mts";
 import type { ChatMessageFlags } from "@common/documents/chat-message.d.mts";
 import type { SpellSource } from "@item/base/data/index.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
-import type { ItemType } from "@item/types.ts";
+import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { ZeroToTwo } from "@module/data.ts";
 import type { RollNoteSource } from "@module/notes.ts";
 import type { CheckCheckContext } from "@system/check/index.ts";
@@ -47,7 +47,8 @@ type ChatContextFlag =
     | DamageDamageContextFlag
     | SpellCastContextFlag
     | SelfEffectContextFlag
-    | DamageTakenContextFlag;
+    | DamageTakenContextFlag
+    | AreaAttackContextFlag;
 
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
@@ -124,6 +125,15 @@ interface SpellCastContextFlag {
     rollMode?: RollMode;
 }
 
+interface AreaAttackContextFlag {
+    type: "area-fire" | "auto-fire";
+    area: { type: EffectAreaShape; value: number };
+    identifier: string;
+    domains: string[];
+    options: string[];
+    outcome?: never;
+}
+
 interface SelfEffectContextFlag {
     type: "self-effect";
     item: string;
@@ -154,6 +164,7 @@ interface AppliedDamageFlag {
 export type {
     ActorTokenFlag,
     AppliedDamageFlag,
+    AreaAttackContextFlag,
     ChatContextFlag,
     ChatMessageFlagsPF2e,
     ChatMessageSourcePF2e,

@@ -56,7 +56,7 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
 
         // Main content
         const actorName = options.recipient.name;
-        const isAmmo = item.isOfType("consumable") && item.isAmmo;
+        const isAmmo = item.isOfType("ammo");
         const quantity = mode === "purchase" ? (isAmmo ? Math.min(10, item.quantity) : 1) : item.quantity;
         const context = {
             prompt: game.i18n.format(`PF2E.ItemTransferDialog.Prompt.${mode}`, { actor: actorName }),

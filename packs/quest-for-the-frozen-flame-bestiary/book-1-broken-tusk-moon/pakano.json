@@ -412,7 +412,7 @@
                 },
                 "damageRolls": {
                     "pguvzb8qme7dnsxzleqh": {
-                        "damage": "2d6+6",
+                        "damage": "1d6+6",
                         "damageType": "piercing"
                     }
                 },
@@ -424,13 +424,12 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "parry"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
                     "value": "melee"
@@ -460,7 +459,7 @@
                 },
                 "damageRolls": {
                     "ozfz7zo1sika8u8v2nn2": {
-                        "damage": "2d6+6",
+                        "damage": "1d6+6",
                         "damageType": "piercing"
                     }
                 },
@@ -472,6 +471,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -526,6 +526,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -707,7 +708,6 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "hunted-prey",
                             "first-attack"
                         ],
                         "selector": "strike-damage"
@@ -737,7 +737,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Pakano's spear has the parry weapon trait, and his Strikes with the spear deal an additional [[/r {1d6}]]{1d6 damage}. If he critically hits a creature with a spear, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the start of Pakano's next turn.</p>"
+                    "value": "<p>Pakano's spear has the parry weapon trait, and his Strikes with the spear deal an additional 1d6 damage. If he critically hits a creature with a spear, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the start of Pakano's next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -746,13 +746,33 @@
                 },
                 "rules": [
                     {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:spear",
+                            {
+                                "not": "item:ranged"
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "parry"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "spear-damage"
+                    },
+                    {
                         "key": "Note",
                         "outcome": [
                             "criticalSuccess"
                         ],
                         "selector": "spear-attack",
-                        "text": "If he critically hits a creature with a spear, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the start of Pakano's next turn.",
-                        "title": "{item|name}"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,

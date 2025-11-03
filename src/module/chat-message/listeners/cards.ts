@@ -46,8 +46,8 @@ class ChatCards {
         }
 
         // Handle attacks
-        const strikeAction = message._strike;
-        if (strikeAction?.type === "strike" && action?.startsWith("strike-")) {
+        const attack = message._attack;
+        if (attack?.type === "strike" && action?.startsWith("strike-")) {
             const context = (
                 message.rolls.some((r) => r instanceof CheckRoll) ? (message.flags.pf2e.context ?? null) : null
             ) as CheckContextChatFlag | null;
@@ -61,17 +61,17 @@ class ChatCards {
 
             switch (sluggify(action ?? "")) {
                 case "strike-attack":
-                    strikeAction.variants[0].roll(rollArgs);
+                    attack.variants[0].roll(rollArgs);
                     return;
                 case "strike-attack2":
-                    strikeAction.variants[1].roll(rollArgs);
+                    attack.variants[1].roll(rollArgs);
                     return;
                 case "strike-attack3":
-                    strikeAction.variants[2].roll(rollArgs);
+                    attack.variants[2].roll(rollArgs);
                     return;
                 case "strike-damage": {
                     const method = button.dataset.outcome === "success" ? "damage" : "critical";
-                    strikeAction[method]?.(rollArgs);
+                    attack[method]?.(rollArgs);
                     return;
                 }
             }
@@ -101,7 +101,6 @@ class ChatCards {
         // Handle everything else
         if (item) {
             const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
-            const attack = item.isOfType("melee") ? actor.system.actions?.find((a) => a.item.id === item.id) : null;
 
             switch (action) {
                 case "spell-attack":
@@ -228,9 +227,9 @@ class ChatCards {
                     attack?.damage?.({ event });
                     return;
                 case "place-area-template": {
-                    const area = item.isOfType("melee") ? item.system.area : null;
-                    if (!area) return;
-                    placeItemTemplate(area, { item, message });
+                    const context = message.flags.pf2e.context;
+                    const area = tupleHasValue(["area-fire", "auto-fire"], context?.type) ? context.area : null;
+                    if (area) placeItemTemplate(area, { item, message });
                     return;
                 }
             }

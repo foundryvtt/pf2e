@@ -217,6 +217,7 @@
             "class",
             "condition",
             "consumable",
+            "ammo",
             "deity",
             "effect",
             "equipment",
@@ -308,8 +309,7 @@
                                 "value": ""
                             }
                         }
-                    },
-                    "misidentified": {}
+                    }
                 }
             },
             "itemLevel": {
@@ -350,13 +350,6 @@
             "capacity": 1,
             "contents": []
         },
-        "treasure": {
-            "templates": [
-                "common",
-                "physical"
-            ],
-            "stackGroup": null
-        },
         "weapon": {
             "templates": [
                 "common",
@@ -385,6 +378,7 @@
             },
             "range": null,
             "expend": null,
+            "ammo": null,
             "reload": {
                 "value": null
             },
@@ -433,8 +427,24 @@
             "usage": {
                 "value": "held-in-one-hand"
             },
-            "stackGroup": null,
             "spell": null,
+            "traits": {
+                "value": [
+                    "consumable"
+                ]
+            }
+        },
+        "ammo": {
+            "templates": [
+                "common",
+                "physical"
+            ],
+            "craftableAs": null,
+            "uses": {
+                "value": 1,
+                "max": 1,
+                "autoDestroy": true
+            },
             "traits": {
                 "value": [
                     "consumable"

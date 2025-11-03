@@ -1,5 +1,4 @@
 const CONSUMABLE_CATEGORIES = new Set([
-    "ammo",
     "catalyst",
     "drug",
     "elixir",
@@ -18,7 +17,6 @@ const CONSUMABLE_CATEGORIES = new Set([
 ] as const);
 
 const DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES = new Set<SetElement<typeof CONSUMABLE_CATEGORIES>>([
-    "ammo",
     "elixir",
     "oil",
     "other",
@@ -27,22 +25,6 @@ const DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES = new Set<SetElement<typeof CONSUM
     "snare",
 ]);
 
-const DAMAGE_ONLY_CONSUMABLE_CATEGORIES = new Set<SetElement<typeof CONSUMABLE_CATEGORIES>>(["ammo", "snare"]);
+const DAMAGE_ONLY_CONSUMABLE_CATEGORIES = new Set<SetElement<typeof CONSUMABLE_CATEGORIES>>(["snare"]);
 
-const AMMO_STACK_GROUPS = new Set([
-    "arrows",
-    "blowgunDarts",
-    "bolts",
-    "rounds5",
-    "rounds10",
-    "slingBullets",
-    "sprayPellets",
-    "woodenTaws",
-] as const);
-
-export {
-    AMMO_STACK_GROUPS,
-    CONSUMABLE_CATEGORIES,
-    DAMAGE_ONLY_CONSUMABLE_CATEGORIES,
-    DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES,
-};
+export { CONSUMABLE_CATEGORIES, DAMAGE_ONLY_CONSUMABLE_CATEGORIES, DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES };

@@ -11,7 +11,6 @@ const grabAnEdge = new SingleCheckAction({
         { outcome: ["success"], text: `${PREFIX}.Notes.success` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:grab-an-edge"],
     section: "specialty-basic",
     slug: "grab-an-edge",
     statistic: ["reflex", "acrobatics"],

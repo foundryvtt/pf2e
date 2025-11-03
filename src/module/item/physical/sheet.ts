@@ -31,7 +31,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         // Enrich content
         const rollData = { ...item.getRollData(), ...this.actor?.getRollData() };
         sheetData.enrichedContent.unidentifiedDescription = await TextEditorPF2e.enrichHTML(
-            sheetData.item.system.identification.unidentified.data.description.value,
+            sheetData.item.system.identification.unidentified?.data.description.value ?? "",
             { rollData },
         );
 
@@ -81,9 +81,13 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             sidebarTemplate: "systems/pf2e/templates/items/physical-sidebar.hbs",
             bulkAdjustment,
             adjustedLevelHint,
-            basePrice,
-            priceAdjustment,
-            adjustedPriceHint,
+            price: {
+                base: new Coins(item._source.system.price.value).toString({ short: true }),
+                label: item.system.price.value.toString({ short: true }),
+                adjustment: priceAdjustment,
+                adjustmentHint: adjustedPriceHint,
+                per: item.system.price.per,
+            },
             attributes: CONFIG.PF2E.abilities,
             actionTypes: CONFIG.PF2E.actionTypes,
             bulks,
@@ -201,7 +205,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
         // Convert price from a string to an actual object
         if ("system.price.value" in formData) {
-            formData["system.price.value"] = Coins.fromString(String(formData["system.price.value"]));
+            formData["system.price.==value"] = Coins.fromString(String(formData["system.price.value"])).toObject();
+            delete formData["system.price.value"];
         }
 
         return super._updateObject(event, formData);
@@ -215,9 +220,13 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     bulkAdjustment: string | null;
     adjustedBulkHint?: string | null;
     adjustedLevelHint: string | null;
-    basePrice: Coins;
-    priceAdjustment: string | null;
-    adjustedPriceHint: string | null;
+    price: {
+        label: string;
+        base: string;
+        adjustment: string | null;
+        adjustmentHint: string | null;
+        per: number | null;
+    };
     attributes: typeof CONFIG.PF2E.abilities;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;

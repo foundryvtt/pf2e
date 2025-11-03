@@ -6,7 +6,7 @@ import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import type { ItemPF2e } from "@item";
 import type { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import type { ZeroToFour } from "@module/data.ts";
-import type { TagifyEntry } from "@module/sheet/helpers.ts";
+import type { NPCAttackTraitOrTag, TagifyEntry } from "@module/sheet/helpers.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import type { NPCAttributes, NPCPerceptionData, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
 import type { NPCPF2e } from "./index.ts";
@@ -66,16 +66,6 @@ interface NPCStrikeSheetData {
     description: string | null;
     /** The damage formula of the strike for display on sheets */
     damageFormula: string | null;
-}
-
-/**
- * An NPC trait or tag to show next to a strike (or area/auto fire in SF2e).
- * Sometimes Paizo will include a non-trait in the traits list.
- * "As Melee, but also lists range or range increment *with* traits" - Monster Core Pg 5
- */
-interface NPCAttackTraitOrTag {
-    label: string;
-    description?: string | null;
 }
 
 interface NPCSpellcastingSheetData extends SpellcastingSheetData {
@@ -150,6 +140,5 @@ export type {
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,
-    NPCAttackTraitOrTag as NPCTraitOrTag,
     VariantCloneParams,
 };

@@ -4,7 +4,7 @@
     "name": "Effect: Spin Tale",
     "system": {
         "description": {
-            "value": "<p>You gain a +1 status bonus to attack rolls and saving throws against the villain until the start of your next turn.</p>"
+            "value": "<p>You gain a +1 status bonus to attack rolls and saving throws against the marked villain.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,9 +22,13 @@
         },
         "rules": [
             {
+                "key": "TokenMark",
+                "slug": "spin-tale"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "spin-tale"
+                    "target:mark:spin-tale"
                 ],
                 "selector": "attack",
                 "type": "status",
@@ -33,16 +37,11 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "spin-tale"
+                    "origin:mark:spin-tale"
                 ],
                 "selector": "saving-throw",
+                "type": "status",
                 "value": 1
-            },
-            {
-                "key": "RollOption",
-                "label": "Target is villain of Folklorist's Spun Tale",
-                "option": "spin-tale",
-                "toggleable": true
             }
         ],
         "start": {

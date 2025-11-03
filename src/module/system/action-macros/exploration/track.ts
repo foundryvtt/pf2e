@@ -34,7 +34,6 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: "PF2E.Actions.Track.Notes.failure" },
         { outcome: ["criticalFailure"], text: "PF2E.Actions.Track.Notes.criticalFailure" },
     ],
-    rollOptions: ["action:track"],
     sampleTasks: {
         untrained: "PF2E.Actions.Track.SampleTasks.Untrained",
         trained: "PF2E.Actions.Track.SampleTasks.Trained",

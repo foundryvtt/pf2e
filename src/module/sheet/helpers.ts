@@ -3,8 +3,13 @@ import type Application from "@client/appv1/api/application-v1.d.mts";
 import type { TooltipDirection } from "@client/helpers/interaction/tooltip-manager.d.mts";
 import type { RollMode } from "@common/constants.d.mts";
 import type { ItemUUID } from "@common/documents/_module.d.mts";
-import { ItemPF2e, ItemProxyPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
+import type { TraitChatData } from "@item/base/data/index.ts";
+import { createEffectAreaLabel } from "@item/helpers.ts";
+import type { ItemType } from "@item/types.ts";
+import type { Rarity } from "@module/data.ts";
 import { htmlClosest, htmlQuery, sortLabeledRecord } from "@util";
+import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 
 /** Prepare form options on an item or actor sheet */
@@ -167,6 +172,16 @@ async function sendItemToChat(itemUuid: ItemUUID, options: { event?: Event; acto
     item.toMessage(options.event);
 }
 
+function getBasePhysicalItemViewData(item: PhysicalItemPF2e): BasePhysicalItemViewData {
+    return {
+        ...R.pick(item, ["id", "uuid", "img", "name"]),
+        type: item.type as ItemType,
+        level: item.level,
+        rarity: item.rarity,
+        traits: item.traitChatData(),
+    };
+}
+
 /** Creates a listener that can be used to create tooltips with dynamic content */
 function createTooltipListener(
     element: HTMLElement,
@@ -211,6 +226,36 @@ function createTooltipListener(
     );
 }
 
+function createNPCAttackTraitsAndTags(item: MeleePF2e): NPCAttackTraitOrTag[] {
+    const tags: NPCAttackTraitOrTag[] = item.system.traits.value.map((t) =>
+        traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits),
+    );
+
+    // Area/Auto fire adds a tag to the traits list
+    if (item.system.action !== "strike" && item.system.area) {
+        tags.push({ label: createEffectAreaLabel(item.system.area) });
+    }
+
+    // Include range data with traits.
+    const range = item.range;
+    if (range && !item.system.traits.config?.thrown) {
+        const description = game.i18n.localize("PF2E.TraitDescriptionRange");
+        if (range.increment) {
+            tags.push({
+                label: game.i18n.format("PF2E.Item.NPCAttack.Tags.RangeIncrementN", {
+                    n: range.increment,
+                }),
+                description,
+            });
+        } else if (range.max) {
+            const label = game.i18n.format("PF2E.Item.NPCAttack.Tags.RangeN", { n: range.max });
+            tags.push({ label, description });
+        }
+    }
+
+    return tags.sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
+}
+
 interface SheetOption {
     value: string;
     label: string;
@@ -239,7 +284,30 @@ interface TagifyEntry {
     "data-tooltip"?: string;
 }
 
+/**
+ * An NPC trait or tag to show next to a strike (or area/auto fire in SF2e).
+ * Sometimes Paizo will include a non-trait in the traits list.
+ * "As Melee, but also lists range or range increment *with* traits" - Monster Core Pg 5
+ */
+interface NPCAttackTraitOrTag {
+    name?: string;
+    label: string;
+    description?: string | null;
+}
+
+interface BasePhysicalItemViewData {
+    id: string;
+    uuid: ItemUUID;
+    type: ItemType;
+    img: string;
+    name: string;
+    traits: TraitChatData[];
+    level: number | null;
+    rarity: Rarity | null;
+}
+
 export {
+    createNPCAttackTraitsAndTags,
     createSheetOptions,
     createSheetTags,
     createTagifyTraits,
@@ -248,9 +316,10 @@ export {
     eventToRollParams,
     getAdjustedValue,
     getAdjustment,
+    getBasePhysicalItemViewData,
     getItemFromDragEvent,
     isControlDown,
     maintainFocusInRender,
     sendItemToChat,
 };
-export type { AdjustedValue, SheetOption, SheetOptions, TagifyEntry };
+export type { AdjustedValue, BasePhysicalItemViewData, NPCAttackTraitOrTag, SheetOption, SheetOptions, TagifyEntry };

@@ -758,6 +758,7 @@
                     "value": null
                 },
                 "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>When the Immortal Trickster is reduced to 0 Hit Points, he returns to life at full health and with all his powers and Mythic Points recharged after 24 hours. He usually, but not always, returns at the site of his death, though he can appear anywhere on the same world where there are coyotes, foxes, or ravens.</p>"
                 },
@@ -1028,11 +1029,14 @@
                         "predicate": [
                             "change-shape:humanoid-medium"
                         ],
+                        "range": {
+                            "increment": 60,
+                            "max": null
+                        },
                         "slug": "telekinetic-manipulation",
                         "traits": [
                             "force",
-                            "magical",
-                            "range-increment-60"
+                            "magical"
                         ]
                     }
                 ],
@@ -1137,13 +1141,7 @@
                     "remaster": true,
                     "title": "Pathfinder War of Immortals"
                 },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "mythic-power",
-                        "toggleable": true
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1177,16 +1175,21 @@
                 },
                 "rules": [
                     {
+                        "key": "RollOption",
+                        "option": "mythic-skill",
+                        "toggleable": true
+                    },
+                    {
                         "key": "FlatModifier",
                         "predicate": [
-                            "mythic-power"
+                            "mythic-skill"
                         ],
                         "selector": [
                             "deception",
                             "thievery"
                         ],
-                        "type": "proficiency",
-                        "value": 10
+                        "slug": "mythic-skill-bonus",
+                        "value": 4
                     }
                 ],
                 "slug": null,
@@ -1361,6 +1364,14 @@
                 {
                     "exceptions": [],
                     "type": "paralyzed"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "mythic",
+                    "value": 11
                 }
             ],
             "speed": {

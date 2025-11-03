@@ -1,0 +1,294 @@
+{
+    "_id": "wjbveVJmUoECH91Z",
+    "folder": "72YwVdCn52tsSyGQ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ZXOC7JfrVE96fJal",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Lockdown Protocol",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The prison takes any damage</p><hr /><p><strong>Effect</strong> The prison uses its Chromatic Eruption action as part of this reaction, then gains immunity to the triggering damage type until the hazard resets. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "K8mCERVs8o29jVr5",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Self-Repair",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The prison regains @Damage[30[healing]] Hit Points. Then, if the prison is at maximum Hit Points, the hazard deactivates and immediately resets.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mnxtMZ8BrzexhePG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Chromatic Eruption",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The prison has less than its maximum Hit Points</p><hr /><p><strong>Effect</strong> Tendrils of uncontained magical energy lash at creatures in a @Template[type:emanation|distance:20], dealing @Damage[10d6[untyped]|options:area-damage] damage (@Check[reflex|dc:37|basic] save) of a randomly determined type. Roll [[/gmr 1d4]]: 1–acid, 2–cold, 3–electricity, 4–fire.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "chromatic-eruption",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.chromaticEruption}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HYD6eM7RcI1n5Z5u",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Energy Immunity",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The prison takes acid, cold, electricity, or fire damage</p><hr /><p><strong>Effect</strong> The prison takes the damage but then gains immunity to the triggering damage type until the hazard resets.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.AethusasPrison.EnergyImmunity.Acid",
+                        "option": "energy-immunity-acid",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.AethusasPrison.EnergyImmunity.Cold",
+                        "option": "energy-immunity-cold",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.AethusasPrison.EnergyImmunity.Electricity",
+                        "option": "energy-immunity-electricity",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.AethusasPrison.EnergyImmunity.Fire",
+                        "option": "energy-immunity-fire",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            {
+                                "not": "non-damaging"
+                            }
+                        ],
+                        "exceptions": [
+                            "acid",
+                            "cold",
+                            "electricity",
+                            "fire"
+                        ],
+                        "key": "Immunity",
+                        "label": "PF2E.Damage.IWR.Type.all-damage",
+                        "type": "custom"
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "energy-immunity-acid"
+                        ],
+                        "type": "acid"
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "energy-immunity-cold"
+                        ],
+                        "type": "cold"
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "energy-immunity-electricity"
+                        ],
+                        "type": "electricity"
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "energy-immunity-fire"
+                        ],
+                        "type": "fire"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Aethusa's Prison",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "emitsSound": "encounter",
+            "hardness": 25,
+            "hp": {
+                "details": "",
+                "max": 106,
+                "temp": 0,
+                "value": 106
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 32
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A roiling sphere of chromatic energy floats above a pedestal marked with arcane symbols.</p>",
+            "disable": "<p>@Check[nature|dc:42] (legendary) or @Check[crafting|dc:45] (master) to remove an immunity the prison currently has to one of the following damage types: acid, cold, electricity, or fire (this effect lasts until the prison uses its Energy Immunity reaction to regain that immunity); @Check[arcana|dc:42] (master) to fortify the pedestal's containment runes, preventing the prison from using its Chromatic Eruption action for 1 round and causing it to suffer feedback that inflicts @Damage[20[untyped]] damage (this damage bypasses the prison's hardness and immunities); @Check[thievery|dc:42] (master) or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (8th rank; counteract DC 34) to suppress the pedestal's containment runes for 1 round, preventing the prison from using its Self-Repair action and causing it to suffer feedback that inflicts @Damage[20[untyped]] damage (this damage bypasses the prison's hardness and immunities). Unlike most hazards, Aethusa's prison can't be disabled, but it can be destroyed by reducing it to 0 Hit Points.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #220: Crypt of Runes"
+            },
+            "reset": "<p>The trap deactivates and then resets automatically when it repairs to its maximum Hit Points.</p>",
+            "routine": "<p>(2 actions) The prison uses its first action to Self-Repair. If the hazard has less than its maximum Hit Points, it then uses its Chromatic Eruption action.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 33
+            },
+            "reflex": {
+                "value": 25
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "arcane",
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

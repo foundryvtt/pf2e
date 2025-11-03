@@ -385,7 +385,7 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
 
         const conditionSource = game.pf2e.ConditionManager.conditions.get(uuid)?.toObject();
         if (!conditionSource) return this.failValidation(validationFailure);
-        const { actor } = this;
+        const actor = this.actor;
         if (actor.isImmuneTo(conditionSource.system.slug)) return;
 
         for (const alteration of this.alterations) {

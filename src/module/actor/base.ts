@@ -84,7 +84,7 @@ import {
     migrateActorSource,
 } from "./helpers.ts";
 import type { ActorInitiative } from "./initiative.ts";
-import { ActorInventory } from "./inventory/index.ts";
+import { ActorInventory, AddItemParam } from "./inventory/index.ts";
 import { ItemTransfer } from "./item-transfer.ts";
 import { applyStackingRules } from "./modifiers.ts";
 import type { ActorSheetPF2e } from "./sheet/base.ts";
@@ -1574,16 +1574,46 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const newQuantity = item.quantity - quantity;
         const removeFromSource = newQuantity < 1;
 
+        // Create update to start deleting/updating items on this actor
+        const update = createActorGroupUpdate();
         if (removeFromSource) {
-            await item.delete();
+            update.itemDeletes.push(item.id);
         } else {
-            await item.update({ "system.quantity": newQuantity });
+            update.itemUpdates.push({ _id: item.id, "system.quantity": newQuantity });
         }
 
+        // Create the item transfer data, but also handle backpacks and add their items to the delete update
         const newItemData = item.toObject();
+        newItemData._id = fu.randomID();
         newItemData.system.quantity = quantity;
         newItemData.system.equipped = getDefaultEquipStatus(item);
-        return targetActor.addToInventory(newItemData, container, newStack);
+        const itemTransfer: AddItemParam = [newItemData];
+        if (item.isOfType("backpack")) {
+            const addBackpack = (container: ContainerPF2e, containerId: string) => {
+                for (const item of container.contents) {
+                    const source = item.toObject();
+                    source._id = fu.randomID();
+                    source.system.containerId = containerId;
+                    itemTransfer.push(source);
+                    update.itemDeletes.push(item.id);
+
+                    if (item.isOfType("backpack")) addBackpack(item, source._id);
+                }
+            };
+            addBackpack(item, newItemData._id);
+        }
+
+        // Delete the transferred items from this actor
+        await applyActorGroupUpdate(this, update);
+
+        // Perform the create/updates on the target actor
+        const results = await targetActor.inventory.add(itemTransfer, {
+            container,
+            stack: itemTransfer.length < 2 && !newStack,
+            keepId: true, // avoid breaking container id links
+        });
+
+        return results[0];
     }
 
     async addToInventory(

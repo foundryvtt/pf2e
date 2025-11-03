@@ -7,6 +7,8 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import {
     MultipleAttackPenaltyData,
     calculateMAPs,
+    createAreaAttackMessage,
+    createDamageRollFunctions,
     getAttackDamageDomains,
     getStrikeAttackDomains,
     isReallyPC,
@@ -29,10 +31,10 @@ import type { AttributeString, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type {
+    AmmoPF2e,
     AncestryPF2e,
     BackgroundPF2e,
     ClassPF2e,
-    ConsumablePF2e,
     DeityPF2e,
     FeatPF2e,
     HeritagePF2e,
@@ -41,8 +43,9 @@ import type {
 import { WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
+import { ActionCost } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
-import type { ItemType } from "@item/types.ts";
+import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import type { WeaponCategory } from "@item/weapon/types.ts";
@@ -65,14 +68,15 @@ import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
+import { ErrorPF2e, getActionGlyph, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
-import { WeaponAuxiliaryAction } from "./auxiliary.ts";
 import { CharacterCrafting } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
     CharacterAbilities,
+    CharacterAreaAttack,
+    CharacterAttack,
     CharacterAttributes,
     CharacterFlags,
     CharacterSkillData,
@@ -88,7 +92,9 @@ import {
     PCAttackTraitHelpers,
     createForceOpenPenalty,
     createShoddyPenalty,
+    getAttackAmmo,
     getItemProficiencyRank,
+    getWeaponAuxiliaryActions,
     imposeOversizedWeaponCondition,
 } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
@@ -623,7 +629,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.prepareMovementData();
 
         // Strike actions
-        system.actions = this.prepareStrikes();
+        system.actions = this.prepareAttacks();
         this.flags.pf2e.highestWeaponDamageDice = Math.max(
             ...system.actions.filter((s) => s.ready).map((s) => s.item.system.damage.dice),
             0,
@@ -1015,7 +1021,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** Prepare this character's strike actions */
-    prepareStrikes({ includeBasicUnarmed = true } = {}): CharacterStrike[] {
+    prepareAttacks({ includeBasicUnarmed = true } = {}): CharacterAttack[] {
         const { itemTypes, synthetics } = this;
 
         // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
@@ -1064,7 +1070,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             : null;
 
         const ammos = [
-            ...itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed),
+            ...itemTypes.ammo.filter((i) => !i.isStowed),
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
         const offensiveCategories = R.keys(CONFIG.PF2E.weaponCategories);
@@ -1081,7 +1087,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 .filter((s) => !s.isStowed && !s.isBroken && !s.isDestroyed)
                 .map((s) => s.generateWeapon()),
             this.inventory.flatMap((i) =>
-                i.isEquipped ? i.subitems.filter((i): i is WeaponPF2e<this> => i.isOfType("weapon")) : [],
+                i.isEquipped
+                    ? i.subitems.filter(
+                          (sub): sub is WeaponPF2e<this> =>
+                              sub.isOfType("weapon") && i.isOfType("weapon") && !sub.isAmmoFor(i),
+                      )
+                    : [],
             ),
         ]
             .flat()
@@ -1089,9 +1100,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Sort alphabetically, force basic unarmed attack to end, move all held items to the beginning, and then move
         // all readied strikes to beginning
+        // For SF2e, all area weapons main usage is an area attack, but all automatic weapons have area attacks as secondary
         const handsReallyFree = this.handsReallyFree;
-        const strikes = weapons
-            .map((w) => this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree, ammos }))
+        const attacks = weapons
+            .map((w) =>
+                w.baseType === "grenade" || w.system.traits.config.area
+                    ? this.prepareAreaAttack(w, { ammos })
+                    : this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree, ammos }),
+            )
             .sort((a, b) =>
                 a.label
                     .toLocaleLowerCase(game.i18n.lang)
@@ -1102,23 +1118,167 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .sort((a, b) => (a.item.isHeld === b.item.isHeld ? 0 : a.item.isHeld ? -1 : 1))
             .sort((a, b) => (a.ready === b.ready ? 0 : a.ready ? -1 : 1));
 
-        // Finally, position subitem weapons directly below their parents
-        for (const subitemStrike of strikes.filter((s) => s.item.parentItem)) {
-            const subitem = subitemStrike.item;
-            const parentStrike = strikes.find((s) => (s.item.shield ?? s.item) === subitem.parentItem);
-            if (parentStrike) {
-                strikes.splice(strikes.indexOf(subitemStrike), 1);
-                strikes.splice(strikes.indexOf(parentStrike) + 1, 0, subitemStrike);
+        // Create alt usages for each strike, based on traits and such
+        for (const attack of attacks) {
+            const weapon = attack.item;
+            attack.altUsages.push(
+                ...weapon
+                    .getAltUsages()
+                    .map((w) => this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree })),
+            );
+            if (attack.type === "area-fire" && weapon.baseType !== "grenade") {
+                // If this was an area fire, add the normal strike as a secondary usage at the front
+                attack.altUsages.unshift(
+                    this.prepareStrike(weapon, { categories: offensiveCategories, handsReallyFree }),
+                );
+            } else if (weapon.system.traits.value.includes("automatic")) {
+                // If this is an automatic weapon, add the area usage at the very end
+                attack.altUsages.push(this.prepareAreaAttack(weapon));
             }
         }
 
-        return strikes;
+        // Finally, position subitem weapons directly below their parents
+        for (const subitemStrike of attacks.filter((s) => s.item.parentItem)) {
+            const subitem = subitemStrike.item;
+            const parentStrike = attacks.find((s) => (s.item.shield ?? s.item) === subitem.parentItem);
+            if (parentStrike) {
+                attacks.splice(attacks.indexOf(subitemStrike), 1);
+                attacks.splice(attacks.indexOf(parentStrike) + 1, 0, subitemStrike);
+            }
+        }
+
+        return attacks;
+    }
+
+    private prepareAreaAttack(
+        weapon: WeaponPF2e<CharacterPF2e>,
+        { ammos = [] }: { ammos?: (AmmoPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[] } = {},
+    ): CharacterAreaAttack {
+        const actor = weapon.actor;
+        const isAutomatic = weapon.system.traits.value.includes("automatic");
+        const action = isAutomatic ? "auto-fire" : "area-fire";
+
+        const classDC =
+            actor.getStatistic("class") ??
+            new Statistic(this, { slug: "class", label: "PF2E.Actor.Character.ClassDC.Label" });
+        const tracking = weapon.system.traits.config?.tracking;
+        const domains = ["all", `${action}-save`];
+        const statistic = classDC.extend({
+            modifiers: tracking
+                ? [
+                      new Modifier({
+                          slug: "tracking",
+                          label: "PF2E.Item.Weapon.Tracking",
+                          type: "item",
+                          modifier: tracking,
+                          adjustments: extractModifierAdjustments(
+                              actor.synthetics.modifierAdjustments,
+                              domains,
+                              "tracking",
+                          ),
+                      }),
+                  ]
+                : [],
+        });
+
+        const area = ((): { type: EffectAreaShape; value: number } => {
+            // Handle grenades
+            if (weapon.baseType === "grenade") {
+                const description = weapon.system.description.value;
+                const areaMatch = description.match(/Template\[burst\|distance:(?<distance>\d+)\]/);
+                const value = Number(areaMatch?.groups?.distance ?? 5);
+                return { type: "burst", value };
+            }
+
+            const itemRange = weapon.system.range || actor.getReach({ weapon: weapon });
+
+            // Handle automatic weapons
+            if (weapon.system.traits.value.includes("automatic")) {
+                return {
+                    type: "cone",
+                    value: Math.max(5, Math.floor(itemRange / 2) - (Math.floor(itemRange / 2) % 5)),
+                };
+            }
+
+            // Handle area weapons
+            const areaAnnotation = weapon.system.traits.config.area;
+            if (!areaAnnotation) throw ErrorPF2e(`Unable to calculate area for weapon ${weapon.uuid}`);
+            const type = areaAnnotation.type;
+            return { type, value: areaAnnotation.value || (type === "burst" ? 5 : itemRange) };
+        })();
+
+        const actionLabel = `PF2E.Actions.${sluggify(action, { camel: "bactrian" })}.Title`;
+        const weaponSlug = weapon.slug ?? sluggify(weapon.name);
+        const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
+        const actionCost: ActionCost = { type: "action", value: weapon.baseType === "grenade" ? 1 : 2 };
+        const weaponRollOptions = new Set(weapon.getRollOptions("item"));
+        const proficiencyRank = getItemProficiencyRank(actor, weapon, weaponRollOptions);
+        const options = [
+            `self:action:slug:${action}`,
+            meleeOrRanged,
+            "area-damage",
+            "area-effect",
+            ...weaponRollOptions,
+        ];
+
+        const identifier = `${weapon.id}.${weaponSlug}.${action}`;
+        const hiddenCauseStowed = weapon.isStowed && this.flags.pf2e.hideStowed;
+        const hiddenCauseUnarmed = weapon.slug === "basic-unarmed" && !this.flags.pf2e.showBasicUnarmed;
+
+        return {
+            slug: identifier,
+            type: action,
+            attackRollType: actionLabel,
+            label: weapon.name,
+            visible: !(hiddenCauseStowed || hiddenCauseUnarmed),
+            glyph: getActionGlyph(actionCost),
+            description: weapon.description,
+            ready: true,
+            canAttack: true,
+            altUsages: [],
+            auxiliaryActions: getWeaponAuxiliaryActions(weapon),
+            modifiers: [],
+            item: weapon,
+            statistic,
+            weaponTraits: weapon.system.traits.value
+                .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
+                .sort((a, b) => a.label.localeCompare(b.label)),
+            variants: [
+                {
+                    label: game.i18n.format("PF2E.ActionWithDC", {
+                        label: game.i18n.localize(actionLabel),
+                        dc: statistic.dc.value,
+                    }),
+                    roll: () => {
+                        createAreaAttackMessage({
+                            actor,
+                            item: weapon,
+                            statistic,
+                            action,
+                            identifier,
+                            actionCost,
+                            domains,
+                            options,
+                            area,
+                        });
+                    },
+                },
+            ],
+            ...createDamageRollFunctions(weapon, {
+                action,
+                statistic,
+                baseOptions: options,
+                actionTraits: ["attack"],
+                proficiencyRank,
+            }),
+            ammunition: getAttackAmmo(weapon, { ammos }),
+        };
     }
 
     /** Prepare a strike action from a weapon */
     private prepareStrike(
         weapon: WeaponPF2e<CharacterPF2e>,
-        { categories, handsReallyFree, ammos = [] }: PrepareStrikeOptions,
+        { handsReallyFree, ammos = [] }: PrepareStrikeOptions,
     ): CharacterStrike {
         const synthetics = this.synthetics;
         const modifiers: Modifier[] = [];
@@ -1237,90 +1397,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...extractModifiers(synthetics, attackDomains, { injectables: { weapon }, resolvables: { weapon } }),
         );
 
-        const auxiliaryActions: WeaponAuxiliaryAction[] = [];
-        const isRealItem = this.items.has(weapon.id);
-        const traitsArray = weapon.system.traits.value;
-
-        if (weapon.system.traits.toggles.modular.options.length > 0) {
-            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
-        }
-        if (weapon.isEquipped) {
-            if (traitsArray.includes("parry") && !this.rollOptions.all["self:effect:parry"]) {
-                auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "parry" }));
-            }
-        }
-        if (isRealItem && weapon.category !== "unarmed" && !weapon.parentItem) {
-            const usage = weapon.system.usage;
-            const weaponAsShield = weapon.shield;
-            const canWield2H =
-                usage.hands === 2 ||
-                (usage.hands === 1 && this.handsFree > 0 && !!weaponAsShield) ||
-                traitsArray.some((t) => t.startsWith("fatal-aim")) ||
-                traitsArray.some((t) => t.startsWith("two-hand"));
-
-            switch (weapon.carryType) {
-                case "held": {
-                    if (weaponAsShield) {
-                        const hasShieldRaised = !!this.rollOptions.all["self:effect:raise-a-shield"];
-                        const hasGreaterCover = !!this.rollOptions.all["self:cover-level:greater"];
-                        if (!hasShieldRaised) {
-                            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "raise-a-shield" }));
-                        } else if (weaponAsShield.isTowerShield && weaponAsShield.isRaised) {
-                            const action = hasGreaterCover ? "end-cover" : "take-cover";
-                            const annotation = "tower-shield";
-                            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action, annotation }));
-                        }
-                    }
-
-                    if (weapon.handsHeld === 2) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "grip", hands: 1 }),
-                        );
-                    } else if (weapon.handsHeld === 1 && canWield2H) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "grip", hands: 2 }),
-                        );
-                    }
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "sheathe", hands: 0 }),
-                    );
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "drop", hands: 0 }),
-                    );
-
-                    break;
-                }
-                case "worn": {
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 1 }),
-                    );
-                    if (canWield2H) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 2 }),
-                        );
-                    }
-                    break;
-                }
-                case "stowed": {
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "retrieve", hands: 1 }),
-                    );
-                    break;
-                }
-                case "dropped": {
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 1 }),
-                    );
-                    if (canWield2H) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 2 }),
-                        );
-                    }
-                    break;
-                }
-            }
-        }
-
         const weaponSlug = weapon.slug ?? sluggify(weapon.name);
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = [
@@ -1330,7 +1406,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             meleeOrRanged,
         ];
         const strikeStat = new StatisticModifier(weaponSlug, modifiers, rollOptions);
-        const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories, handsReallyFree }));
+
         const versatileLabel = (damageType: DamageType): string => {
             switch (damageType) {
                 case "bludgeoning":
@@ -1394,11 +1470,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 .sort((a, b) => a.label.localeCompare(b.label)),
             variants: [],
             selectedAmmoId: weapon.system.selectedAmmoId,
-            canStrike: true,
-            altUsages,
-            auxiliaryActions,
+            canAttack: true,
+            altUsages: [],
+            auxiliaryActions: getWeaponAuxiliaryActions(weapon),
             doubleBarrel,
             versatileOptions,
+            ammunition: getAttackAmmo(weapon, { ammos }),
         });
 
         if (action.versatileOptions.length > 0) {
@@ -1408,19 +1485,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 label: CONFIG.PF2E.damageTypes[weapon.system.damage.damageType],
                 glyph: DAMAGE_TYPE_ICONS[weapon.system.damage.damageType],
             });
-        }
-
-        // Show the ammo list if the weapon requires ammo
-        if (weapon.system.expend) {
-            const compatible = ammos
-                .filter((a) => a.isAmmoFor(weapon))
-                .map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` }));
-            const incompatible = ammos
-                .filter((a) => !a.isAmmoFor(weapon))
-                .map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` }));
-            const ammo = weapon.ammo;
-            const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
-            action.ammunition = { compatible, incompatible, selected };
         }
 
         action.breakdown = action.modifiers
@@ -1467,12 +1531,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const expend = weapon.system.expend ?? 0;
                 const configuredAmmo = weapon.ammo;
-                const ammoRemaining = configuredAmmo?.isOfType("consumable")
+                const ammoRemaining = configuredAmmo?.isOfType("ammo")
                     ? configuredAmmo.uses.max > 1
                         ? configuredAmmo.uses.value
                         : configuredAmmo.quantity
                     : (configuredAmmo?.quantity ?? 0);
-                params.consumeAmmo ??= expend > 0;
+                params.consumeAmmo = weapon.system.ammo?.builtIn ? false : (params.consumeAmmo ?? expend > 0);
 
                 if (params.consumeAmmo && expend > ammoRemaining) {
                     ui.notifications.warn(
@@ -1911,7 +1975,7 @@ interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
 interface PrepareStrikeOptions {
     categories: WeaponCategory[];
     handsReallyFree: number;
-    ammos?: (ConsumablePF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
+    ammos?: (AmmoPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
 }
 
 export { CharacterPF2e };

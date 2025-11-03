@@ -7,15 +7,14 @@ import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
-import { createEffectAreaLabel } from "@item/helpers.ts";
-import { createTagifyTraits, eventToRollParams } from "@module/sheet/helpers.ts";
+import { createNPCAttackTraitsAndTags, createTagifyTraits, eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { StatisticRollParameters } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, localizeList, setHasElement, sortLabeledRecord } from "@util";
-import { tagify, traitSlugToObject } from "@util/tags.ts";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import { NPCConfig } from "./config.ts";
 import {
@@ -25,7 +24,6 @@ import {
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,
-    NPCTraitOrTag,
 } from "./types.ts";
 
 abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
@@ -323,15 +321,6 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                     return listFormatter.format(list);
                 })();
 
-                const tags: NPCTraitOrTag[] = item.system.traits.value.map((t) =>
-                    traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits),
-                );
-
-                // Area/Auto fire adds a tag to the traits list in the npc sheet
-                if (item.system.action !== "strike" && item.system.area) {
-                    tags.push({ label: createEffectAreaLabel(item.system.area) });
-                }
-
                 return {
                     ...R.pick(item, ["id", "name", "sort"]),
                     attackType: attack.attackRollType,
@@ -340,7 +329,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                         label: v.label,
                         breakdown: idx === 0 ? breakdown : null,
                     })),
-                    traitsAndTags: tags.sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang)),
+                    traitsAndTags: createNPCAttackTraitsAndTags(item),
                     effects,
                     description,
                     damageFormula,

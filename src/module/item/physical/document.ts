@@ -265,11 +265,6 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         this.system.stackGroup ??= null;
         this.system.hp.brokenThreshold = Math.floor(this.system.hp.max / 2);
 
-        // Temporary: prevent noise from items pre migration 746
-        if (typeof this.system.price.value === "string") {
-            this.system.price.value = Coins.fromString(this.system.price.value);
-        }
-
         // Ensure infused items are always temporary
         const traits: PhysicalItemTrait[] = this.system.traits.value;
         if (traits.includes("infused")) this.system.temporary = true;
@@ -526,7 +521,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
      * Detach a subitem from another physical item, either creating it as a new, independent item or incrementing the
      * quantity of an existing stack.
      */
-    async detach({ skipConfirm }: { skipConfirm?: boolean }): Promise<void> {
+    async detach({ skipConfirm }: { skipConfirm?: boolean } = {}): Promise<void> {
         const parentItem = this.parentItem;
         if (!parentItem) throw ErrorPF2e("Subitem has no parent item");
 
@@ -546,9 +541,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                 // Find a stack match, cloning the subitem as worn so the search won't fail due to it being equipped
                 const subitemData: PhysicalItemSource = this.toObject();
                 subitemData.system.equipped.carryType = "worn";
-                const stack = this.isOfType("consumable")
-                    ? parentItem.actor?.inventory.findStackableItem(subitemData)
-                    : null;
+                const isWeaponAmmo =
+                    this.isOfType("weapon") && parentItem.isOfType("weapon") && this.isAmmoFor(parentItem);
+                const stack =
+                    this.isOfType("consumable", "ammo") || isWeaponAmmo
+                        ? parentItem.actor?.inventory.findStackableItem(subitemData)
+                        : null;
                 const keepId = !!parentItem.actor && !parentItem.actor.items.has(this.id);
                 return (
                     stack?.update({ "system.quantity": stack.quantity + this.quantity }) ??
@@ -586,6 +584,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         const thisData = this.toObject().system;
         const otherData = item.toObject().system;
+        thisData.price.value = { cp: new Coins(thisData.price.value).copperValue };
+        otherData.price.value = { cp: new Coins(otherData.price.value).copperValue };
         thisData.quantity = otherData.quantity;
         thisData.equipped = otherData.equipped;
         thisData.containerId = otherData.containerId;
@@ -680,16 +680,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
     getMystifiedData(status: IdentificationStatus, _options?: Record<string, boolean>): MystifiedData {
-        const mystifiedData: MystifiedData = this.system.identification[status];
-
-        const name = mystifiedData.name || this.generateUnidentifiedName();
-        const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this);
-
+        const mystifiedData = this.system.identification?.[status];
+        const name = mystifiedData?.name || this.generateUnidentifiedName();
+        const img = mystifiedData?.img || getUnidentifiedPlaceholderImage(this);
         const description =
-            mystifiedData.data.description.value ||
+            mystifiedData?.data.description.value ||
             (() => {
                 if (status === "identified") return this.description;
-
                 const itemType = this.generateUnidentifiedName({ typeOnly: true });
                 const caseCorrect = (noun: string) =>
                     game.i18n.lang.toLowerCase() === "de" ? noun : noun.toLowerCase();
@@ -894,7 +891,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const isSlotted = Boolean(equipped.inSlot ?? this.system.equipped.inSlot);
         if (hasSlot) {
             equipped.inSlot = isSlotted;
-        } else if ("inSlot" in this._source.system.equipped) {
+        } else if ("inSlot" in (this._source.system.equipped ?? {})) {
             equipped["-=inSlot"] = null;
         }
 

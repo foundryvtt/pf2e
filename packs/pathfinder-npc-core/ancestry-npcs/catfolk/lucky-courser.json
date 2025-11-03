@@ -12,6 +12,11 @@
             "name": "Arbalest",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "bolts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "arbalest",
                 "bonus": {
                     "value": 0
@@ -256,30 +261,17 @@
             "name": "Cold Iron Bolts",
             "sort": 400000,
             "system": {
-                "baseItem": null,
+                "baseItem": "bolts",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -296,13 +288,9 @@
                 "rules": [],
                 "size": "med",
                 "slug": "cold-iron-bolts",
-                "stackGroup": "bolts",
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -310,7 +298,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "VMRNAaH5uLaBonIH",
@@ -321,30 +309,17 @@
             "name": "Dawnsilver Bolts",
             "sort": 500000,
             "system": {
-                "baseItem": null,
+                "baseItem": "bolts",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -361,13 +336,9 @@
                 "rules": [],
                 "size": "med",
                 "slug": "dawnsilver-bolts",
-                "stackGroup": "bolts",
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -375,7 +346,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "RE3Yy2XY0X8tmqXu",
@@ -408,6 +379,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "whip",
                 "traits": {
@@ -448,6 +420,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -494,13 +467,16 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 110,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "arbalest",
                 "traits": {
                     "value": [
                         "backstabber",
                         "magical",
-                        "range-increment-110",
                         "reload-1"
                     ]
                 }

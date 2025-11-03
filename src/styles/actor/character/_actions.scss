@@ -135,20 +135,18 @@
             }
 
             .ammo {
-                align-items: center;
+                align-items: stretch;
                 display: flex;
-                gap: 3px;
+                flex-direction: column;
                 margin-bottom: 2px;
+                width: fit-content;
+                min-width: 20rem;
 
-                select.linked {
+                select {
                     font: normal var(--font-size-12) var(--sans-serif);
                     line-height: var(--font-size-12);
                     padding-top: 3px;
                     width: fit-content;
-
-                    &[data-compatible="false"] {
-                        color: #ffffff99;
-                    }
 
                     option,
                     optgroup {
@@ -156,17 +154,64 @@
                     }
                 }
 
-                .magazine {
-                    margin-right: 0.5rem;
-                    font-family: var(--sans-serif);
-                    font-weight: 600;
+                .loaded,
+                .empty {
+                    display: flex;
+                    align-items: center;
+                    gap: var(--space-4);
+                    .name {
+                        flex: 1;
+                    }
+                }
 
-                    .icon {
-                        display: inline-block;
-                        width: 0.9rem;
-                        height: 0.9rem;
-                        background-image: url("/assets/icons/heavy-bullets.svg");
-                        background-size: cover;
+                .loaded {
+                    border: 1px solid var(--alt);
+                    & + .loaded {
+                        border-top: none;
+                    }
+                    img {
+                        border: none;
+                        border-radius: none;
+                        width: 1.25rem;
+                        height: 1.25rem;
+                        object-fit: cover;
+                    }
+                    .magazine {
+                        font-family: var(--sans-serif);
+                        font-weight: 600;
+
+                        input {
+                            background: transparent;
+                            width: 4ch;
+                            min-width: auto;
+                            height: unset;
+                        }
+
+                        .icon {
+                            display: inline-block;
+                            width: 0.9rem;
+                            height: 0.9rem;
+                            background-image: url("/assets/icons/heavy-bullets.svg");
+                            background-size: cover;
+                        }
+                    }
+                    a[data-action="unload"] {
+                        font-size: var(--font-size-12);
+                        padding-right: var(--space-4);
+                    }
+                }
+
+                .empty {
+                    border: 1px dashed var(--alt);
+                    line-height: unset;
+                    text-align: start;
+                    font-family: var(--body-serif);
+                    margin-top: 2px;
+                    .name {
+                        padding-left: calc(1.25rem + var(--space-4));
+                    }
+                    .remaining {
+                        margin-right: 4px;
                     }
                 }
             }

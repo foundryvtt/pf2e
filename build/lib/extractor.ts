@@ -139,7 +139,7 @@ class PackExtractor {
         console.log(`Extracting pack: ${packDirectory} (Presorting: ${this.disablePresort ? "Disabled" : "Enabled"})`);
         const outPath = path.resolve(this.tempDataPath, packDirectory);
 
-        const db = new LevelDatabase(filePath, { packName: packDirectory });
+        const db = await LevelDatabase.connect(filePath, { packName: packDirectory });
         const { packSources, folders } = await db.getEntries();
 
         // Prepare subfolder data
@@ -642,6 +642,7 @@ class PackExtractor {
             "armor",
             "equipment",
             "consumable",
+            "ammo",
             "treasure",
             "backpack",
             "condition",

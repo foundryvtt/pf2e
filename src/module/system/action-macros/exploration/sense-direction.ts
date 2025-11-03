@@ -48,7 +48,6 @@ const action = new SingleCheckAction({
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.SenseDirection.Notes.criticalSuccess" },
         { outcome: ["success"], text: "PF2E.Actions.SenseDirection.Notes.success" },
     ],
-    rollOptions: ["action:sense-direction"],
     sampleTasks: {
         untrained: "PF2E.Actions.SenseDirection.SampleTasks.Untrained",
         trained: "PF2E.Actions.SenseDirection.SampleTasks.Trained",

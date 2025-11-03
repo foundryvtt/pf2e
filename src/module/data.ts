@@ -5,13 +5,13 @@ import type * as fields from "@common/data/fields.d.mts";
 import type { ItemPF2e } from "@item";
 
 /** The size property of creatures and equipment */
-const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
+const SIZES = Object.freeze(["tiny", "sm", "med", "lg", "huge", "grg"] as const);
 const SIZE_SLUGS = ["tiny", "small", "medium", "large", "huge", "gargantuan"] as const;
 
 type Size = (typeof SIZES)[number];
 
 /** The rarity trait of creatures, equipment, spells, etc. */
-const RARITIES = ["common", "uncommon", "rare", "unique"] as const;
+const RARITIES = Object.freeze(["common", "uncommon", "rare", "unique"] as const);
 type Rarity = (typeof RARITIES)[number];
 
 interface ValuesList<T extends string = string> {
@@ -150,7 +150,7 @@ type EnfolderableDocumentPF2e =
     | ItemPF2e<null>
     | Exclude<EnfolderableDocument, Actor<null> | Item<null>>;
 
-export { RARITIES, SIZES, SIZE_SLUGS, goesToEleven };
+export { goesToEleven, RARITIES, SIZE_SLUGS, SIZES };
 export type {
     EnfolderableDocumentPF2e,
     LabeledNumber,

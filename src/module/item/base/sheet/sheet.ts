@@ -99,14 +99,13 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         options.editable = this.isEditable;
         options.sheetConfig &&=
             Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
-
-        const { item } = this;
         this.#createRuleElementForms();
 
         // Enrich content
         const enrichedContent: Record<string, string> = {};
 
         // Get the source description in case this is an unidentified physical item
+        const item = this.item;
         const description = await item.getDescription({ includeAddendum: false, secrets: item.isOwner });
         enrichedContent.description = description.value;
         enrichedContent.gmNotes = description.gm;
@@ -127,7 +126,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             itemType: null,
             showTraits: !R.isEmpty(this.validTraits),
             sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
-                type: game.i18n.localize(`TYPES.Item.${this.item.type}`),
+                type: game.i18n.localize(`TYPES.Item.${item.type}`),
             }),
             sidebarTemplate: options.hasSidebar
                 ? `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`
@@ -139,16 +138,16 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             item,
             isPhysical: false,
             data: item.system,
-            systemFields: this.item.system instanceof ItemSystemModel ? this.item.system.schema.fields : {},
-            fieldRootId: this.item.collection?.has(this.item.id) ? this.id : fu.randomID(),
+            systemFields: item.system instanceof ItemSystemModel ? item.system.schema.fields : {},
+            fieldRootId: item.collection?.has(item.id) ? this.id : fu.randomID(),
             fieldIdPrefix: `field-${this.appId}-`,
             enrichedContent,
-            limited: this.item.limited,
+            limited: item.limited,
             options: this.options,
-            owner: this.item.isOwner,
+            owner: item.isOwner,
             title: this.title,
             user: { isGM: game.user.isGM },
-            rarity: hasRarity ? (this.item.system.traits?.rarity ?? "common") : null,
+            rarity: hasRarity ? (item.system.traits?.rarity ?? "common") : null,
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
             traitTagifyData,
@@ -161,15 +160,13 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                     types: sortStringRecord(
                         Object.keys(RuleElements.all).reduce(
                             (result: Record<string, string>, key) =>
-                                fu.mergeObject(result, { [key]: `PF2E.RuleElement.${key}` }),
+                                Object.assign(result, { [key]: `PF2E.RuleElement.${key}` }),
                             {},
                         ),
                     ),
                 },
                 elements: await Promise.all(
-                    this.#ruleElementForms.map(async (form) => ({
-                        template: await form.render(),
-                    })),
+                    this.#ruleElementForms.map(async (form) => ({ template: await form.render() })),
                 ),
             },
             proficiencyRanks: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
@@ -334,12 +331,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             slugInput.addEventListener("change", () => {
                 slugInput.value = sluggify(slugInput.value);
             });
-            rulesPanel?.querySelector("a[data-action=regenerate-slug]")?.addEventListener("click", () => {
-                if (this._submitting) return;
-                slugInput.value = sluggify(this.item._source.name);
-                const event = new Event("change");
-                slugInput.dispatchEvent(event);
-            });
         }
 
         const ruleElementSelect = rulesPanel?.querySelector<HTMLSelectElement>(
@@ -350,58 +341,69 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         });
 
         // Add implementation for viewing an item's roll options
-        const viewRollOptionsElement = rulesPanel?.querySelector<HTMLElement>("a[data-action=view-roll-options]");
-        viewRollOptionsElement?.addEventListener("click", async () => {
-            const path = "systems/pf2e/templates/system/roll-options-tooltip.hbs";
-            const content = await fa.handlebars.renderTemplate(path, {
-                description: game.i18n.localize("PF2E.Item.Rules.Hint.RollOptions"),
-                rollOptions: R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":")),
-            });
-            game.tooltip.dismissLockedTooltips();
-            game.tooltip.activate(viewRollOptionsElement, {
-                html: createHTMLElement("div", { innerHTML: content }),
-                locked: true,
-            });
-        });
-
-        for (const anchor of htmlQueryAll(rulesPanel, "a[data-action=add-rule-element]")) {
-            anchor.addEventListener("click", async (event) => {
-                await this._onSubmit(event); // Submit any unsaved changes
-                const rulesData = this.item.toObject().system.rules;
-                const key = this.#selectedRuleElementType ?? "NewRuleElement";
-                this.item.update({ "system.rules": rulesData.concat({ key }) });
-            });
-        }
-
-        for (const anchor of htmlQueryAll(rulesPanel, "a[data-action=edit-rule-element]")) {
-            anchor.addEventListener("click", async () => {
-                if (this._submitting) return; // Don't open if already submitting
-                const index = Number(anchor.dataset.ruleIndex ?? "NaN");
-                this.#editingRuleElementIndex = Number.isInteger(index) ? index : null;
-                this.#rulesLastScrollTop = rulesPanel?.scrollTop ?? null;
-                this.render();
-            });
-        }
-
-        for (const anchor of htmlQueryAll(rulesPanel, "a[data-action=remove-rule-element]")) {
-            anchor.addEventListener("click", async () => {
-                const rules = this.item.toObject().system.rules;
-                const index = Number(anchor.dataset.ruleIndex ?? "NaN");
-                if (rules && Number.isInteger(index) && rules.length > index) {
-                    rules.splice(index, 1);
-                    this.item.update({ "system.rules": rules });
+        for (const button of rulesPanel?.querySelectorAll("button") ?? []) {
+            switch (button.dataset.action) {
+                case "copy-to-clipboard": {
+                    button.disabled = false;
+                    button.addEventListener("click", () => {
+                        const clipText = button.dataset.clipboard;
+                        if (clipText) {
+                            game.clipboard.copyPlainText(clipText);
+                            ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
+                        }
+                    });
+                    break;
                 }
-            });
-        }
-
-        for (const anchor of htmlQueryAll<HTMLElement>(rulesPanel, "a[data-action=copy-to-clipboard]")) {
-            anchor.addEventListener("click", () => {
-                const clipText = anchor.dataset.clipboard;
-                if (clipText) {
-                    game.clipboard.copyPlainText(clipText);
-                    ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
-                }
-            });
+                case "regenerate-slug":
+                    button.addEventListener("click", () => {
+                        if (!slugInput || this._submitting) return;
+                        slugInput.value = sluggify(this.item._source.name);
+                        const event = new Event("change");
+                        slugInput.dispatchEvent(event);
+                    });
+                    break;
+                case "view-roll-options":
+                    button.disabled = false;
+                    button.addEventListener("click", async () => {
+                        const path = "systems/pf2e/templates/system/roll-options-tooltip.hbs";
+                        const content = await fa.handlebars.renderTemplate(path, {
+                            description: game.i18n.localize("PF2E.Item.Rules.Hint.RollOptions"),
+                            rollOptions: R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":")),
+                        });
+                        game.tooltip.dismissLockedTooltips();
+                        game.tooltip.activate(button, {
+                            html: createHTMLElement("div", { innerHTML: content }),
+                            locked: true,
+                        });
+                    });
+                    break;
+                case "add-rule-element":
+                    button.addEventListener("click", async () => {
+                        const rulesData = this.item.toObject().system.rules;
+                        const key = this.#selectedRuleElementType ?? "NewRuleElement";
+                        await this.item.update({ "system.rules": rulesData.concat({ key }) });
+                    });
+                    break;
+                case "edit-rule-element":
+                    button.addEventListener("click", async () => {
+                        if (this._submitting) return; // Don't open if already submitting
+                        const index = Number(button.dataset.ruleIndex ?? "NaN");
+                        this.#editingRuleElementIndex = Number.isInteger(index) ? index : null;
+                        this.#rulesLastScrollTop = rulesPanel?.scrollTop ?? null;
+                        this.render();
+                    });
+                    break;
+                case "remove-rule-element":
+                    button.addEventListener("click", async () => {
+                        const rules = this.item.toObject().system.rules;
+                        const index = Number(button.dataset.ruleIndex ?? "NaN");
+                        if (rules && Number.isInteger(index) && rules.length > index) {
+                            rules.splice(index, 1);
+                            this.item.update({ "system.rules": rules });
+                        }
+                    });
+                    break;
+            }
         }
 
         // If editing a rule element, create the editor
@@ -607,6 +609,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         }
 
         return buttons;
+    }
+
+    /** Actor sheets have this upstream, but items do not. Verify if this is a foundry bug */
+    protected override _canDragDrop(): boolean {
+        return this.isEditable;
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

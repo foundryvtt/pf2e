@@ -21,9 +21,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
     traits: PhysicalItemTraits<PhysicalItemTrait>;
     quantity: number;
     baseItem: string | null;
-    bulk: {
-        value: number;
-    };
+    bulk: { value: number };
     hp: PhysicalItemHPSource;
     hardness: number;
     price: PartialPrice;
@@ -48,8 +46,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
 
 interface IdentificationSource {
     status: IdentificationStatus;
-    unidentified: MystifiedData;
-    misidentified: object;
+    unidentified: MystifiedData | null;
 }
 
 interface ItemMaterialSource {
@@ -62,6 +59,7 @@ interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, 
         attribute: AttributeString;
         selected: boolean;
     };
+    equipped: EquippedData;
     hp: PhysicalItemHitPoints;
     price: Price;
     bulk: BulkData;

@@ -1184,7 +1184,8 @@
             "cp": "cp",
             "gp": "gp",
             "pp": "pp",
-            "sp": "sp"
+            "sp": "sp",
+            "credits": "credits"
         },
         "CurrencyCP": "Copper",
         "CurrencyGP": "Gold",
@@ -1579,6 +1580,7 @@
             "CantImportTooHighVersion": "Unable to import {sourceName}: its schema version ({sourceSchemaVersion}) is higher than this world's ({worldSchemaVersion}).",
             "CantMoveItemDestination": "You are not allowed to move items to this character.",
             "CantMoveItemSource": "You are not allowed to move items from this character.",
+            "CantPurchaseContainerWithItems": "You cannot purchase containers with items in them.",
             "ItemNotFoundByUUID": "Item with UUID of \"{uuid}\" not found.",
             "MinimumProfLevelSetByFeatures": "The selected proficiency is below proficiency set by features.",
             "NoCreatureTokenSelected": "Select at least one token associated with a creature.",
@@ -1786,6 +1788,97 @@
                 "SaveLabel": "Save DC",
                 "Stage": "Stage {stage}",
                 "StageLabel": "Stage"
+            },
+            "Ammo": {
+                "FIELDS": {
+                    "baseItem": {
+                        "label": "Ammunition Type"
+                    },
+                    "craftableAs": {
+                        "label": "Craftable As",
+                        "hint": "The types of ammo this item can be crafted as. If blank, any non-magazine can be crafted."
+                    }
+                },
+                "Base": {
+                    "arrows": "Arrows",
+                    "backpack-catapult-stone": "Stone (Backpack Catapult)",
+                    "battery": "Battery",
+                    "blowgun-darts": "Blowgun Darts",
+                    "bolts": "Bolts",
+                    "chem-tank": "Chem Tank",
+                    "cutlery": "Cutlery",
+                    "magazine-air-repeater": "Magazine (Air Repeater)",
+                    "magazine-barricade-buster": "Magazine (Barricade Buster)",
+                    "magazine-long-air-repeater": "Magazine (Long Air Repeater)",
+                    "magazine-repeating-crossbow": "Magazine (Repeating Crossbow)",
+                    "magazine-repeating-hand-crossbow": "Magazine (Repeating Hand Crossbow)",
+                    "magazine-repeating-heavy-crossbow": "Magazine (Repeating Heavy Crossbow)",
+                    "magazine": "Magazine",
+                    "projectile-ammo": "Projectile Ammo",
+                    "rounds-alicorn-trigger": "Rounds (Alicorn Trigger)",
+                    "rounds-arquebus": "Rounds (Arquebus)",
+                    "rounds-axe-musket": "Rounds (Axe Musket)",
+                    "rounds-black-powder-knuckle-dusters": "Rounds (Black Powder Knuckle Dusters)",
+                    "rounds-blunderbuss": "Rounds (Blunderbuss)",
+                    "rounds-breath-blaster": "Rounds (Breath Blaster)",
+                    "rounds-cane-pistol": "Rounds (Cane Pistol)",
+                    "rounds-clan-pistol": "Rounds (Clan Pistol)",
+                    "rounds-coat-pistol": "Rounds (Coat Pistol)",
+                    "rounds-dagger-pistol": "Rounds (Dagger Pistol)",
+                    "rounds-double-barreled-musket": "Rounds (Double-Barreled Musket)",
+                    "rounds-double-barreled-pistol": "Rounds (Double-Barreled Pistol)",
+                    "rounds-dragon-mouth-pistol": "Rounds (Dragon Mouth Pistol)",
+                    "rounds-drake-rifle": "Rounds (Drake Rifle)",
+                    "rounds-dueling-pistol": "Rounds (Dueling Pistol)",
+                    "rounds-dwarven-scattergun": "Rounds (Dwarven Scattergun)",
+                    "rounds-explosive-dogslicer": "Rounds (Explosive Dogslicer)",
+                    "rounds-fire-lance": "Rounds (Fire Lance)",
+                    "rounds-flingflenser": "Rounds (Flingflenser)",
+                    "rounds-flintlock-musket": "Rounds (Flintlock Musket)",
+                    "rounds-flintlock-pistol": "Rounds (Flintlock Pistol)",
+                    "rounds-fulmination-fang": "Rounds (Fulmination Fang)",
+                    "rounds-gnome-amalgam-musket": "Rounds (Gnome Amalgam Musket)",
+                    "rounds-gun-sword": "Rounds (Gun Sword)",
+                    "rounds-hammer-gun": "Rounds (Hammer Gun)",
+                    "rounds-hand-cannon": "Rounds (Hand Cannon)",
+                    "rounds-harmona-gun": "Rounds (Harmona Gun)",
+                    "rounds-howler-pistol": "Rounds (Howler Pistol)",
+                    "rounds-jezail": "Rounds (Jezail)",
+                    "rounds-leydroth-spellbreaker": "Rounds (Leydroth Spellbreaker)",
+                    "rounds-mace-multipistol": "Rounds (Mace Multipistol)",
+                    "rounds-mithral-tree": "Rounds (Dawnsilver Tree)",
+                    "rounds-nightmares-lament": "Rounds (Nightmare's Lament)",
+                    "rounds-pepperbox": "Rounds (Pepperbox)",
+                    "rounds-petrification-cannon": "Rounds (Petrification Cannon)",
+                    "rounds-piercing-wind": "Rounds (Piercing Wind)",
+                    "rounds-rapier-pistol": "Rounds (Rapier Pistol)",
+                    "rounds-screech-shooter": "Rounds (Screech Shooter)",
+                    "rounds-shield-pistol": "Rounds (Shield Pistol)",
+                    "rounds-shobhad-longrifle": "Rounds (Shobhad Longrifle)",
+                    "rounds-slide-pistol": "Rounds (Slide Pistol)",
+                    "rounds-spider-gun": "Rounds (Spider Gun)",
+                    "rounds-spike-launcher": "Rounds (Spike Launcher)",
+                    "rounds-tentacle-cannon": "Rounds (Tentacle Cannon)",
+                    "rounds-three-peaked-tree": "Rounds (Three Peaked Tree)",
+                    "rounds-triggerbrand": "Rounds (Triggerbrand)",
+                    "rounds": "Rounds",
+                    "sling-bullets": "Sling Bullets",
+                    "spray-pellets": "Spray Pellets",
+                    "wooden-taws": "Wooden Taws"
+                },
+                "IsSpecialAmmo": {
+                    "label": "Is Special Ammunition",
+                    "hint": "Special ammunition such as magical and alchemical ammo can be crafted as a specific type of ammo"
+                },
+                "Groups": {
+                    "General": "General",
+                    "OwnWeapons": "Own Weapons",
+                    "Weapons": "Weapons",
+                    "WeaponSpecific": "Weapon Specific"
+                },
+                "SpecialAmmoPicker": {
+                    "Prompt": "Select an ammo type for this item"
+                }
             },
             "Ancestry": {
                 "DropFeatures": "Drop ancestry features here.",
@@ -2486,6 +2579,22 @@
                 "Label": "Material Damage Effects"
             },
             "NameLabel": "Name",
+            "NPCAttack": {
+                "FIELDS": {
+                    "range": {
+                        "increment": {
+                            "label": "Range Increment"
+                        },
+                        "max": {
+                            "label": "Max Range"
+                        }
+                    }
+                },
+                "Tags": {
+                    "RangeN": "Range {n} Feet",
+                    "RangeIncrementN": "Range Increment {n} Feet"
+                }
+            },
             "OtherTags": {
                 "Label": "Other Tags",
                 "Hint": "Additional tags beyond traits to help classify an item"
@@ -2659,6 +2768,7 @@
             "Rules": {
                 "Apply": "Apply",
                 "Close": "Close",
+                "CopyToClipboard": "Copy to Clipboard",
                 "Edit": "Edit JSON",
                 "Hint": {
                     "Slug": "A stable, human-readable identifier: if set, it will remain in place even if the item is renamed.",
@@ -2773,8 +2883,20 @@
                     "expend": {
                         "hint": "This indicates how much ammunition is consumed with each ranged Strike you make with the weapon. Other abilities might cite the use of Expend as the amount of ammo required to complete the action.",
                         "label": "Expend"
+                    },
+                    "ammo": {
+                        "baseType": {
+                            "label": "Ammunition Type"
+                        },
+                        "builtIn": {
+                            "label": "Ammo is Built In"
+                        },
+                        "capacity": {
+                            "label": "Capacity"
+                        }
                     }
                 },
+                "AnyBasicAmmo": "Any Basic Ammo",
                 "CanBeAmmo": {
                     "Label": "Usable as Ammo",
                     "Hint": "Indicate that this weapon can be loaded into another weapon as ammunition."
@@ -2822,6 +2944,11 @@
                 "Reload": {
                     "LabelN": "Reload {value}",
                     "OneMinute": "1 min"
+                },
+                "Reloader": {
+                    "EmptyMessage": "No Compatible Ammo in Inventory",
+                    "Reload1": "Reload",
+                    "ReloadAll": "Reload All"
                 },
                 "Rune": {
                     "Potency": "Weapon Potency",
@@ -3972,17 +4099,9 @@
         },
         "SpellcastingTypeLabel": "Spellcasting Type",
         "SpellsActionHeader": "Action",
-        "StackGroupArrows": "Arrows",
-        "StackGroupBlowgunDarts": "Blowgun Darts",
-        "StackGroupBolts": "Bolts",
         "StackGroupCoins": "Coins",
         "StackGroupGems": "Gems",
         "StackGroupLabel": "Stack Group",
-        "StackGroupRounds10": "Rounds (10)",
-        "StackGroupRounds5": "Rounds (5)",
-        "StackGroupSlingBullets": "Sling Bullets",
-        "StackGroupSprayPellets": "Spray Pellets",
-        "StackGroupWoodenTaws": "Wooden Taws",
         "StaminaPointsHeader": "Stamina Points",
         "StaminaPointsShortLabel": "Stamina",
         "StatusBonusShortLabel": "Status",
@@ -4241,6 +4360,7 @@
         "TraitAttack": "Attack",
         "TraitAuditory": "Auditory",
         "TraitAura": "Aura",
+        "TraitAutomatic": "Automatic",
         "TraitAutomaton": "Automaton",
         "TraitAwakenedAnimal": "Awakened Animal",
         "TraitAzarketi": "Azarketi",
@@ -4621,6 +4741,7 @@
         "TraitDescriptionMythic": "Options with this trait grant or utilize mythic power. Feats with the mythic trait can only be taken by mythic characters, who are typically characters with a mythic Calling.</p><p>Monsters with the mythic trait have access to a pool of Mythic Points and are particularly strong for creatures of their level. Many mythic monsters are either resistant or entirely immune to attacks from non-mythic creatures and weapons.</p><p>Spells with the mythic trait require the expenditure of a Mythic Point in order to be cast, and items with the mythic trait require the expenditure of a Mythic Point in order to use their activated abilities.</p><p>Weapons with the mythic trait overcome the resistances and immunities of mythic monsters.",
         "TraitDescriptionNagaji": "A traditionalist ancestry with reptilian features and serpentine heads.",
         "TraitDescriptionNephilim": "A creature with this trait has the nephilim versatile heritage. Nephilim are planar scions descended from immortal beings from other planes. An ability with this trait can be used or selected only by nephilim.",
+        "TraitDescriptionNightmare": "Nightmare hazards are unique to Leng. In many ways, nightmare hazards resemble a haunt, and the dire truth might not reveal itself to potential victims until they discover that attempts to disable it through exorcism are ineffective.",
         "TraitDescriptionNindoru": "Nindorus are chaotic evil fiends that rise from corruptions to the cycle of reincarnating souls and live on the Universe. Although they often have elements in their appearance that make them seem undead, they're actually living beings. Most nindorus have darkvision, are immune to death effects, have weakness to silver, and possess the power to manifest objects or creatures from their thoughts.",
         "TraitDescriptionNoisy": "This armor is loud and likely to alert others to your presence when you're using the Avoid Notice exploration activity. The armor's check penalty applies to Stealth checks even if you meet the required Strength score.",
         "TraitDescriptionNone": "This trait has no description.",
@@ -5046,6 +5167,7 @@
         "TraitNaari": "Naari",
         "TraitNagaji": "Nagaji",
         "TraitNephilim": "Nephilim",
+        "TraitNightmare": "Nightmare",
         "TraitNindoru": "Nindoru",
         "TraitNoisy": "Noisy",
         "TraitNonlethal": "Nonlethal",
@@ -5100,79 +5222,6 @@
         "TraitRage": "Rage",
         "TraitRakshasa": "Rakshasa",
         "TraitRange": "Range",
-        "TraitRange10": "Range 10 feet",
-        "TraitRange100": "Range 100 feet",
-        "TraitRange110": "Range 110 feet",
-        "TraitRange120": "Range 120 feet",
-        "TraitRange130": "Range 130 feet",
-        "TraitRange140": "Range 140 feet",
-        "TraitRange15": "Range 15 feet",
-        "TraitRange150": "Range 150 feet",
-        "TraitRange160": "Range 160 feet",
-        "TraitRange170": "Range 170 feet",
-        "TraitRange180": "Range 180 feet",
-        "TraitRange190": "Range 190 feet",
-        "TraitRange20": "Range 20 feet",
-        "TraitRange200": "Range 200 feet",
-        "TraitRange210": "Range 210 feet",
-        "TraitRange220": "Range 220 feet",
-        "TraitRange230": "Range 230 feet",
-        "TraitRange240": "Range 240 feet",
-        "TraitRange25": "Range 25 feet",
-        "TraitRange250": "Range 250 feet",
-        "TraitRange260": "Range 260 feet",
-        "TraitRange270": "Range 270 feet",
-        "TraitRange280": "Range 280 feet",
-        "TraitRange290": "Range 290 feet",
-        "TraitRange30": "Range 30 feet",
-        "TraitRange300": "Range 300 feet",
-        "TraitRange310": "Range 310 feet",
-        "TraitRange320": "Range 320 feet",
-        "TraitRange40": "Range 40 feet",
-        "TraitRange5": "Range 5 feet",
-        "TraitRange50": "Range 50 feet",
-        "TraitRange500": "Range 500 feet",
-        "TraitRange60": "Range 60 feet",
-        "TraitRange70": "Range 70 feet",
-        "TraitRange80": "Range 80 feet",
-        "TraitRange90": "Range 90 feet",
-        "TraitRangeIncrement10": "Range Increment 10 feet",
-        "TraitRangeIncrement100": "Range Increment 100 feet",
-        "TraitRangeIncrement110": "Range Increment 110 feet",
-        "TraitRangeIncrement120": "Range Increment 120 feet",
-        "TraitRangeIncrement130": "Range Increment 130 feet",
-        "TraitRangeIncrement140": "Range Increment 140 feet",
-        "TraitRangeIncrement15": "Range Increment 15 feet",
-        "TraitRangeIncrement150": "Range Increment 150 feet",
-        "TraitRangeIncrement160": "Range Increment 160 feet",
-        "TraitRangeIncrement170": "Range Increment 170 feet",
-        "TraitRangeIncrement180": "Range Increment 180 feet",
-        "TraitRangeIncrement190": "Range Increment 190 feet",
-        "TraitRangeIncrement20": "Range Increment 20 feet",
-        "TraitRangeIncrement200": "Range Increment 200 feet",
-        "TraitRangeIncrement210": "Range Increment 210 feet",
-        "TraitRangeIncrement220": "Range Increment 220 feet",
-        "TraitRangeIncrement230": "Range Increment 230 feet",
-        "TraitRangeIncrement240": "Range Increment 240 feet",
-        "TraitRangeIncrement25": "Range Increment 25 feet",
-        "TraitRangeIncrement250": "Range Increment 250 feet",
-        "TraitRangeIncrement260": "Range Increment 260 feet",
-        "TraitRangeIncrement270": "Range Increment 270 feet",
-        "TraitRangeIncrement280": "Range Increment 280 feet",
-        "TraitRangeIncrement290": "Range Increment 290 feet",
-        "TraitRangeIncrement30": "Range Increment 30 feet",
-        "TraitRangeIncrement35": "Range Increment 35 feet",
-        "TraitRangeIncrement300": "Range Increment 300 feet",
-        "TraitRangeIncrement310": "Range Increment 310 feet",
-        "TraitRangeIncrement320": "Range Increment 320 feet",
-        "TraitRangeIncrement40": "Range Increment 40 feet",
-        "TraitRangeIncrement5": "Range Increment 5 feet",
-        "TraitRangeIncrement50": "Range Increment 50 feet",
-        "TraitRangeIncrement60": "Range Increment 60 feet",
-        "TraitRangeIncrement70": "Range Increment 70 feet",
-        "TraitRangeIncrement75": "Range Increment 75 feet",
-        "TraitRangeIncrement80": "Range Increment 80 feet",
-        "TraitRangeIncrement90": "Range Increment 90 feet",
         "TraitRangedTrip": "Ranged Trip",
         "TraitRanger": "Ranger",
         "TraitRare": "Rare",
@@ -5529,6 +5578,7 @@
                 "asp-coil": "Asp Coil",
                 "atlatl": "Atlatl",
                 "axe-musket": "Axe Musket",
+                "backpack-catapult": "Backpack Catapult",
                 "barricade-buster": "Barricade Buster",
                 "bastard-sword": "Bastard Sword",
                 "battle-axe": "Battle Axe",
@@ -5633,6 +5683,7 @@
                 "greatclub": "Greatclub",
                 "greatpick": "Greatpick",
                 "greatsword": "Greatsword",
+                "grenade": "Grenade",
                 "griffon-cane": "Griffon Cane",
                 "guisarme": "Guisarme",
                 "gun-sword": "Gun Sword",
@@ -5856,7 +5907,7 @@
                 "Name": "Astral",
                 "Note": {
                     "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[will|dc:26] save or be expelled and unable to possess a creature for [[/gmr 1d4 #rounds]]{1d4 rounds}.",
-                    "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
+                    "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
             "authorized": {
@@ -5940,7 +5991,7 @@
             "flaming": {
                 "Name": "Flaming",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, you deal an additional @Damage[1d10[persistent,fire]] damage."
+                    "criticalSuccess": "On a critical hit, you deal an additional 1d10 persistent fire damage."
                 }
             },
             "flickering": {
@@ -5985,7 +6036,7 @@
                 "Name": "Greater Astral",
                 "Note": {
                     "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[will|dc:36] save or be expelled and unable to possess a creature for [[/gmr 1d4 #rounds]]{1d4 rounds}.",
-                    "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
+                    "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
             "greaterBloodbane": {
@@ -6038,7 +6089,7 @@
             "greaterFlaming": {
                 "Name": "Greater Flaming",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, you deal an additional @Damage[2d10[persistent,fire]] damage. Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance.",
+                    "criticalSuccess": "On a critical hit, you deal an additional 2d10 persistent fire damage. Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance.",
                     "success": "Fire damage dealt by this weapon ignores the target's fire resistance."
                 }
             },
@@ -6736,6 +6787,7 @@
         "Item": {
             "action": "Ability",
             "affliction": "Affliction",
+            "ammo": "Ammo",
             "ancestry": "Ancestry",
             "armor": "Armor",
             "background": "Background",

@@ -6,7 +6,7 @@ import type {
 } from "@item/physical/data.ts";
 import type { SpellSource } from "@item/spell/data.ts";
 import type { DamageKind, DamageType } from "@system/damage/index.ts";
-import type { AmmoStackGroup, ConsumableCategory, ConsumableTrait, OtherConsumableTag } from "./types.ts";
+import type { ConsumableCategory, ConsumableTrait, OtherConsumableTag } from "./types.ts";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 
@@ -23,7 +23,6 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
     damage: ConsumableDamageHealing | null;
     spell: SpellSource | null;
     usage: { value: string };
-    stackGroup: AmmoStackGroup | null;
     subitems?: never;
 }
 
@@ -44,7 +43,6 @@ interface ConsumableSystemData
     extends Omit<ConsumableSystemSource, SourceOmission>,
         Omit<PhysicalSystemData, "subitems" | "traits"> {
     apex?: never;
-    stackGroup: AmmoStackGroup | null;
 }
 
 type SourceOmission = "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";

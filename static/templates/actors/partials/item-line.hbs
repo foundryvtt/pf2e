@@ -29,12 +29,12 @@
                 {{#if (or item.isIdentified @root.user.isGM)}}
                     <span data-visibility="{{#if item.isIdentified}}all{{else}}gm{{/if}}">
                         {{#if @root.inventory.showUnitBulkPrice}}
-                            {{item.price.value}}
+                            {{unitPrice}}
                             {{#if (gt item.price.per 1)}}
-                                / {{item.price.per}}
+                                <span class="per">/ {{item.price.per}}</span>
                             {{/if}}
                         {{else}}
-                            {{item.assetValue}}
+                            {{assetValue}}
                         {{/if}}
                     </span>
                 {{/if}}
@@ -143,9 +143,9 @@
         {{/if}}
     </div>
 
-    {{#if item.subitems.size}}
+    {{#if subitems.length}}
         <ul class="items subitems">
-            {{#each item.subitems as |subitem|}}
+            {{#each subitems as |subitem|}}
                 {{> "systems/pf2e/templates/actors/partials/item-line.hbs" item=subitem isSubitem=true}}
             {{/each}}
         </ul>

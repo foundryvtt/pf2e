@@ -55,7 +55,6 @@ const action = new SingleCheckAction({
         { outcome: ["success"], text: `${PREFIX}.Notes.success` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:climb"],
     sampleTasks: {
         untrained: `${PREFIX}.SampleTasks.Untrained`,
         trained: `${PREFIX}.SampleTasks.Trained`,

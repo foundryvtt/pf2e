@@ -158,18 +158,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     getRollOptions(prefix = this.type, { includeGranter = true } = {}): string[] {
         if (prefix.length === 0) throw ErrorPF2e("`prefix` must be at least one character long");
 
-        const { value: traits = [], rarity = null, otherTags } = this.system.traits;
-        const traitOptions = ((): string[] => {
-            // Additionally include annotated traits without their annotations
-            const damageType = Object.keys(CONFIG.PF2E.damageTypes).join("|");
-            const diceOrNumber = /-(?:[0-9]*d)?[0-9]+(?:-min)?$/;
-            const versatile = new RegExp(`-(?:b|p|s|${damageType})$`);
-            const deannotated = traits
-                .filter((t) => diceOrNumber.test(t) || versatile.test(t))
-                .map((t) => t.replace(diceOrNumber, "").replace(versatile, ""));
-            return [traits, deannotated].flat().map((t) => `trait:${t}`);
-        })();
-
+        const { value: traits = [], rarity = null, otherTags, config = {} } = this.system.traits;
         const slug = this.slug ?? sluggify(this.name);
         const granterOptions = includeGranter
             ? (this.grantedBy?.getRollOptions("granter", { includeGranter: false }).map((o) => `${prefix}:${o}`) ?? [])
@@ -181,8 +170,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:slug:${slug}`,
             ...granterOptions,
             ...Array.from(this.specialOptions).map((o) => `${prefix}:${o}`),
-            ...traitOptions.map((t) => `${prefix}:${t}`),
             ...otherTags.map((t) => `${prefix}:tag:${t}`),
+            ...traits.map((t) => `${prefix}:trait:${t}`),
+            ...Object.keys(config).map((k) => `${prefix}:trait:${k}`),
         ];
 
         if (rarity) {
@@ -281,14 +271,13 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // If this item has traits, filter for valid traits and check for annotations
         if (this.system.traits.value) {
-            this.system.traits.value = this.system.traits.value.filter((t) => t in this.constructor.validTraits);
+            const validTraits = this.constructor.validTraits;
+            const original = this.system.traits.value;
+            this.system.traits.value = [];
             this.system.traits.config = {};
-            for (const trait of this.system.traits.value) {
-                const annotatedTraitMatch = trait.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
-                if (annotatedTraitMatch) {
-                    const [_, traitBase, annotation] = annotatedTraitMatch;
-                    this.system.traits.config[traitBase] = Number(annotation);
-                }
+            for (const trait of original) {
+                if (!(trait in validTraits)) continue;
+                addOrUpgradeTrait(this.system.traits, trait);
             }
         }
 
@@ -304,7 +293,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 grant.onDelete ??= "detach";
             }
         }
-        this.grantedBy = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
+        const actor = this.actor;
+        const grantedById = this.flags.pf2e.grantedBy?.id;
+        this.grantedBy = grantedById
+            ? (actor?.items.get(grantedById) ?? actor?.conditions.get(grantedById) ?? null)
+            : null;
     }
 
     prepareRuleElements(options: Omit<RuleElementOptions, "parent"> = {}): RuleElement[] {
@@ -1030,7 +1023,9 @@ const ItemProxyPF2e = new Proxy(ItemPF2e, {
         const type =
             source?.type === "armor" && (source.system?.category as string | undefined) === "shield"
                 ? "shield"
-                : source?.type;
+                : source?.type === "consumable" && (source.system?.category as string | undefined) === "ammo"
+                  ? "ammo"
+                  : source?.type;
         const ItemClass: typeof ItemPF2e = CONFIG.PF2E.Item.documentClasses[type];
         if (!ItemClass) {
             throw ErrorPF2e(`Item type ${type} does not exist and item module sub-types are not supported`);

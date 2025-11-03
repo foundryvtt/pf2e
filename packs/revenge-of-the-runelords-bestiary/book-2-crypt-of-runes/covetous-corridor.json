@@ -1,0 +1,191 @@
+{
+    "_id": "4wPrfPkGmDCid7eP",
+    "folder": "72YwVdCn52tsSyGQ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "qNYpofY8TkpZnqjk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Covet Magic",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A magic item or active spell effect enters the corridor</p><hr /><p><strong>Effect</strong> A randomly determined statue uses the hazard's @UUID[Compendium.pf2e.actionspf2e.Item.Steal] Magic action. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "K243luCNNDUqbbbz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Steal Magic",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Roll a [[/gmr d10]] to determine which statue activates, rerolling a result of 10 or any result that would indicate a disabled statue or a statue that is already charged. The indicated statue casts @UUID[Compendium.pf2e.spells-srd.Item.Detonate Magic] with a [[/gmr 1d20+32 #Counteract]]{+32} bonus to its counteract check. The spell targets the closest magic item within 120 feet, prioritizing the highest-ranking magic item and targeting spell effects only if no magic item is within range. On a success or critical success, the statue gathers the dispersed energy into its implement, charging it.</p>\n<p>While the statue's implement remains charged, any creature who is at least an expert in @Check[arcana|dc:44], @Check[nature|dc:44], @Check[occultism|dc:44], or @Check[religion|dc:44] can use a 2-action activity with the concentrate trait to attempt a DC 44 check using that skill. On a success or critical success, they return the magic to its original source, causing it to reactivate. Removing an implement from its statue prevents the statue from using Transfer Magic but doesn't prevent a creature from restoring the charge to its source.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YtgRgEt5wvCSZYvY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Transfer Magic",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The implements of at least three runelord statues are charged</p><hr /><p><strong>Effect</strong> Three statues with charged implements transfer their charges to the Belimarius statue. While the Belimarius statue holds at least one charge, a creature can transfer charges from its implement as described in Steal Magic, except the DC of the skill check increases to DC 46; success returns the stolen magic to the appropriate items.</p>\n<p>@Check[arcana|dc:46], @Check[nature|dc:46], @Check[occultism|dc:46], or @Check[religion|dc:46]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "M4fhNyHRwGMk9N0f",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Empower Barrier",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The hazard starts its turn, and the Belimarius statue holds at least one charge</p><hr /><p><strong>Effect</strong> The Belimarius statue transfers all charges from its implement into the force barrier separating the corridor from area <strong>B3</strong>. For every charge the statue transfers, the force barrier gains 10 temporary Hit Points that last for 1 hour. (If the force barrier has been destroyed, the statue instead expends the first charge to cast a 6th-rank @UUID[Compendium.pf2e.spells-srd.Item.Wall of Force], with any remaining charges granting the barrier temporary Hit Points.) Charges transferred to the force barrier are lost forever and can't be returned to items they were stolen from.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Covetous Corridor",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "emitsSound": "encounter",
+            "hardness": 29,
+            "hp": {
+                "details": "",
+                "max": 100,
+                "temp": 0,
+                "value": 100
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 35
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Statues depicting the runelords of envy steal magic from intruders.</p>",
+            "disable": "<p>@Check[arcana|dc:45] (master) to unweave the magic surrounding a statue, @Check[athletics|dc:48] (expert) to wrest a statue's implement from its hands, @Check[thievery|dc:48] (expert) to slip an implement free, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (9th rank; counteract DC 36) to counteract the magic that empowers the statue. Increase the DCs to disable the Belimarius statue by 2. Each statue must be disabled or counteracted separately, and disabling the Belimarius statue or all nine other statues permanently disables the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #220: Crypt of Runes"
+            },
+            "reset": "<p>The hazard resets automatically if not disabled.</p>",
+            "routine": "<p>(4 actions) The hazard uses @UUID[Compendium.pf2e.actionspf2e.Item.Steal] Magic twice. Once the implements of at least three runelord statues are charged, the hazard uses its next available action to Transfer Magic. If the hazard starts its turn with the Belimarius statue charged, the hazard uses its reaction to Empower Barrier. A disabled runelord statue can't use Steal Magic. If the Belimarius statue is disabled, the hazard can't use Transfer Magic or Empower Barrier.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 33
+            },
+            "reflex": {
+                "value": 27
+            },
+            "will": {
+                "value": 36
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

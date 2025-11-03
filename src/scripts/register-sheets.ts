@@ -8,6 +8,7 @@ import { PartySheetPF2e } from "@actor/party/sheet.ts";
 import { VehicleSheetPF2e } from "@actor/vehicle/sheet.ts";
 import { AbilitySheetPF2e } from "@item/ability/sheet.ts";
 import { AfflictionSheetPF2e } from "@item/affliction/sheet.ts";
+import { AmmoSheetPF2e } from "@item/ammo/sheet.ts";
 import { AncestrySheetPF2e } from "@item/ancestry/sheet.ts";
 import { ArmorSheetPF2e } from "@item/armor/sheet.ts";
 import { BackgroundSheetPF2e } from "@item/background/sheet.ts";
@@ -128,6 +129,7 @@ export function registerSheets(): void {
     const sheetEntries = [
         ["action", AbilitySheetPF2e],
         ["affliction", AfflictionSheetPF2e],
+        ["ammo", AmmoSheetPF2e],
         ["ancestry", AncestrySheetPF2e],
         ["armor", ArmorSheetPF2e],
         ["background", BackgroundSheetPF2e],

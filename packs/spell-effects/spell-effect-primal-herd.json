@@ -1,0 +1,114 @@
+{
+    "_id": "gOeu0lPtKQcLh1Xz",
+    "img": "icons/magic/unholy/hands-circle-light-green.webp",
+    "name": "Spell Effect: Primal Herd",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Primal Herd]</p>\n<p>You transform into a mammoth, and you assume a Huge battle form. You gain the animal trait. You gain the following while transformed.</p><ul><li><p>AC = 22 + your level. Ignore any armor check penalty and Speed reduction.</p></li><li><p>20 temporary Hit Points.</p></li><li><p>Speed 40 feet.</p></li><li><p>Low-light vision.</p></li><li><p>The following unarmed melee attacks, which are the only attacks you can use to Strike. When Striking with these attacks, you use your attack modifier with the proficiency and item bonuses of your most favorable weapon or unarmed Strike, and the damage is listed for each attack. These attacks are Strength based (for the purpose of the enfeebled condition, for example).</p><ul><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> tusk (reach 15 feet), <strong>Damage</strong> 4d8+19 piercing</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> trunk (agile, reach 15 feet), <strong>Damage</strong> 4d6+16 bludgeoning</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> foot (agile, reach 15 feet), <strong>Damage</strong> 4d6+13 bludgeoning.</li></ul></li><li><p>Athletics modifier of +30, unless your own modifier is higher.</p></li><li><p>You can use the Trample action.</p><ul><li><strong>Trample</strong> <span class=\"action-glyph\">3</span> You move up to twice your Speed and move through the space of Large or smaller creatures, trampling each creature whose space you enter. A trampled creature takes damage from your foot Strike based on a @Check[reflex|basic|dc:19] save.</li></ul></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "22 + @actor.level"
+                    },
+                    "senses": {
+                        "low-light-vision": {}
+                    },
+                    "size": "huge",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 30
+                        }
+                    },
+                    "speeds": {
+                        "land": 40
+                    },
+                    "strikes": {
+                        "foot": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 4,
+                                "die": "d6",
+                                "modifier": 13
+                            },
+                            "traits": [
+                                "agile",
+                                "reach-15",
+                                "unarmed"
+                            ]
+                        },
+                        "trunk": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 4,
+                                "die": "d6",
+                                "modifier": 16
+                            },
+                            "traits": [
+                                "agile",
+                                "reach-15",
+                                "unarmed"
+                            ]
+                        },
+                        "tusk": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 4,
+                                "die": "d8",
+                                "modifier": 19
+                            },
+                            "traits": [
+                                "reach-15",
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "tempHP": 20,
+                    "traits": [
+                        "animal"
+                    ]
+                }
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "selector": "{item|id}-inline-dc",
+                "value": "@actor.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

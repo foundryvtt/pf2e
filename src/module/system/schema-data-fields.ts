@@ -24,13 +24,27 @@ import validation = foundry.data.validation;
 /*  System `DataSchema` `DataField`s            */
 /* -------------------------------------------- */
 
+/** A SchemaField that prunes undefined values */
+class PrunedSchemaField<TDataSchema extends DataSchema> extends fields.SchemaField<TDataSchema> {
+    protected override _cleanType(
+        data: Record<string, unknown>,
+        options: CleanFieldOptions = {},
+    ): SourceFromSchema<TDataSchema> {
+        const cleaned = super._cleanType(data, options);
+        for (const key in data) {
+            if (cleaned[key] === undefined) delete cleaned[key];
+        }
+        return cleaned;
+    }
+}
+
 /** A `SchemaField` that preserves fields not declared in its `DataSchema` */
 class LaxSchemaField<TDataSchema extends DataSchema> extends fields.SchemaField<TDataSchema> {
     protected override _cleanType(
         data: Record<string, unknown>,
         options: CleanFieldOptions = {},
     ): SourceFromSchema<TDataSchema> {
-        options.source = options.source || data;
+        options.source = options.source ?? data;
 
         // Clean each field that belongs to the schema
         for (const [name, field] of this.entries()) {
@@ -661,6 +675,7 @@ export {
     NullableBooleanField,
     NullField,
     PredicateField,
+    PrunedSchemaField,
     RecordField,
     SlugField,
     StrictArrayField,

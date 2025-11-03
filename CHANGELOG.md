@@ -1,3 +1,70 @@
+## 7.6.4
+
+### Enhancements
+
+- (Supe) Prefer displaying item prices in gp if at least one gp (e.g. "15sp" -> "1 gp, 5 sp")
+
+### Bugfixes
+
+- (stwlam) Fix application of Clumsy condition from auto-applied Encumbered
+- (stwlam) Set token distance label to be initially hidden
+- (Supe) Fix dropping actors to parties from compendium
+- (Supe) Fix player drag drop to their own items
+- (Supe) Fix solarian crystals when using sf2e anachronism
+- (Supe) Prevent errors when granting flat persistent damage (such as with Flames Oracle)
+
+### Data Updates
+
+- (Abaddon) Add glitterspore tremorsense
+- (Ambrose) Add Anointed Ground to Remaster journal spells page
+- (Ambrose) Add automation to Mythic Skill ability and add mythic resistance to missing actors
+- (Ambrose) Add You Can't Kill an Idea feat to Broken Chain Mythic Destiny journal page
+- (Ambrose) Clean up text on Avenging Runelord Mythic Destiny and add Martial Proficiency automation
+- (Ambrose) Correct embed link in Summoner class journal
+- (Ambrose) Separate Guarded Advance feat into Guardian and Archetype version
+- (Dire Weasel) Add automation for Bone Gladiator's "Loose Bones"
+- (Dire Weasel) Brush up Meokdan, Roc's "Snack", Trident of Dis abilities
+- (Dire Weasel) Fix action type and cost of Oracle of Zagresh's "Destructive Touch"
+- (Dire Weasel) Fix level of Daemonic Fog, various inline roll options, and several NPC ItemAlterations
+- (Dire Weasel) Update "Effect: Spin Tale" to use TokenMark and Digly's Oil of Sympathy inline rolls to use `@Damage`
+- (rectulo) Fix label on the effect of Runelord Researcher
+- (Rigo) Correct Detect Magic spell link in Nagaji Spell Familiarity
+- (Rigo) Increase emanation area of heightened Sepulchral Mask spell
+- (Rigo) Match deity favored weapon proficiency rank with martial weapons on Vindicator
+- (Tikael) Automate Battle Planner skill feat
+- (Trent) Fix forced movement and prone roll options
+- (websterguy) Clean up background lores
+
+### Under the Hood
+
+- (stwlam) Don't apply absolute value on resolved reach value in CreatureSize RE
+
+## 7.6.3
+
+### Bugfixes
+
+- (stwlam) Fix handling of copy-to-clipboard buttons on item sheet RE panel
+- (stwlam) Fix pathing to certain variable in default Rule Element template
+- (Supe) Fix certain invalid predicates from potency and striking migration
+- (Supe) Fix context menu for other parties in Actor Directory
+- (Supe) Fix transferring physical items into a container
+- (Supe) Open up area and auto fire in production
+
+### Data Updates
+
+- (Ambrose) Add Alchemical Food tag to Sparking Pepper String
+- (Ambrose) Add description to Time trait
+- (Ambrose) Correct price for Lion's Call equipment
+- (Dire Weasel) Brush up automation for Bullyrag Beatdown and Frightening Critical
+- (Dire Weasel) Fix automation for Sedacthy Speaker's Exploit Weakness
+- (Dire Weasel) Set showDC:all for some PC-facing flat checks that mitigate critical hits
+- (rectulo) Fix backlink in Effect: Runelord Researcher
+- (stwlam) Fix setting shield data in Fire Shield REs
+
+### Under the Hood
+
+- (Supe) Ignore publication source when stacking items
+
 ## 7.6.2
 
 ### Bugfixes

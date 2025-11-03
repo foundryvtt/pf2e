@@ -320,6 +320,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -364,6 +365,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -409,6 +411,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -437,7 +440,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The barkeep has been in enough bar fights to know how to throw a few punches. When fighting in their bar and making a nonlethal attack, the barkeep gains a +1 circumstance bonus to attack rolls and deals an additional [[/r {1d4}]]{1d4 damage}.</p>"
+                    "value": "<p>The barkeep has been in enough bar fights to know how to throw a few punches. When fighting in their bar and making a nonlethal attack, the barkeep gains a +1 circumstance bonus to attack rolls and deals an additional 1d4 damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -447,14 +450,14 @@
                 "rules": [
                     {
                         "key": "RollOption",
-                        "label": "Fighting in their own bar",
                         "option": "bar-brawler",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "bar-brawler"
+                            "bar-brawler",
+                            "item:trait:nonlethal"
                         ],
                         "selector": "attack",
                         "type": "circumstance",
@@ -465,7 +468,8 @@
                         "dieSize": "d4",
                         "key": "DamageDice",
                         "predicate": [
-                            "bar-brawler"
+                            "bar-brawler",
+                            "item:trait:nonlethal"
                         ],
                         "selector": "strike-damage"
                     }

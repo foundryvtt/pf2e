@@ -32,7 +32,6 @@ const action = new SingleCheckAction({
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.AvoidNotice.Notes.criticalSuccess" },
         { outcome: ["success"], text: "PF2E.Actions.AvoidNotice.Notes.success" },
     ],
-    rollOptions: ["action:avoid-notice"],
     slug: "avoid-notice",
     statistic: "stealth",
     traits: ["exploration"],

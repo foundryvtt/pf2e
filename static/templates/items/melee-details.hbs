@@ -24,6 +24,11 @@
     <input type="number" name="system.bonus.value" value="{{modifierOrSave.value}}" />
 </div>
 
+{{#unless item.traits.config.thrown}}
+    {{formGroup systemFields.range.fields.increment type="number" value=item._source.system.range.increment}}
+    {{formGroup systemFields.range.fields.max type="number" value=item._source.system.range.max}}
+{{/unless}}
+
 <ol class="form-list">
     {{#each data.damageRolls as |damageRoll key|}}
         <li class="damage-partial" data-key="{{key}}">

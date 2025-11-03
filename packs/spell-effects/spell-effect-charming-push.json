@@ -1,0 +1,50 @@
+{
+    "_id": "4tLmwa9cTzsYERi3",
+    "img": "icons/magic/control/mouth-smile-deception-purple.webp",
+    "name": "Spell Effect: Charming Push",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Charming Push]</p>\n<p>You take a –1 circumstance penalty to attack rolls and damage rolls against the origin.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:signature:{item|origin.signature}"
+                ],
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

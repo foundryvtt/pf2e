@@ -1,0 +1,54 @@
+{
+    "_id": "ZkYDgSSlKML9BUjg",
+    "img": "icons/skills/melee/weapons-crossed-swords-black-gray.webp",
+    "name": "Effect: Battle Planner",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": null,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d20"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Battle Planner]</p>\n<p>Roll a Warfare Lore check. As long as the information was accurate and remains accurate when you roll initiative against those enemies, you can use the Warfare Lore result you previously rolled for your initiative roll.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "SubstituteRoll",
+                "predicate": [
+                    "check:type:initiative"
+                ],
+                "removeAfterRoll": true,
+                "selector": "warfare-lore",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

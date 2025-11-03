@@ -21,7 +21,6 @@ export class Migration746StandardizePricing extends MigrationBase {
                 const value = systemData.value?.value ?? 0;
                 const denomination = systemData.denomination?.value ?? "gp";
                 systemData.price = { value: { [denomination]: value } };
-
                 systemData["-=denomination"] = null;
                 delete systemData.denomination;
                 systemData["-=value"] = null;
@@ -33,7 +32,8 @@ export class Migration746StandardizePricing extends MigrationBase {
     }
 }
 
-interface TreasureSystemOld extends TreasureSystemSource {
+interface TreasureSystemOld extends Omit<TreasureSystemSource, "price"> {
+    price: { value: object };
     denomination?: {
         value: "pp" | "gp" | "sp" | "cp";
     };

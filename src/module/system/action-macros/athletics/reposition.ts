@@ -8,7 +8,7 @@ const PREFIX = "PF2E.Actions.Reposition";
 function reposition(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const modifiers = options?.modifiers;
-    const rollOptions = ["action:reposition"];
+    const rollOptions = ["action:reposition", "forced-movement"];
     ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
@@ -40,7 +40,7 @@ const action = new SingleCheckAction({
         { outcome: ["success"], text: `${PREFIX}.Notes.success` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:reposition"],
+    rollOptions: ["forced-movement"],
     section: "skill",
     slug: "reposition",
     statistic: "athletics",

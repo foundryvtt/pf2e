@@ -62,7 +62,6 @@ class RecallKnowledgeAction extends SingleCheckAction {
                 { outcome: ["success"], text: `${PREFIX}.Notes.success` },
                 { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
             ],
-            rollOptions: ["action:recall-knowledge"],
             sampleTasks: {
                 untrained: `${PREFIX}.SampleTasks.Untrained`,
                 trained: `${PREFIX}.SampleTasks.Trained`,

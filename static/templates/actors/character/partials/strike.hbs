@@ -19,38 +19,71 @@
 
         {{#if action.ready}}
             <!-- ATTACK/DAMAGE -->
-            {{#if action.canStrike}}{{#> attackDamage action}}{{/attackDamage}}{{/if}}
+            {{#if action.canAttack}}{{#> attackDamage action}}{{/attackDamage}}{{/if}}
         {{else if (not action.handsAvailable)}}
             <span class="hands-occupied">{{localize "PF2E.Actor.Character.HandsOccupied"}}</span>
         {{/if}}
 
-        {{#if (and action.altUsages action.ready)}}
-            {{#each action.altUsages as |usage|}}
+        {{#if action.ready}}
+            {{#each action.altUsages as |usage index|}}
                 <div class="alt-usage" data-tooltip-direction="LEFT">
                     {{#if usage.item.isThrown}}
                         <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/thrown.svg" data-tooltip="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
                     {{else}}
                         <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/sword.svg" data-tooltip="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
                     {{/if}}
-                    {{#> attackDamage usage isAltUsage=true}}{{/attackDamage}}
+                    {{#> attackDamage usage altUsageIndex=index}}{{/attackDamage}}
                 </div>
             {{/each}}
-        {{/if}}
 
-        {{#if (and action.ammunition action.ready)}}
-            <div class="ammo auxiliary-actions">
-                <select class="linked"
-                    data-action="link-ammo"
-                    {{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
-                    {{selectOptions action.ammunition.compatible selected=action.ammunition.selected.id valueAttr="id" blank="PF2E.NoAmmoLabel" localize=true}}
-                </select>
-
-                <span class="magazine" data-item-id="{{action.item.id}}">
-                    {{#if (gt action.item.ammo.uses.max 1)}}
-                        <span class="remaining"><i class="icon"></i> {{action.item.ammo.uses.value}}</span>
+            {{#if action.ammunition.requiresReload}}
+                <div class="ammo">
+                    {{#each action.ammunition.loaded as |ammo|}}
+                        <div class="loaded" data-item-id="{{ammo.id}}">
+                            <img src="{{ammo.img}}" />
+                            <span class="name">{{ammo.name}}</span>
+                            <span class="magazine" >
+                                <i class="icon"></i>
+                                <input
+                                    type="text"
+                                    data-action="change-ammo-quantity"
+                                    data-allow-delta
+                                    value="{{ammo.quantity}}"
+                                    data-min="0"
+                                    data-max="{{ammo.max}}"
+                                    data-refocus="{{../action.item.id}}-{{ammo.id}}"
+                                />
+                            </span>
+                            <a data-action="unload">
+                                <span class="fa-stack fa-fw fa-2xs">
+                                    <i class="fa-solid fa-paperclip fa-stack-2x" inert></i>
+                                    <i class="fa-solid fa-slash fa-stack-2x"inert></i>
+                                </span>
+                            </a>
+                        </div>
+                    {{/each}}
+                    {{#if action.ammunition.remaining}}
+                        <div class="empty plain">
+                            <a class="name" data-action="reload" data-anchor-id="{{action.item.uuid}}-actions">
+                                <span>Reload <span class="action-glyph">{{action.ammunition.reloadGlyph}}</span></span>
+                            </a>
+                                <span class="remaining">
+                                    {{#if (gt action.ammunition.capacity 1)}}
+                                        {{action.ammunition.remaining}} Empty
+                                    {{else}}
+                                        Empty
+                                    {{/if}}
+                                </span>
+                        </div>
                     {{/if}}
-                </span>
-            </div>
+                </div>
+            {{else if action.ammunition}}
+                <div class="ammo auxiliary-actions">
+                    <select data-action="link-ammo">
+                        {{selectOptions action.ammunition.compatible selected=action.ammunition.selected.id valueAttr="id" blank="PF2E.NoAmmoLabel" localize=true}}
+                    </select>
+                </div>
+            {{/if}}
         {{/if}}
 
         {{#if action.handsAvailable}}
@@ -108,22 +141,27 @@
     <div class="button-group tags" data-tooltip-direction="UP">
         {{#each variants as |variant index|}}
             <button type="button" class="tag tag_secondary variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
-                {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                {{#if ../altUsageIndex includeZero=true}}data-alt-usage="{{../altUsageIndex}}"{{/if}}
                 {{#if (eq ../quantity 0)}} disabled data-tooltip="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
             >
-                {{#if (eq index 0)}}
-                    <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
+                {{#if (eq ../type "strike")}}
+                    {{#if (eq index 0)}}
+                        <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
+                        <span class="action-glyph">{{../glyph}}</span>
+                    {{/if}}
+                    {{variant.label}}
+                {{else}}
+                    {{variant.label}}
                     <span class="action-glyph">{{../glyph}}</span>
                 {{/if}}
-                {{variant.label}}
             </button>
         {{/each}}
         {{#if item.dealsDamage}}
             <button type="button" class="tag damage" data-action="strike-damage"
-                {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                {{#if altUsageIndex includeZero=true}}data-alt-usage="{{altUsageIndex}}"{{/if}}
                 >{{localize "PF2E.DamageLabel"}}</button>
             <button type="button" class="tag damage" data-action="strike-critical"
-                {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                {{#if altUsageIndex includeZero=true}}data-alt-usage="{{altUsageIndex}}"{{/if}}
             >{{localize "PF2E.CriticalDamageLabel"}}</button>
 
             {{#if (or doubleBarrel versatileOptions)}}
@@ -151,7 +189,7 @@
                             class="damage color {{option.value}}{{#if option.selected}} selected{{/if}}"
                             value="{{option.value}}"
                             {{disabled option.selected}}
-                            {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                            {{#if altUsageIndex includeZero=true}}data-alt-usage="{{altUsageIndex}}"{{/if}}
                             data-action="toggle-weapon-trait"
                             data-trait="versatile"
                             data-tooltip="{{localize option.label}}"

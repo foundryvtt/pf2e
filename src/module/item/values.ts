@@ -4,6 +4,7 @@ const PC_ITEM_TYPES = ["ancestry", "background", "class", "deity", "feat", "heri
 const ITEM_TYPES = [
     "action",
     "affliction",
+    "ammo",
     "ancestry",
     "armor",
     "background",
