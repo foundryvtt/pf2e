@@ -124,6 +124,15 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
         };
     }
 
+    static override migrateData<T extends foundry.abstract.DataModel>(
+        this: ConstructorOf<T>,
+        source: Record<string, unknown>,
+    ): T["_source"] {
+        const migrated = super.migrateData(source);
+        if ("size" in migrated && migrated.size === "sm") migrated.size = "med";
+        return migrated;
+    }
+
     /** Treasure need only be on one's person. */
     declare usage: CarriedUsage;
 
