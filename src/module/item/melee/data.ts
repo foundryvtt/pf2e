@@ -11,6 +11,7 @@ import type { EffectAreaShape } from "@item/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import type { WeaponMaterialData } from "@item/weapon/data.ts";
 import type { WeaponPropertyRuneType } from "@item/weapon/types.ts";
+import { getLegacyRangeData } from "@module/migration/migrations/949-npc-range-data.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import type { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { LaxArrayField, RecordField, SlugField } from "@system/schema-data-fields.ts";
@@ -139,6 +140,19 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
     override prepareBaseData(): void {
         super.prepareBaseData();
         if (this.action !== "strike") this.area ??= { type: "burst", value: 5 };
+    }
+
+    static override migrateData<T extends foundry.abstract.DataModel>(
+        this: ConstructorOf<T>,
+        source: Record<string, unknown>,
+    ): MeleeSystemSource {
+        const migrated = super.migrateData<MeleeSystemData>(source);
+        const rangeData = getLegacyRangeData(migrated.traits.value);
+        if (rangeData) {
+            migrated.range ??= { increment: rangeData.increment, max: rangeData.max };
+            migrated.traits.value = migrated.traits.value.filter((t) => !/^(?:range-increment|range)-\d+$/.test(t));
+        }
+        return migrated;
     }
 }
 
