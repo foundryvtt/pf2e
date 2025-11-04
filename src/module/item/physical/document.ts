@@ -262,7 +262,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         this.system.material.type ||= null;
         this.system.material.grade ||= null;
         this.system.material.effects ??= [];
-        this.system.stackGroup ??= null;
+        if (this.type !== "treasure") this.system.stackGroup ??= null;
         this.system.hp.brokenThreshold = Math.floor(this.system.hp.max / 2);
 
         // Ensure infused items are always temporary

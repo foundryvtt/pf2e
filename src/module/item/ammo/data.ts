@@ -22,12 +22,12 @@ interface AmmoSystemSource extends PhysicalSystemSource {
     subitems?: never;
 }
 
-type AmmoUses = {
+interface AmmoUses {
     value: number;
     max: number;
     /** Whether to delete the ammo upon use if it has no remaining uses and a quantity of 1 */
     autoDestroy: boolean;
-};
+}
 
 interface AmmoSystemData
     extends Omit<AmmoSystemSource, SourceOmission>,

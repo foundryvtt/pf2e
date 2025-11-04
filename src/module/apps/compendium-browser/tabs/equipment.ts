@@ -57,7 +57,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const itemData of index) {
-                if (itemData.type === "treasure" && itemData.system.stackGroup === "coins") continue;
+                if (itemData.type === "treasure" && itemData.system.category === "coin") continue;
                 if (itemTypes.includes(itemData.type)) {
                     const skip = (() => {
                         switch (itemData.type) {

@@ -14,7 +14,7 @@ export class MockItem {
         data: ItemSourcePF2e,
         public options: DocumentConstructionContext<ActorPF2e | null> = {},
     ) {
-        this._source = fu.duplicate(data);
+        this._source = fu.deepClone(data);
         this.parent = options.parent ?? null;
     }
 
@@ -62,6 +62,6 @@ export class MockItem {
     }
 
     toObject(): ItemSourcePF2e {
-        return fu.duplicate(this._source);
+        return fu.deepClone(this._source);
     }
 }

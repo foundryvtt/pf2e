@@ -13,7 +13,9 @@
                 {{selectOptions usageOptions selected=data.usage.value}}
             </select>
         </div>
-    {{else if (nor (eq item.type "armor") (eq item.type "shield") (eq item.type "ammo") (eq item.type "treasure"))}}
+    {{else if (eq item.type "treasure")}}
+        {{formGroup systemFields.category choices=categories value=item.system.category}}
+    {{else if (nor (eq item.type "armor") (eq item.type "shield") (eq item.type "ammo"))}}
         <div class="form-group">
             <label for="{{fieldIdPrefix}}usage">{{localize "PF2E.Usage"}}</label>
             <select name="system.usage.value" id="{{fieldIdPrefix}}usage">

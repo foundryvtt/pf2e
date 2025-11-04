@@ -8,7 +8,7 @@ import type { TreasureSource, TreasureSystemData } from "./data.ts";
 
 class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get isCoinage(): boolean {
-        return this.system.stackGroup === "coins";
+        return this.system.category === "coin";
     }
 
     get denomination(): CoinDenomination | null {

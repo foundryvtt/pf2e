@@ -26,6 +26,7 @@ import { Migration946RetirePotencyStrikingREs } from "@module/migration/migratio
 import { Migration947FixPostPotencyStrikingPredicates } from "@module/migration/migrations/947-fix-post-potency-striking-predicates.ts";
 import { Migration949NPCRangeData } from "@module/migration/migrations/949-npc-range-data.ts";
 import { Migration950AmmoConsumableToAmmoAmmo } from "@module/migration/migrations/950-ammo-consumable-to-ammo-ammo.ts";
+import { Migration951TreasureCategories } from "@module/migration/migrations/951-treasure-categories.ts";
 
 const { window } = new JSDOM();
 globalThis.document = window.document;
@@ -45,6 +46,7 @@ const migrations: MigrationBase[] = [
     new Migration947FixPostPotencyStrikingPredicates(),
     new Migration949NPCRangeData(),
     new Migration950AmmoConsumableToAmmoAmmo(),
+    new Migration951TreasureCategories(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

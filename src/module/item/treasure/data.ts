@@ -21,9 +21,13 @@ import { ItemSize } from "@item/types.ts";
 import { RarityField } from "@module/model.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
 import type { TreasurePF2e } from "./document.ts";
+import { TreasureCategory } from "./types.ts";
+import { TREASURE_CATEGORIES } from "./values.ts";
 import fields = foundry.data.fields;
 
 class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSchema> {
+    static override LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "PF2E.Item.Treasure"];
+
     static override defineSchema(): TreasureSystemSchema {
         const unidentifiedImg: ImageFilePath = "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp";
         return {
@@ -39,6 +43,7 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
                     validate: (v) => typeof v === "number" && (v === 0.1 || Number.isInteger(v)),
                 }),
             }),
+            category: new fields.StringField({ required: true, nullable: true, choices: TREASURE_CATEGORIES }),
             containerId: new fields.StringField({
                 required: true,
                 nullable: true,
@@ -112,7 +117,6 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
                 choices: ["tiny", "med", "lg", "huge", "grg"],
                 initial: "med",
             }),
-            stackGroup: new fields.StringField({ required: true, nullable: true, choices: ["coins", "gems"] }),
             temporary: new fields.BooleanField({ required: false }),
             traits: new fields.SchemaField({
                 value: new fields.ArrayField(
@@ -128,9 +132,21 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
         this: ConstructorOf<T>,
         source: Record<string, unknown>,
     ): T["_source"] {
-        const migrated = super.migrateData(source);
-        if ("size" in migrated && migrated.size === "sm") migrated.size = "med";
-        return migrated;
+        if (source.size === "sm") source.size = "med";
+        if (source.stackGroup === "coins") source.category = "coin";
+        else if (source.stackGroup === "gems") source.category = "gem";
+        return super.migrateData(source);
+    }
+
+    get stackGroup(): "coins" | "gems" | null {
+        switch (this.category) {
+            case "coin":
+                return "coins";
+            case "gem":
+                return "gems";
+            default:
+                return null;
+        }
     }
 
     /** Treasure need only be on one's person. */
@@ -139,7 +155,7 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.price.sizeSensitive = false;
-        if (this.stackGroup === "coins") this.size = "med";
+        if (this.category === "coin") this.size = "med";
     }
 }
 
@@ -172,6 +188,7 @@ interface TreasureSystemSource extends fields.SourceFromSchema<TreasureSystemSch
 
 type TreasureSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     baseItem: fields.StringField<string, string, true, true>;
+    category: fields.StringField<TreasureCategory, TreasureCategory, true, true, true>;
     bulk: fields.SchemaField<{ value: fields.NumberField<number, number, true, false, true> }>;
     containerId: fields.StringField<string, string, true, true>;
     hardness: fields.NumberField<number, number, true, false, true>;
@@ -201,7 +218,6 @@ type TreasureSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     price: PriceField;
     quantity: fields.NumberField<number, number, true, false, true>;
     size: fields.StringField<ItemSize, ItemSize, true, false, true>;
-    stackGroup: fields.StringField<"coins" | "gems", "coins" | "gems", true, true>;
     temporary: fields.BooleanField<boolean, boolean, false, false, false>;
     traits: fields.SchemaField<{
         value: fields.ArrayField<fields.StringField<"precious", "precious", true, false, false>>;
@@ -227,4 +243,4 @@ interface TreasureEquippedData extends EquippedData {
 }
 
 export { TreasureSystemData };
-export type { TreasureSource, TreasureSystemSource };
+export type { TreasureSource, TreasureSystemSchema, TreasureSystemSource };

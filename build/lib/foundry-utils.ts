@@ -1,3 +1,5 @@
+import * as R from "remeda";
+
 /**
  * Quickly clone a simple piece of data, returning a copy which can be mutated safely.
  * This method DOES support recursive data structures containing inner objects or arrays.
@@ -131,14 +133,6 @@ function expandObject(obj: object, _d = 0) {
     return expanded;
 }
 
-/**
- * A cheap data duplication trick, surprisingly relatively performant
- * @param original Some sort of data
- */
-function duplicate<T>(original: T): T {
-    return JSON.parse(JSON.stringify(original));
-}
-
 /** Update a source object by replacing its keys and values with those from a target object. */
 function mergeObject<T extends object, U extends object = T>(
     original: T,
@@ -175,7 +169,7 @@ function mergeObject(
                 Object.keys(original).forEach((k) => delete (original as Record<string, unknown>)[k]);
                 Object.assign(original, expanded);
             } else original = expanded;
-        } else if (!inplace) original = foundry.utils.deepClone(original);
+        } else if (!inplace) original = deepClone(original);
     }
 
     // Iterate over the other object
@@ -199,17 +193,27 @@ function _mergeInsert(
     }: { insertKeys?: boolean; insertValues?: boolean; performDeletions?: boolean } = {},
     _d: number,
 ): object | void {
-    // Delete a key
-    if (k.startsWith("-=") && performDeletions) {
+    // Force replace a specific key
+    if (performDeletions && k.startsWith("==")) {
+        (original as Record<string, unknown>)[k.slice(2)] = applySpecialKeys(v);
+        return;
+    }
+
+    // Delete a specific key
+    if (performDeletions && k.startsWith("-=")) {
+        if (v !== null)
+            throw new Error(
+                "Removing a key using the -= deletion syntax requires the value of that" +
+                    " deletion key to be null, for example {-=key: null}",
+            );
         delete (original as Record<string, unknown>)[k.slice(2)];
         return;
     }
 
     const canInsert = (_d <= 1 && insertKeys) || (_d > 1 && insertValues);
     if (!canInsert) return;
-
     // Recursively create simple objects
-    if (v?.constructor === Object) {
+    if (R.isPlainObject(v)) {
         (original as Record<string, unknown>)[k] = mergeObject({}, v, {
             insertKeys: true,
             inplace: true,
@@ -242,7 +246,7 @@ function _mergeUpdate(
     const tx = getType(x);
 
     // Recursively merge an inner object
-    if (tv === "Object" && tx === "Object" && recursive) {
+    if (R.isPlainObject(v) && R.isPlainObject(x) && recursive) {
         return mergeObject(
             x as object,
             v as object,
@@ -260,11 +264,44 @@ function _mergeUpdate(
 
     // Overwrite an existing value
     if (overwrite) {
-        if (tx !== "undefined" && tv !== tx && enforceTypes) {
+        if (x !== undefined && tv !== tx && enforceTypes) {
             throw new Error(`Mismatched data types encountered during object merge.`);
         }
-        (original as Record<string, unknown>)[k] = v;
+        (original as Record<string, unknown>)[k] = applySpecialKeys(v);
     }
+}
+
+/**
+ * Recurse through an object, applying all special keys.
+ * Deletion keys ("-=") are removed.
+ * Forced replacement keys ("==") are assigned.
+ */
+
+function applySpecialKeys<T>(obj: T): T;
+function applySpecialKeys(obj: unknown): unknown {
+    if (Array.isArray(obj)) return obj.map(applySpecialKeys);
+    if (!R.isPlainObject(obj)) return obj;
+    const clone: Record<string, unknown> = {};
+    for (const key in obj) {
+        const v = obj[key];
+        if (isDeletionKey(key)) {
+            if (key[0] === "-") {
+                if (v !== null)
+                    throw new Error(
+                        "Removing a key using the -= deletion syntax requires the value of that" +
+                            " deletion key to be null, for example {-=key: null}",
+                    );
+                delete clone[key.substring(2)];
+                continue;
+            }
+            if (key[0] === "=") {
+                clone[key.substring(2)] = applySpecialKeys(v);
+                continue;
+            }
+        }
+        clone[key] = applySpecialKeys(v);
+    }
+    return clone;
 }
 
 /**
@@ -287,6 +324,14 @@ function objectsEqual(a: object | null, b: object | null): boolean {
     });
 }
 
+/**
+ * Is a string key of an object used for certain deletion or forced replacement operations.
+ */
+function isDeletionKey(key: string): boolean {
+    if (!(typeof key === "string")) return false;
+    return key[1] === "=" && (key[0] === "=" || key[0] === "-");
+}
+
 function _arrayEquals(arr: unknown[], other: unknown): boolean {
     if (!(other instanceof Array) || other.length !== arr.length) return false;
     return arr.every((v0, i) => {
@@ -303,13 +348,13 @@ function _arrayEquals(arr: unknown[], other: unknown): boolean {
 
 /**
  * Deeply difference an object against some other, returning the update keys and values.
- * @param original     An object comparing data against which to compare
- * @param other        An object containing potentially different data
- * @param [options={}] Additional options which configure the diff operation
- * @param [options.inner=false]  Only recognize differences in other for keys which also exist in original
- * @param [options.deletionKeys=false] Apply special logic to deletion keys. They will only be kept if the
+ * @param original An object comparing data against which to compare
+ * @param other An object containing potentially different data
+ * @param options Additional options which configure the diff operation
+ * @param options.inner Only recognize differences in other for keys which also exist in original
+ * @param deletionKeys Apply special logic to deletion keys. They will only be kept if the
  *                                               original object has a corresponding key that could be deleted.
- * @return {object}               An object of the data in other which differs from that in original
+ * @return An object of the data in other which differs from that in original
  */
 function diffObject(original: object, other: object, { inner = false, deletionKeys = false } = {}) {
     function _difference(v0: unknown, v1: unknown): [boolean, unknown] {
@@ -403,7 +448,6 @@ const f = (global.foundry = {
     utils: {
         deepClone,
         diffObject,
-        duplicate,
         expandObject,
         isEmpty,
         getType,
