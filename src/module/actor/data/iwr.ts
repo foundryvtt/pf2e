@@ -379,6 +379,8 @@ interface ResistanceSource extends IWRSource<ResistanceType> {
 const APPLY_ONCE_WEAKNESSES: Set<WeaknessType> = new Set([
     ...MAGIC_TRADITIONS,
     "air",
+    "arrow-vulnerability",
+    "axe-vulnerability",
     "earth",
     "ghost-touch",
     "holy",
