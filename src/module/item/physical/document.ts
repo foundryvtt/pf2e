@@ -871,9 +871,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                     if (coins[denomination] === 0) coins[`-=${denomination}`] = null;
                 }
             }
-            if ("per" in price && (!price.per || Number(price.per) <= 1)) {
-                price["-=per"] = null;
-            }
+            if ("per" in price) price.per = Math.max(1, Math.floor(Number(price.per) || 1));
         }
 
         // Uninvest if dropping
