@@ -157,8 +157,8 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
         source.img = source.img.replace(/\bconsumable\.svg$/, "ammo.svg") as ImageFilePath;
         source.type = "ammo";
         if ("game" in globalThis) {
-            // todo: handle == in the migration framework. Right now its fine, but will eventually cause problems
-            // If we don't use ==, changing the item type will be blocked by foundry
+            // Assign to both system and ==system. Future migrations can write to system and it "should" be fine, they're the same reference
+            source.system = system as ConsumableSystemSource;
             source["==system"] = system;
         } else {
             const systemUpdate: Record<string, unknown> = system;

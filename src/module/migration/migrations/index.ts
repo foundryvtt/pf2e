@@ -250,3 +250,4 @@ export { Migration948MoreBadPredicatesAndSolarianCrystals } from "./948-more-bad
 export { Migration949NPCRangeData } from "./949-npc-range-data.ts";
 export { Migration950AmmoConsumableToAmmoAmmo } from "./950-ammo-consumable-to-ammo-ammo.ts";
 export { Migration951TreasureCategories } from "./951-treasure-categories.ts";
+export { Migration952AmmoTraitsAndOptions } from "./952-ammo-traits-options.ts";
