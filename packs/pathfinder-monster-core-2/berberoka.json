@@ -85,7 +85,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>If a berberoka sees a crab or crab-like creature, the berberoka must attempt a @Check[will|dc:33] save. They then becomes immune to the sight of that creature for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The berberoka is unaffected.</p>\n<p><strong>Success</strong> The berberoka becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Failure</strong> The berberoka gains the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition for 1 round and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}.</p>"
+                    "value": "<p>If a berberoka sees a crab or crab-like creature, the berberoka must attempt a @Check[will|dc:33|options:inflicts:frightened] save. They then become immune to the sight of that creature for 10 minutes.</p><hr /><p><strong>Critical Success</strong> The berberoka is unaffected.</p>\n<p><strong>Success</strong> The berberoka becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Failure</strong> The berberoka gains the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition for 1 round and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -207,7 +207,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The berberoka is waterlogged.</p>\n<hr />\n<p><strong>Effect</strong> The berberoka sprays a blast of water in a @Template[line|distance:60]. All creatures in the line take @Damage[6d8[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:35|basic|options:area-effect,inflicts:prone,inflicts:forced-movement] save). On a failed save, a creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] and pushed back 5 feet (10 feet on a critically failed save).</p>"
+                    "value": "<p><strong>Requirements</strong> The berberoka is waterlogged.</p><hr /><p><strong>Effect</strong> The berberoka sprays a blast of water in a @Template[line|distance:60]. All creatures in the line take @Damage[6d8[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:35|basic|options:area-effect,forced-movement,inflicts:prone] save). On a failed save, a creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] and pushed back 5 feet (10 feet on a critically failed save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -216,6 +216,38 @@
                 },
                 "rules": [],
                 "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t3H58472BnUlnRho",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
                 "traits": {
                     "value": []
                 }

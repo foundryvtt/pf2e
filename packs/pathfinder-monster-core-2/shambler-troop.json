@@ -90,10 +90,49 @@
             "type": "action"
         },
         {
+            "_id": "kDNWlOfWS3EwLRus",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "40Wm7PMpubOHARnN",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Grave Tide",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -122,7 +161,7 @@
             "_id": "9h7H5cLoexL4ZlMm",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Shambling Onslaught",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -191,23 +230,24 @@
             },
             "immunities": [
                 {
-                    "exceptions": [],
                     "type": "bleed"
                 },
                 {
-                    "exceptions": [],
                     "type": "death-effects"
                 },
                 {
-                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "type": "mental"
+                },
+                {
                     "type": "paralyzed"
                 },
                 {
-                    "exceptions": [],
                     "type": "poison"
                 },
                 {
-                    "exceptions": [],
                     "type": "unconscious"
                 }
             ],

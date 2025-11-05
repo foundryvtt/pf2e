@@ -135,7 +135,13 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -144,7 +150,10 @@
             "type": "action"
         },
         {
-            "_id": "UoFSMEov4UHKMpa9",
+            "_id": "6zFLha7rq76NDyS7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
             "sort": 500000,
@@ -160,9 +169,9 @@
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
@@ -172,7 +181,7 @@
                         "value": true
                     }
                 ],
-                "slug": "negative-healing",
+                "slug": "void-healing",
                 "traits": {
                     "value": []
                 }
@@ -193,7 +202,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The zombie dragon breathes a wave of fetid viscera that deals @Damage[5d6[bludgeoning]] damage and @Damage[5d6[poison]] damage (@Check[reflex|dc:28|basic] save). A creature that critically fails is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. The zombie dragon can't use Viscera Breath again for [[/gmr 1d4 #Recharge Viscera Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The zombie dragon breathes a wave of fetid viscera that deals @Damage[5d6[bludgeoning],5d6[poison]|options:area-damage]{5d6 bludgeoning damage and 5d6 poison damage} (@Check[reflex|dc:28|basic|options:area-effect,inflicts:sickened] save). A creature that critically fails is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. The zombie dragon can't use Viscera Breath again for [[/gmr 1d4 #Recharge Viscera Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -249,23 +258,24 @@
             },
             "immunities": [
                 {
-                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
                     "type": "death-effects"
                 },
                 {
-                    "exceptions": [],
                     "type": "disease"
                 },
                 {
-                    "exceptions": [],
+                    "type": "mental"
+                },
+                {
                     "type": "paralyzed"
                 },
                 {
-                    "exceptions": [],
                     "type": "poison"
                 },
                 {
-                    "exceptions": [],
                     "type": "unconscious"
                 }
             ],

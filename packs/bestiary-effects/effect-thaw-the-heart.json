@@ -1,0 +1,48 @@
+{
+    "_id": "GdkIUl4w8yAJxqdO",
+    "img": "icons/magic/life/heart-red-blue.webp",
+    "name": "Effect: Thaw the Heart",
+    "system": {
+        "description": {
+            "value": "<p>You lose your emotion immunity and become slowed 1</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "key": "Immunity",
+                "mode": "remove",
+                "type": "emotion"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

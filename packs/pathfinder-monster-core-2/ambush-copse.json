@@ -124,7 +124,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 20 feet of the ambush copse leaves a square during a move action it's using</p>\n<p><strong>Requirements</strong> The triggering creature is in forest terrain</p><hr /><p><strong>Effect</strong> The ambush copse's elemental energy animates nearby tree branches to swat at the creature's face. The triggering creature must succeed at a @Check[Refex|dc:30] save or become @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 20 feet of the ambush copse leaves a square during a move action it's using</p>\n<p><strong>Requirements</strong> The triggering creature is in forest terrain</p><hr /><p><strong>Effect</strong> The ambush copse's elemental energy animates nearby tree branches to swat at the creature's face. The triggering creature must succeed at a @Check[reflex|dc:30|options:inflicts:blinded] save or become @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -153,7 +153,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature moves within 10 feet of the ambush copse</p>\n<p><strong>Requirements</strong> The ambush copse is disguised as trees or logs</p><hr /><p><strong>Effect</strong> The ambush copse makes a log Strike against the triggering creature. If the attack hits, the creature must attempt a @Check[Refex|dc:30] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p><strong>Trigger</strong> A creature moves within 10 feet of the ambush copse</p>\n<p><strong>Requirements</strong> The ambush copse is disguised as trees or logs</p><hr /><p><strong>Effect</strong> The ambush copse makes a log Strike against the triggering creature. If the attack hits, the creature must attempt a @Check[reflex|dc:30|options:inflicts:prone] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -312,7 +312,35 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "pulverizing-barrage",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "pulverizing-barrage"
+                        ],
+                        "selector": [
+                            "log-attack"
+                        ],
+                        "value": -2
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "pulverizing-barrage"
+                        ],
+                        "selector": [
+                            "log-attack"
+                        ],
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

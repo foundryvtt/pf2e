@@ -473,39 +473,10 @@
             "type": "melee"
         },
         {
-            "_id": "dyrhkvCX2H3pZBp9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Greater Darkvision",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "greater-darkvision",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "u0EOvM37SL9GUjJu",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -537,7 +508,7 @@
             "_id": "zaD6IUn59EF4mqzi",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -576,7 +547,7 @@
             "_id": "6SDloGsttpr7ZAJq",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Hatred of Beauty",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -605,7 +576,7 @@
             "_id": "4SUjs1Fnnil2m2Qt",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Cursed Gaze",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -615,7 +586,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The aghash fixes their gaze on one creature they can see within 20 feet. The creature must attempt a @Check[will|dc:21|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[mental]] damage and becomes either @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (the aghash's choice).</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>"
+                    "value": "<p>The aghash fixes their gaze on one creature they can see within 20 feet. The creature must attempt a @Check[will|dc:21|traits:damaging-effect,inflicts:frightened,inflicts:stunned] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[mental]] damage and becomes either @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (the aghash's choice).</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -642,7 +613,7 @@
             "_id": "Fil9NBsfO3iADreb",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Sandstorm",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -652,7 +623,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The aghash creates a temporary sandstorm in a @Template[emanation|distance:30] that lasts for 1 minute.</p>\n<p>Creatures within the emanation take a –4 circumstance penalty to Perception checks and must succeed at a @Check[fortitude|dc:18|options:area-effect] save. On a failure, they're forced to hold their breath or else they start suffocating. A creature within the sandstorm at the end of its turn takes @Damage[1d6[slashing]|options:area-damage] damage.</p>\n<p>Divs are immune to all effects of an aghash's sandstorm.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sandstorm]</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The aghash creates a temporary sandstorm in a @Template[emanation|distance:30] that lasts for 1 minute.</p>\n<p>Creatures within the emanation take a –4 circumstance penalty to Perception checks and must succeed at a @Check[fortitude|dc:18|options:area-effect] save. On a failure, they're forced to hold their breath or else they start suffocating. A creature within the sandstorm at the end of its turn takes @Damage[1d6[slashing]|options:area-damage] damage.</p>\n<p>Divs are immune to all effects of an aghash's sandstorm.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sandstorm]</p>"
                 },
                 "frequency": {
                     "max": 1,
