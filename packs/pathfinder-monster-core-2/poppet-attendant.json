@@ -471,7 +471,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The poppet attendant looks like an ordinary doll, fooling others into leaving them alone. When they’re in their place of business, the poppet attendant can Hide without cover or concealment. Once a creature realizes that the poppet attendant is alive, the attendant can’t Hide from them in this way again.</p>"
+                    "value": "<p>The poppet attendant looks like an ordinary doll, fooling others into leaving them alone. When they’re in their place of business, the poppet attendant can [[/act hide]] without cover or concealment. Once a creature realizes that the poppet attendant is alive, the attendant can’t Hide from them in this way again.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -509,7 +509,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "pincushion",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "pincushion"
+                        ],
+                        "type": "piercing",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -612,7 +626,24 @@
                 "value": 6
             }
         },
-        "skills": {},
+        "skills": {
+            "crafting": {
+                "base": 6,
+                "special": []
+            },
+            "deception": {
+                "base": 5,
+                "special": []
+            },
+            "diplomacy": {
+                "base": 5,
+                "special": []
+            },
+            "stealth": {
+                "base": 6,
+                "special": []
+            }
+        },
         "traits": {
             "rarity": "rare",
             "size": {
