@@ -165,13 +165,13 @@
                 }
 
                 .loaded {
-                    border: 1px solid var(--alt);
+                    border: 1px solid var(--color-pf-alternate-light);
 
                     & + .loaded {
                         border-top: none;
                     }
 
-                    button {
+                    button.inline-control {
                         flex: 1;
                         text-align: left;
                         padding: 0;
@@ -207,7 +207,7 @@
                     }
 
                     &.selected {
-                        button {
+                        button.inline-control {
                             pointer-events: none;
                         }
                         img {
@@ -225,15 +225,10 @@
                             filter: grayscale(0.85);
                         }
                     }
-
-                    a[data-action="unload"] {
-                        font-size: var(--font-size-12);
-                        padding-right: var(--space-4);
-                    }
                 }
 
                 .empty {
-                    border: 1px dashed var(--alt);
+                    border: 1px dashed var(--color-pf-alternate-light);
                     line-height: unset;
                     text-align: start;
                     font-family: var(--body-serif);

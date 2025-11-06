@@ -48,6 +48,7 @@
                                 <i class="icon"></i>
                                 <input
                                     type="text"
+                                    id="{{@root.options.id}}-loaded-{{ammo.id}}-quantity"
                                     data-action="change-ammo-quantity"
                                     data-allow-delta
                                     value="{{ammo.quantity}}"
@@ -56,12 +57,9 @@
                                     data-refocus="{{../action.item.id}}-{{ammo.id}}"
                                 />
                             </span>
-                            <a data-action="unload">
-                                <span class="fa-stack fa-fw fa-2xs">
-                                    <i class="fa-solid fa-paperclip fa-stack-2x" inert></i>
-                                    <i class="fa-solid fa-slash fa-stack-2x"inert></i>
-                                </span>
-                            </a>
+                            <button type="button" class="use-action unload" data-action="unload">
+                                <i class="fa-solid fa-eject" inert></i>
+                            </button>
                         </div>
                     {{/each}}
                     {{#if action.ammunition.remaining}}
