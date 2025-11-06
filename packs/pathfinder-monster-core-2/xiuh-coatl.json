@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "cur7nFf5cRCA5ccx",
+            "_id": "0UJ4qjLZlnk7jUKa",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Occult Innate Spells",
             "sort": 100000,
@@ -15,7 +15,6 @@
                     "value": ""
                 },
                 "prepared": {
-                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -34,7 +33,6 @@
                 "slug": null,
                 "spelldc": {
                     "dc": 32,
-                    "mod": 0,
                     "value": 24
                 },
                 "tradition": {
@@ -45,12 +43,13 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "bnDqqEqGa8k1Und0",
+            "_id": "XomVPsbXtCErsmOC",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
             },
+            "folder": "xqlqJ6eeiNtWb7bq",
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
-            "name": "Plane Shift (Self Only)",
+            "name": "Interplanar Teleport",
             "sort": 200000,
             "system": {
                 "area": null,
@@ -61,7 +60,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Netherworld, or the Outer Rifts. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
+                    "value": "<p><strong>Requirements</strong> You have a planar key for the destination plane, used as a locus</p>\n<hr />\n<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Netherworld, or the Outer Rifts. You must know the destination plane exists and use a magic planar key created from material from that plane as a locus for the spell. While the planar keys for most prominent planes are uncommon, just like the spell <em>interplanar teleport</em>, more obscure planes and demiplanes often have rare or possibly even unique planar keys.</p>\n<p>The spell is highly imprecise, and you appear 1d20×25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. <em>Interplanar teleport</em> doesn't provide a means of return travel, though casting <em>interplanar teleport</em> again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -71,22 +70,21 @@
                     "value": 7
                 },
                 "location": {
-                    "heightenedLevel": 7,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": "touch"
+                    "value": "5 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "plane-shift",
+                "slug": "interplanar-teleport",
                 "target": {
-                    "value": "self"
+                    "value": "up to 8 willing creatures"
                 },
                 "time": {
                     "value": "10 minutes"
@@ -109,95 +107,14 @@
             "type": "spell"
         },
         {
-            "_id": "hkeOmFteDvF7VqSX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.GaRQlC9Yw1BGKHfN"
-            },
-            "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
-            "name": "Crushing Despair",
-            "sort": 300000,
-            "system": {
-                "area": {
-                    "type": "cone",
-                    "value": 30
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 or more rounds"
-                },
-                "heightening": {
-                    "levels": {
-                        "7": {
-                            "area": {
-                                "areaType": "cone",
-                                "value": "60"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "crushing-despair",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "ZnDlg1H6UlMs9BWe",
+            "_id": "1gKx27aYi8eOoL6h",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.Ucf8eynbZMfUucjE"
             },
+            "folder": "iDjm2cXyRAe4VZ35",
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -210,7 +127,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You form an imaginary scene that includes up to 10 discrete creatures or objects of various sizes, all of which must be within the spell's area. These elements generate appropriate sounds and smells, and they feel right to the touch. Elements of an illusory scene are incapable of speech. Unlike with the @UUID[Compendium.pf2e.spells-srd.Item.Illusory Creature] spell, creatures in your scene lack combat abilities and statistics. Your scene doesn't include changes to the environment around it, though you can place your scene within the illusory environment of a @UUID[Compendium.pf2e.spells-srd.Item.Mirage] spell.</p>\n<p>When you create the scene, you can choose to have it be static or follow a program. Though a static scene is stationary, it includes basic natural movement. For example, wind blowing on an illusory piece of paper would rustle it. A program can be up to 1 minute long and repeats when finished. For instance, you could create a scene of two orcs fighting each other, and the fight would go the same way for each repetition. If you create a loop, the two fighters end up in the same place at the start of the scene and at the end of it, but you can smooth the program so it's hard to tell when the loop ends and begins. Anyone observing the scene for more than a few minutes almost always notices it looping. You're unable to alter the program after you create the illusion.</p>\n<p>Any creature that touches any part of the image or uses the Seek action to examine it can attempt to disbelieve your illusion. If they interact with a portion of the illusion, they disbelieve only that portion. They disbelieve the entire scene only on a critical success.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Creatures or objects in your scene can speak. You must speak the specific lines for each actor when creating your program. The spell disguises your voice for each actor.</p>\n<p><strong>Heightened (8th)</strong> As the 6th-rank version, and the duration is unlimited.</p>"
+                    "value": "<p>You craft an imaginary scene that includes up to 10 discrete creatures or objects of various sizes, all of which must be within the spell's area. These elements generate appropriate sounds and smells, and they feel right to the touch. Elements of an illusory scene are incapable of speech. Unlike with the @UUID[Compendium.pf2e.spells-srd.Item.Illusory Creature] spell, creatures in your scene lack combat abilities and statistics. Your scene doesn't include changes to the environment around it, though you can place your scene within the illusory environment of a @UUID[Compendium.pf2e.spells-srd.Item.Mirage] spell.</p>\n<p>When you create the scene, you can choose to have it be static or follow a program. Though a static scene is stationary, it includes basic natural movement. For example, wind blowing on an illusory piece of paper would rustle it. A program can be up to 1 minute long and repeats when finished. For instance, you could create a scene of two orcs fighting each other, and the fight would go the same way for each repetition. If you create a loop, the two fighters end up in the same place at the start of the scene and at the end of it, but you can smooth the program so it's hard to tell when the loop ends and begins. Anyone observing the scene for more than a few minutes almost always notices it looping. You're unable to alter the program after you create the illusion.</p>\n<p>Any creature that touches any part of the image or uses the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to examine it can attempt to disbelieve your illusion. If they interact with a portion of the illusion, they disbelieve only that portion. They disbelieve the entire scene only on a critical success.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Creatures or objects in your scene can speak. You must speak the specific lines for each actor when creating your program. The spell disguises your voice for each actor.</p>\n<p><strong>Heightened (8th)</strong> As the 6th-rank version, and the duration is unlimited.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -221,12 +138,12 @@
                 },
                 "location": {
                     "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -259,13 +176,14 @@
             "type": "spell"
         },
         {
-            "_id": "ls9YEID88e7SyUru",
+            "_id": "UgD6imWgQ1wF0rVW",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.R9xqCBblkS5KE4y7"
             },
+            "folder": "iDjm2cXyRAe4VZ35",
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -285,8 +203,8 @@
                     "value": 5
                 },
                 "location": {
-                    "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "heightenedLevel": 5,
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
                     "license": "ORC",
@@ -322,6 +240,89 @@
             "type": "spell"
         },
         {
+            "_id": "XxnjTok2pwVQqzpb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.GaRQlC9Yw1BGKHfN"
+            },
+            "folder": "iDjm2cXyRAe4VZ35",
+            "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
+            "name": "Wave of Despair",
+            "sort": 500000,
+            "system": {
+                "area": {
+                    "type": "cone",
+                    "value": 30
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically slowed 1 for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 or more rounds"
+                },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "area": {
+                                "type": "cone",
+                                "value": 60
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "heightenedLevel": 5,
+                    "value": "0UJ4qjLZlnk7jUKa"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "wave-of-despair",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
             "_id": "bSqlqkGYYr83PAsE",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.7Fd4lxozd11MQ55N"
@@ -338,7 +339,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You attempt to help a truly penitent creature atone for its misdeeds, typically actions contrary to your deity's alignment or anathema to your deity. If the creature isn't truly penitent, the outcome is always a critical failure. This ritual uses Nature if the target is a druid, and Religion in all other cases.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature receives absolution for its misdeeds, allowing it to regain standing with your deity. It returns to its previous alignment (if its alignment shifted) and regains any abilities it lost. Before the atonement is complete, the creature must perform a special quest or other task chosen by your deity, as befits its misdeeds. If completed during downtime, this task should take no less than 1 month. For 1 month, the target receives divine insight just before performing an act that would be anathema to your deity or contrary to your deity's alignment.</p>\n<p><strong>Success</strong> As critical success, but the creature gains no special insight regarding its subsequent actions.</p>\n<p><strong>Failure</strong> The creature does not receive absolution and must continue to meditate and redress its misdeeds. Any future atone rituals for the same misdeeds cost half as much and gain a +4 circumstance bonus to primary and secondary checks.</p>\n<p><strong>Critical Failure</strong> The creature offends your deity and is permanently cast out from the faith. The creature can't rejoin your religion without a more direct intervention.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the maximum target level by 2 and the base cost by 20 gp.</p>"
+                    "value": "<p>You attempt to help a truly penitent creature atone for its misdeeds, typically actions anathema to your deity. If the creature isn't truly penitent, the outcome is always a critical failure. This ritual uses Nature if the target is a druid, and Religion in all other cases.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature receives absolution for its misdeeds, allowing it to regain standing with your deity. It regains any abilities it lost. Before the atonement is complete, the creature must perform a special quest or other task chosen by your deity, as befits its misdeeds. If completed during downtime, this task should take no less than 1 month. For 1 month, the target receives divine insight just before performing an act that would be anathema to your deity.</p>\n<p><strong>Success</strong> As critical success, but the creature gains no special insight regarding its subsequent actions.</p>\n<p><strong>Failure</strong> The creature does not receive absolution and must continue to meditate and redress its misdeeds. Any future <em>atone</em> rituals for the same misdeeds cost half as much and gain a +4 circumstance bonus to primary and secondary checks.</p>\n<p><strong>Critical Failure</strong> The creature offends your deity and is permanently cast out from the faith. The creature can't rejoin your religion without a more direct intervention.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the maximum target level by 2 and the base cost by 20 gp.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -351,9 +352,9 @@
                     "value": null
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "10 feet"
@@ -385,10 +386,11 @@
             "type": "spell"
         },
         {
-            "_id": "uEhKfpSGPyVAZIy8",
+            "_id": "lYQofSi6f7CcHD9L",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.zvKWclOZ7A53DObE"
             },
+            "folder": "7cyoYPoPYA01mErU",
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
             "sort": 700000,
@@ -411,13 +413,13 @@
                     "value": 4
                 },
                 "location": {
-                    "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "heightenedLevel": 4,
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -447,10 +449,11 @@
             "type": "spell"
         },
         {
-            "_id": "eWi85SBabeGPCobL",
+            "_id": "et7gsaCprV080n1F",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.HXhWYJviWalN5tQ2"
             },
+            "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/magic/light/orb-hand-green.webp",
             "name": "Clairaudience",
             "sort": 800000,
@@ -473,13 +476,13 @@
                     "value": 3
                 },
                 "location": {
-                    "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "heightenedLevel": 4,
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -509,10 +512,11 @@
             "type": "spell"
         },
         {
-            "_id": "mmIyjahCH8DzZUBT",
+            "_id": "gSVa6IkUl39MpuBv",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.yM3KTTSAIHhyuP14"
             },
+            "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
             "sort": 900000,
@@ -525,11 +529,11 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send a message to your target's dream. The message is one-way, up to 1 minute of speech (roughly 150 words). If the target is asleep, they receive the message instantly. If not, they receive it the next time they sleep. As soon as they receive it, the spell ends, and you know the message was sent.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can target up to 10 creatures you know by name and have met in person. You must send the same message to all of them; the spell ends for each creature individually.</p>"
+                    "value": "<p>You send a message to your target's dream. The message is one-way, up to 1 minute of speech (roughly 150 words). If the target is asleep, they receive the message instantly. If not, they receive it the next time they sleep. As soon as they receive it, the spell ends, and you know the message was sent.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can target up to 10 creatures you know by name and have met in person. You must send the same message to all of them; the spell ends for each creature individually</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": "1 day"
+                    "value": "until your next daily preparations"
                 },
                 "heightening": {
                     "levels": {
@@ -545,13 +549,13 @@
                     "value": 3
                 },
                 "location": {
-                    "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "heightenedLevel": 4,
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "planetary"
@@ -582,12 +586,13 @@
             "type": "spell"
         },
         {
-            "_id": "S7iB7CDLRoVYT6Pp",
+            "_id": "QiXbvUx6uB5tBtwl",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.KHnhPHL4x1AQHfbC"
             },
+            "folder": "4fJHnYFqH0VjZXPv",
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
-            "name": "Mind Reading (At Will)",
+            "name": "Mind Reading (at will)",
             "sort": 1000000,
             "system": {
                 "area": null,
@@ -603,7 +608,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>With a cursory mental touch, you attempt to read the target's mind. It must attempt a Will save. The target then becomes temporarily immune to your mind reading for 1 hour.</p>\n<hr /><p><strong>Critical Success</strong> The target perceives vague surface thoughts from you when you Cast the Spell.</p>\n<p><strong>Success</strong> You find out whether the target's Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Failure</strong> You perceive vague surface thoughts from the target when you Cast the Spell, and you find out whether its Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Critical Failure</strong> As failure, and for the duration of the spell, you can Sustain the Spell to detect the target's surface thoughts again. The target doesn't receive any additional saves.</p>"
+                    "value": "<p>With a cursory mental touch, you attempt to read the target's mind. It must attempt a Will save. The target then becomes temporarily immune to your mind reading for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> The target perceives vague surface thoughts from you when you Cast the Spell.</p>\n<p><strong>Success</strong> You find out whether the target's Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Failure</strong> You perceive vague surface thoughts from the target when you Cast the Spell, and you find out whether its Intelligence is higher than, equal to, or lower than yours.</p>\n<p><strong>Critical Failure</strong> As failure, and for the duration of the spell, you can Sustain the spell to detect the target's surface thoughts again. The target doesn't receive any additional saves.</p>"
                 },
                 "duration": {
                     "sustained": true,
@@ -614,12 +619,12 @@
                 },
                 "location": {
                     "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -650,12 +655,13 @@
             "type": "spell"
         },
         {
-            "_id": "RoYV55s2v9W5Td7P",
+            "_id": "X9epmLObWzSNgsaM",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.aewxsale5xWEPKLk"
             },
+            "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/magic/symbols/star-inverted-yellow.webp",
-            "name": "Zone of Truth",
+            "name": "Ring of Truth",
             "sort": 1100000,
             "system": {
                 "area": {
@@ -674,7 +680,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You designate an area in which creatures are compelled to speak only truth. Creatures within or entering the area have difficulty lying. Each potentially affected creature must attempt a Will save when the spell is cast or when the creature first enters the area. It uses the results of this initial save if it leaves and reenters the area. Affected creatures are aware of this enchantment; therefore, they can avoid answering questions to which they would normally respond with a lie, or they can be evasive as long as they remain within the boundaries of the truth.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes a -2 status penalty to Deception checks.</p>\n<p><strong>Failure</strong> The target can't speak any deliberate and intentional lies, and it takes a -2 status penalty to Deception checks.</p>\n<p><strong>Critical Failure</strong> The target can't speak any deliberate and intentional lies and takes a -4 status penalty to Deception checks.</p>"
+                    "value": "<p>You designate an area in which lies are revealed. Creatures in the area also take a –2 status penalty to Deception checks. Each time a creature in the area speaks a true statement, the soft ring of a bell sounds in the area. Creatures are aware of the magic; therefore, they can avoid answering questions to which they would normally respond with a lie, or they can be evasive as long as they remain within the boundaries of the truth. If a creature is in the area when the spell is cast or later enters the area, that creature attempts a Will save. It uses the results of this initial save if it leaves and reenters the area.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is so convincing that the bell rings even if they lie.</p>\n<p><strong>Success</strong> If the target lies and succeeds at their Deception check against all targets, the bell still rings.</p>\n<p><strong>Failure</strong> The bell accurately sees through their deception and will never ring if they lie.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -685,19 +691,19 @@
                 },
                 "location": {
                     "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "zone-of-truth",
+                "slug": "ring-of-truth",
                 "target": {
                     "value": ""
                 },
@@ -712,6 +718,7 @@
                     ],
                     "value": [
                         "concentrate",
+                        "detection",
                         "manipulate",
                         "mental"
                     ]
@@ -720,10 +727,11 @@
             "type": "spell"
         },
         {
-            "_id": "q5ksktCz2NoGKzQ2",
+            "_id": "3ffLaGmoYNPPrNty",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.9HpwDN4MYQJnW0LG"
             },
+            "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
             "sort": 1200000,
@@ -747,12 +755,12 @@
                 },
                 "location": {
                     "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "120 feet"
@@ -783,12 +791,13 @@
             "type": "spell"
         },
         {
-            "_id": "cgNs8rXo0upiL2I7",
+            "_id": "iKvlDGKAD9PRJ3b6",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
             },
+            "folder": "lPzcDrjGDFbzuF2r",
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
-            "name": "Invisibility (Self Only) (At Will)",
+            "name": "Invisibility (self only, at will)",
             "sort": 1300000,
             "system": {
                 "area": null,
@@ -799,7 +808,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Cloaked in illusion, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Illusions bend light around the target, rendering it @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -809,13 +818,12 @@
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 2,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -824,7 +832,7 @@
                 "rules": [],
                 "slug": "invisibility",
                 "target": {
-                    "value": "self"
+                    "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
@@ -837,19 +845,21 @@
                     ],
                     "value": [
                         "illusion",
-                        "manipulate"
+                        "manipulate",
+                        "subtle"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "yR5EduBo7Kf2NWB4",
+            "_id": "qbqcujUaZEcx2n1a",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.jwK43yKsHTkJQvQ9"
             },
+            "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
-            "name": "See Invisibility",
+            "name": "See the Unseen",
             "sort": 1400000,
             "system": {
                 "area": null,
@@ -860,7 +870,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You can see @UUID[Compendium.pf2e.conditionitems.Item.Invisible] creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
+                    "value": "<p>Your gaze pierces through illusions and finds @UUID[Compendium.pf2e.conditionitems.Item.Invisible] creatures and spirits. You can see invisible creatures as though they weren't invisible, although their features are blurred, making them @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and difficult to identify. You can also see incorporeal creatures, like ghosts, phased through an object from within 10 feet of an object's surface as blurry shapes seen through those objects. Subtler clues also grant you a +2 status bonus to checks you make to disbelieve illusions.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> This spell has a duration of 8 hours.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: See the Unseen]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -870,20 +880,20 @@
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "heightenedLevel": 5,
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "see-invisibility",
+                "slug": "see-the-unseen",
                 "target": {
                     "value": ""
                 },
@@ -907,10 +917,11 @@
             "type": "spell"
         },
         {
-            "_id": "mII9oItjrMiJtLfN",
+            "_id": "CTstCKPxFjSYorC2",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6"
             },
+            "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
             "sort": 1500000,
@@ -948,13 +959,13 @@
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "heightenedLevel": 5,
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -980,19 +991,21 @@
                         "emotion",
                         "incapacitation",
                         "manipulate",
-                        "mental"
+                        "mental",
+                        "subtle"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "OTCTmOT1dbEFaHMD",
+            "_id": "SdUumWRff3zjYA3m",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.QnTtGCAvdWRU4spv"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
             },
-            "img": "systems/pf2e/icons/spells/detect-alignment.webp",
-            "name": "Detect Alignment (At Will)",
+            "folder": "D7UVaOiB40wTR6kv",
+            "img": "systems/pf2e/icons/spells/detect-magic.webp",
+            "name": "Detect Magic",
             "sort": 1600000,
             "system": {
                 "area": {
@@ -1006,7 +1019,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1016,77 +1029,12 @@
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "detect-alignment",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "detection",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "4fNgN6mXH1oJGfq8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
-            },
-            "img": "systems/pf2e/icons/spells/detect-magic.webp",
-            "name": "Detect Magic",
-            "sort": 1700000,
-            "system": {
-                "area": {
-                    "type": "emanation",
-                    "value": 30
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "cur7nFf5cRCA5ccx"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -1119,13 +1067,14 @@
             "type": "spell"
         },
         {
-            "_id": "5KVuTLgE3zVKmMOY",
+            "_id": "9v1vdLlQazt9dACj",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
             },
+            "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1160,13 +1109,13 @@
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "heightenedLevel": 4,
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -1200,13 +1149,14 @@
             "type": "spell"
         },
         {
-            "_id": "04z2kblZGAqatIVa",
+            "_id": "gO4GZF5pdqFmrS2y",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.atlgGNI1E1Ox3O3a"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.0zU8CPejjQFnhZFI"
             },
+            "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
-            "name": "Ghost Sound",
-            "sort": 1900000,
+            "name": "Figment",
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1216,44 +1166,29 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 120 feet.</p>"
+                    "value": "<p>You create a simple illusory sound or vision. A sound adds the auditory trait to the spell and the sound can't include intelligible words or elaborate music. A vision adds the visual trait, can be no larger than a 5-foot cube, and is clearly crude and undetailed if viewed from within 15 feet. When you Cast or Sustain the Spell, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] with the illusion, gaining a +2 circumstance bonus to your Deception check. If the attempt fails against a creature, that creature disbelieves the <em>figment</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Figment]</p>"
                 },
                 "duration": {
                     "sustained": true,
                     "value": ""
                 },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "range": {
-                                "value": "60 feet"
-                            }
-                        },
-                        "5": {
-                            "range": {
-                                "value": "120 feet"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "ghost-sound",
+                "slug": "figment",
                 "target": {
                     "value": ""
                 },
@@ -1267,24 +1202,25 @@
                         "occult"
                     ],
                     "value": [
-                        "auditory",
                         "cantrip",
                         "concentrate",
                         "illusion",
-                        "manipulate"
+                        "manipulate",
+                        "subtle"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "A7qKdIyBbJoF9Fot",
+            "_id": "f7TTpIm7QLVXgjZO",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.D442XMADp01qJ7Cs"
             },
+            "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/mindlink.webp",
             "name": "Mindlink",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1305,12 +1241,12 @@
                 },
                 "location": {
                     "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -1327,6 +1263,7 @@
                 "traits": {
                     "rarity": "common",
                     "traditions": [
+                        "arcane",
                         "occult"
                     ],
                     "value": [
@@ -1339,13 +1276,14 @@
             "type": "spell"
         },
         {
-            "_id": "YINnrQcsN6XqeK6S",
+            "_id": "AYnuaMPLRzj8HQQn",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.R8bqnYiThB6MYTxD"
             },
+            "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1371,7 +1309,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and 1d4 persistent mental damage. The target must attempt a Will save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no persistent damage, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. If the target recovers from being Sickened, the persistent damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the persistent damage by 1d4.</p>\n<p>@Damage[(@item.level)d4[persistent,mental]]{Leveled Persistent Mental Damage}</p>"
+                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and @Damage[(@item.level)d4[persistent,mental]] damage. The target must attempt a Will save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no persistent damage, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. If the target recovers from being Sickened, the persistent damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the persistent damage by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1389,12 +1327,12 @@
                 },
                 "location": {
                     "heightenedLevel": 6,
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -1425,13 +1363,14 @@
             "type": "spell"
         },
         {
-            "_id": "r8r1VTH99WdxsBig",
+            "_id": "Y41jk6dBJ3SCQ2Wn",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA"
             },
+            "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1441,7 +1380,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical. You or anyone you advise about the aura gains a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Identify Magic] on the item. If the object is illusory, you detect this only if the effect's rank is lower than the rank of your <em>read aura</em> spell.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Read Aura]</p><hr /><p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1466,12 +1405,12 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -1504,13 +1443,14 @@
             "type": "spell"
         },
         {
-            "_id": "1gMOsoSmEhT3iEIV",
+            "_id": "hT2p1z5OCnav7stY",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.60sgbuMWN0268dB7"
             },
+            "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1519,9 +1459,9 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
-                        "applyMod": true,
+                        "applyMod": false,
                         "category": null,
-                        "formula": "1d6",
+                        "formula": "2d6",
                         "kinds": [
                             "damage"
                         ],
@@ -1531,7 +1471,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack roll against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr />\n<p><strong>Critical Success</strong> You deal double damage.</p>\n<p><strong>Success</strong> You deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack roll against the target. If you hit, you deal 2d6 bludgeoning, piercing, or slashing damage—as appropriate for the object you hurled. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr />\n<p><strong>Critical Success</strong> You deal double damage.</p>\n<p><strong>Success</strong> You deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1548,7 +1488,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "cur7nFf5cRCA5ccx"
+                    "value": "0UJ4qjLZlnk7jUKa"
                 },
                 "overlays": {
                     "2I469pfbYcmFvzOA": {
@@ -1595,9 +1535,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -1631,7 +1571,7 @@
             "_id": "XpzY4UQrwOlgO4km",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "attackEffects": {
                     "value": [
@@ -1676,7 +1616,7 @@
             "_id": "IDk5Kln9p90yl0SF",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1708,7 +1648,7 @@
             "_id": "JjTVprpY8GeQPnTT",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Thoughtsense (Imprecise) 60 feet",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1740,7 +1680,7 @@
             "_id": "OC5iW5RWtphm9Mby",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1779,7 +1719,7 @@
             "_id": "zLh5jRcxUaafQvod",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Greater Constrict",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1808,7 +1748,7 @@
             "_id": "oUqggV8Z8uzpYdNA",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Instrument of Retribution",
-            "sort": 2900000,
+            "sort": 2800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1840,7 +1780,7 @@
             "_id": "zzRvWHp5hTbs93tu",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Volcanic Lightning Breath",
-            "sort": 3000000,
+            "sort": 2900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1872,7 +1812,7 @@
             "_id": "VzzWLmieSojZVoLh",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wrap in Coils",
-            "sort": 3100000,
+            "sort": 3000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1901,7 +1841,7 @@
             "_id": "4923v7qhGbPOnzkA",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Xiuh Coatl Venom",
-            "sort": 3200000,
+            "sort": 3100000,
             "system": {
                 "actionType": {
                     "value": "passive"
