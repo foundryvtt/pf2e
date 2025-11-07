@@ -1,3 +1,59 @@
+## 7.7.0
+
+### System Improvements
+
+- (Supe) Also transfer item contents when transferring a container
+- (Supe) Convert NPC range traits to fields in the item sheet
+- (Supe) Create Ammo item type and implement reloading
+- (Supe) Implement Area Fire and Auto Fire for PCs
+
+### Bugfixes
+
+- (stwlam) Fix retrieval of in-memory unarmed attacks for use in damage application
+- (stwlam) Perform forced replacement in armor-to-shield migration
+- (Supe) Avoid excluding the tech trait in generated npc attack traits
+- (Supe) Fix batch size for consumable non-mundane ammo
+
+### Data Updates
+
+- (Ambrose, Dire Weasel, Mecha Maya, Rigo, Tikael) Add content from Monster Core 2
+- (Ambrose) Add bleed damage to Bloodrager's physical attack spells
+- (Ambrose) Add climb speed to Gripping Limbs feat
+- (Ambrose) Add effect to Triangular Teeth
+- (Ambrose) Add entry for Necromantic Resistance to Lastwall Sentry journal
+- (Ambrose) Add `handwraps-of-mighty-blows` tag to Bloodknuckles
+- (Ambrose) Fix data errors in Mirror of Glory and Nizca Iricol
+- (Ambrose) Fix feat grant of Planar Migrant background
+- (Ambrose) Remove Animal Companion Gallop action
+- (Ambrose) Remove unneccessary notes from Greater Flaming Rune automation
+- (Ambrose) Separate Android's Emotionally Unaware perception penalty to Sense Motive
+- (Ambrose) Update Jin Li's deity entry description to match updated TXWG text
+- (Dire Weasel) Add effect for Bit of Luck, Charming Push, Primal Herd
+- (Dire Weasel) Add inlines to Massacre, Phantasmal Killer, and Phantasmal Calamity
+- (Dire Weasel) Fix action cost of Raised Cavalry's Trampling Charge
+- (Dire Weasel) Fix formatting of Consecrate spell description
+- (kromko) Fix Guarded Advance linking to Raise a Tome feat
+- (kromko) Fix minor Trusty Helmet activation formatting error
+- (Mecha Maya) Reduce light color intensity of several effects
+- (rectulo) Remove prerequisites for dragon stance
+- (rectulo) Remove unarmored prerequisite in Yacob's Dragon Stance
+- (Rigo) Add note upon receiving critical damage with Mountain Strategy (#20633)
+- (Rigo) Fix typo in Propaganda Promoter background's lore skill
+- (Rigo) Reduce light intensity of Light spell effect
+- (Rigo) Remove disabledIf fields reliant on resolved values in Exemplar ikon feats
+- (Tikael) Add axe and arrow vulnerabilities to apply once list
+- (Tikael) Add effect for Sepulchral Mask
+- (Tikael) Add missing focus spells to PFS actors
+- (Zinneryte) Fix Hydra Spear base item and properties
+
+### Under the Hood
+
+- (stwlam) Convert TreasureSystemData to `TypeDataModel`
+- (stwlam) Replace `stackGroup` with `category` in `TreasureSystemData`
+- (Trent) Add roll data to consumable damage rolls
+- (Trent) Always include action roll options in basic actions
+- (Vauxs) Resolve Battleform speeds
+
 ## 7.6.4
 
 ### Enhancements
