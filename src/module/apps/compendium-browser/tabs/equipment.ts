@@ -1,4 +1,5 @@
 import { Coins } from "@item/physical/helpers.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { sluggify } from "@util";
 import * as R from "remeda";
@@ -40,7 +41,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading inventory items");
 
         const inventoryItems: CompendiumBrowserIndexData[] = [];
-        const itemTypes = ["weapon", "shield", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
+        const itemTypes = [...PHYSICAL_ITEM_TYPES, "kit"];
         // Define index fields for different types of equipment
 
         const baseFields = ["img", "system.price", "system.traits", "system.publication", "system.source"];
