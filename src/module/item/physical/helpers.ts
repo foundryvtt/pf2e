@@ -270,7 +270,13 @@ function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalIte
     const itemIndex = actorSource?.items.findIndex((i) => i._id === item._id);
     if (itemIndex === -1) return;
     actorSource?.items.splice(itemIndex ?? 0, 1, changedSource);
-    const actorClone = actorSource ? new ActorProxyPF2e(actorSource) : null;
+    const actorClone = ((): ActorPF2e | null => {
+        // Catch invalid items in the actor clone preventing other items from updating
+        try {
+            return actorSource ? new ActorProxyPF2e(actorSource) : null;
+        } catch {}
+        return null;
+    })();
     const itemClone = actorClone?.inventory.get(item.id, { strict: true }) ?? item.clone(changed, { keepId: true });
 
     // Adjust current HP proportionally if max HP changed
