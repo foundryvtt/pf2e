@@ -109,7 +109,7 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
                 required: true,
                 nullable: false,
                 integer: true,
-                positive: true,
+                min: 0,
                 initial: 1,
             }),
             size: new fields.StringField({
