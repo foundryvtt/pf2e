@@ -66,7 +66,7 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
             system.baseItem = "backpack-catapult";
             system.ammo = { capacity, baseType: "backpack-catapult-stones", builtIn: false };
         } else if (slug === "dart-umbrella") {
-            system.ammo = { capacity, baseType: "dart", builtIn: false };
+            system.ammo = { capacity, baseType: "blowgun-darts", builtIn: false };
         } else if (BUILT_IN_WEAPONS.includes(slug) || BUILT_IN_WEAPONS.includes(baseWeapon)) {
             system.ammo = { capacity, baseType: null, builtIn: true };
         } else if (objectHasKey(BASE_WEAPON_TO_AMMO, baseWeapon)) {
