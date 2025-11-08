@@ -357,10 +357,7 @@ const round10Firearms = [
     "triggerbrand",
 ] satisfies BaseWeaponType[];
 
-const magazineWeapons = [
-    "barricade-buster",
-    "air-repeater",
-    "long-air-repeater",
+const repeatingCrossbows = [
     "repeating-crossbow",
     "repeating-hand-crossbow",
     "repeating-heavy-crossbow",
@@ -411,7 +408,6 @@ const ammoTypes = {
             "arrows",
             "blowgun-darts",
             "bolts",
-            "cutlery",
             "rounds",
             "sling-bullets",
             "spray-pellets",
@@ -460,20 +456,57 @@ const ammoTypes = {
             weapon: baseWeapon,
         },
     ]),
+    cutlery: {
+        parent: "rounds",
+        label: "PF2E.Item.Ammo.Base.cutlery",
+        magazine: false,
+        stackGroup: "rounds10",
+        weapon: "spoon-gun",
+    },
+
     // Include all magazines. Magazine items don't map as cleanly
-    ...R.mapToObj(magazineWeapons, (baseWeapon) => [
-        `magazine-${baseWeapon}`,
+    ...R.mapToObj(repeatingCrossbows, (baseWeapon) => [
+        `${baseWeapon}-magazine`,
         {
             parent: "magazine",
-            label: `PF2E.Item.Ammo.Base.magazine-${baseWeapon}`,
+            label: `PF2E.Item.Ammo.Base.${baseWeapon}-magazine`,
             magazine: true,
             stackGroup: null,
             weapon: baseWeapon,
         },
     ]),
-    "backpack-catapult-stone": {
-        parent: "sling-bullets",
-        label: "PF2E.Item.Ammo.Base.backpack-catapult-stone",
+    "8-round-magazine": {
+        parent: "magazine",
+        label: `PF2E.Item.Ammo.Base.8-round-magazine`,
+        magazine: true,
+        stackGroup: null,
+        weapon: "barricade-buster",
+    },
+    "magazine-with-6-pellets": {
+        parent: "magazine",
+        label: `PF2E.Item.Ammo.Base.magazine-with-6-pellets`,
+        magazine: true,
+        stackGroup: null,
+        weapon: "air-repeater",
+    },
+    "magazine-with-8-pellets": {
+        parent: "magazine",
+        label: `PF2E.Item.Ammo.Base.magazine-with-8-pellets`,
+        magazine: true,
+        stackGroup: null,
+        weapon: "long-air-repeater",
+    },
+    // Other oddities
+    "backpack-ballista-bolts": {
+        parent: null,
+        label: "PF2E.Item.Ammo.Base.backpack-ballista-bolts",
+        magazine: false,
+        stackGroup: null,
+        weapon: "backpack-ballista",
+    },
+    "backpack-catapult-stones": {
+        parent: null,
+        label: "PF2E.Item.Ammo.Base.backpack-catapult-stones",
         magazine: false,
         stackGroup: null,
         weapon: "backpack-catapult",

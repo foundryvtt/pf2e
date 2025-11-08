@@ -1,9 +1,9 @@
-import { ImageFilePath } from "@common/constants.mjs";
-import { AmmoSystemData } from "@item/ammo/data.ts";
-import { AmmoType } from "@item/ammo/types.ts";
-import { ConsumableSource, ItemSourcePF2e, WeaponSource } from "@item/base/data/index.ts";
-import { ConsumableSystemSource } from "@item/consumable/data.ts";
-import { BaseWeaponType } from "@item/weapon/types.ts";
+import type { ImageFilePath } from "@common/constants.mjs";
+import type { AmmoSystemSource } from "@item/ammo/data.ts";
+import type { AmmoType } from "@item/ammo/types.ts";
+import type { ConsumableSource, ItemSourcePF2e, WeaponSource } from "@item/base/data/index.ts";
+import type { ConsumableSystemSource } from "@item/consumable/data.ts";
+import type { BaseWeaponType } from "@item/weapon/types.ts";
 import { objectHasKey, sluggify, tupleHasValue } from "@util/misc.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
@@ -59,9 +59,12 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
 
         if (slug === "erraticannon") {
             system.ammo = { capacity, baseType: null, builtIn: false };
+        } else if (slug === "backpack-ballista") {
+            system.baseItem = "backpack-ballista";
+            system.ammo = { capacity, baseType: "backpack-ballista-bolts", builtIn: false };
         } else if (slug === "backpack-catapult") {
             system.baseItem = "backpack-catapult";
-            system.ammo = { capacity, baseType: "backpack-catapult-stone", builtIn: false };
+            system.ammo = { capacity, baseType: "backpack-catapult-stones", builtIn: false };
         } else if (slug === "dart-umbrella") {
             system.ammo = { capacity, baseType: "dart", builtIn: false };
         } else if (BUILT_IN_WEAPONS.includes(slug) || BUILT_IN_WEAPONS.includes(baseWeapon)) {
@@ -102,7 +105,7 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
         }
 
         const originalKeys = Object.keys(source.system);
-        const system = R.pick(source.system, this.#KEYS_TO_KEEP) as DeepPartial<AmmoSystemData>;
+        const system = R.pick(source.system, this.#KEYS_TO_KEEP) as DeepPartial<AmmoSystemSource>;
         const slug = system.slug ?? sluggify(source.name);
         system.craftableAs ??= null;
         const traits = source.system.traits.value;
@@ -132,14 +135,18 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
             system.baseItem = `rounds-spike-launcher`;
             if (system.slug) system.slug = "rounds-spike-launcher";
             if (source.name === "Spikes") source.name = "Rounds (Spike Launcher)";
-        } else if (objectHasKey(magazineAmmoMap, slug)) {
-            system.baseItem = magazineAmmoMap[slug];
+        } else if (slug === "magazine-with-5-bolts") {
+            system.baseItem = "repeating-hand-crossbow-magazine";
         } else if (tupleHasValue(AMMO_TYPES, slug)) {
             system.baseItem = slug;
         } else if (tupleHasValue(allBaseRoundWeapons, weaponSlug)) {
             system.baseItem = `rounds-${weaponSlug}`;
         } else if (slug === "cutlery") {
             system.baseItem = "cutlery";
+        } else if (slug === "backpack-ballista-bolt" || slug === "backpack-catapult-stone") {
+            system.baseItem = `${slug}s`;
+            system.slug = system.baseItem;
+            if (system.price) system.price.per = 10;
         } else if (slug.startsWith("chem-tank-")) {
             system.baseItem = "chem-tank";
         } else if (slug.startsWith("battery-")) {
@@ -175,74 +182,71 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
 const BUILT_IN_WEAPONS = ["hydrocannon", "wrecker", "growth-gun"];
 
 const specificAmmoCategories: Record<string, AmmoType[] | undefined> = {
-    "tripline-arrow": ["arrows"],
+    "awakened-adamantine-shot": ["rounds"],
+    "awakened-cold-iron-shot": ["rounds"],
+    "awakened-silver-shot": ["rounds"],
     "beacon-shot": ["arrows", "bolts"],
-    "blindpepper-bolt": ["bolts"],
-    "slumber-arrow": ["arrows"],
-    "vine-arrow": ["arrows"],
-    // "lodestone-pellet": ["pellet"], pellet isn't a real ammo type and this is from an AP
-    "climbing-bolt": ["bolts"],
-    "harpoon-bolt": ["rounds"], // not an error
-    "rattling-bolt": ["bolts"],
-    "rattling-bolt-greater": ["bolts"],
-    "viper-arrow": ["arrows"],
-    "golden-cased-bullet-standard": ["rounds"],
-    "golden-cased-bullet-greater": ["rounds"],
-    "golden-cased-bullet-major": ["rounds"],
-    "sampling-ammunition": ["arrows", "bolts"],
-    "roc-shaft-arrow-lesser": ["arrows"],
-    "roc-shaft-arrow-moderate": ["arrows"],
-    "reducer-round": ["rounds"],
-    "sky-serpent-bolt": ["bolts"],
-    "golden-chrysalis": ["sling-bullets"],
-    "dispersing-bullet": ["sling-bullets"],
-    "burrowing-bolt": ["arrows", "bolts"],
-    "burrowing-bolt-greater": ["arrows", "bolts"],
-    "starshot-arrow-lesser": ["arrows"],
-    "starshot-arrow-greater": ["arrows"],
-    "big-rock-bullet": ["sling-bullets"],
     "big-rock-bullet-greater": ["sling-bullets"],
     "big-rock-bullet-major": ["sling-bullets"],
+    "big-rock-bullet": ["sling-bullets"],
+    "blindpepper-bolt": ["bolts"],
+    "burrowing-bolt-greater": ["arrows", "bolts"],
+    "burrowing-bolt": ["arrows", "bolts"],
+    "climbing-bolt": ["bolts"],
+    "corpsecaller-round": ["rounds"],
+    "disintegration-bolt": ["bolts"],
+    "dispersing-bullet": ["sling-bullets"],
+    "dreaming-round": ["rounds"],
+    "enfilading-arrow": ["arrows"],
+    "extinguishing-ball": ["sling-bullets"],
     "fairy-bullet": ["rounds"],
-    "stepping-stone-shot": ["rounds"],
-    "stepping-stone-shot-greater": ["rounds"],
-    "meteor-shot": ["rounds"],
+    "garrote-bolt": ["bolts"],
+    "golden-cased-bullet-greater": ["rounds"],
+    "golden-cased-bullet-major": ["rounds"],
+    "golden-cased-bullet-standard": ["rounds"],
+    "golden-chrysalis": ["sling-bullets"],
+    "harpoon-bolt": ["rounds"], // not an error
+    "life-shot-greater": ["rounds"],
+    "life-shot-lesser": ["rounds"],
+    "life-shot-major": ["rounds"],
+    "life-shot-minor": ["rounds"],
+    "life-shot-moderate": ["rounds"],
+    "life-shot-true": ["rounds"],
+    // "lodestone-pellet": ["pellet"], pellet isn't a real ammo type and this is from an AP
     "meteor-shot-greater": ["rounds"],
     "meteor-shot-major": ["rounds"],
-    "extinguishing-ball": ["sling-bullets"],
-    "scouting-arrow": ["arrows", "bolts"],
-    "enfilading-arrow": ["arrows"],
-    "silencing-ammunition": ["arrows", "bolts"],
-    "corpsecaller-round": ["rounds"],
-    "storm-arrow": ["arrows"],
-    "resonating-ammunition": ["arrows", "bolts"],
-    "stonethroat-ammunition": ["arrows", "bolts"],
+    "meteor-shot": ["rounds"],
     "penetrating-ammunition": ["arrows", "bolts"],
-    "dreaming-round": ["rounds"],
-    "garrote-bolt": ["bolts"],
-    "disintegration-bolt": ["bolts"],
+    "rattling-bolt-greater": ["bolts"],
+    "rattling-bolt": ["bolts"],
+    "reducer-round": ["rounds"],
+    "resonating-ammunition": ["arrows", "bolts"],
+    "roc-shaft-arrow-lesser": ["arrows"],
+    "roc-shaft-arrow-moderate": ["arrows"],
+    "sampling-ammunition": ["arrows", "bolts"],
+    "scouting-arrow": ["arrows", "bolts"],
+    "silencing-ammunition": ["arrows", "bolts"],
+    "sky-serpent-bolt": ["bolts"],
+    "slumber-arrow": ["arrows"],
+    "starshot-arrow-greater": ["arrows"],
+    "starshot-arrow-lesser": ["arrows"],
+    "stepping-stone-shot-greater": ["rounds"],
+    "stepping-stone-shot": ["rounds"],
     "stone-bullet": ["sling-bullets"],
-    "awakened-silver-shot": ["rounds"],
-    "awakened-cold-iron-shot": ["rounds"],
-    "awakened-adamantine-shot": ["rounds"],
-    "life-shot-minor": ["rounds"],
-    "life-shot-lesser": ["rounds"],
-    "life-shot-moderate": ["rounds"],
-    "life-shot-greater": ["rounds"],
-    "life-shot-major": ["rounds"],
-    "life-shot-true": ["rounds"],
+    "stonethroat-ammunition": ["arrows", "bolts"],
+    "storm-arrow": ["arrows"],
+    "tripline-arrow": ["arrows"],
+    "vine-arrow": ["arrows"],
+    "viper-arrow": ["arrows"],
 };
 
 const remapSlug: Record<string, string> = {
     "mithral-tree": "dawnsilver-tree",
 };
 
-const magazineWeapons = [
-    "barricade-buster",
-    "air-repeater",
-    "long-air-repeater",
-    "repeating-hand-crossbow",
+const repeatingCrossbows = [
     "repeating-crossbow",
+    "repeating-hand-crossbow",
     "repeating-heavy-crossbow",
 ] as const satisfies BaseWeaponType[];
 
@@ -368,10 +372,13 @@ const SF2E_AMMO_CAPACITY: Record<string, number> = {
 // Maps weapons to specific ammo. Stuff that can be derived from group should be omitted
 const BASE_WEAPON_TO_AMMO = {
     ...R.mapToObj(allBaseRoundWeapons, (slug) => [slug, `rounds-${slug}`] as const),
-    ...R.mapToObj(magazineWeapons, (slug) => [slug, `magazine-${slug}`] as const),
+    ...R.mapToObj(repeatingCrossbows, (slug) => [slug, `${slug}-magazine`] as const),
     ...R.mapToObj(beastGuns, (slug) => [slug, `rounds-${slug}`] as const),
+    "air-repeater": "magazine-with-6-pellets",
     atlatl: "dart",
+    "barricade-buster": "8-round-magazine",
     "big-boom-gun": "rounds-hand-cannon",
+    "long-air-repeater": "magazine-with-8-pellets",
     "spoon-gun": "rounds-hand-cannon",
     blowgun: "blowgun-darts",
     "wrist-launcher": "dart",
@@ -379,19 +386,12 @@ const BASE_WEAPON_TO_AMMO = {
 
 const AMMO_TYPES: AmmoType[] = [
     ...allBaseRoundWeapons.map((slug): AmmoType => `rounds-${slug}`),
-    ...magazineWeapons.map((slug): AmmoType => `magazine-${slug}`),
+    ...repeatingCrossbows.map((slug): AmmoType => `${slug}-magazine`),
     ...beastGuns.map((slug): AmmoType => `rounds-${slug}`),
+    "8-round-magazine",
+    "magazine-with-6-pellets",
+    "magazine-with-8-pellets",
 ];
-
-// Maps uncorrected slugs to the actual magazine
-const magazineAmmoMap = {
-    "8-round-magazine": "magazine-barricade-buster",
-    "magazine-with-6-pellets": "magazine-air-repeater",
-    "magazine-with-8-pellets": "magazine-long-air-repeater",
-    "repeating-crossbow-magazine": "magazine-repeating-crossbow",
-    "magazine-with-5-bolts": "magazine-repeating-hand-crossbow",
-    "repeating-heavy-crossbow-magazine": "magazine-repeating-heavy-crossbow",
-} satisfies Record<string, AmmoType>;
 
 // Maps a stack group to a category, used for basic fallback conversions
 const AMMO_STACK_TO_CATEGORY = {
@@ -417,7 +417,7 @@ type AmmoStackGroup =
 
 interface ConsumableToAmmoSource extends Omit<ConsumableSource, "type"> {
     type: "consumable" | "ammo";
-    "==system"?: DeepPartial<AmmoSystemData>;
+    "==system"?: DeepPartial<AmmoSystemSource>;
     system: ConsumableSystemSource & {
         stackGroup?: AmmoStackGroup | null;
         "-=stackGroup"?: null;
