@@ -1016,6 +1016,18 @@ const ITEM_ALTERATION_HANDLERS = {
             data.item.system.strength = Math.max(newValue, -2);
         },
     }),
+    target: new ItemAlterationHandler({
+        fields: {
+            itemType: new fields.StringField({ required: true, choices: ["spell"] }),
+            mode: new fields.StringField({ required: true, choices: ["override"] }),
+            value: new fields.StringField({ required: true, nullable: false } as const),
+        },
+        handle: function (data: AlterationApplicationData) {
+            if (this.isValid(data)) {
+                data.item.system.target.value = game.i18n.localize(data.alteration.value);
+            }
+        },
+    }),
     traits: new ItemAlterationHandler({
         fields: {
             itemType: new fields.StringField({
