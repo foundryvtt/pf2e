@@ -41,11 +41,7 @@ class ChatCards {
         if (!actor) return;
 
         // Confirm roll permission
-        if (
-            !game.user.isGM &&
-            !actor.isOwner &&
-            !["spell-save", "expand-description", "roll-area-save"].includes(action)
-        ) {
+        if (!actor.isOwner && !["spell-save", "expand-description", "roll-area-save"].includes(action)) {
             return;
         }
 
