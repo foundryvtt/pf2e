@@ -19,6 +19,7 @@ const SIZE_TO_REACH = {
 } as const;
 
 const SENSE_TYPES = new Set([
+    "bloodsense",
     "darkvision",
     "echolocation",
     "greater-darkvision",
@@ -196,13 +197,13 @@ const LANGUAGE_RARITIES = ["common", "uncommon", "rare", "secret"] as const;
 
 export {
     ALLIANCES,
+    LANGUAGE_RARITIES,
     LANGUAGES,
     LANGUAGES_BY_RARITY,
-    LANGUAGE_RARITIES,
     SAVING_THROW_ATTRIBUTES,
-    SENSES_WITH_MANDATORY_ACUITIES,
-    SENSES_WITH_UNLIMITED_RANGE,
     SENSE_ACUITIES,
     SENSE_TYPES,
+    SENSES_WITH_MANDATORY_ACUITIES,
+    SENSES_WITH_UNLIMITED_RANGE,
     SIZE_TO_REACH,
 };

@@ -239,3 +239,15 @@ export { Migration937RemoveInvalidAuraTraits } from "./937-remove-invalid-aura-t
 export { Migration938RenameBroochesAndThroned } from "./938-rename-brooches-and-throned.ts";
 export { Migration939SetTokenDimensions } from "./939-set-token-dimensions.ts";
 export { Migration940WeaponExpend } from "./940-weapon-expend.ts";
+export { Migration941InvestedGrafts } from "./941-invested-grafts.ts";
+export { Migration942EquipmentGrade } from "./942-equipment-grade.ts";
+export { Migration943UpdateSpeedPath } from "./943-update-speed-paths.ts";
+export { Migration944RmDamageDiceValue } from "./944-rm-damage-dice-value.ts";
+export { Migration945REBracketsToStrings } from "./945-re-brackets-to-strings.ts";
+export { Migration946RetirePotencyStrikingREs } from "./946-retire-potency-striking-res.ts";
+export { Migration947FixPostPotencyStrikingPredicates } from "./947-fix-post-potency-striking-predicates.ts";
+export { Migration948MoreBadPredicatesAndSolarianCrystals } from "./948-more-bad-predicates-and-solarian-crystals.ts";
+export { Migration949NPCRangeData } from "./949-npc-range-data.ts";
+export { Migration950AmmoConsumableToAmmoAmmo } from "./950-ammo-consumable-to-ammo-ammo.ts";
+export { Migration951TreasureCategories } from "./951-treasure-categories.ts";
+export { Migration952AmmoTraitsAndOptions } from "./952-ammo-traits-options.ts";

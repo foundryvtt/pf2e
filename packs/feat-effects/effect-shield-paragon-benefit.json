@@ -1,0 +1,55 @@
+{
+    "_id": "NUOfUPboXVEVQNBE",
+    "img": "icons/equipment/shield/targe-steel-blue.webp",
+    "name": "Effect: Shield Paragon Benefit",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Paragon Benefit (Shield)]</p>\n<p>You gain the origin's shield circumstance bonus to AC.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 17
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "ac": "shield-paragon-ac",
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": "@item.origin.system.attributes.shield.ac"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:magical"
+                ],
+                "selector": "saving-throw",
+                "slug": "shield-paragon-saves",
+                "type": "status",
+                "value": "@item.origin.system.attributes.shield.ac"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

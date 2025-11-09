@@ -14,7 +14,7 @@ import type {
 } from "@item/weapon/types.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { objectHasKey, sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
@@ -22,7 +22,7 @@ import fields = foundry.data.fields;
  * Create an ephemeral strike on an actor
  * @category RuleElement
  */
-class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
+class StrikeRuleElement extends RuleElement<StrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     declare graspingAppendage: boolean;
@@ -193,7 +193,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 )
                 .map((action) => {
                     // Continue showing shields but disable strikes with them
-                    if (action.item.shield) action.canStrike = false;
+                    if (action.item.shield) action.canAttack = false;
                     return action;
                 });
         } else if (this.replaceBasicUnarmed) {
@@ -300,7 +300,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     }
 }
 
-interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFromRESchema<StrikeSchema> {
+interface StrikeRuleElement extends RuleElement<StrikeSchema>, ModelPropsFromRESchema<StrikeSchema> {
     slug: string;
     fist: boolean;
     options: string[];
@@ -397,7 +397,6 @@ interface StrikeSource extends RuleElementSource {
     baseType?: unknown;
     damage?: unknown;
     range?: unknown;
-    maxRange?: unknown;
     traits?: unknown;
     traitToggles?: unknown;
     replaceAll?: unknown;
@@ -413,3 +412,4 @@ interface UpdateToggleParams {
 }
 
 export { StrikeRuleElement };
+export type { StrikeSource };

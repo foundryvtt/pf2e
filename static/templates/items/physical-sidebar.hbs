@@ -13,7 +13,9 @@
                 {{selectOptions usageOptions selected=data.usage.value}}
             </select>
         </div>
-    {{else if (nor (eq item.type "armor") (eq item.type "shield") (eq item.type "treasure"))}}
+    {{else if (eq item.type "treasure")}}
+        {{formGroup systemFields.category choices=categories value=item.system.category}}
+    {{else if (nor (eq item.type "armor") (eq item.type "shield") (eq item.type "ammo"))}}
         <div class="form-group">
             <label for="{{fieldIdPrefix}}usage">{{localize "PF2E.Usage"}}</label>
             <select name="system.usage.value" id="{{fieldIdPrefix}}usage">
@@ -48,21 +50,21 @@
     <div class="form-group price">
         <label for="{{fieldIdPrefix}}price">
             {{localize "PF2E.PriceLabel"}}
-            {{#if adjustedPriceHint}}<i class="fa-solid fa-circle-info" data-tooltip="{{adjustedPriceHint}}"></i>{{/if}}
+            {{#if price.adjustmentHint}}<i class="fa-solid fa-circle-info" data-tooltip="{{adjustedPriceHint}}"></i>{{/if}}
         </label>
         <div class="form-fields">
             <input
                 type="text"
-                {{#if priceAdjustment}}class="{{priceAdjustment}}"{{/if}}
+                {{#if price.adjustment}}class="{{price.adjustment}}"{{/if}}
                 id="{{fieldIdPrefix}}price"
-                value="{{item.system.price.value}}"
+                value="{{price.label}}"
                 data-property="system.price.value"
-                data-value-base="{{basePrice}}"
+                data-value-base="{{price.base}}"
                 spellcheck="false"
             />
-            {{#if (eq item.type "consumable")}}
+            {{#if (or (eq item.type "ammo") (eq item.type "consumable"))}}
                 <span class="slash">/</span>
-                <input type="number" class="per" name="system.price.per" value="{{item.system.price.per}}" />
+                <input type="number" class="per" name="system.price.per" value="{{price.per}}" />
             {{/if}}
         </div>
     </div>

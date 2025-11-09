@@ -2,7 +2,7 @@ import { DataSchema, Document, TypeDataModel } from "@common/abstract/_module.mj
 import { AudioFilePath, ImageFilePath, RollMode } from "@common/constants.mjs";
 import { DocumentConstructionContext } from "../common/_types.mjs";
 import { ActiveEffectSource } from "../common/documents/active-effect.mjs";
-import { applications, dice, documents } from "./_module.mjs";
+import { applications, dice, documents, TokenMovementActionConfig } from "./_module.mjs";
 import DocumentSheetV2 from "./applications/api/document-sheet.mjs";
 import CameraViews from "./applications/apps/av/cameras.mjs";
 import HTMLEnrichedContentElement from "./applications/elements/enriched-content.mjs";
@@ -19,8 +19,13 @@ import { CanvasAnimationAttribute } from "./canvas/animation/_types.mjs";
 import ChatBubbles from "./canvas/animation/chat-bubbles.mjs";
 import { DoorControl, ParticleEffect } from "./canvas/containers/_module.mjs";
 import ClockwiseSweepPolygon from "./canvas/geometry/clockwise-sweep.mjs";
-import EffectsCanvasGroup from "./canvas/groups/effects.mjs";
-import InterfaceCanvasGroup from "./canvas/groups/interface.mjs";
+import {
+    EffectsCanvasGroup,
+    EnvironmentCanvasGroup,
+    HiddenCanvasGroup,
+    InterfaceCanvasGroup,
+    PrimaryCanvasGroup,
+} from "./canvas/groups/_module.mjs";
 import { AlertPing, ArrowPing, ChevronPing, PulsePing, Ruler } from "./canvas/interaction/_module.mjs";
 import * as layers from "./canvas/layers/_module.mjs";
 import * as perception from "./canvas/perception/_module.mjs";
@@ -41,6 +46,7 @@ import type {
     PointVisionSource,
 } from "./canvas/sources/_module.mjs";
 import ClientDatabaseBackend from "./data/client-backend.mjs";
+import { TokenMovementCostAggregator } from "./documents/_types.mjs";
 import WorldCollection from "./documents/abstract/world-collection.mjs";
 import * as collections from "./documents/collections/_module.mjs";
 
@@ -74,16 +80,13 @@ export interface TextEditorEnricherConfig {
 /**
  * A light source animation configuration object.
  */
-export type LightSourceAnimationConfig = Record<
-    string,
-    {
-        label: string;
-        animation: Function;
-        backgroundShader?: typeof AdaptiveBackgroundShader;
-        illuminationShader?: typeof AdaptiveIlluminationShader;
-        colorationShader: typeof AdaptiveColorationShader;
-    }
->;
+export interface LightSourceAnimationConfig {
+    label: string;
+    animation: Function;
+    backgroundShader?: typeof AdaptiveBackgroundShader;
+    illuminationShader?: typeof AdaptiveIlluminationShader;
+    colorationShader: typeof AdaptiveColorationShader;
+}
 
 /**
  * Available Weather Effects implementations
@@ -134,6 +137,15 @@ interface WallDoorAnimationConfig {
     animate: WallDoorAnimationFunction;
     postAnimate?: WallDoorAnimationHook;
     duration: number;
+}
+
+export interface PartialTokenMovementActionConfig
+    extends Pick<TokenMovementActionConfig, "label" | "icon" | "order">,
+        Partial<Omit<TokenMovementActionConfig, "label" | "icon" | "order">> {}
+
+export interface RollFunction {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (...args: any[]): boolean | number | string | null | Promise<boolean | number | string | null>;
 }
 
 export default interface Config<
@@ -207,6 +219,7 @@ export default interface Config<
         collection: ConstructorOf<collections.Actors<documents.Actor<null>>>;
         compendiumIndexFields: string[];
         compendiumBanner: ImageFilePath;
+        defaultType?: string;
         sidebarIcon: string;
         dataModels: Record<string, ConstructorOf<TypeDataModel<documents.Actor, DataSchema>>>;
         typeLabels: Record<string, string | undefined>;
@@ -261,11 +274,12 @@ export default interface Config<
 
     /** Configuration for Item document */
     Item: {
+        dataModels: Record<string, ConstructorOf<TypeDataModel<documents.Item, DataSchema>>>;
+        defaultType?: string;
+        collection: typeof collections.Items;
         documentClass: {
             new (data: PreCreate<TItem["_source"]>, context?: DocumentConstructionContext<TItem["parent"]>): TItem;
         };
-        collection: typeof collections.Items;
-        dataModels: Record<string, ConstructorOf<TypeDataModel<documents.Item, DataSchema>>>;
         typeIcons: Record<string, string>;
         typeLabels: Record<string, string | undefined>;
         sheetClasses: Record<
@@ -393,12 +407,12 @@ export default interface Config<
      * Configuration for the JournalEntryPage embedded document type.
      */
     JournalEntryPage: {
-        documentClass: typeof documents.JournalEntryPage;
         dataModels: Record<string, ConstructorOf<TypeDataModel<Document, DataSchema>>>;
-        typeLabels: Record<string, string>;
-        typeIcons: Record<string, string>;
         defaultType: string;
+        documentClass: typeof documents.JournalEntryPage;
         sidebarIcon: string;
+        typeIcons: Record<string, string>;
+        typeLabels: Record<string, string>;
     };
 
     /** Configuration for the MeasuredTemplate embedded document type and its representation on the game Canvas */
@@ -441,7 +455,20 @@ export default interface Config<
     Token: {
         documentClass: ConstructorOf<TTokenDocument>;
         objectClass: ConstructorOf<NonNullable<TTokenDocument["object"]>>;
+        layerClass: ConstructorOf<layers.TokenLayer>;
         prototypeSheetClass: ConstructorOf<PrototypeTokenConfig>;
+        hudClass: ConstructorOf<applications.hud.TokenHUD>;
+        rulerClass: ConstructorOf<placeables.tokens.TokenRuler<NonNullable<TTokenDocument["object"]>>>;
+        movement: {
+            TerrainData: typeof foundry.data.TerrainData;
+            /** The movement cost aggregator. */
+            costAggregator: TokenMovementCostAggregator;
+            /** The default movement animation speed in grid spaces per second. */
+            defaultSpeed: number;
+            defaultAction: string;
+            actions: Record<string, PartialTokenMovementActionConfig>;
+        };
+        adjectivesPrefix: string;
         ring: TokenRingConfig;
     };
 
@@ -472,7 +499,7 @@ export default interface Config<
             CONTROLLED: number;
             SECRET: number;
         };
-        doorControlsClass: DoorControl;
+        doorControlClass: typeof DoorControl;
         exploredColor: number;
         unexploredColor: number;
         darknessToDaylightAnimationMS: number;
@@ -481,11 +508,11 @@ export default interface Config<
         lightSourceClass: typeof PointLightSource;
         globalLightSourceClass: typeof GlobalLightSource;
         rulerClass: typeof Ruler;
-        visionSourceClass: typeof PointVisionSource;
+        visionSourceClass: ConstructorOf<PointVisionSource<NonNullable<TTokenDocument["object"]>>>;
         soundSourceClass: typeof PointSoundSource;
         groups: {
             hidden: {
-                groupClass: typeof PIXI.Container;
+                groupClass: typeof HiddenCanvasGroup;
                 parent: "stage";
             };
             rendered: {
@@ -493,11 +520,11 @@ export default interface Config<
                 parent: "stage";
             };
             environment: {
-                groupClass: typeof PIXI.Container;
+                groupClass: typeof EnvironmentCanvasGroup;
                 parent: "rendered";
             };
             primary: {
-                groupClass: typeof PIXI.Container;
+                groupClass: typeof PrimaryCanvasGroup;
                 parent: "environment";
             };
             effects: {
@@ -655,6 +682,11 @@ export default interface Config<
             [key: string]: ConstructorOf<dice.terms.DiceTerm>;
         };
         randomUniform: () => number;
+
+        /**
+         * A collection of custom functions that can be included in roll expressions.
+         */
+        functions: Record<string, RollFunction>;
     };
 
     /** The control icons used for rendering common HUD operations */
@@ -743,6 +775,16 @@ export default interface Config<
         FilePicker: typeof applications.apps.FilePicker;
         TextEditor: typeof applications.ux.TextEditor;
         TooltipManager: typeof foundry.helpers.interaction.TooltipManager;
+    };
+
+    /**
+     * System and modules must prefix the names of the queries they register (e.g. "my-module.aCustomQuery").
+     * Non-prefixed query names are reserved by core.
+     */
+    queries: {
+        dialog: typeof applications.api.DialogV2._handleQuery;
+        confirmTeleportToken: typeof foundry.data.regionBehaviors.TeleportTokenRegionBehaviorType._confirmQuery;
+        [key: string]: Function;
     };
 }
 

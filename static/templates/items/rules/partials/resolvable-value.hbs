@@ -1,20 +1,9 @@
 {{#unless (eq mode "object")}}
     <div class="attached-input resolvable">
-        <button type="button" class="attachment" data-action="toggle-brackets" data-property="{{property}}">
-            {{#if (eq mode "primitive")}}
-                {{localize "PF2E.RuleEditor.General.Primitive"}}
-            {{else if (eq mode "brackets")}}
-                {{localize "PF2E.RuleEditor.General.Brackets"}}
-            {{/if}}
-        </button>
-        {{#if (eq mode "primitive")}}
-            {{#if fileInput}}
-                <file-picker name="{{path}}" value="{{value}}" type="imagevideo"></file-picker>
-            {{else}}
-                <input type="text" name="{{path}}" id="{{inputId}}" value="{{value}}" />
-            {{/if}}
-        {{else if (eq mode "brackets")}}
-            <input type="text" name="{{path}}.field" id="{{inputId}}" value="{{value.field}}" placeholder="Actor Level (Default)" />
+        {{#if fileInput}}
+            <file-picker name="{{path}}" value="{{value}}" type="imagevideo"></file-picker>
+        {{else}}
+            <input type="text" name="{{path}}" id="{{inputId}}" value="{{value}}" />
         {{/if}}
     </div>
 {{/unless}}

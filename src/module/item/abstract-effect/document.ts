@@ -75,18 +75,17 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     override getRollOptions(prefix: string, options?: { includeGranter?: boolean }): string[] {
         const context = this.system.context;
-        const originRollOptions =
-            context?.origin.rollOptions?.map((o) => `${prefix}:${o}`) ??
-            ((): string[] => {
-                const origin = this.origin;
-                // Safety check: this effect's owning actor may be getting initialized during game setup and before its origin
-                // has been initialized
-                const originIsInitialized = !!origin?.flags?.pf2e?.rollOptions;
-                // If this effect came from another actor, get that actor's roll options as well
-                return originIsInitialized
-                    ? (origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? [])
-                    : [];
-            })();
+        const originRollOptions = ((): string[] => {
+            const existingOptions = context?.origin.rollOptions.map((o) => `${prefix}:${o}`);
+            if (existingOptions?.length) return existingOptions;
+
+            const origin = this.origin;
+            // Safety check: this effect's owning actor may be getting initialized during game setup and before its origin
+            // has been initialized
+            const originIsInitialized = !!origin?.flags?.pf2e?.rollOptions;
+            // If this effect came from another actor, get that actor's roll options as well
+            return originIsInitialized ? (origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? []) : [];
+        })();
         if (originRollOptions.length > 0) {
             originRollOptions.push(`${prefix}:origin`);
             if (originRollOptions.some((o) => o.startsWith(`${prefix}:origin:item:`))) {
@@ -150,10 +149,11 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     /** Log whether this effect originated from a spell */
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
+        data.system ??= {};
         data.system.fromSpell ??= ((): boolean => {
             const slug = this.slug ?? sluggify(this.name);
             if (slug.startsWith("spell-effect-")) return true;
@@ -164,7 +164,6 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
                     (originItem.isOfType("affliction", "condition", "effect") && originItem.fromSpell))
             );
         })();
-
         return super._preCreate(data, options, user);
     }
 

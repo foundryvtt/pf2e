@@ -4,25 +4,26 @@
     "name": "Effect: Timely Advice",
     "system": {
         "description": {
-            "value": "<p>The sage gives the ally a savvy piece of advice, providing valuable insight. The ally gains a +2 circumstance bonus to the triggering roll.</p>"
+            "value": "<p>You gain a +2 circumstance bonus to the triggering roll.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 6
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Gamemastery Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
         },
         "rules": [
             {
                 "key": "FlatModifier",
+                "removeAfterRoll": true,
                 "selector": [
                     "attack",
                     "skill-check"

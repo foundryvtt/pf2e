@@ -261,7 +261,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You unleash a wave of death to snuff out the life force of those in its path. Each living creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the void energy hungrily turns backward toward you, dealing an additional 30 void damage to every living creature in the line (even those above 17th level) and 30 void damage to you.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes 9d6 void damage.</p>\n<p><strong>Failure</strong> The creature takes 100 void damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The spell can affect living creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
+                    "value": "<p>You unleash a wave of death to snuff out the life force of those in its path. Each living creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from <em>massacre</em> reduces a creature to 0 Hit Points, that creature dies instantly. If <em>massacre</em> doesn't kill even a single creature, the void energy hungrily turns backward toward you, dealing an additional @Damage[30[void]] damage to every living creature in the line (even those above 17th level) and 30 void damage to you.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes 9d6 void damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(ternary(gte(@item.rank,10),115,100))[void]] damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p><hr /><p><strong>Heightened (10th)</strong> The spell can affect living creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -857,7 +857,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a -10-foot circumstance penalty to its Speeds while in the area. Once per round, you can Sustain the spell to make a vine lash out from any square within the expanse of creepers. This vine has a 15-foot reach. Make a melee spell attack roll against the target; on a success, the vine pulls the target into the creepers and makes it @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
+                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a –10-foot circumstance penalty to its Speeds while in the area. Once per round, you can Sustain the spell to make a vine lash out from any square within the expanse of creepers. This vine has a 15-foot reach. Make a melee spell attack roll against the target; on a success, the vine pulls the target into the creepers and makes it @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -924,7 +924,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Creatures that have the water trait and that are in the area when you Cast the Spell must attempt a Fortitude save, with the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Slow] spell.</p>\n<p><strong>Area</strong> 50 feet long by 50 feet wide</p>"
+                    "value": "<p><strong>Area</strong> 50 feet long by 50 feet wide</p><hr /><p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Creatures that have the water trait and that are in the area when you Cast the Spell must attempt a Fortitude save, with the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Slow] spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2828,6 +2828,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -2867,6 +2868,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -2906,6 +2908,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -2943,6 +2946,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -3307,7 +3311,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Zauglagaul breathes a toxic cloud of spores that deals @Damage[18d6[poison]] damage in a @Template[cone|distance:60]. Creatures in the area must attempt a @Check[fortitude|dc:39] save. Zauglagaul can't use Spore Breath again for [[/gmr 1d4 #Recharge Spore Breath]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for an unlimited duration as the spores take root and cause the victim to suffer from distracting hallucinations.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for an unlimited duration.</p>"
+                    "value": "<p>Zauglagaul breathes a toxic cloud of spores that deals @Damage[18d6[poison]|options:area-damage] damage in a @Template[cone|distance:60]. Creatures in the area must attempt a @Check[fortitude|dc:39|options:area-effect,inflicts:stupefied] save. Zauglagaul can't use Spore Breath again for [[/gmr 1d4 #Recharge Spore Breath]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for an unlimited duration as the spores take root and cause the victim to suffer from distracting hallucinations.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for an unlimited duration.</p>"
                 },
                 "publication": {
                     "license": "ORC",

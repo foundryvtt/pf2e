@@ -1,18 +1,18 @@
 import { ActorPF2e } from "@actor";
-import { InitiativeData } from "@actor/data/base.ts";
+import type { InitiativeData } from "@actor/data/base.ts";
 import { Immunity } from "@actor/data/iwr.ts";
-import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
+import { attackFromMeleeItem, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
-import { SaveType } from "@actor/types.ts";
+import { Modifier } from "@actor/modifiers.ts";
+import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ConditionPF2e } from "@item";
-import { ItemType } from "@item/base/data/index.ts";
-import { Rarity } from "@module/data.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { DamageType } from "@system/damage/index.ts";
+import type { ItemType } from "@item/types.ts";
+import type { Rarity } from "@module/data.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { DamageType } from "@system/damage/index.ts";
 import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
-import { isObject, objectHasKey } from "@util";
+import { objectHasKey } from "@util";
 import * as R from "remeda";
 import { HazardSource, HazardSystemData } from "./data.ts";
 
@@ -55,7 +55,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         // Hazards without hit points are unaffected by damage
         const damageType = objectHasKey(CONFIG.PF2E.damageTypes, effect)
             ? effect
-            : isObject(effect)
+            : R.isObjectType(effect)
               ? (effect.system.persistent?.damageType ?? null)
               : null;
 
@@ -112,7 +112,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                 label: CONFIG.PF2E.skills.stealth.label,
                 domains: ["stealth", `dex-based`, "skill-check", `dex-skill-check`, "all"],
                 modifiers: [
-                    new ModifierPF2e({
+                    new Modifier({
                         label: "PF2E.ModifierTitle",
                         slug: "base",
                         type: "untyped",
@@ -139,7 +139,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
 
         // Armor Class
         if (this.hasDefenses) {
-            const baseModifier = new ModifierPF2e({
+            const baseModifier = new Modifier({
                 slug: "base",
                 label: "PF2E.BaseModifier",
                 modifier: system.attributes.ac.value - 10,
@@ -150,7 +150,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         }
 
         this.saves = this.prepareSaves();
-        this.system.actions = this.itemTypes.melee.map((m) => strikeFromMeleeItem(m));
+        this.system.actions = this.itemTypes.melee.map((m) => attackFromMeleeItem(m));
     }
 
     /**
@@ -193,7 +193,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                 attribute: CONFIG.PF2E.savingThrowDefaultAttributes[saveType],
                 domains: [saveType, "saving-throw"],
                 modifiers: [
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
                         modifier: base,

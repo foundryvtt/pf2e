@@ -11,6 +11,11 @@
             "name": "Blowgun",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "blowgun-darts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "blowgun",
                 "bonus": {
                     "value": 0
@@ -245,31 +250,17 @@
             "name": "Blowgun Darts with Harvester Poison",
             "sort": 400000,
             "system": {
-                "baseItem": null,
+                "baseItem": "blowgun-darts",
                 "bulk": {
                     "value": 0
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -286,13 +277,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "blowgun-darts",
-                "stackGroup": "blowgunDarts",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -300,7 +289,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "n96wAvXJdhT8a2uD",
@@ -332,6 +321,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -382,6 +372,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -431,13 +422,16 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "magical",
-                        "range-increment-20",
                         "reload-1"
                     ]
                 },

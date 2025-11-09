@@ -38,7 +38,6 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: "PF2E.Actions.SenseMotive.Notes.failure" },
         { outcome: ["criticalFailure"], text: "PF2E.Actions.SenseMotive.Notes.criticalFailure" },
     ],
-    rollOptions: ["action:sense-motive"],
     section: "basic",
     slug: "sense-motive",
     statistic: "perception",

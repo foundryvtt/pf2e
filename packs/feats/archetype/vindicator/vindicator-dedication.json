@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your church ensures that you are cared for. You can use Religion to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce], @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information], @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], or make a @UUID[Compendium.pf2e.actionspf2e.Item.Request] as long as you are in a town or city with a church dedicated to your deity. If the target of the check is also a worshipper of your deity or is your hunted prey, you gain a +2 circumstance bonus to the check.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.Aka7A3c28QqBeRxU]{Vindicator}</p>"
+            "value": "<p>Your church ensures that you are cared for. You can use Religion to [[/act coerce skill=religion]]{Coerce}, [[/act gather-information skill=religion]]{Gather Information}, [[/act make-an-impression skill=religion]]{Make an Impression}, or [[/act request skill=religion]]{Request} as long as you are in a town or city with a church dedicated to your deity. If the target of the check is also a worshipper of your deity or is your hunted prey, you gain a +2 circumstance bonus to the check.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.Aka7A3c28QqBeRxU]{Vindicator}</p>"
         },
         "level": {
             "value": 2
@@ -30,7 +30,30 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:gather-information",
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "target:mark:hunted-prey",
+                            "target:deity:{actor|deity.system.slug}"
+                        ]
+                    }
+                ],
+                "selector": "religion",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -316,17 +316,7 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "8d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "mental"
-                    }
-                },
+                "damage": {},
                 "defense": {
                     "save": {
                         "basic": false,
@@ -334,18 +324,11 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 4d6 mental damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes 8d6 mental damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is so afraid it might die. It must attempt a Fortitude save; if the target fails, it dies. On a successful Fortitude save, the target takes 12d6 mental damage, is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] until the end of its next turn, and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}. This effect has the incapacitation trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 on a failure and by 3d6 on a critical failure.</p>"
+                    "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes @Damage[4d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes @Damage[(max(8,@item.rank*2))d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is so afraid it might die. It must attempt a @Check[fortitude|traits:incapacitation] save; if the target fails, it dies. On a successful Fortitude save, the target takes @Damage[(max(12,@item.rank*3))d6[mental]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] until the end of its next turn, and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}. This effect has the incapacitation trait.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 2d6 on a failure and by 3d6 on a critical failure.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 4
@@ -1025,10 +1008,11 @@
                 "containerId": null,
                 "description": {
                     "gm": "<p><strong>Epitome</strong> When you epitomize <em>The Cyclone</em>, assign it to a point of interest in the mountains. This marks the location of a peak that is constantly assailed by blustery winds. Leering, sinister faces made of roiling vapor constantly form and melt away in these winds, and the feeling of the gusts tugging at clothing and flesh feels eerily like the clutching of long-fingered claws. A perpetual cyclone is visible at the mountain's peak. Nonetheless, any PC who visits this location feels a strong urge to attempt an ascent of the wind-wracked mountain. A PC who wishes to attempt the dangerous climb must spend 8 hours of downtime, then attempt a @Check[athletics|dc:35] check to Climb.</p>\n<hr />\n<p><strong>Critical Success</strong> The PC reaches the mountain's peak! The PC gains the ability to cast a spell as a primal innate spell, choosing from @UUID[Compendium.pf2e.spells-srd.Item.Fly] (once per day), @UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind] (at will), @UUID[Compendium.pf2e.spells-srd.Item.Wall of Wind] (three times per day), or @UUID[Compendium.pf2e.spells-srd.Item.Migration] (once per day). In order to choose a spell, the spell's rank must be equal to or less than half the PC's level (rounded up). The spell is automatically heightened to half the PC's level, rounded up, and uses the PC's class DC if needed. A PC can change the innate spell they gain by successfully climbing the mountain again.</p>\n<p><strong>Success</strong> The PC makes progress, but hasn't quite reached the peak. The PC becomes @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]. The PC can either abandon the attempt and end their eight hours back at the mountain's base, or they can continue the ascent either by sheltering in place for eight hours or attempting another eight hour activity at a Climb check to reach the peak. Successfully sheltering in place requires a @Check[survival|dc:35] check— success removes the fatigued condition, but failure does not, and also makes the PC @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (or increases the value of a current enfeebled condition by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 5}). A character who fails 3 Survival checks when attempting to shelter fails the attempt to ascend the mountain and is forced to retreat to the mountain's base (see Failure, below).</p>\n<p><strong>Failure</strong> The PC falls, taking @Damage[10d10[bludgeoning]] damage from falls and pummeling wind. The PC is fatigued.</p>\n<p><strong>Critical Failure</strong> As failure, but the PC also suffers a fall near the end of their descent, taking an additional 50 points of falling damage along the way (@Damage[(10d10+50)[bludgeoning]]).</p>",
-                    "value": "<p><strong>Suit</strong> Hammers (Str)</p>\n<p><strong>Alignment</strong> chaotic evil</p>\n<hr />\n<p><em>The Cyclone</em> represents tumultuous evil plots. As long as it is invested, <em>The Cyclone</em> bolsters you with helpful winds that grant you a +2 item bonus to Athletics checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Climb], @UUID[Compendium.pf2e.actionspf2e.Item.High Jump], @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump], and @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]. This increases to a +3 item bonus if you are at least 17th level.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Whirlwind]. You do not treat the squares in the whirlwind as difficult terrain, but all other creatures do. The rank of the spell is one-half your level, rounded down (minimum 8th level), and the save DC is your class DC.</p>"
+                    "value": "<p><strong>Suit</strong> Hammers (Str)</p>\n<p><strong>Alignment</strong> chaotic evil</p><hr /><p><em>The Cyclone</em> represents tumultuous evil plots. As long as it is invested, <em>The Cyclone</em> bolsters you with helpful winds that grant you a +2 item bonus to Athletics checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Climb], @UUID[Compendium.pf2e.actionspf2e.Item.High Jump], @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump], and @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]. This increases to a +3 item bonus if you are at least 17th level.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Whirlwind]. You do not treat the squares in the whirlwind as difficult terrain, but all other creatures do. The rank of the spell is one-half your level, rounded down (minimum 8th rank), and the save DC is your class DC or spell DC (@Check[reflex|against:class-spell|traits:air]).</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1071,7 +1055,7 @@
                     }
                 ],
                 "size": "med",
-                "slug": null,
+                "slug": "the-cyclone",
                 "traits": {
                     "rarity": "unique",
                     "value": [
@@ -1107,6 +1091,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1142,7 +1127,7 @@
                     }
                 ],
                 "size": "med",
-                "slug": null,
+                "slug": "the-keep",
                 "traits": {
                     "rarity": "unique",
                     "value": [
@@ -1173,8 +1158,8 @@
                 },
                 "containerId": null,
                 "description": {
-                    "gm": "<p><strong>Epitome</strong> When <em>The Waxworks</em> is epitomized, an unsettling laboratory comes into being in the dungeons below Harrowheart. Here, bubbling cauldrons of wax sputter and smoke, while metal molds containing the likenesses of the PCs and significant NPCs from their past stand unnervingly along the walls. The laboratory is attended by a sallow-complexioned tiefling who is always way too excited and polite to visiting PCs. This tiefling knows the rituals for @UUID[Compendium.pf2e.spells-srd.Item.Clone] and @UUID[Compendium.pf2e.spells-srd.Item.Shadow Double], and can teach them to the PCs. Skill checks attempted in the laboratory to perform either of these rituals gain a +2 item bonus.</p>",
-                    "value": "<p><strong>Suit</strong> Shield (Con)</p>\n<p><strong>Alignment</strong> chaotic evil</p>\n<hr />\n<p>The Waxworks represents helplessness and entropy. As long as you have this card invested, you gain a +2 item bonus to saving throws against effects that render you @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Doomed], @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]. The item bonus increases to +3 if you are 20th level.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cause two @Template[line|distance:30]s of hot wax to extend out of the card as you present it. The two lines must both start at you and extend in different directions. If you are at least 15th level, you can create a third line, and if you're at least 19th level you can create a fourth line. All creatures in the area must attempt a Fortitude save against your class DC.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[persistent,fire]] damage and @Damage[2d6[persistent,mental]] damage. An affected creature or adjacent ally can reduce both of these values by 1d6 by spending an Interact action to scrape off the goo. Until the damage is reduced to 1d6 per type, the affected creature is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] (this is an emotion and mental effect).</p>\n<p><strong>Failure</strong> As success, but @Damage[4d6[persistent,fire]] damage and @Damage[4d6[persistent,mental]] damage.</p>\n<p><strong>Critical Failure</strong> As success, but @Damage[6d6[persistent,fire]] damage and @Damage[6d6[persistent,mental]] damage, and the creature's speed is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the damage is reduced to 1d6 per type.</p>"
+                    "gm": "<p><strong>Epitome</strong> When <em>The Waxworks</em> is epitomized, an unsettling laboratory comes into being in the dungeons below Harrowheart. Here, bubbling cauldrons of wax sputter and smoke, while metal molds containing the likenesses of the PCs and significant NPCs from their past stand unnervingly along the walls. The laboratory is attended by a sallow-complexioned tiefling who is always way too excited and polite to visiting PCs. This tiefling knows the rituals for @UUID[Compendium.pf2e.spells-srd.Item.Clone] and @UUID[Compendium.pf2e.spells-srd.Item.Shadow Double]{Simulacrum}, and can teach them to the PCs. Skill checks attempted in the laboratory to perform either of these rituals gain a +2 item bonus.</p>",
+                    "value": "<p><strong>Suit</strong> Shield (Con)</p>\n<p><strong>Alignment</strong> chaotic evil</p>\n<hr />\n<p>The Waxworks represents helplessness and entropy. As long as you have this card invested, you gain a +2 item bonus to saving throws against effects that render you @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Doomed], @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]. The item bonus increases to +3 if you are 20th level.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cause two @Template[line|distance:30]s of hot wax to extend out of the card as you present it. The two lines must both start at you and extend in different directions. If you are at least 15th level, you can create a third line, and if you're at least 19th level you can create a fourth line. All creatures in the area must attempt a @Check[fortitude|against:class-spell|options:area-effect,damaging-effect,inflicts:confused,inflicts:slowed] save against your class DC or spell DC.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[persistent,fire],2d6[persistent,mental]|options:area-damage] damage. An affected creature or adjacent ally can reduce both of these values by 1d6 by spending an Interact action to scrape off the goo. Until the damage is reduced to 1d6 per type, the affected creature is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] (this is an emotion and mental effect).</p>\n<p><strong>Failure</strong> As success, but @Damage[4d6[persistent,fire],4d6[persistent,mental]|options:area-damage] damage.</p>\n<p><strong>Critical Failure</strong> As success, but @Damage[6d6[persistent,fire],6d6[persistent,mental]|options:area-damage] damage, and the creature's speed is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the damage is reduced to 1d6 per type.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1222,7 +1207,7 @@
                     }
                 ],
                 "size": "med",
-                "slug": null,
+                "slug": "the-waxworks",
                 "traits": {
                     "rarity": "unique",
                     "value": [
@@ -1277,6 +1262,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1325,6 +1311,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [
                     {
                         "domain": "damage",
@@ -1388,6 +1375,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {

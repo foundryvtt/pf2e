@@ -30,6 +30,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -72,6 +73,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -113,6 +115,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -152,12 +155,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": null,
+                    "max": 60
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
                         "magical",
-                        "range-60",
                         "unholy"
                     ]
                 }
@@ -366,7 +372,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Cost</strong> all the creature's Mythic Points</p>\n<p><strong>Trigger</strong> Verex-That-Was would die and has at least 1 Mythic Point</p><hr /><p><strong>Effect</strong> Verex remains standing and conscious, and recovers 50% of his maximum Hit Points.</p>"
+                    "value": "<p><strong>Cost</strong> all the creature's Mythic Points</p>\n<p><strong>Trigger</strong> Verex-That-Was would die and has at least 1 Mythic Point</p><hr /><p><strong>Effect</strong> Verex remains standing and conscious, and @Damage[(floor(@actor.system.attributes.hp.max/2))[healing]]{50% of its maximum Hit Points}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

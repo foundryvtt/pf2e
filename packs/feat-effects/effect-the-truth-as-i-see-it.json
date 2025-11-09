@@ -1,0 +1,47 @@
+{
+    "_id": "ahBcuJWrRXEGvwxb",
+    "img": "icons/skills/social/thumbsup-approval-like.webp",
+    "name": "Effect: The Truth As I See It",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.The Truth As I See It]</p>\n<p>When using Deception to Lie, you can roll twice and take the better result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "action:lie"
+                ],
+                "removeAfterRoll": true,
+                "selector": "deception"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

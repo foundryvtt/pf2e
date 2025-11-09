@@ -12,6 +12,11 @@
             "name": "Double-Barreled Pistol",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "rounds-double-barreled-pistol",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "double-barreled-pistol",
                 "bonus": {
                     "value": 0
@@ -179,80 +184,13 @@
             "type": "weapon"
         },
         {
-            "_id": "sncxb8WkiJ0fYxEY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.h7jTMfYGQau1PBBz"
-            },
-            "img": "icons/weapons/ammunition/shot-round-lead.webp",
-            "name": "Rounds (Double-Barreled Pistol)",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-double-barreled-pistol",
-                "stackGroup": "rounds10",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "CCa2ilkH3SudRlSF",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.BSInwFNVBVkfFK0B"
             },
             "img": "systems/pf2e/icons/equipment/consumables/oils/oil-of-unlife.webp",
             "name": "Oil of Unlife (Lesser)",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -318,6 +256,57 @@
             "type": "consumable"
         },
         {
+            "_id": "sncxb8WkiJ0fYxEY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.h7jTMfYGQau1PBBz"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Double-Barreled Pistol)",
+            "sort": 400000,
+            "system": {
+                "baseItem": "rounds-double-barreled-pistol",
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-double-barreled-pistol",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
+        },
+        {
             "_id": "h4i7zh8y17d35lou",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
@@ -349,6 +338,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -394,6 +384,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -444,6 +435,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -492,6 +484,10 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": null,
+                    "max": 30
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -499,7 +495,6 @@
                         "concussive",
                         "double-barrel",
                         "fatal-d8",
-                        "range-30",
                         "reload-1"
                     ]
                 },

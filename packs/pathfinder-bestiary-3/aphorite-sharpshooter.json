@@ -111,6 +111,11 @@
             "name": "Crossbow",
             "sort": 300000,
             "system": {
+                "ammo": {
+                    "baseType": "bolts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "crossbow",
                 "bonus": {
                     "value": 0
@@ -342,92 +347,25 @@
             "type": "armor"
         },
         {
-            "_id": "tkG1nJtu7gnW9eby",
-            "img": "icons/equipment/head/hat-belted-grey.webp",
-            "name": "Outrageous Hat",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
             "_id": "N3m5C5jtDN7pNI7Y",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
-                "baseItem": null,
+                "baseItem": "bolts",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -444,13 +382,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "bolts",
-                "stackGroup": "bolts",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -458,7 +394,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "4w6cni5pDSonPMZW",
@@ -469,7 +405,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortsword",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -495,6 +431,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -520,7 +457,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Crossbow",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -546,12 +483,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "range-increment-60",
                         "reload-1"
                     ]
                 },
@@ -565,7 +505,7 @@
             "_id": "zOtMfpFqx7YaAJxc",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Crystalline Dust",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -600,7 +540,7 @@
             "_id": "d26LgNmNMpMAAoX3",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Calculated Reload",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -659,7 +599,7 @@
             "_id": "EKRq00ExnMsBTNP4",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hurtful Critique",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -694,7 +634,7 @@
             "_id": "KZzCxzwU4zROZ7As",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Engineering Lore",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""

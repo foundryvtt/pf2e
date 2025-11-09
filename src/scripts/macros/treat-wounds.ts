@@ -112,7 +112,7 @@ ${
 async function treat(
     actor: CreaturePF2e,
     $html: JQuery,
-    event: JQuery.TriggeredEvent | Event | null = null,
+    event: Event | null = null,
     domIdAppend: string,
 ): Promise<void> {
     const html = $html[0];
@@ -162,7 +162,7 @@ async function treat(
         extraRollOptions: rollOptions,
         callback: async (_roll, outcome, message) => {
             // Ensure the message is fully rendered in the chat log before updating the flag
-            Hooks.once("renderChatMessage", (m) => {
+            Hooks.once("renderChatMessageHTML", (m) => {
                 if (m.id !== message.id) return;
                 const flags = fu.mergeObject(
                     m._source.flags,

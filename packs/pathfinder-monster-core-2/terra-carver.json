@@ -1,0 +1,484 @@
+{
+    "_id": "8pqeRFVTVc66iIVn",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "a0CTLPs8n3OTwNDn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Stone Tool",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "hew-stone"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "GYTcTq986Bds8Lsx": {
+                        "damage": "3d10+16",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": "stone-tool",
+                "traits": {
+                    "value": [
+                        "reach-15",
+                        "versatile-b",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "pYzN1UIbf3N5Nh7i",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rock",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "fmDSi1EcNVPBe36H": {
+                        "damage": "3d8+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": "rock",
+                "traits": {
+                    "value": [
+                        "propulsive"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "apKikGkEGO39Ed3y",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Earthbound",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When not touching solid ground, the terra carver is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7YaDGla1YTt4zyhX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Crashing Fall",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Due to their size, a terra carver falls a lot harder than most creatures. When a terra carver is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] or takes falling damage, they take an additional @Damage[15[bludgeoning]] damage in addition to any other effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Qu8H1OuUAHCWxm9R",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Territorial Retaliation",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 15 feet uses a move action or leaves a square during a move action (move actions using only a fly Speed don't trigger this reaction)</p><hr /><p><strong>Effect</strong> The terra carver attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] the triggering creature. Regardless of the result, the space of the triggering creature and all spaces on the ground adjacent to that creature become difficult terrain for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KCIuH1WmenHj4daF",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Carve Projectile",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The terra carver carves a deadly projectile from nearby materials and makes a rock ranged Strike that gains the deadly d10 trait. On a successful hit, the target also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "carve-projectile",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:slug:rock"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "carve-projectile"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "deadly-d10"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EwECv4uI8kHNBhAL",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hew Stone",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Melee attacks the terra carver makes with their stone tool ignore physical resistance and Hardness.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GYovfvbpnSfaL1VZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stone Tunnels",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A terra carver can burrow through solid stone. When they do, they leave a tunnel.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xWPHElQhkTrM9Z81",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Wedge",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The terra carver attempts a stone tool Strike while wedging the blow further with another tool. If it hits, the target takes an additional 3d10 damage of the same type as the Strike and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 hour or until the creature is fully healed. This counts as two attacks for the terra carver's multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "wedge",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 3,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "wedge"
+                        ],
+                        "selector": "stone-tool-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kAmxE1GHUdv3TH1Q",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Mining Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Terra Carver",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": -1
+            },
+            "int": {
+                "mod": 4
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 33
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 265,
+                "temp": 0,
+                "value": 265
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 10
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "Can't speak any language",
+                "value": [
+                    "petran"
+                ]
+            },
+            "level": {
+                "value": 13
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Even other earth elementals and creatures of stone fear the formidable terra carver. Their four arms end with sharpened stone tools that can cleave through the toughest rocks—and anything that wanders into their territory. Despite having powerful forms, their bulky upper bodies appear comically large compared to their stout legs. They lumber slowly through their territory and spend most of their time cutting stone deep in the bedrock to create elaborate networks of tunnels.</p>\n<p>They prefer isolation, and when two terra carvers meet, it typically ends with one hewing the other. Instead of taking their enemy's territory, a terra carver collapses the tunnels, continuing elsewhere with their own designs.</p><h2>Voiceless Miners</h2><p>Terra carvers are talented miners, and their tunnels are some of the longest lasting on any plane. However, the reason for these tunnels is unknown. Scholars have theorized that their tunnels function as a form of written language for the otherwise voiceless elementals. Unfortunately, attempts to map abandoned tunnels often end where another terra carver collapsed an encroaching tunnel, and mapping active tunnels often results in the cartographer never making it back.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core 2"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 23,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 100,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 23
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 27
+            },
+            "intimidation": {
+                "base": 22
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "earth",
+                "elemental"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -22,7 +22,7 @@ export class Migration896HealingDomains extends MigrationBase {
             }
             case "effect-curse-of-outpouring-life": {
                 const rule = source.system.rules.find(
-                    (r): r is { key?: JSONValue; selector?: unknown } => r.key === "DamageDice",
+                    (r): r is { key: string; selector?: unknown } => r.key === "DamageDice",
                 );
                 if (rule) rule.selector = "spell-healing";
             }

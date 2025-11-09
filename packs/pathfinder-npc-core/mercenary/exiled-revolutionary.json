@@ -12,6 +12,11 @@
             "name": "Composite Longbow",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "composite-longbow",
                 "bonus": {
                     "value": 0
@@ -304,78 +309,13 @@
             "type": "equipment"
         },
         {
-            "_id": "wKU5awNWbh1qMkLW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
-            },
-            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
-            "name": "Arrows",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "arrows",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "eUDYpGTJmNQH22s4",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.WL4O32qFifxnMj0H"
             },
             "img": "icons/commodities/materials/liquid-blue.webp",
             "name": "Wyvern Poison",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -437,6 +377,56 @@
             "type": "consumable"
         },
         {
+            "_id": "wKU5awNWbh1qMkLW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
+            "name": "Arrows",
+            "sort": 600000,
+            "system": {
+                "baseItem": "arrows",
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
+        },
+        {
             "_id": "kqQObZvSxSKFHBF3",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Mm3xgz27Q94wZhti"
@@ -449,6 +439,7 @@
                 "bulk": {
                     "value": 0
                 },
+                "category": "art-object",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -474,7 +465,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Gamemastery Guide"
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -518,6 +509,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [
                     {
                         "key": "RollOption",
@@ -552,9 +544,6 @@
         },
         {
             "_id": "0eZj3LkmkZfBjdXM",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 900000,
@@ -579,6 +568,7 @@
                     "remaster": true,
                     "title": "Pathfinder NPC Core"
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -623,6 +613,10 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 100,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "composite-longbow",
                 "traits": {
@@ -630,7 +624,6 @@
                         "deadly-d10",
                         "magical",
                         "propulsive",
-                        "range-increment-100",
                         "reload-0",
                         "volley-30"
                     ]
@@ -641,7 +634,7 @@
         {
             "_id": "baE5TfLTN71MdB62",
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "+3 Perception to Sense Motive",
+            "name": "+3 to Sense Motive",
             "sort": 1100000,
             "system": {
                 "actionType": {

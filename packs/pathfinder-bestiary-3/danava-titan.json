@@ -439,13 +439,18 @@
                 },
                 "counteraction": false,
                 "damage": {},
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
                 "description": {
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @UUID[Compendium.pf2e.spells-srd.Item.Slow].</p>\n<hr />\n<p><strong>Area</strong> 50 ft long by 50 ft wide</p>"
+                    "value": "<p><strong>Area</strong> 50 feet long by 50 feet wide</p><hr /><p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Creatures that have the water trait and that are in the area when you Cast the Spell must attempt a Fortitude save, with the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Slow] spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": ""
+                    "value": "1 hour"
                 },
                 "level": {
                     "value": 5
@@ -455,9 +460,9 @@
                     "value": "t0jxVnsS6HbKkoTf"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -475,7 +480,6 @@
                     "rarity": "common",
                     "traditions": [
                         "arcane",
-                        "divine",
                         "primal"
                     ],
                     "value": [
@@ -1294,6 +1298,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1345,6 +1350,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1395,6 +1401,10 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": null,
+                    "max": 200
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1402,7 +1412,6 @@
                     "value": [
                         "brutal",
                         "magical",
-                        "range-200",
                         "water"
                     ]
                 },
@@ -1621,14 +1630,34 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The titan is as ever-moving as ocean waves. They're permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and the extra action can only be used to Stride, Strike, or Sustain a Spell, or as one of the actions necessary to Cast @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic].</p>"
+                    "value": "<p>The titan is as ever-moving as ocean waves. They're permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened], and the extra action can only be used to Stride, Strike, or Sustain a Spell, or as one of the actions necessary to Cast @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+                    },
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:granter:id:{item|id}"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

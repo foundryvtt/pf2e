@@ -4,7 +4,7 @@
     "name": "Spell Effect: Magic's Vessel (Resistance)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Magic's Vessel]</p>\n<p>The target gains resistance to damage from spells equal to the spell's rank.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Magic's Vessel]</p>\n<p>You gain resistance to damage from spells equal to the spell's rank.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -142,14 +142,9 @@
                 "prompt": "PF2E.SpecificRule.SpellRank.Prompt"
             },
             {
-                "definition": [
-                    "damage",
-                    "item:type:spell"
-                ],
                 "key": "Resistance",
-                "label": "PF2E.IWR.Custom.AllDamageFromSpells",
-                "type": "custom",
-                "value": "{item|flags.pf2e.rulesSelections.magicsVesselRank}"
+                "type": "spells",
+                "value": "@item.flags.pf2e.rulesSelections.magicsVesselRank"
             }
         ],
         "start": {

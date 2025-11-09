@@ -60,7 +60,13 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
-                        "item:trait:skill"
+                        "item:trait:skill",
+                        {
+                            "lte": [
+                                "item:level",
+                                "self:level"
+                            ]
+                        }
                     ],
                     "itemType": "feat"
                 },

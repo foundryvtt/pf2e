@@ -1,12 +1,10 @@
 import { OtherArmorTag } from "@item/armor/types.ts";
 import { BackgroundTrait } from "@item/background/types.ts";
-import { RANGE_TRAITS } from "@item/base/data/values.ts";
 import { ClassTrait } from "@item/class/types.ts";
 import { OtherConsumableTag } from "@item/consumable/types.ts";
 import { PreciousMaterialType } from "@item/physical/types.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { OtherWeaponTag } from "@item/weapon/types.ts";
-import { sluggify } from "@util";
 import * as R from "remeda";
 
 // Ancestry and heritage traits
@@ -28,6 +26,7 @@ const ancestryTraits = {
     conrasu: "PF2E.TraitConrasu",
     dhampir: "PF2E.TraitDhampir",
     dragonblood: "PF2E.TraitDragonblood",
+    dragonet: "PF2E.TraitDragonet",
     dromaar: "PF2E.TraitDromaar",
     duskwalker: "PF2E.TraitDuskwalker",
     dwarf: "PF2E.TraitDwarf",
@@ -46,6 +45,7 @@ const ancestryTraits = {
     hobgoblin: "PF2E.TraitHobgoblin",
     human: "PF2E.TraitHuman",
     hungerseed: "PF2E.TraitHungerseed",
+    jotunborn: "PF2E.TraitJotunborn",
     kashrishi: "PF2E.TraitKashrishi",
     kitsune: "PF2E.TraitKitsune",
     kobold: "PF2E.TraitKobold",
@@ -171,6 +171,8 @@ const creatureTraits = {
     ghoul: "PF2E.TraitGhoul",
     ghul: "PF2E.TraitGhul",
     giant: "PF2E.TraitGiant",
+    gigas: "PF2E.TraitGigas",
+    girtablilu: "PF2E.TraitGirtablilu",
     golem: "PF2E.TraitGolem",
     graveknight: "PF2E.TraitGraveknight",
     gremlin: "PF2E.TraitGremlin",
@@ -190,6 +192,7 @@ const creatureTraits = {
     light: "PF2E.TraitLight",
     lilu: "PF2E.TraitLilu",
     locathah: "PF2E.TraitLocathah",
+    maftet: "PF2E.TraitMaftet",
     mental: "PF2E.TraitMental",
     merfolk: "PF2E.TraitMerfolk",
     mindless: "PF2E.TraitMindless",
@@ -285,9 +288,11 @@ const classTraits: Record<ClassTrait, string> = {
     bard: "PF2E.TraitBard",
     champion: "PF2E.TraitChampion",
     cleric: "PF2E.TraitCleric",
+    commander: "PF2E.TraitCommander",
     druid: "PF2E.TraitDruid",
     exemplar: "PF2E.TraitExemplar",
     fighter: "PF2E.TraitFighter",
+    guardian: "PF2E.TraitGuardian",
     gunslinger: "PF2E.TraitGunslinger",
     inventor: "PF2E.TraitInventor",
     investigator: "PF2E.TraitInvestigator",
@@ -400,14 +405,16 @@ const weaponTraits = {
     ...magicTraditions,
     ...sanctificationTraits,
     adjusted: "PF2E.TraitAdjusted",
-    alchemical: "PF2E.TraitAlchemical",
     agile: "PF2E.TraitAgile",
+    alchemical: "PF2E.TraitAlchemical",
+    analog: "PF2E.TraitAnalog",
     apex: "PF2E.TraitApex",
     artifact: "PF2E.TraitArtifact",
     attached: "PF2E.TraitAttached",
     "attached-to-shield": "PF2E.TraitAttachedToShield",
     "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
     auditory: "PF2E.TraitAuditory",
+    automatic: "PF2E.TraitAutomatic",
     backstabber: "PF2E.TraitBackstabber",
     backswing: "PF2E.TraitBackswing",
     bomb: "PF2E.TraitBomb",
@@ -508,7 +515,11 @@ const weaponTraits = {
     "thrown-80": "PF2E.TraitThrown80",
     "thrown-100": "PF2E.TraitThrown100",
     "thrown-200": "PF2E.TraitThrown200",
+    time: "PF2E.TraitTime",
     training: "PF2E.TraitTraining",
+    "tracking-1": "PF2E.TraitTracking1",
+    "tracking-2": "PF2E.TraitTracking2",
+    "tracking-3": "PF2E.TraitTracking3",
     trip: "PF2E.TraitTrip",
     twin: "PF2E.TraitTwin",
     "two-hand-d6": "PF2E.TraitTwoHandD6",
@@ -532,6 +543,7 @@ const weaponTraits = {
     "versatile-spirit": "PF2E.TraitVersatileSpirit",
     "versatile-vitality": "PF2E.TraitVersatileVitality",
     "versatile-void": "PF2E.TraitVersatileVoid",
+    visual: "PF2E.TraitVisual",
     "volley-20": "PF2E.TraitVolley20",
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
@@ -580,12 +592,10 @@ const otherWeaponTags: Record<OtherWeaponTag, string> = {
     shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
-const rangeTraits = R.mapToObj(RANGE_TRAITS, (trait) => [trait, `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}`]);
-
 const npcAttackTraits = {
     ...weaponTraits,
     ...preciousMaterials,
-    ...rangeTraits,
+    area: "PF2E.TraitArea",
     concentrate: "PF2E.TraitConcentrate",
     curse: "PF2E.TraitCurse",
     "deadly-2d8": "PF2E.TraitDeadly2D8",
@@ -638,6 +648,7 @@ const featTraits = {
     artifact: "PF2E.TraitArtifact",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
+    brandish: "PF2E.TraitBrandish",
     bravado: "PF2E.TraitBravado",
     calling: "PF2E.TraitCalling",
     circus: "PF2E.TraitCircus",
@@ -685,6 +696,7 @@ const featTraits = {
     spellshot: "PF2E.TraitSpellshot",
     stamina: "PF2E.TraitStamina",
     stance: "PF2E.TraitStance",
+    tactic: "PF2E.TraitTactic",
     talisman: "PF2E.TraitTalisman",
     tandem: "PF2E.TraitTandem",
     time: "PF2E.TraitTime",
@@ -764,6 +776,7 @@ const consumableTraits = {
     virulent: "PF2E.TraitVirulent",
     visual: "PF2E.TraitVisual",
     wand: "PF2E.TraitWand",
+    whetstone: "PF2E.TraitWhetstone",
 };
 
 const weaponActionTraits = R.pick(weaponTraits, [
@@ -880,6 +893,7 @@ const hazardTraits = {
     inhaled: "PF2E.TraitInhaled",
     kaiju: "PF2E.TraitKaiju",
     mechanical: "PF2E.TraitMechanical",
+    nightmare: "PF2E.TraitNightmare",
     poison: "PF2E.TraitPoison",
     polymorph: "PF2E.TraitPolymorph",
     snare: "PF2E.TraitSnare",
@@ -895,6 +909,7 @@ const vehicleTraits = {
     artifact: "PF2E.TraitArtifact",
     clockwork: "PF2E.TraitClockwork",
     magical: "PF2E.TraitMagical",
+    tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
 };
 
@@ -910,6 +925,7 @@ const equipmentTraits = {
     adjusted: "PF2E.TraitAdjusted",
     adjustment: "PF2E.TraitAdjustment",
     alchemical: "PF2E.TraitAlchemical",
+    analog: "PF2E.TraitAnalog",
     apex: "PF2E.TraitApex",
     artifact: "PF2E.TraitArtifact",
     auditory: "PF2E.TraitAuditory",
@@ -920,12 +936,13 @@ const equipmentTraits = {
     coagulant: "PF2E.TraitCoagulant",
     coda: "PF2E.TraitCoda",
     companion: "PF2E.TraitCompanion",
-    contract: "PF2E.TraitContract",
     consecration: "PF2E.TraitConsecration",
+    contract: "PF2E.TraitContract",
     cursed: "PF2E.TraitCursed",
     darkness: "PF2E.TraitDarkness",
     death: "PF2E.TraitDeath",
     detection: "PF2E.TraitDetection",
+    dream: "PF2E.TraitDream",
     eidolon: "PF2E.TraitEidolon",
     emotion: "PF2E.TraitEmotion",
     expandable: "PF2E.TraitExpandable",
@@ -974,6 +991,7 @@ const equipmentTraits = {
     steam: "PF2E.TraitSteam",
     structure: "PF2E.TraitStructure",
     tattoo: "PF2E.TraitTattoo",
+    tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
     visual: "PF2E.TraitVisual",
     wand: "PF2E.TraitWand",
@@ -984,6 +1002,7 @@ const shieldTraits = {
     ...damageTraits,
     ...magicTraditions,
     alchemical: "PF2E.TraitAlchemical",
+    analog: "PF2E.TraitAnalog",
     apex: "PF2E.TraitApex",
     artifact: "PF2E.TraitArtifact",
     aura: "PF2E.TraitAura",
@@ -1002,9 +1021,11 @@ const shieldTraits = {
     invested: "PF2E.TraitInvested",
     "launching-dart": "PF2E.TraitLaunching",
     magical: "PF2E.TraitMagical",
+    mythic: "PF2E.TraitMythic",
     relic: "PF2E.TraitRelic",
     "shield-throw-20": "PF2E.TraitShieldThrow20",
     "shield-throw-30": "PF2E.TraitShieldThrow30",
+    tech: "PF2E.TraitTech",
 };
 
 const armorTraits = {
@@ -1013,6 +1034,7 @@ const armorTraits = {
     ...magicTraditions,
     adjusted: "PF2E.TraitAdjusted",
     alchemical: "PF2E.TraitAlchemical",
+    analog: "PF2E.TraitAnalog",
     apex: "PF2E.TraitApex",
     aquadynamic: "PF2E.TraitAquadynamic",
     artifact: "PF2E.TraitArtifact",
@@ -1027,9 +1049,9 @@ const armorTraits = {
     "entrench-melee": "PF2E.TraitEntrenchMelee",
     "entrench-ranged": "PF2E.TraitEntrenchRanged",
     extradimensional: "PF2E.TraitExtradimensional",
+    flexible: "PF2E.TraitFlexible",
     focused: "PF2E.TraitFocused",
     force: "PF2E.TraitForce",
-    flexible: "PF2E.TraitFlexible",
     healing: "PF2E.TraitHealing",
     hindering: "PF2E.TraitHindering",
     illusion: "PF2E.TraitIllusion",
@@ -1044,9 +1066,11 @@ const armorTraits = {
     plant: "PF2E.TraitPlant",
     ponderous: "PF2E.TraitPonderous",
     relic: "PF2E.TraitRelic",
+    "resilient-1": "PF2E.TraitResilient1",
+    "resilient-2": "PF2E.TraitResilient2",
+    "resilient-3": "PF2E.TraitResilient3",
+    tech: "PF2E.TraitTech",
 };
-
-const rangeDescriptions = R.mapToObj(RANGE_TRAITS, (trait) => [trait, "PF2E.TraitDescriptionRange"]);
 
 const kingmakerTraits = {
     ...actionTraits,
@@ -1119,6 +1143,7 @@ const traitDescriptions = {
     alchemist: "PF2E.TraitDescriptionAlchemist",
     amphibious: "PF2E.TraitDescriptionAmphibious",
     anadi: "PF2E.TraitDescriptionAnadi",
+    analog: "PF2E.TraitDescriptionAnalog",
     android: "PF2E.TraitDescriptionAndroid",
     angel: "PF2E.TraitDescriptionAngel",
     animal: "PF2E.TraitDescriptionAnimal",
@@ -1246,6 +1271,7 @@ const traitDescriptions = {
     downtime: "PF2E.TraitDescriptionDowntime",
     dragon: "PF2E.TraitDescriptionDragon",
     dragonblood: "PF2E.TraitDescriptionDragonblood",
+    dragonet: "PF2E.TraitDescriptionDragonet",
     dream: "PF2E.TraitDescriptionDream",
     dromaar: "PF2E.TraitDescriptionDromaar",
     drug: "PF2E.TraitDescriptionDrug",
@@ -1307,6 +1333,7 @@ const traitDescriptions = {
     ghoul: "PF2E.TraitDescriptionGhoul",
     ghul: "PF2E.TraitDescriptionGhul",
     giant: "PF2E.TraitDescriptionGiant",
+    girtablilu: "PF2E.TraitDescriptionGirtablilu",
     gnoll: "PF2E.TraitDescriptionGnoll",
     gnome: "PF2E.TraitDescriptionGnome",
     goblin: "PF2E.TraitDescriptionGoblin",
@@ -1337,6 +1364,7 @@ const traitDescriptions = {
     human: "PF2E.TraitDescriptionHuman",
     humanoid: "PF2E.TraitDescriptionHumanoid",
     naari: "PF2E.TraitDescriptionNaari",
+    nightmare: "PF2E.TraitDescriptionNightmare",
     ikon: "PF2E.TraitDescriptionIkon",
     illusion: "PF2E.TraitDescriptionIllusion",
     impulse: "PF2E.TraitDescriptionImpulse",
@@ -1376,6 +1404,7 @@ const traitDescriptions = {
     litany: "PF2E.TraitDescriptionLitany",
     lizardfolk: "PF2E.TraitDescriptionLizardfolk",
     lozenge: "PF2E.TraitDescriptionLozenge",
+    maftet: "PF2E.TraitDescriptionMaftet",
     magical: "PF2E.TraitDescriptionMagical",
     magus: "PF2E.TraitDescriptionMagus",
     manipulate: "PF2E.TraitDescriptionManipulate",
@@ -1456,7 +1485,6 @@ const traitDescriptions = {
     rage: "PF2E.TraitDescriptionRage",
     akshasa: "PF2E.TraitDescriptionRakshasa",
     ranger: "PF2E.TraitDescriptionRanger",
-    ...rangeDescriptions,
     "ranged-trip": "PF2E.TraitDescriptionRangedTrip",
     rare: "PF2E.TraitDescriptionRare",
     ratfolk: "PF2E.TraitDescriptionRatfolk",

@@ -12,6 +12,11 @@
             "name": "Mammoth Bow",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "composite-longbow",
                 "bonus": {
                     "value": 0
@@ -251,79 +256,13 @@
             "type": "armor"
         },
         {
-            "_id": "ao9F9f9chYtSJmll",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
-            "name": "Arrows",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 30,
-                "rules": [],
-                "size": "lg",
-                "slug": "arrows",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "AiEApyPGuRn9V2S7",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.m99u0zXVbyPdK8Mf"
             },
             "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-fire-resistance.webp",
             "name": "Potion of Fire Resistance (Moderate)",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -384,6 +323,56 @@
             "type": "consumable"
         },
         {
+            "_id": "ao9F9f9chYtSJmll",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 500000,
+            "system": {
+                "baseItem": "arrows",
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 30,
+                "rules": [],
+                "size": "lg",
+                "slug": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
+        },
+        {
             "_id": "susn3naoeh7sckhg",
             "flags": {
                 "pf2e": {
@@ -418,6 +407,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -466,6 +456,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -522,6 +513,10 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 180,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -530,7 +525,6 @@
                         "deadly-d10",
                         "magical",
                         "propulsive",
-                        "range-increment-180",
                         "reload-0",
                         "volley-50"
                     ]

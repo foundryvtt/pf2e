@@ -1,0 +1,354 @@
+{
+    "_id": "qSlw0pWIgYnRr58I",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "lctO2P0MLVpB9WYB",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Final Grudge",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The wight battalion is about to lose a segment due to Hit Point damage</p><hr /><p><strong>Effect</strong> The wights strike out as they fall. Each enemy in a @Template[type:emanation|distance:5] takes @Damage[2d4[piercing]|options:area-damage] damage (@Check[reflex|dc:25|basic|options:area-effect] save). This occurs before the battalion loses a segment.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "i2hz3lKfdVEcYptB",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fueled by Spite",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Each time a creature loses Hit Points due to the wight battalion's corrupting spite curse, the battalion gains 6 temporary Hit Points that last for 1 round.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Fueled by Spite]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "icFtpyk3vKrnSxKV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>HP</strong> 150 (4 segments); <strong>Thresholds</strong> 100 (3 segments), 50 (2 segments)</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "i5jWmQ8e6h6E4QoP",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopMovement]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-movement",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uYiopDw2hIKeycLa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ze7HYEJOg83Kkcje",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Corrupting Spite",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The wight battalion's attacks inflict a curse that makes a creature grow weak and spiteful. A living humanoid that dies while under this curse rises as a @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Wight] after [[/gmr 1d4 #rounds]]{1d4 rounds}, controlled by the wight battalion that inflicted the curse. This new wight can't inflict corrupting spite and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}. If the creating wight battalion dies or after roughly a month of existence, the new wight becomes autonomous and becomes a normal wight</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and doesn't treat any creatures as allies (1 round)</p>\n<p><strong>Stage 3</strong> As stage 2, except @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>\n<p><strong>Stage 4</strong> As stage 2, except @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4} (1 round).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "inline-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JZsyW5yBoBlflI3F",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
+            "name": "Hateful Daggers",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p><hr /><p>The wights coordinate melee attacks with the daggers they were buried with. Each enemy within a @Template[type:emanation|distance:5] attempts a @Check[reflex|dc:25|basic|options:area-effect] save. The damage depends on the number of actions. On a failed save, the creature is also exposed to corrupting spite.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[2d4[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(4d4+8)[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(4d4+14)[piercing]|options:area-damage] damage</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Wight Battalion",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "(4 segments); Thresholds 100 (3 segments), 50 (2 segments)",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "speed": {
+                "details": "troop movement",
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 7
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 7
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Wights are malevolent undead, bent on desecrating the holy and determined to cause suffering to all living creatures. A lone wight is dangerous enough, but when compelled to act together, they are a force to be reckoned with. A wight battalion has the potential to curse entire armies, increasing their numbers until they become an unholy tide.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Battlecry!"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 20
+            },
+            "intimidation": {
+                "base": 18
+            },
+            "stealth": {
+                "base": 18
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "troop",
+                "undead",
+                "unholy",
+                "wight"
+            ]
+        }
+    },
+    "type": "npc"
+}

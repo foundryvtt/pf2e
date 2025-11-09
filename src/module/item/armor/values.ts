@@ -53,6 +53,7 @@ const ARMOR_PROPERTY_RUNE_TYPES = new Set([
     "sinisterKnight",
     "sizeChanging",
     "slick",
+    "spellwatch",
     "soaring",
     "stanching",
     "swallowSpike",

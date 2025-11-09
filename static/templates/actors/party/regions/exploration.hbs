@@ -37,15 +37,17 @@
                     {{#unless member.restricted}}
                         <div class="sub-data">
                             <span>
-                                <i class="fa-solid fa-person-running"></i> {{member.actor.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}
+                                <i class="fa-solid fa-person-hiking" inert></i>
+                                {{member.actor.system.movement.speeds.travel.value}}
+                                {{localize "PF2E.TravelSpeed.FeetAcronym"}}
                             </span>
                             <span>
-                                <i class="fa-solid fa-eye"></i> {{member.actor.perception.dc.value}}
+                                <i class="fa-solid fa-eye" inert></i> {{member.actor.perception.dc.value}}
                             </span>
                         </div>
                         <footer class="health-bar">
                             <div class="bar" style="width: {{percentage member.hp.value member.hp.max}}%;"></div>
-                            <span><i class="fa-solid fa-heart"></i> {{member.hp.value}} / {{member.hp.max}}</span>
+                            <span><i class="fa-solid fa-heart" inert></i> {{member.hp.value}} / {{member.hp.max}}</span>
                         </footer>
                     {{/unless}}
                 </li>
@@ -60,8 +62,10 @@
         <header class="content-header">
             <a data-action="clear-exploration">{{localize "PF2E.Actor.Party.ClearActivities.Label"}}</a>
             <div class="buttons">
-                <button type="button" data-action="prompt" data-tooltip="PF2E.Actor.Party.CheckPrompt.TitleShort"><i class="fa-solid fa-dice-d20"></i></button>
-                <button type="button" data-action="rest" data-tooltip="PF2E.Actor.Party.Rest" ><i class="fa-solid fa-fw fa-bed"></i></button>
+                <button type="button" class="icon fa-solid fa-dice-d20" data-action="prompt"
+                        data-tooltip aria-label={{localize "PF2E.Actor.Party.CheckPrompt.TitleShort"}}></button>
+                <button type="button" class="icon fa-solid fa-fw fa-bed" data-action="rest"
+                        data-tooltip aria-label={{localize "PF2E.Actor.Party.Rest"}}></button>
             </div>
         </header>
     {{/if}}
@@ -88,7 +92,7 @@
                         </div>
                     {{else}}
                         <div class="empty" data-action="open-sheet" data-tab="exploration">
-                            <div class="icon"><i class="fa-solid fa-plus fa-fw"></i></div>
+                            <div class="icon"><i class="fa-solid fa-plus fa-fw" inert></i></div>
                             <div>
                                 <div class="name">{{localize "PF2E.Item.Ability.Type.Activity"}}</div>
                                 <div class="hint">{{localize "PF2E.Actor.Party.SlotAvailable"}}</div>

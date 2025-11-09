@@ -1,15 +1,25 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
-import type { ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import type { ItemType } from "@item/types.ts";
 import * as R from "remeda";
 import { AELikeRuleElement } from "../ae-like.ts";
-import { RuleElementPF2e } from "../base.ts";
-import type { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
-import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
+import { RuleElement, RuleElementOptions } from "../base.ts";
+import type { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource } from "../data.ts";
+import { ItemAlteration, ItemAlterationProperty, ItemAlterationSchema } from "./alteration.ts";
 import fields = foundry.data.fields;
 
-class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
+class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
+        super(data, options);
+
+        // Force false if there is no way this RE is relevant to ABP. This doesn't lead to any runtime changes
+        const abpRelevantProperties: ItemAlterationProperty[] = ["runes-potency", "runes-resilient", "runes-striking"];
+        if (!this.item.isOfType("physical") && !abpRelevantProperties.includes(this.property)) {
+            this.fromEquipment = false;
+        }
+    }
+
     static override defineSchema(): ItemAlterationRuleSchema {
         // Set a default priority according to AE mode yet still later than AE-likes
         const baseSchema = super.defineSchema();
@@ -34,6 +44,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
                 choices: itemTypeChoices,
                 initial: undefined,
             }),
+            battleForm: new fields.BooleanField(),
             ...ItemAlteration.defineSchema(),
         };
     }
@@ -57,7 +68,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         return this.constructor.#LAZY_PROPERTIES.includes(this.property);
     }
 
-    override async preCreate({ tempItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
+    override async preCreate({ tempItems }: RuleElement.PreCreateParams): Promise<void> {
         if (this.ignored) return;
 
         // Apply feature/feature alterations during pre-creation to possibly inform subsequent REs like choice sets
@@ -77,9 +88,8 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         );
         const updates = itemsToAlter.flatMap((item): { _id: string; "system.hp.value": number } | never[] => {
             const source = item.toObject();
-            const alteration = new ItemAlteration(R.pick(this, ["mode", "property", "value"] as const), {
-                parent: this,
-            });
+            const alterationData = R.pick(this, ["mode", "property", "value", "fromEquipment"] as const);
+            const alteration = new ItemAlteration(alterationData, { parent: this });
             alteration.applyTo(source);
             alteration.applyTo(item);
             const newHP = source.system.hp;
@@ -93,7 +103,11 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     override onApplyActiveEffects(): void {
-        this.actor.synthetics.itemAlterations.push(this);
+        const actor = this.actor;
+        if (this.ignored) return;
+        if (this.battleForm && !this.predicate.includes("battle-form")) this.predicate.push("battle-form");
+
+        actor.synthetics.itemAlterations.push(this);
         const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
         if (!this.isLazy && !isDelayed) {
             this.applyAlteration();
@@ -101,6 +115,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     override afterPrepareData(): void {
+        if (this.ignored) return;
         const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
         if (!this.isLazy && isDelayed) {
             this.applyAlteration();
@@ -131,7 +146,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
                 const itemRollOptions = predicate.length > 0 ? item.getRollOptions("item") : [];
                 const rollOptions = [actorRollOptions, parentRollOptions, itemRollOptions].flat();
                 if (predicate.test(rollOptions)) {
-                    const data = R.pick(this, ["mode", "property", "value"]);
+                    const data = R.pick(this, ["mode", "property", "value", "fromEquipment"]);
                     const alteration = new ItemAlteration(data, { parent: this });
                     alteration.applyTo(item);
                 }
@@ -170,7 +185,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 }
 
 interface ItemAlterationRuleElement
-    extends RuleElementPF2e<ItemAlterationRuleSchema>,
+    extends RuleElement<ItemAlterationRuleSchema>,
         ModelPropsFromRESchema<ItemAlterationRuleSchema> {
     constructor: typeof ItemAlterationRuleElement;
 }
@@ -181,6 +196,8 @@ type ItemAlterationRuleSchema = RuleElementSchema &
         itemType: fields.StringField<ItemType, ItemType, false, false, false>;
         /** As an alternative to specifying item types, an exact item ID can be provided */
         itemId: fields.StringField<string, string, false, false, false>;
+        /** Whether this rule element is compatible with battle forms */
+        battleForm: fields.BooleanField;
     };
 
 interface ApplyAlterationOptions {

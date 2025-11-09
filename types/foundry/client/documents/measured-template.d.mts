@@ -1,3 +1,4 @@
+import MeasuredTemplateConfig from "@client/applications/sheets/template-config.mjs";
 import MeasuredTemplate from "../canvas/placeables/template.mjs";
 import { BaseMeasuredTemplate, Scene } from "./_module.mjs";
 import { CanvasDocument, CanvasDocumentStatic } from "./abstract/canvas-document.mjs";
@@ -37,7 +38,7 @@ export default class MeasuredTemplateDocument<
 
 export default interface MeasuredTemplateDocument<TParent extends Scene | null = Scene | null>
     extends CanvasBaseMeasuredTemplate<TParent> {
-    get sheet(): MeasuredTemplateConfig<this> | null;
+    get sheet(): MeasuredTemplateConfig | null;
     get object(): MeasuredTemplate<this> | null;
 }
 

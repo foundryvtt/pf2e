@@ -311,26 +311,11 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You amplify your voice, loud enough for you to be heard easily at a great distance. For the duration, your voice can be heard loudly and clearly by all listeners within 500 feet, even if other ambient noise would otherwise block the sound. Despite the volume, this doesn't make your voice jarring or distracting. This doesn't increase the range or area of other auditory or linguistic effects, and physical barriers such as walls and doors still block or muffle your voice as normal.</p>\n<p>Your loud voice makes it easier to Coerce others, and the acoustics assist in Performing at a large venue. You gain a +1 status bonus to checks to Coerce and auditory Performance checks to Perform at a large venue. You can Dismiss the spell.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bullhorn]</p>\n<hr />\n<p><strong>Heightened (5th)</strong> Your voice can be heard clearly up to 1,200 feet away.</p>\n<p><strong>Heightened (7th)</strong> Your voice can be heard clearly up to 1 mile away.</p>"
+                    "value": "<p>You amplify your voice, loud enough for you to be heard easily at a great distance. For the duration, your voice can be heard loudly and clearly by all listeners within 500 feet, even if other ambient noise would otherwise block the sound. Despite the volume, this doesn't make your voice jarring or distracting. This doesn't increase the range or area of other auditory or linguistic effects, and physical barriers such as walls and doors still block or muffle your voice as normal.</p>\n<p>Your loud voice makes it easier to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] others, and the acoustics assist in Performing at a large venue. You gain a +1 status bonus to checks to Coerce and auditory Performance checks to @UUID[Compendium.pf2e.actionspf2e.Item.Perform] at a large venue. You can Dismiss the spell.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bullhorn]</p><hr /><p><strong>Heightened (5th)</strong> Your voice can be heard clearly up to 1,200 feet away.</p>\n<p><strong>Heightened (7th)</strong> Your voice can be heard clearly up to 1 mile away.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": "10 minutes"
-                },
-                "heightening": {
-                    "levels": {
-                        "5": {
-                            "range": {
-                                "value": "1200 feet"
-                            }
-                        },
-                        "7": {
-                            "range": {
-                                "value": "1 mile"
-                            }
-                        }
-                    },
-                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -339,12 +324,12 @@
                     "value": "SIKX39Q5m1oVi8SX"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Secrets of Magic"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "range": {
-                    "value": "500 feet"
+                    "value": ""
                 },
                 "requirements": "",
                 "rules": [],
@@ -490,7 +475,7 @@
                 },
                 "duration": {
                     "sustained": false,
-                    "value": "1 round"
+                    "value": ""
                 },
                 "heightening": {
                     "damage": {
@@ -1009,9 +994,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "bludgeoning"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     },
                     "cUFX7ExSLeoa3vIF": {
@@ -1023,9 +1012,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "piercing"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     },
                     "zFWsMjoeCnLxqJaV": {
@@ -1037,9 +1030,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "slashing"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     }
                 },
@@ -1105,6 +1102,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1148,6 +1146,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1239,6 +1238,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> A creature Casts a Spell of 3rd rank or lower since the end of the virtuosic lyrebird' s last turn, and the virtuosic lyrebird heard the incantation for the spell</p><hr /><p><strong>Effect</strong> The virtuosic lyrebird learns the spell enough to mimic and cast it this turn, using as many actions as the original spell took.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "OGL",

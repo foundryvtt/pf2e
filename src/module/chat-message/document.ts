@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
-import { StrikeData } from "@actor/data/base.ts";
+import type { AttackAction, StrikeData } from "@actor/data/base.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
-import type { DataModelConstructionContext } from "@common/abstract/_module.mjs";
+import type { DataModelConstructionContext } from "@common/abstract/_module.d.mts";
 import type {
     ChatMessageCreateCallbackOptions,
     ChatMessageCreateOperation,
@@ -114,42 +114,65 @@ class ChatMessagePF2e extends ChatMessage {
         const strike = this._strike;
         if (strike?.item) return strike.item;
 
-        const item = ((): ItemPF2e<ActorPF2e> | null => {
-            const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
-            if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
-
-            const origin = this.flags.pf2e?.origin ?? null;
-            const item = origin?.uuid && !origin.uuid.startsWith("Compendium.") ? fromUuidSync(origin.uuid) : null;
-            return item instanceof ItemPF2e ? item : null;
-        })();
-        if (!item) return null;
-
+        const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
+        const origin = this.flags.pf2e.origin;
+        const item =
+            actor && embeddedSpell
+                ? (new ItemProxyPF2e(embeddedSpell, { parent: actor }) as ItemPF2e<ActorPF2e>)
+                : origin?.uuid && !origin.uuid.startsWith("Compendium.")
+                  ? fromUuidSync<ItemPF2e<ActorPF2e>>(origin.uuid)
+                  : null;
+        if (!(item instanceof ItemPF2e)) return null;
         if (item?.isOfType("spell")) {
             const entryId = this.flags.pf2e?.casting?.id ?? null;
-            const overlayIds = this.flags.pf2e.origin?.variant?.overlays;
-            const castRank = this.flags.pf2e.origin?.castRank ?? item.rank;
+            const overlayIds = origin?.variant?.overlays;
+            const castRank = origin?.castRank ?? item.rank;
             const modifiedSpell = item.loadVariant({ overlayIds, castRank, entryId });
             return modifiedSpell ?? item;
         }
-
         return item;
     }
 
-    /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
+        // todo: deprecation warning
+        const attack = this._attack;
+        return attack?.type === "strike" ? attack : null;
+    }
+
+    /** If this message was for a strike, return the strike. Strikes will change in a future release */
+    get _attack(): AttackAction | null {
         const actor = this.speakerActor;
+        if (!actor) return null;
+
+        // Handle in-memory unarmed attacks
+        const origin = this.flags.pf2e.origin;
+        const parsedUUID = fu.parseUuid(origin?.uuid ?? "") ?? { id: "" };
+        if (actor?.isOfType("character") && ["xxxxxxFISTxxxxxx", "xxPF2ExUNARMEDxx"].includes(parsedUUID.id)) {
+            return actor?.system.actions?.find((s) => s.item.id === parsedUUID.id) ?? null;
+        }
 
         // Get strike data from the roll identifier
+        const context = this.flags.pf2e.context;
         const roll = this.rolls.find((r): r is Rolled<CheckRoll> => r instanceof CheckRoll);
         const identifier =
             roll?.options.identifier ??
+            (context && "identifier" in context ? context.identifier : null) ??
             htmlQuery(document.body, `li.message[data-message-id="${this.id}"] [data-identifier]`)?.dataset.identifier;
+
+        // First check for an exact match with the identifier, which is a bit more specific (this catches area/auto fire rn, expand later)
+        for (const action of actor.system.actions ?? []) {
+            if (action.slug === identifier) return action;
+            const altUsageMatch = action.altUsages?.find((u) => u.slug === identifier);
+            if (altUsageMatch) return action;
+        }
+
+        // Parse the identifier and attempt to figure it out based on weapon type matching
         const [itemId, slug, meleeOrRanged] = identifier?.split(".") ?? [null, null, null];
         if (!meleeOrRanged || !["melee", "ranged"].includes(meleeOrRanged)) {
             return null;
         }
 
-        const strikeData = actor?.system.actions?.find((s) => s.slug === slug && s.item.id === itemId);
+        const strikeData = actor.system.actions?.find((s) => s.slug === slug && s.item.id === itemId);
         const itemMeleeOrRanged = strikeData?.item.isMelee ? "melee" : "ranged";
 
         return meleeOrRanged === itemMeleeOrRanged
@@ -197,7 +220,8 @@ class ChatMessagePF2e extends ChatMessage {
         // For non-image types consider video thumbnails using game.video.createThumbnail() depending on cache performance
         // Tokens with smaller scales (such as for small and tiny actors) are set to scale 1
         const header = html?.querySelector("header.message-header");
-        if (actor && header && this.isContentVisible) {
+        const isOOC = this.style === CONST.CHAT_MESSAGE_STYLES.OOC;
+        if (!isOOC && actor && header && this.isContentVisible) {
             const token = this.token ?? actor.prototypeToken;
 
             const [imageUrl, scale] = (() => {
@@ -218,6 +242,7 @@ class ChatMessagePF2e extends ChatMessage {
             const image = document.createElement("img");
             image.alt = actor.name;
             image.src = imageUrl;
+            image.inert = true;
             image.style.transform = `scale(${scale})`;
 
             // If image scale is above 1.2, we might need to add a radial fade to not block out the name
@@ -239,6 +264,19 @@ class ChatMessagePF2e extends ChatMessage {
             if (this.author) {
                 header.append(createHTMLElement("span", { classes: ["user"], children: [this.author.name] }));
             }
+        }
+
+        // If the description has auto-collapse, collapse if text exceeds a certain length
+        // Its not possible to check the actual size if its not in the DOM yet
+        const collapsableElement = html.querySelector<HTMLElement>(
+            ".description[data-auto-collapse], .card-content[data-auto-collapse]",
+        );
+        if (collapsableElement && collapsableElement.innerText.length > 250) {
+            collapsableElement.classList.add("collapsed");
+            collapsableElement.dataset.action = "expand-description";
+            collapsableElement.dataset.tooltipClass = "pf2e";
+            collapsableElement.dataset.tooltip = "PF2E.Action.ExpandDescription";
+            collapsableElement.after(createHTMLElement("div", { classes: ["shadow"] }));
         }
 
         if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll) {
@@ -275,8 +313,8 @@ class ChatMessagePF2e extends ChatMessage {
             }
         }
 
-        html.addEventListener("mouseenter", (event) => this.#onHoverIn(event));
-        html.addEventListener("mouseleave", (event) => this.#onHoverOut(event));
+        html.addEventListener("pointerenter", (event) => this.#onHoverIn(event));
+        html.addEventListener("pointerleave", (event) => this.#onHoverOut(event));
 
         UserVisibilityPF2e.processMessageSender(this, html);
         if ((!actor || this.isRoll) && this.content) {
@@ -333,7 +371,7 @@ class ChatMessagePF2e extends ChatMessage {
     }
 
     /** Highlight the message's corresponding token on the canvas */
-    #onHoverIn(nativeEvent: MouseEvent | PointerEvent): void {
+    #onHoverIn(nativeEvent: PointerEvent): void {
         if (!canvas.ready) return;
         const token = this.token?.object;
         if (token?.isVisible && !token.controlled) {
@@ -342,7 +380,7 @@ class ChatMessagePF2e extends ChatMessage {
     }
 
     /** Remove the token highlight */
-    #onHoverOut(nativeEvent: MouseEvent | PointerEvent): void {
+    #onHoverOut(nativeEvent: PointerEvent): void {
         if (canvas.ready) this.token?.object?.emitHoverOut(nativeEvent);
     }
 

@@ -1,11 +1,8 @@
 /**
  * A mixin wich decorates a shader or filter and construct a fragment shader according to a choosen channel.
- * @category Mixins
- * @param {typeof PIXI.Shader|PIXI.Filter} ShaderClass The parent ShaderClass class being mixed.
+ * @param ShaderClass The parent ShaderClass class being mixed.
  */
-export default function AdaptiveFragmentChannelMixin(ShaderClass: typeof PIXI.Shader | PIXI.Filter): {
-    new (): {};
-
+export default function AdaptiveFragmentChannelMixin(ShaderClass: typeof PIXI.Shader | typeof PIXI.Filter): {
     /**
      * The fragment shader which renders this filter.
      * A subclass of AdaptiveFragmentChannelMixin must implement the fragmentShader static field.
@@ -20,5 +17,5 @@ export default function AdaptiveFragmentChannelMixin(ShaderClass: typeof PIXI.Sh
      */
     create(options?: { uniforms?: object; channel?: "r" | "g" | "b" } | undefined): PIXI.Shader | PIXI.Filter;
 
-    fragmentShader: () => string | string;
+    fragmentShader: string | (() => string);
 };

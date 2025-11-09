@@ -35,7 +35,7 @@ const action = new SingleCheckAction({
         { outcome: ["success"], text: "PF2E.Actions.DisableDevice.Notes.success" },
         { outcome: ["criticalFailure"], text: "PF2E.Actions.DisableDevice.Notes.criticalFailure" },
     ],
-    rollOptions: ["action:disable-a-device", "action:disable-device"],
+    rollOptions: ["action:disable-a-device"],
     section: "skill",
     slug: "disable-device",
     statistic: "thievery",

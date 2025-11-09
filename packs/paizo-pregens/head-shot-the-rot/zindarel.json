@@ -309,6 +309,10 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> You're wielding a loaded firearm or crossbow.</p>\n<hr />\n<p>You lay down suppressive fire to protect allies by forcing foes to take cover from your wild attacks. Make a firearm or crossbow Strike; the target must decide before you roll your attack whether it will duck out of the way. If the target ducks, it gains a +2 circumstance bonus to AC against your attack, or a +4 circumstance bonus to AC if it has cover. It also takes a -2 circumstance penalty to ranged attack rolls until the end of its next turn. If the target chooses not to duck, you gain a +1 circumstance bonus to your attack roll for that Strike.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
                 "level": {
                     "taken": 1,
                     "value": 1
@@ -602,6 +606,11 @@
             "name": "Mithral Tree",
             "sort": 0,
             "system": {
+                "ammo": {
+                    "baseType": "rounds-mithral-tree",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "mithral-tree",
                 "bonus": {
                     "value": 0
@@ -1237,31 +1246,17 @@
             "name": "Rounds (Mithral Tree)",
             "sort": 0,
             "system": {
-                "baseItem": null,
+                "baseItem": "rounds-mithral-tree",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -1278,15 +1273,12 @@
                 "rules": [],
                 "size": "med",
                 "slug": "rounds-mithral-tree",
-                "stackGroup": "rounds10",
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "alchemical"
+                        "alchemical",
+                        "consumable"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -1294,7 +1286,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "wvNOgojwphrIooqF",
@@ -1309,6 +1301,7 @@
                 "bulk": {
                     "value": 1
                 },
+                "category": "coin",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -1334,15 +1327,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 4,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
-                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -1907,6 +1899,7 @@
                     },
                     {
                         "category": "precision",
+                        "diceNumber": "match(when(lte(@actor.level, 8), 1), when(btwn(@actor.level, 9, 14), 2), when(gte(@actor.level, 15), 3))",
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
@@ -1918,30 +1911,7 @@
                                 ]
                             }
                         ],
-                        "selector": "strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 8,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 14,
-                                    "start": 9,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "start": 15,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                }
-                            ]
-                        }
+                        "selector": "strike-damage"
                     },
                     {
                         "key": "Note",
@@ -2139,10 +2109,6 @@
             "hp": {
                 "temp": 0,
                 "value": 30
-            },
-            "speed": {
-                "otherSpeeds": [],
-                "value": 25
             }
         },
         "build": {

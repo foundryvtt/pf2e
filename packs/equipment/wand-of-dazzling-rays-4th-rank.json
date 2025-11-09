@@ -7,7 +7,9 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p>Solidified radiance comprises this slender, featureless wand. It sheds bright light in a 20-foot radius and dim light for the next 20 feet. After you Activate the wand, the light fades, so it only sheds dim light in a 20-foot radius. The wand returns to its original brightness each dawn.</p><hr /><p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You cast 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Holy Light], dazzling your target with the beam's intensity. A creature that takes damage from the spell is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for a number of rounds equal to the spell rank. On a critical success on the attack roll, the target is also blinded for as long as it's dazzled from the spell. However, it can attempt a @Check[fortitude] saving throw against your spell DC at the end of each of its turns, ending the blinded condition on a success (but remaining dazzled).</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of <em>holy light</em> of the appropriate rank.</p>"
         },
@@ -25,7 +27,10 @@
         },
         "price": {
             "value": {
-                "gp": 1000
+                "cp": 0,
+                "gp": 1000,
+                "pp": 0,
+                "sp": 0
             }
         },
         "publication": {
@@ -78,6 +83,101 @@
             }
         ],
         "size": "med",
+        "spell": {
+            "_id": "Qmme43IpHqIBzFqa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.DyiD239dNS7RIxZE"
+            },
+            "folder": "4fJHnYFqH0VjZXPv",
+            "img": "systems/pf2e/icons/spells/searing-light.webp",
+            "name": "Holy Light",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "5d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You shine a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target has the unholy trait, you deal an extra 5d6 spirit damage.</p><hr /><p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>holy light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target.</p><hr /><p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the spirit damage against unholy creatures increases by 2d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": null
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [
+                    {
+                        "damageType": "spirit",
+                        "diceNumber": "(@spell.level*2)-1",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:trait:unholy"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
+                "slug": "holy-light",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "concentrate",
+                        "fire",
+                        "holy",
+                        "light",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -90,7 +190,12 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

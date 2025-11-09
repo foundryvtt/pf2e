@@ -2,7 +2,7 @@ import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import { ItemPF2e } from "@item";
 import { EffectContextData } from "@item/abstract-effect/index.ts";
 
-type DropCanvasItemDataPF2e = DropCanvasData<"Item", ItemPF2e> & {
+type DropCanvasItemData = DropCanvasData<"Item", ItemPF2e> & {
     value?: number;
     level?: number;
     spellFrom?: {
@@ -17,6 +17,6 @@ type DropCanvasPersistentDamage = DropCanvasData<"PersistentDamage"> & {
     formula: string;
 };
 
-type DropCanvasDataPF2e = DropCanvasItemDataPF2e | DropCanvasPersistentDamage;
+type DropCanvasDataPF2e = DropCanvasItemData | DropCanvasPersistentDamage;
 
-export type { DropCanvasDataPF2e, DropCanvasItemDataPF2e };
+export type { DropCanvasDataPF2e, DropCanvasItemData };

@@ -44,6 +44,24 @@
                 ],
                 "property": "pd-recovery-dc",
                 "value": 11
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "penalty:slug:drained",
+                            "penalty:slug:enfeebled"
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "con-based",
+                    "str-based",
+                    "str-damage"
+                ],
+                "value": 1
             }
         ],
         "traits": {

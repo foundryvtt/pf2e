@@ -1,0 +1,48 @@
+{
+    "_id": "U37oY6akeNfTtgLk",
+    "img": "icons/magic/control/debuff-energy-snare-purple-pink.webp",
+    "name": "Effect: Bad Deal",
+    "system": {
+        "description": {
+            "value": "<p>You must roll your next attack roll, saving throw, or skill check twice and use the worse result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "removeAfterRoll": true,
+                "selector": [
+                    "attack-roll",
+                    "saving-throw",
+                    "skill-check"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

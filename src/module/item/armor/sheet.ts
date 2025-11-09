@@ -1,7 +1,8 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
-    CoinsPF2e,
+    Coins,
+    Grade,
     MATERIAL_DATA,
     MaterialSheetData,
     PhysicalItemSheetData,
@@ -38,7 +39,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             ...sheetData,
             abpEnabled: ABP.isEnabled(this.actor),
             adjustedBulkHint,
-            basePrice: new CoinsPF2e(armor._source.system.price.value),
+            basePrice: new Coins(armor._source.system.price.value),
             baseTypes: sortStringRecord(CONFIG.PF2E.baseArmorTypes),
             categories: CONFIG.PF2E.armorCategories,
             groups: sortStringRecord(CONFIG.PF2E.armorGroups),
@@ -51,6 +52,11 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
                     .map((p) => ({ slug: p.slug, name: game.i18n.localize(p.name) }))
                     .sort((a, b) => a.name.localeCompare(b.name)),
             },
+            grades: R.mapValues(CONFIG.PF2E.grades, (v, slug) => {
+                const label = game.i18n.localize(v);
+                const data = CONFIG.PF2E.armorImprovements[slug];
+                return game.i18n.format("PF2E.Item.Armor.GradeOption", { grade: label, ...data });
+            }),
             specificMagicData,
         };
     }
@@ -75,7 +81,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
 
 interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
     abpEnabled: boolean;
-    basePrice: CoinsPF2e;
+    basePrice: Coins;
     baseTypes: Record<BaseArmorType, string>;
     categories: Record<ArmorCategory, string>;
     groups: Record<ArmorGroup, string>;
@@ -83,6 +89,7 @@ interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
     preciousMaterials: MaterialSheetData;
     propertyRuneSlots: PropertyRuneSheetSlot[];
     runeTypes: Omit<typeof RUNE_DATA.armor, "property"> & { property: { slug: string; name: string }[] };
+    grades: Record<Grade, string>;
     specificMagicData: SpecificArmorData;
 }
 

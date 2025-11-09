@@ -110,6 +110,7 @@ class ScenePF2e extends Scene {
 
     /** Synchronize a token's dimensions with its actor's size category. */
     syncTokenDimensions(tokenDoc: TokenDocumentPF2e, dimensions: { width: number; height: number }): void {
+        if (!tokenDoc.parent?.tokens.has(tokenDoc.id)) return;
         this.#sizeSyncBatch.set(tokenDoc.id, dimensions);
         this.#processSyncBatch();
     }

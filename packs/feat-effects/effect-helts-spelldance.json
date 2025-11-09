@@ -1,0 +1,49 @@
+{
+    "_id": "GAtTLwi0JIOg3Htq",
+    "img": "icons/magic/control/debuff-energy-snare-purple-pink.webp",
+    "name": "Effect: Helt's Spelldance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Helt's Spelldance]</p>\n<p>You take a –1 circumstance penalty to your saving throws against any spell the origin casts.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Firebrands"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:type:spell",
+                    "origin:signature:{item|origin.signature}"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

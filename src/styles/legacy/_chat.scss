@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     font-family: var(--sans-serif);
-    gap: 0.5rem;
+    gap: var(--space-4);
 
     h2,
     h3,
@@ -51,43 +51,58 @@
     .tags {
         border-bottom: 2px groove white;
         margin: 0;
-        padding-bottom: 0.25rem;
+        padding: var(--space-4) 0;
+        flex-basis: 100%;
+        &:not(:has(.tag)) {
+            padding: 0 0 var(--space-3) 0;
+        }
     }
 
     .card-content {
         margin: 0;
-
-        p {
-            margin: var(--space-4) 0;
-            min-height: unset;
-
-            &.item-block-line {
-                --wrap-indent: var(--space-14);
-                line-height: 1.25rem;
-                margin: 0;
-                padding: 0 0 0 var(--wrap-indent);
-                text-indent: calc(-1 * var(--wrap-indent));
-
-                .adjusted {
-                    text-decoration: underline dotted 1px black;
-                }
-
-                &:first-child {
-                    margin-top: var(--space-1);
-                }
-            }
-        }
 
         hr.item-block-divider {
             margin-top: var(--space-3);
         }
     }
 
-    .card-buttons {
+    footer {
+        padding: var(--space-3) 0 0;
+        border-top: 2px groove white;
+
+        span {
+            border-right: 2px groove white;
+            padding: 0 var(--space-4) 0 0;
+            font-size: var(--font-size-12);
+
+            &:last-child {
+                border-right: none;
+                padding-right: 0;
+            }
+        }
+    }
+
+    .card-buttons-two-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: var(--space-4);
+    }
+}
+
+.message-content {
+    .card-buttons,
+    .message-buttons {
         display: flex;
         flex-basis: 100%;
         flex-direction: column;
         gap: 0.25rem;
+
+        &.horizontal {
+            flex-direction: row;
+            button {
+                flex: 1;
+            }
+        }
 
         button span {
             border: none;
@@ -128,27 +143,5 @@
         .hidden-to-others {
             background: var(--visibility-gm-bg);
         }
-    }
-
-    footer {
-        padding: var(--space-3) 0 0;
-        border-top: 2px groove white;
-
-        span {
-            border-right: 2px groove white;
-            padding: 0 var(--space-4) 0 0;
-            font-size: var(--font-size-12);
-
-            &:last-child {
-                border-right: none;
-                padding-right: 0;
-            }
-        }
-    }
-
-    .card-buttons-two-column {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: var(--space-4);
     }
 }

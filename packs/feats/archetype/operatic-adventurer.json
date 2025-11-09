@@ -34,18 +34,7 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.performance.rank",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 1,
-                            "value": 3
-                        },
-                        {
-                            "start": 15,
-                            "value": 4
-                        }
-                    ]
-                }
+                "value": "match(when(gte(@actor.level, 1), 3), when(gte(@actor.level, 15), 4))"
             },
             {
                 "key": "FlatModifier",

@@ -109,11 +109,7 @@ class Bulk {
         if (this.isNegligible) {
             return game.i18n.localize("PF2E.Item.Physical.Bulk.Negligible.ShortLabel");
         }
-
-        if (this.value === normal) {
-            return normal.toString();
-        }
-
+        if (this.value === normal) return normal.toString();
         if (normal === 0 && light === 1) {
             return game.i18n.localize("PF2E.Item.Physical.Bulk.Light.ShortLabel");
         }
@@ -174,13 +170,22 @@ class Bulk {
         const itemSizeIndex = sizes.indexOf(itemSize === "sm" ? "med" : itemSize);
         const actorSizeIndex = sizes.indexOf(actorSize === "sm" ? "med" : actorSize);
 
-        if (itemSizeIndex === actorSizeIndex) {
-            return this;
-        } else if (itemSizeIndex > actorSizeIndex) {
-            return applyNTimes((bulk) => bulk.double(), itemSizeIndex - actorSizeIndex, this as Bulk);
-        } else {
-            return applyNTimes((bulk) => bulk.halve(), actorSizeIndex - itemSizeIndex, this as Bulk);
+        if (itemSizeIndex > actorSizeIndex) {
+            return applyNTimes((b): Bulk => b.double(), itemSizeIndex - actorSizeIndex, this);
         }
+        if (itemSizeIndex < actorSizeIndex) {
+            return applyNTimes(
+                (b): Bulk =>
+                    b.value <= 0.1
+                        ? new Bulk()
+                        : b.value <= 1
+                          ? new Bulk(0.1)
+                          : new Bulk(Math.max(0.1, Math.floor(0.1 * this.value))),
+                actorSizeIndex - itemSizeIndex,
+                this,
+            );
+        }
+        return new Bulk(this.value);
     }
 }
 

@@ -54,21 +54,19 @@ function createBulkPerLabel(item: PhysicalItemPF2e): string {
 
 /** Returns a sense list with all redundant senses removed (such as low light vision on actors with darkvision) */
 function condenseSenses(senses: Sense[]): Sense[] {
-    const senseTypes = new Set(senses.map((s) => s.type));
-    if (senseTypes.has("darkvision") || senseTypes.has("greater-darkvision")) {
-        senseTypes.delete("low-light-vision");
+    const senseTypes = senses.map((s) => s.type);
+    if (senseTypes.includes("greater-darkvision")) {
+        senseTypes.findSplice((t) => t === "low-light-vision");
+        senseTypes.findSplice((t) => t === "darkvision");
     }
-    if (senseTypes.has("greater-darkvision")) {
-        senseTypes.delete("darkvision");
-    }
-
-    return senses.filter((r) => senseTypes.has(r.type));
+    if (senseTypes.includes("darkvision")) senseTypes.findSplice((t) => t === "low-light-vision");
+    return senses.filter((r) => senseTypes.includes(r.type));
 }
 
 /** Creates ability or feat view data for actor sheet actions rendering */
 function createAbilityViewData(item: AbilityItemPF2e | FeatPF2e): AbilityViewData {
     return {
-        ...R.pick(item, ["id", "img", "name", "actionCost", "frequency"]),
+        ...R.pick(item, ["id", "uuid", "img", "name", "actionCost", "frequency"]),
         glyph: getActionGlyph(item.actionCost),
         usable: !!item.system.selfEffect || !!item.system?.frequency || !!item.crafting,
         traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),

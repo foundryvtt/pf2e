@@ -496,7 +496,7 @@
                 },
                 "category": "skill",
                 "description": {
-                    "value": "<p>You can <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"1\">Demoralize</span> with a mere glare. When you do, Demoralize loses the auditory trait and gains the visual trait, and you don't take a penalty if the creature doesn't understand your language.</p>"
+                    "value": "<p>You can @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] with a mere glare. When you do, Demoralize loses the auditory trait and gains the visual trait, and you don't take a penalty if the creature doesn't understand your language.</p>"
                 },
                 "level": {
                     "taken": 2,
@@ -511,12 +511,17 @@
                     ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "slug": "intimidating-glare",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1785,6 +1790,7 @@
                 "bulk": {
                     "value": 1
                 },
+                "category": "coin",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -1810,15 +1816,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 6,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
-                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -2362,36 +2367,11 @@
                         ],
                         "selector": "strike-damage",
                         "slug": "precise-strike",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 8,
-                                    "start": 5,
-                                    "value": 3
-                                },
-                                {
-                                    "end": 12,
-                                    "start": 9,
-                                    "value": 4
-                                },
-                                {
-                                    "end": 16,
-                                    "start": 13,
-                                    "value": 5
-                                },
-                                {
-                                    "start": 17,
-                                    "value": 6
-                                }
-                            ]
-                        }
+                        "value": "match(when(lte(@actor.level, 4), 2), when(btwn(@actor.level, 5, 8), 3), when(btwn(@actor.level, 9, 12), 4), when(btwn(@actor.level, 13, 16), 5), when(gte(@actor.level, 17), 6))"
                     },
                     {
                         "category": "precision",
+                        "diceNumber": "match(when(lte(@actor.level, 4), 2), when(btwn(@actor.level, 5, 8), 3), when(btwn(@actor.level, 9, 12), 4), when(btwn(@actor.level, 13, 16), 5), when(gte(@actor.level, 17), 6))",
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
@@ -2418,44 +2398,7 @@
                             }
                         ],
                         "selector": "strike-damage",
-                        "slug": "finisher",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "end": 8,
-                                    "start": 5,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                },
-                                {
-                                    "end": 12,
-                                    "start": 9,
-                                    "value": {
-                                        "diceNumber": 4
-                                    }
-                                },
-                                {
-                                    "end": 16,
-                                    "start": 13,
-                                    "value": {
-                                        "diceNumber": 5
-                                    }
-                                },
-                                {
-                                    "start": 17,
-                                    "value": {
-                                        "diceNumber": 6
-                                    }
-                                }
-                            ]
-                        }
+                        "slug": "finisher"
                     },
                     {
                         "key": "ActiveEffectLike",
@@ -2664,38 +2607,7 @@
                         "selector": "speed",
                         "slug": "vivacious-full",
                         "type": "status",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 2,
-                                    "value": 5
-                                },
-                                {
-                                    "end": 6,
-                                    "start": 3,
-                                    "value": 10
-                                },
-                                {
-                                    "end": 10,
-                                    "start": 7,
-                                    "value": 15
-                                },
-                                {
-                                    "end": 14,
-                                    "start": 11,
-                                    "value": 20
-                                },
-                                {
-                                    "end": 18,
-                                    "start": 15,
-                                    "value": 25
-                                },
-                                {
-                                    "start": 19,
-                                    "value": 30
-                                }
-                            ]
-                        }
+                        "value": "match(when(lte(@actor.level, 2), 5), when(btwn(@actor.level, 3, 6), 10), when(btwn(@actor.level, 7, 10), 15), when(btwn(@actor.level, 11, 14), 20), when(btwn(@actor.level, 15, 18), 25), when(gte(@actor.level, 19), 30))"
                     },
                     {
                         "key": "FlatModifier",
@@ -2707,24 +2619,7 @@
                         "selector": "speed",
                         "slug": "vivacious-half",
                         "type": "status",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 10,
-                                    "start": 3,
-                                    "value": 5
-                                },
-                                {
-                                    "end": 18,
-                                    "start": 11,
-                                    "value": 10
-                                },
-                                {
-                                    "start": 19,
-                                    "value": 15
-                                }
-                            ]
-                        }
+                        "value": "match(when(btwn(@actor.level, 3, 10), 5), when(btwn(@actor.level, 11, 18), 10), when(gte(@actor.level, 19), 15))"
                     }
                 ],
                 "slug": "vivacious-speed",
@@ -3226,10 +3121,6 @@
             "hp": {
                 "temp": 0,
                 "value": 73
-            },
-            "speed": {
-                "otherSpeeds": [],
-                "value": 25
             }
         },
         "build": {

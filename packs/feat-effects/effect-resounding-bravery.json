@@ -4,7 +4,7 @@
     "name": "Effect: Resounding Bravery",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Resounding Bravery]</p>\n<p>You gain a +1 status bonus to saves and a number of temporary Hit Points equal to half your level. On a Critical Success, you gain a +2 status bonus to saves and a number of temporary Hit Points equal to your level.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Resounding Bravery]</p>\n<p>You gain a +1 status bonus to saves and a number of temporary Hit Points equal to half your level. These benefits are doubled if you critically succeed against a fear effect.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,35 +22,30 @@
         },
         "rules": [
             {
-                "adjustName": true,
+                "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
-                        "value": {
-                            "savingThrow": 2,
-                            "tempHp": 1
-                        }
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": 2
                     },
                     {
-                        "label": "PF2E.Check.Result.Degree.Check.success",
-                        "value": {
-                            "savingThrow": 1,
-                            "tempHp": 2
-                        }
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 1
                     }
                 ],
-                "flag": "degreeOfSuccess",
-                "key": "ChoiceSet"
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Fighter.ResoundingBravery.Prompt"
             },
             {
                 "key": "FlatModifier",
                 "selector": "saving-throw",
                 "type": "status",
-                "value": "{item|flags.pf2e.rulesSelections.degreeOfSuccess.savingThrow}"
+                "value": "@item.flags.pf2e.rulesSelections.bonus"
             },
             {
                 "key": "TempHP",
-                "value": "floor(@actor.level/{item|flags.pf2e.rulesSelections.degreeOfSuccess.tempHp})"
+                "value": "floor((@item.flags.pf2e.rulesSelections.bonus * @actor.level) / 2)"
             }
         ],
         "start": {

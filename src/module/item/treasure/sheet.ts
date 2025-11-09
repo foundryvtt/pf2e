@@ -1,27 +1,25 @@
-import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
+import type { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical/index.ts";
+import { localizer } from "@util";
 import * as R from "remeda";
+import type { TreasureSystemSchema } from "./data.ts";
 import type { TreasurePF2e } from "./document.ts";
+import type { TreasureCategory } from "./types.ts";
+import { TREASURE_CATEGORIES } from "./values.ts";
 
 export class TreasureSheetPF2e extends PhysicalItemSheetPF2e<TreasurePF2e> {
     override async getData(options?: Partial<ItemSheetOptions>): Promise<TreasureSheetData> {
-        return {
-            ...(await super.getData(options)),
+        const localize = localizer("PF2E.Item.Treasure.FIELDS.category.choices");
+        return Object.assign(await super.getData(options), {
+            categories: R.mapToObj(TREASURE_CATEGORIES, (c) => [c, localize(c)]),
             currencies: CONFIG.PF2E.currencies,
-            stackGroups: R.pick(CONFIG.PF2E.stackGroups, ["coins", "gems"]),
-        };
-    }
-
-    protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        if (formData["system.stackGroup"] === "") {
-            formData["system.stackGroup"] = null;
-        }
-
-        return super._updateObject(event, formData);
+            systemFields: this.item.system.schema.fields,
+        });
     }
 }
 
 interface TreasureSheetData extends PhysicalItemSheetData<TreasurePF2e> {
     currencies: ConfigPF2e["PF2E"]["currencies"];
-    stackGroups: Pick<typeof CONFIG.PF2E.stackGroups, "coins" | "gems">;
+    categories: Record<TreasureCategory, string>;
+    systemFields: TreasureSystemSchema;
 }

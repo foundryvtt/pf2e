@@ -193,54 +193,11 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "trident",
                 "traits": {
                     "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "WteGrrvSFVPWv72R",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "werecreature-curse-of-the-werecreature"
-                    ]
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "8CZ1P2FO9YtVcpmY": {
-                        "damage": "1d12+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "unarmed"
-                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -257,7 +214,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Trident",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -282,6 +239,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "trident",
                 "traits": {
@@ -299,7 +257,7 @@
             "_id": "2EsiHAMS4PDQklhS",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Blood Scent",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -328,7 +286,7 @@
             "_id": "JEzv3EMk0JHmeDYv",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Shark Empathy",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -362,7 +320,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Strike",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -395,7 +353,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -414,24 +372,32 @@
                 },
                 "rules": [
                     {
+                        "alwaysActive": true,
                         "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
                         "option": "change-shape",
+                        "selection": "hybrid",
                         "suboptions": [
                             {
-                                "label": "PF2E.TraitHuman",
-                                "value": "human"
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hybrid",
+                                "value": "hybrid"
                             },
                             {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.Shark",
-                                "value": "shark"
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
+                                "value": "humanoid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Animal",
+                                "value": "animal"
                             }
                         ],
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": true
                     },
                     {
                         "key": "CreatureSize",
                         "predicate": [
-                            "change-shape:human"
+                            "change-shape:humanoid"
                         ],
                         "value": "medium"
                     },
@@ -441,10 +407,9 @@
                         ],
                         "key": "ActorTraits",
                         "predicate": [
-                            {
-                                "not": "change-shape"
-                            }
-                        ]
+                            "change-shape:hybrid"
+                        ],
+                        "remove": []
                     },
                     {
                         "add": [
@@ -452,14 +417,18 @@
                         ],
                         "key": "ActorTraits",
                         "predicate": [
-                            "change-shape:shark"
-                        ]
+                            "change-shape:animal"
+                        ],
+                        "remove": []
                     },
                     {
                         "key": "BaseSpeed",
                         "predicate": [
                             {
-                                "not": "change-shape:shark"
+                                "or": [
+                                    "change-shape:humanoid",
+                                    "change-shape:hybrid"
+                                ]
                             }
                         ],
                         "selector": "land",
@@ -468,10 +437,18 @@
                     {
                         "key": "BaseSpeed",
                         "predicate": [
-                            "change-shape:shark"
+                            "change-shape:animal"
                         ],
                         "selector": "swim",
                         "value": 40
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "change-shape:hybrid"
+                        ],
+                        "selector": "swim",
+                        "value": 25
                     },
                     {
                         "attackModifier": 14,
@@ -486,10 +463,34 @@
                         "key": "Strike",
                         "label": "PF2E.BattleForm.Attack.Fist",
                         "predicate": [
-                            "change-shape:human"
+                            "change-shape:humanoid"
                         ],
                         "slug": "fist",
-                        "traits": []
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 14,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d12",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "not": "change-shape:humanoid"
+                            }
+                        ],
+                        "slug": "jaws",
+                        "traits": [
+                            "unarmed"
+                        ]
                     }
                 ],
                 "slug": "change-shape",
@@ -511,7 +512,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Curse of the Wereshark",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -528,7 +529,15 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "jaws-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "werecreature-curse-of-the-werecreature",
                 "traits": {
                     "rarity": "common",
@@ -544,7 +553,7 @@
             "_id": "sSN3mmNLTMy2tN16",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Fish Fork",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -554,14 +563,33 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The wereshark critically hit with a trident Strike on their most recent action this turn</p>\n<hr />\n<p><strong>Effect</strong> The wereshark digs their trident deep within their target, skewering it before taking a massive bite. The target of the Strike becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 18) and takes @Damage[1d4[bleed]] damage, and the wereshark attempts a jaws Strike against it. The wereshark can't use their trident while they have a creature grabbed with it, but they can pull the trident free with a single action that has the manipulate trait.</p>"
+                    "value": "<p><strong>Requirements</strong> The wereshark critically hit with a trident Strike on their most recent action this turn</p><hr /><p><strong>Effect</strong> The wereshark digs their trident deep within their target, skewering it before taking a massive bite. The target of the Strike becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] ([[/act escape dc=18]]) and takes @Damage[1d4[bleed]] damage, and the wereshark attempts a jaws Strike against it. The wereshark can't use their trident while they have a creature grabbed with it, but they can pull the trident free with a single action that has the manipulate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "critical": false,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "hideIfDisabled": true,
+                        "key": "DamageDice",
+                        "predicate": [
+                            "fish-fork",
+                            "check:outcome:critical-success"
+                        ],
+                        "selector": "trident-damage"
+                    },
+                    {
+                        "key": "RollOption",
+                        "option": "fish-fork",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -576,7 +604,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Moon Frenzy",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -643,12 +671,7 @@
                 "value": 75
             },
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "swim",
-                        "value": 25
-                    }
-                ],
+                "otherSpeeds": [],
                 "value": 0
             },
             "weaknesses": [

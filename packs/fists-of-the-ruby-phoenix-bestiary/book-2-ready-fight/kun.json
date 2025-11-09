@@ -63,13 +63,18 @@
                 },
                 "counteraction": false,
                 "damage": {},
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
                 "description": {
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @UUID[Compendium.pf2e.spells-srd.Item.Slow].</p>\n<hr />\n<p><strong>Area</strong> 50 ft long by 50 ft wide</p>"
+                    "value": "<p><strong>Area</strong> 50 feet long by 50 feet wide</p><hr /><p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Creatures that have the water trait and that are in the area when you Cast the Spell must attempt a Fortitude save, with the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Slow] spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": ""
+                    "value": "1 hour"
                 },
                 "level": {
                     "value": 5
@@ -79,9 +84,9 @@
                     "value": "gYNvlca79PvotIgx"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -289,6 +294,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -333,6 +339,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "tail",
                 "traits": {
@@ -458,7 +465,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The kun inhales violently, sucking in heat and all creatures in the water in a @Template[cone|distance:60]. Creatures in the area must succeed at a @Check[fortitude|dc:33|traits:damaging-effect] save or take @Damage[10d8[cold]] damage. The kun can't Funnel again for [[/gmr 1d4 #Recharge Funnel]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pulled 30 feet toward the kun.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is pulled 60 feet toward the kun.</p>"
+                    "value": "<p>The kun inhales violently, sucking in heat and all creatures in the water in a @Template[cone|distance:60]. Creatures in the area must succeed at a @Check[fortitude|dc:33|options:area-effect,damaging-effect] save or take @Damage[10d8[cold]|options:area-damage] damage. The kun can't Funnel again for [[/gmr 1d4 #Recharge Funnel]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pulled 30 feet toward the kun.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is pulled 60 feet toward the kun.</p>"
                 },
                 "publication": {
                     "license": "OGL",

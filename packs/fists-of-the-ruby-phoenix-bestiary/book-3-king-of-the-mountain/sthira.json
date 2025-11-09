@@ -27,6 +27,9 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
                 "slots": {},
                 "slug": null,
                 "spelldc": {
@@ -36,28 +39,34 @@
                 },
                 "tradition": {
                     "value": "primal"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
         {
-            "_id": "CnyjTatQQ5bckwMs",
+            "_id": "4CEJayeml26kCcJh",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.10VcmSYNBrvBphu1"
             },
+            "folder": "fi1AYNmuCRvoT15b",
             "img": "systems/pf2e/icons/spells/massacre.webp",
             "name": "Massacre",
             "sort": 200000,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "line",
+                    "value": 60
+                },
                 "cost": {
                     "value": ""
                 },
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
-                        "formula": "10d6",
+                        "formula": "9d6",
                         "kinds": [
                             "damage"
                         ],
@@ -72,22 +81,39 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You unleash a wave of necromantic energy to snuff out the life force of those in its path. Each living creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the void energy violently explodes back toward you, dealing an additional 30 void damage to every living creature in the line (even those above 17th level) and 30 void damage to you.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes 9d6 void damage.</p>\n<p><strong>Failure</strong> The creature takes 100 void damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The spell can affect living creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
+                    "value": "<p>You unleash a wave of death to snuff out the life force of those in its path. Each living creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from <em>massacre</em> reduces a creature to 0 Hit Points, that creature dies instantly. If <em>massacre</em> doesn't kill even a single creature, the void energy hungrily turns backward toward you, dealing an additional @Damage[30[void]] damage to every living creature in the line (even those above 17th level) and 30 void damage to you.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes 9d6 void damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(ternary(gte(@item.rank,10),115,100))[void]] damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p><hr /><p><strong>Heightened (10th)</strong> The spell can affect living creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
+                "heightening": {
+                    "levels": {
+                        "10": {
+                            "damage": {
+                                "0": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "10d6",
+                                    "materials": [],
+                                    "type": "void"
+                                }
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
-                    "value": 10
+                    "value": 9
                 },
                 "location": {
+                    "heightenedLevel": 10,
                     "value": "xloG2F1aILOZPtUq"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -369,7 +395,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals 2d4 cold damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ray of Frost]</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals 2d4 cold damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a –10-foot status penalty to its Speeds for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ray of Frost]</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -457,6 +483,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "sword",
                 "hardness": 0,
                 "hp": {
@@ -519,11 +546,7 @@
             "name": "Greatsword",
             "sort": 800000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
-                    "custom": "",
                     "value": [
                         "frostbite"
                     ]
@@ -549,18 +572,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-10",
                         "versatile-p"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -571,11 +591,7 @@
             "name": "Fist",
             "sort": 900000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
-                    "custom": "",
                     "value": [
                         "frostbite",
                         "improved-grab"
@@ -602,18 +618,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-10",
                         "unarmed"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -642,7 +655,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "primal"
                     ]
@@ -677,7 +689,6 @@
                 "rules": [],
                 "slug": "attack-of-opportunity",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -707,7 +718,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "cold"
                     ]
@@ -749,7 +759,6 @@
                 ],
                 "slug": "negative-healing",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -789,7 +798,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "aura",
                         "cold",
@@ -823,7 +831,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -856,7 +863,6 @@
                 "rules": [],
                 "slug": "improved-grab",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -925,7 +931,14 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "blurb": "",
@@ -967,7 +980,7 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 29
+                "value": 39
             },
             "reflex": {
                 "saveDetail": "",

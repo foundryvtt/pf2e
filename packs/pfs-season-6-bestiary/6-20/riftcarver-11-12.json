@@ -1,0 +1,148 @@
+{
+    "_id": "SqWqbQSfepA1dY8p",
+    "folder": "iChSvEejLMUqKGA2",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nI7J3WlkP24psORH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Infectious Memory",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy of Hesla Embersplitter rolls for initiative</p><hr /><p><strong>Effect</strong> <em>Riftcarver</em> calls out with thousands of voices to infest the minds of the righteous. Any creature within 60 feet with the holy trait must succeed at a @Check[will|dc:33|options:area-effect,inflicts:frightened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). <em>Riftcarver</em> then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    },
+                    {
+                        "exceptions": [
+                            "spirit"
+                        ],
+                        "key": "Immunity",
+                        "priority": 101,
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HP1E8dweYE2yQOXF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Carve Rift",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A line of acid slices through creatures and terrain alike, creating a rift that is 20 feet high, 100 feet long, and 1 inch thick. This rift provides cover. The rift deals @Damage[6d8[acid]|options:area-damage] damage to each creature that is in its space when it is first created, that attempts to pass through it, or that ends its turn inside the rift, with a @Check[reflex|dc:29|basic|options:area-effect] save. A creature that succeeds at this save when the chasm is created is pushed to the nearest space on the side of its choice. Creatures trying to move through the rift fail to do so if they critically fail their save, ending their movement next to the rift.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Riftcarver (11-12)",
+    "prototypeToken": {
+        "name": "Riftcarver"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "emitsSound": "encounter",
+            "hardness": 17,
+            "hp": {
+                "details": "",
+                "max": 74,
+                "temp": 0,
+                "value": 74
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 6
+                }
+            ]
+        },
+        "details": {
+            "description": "<p><em>Riftcarver</em> is the chthonic artifact weapon of Deskari, the slain demon lord of the locust host and plague of the Worldwound (now known as the Sarkoris Scar). Unfettered from its creator, it now wreaks havoc on the enemies of its current master, Hesla Embersplitter.</p>",
+            "disable": "<p>@Check[deception|dc:27] (expert), @Check[Demon Lore|dc:27] (trained), or @Check[religion|dc:27] (expert) to remind <em>Riftcarver</em> that it should not serve an interloper; @Check[intimidation|dc:32] (trained), @Check[nature|dc:32] (trained), or @Check[occultism|dc:32] (trained) to temporarily make <em>Riftcarver's</em> spirit cower; @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (6th rank, counteract DC 28); three total successes are required to disable the hazard. The first time <em>Riftcarver</em> is taken away from Hesla Embersplitter against her will (via disarm, a spell, or some other method), it also counts as one success. If Hesla Embersplitter is rendered @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] or killed, the hazard immediately ends.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-20: The Overthrow of Ambition"
+            },
+            "reset": "",
+            "routine": "<p>(three actions) <em>Riftcarver</em> lives up to its name, using all three of its actions to carve a new rift in a random direction (rolling [[/gmr 1d8]] to determine that direction). Hesla Embersplitter is immune to the effects of these rifts while wielding <em>Riftcarver</em>.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 30
+            },
+            "reflex": {
+                "value": 27
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}

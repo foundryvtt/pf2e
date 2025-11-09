@@ -1,0 +1,65 @@
+{
+    "_id": "Bk07joho2dUG3lVw",
+    "folder": "rkukWM1R4cupIwmM",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Duelist's Edge",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You roll initiative, and you are observing at least one opponent.</p><hr /><p>You hone your reaction time through duels and learn to draw your weapon seamlessly as you begin a fight. You gain a +2 circumstance bonus to the triggering initiative roll, and you can immediately Interact to draw an Aldori dueling sword.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Aldori Duelist Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "duelists-edge",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "duelists-edge"
+                ],
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "duelists-edge"
+                ],
+                "selector": "initiative",
+                "text": "PF2E.SpecificRule.AldoriDuelist.DuelistsEdge.Note",
+                "title": "{item|name} <span class=\"action-glyph\">F</span>"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

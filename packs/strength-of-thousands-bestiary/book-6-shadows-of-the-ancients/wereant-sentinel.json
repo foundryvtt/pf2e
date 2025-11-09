@@ -163,51 +163,6 @@
             "type": "shield"
         },
         {
-            "_id": "db4a8twis4uo38dc",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Mandibles",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "werecreature-curse-of-the-werecreature",
-                        "knockdown"
-                    ]
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "Qcwh1LDoTPQ3cq97": {
-                        "damage": "3d10+20",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "o0i3jj5ct3b5vzrw",
             "flags": {
                 "pf2e": {
@@ -216,7 +171,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Khopesh",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -242,6 +197,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -264,7 +220,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Insect Empathy",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -296,7 +252,7 @@
             "_id": "fbpp6y4ku57wjrze",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Gnawing Retort",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -326,7 +282,7 @@
             "_id": "cOgYZNoEqQ0Ni017",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Hive Mind",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -392,7 +348,7 @@
             "_id": "op6gd7hr0h7gibpz",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Retributive Strike",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -425,7 +381,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -442,7 +398,101 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "hybrid",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hybrid",
+                                "value": "hybrid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
+                                "value": "humanoid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Animal",
+                                "value": "animal"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "attackModifier": 36,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 20
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.Strike.Fist.Label",
+                        "predicate": [
+                            "change-shape:humanoid"
+                        ],
+                        "slug": "fist",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 36,
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 20
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Mandibles",
+                        "predicate": [
+                            {
+                                "not": "change-shape:humanoid"
+                            }
+                        ],
+                        "slug": "mandibles",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "change-shape:animal"
+                        ],
+                        "selector": "mandibles-damage",
+                        "text": "@Localize[PF2E.NPC.Abilities.Glossary.Grab]",
+                        "title": "@Localize[PF2E.AttackEffectGrab] <span class=\"action-glyph\">1</span>",
+                        "visibility": "owner"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "change-shape:hybrid"
+                        ],
+                        "selector": "mandibles-damage",
+                        "text": "@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]",
+                        "title": "@Localize[PF2E.AttackEffectKnockdown] <span class=\"action-glyph\">1</span>",
+                        "visibility": "owner"
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "change-shape:animal"
+                        ],
+                        "selector": "climb",
+                        "value": 20
+                    }
+                ],
                 "slug": "change-shape",
                 "traits": {
                     "rarity": "common",
@@ -462,7 +512,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Curse of the Wereant",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -479,7 +529,15 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "mandibles-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "werecreature-curse-of-the-werecreature",
                 "traits": {
                     "rarity": "common",
@@ -495,7 +553,7 @@
             "_id": "an140aq05sh8og4u",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hasty Reposition",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -533,7 +591,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Moon Frenzy",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -566,7 +624,7 @@
             "_id": "5oy93mlwu2qa2pxi",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Sentinel's Focus",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -630,7 +688,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Knockdown",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"

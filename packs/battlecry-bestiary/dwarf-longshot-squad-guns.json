@@ -1,0 +1,304 @@
+{
+    "_id": "zy9mm8SibtzghVUP",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "icFtpyk3vKrnSxKV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>HP</strong> 180 (4 segments); <strong>Thresholds</strong> 120 (3 segments), 60 (2 segments)</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "i5jWmQ8e6h6E4QoP",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopMovement]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-movement",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cE3nGCXUZ43jjTq2",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
+            "name": "Brandish Bayonets!",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Using blades attached to their rifles, the dwarven longshots engages in a coordinated melee attack against enemies in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:26|basic|options:area-effect] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d8+2)[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d8+11)[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d8+13)[piercing]|options:area-damage] damage</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vTdnKvhxzs5uAmUE",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Bullet Smog",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dwarven longshots fire their rifles in rapid succession to create a cloud of smoke within 120 feet. This cloud is a @Template[type:burst|distance:20] and lasts for 1 minute or until it is dispersed by a strong wind, whichever comes first. All creatures within the cloud become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the cloud become concealed to creatures within it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EONX1OgwRhf35gSm",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Bullets from the Blue",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dwarven longshots reload their rifles, then launch a ranged attack in the form of a volley. This volley is a @Template[type:burst|distance:15] within 120 feet that deals @Damage[6d6[untyped]|options:area-damage] damage with a @Check[reflex|dc:26|basic|options:area-effect] saving throw. When the dwarven longshot squad is reduced to 2 segments, this area decreases to a @Template[type:burst|distance:10].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "bullets-blue",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.bulletsBlue}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Dwarf Longshot Squad (Guns)",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 7
+            },
+            "int": {
+                "mod": 3
+            },
+            "str": {
+                "mod": 1
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 29
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "(4 segments); Thresholds 120 (3 segments), 60 (2 segments)",
+                "max": 180,
+                "temp": 0,
+                "value": 180
+            },
+            "speed": {
+                "details": "troop movement",
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 12
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 12
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "dwarven"
+                ]
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>While many dwarves train to master hammers and shields, others seek to become masters of ranged weapons, usually sturdy and dwarven-built crossbows. Dwarven armies employ longshot squads as the first line of defense, especially outside of cramped tunnels and subterranean caverns.</p><h2>Longshot with Guns</h2><p>Dwarves from Dongun Hold and similar places have access to firearms, and you might choose to reflect this by giving the dwarf longshot squad rifles. Adjust the stat block to have the uncommon trait and replace mentions of \"crossbows\" to \"rifles\" and \"bolts\" to \"bullets.\" In addition, give the Bolts from the Blue action the concussive trait, meaning that it deals bludgeoning or piercing damage, whichever would be more detrimental to each target (you may also want to refer to it as \"Bullets from the Blue\"). Finally, replace Hampering Fusillade with the following ability.</p>\n<p><strong>Bullet Smog</strong> <span class=\"action-glyph\">2</span> The dwarven longshots fire their rifles in rapid succession to create a cloud of smoke within 120 feet. This cloud is a @Template[type:burst|distance:20] and lasts for 1 minute or until it is dispersed by a strong wind, whichever comes first. All creatures within the cloud become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the cloud become concealed to creatures within it.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Battlecry!"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 22,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 19
+            },
+            "crafting": {
+                "base": 22
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "dwarf",
+                "humanoid",
+                "troop"
+            ]
+        }
+    },
+    "type": "npc"
+}

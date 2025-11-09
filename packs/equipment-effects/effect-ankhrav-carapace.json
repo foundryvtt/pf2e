@@ -1,0 +1,43 @@
+{
+    "_id": "KE4ahbTX3DufZKXP",
+    "img": "icons/equipment/chest/breastplate-layered-gold.webp",
+    "name": "Effect: Ankhrav Carapace",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ankhrav Carapace]</p>\n<p>You gain a burrow Speed equal to half your Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "burrow",
+                "value": "floor(@actor.system.movement.speeds.land.value / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

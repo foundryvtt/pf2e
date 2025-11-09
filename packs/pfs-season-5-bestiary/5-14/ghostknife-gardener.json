@@ -748,6 +748,11 @@
             "name": "Shortbow",
             "sort": 1000000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "shortbow",
                 "bonus": {
                     "value": 0
@@ -1046,30 +1051,17 @@
             "name": "Arrows",
             "sort": 1400000,
             "system": {
-                "baseItem": null,
+                "baseItem": "arrows",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -1086,13 +1078,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
-                "stackGroup": "arrows",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -1100,7 +1090,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "JMPZpOOy3iRtR4KQ",
@@ -1136,6 +1126,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "sickle",
                 "traits": {
@@ -1185,12 +1176,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "shortbow",
                 "traits": {
                     "value": [
                         "deadly-d10",
-                        "range-increment-60",
                         "reload-0"
                     ]
                 },
@@ -1214,7 +1208,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The ghostknife gardener can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] and make very simple requests of plants.</p>"
+                    "value": "<p>The ghostknife gardener can use Diplomacy to [[/act make-an-impression]] and make very simple [[/act request]]{Requests} of plants.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1244,6 +1238,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Void energy seeps out of the ghostknife gardener, decaying everything within a @Template[emanation|distance:5] and causing plants and foliage to age and decompose. Natural difficult terrain is destroyed, and creatures in the area with the plant or wood trait take @Damage[1d6[void]|options:area-damage] damage (@Check[fortitude|dc:16|basic|options:area-effect]).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "OGL",

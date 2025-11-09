@@ -1,9 +1,9 @@
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { DamageType } from "@system/damage/index.ts";
 import { sortStringRecord } from "@util";
-import * as R from "remeda";
 import type { ConsumablePF2e } from "./document.ts";
 import { ConsumableCategory } from "./types.ts";
 import { DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES } from "./values.ts";
@@ -18,6 +18,8 @@ class ConsumableSheetPF2e extends PhysicalItemSheetPF2e<ConsumablePF2e> {
             item.system.category !== "snare" &&
             !!item.system.damage &&
             ["vitality", "void", "untyped"].includes(item.system.damage.type);
+        const embeddedSpell = item.actor ? item.embeddedSpell : null;
+        const shouldHaveSpell = !!embeddedSpell || ["scroll", "wand"].includes(item.system.category);
 
         return {
             ...sheetData,
@@ -31,7 +33,14 @@ class ConsumableSheetPF2e extends PhysicalItemSheetPF2e<ConsumablePF2e> {
             ],
             materialEffects: createSheetTags(CONFIG.PF2E.materialDamageEffects, item.system.material.effects),
             otherTags: createSheetTags(CONFIG.PF2E.otherConsumableTags, item.system.traits.otherTags),
-            stackGroups: this.item.isAmmo ? R.omit(CONFIG.PF2E.stackGroups, ["coins", "gems"]) : null,
+            embeddedSpell: shouldHaveSpell
+                ? {
+                      uuid: embeddedSpell?.uuid ?? null,
+                      img: embeddedSpell?.img,
+                      name: embeddedSpell?.name,
+                      rank: embeddedSpell?.rank,
+                  }
+                : null,
         };
     }
 
@@ -42,22 +51,15 @@ class ConsumableSheetPF2e extends PhysicalItemSheetPF2e<ConsumablePF2e> {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
+        const item = this.item;
 
         html.querySelector("button[data-action=add-damage]")?.addEventListener("click", () => {
-            this.item.update({ "system.damage": { formula: "1d4", type: "untyped", kind: "damage" } });
+            item.update({ "system.damage": { formula: "1d4", type: "untyped", kind: "damage" } });
         });
 
         html.querySelector("a[data-action=remove-damage]")?.addEventListener("click", () => {
-            this.item.update({ "system.damage": null });
+            item.update({ "system.damage": null });
         });
-    }
-
-    protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        if (formData["system.stackGroup"] === "") {
-            formData["system.stackGroup"] = null;
-        }
-
-        return super._updateObject(event, formData);
     }
 }
 
@@ -69,7 +71,13 @@ interface ConsumableSheetData extends PhysicalItemSheetData<ConsumablePF2e> {
     damageTypes: Record<DamageType, string>;
     materialEffects: SheetOptions;
     otherTags: SheetOptions;
-    stackGroups: Omit<typeof CONFIG.PF2E.stackGroups, "coins" | "gems"> | null;
+    embeddedSpell: {
+        /** The embedded spell uuid, or null if this item *should* have a spell but doesn't */
+        uuid: string | null;
+        img?: string;
+        name?: string;
+        rank?: number;
+    } | null;
 }
 
 export { ConsumableSheetPF2e };

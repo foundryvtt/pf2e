@@ -11,6 +11,11 @@
             "name": "Oathbow",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "longbow",
                 "bonus": {
                     "value": 2
@@ -208,31 +213,17 @@
             "name": "Arrows",
             "sort": 300000,
             "system": {
-                "baseItem": null,
+                "baseItem": "arrows",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -249,13 +240,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
-                "stackGroup": "arrows",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -263,99 +252,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
-        },
-        {
-            "_id": "UtXatkaqCOacbbnj",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "curse-of-the-wererat"
-                    ]
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "Dedcs8H1OkDDw4fq": {
-                        "damage": "2d10+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "jaws",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "2A5WqL14A7eKaElj",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "It0mGkwAg8vAnoVH": {
-                        "damage": "2d8+10",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "ammo"
         },
         {
             "_id": "kaPLdey2Dv3F1VUN",
@@ -366,7 +263,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Oathbow",
-            "sort": 600000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -390,6 +287,10 @@
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 100
                 },
                 "rules": [
                     {
@@ -424,7 +325,6 @@
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
-                        "range-100",
                         "reload-0",
                         "volley-30"
                     ]
@@ -439,7 +339,7 @@
             "_id": "EGY18Yebn9ZVwEbP",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rat Empathy",
-            "sort": 700000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -474,7 +374,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 800000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -491,7 +391,121 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "hybrid",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hybrid",
+                                "value": "hybrid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
+                                "value": "humanoid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Animal",
+                                "value": "animal"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "change-shape:animal"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "change-shape:animal"
+                        ],
+                        "selector": "climb-speed",
+                        "value": 10
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape:animal"
+                        ],
+                        "value": "small"
+                    },
+                    {
+                        "attackModifier": 24,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4",
+                                "modifier": 10
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.Strike.Fist.Label",
+                        "predicate": [
+                            "change-shape:humanoid"
+                        ],
+                        "slug": "fist",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 28,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d10",
+                                "modifier": 10
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "not": "change-shape:humanoid"
+                            }
+                        ],
+                        "slug": "jaws",
+                        "traits": [
+                            "finesse",
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 28,
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 10
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "change-shape:humanoid"
+                            }
+                        ],
+                        "slug": "claw",
+                        "traits": [
+                            "agile",
+                            "finesse",
+                            "unarmed"
+                        ]
+                    }
+                ],
                 "slug": "change-shape",
                 "traits": {
                     "rarity": "common",
@@ -507,7 +521,7 @@
             "_id": "CJravyxL4AFAla1i",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Curse of the Wererat",
-            "sort": 900000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -524,7 +538,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "jaws-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -540,7 +562,7 @@
             "_id": "aan6tOAkYHhETUdL",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Deadly Aim",
-            "sort": 1000000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -593,7 +615,7 @@
             "_id": "dNOthX618UT1hZN6",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Distracting Shot",
-            "sort": 1100000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -623,7 +645,7 @@
             "_id": "WDpA7ff1gJiokx9N",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hunted Shot",
-            "sort": 1200000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -658,7 +680,7 @@
             "_id": "Ral7Zi8ooe0f3emu",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Moon Frenzy",
-            "sort": 1300000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -691,7 +713,7 @@
             "_id": "TGbnXBgCIKg1wFwT",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Targeting Shot",
-            "sort": 1400000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"

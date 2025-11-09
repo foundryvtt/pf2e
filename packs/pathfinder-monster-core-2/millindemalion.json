@@ -1,0 +1,456 @@
+{
+    "_id": "TmvTgG1M8nzC5Q0K",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "MGFv64yTRt7JOqf8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
+            "name": "+1 Striking Shears",
+            "sort": 100000,
+            "system": {
+                "ammo": null,
+                "baseItem": "dagger",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": null,
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "dagger",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8",
+                        "finesse",
+                        "versatile-p"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "J9DbeNCFrbq08rQy",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "MGFv64yTRt7JOqf8"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Felt Shears",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d4+14",
+                        "damageType": "piercing"
+                    },
+                    "mv6466icizpy4idlmga8": {
+                        "damage": "1d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "deadly-d8",
+                        "finesse",
+                        "magical",
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9mRCoULFDFjQtK4x",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The millindemalion can use Hat Toss against the triggering creature instead of making a Strike, making a melee attack roll with a @Check[millindemalion-hat-toss|against:ac]{+27} modifier to do so.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zY6HRNQ28oqHNnmV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unsettling Mind",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Attempting to touch the frenetic mind of a millindemalion is a dangerous task. When the millindemalion succeeds at a saving throw against a mental effect, the creature originating that effect takes @Damage[4d6[mental]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "mental"
+                        ],
+                        "selector": "saving-throw",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3MP8S4relPgvIRf2",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hat Toss",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The millindemalion quickly crafts a mind-altering hat in combat and tosses it onto a target with a flick of their wrist. The millindemalion chooses one of the effects below and makes a ranged attack roll with a @Check[millindemalion-hat-toss|against:ac]{+27} modifier and a range increment of 20 feet.</p>\n<p>On a hit, the target must succeed at a @Check[will|dc:33] saving throw or experience the listed effect for [[/gmr 1d4+1 #Duration Hat Toss]]{1d4+1 rounds}. If the millindemalion critically succeeds at the ranged Strike, the target takes a -4 circumstance penalty on the save.</p>\n<p>A target can only wear one millindemalion hat at a time; a new hat replaces any previous hat. The hat can't be removed before the condition ends, but when the condition ends (or on a successful save), the hat falls to pieces.</p><ul><li><strong>Befuddling Bowler</strong> The hat clouds the target's mind; the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</li><li><strong>Bewitching Beret</strong> The target is infatuated with their new hat and its creator, becoming @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the millindemalion and the beret.</li><li><strong>Dazzling Deerstalker</strong> The target can barely see with the hat falling down over its eyes and gains the @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] condition.</li><li><strong>Fettering Fedora</strong> The target feels a heavy weight pressing down on them from the hat and takes a -10-foot circumstance penalty to their Speeds.</li><li><strong>Tiring Tricorne</strong> The target grows sleepy and becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</li></ul><p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Fettering Fedora]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "SpecialStatistic",
+                        "label": "Hat Toss",
+                        "slug": "millindemalion-hat-toss",
+                        "type": "attack-roll"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "millindemalion-hat-toss",
+                        "value": 27
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sIbPX7HRtLZsZC7R",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A millindemalion deals an extra 4d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MPHAiW7bYkK3AAtF",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Millinery Lore",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Millindemalion",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 8
+            },
+            "int": {
+                "mod": 7
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 33
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 275,
+                "temp": 0,
+                "value": 275
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common",
+                    "fey"
+                ]
+            },
+            "level": {
+                "value": 13
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Millindemalion are cruel fey tricksters capable of causing mayhem with their magical, mind-altering hats. Many folk tales from around the world speak of industrious fey who help struggling crafters-cobblers, milliners, tailors, and so on-during the night, creating quality wares in secret for no payment greater than a crumb of bread or a saucer of cream. These stories hold a grain of truth, as gracious fey do occasionally journey from the First World to aid a humble artisan on a whim, for bribes of food, or sometimes even as part of a concerted effort to spread beauty throughout the world. However, when an artisan becomes too reliant on this help, their friendly fey helper might become warped and twisted with resentment and neglect. Eventually, they could transform into a cruel prankster who delights in punishing mortals who dare task a fey with such mundane work. The millindemalion is the result of a kindly, hat-making fey undergoing such a transformation. Some scholars believe this erratic behavior is caused by the preponderance of quicksilver used in most millinery.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core 2"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 23,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 23
+            }
+        },
+        "skills": {
+            "crafting": {
+                "base": 28
+            },
+            "occultism": {
+                "base": 24
+            },
+            "society": {
+                "base": 24
+            },
+            "stealth": {
+                "base": 27
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "fey"
+            ]
+        }
+    },
+    "type": "npc"
+}

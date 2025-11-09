@@ -205,7 +205,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a -10-foot circumstance penalty to its Speeds while in the area. Once per round, you can Sustain the spell to make a vine lash out from any square within the expanse of creepers. This vine has a 15-foot reach. Make a melee spell attack roll against the target; on a success, the vine pulls the target into the creepers and makes it @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
+                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a –10-foot circumstance penalty to its Speeds while in the area. Once per round, you can Sustain the spell to make a vine lash out from any square within the expanse of creepers. This vine has a 15-foot reach. Make a melee spell attack roll against the target; on a success, the vine pulls the target into the creepers and makes it @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -780,6 +780,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -819,6 +820,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -857,12 +859,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
-                        "brutal",
-                        "range-increment-20"
+                        "brutal"
                     ]
                 }
             },
@@ -978,7 +983,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When Lukarazyll hits a creature with his jaws Strike, the creature becomes infected with the demon's self-loathing. The creature must succeed at a @Check[will|dc:34] save to avoid gaining a –1 status penalty to Charisma-based checks. This penalty is cumulative up to –3, and remains even if the wounds are healed. The penalty is reduced by 1 every 24 hours until it reaches 0.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Mutilating Bite]</p>"
+                    "value": "<p>When Lukarazyll hits a creature with his jaws Strike, the creature becomes infected with the demon's self-loathing. The creature must succeed at a @Check[will|dc:34] save to avoid gaining a –1 status penalty to Charisma-based checks. This penalty is cumulative up to –3, and remains even if the wounds are healed. The penalty is reduced by 1 every 24 hours until it reaches 0.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Loathsome Bite]{Effect: Mutilating Bite}</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1011,7 +1016,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Lukarazyll slams his fists into the ground, shattering the terrain around him. Creatures in a @Template[type:emanation|distance:15] from Lukarazyll take @Damage[4d12[bludgeoning]] damage (@Check[reflex|dc:32|basic] save). Those who fail are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. In addition, all squares within 15 feet of Lukarazyll become difficult terrain.</p>"
+                    "value": "<p>Lukarazyll slams his fists into the ground, shattering the terrain around him. Creatures in a @Template[type:emanation|distance:15] from Lukarazyll take @Damage[4d12[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:32|basic|options:area-effect,inflicts:prone] save). Those who fail are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. In addition, all squares within 15 feet of Lukarazyll become difficult terrain.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1042,7 +1047,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Whenever Lukarazyll picks up debris to throw, tendrils of fungus burrow out from his hands, infesting the debris so that when it hits, it explodes into a cloud of toxic spores. All non-fungus creatures in a @Template[type:emanation|distance:10] (including the target) must attempt a @Check[fortitude|dc:32] save. The target of the debris takes a –2 circumstance penalty to this save. Those that fail take @Damage[2d6[persistent,poison]] damage and are @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Creatures can't remove the sickened condition while this persistent damage remains.</p>"
+                    "value": "<p>Whenever Lukarazyll picks up debris to throw, tendrils of fungus burrow out from his hands, infesting the debris so that when it hits, it explodes into a cloud of toxic spores. All non-fungus creatures in a @Template[type:emanation|distance:10] (including the target) must attempt a @Check[fortitude|dc:32|options:area-effect,damaging-effect,inflicts:sickened] save. The target of the debris takes a –2 circumstance penalty to this save. Those that fail take @Damage[2d6[persistent,poison]|options:area-damage] damage and are @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Creatures can't remove the sickened condition while this persistent damage remains.</p>"
                 },
                 "publication": {
                     "license": "OGL",

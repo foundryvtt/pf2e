@@ -1,7 +1,7 @@
 export * from "./_types.mjs";
 
 export { default as CachedContainer } from "./advanced/cached-container.mjs";
-export { default as FullCanvasObjectMixin } from "./advanced/full-canvas-mixin.mjs";
+export { default as FullCanvasObjectMixin } from "./advanced/full-container-mixin.mjs";
 export { default as UnboundContainer } from "./advanced/unbound-container.mjs";
 
 export { default as ControlIcon } from "./elements/control-icon.mjs";

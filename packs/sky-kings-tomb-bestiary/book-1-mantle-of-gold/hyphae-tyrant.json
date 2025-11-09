@@ -675,6 +675,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -722,12 +723,14 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": [
-                        "range-increment-30"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
                     "value": "ranged"
@@ -784,7 +787,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a hyphae tyrant dies, a burst of primal energy explodes from its body in a @Template[emanation|distance:30], restoring 3d8 to each fungus creature and dealing @Damage[3d8[void]] damage (@Check[fortitude|dc:20]{basic Fortitude} save) to each non-fungus creature in the area. This area is filled with fungus, becoming difficult terrain.</p>"
+                    "value": "<p>When a hyphae tyrant dies, a burst of primal energy explodes from its body in a @Template[emanation|distance:30], restoring 3d8 to each fungus creature and dealing @Damage[3d8[void]|options:area-damage] damage (@Check[fortitude|dc:20|basic|options:area-effect] save) to each non-fungus creature in the area. This area is filled with fungus, becoming difficult terrain.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -855,7 +858,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A hyphae tyrant unleashes a cloud of spores in a @Template[emanation|distance:20]. Each non-fungi creature in this area must succeed at a @Check[fortitude|dc:20] save or take @Damage[2[persistent,poison]] damage. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet (or 10 feet on a critical failure).</p>"
+                    "value": "<p>A hyphae tyrant unleashes a cloud of spores in a @Template[emanation|distance:20]. Each non-fungi creature in this area must succeed at a @Check[fortitude|dc:20|options:area-effect,damaging-effect] save or take @Damage[2[persistent,poison]|options:area-damage] damage. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet (or 10 feet on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",

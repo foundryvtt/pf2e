@@ -1,14 +1,15 @@
 import type { CreatureSheetData } from "@actor/creature/sheet.ts";
-import type { HitPointsStatistic, TraitViewData } from "@actor/data/base.ts";
+import type { HitPointsStatistic } from "@actor/data/base.ts";
 import type { AbilityViewData } from "@actor/sheet/data-types.ts";
 import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
+import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import type { ItemPF2e } from "@item";
 import type { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import type { ZeroToFour } from "@module/data.ts";
-import type { TagifyEntry } from "@module/sheet/helpers.ts";
+import type { NPCAttackTraitOrTag, TagifyEntry } from "@module/sheet/helpers.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import type { NPCAttributes, NPCPerceptionData, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
-import type { NPCPF2e, NPCStrike } from "./index.ts";
+import type { NPCPF2e } from "./index.ts";
 
 interface ActionsDetails {
     label: string;
@@ -57,10 +58,11 @@ interface NPCStrikeSheetData {
     id: string;
     name: string;
     sort: number;
-    breakdown: string;
-    variants: NPCStrike["variants"];
+    variants: { label: string; breakdown: string | null }[];
     attackType: string;
-    traits: TraitViewData[];
+    glyph: string;
+    /** A list of traits or tags to show next to the strike. */
+    traitsAndTags: NPCAttackTraitOrTag[];
     description: string | null;
     /** The damage formula of the strike for display on sheets */
     damageFormula: string | null;
@@ -101,7 +103,7 @@ interface NPCSpeedSheetData {
     adjustedLower: boolean;
 }
 
-type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = Omit<RawObject<TItem>, "traits"> & {
+type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = Omit<TItem["_source"], "traits"> & {
     glyph: string;
     traits: {
         label: string;

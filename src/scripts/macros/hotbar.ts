@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { AttackPopout } from "@actor/character/apps/attack-popout.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { ActorUUID } from "@client/documents/_module.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { ItemPF2e, type ConditionPF2e, type EffectPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -73,9 +74,12 @@ export async function createActionMacro({
         } else if (actionIndex !== undefined) {
             const action = actor.system.actions[actionIndex];
             if (!action) return null;
+            const actionName = game.i18n.localize(
+                action.type === "strike" ? "PF2E.WeaponStrikeLabel" : action.attackRollType,
+            );
             return {
-                name: `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.label}`,
-                command: `game.pf2e.rollActionMacro({ actorUUID: "${actorUUID}",  type: "strike", itemId: "${action.item.id}", slug: "${action.slug}" })`,
+                name: `${actionName}: ${action.label}`,
+                command: `game.pf2e.rollActionMacro({ actorUUID: "${actorUUID}",  type: "${action.type}", itemId: "${action.item.id}", slug: "${action.slug}" })`,
                 img: action.item.img,
             };
         }
@@ -139,14 +143,16 @@ export async function rollActionMacro({
                 new AttackPopout(actor, { type, elementTrait }).render(true);
                 return;
             }
-            case "strike": {
-                if (closedExisting(`strike-${itemId}-${slug}`)) return;
+            case "strike":
+            case "area-fire":
+            case "auto-fire": {
+                if (closedExisting(`${type}-${itemId}-${slug}`)) return;
                 if (!strike) {
                     ui.notifications.error("PF2E.MacroActionNoActionError", { localize: true });
                     return;
                 }
 
-                new AttackPopout(actor, { type, strikeItemId: itemId, strikeSlug: slug }).render(true);
+                new AttackPopout(actor, { type, itemId, slug }).render(true);
                 return;
             }
         }
@@ -166,7 +172,7 @@ export async function rollActionMacro({
 
     const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/strike-card.hbs", templateData);
     const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;
-    const chatData: PreCreate<foundry.documents.ChatMessageSource> = {
+    const chatData: DeepPartial<foundry.documents.ChatMessageSource> = {
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         content,
         style: CONST.CHAT_MESSAGE_STYLES.OTHER,
@@ -242,5 +248,5 @@ interface RollActionMacroParams {
     itemId?: string;
     slug?: string;
     elementTrait?: EffectTrait;
-    type?: "blast" | "strike";
+    type?: "blast" | "strike" | "area-fire" | "auto-fire";
 }

@@ -22,6 +22,105 @@
         },
         "rules": [
             {
+                "brackets": [
+                    {
+                        "start": 3,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "18 + @actor.level"
+                            },
+                            "size": "med",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 13
+                                }
+                            },
+                            "strikes": {
+                                "fangs": {
+                                    "damage": {
+                                        "modifier": 2
+                                    },
+                                    "modifier": 13
+                                },
+                                "web": {
+                                    "damage": {
+                                        "modifier": 0
+                                    },
+                                    "modifier": 13
+                                }
+                            },
+                            "tempHP": 10
+                        }
+                    },
+                    {
+                        "start": 4,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "18 + @actor.level"
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 16
+                                }
+                            },
+                            "strikes": {
+                                "fangs": {
+                                    "damage": {
+                                        "modifier": 6
+                                    },
+                                    "modifier": 16,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-10"
+                                    ]
+                                },
+                                "web": {
+                                    "damage": {
+                                        "modifier": 0
+                                    },
+                                    "modifier": 16
+                                }
+                            },
+                            "tempHP": 15
+                        }
+                    },
+                    {
+                        "start": 5,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "18 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 20
+                                }
+                            },
+                            "strikes": {
+                                "fangs": {
+                                    "damage": {
+                                        "dice": 2,
+                                        "modifier": 2
+                                    },
+                                    "modifier": 18,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15"
+                                    ]
+                                },
+                                "web": {
+                                    "damage": {
+                                        "dice": 0,
+                                        "modifier": 0
+                                    },
+                                    "modifier": 18
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "senses": {
@@ -64,110 +163,6 @@
                     "traits": [
                         "animal"
                     ]
-                },
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "18 + @actor.level"
-                                },
-                                "size": "med",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 13
-                                    }
-                                },
-                                "strikes": {
-                                    "fangs": {
-                                        "damage": {
-                                            "modifier": 2
-                                        },
-                                        "modifier": 13
-                                    },
-                                    "web": {
-                                        "damage": {
-                                            "modifier": 0
-                                        },
-                                        "modifier": 13
-                                    }
-                                },
-                                "tempHP": 10
-                            }
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "18 + @actor.level"
-                                },
-                                "size": "lg",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 16
-                                    }
-                                },
-                                "strikes": {
-                                    "fangs": {
-                                        "damage": {
-                                            "modifier": 6
-                                        },
-                                        "modifier": 16,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-10"
-                                        ]
-                                    },
-                                    "web": {
-                                        "damage": {
-                                            "modifier": 0
-                                        },
-                                        "modifier": 16
-                                    }
-                                },
-                                "tempHP": 15
-                            }
-                        },
-                        {
-                            "start": 5,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "18 + @actor.level"
-                                },
-                                "size": "huge",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 20
-                                    }
-                                },
-                                "strikes": {
-                                    "fangs": {
-                                        "damage": {
-                                            "dice": 2,
-                                            "modifier": 2
-                                        },
-                                        "modifier": 18,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-15"
-                                        ]
-                                    },
-                                    "web": {
-                                        "damage": {
-                                            "dice": 0,
-                                            "modifier": 0
-                                        },
-                                        "modifier": 18
-                                    }
-                                },
-                                "tempHP": 20
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
                 }
             },
             {

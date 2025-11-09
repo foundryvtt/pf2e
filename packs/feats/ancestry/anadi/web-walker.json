@@ -27,43 +27,55 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "web-walker",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Anadi.WebWalker.Others",
+                        "value": "other-snaring"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Anadi.WebWalker.Webbing",
+                        "value": "webbing"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
-                "label": "Web Walker (vs. webs)",
                 "predicate": [
-                    "webbing"
+                    "web-walker"
                 ],
                 "selector": [
                     "ac",
                     "saving-throw"
                 ],
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Web Walker (vs. snares and entanglement)",
-                "predicate": [
-                    "entanglement"
-                ],
-                "selector": "saving-throw",
+                "slug": "web-walker",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "adjustment": {
-                    "success": "one-degree-better"
+                    "success": "to-critical-success"
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "web"
+                    "web-walker:webbing"
                 ],
                 "selector": "saving-throw"
             },
             {
-                "key": "Note",
-                "selector": "saving-throw",
-                "text": "Whenever you roll a success on a saving throw against an effect involving a web, you get a critical success instead.",
-                "title": "{item|name}"
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "web-walker:webbing"
+                ],
+                "selectors": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "slug": "web-walker",
+                "value": 2
             }
         ],
         "traits": {

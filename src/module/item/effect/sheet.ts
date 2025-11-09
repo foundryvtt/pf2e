@@ -53,7 +53,7 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
         });
 
         htmlQuery(html, "[data-action=badge-delete]")?.addEventListener("click", () => {
-            this.item.update({ "system.-=badge": null });
+            this.item.update({ "system.badge": null });
         });
 
         htmlQuery(html, "[data-action=badge-add-label")?.addEventListener("click", () => {

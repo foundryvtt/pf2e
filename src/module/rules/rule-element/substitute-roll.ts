@@ -1,11 +1,11 @@
 import { DataUnionField, PredicateField, StrictBooleanField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
 /** Substitute a pre-determined result for a check's D20 roll */
-class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
+class SubstituteRollRuleElement extends RuleElement<SubstituteRollSchema> {
     constructor(source: RuleElementSource, options: RuleElementOptions) {
         super(source, options);
 
@@ -28,11 +28,10 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
             }),
             removeAfterRoll: new DataUnionField(
                 [
-                    new fields.StringField<"if-enabled", "if-enabled">({
+                    new fields.StringField<"if-enabled">({
                         required: false,
                         nullable: false,
                         choices: ["if-enabled"],
-                        initial: undefined,
                     }),
                     new StrictBooleanField({
                         required: false,
@@ -64,7 +63,7 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
         });
     }
 
-    override async afterRoll(params: RuleElementPF2e.AfterRollParams): Promise<void> {
+    override async afterRoll(params: RuleElement.AfterRollParams): Promise<void> {
         if (!this.removeAfterRoll || this.ignored) return;
 
         if (this.removeAfterRoll === true) {
@@ -86,7 +85,7 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
 }
 
 interface SubstituteRollRuleElement
-    extends RuleElementPF2e<SubstituteRollSchema>,
+    extends RuleElement<SubstituteRollSchema>,
         ModelPropsFromRESchema<SubstituteRollSchema> {}
 
 type SubstituteRollSchema = RuleElementSchema & {
@@ -99,7 +98,7 @@ type SubstituteRollSchema = RuleElementSchema & {
      * The value may be a boolean, "if-enabled", or a predicate to be tested against the roll options from the roll.
      */
     removeAfterRoll: DataUnionField<
-        fields.StringField<"if-enabled"> | StrictBooleanField | PredicateField<false, false, false>,
+        fields.StringField<"if-enabled"> | StrictBooleanField<false> | PredicateField<false, false, false>,
         false,
         false,
         true

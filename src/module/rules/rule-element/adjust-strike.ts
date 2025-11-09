@@ -1,8 +1,8 @@
 import type { ActorType } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
+import { addOrUpgradeTrait, removeTrait } from "@item/helpers.ts";
 import { RUNE_DATA, prunePropertyRunes } from "@item/physical/runes.ts";
-import { addOrUpgradeTrait } from "@item/weapon/helpers.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MaterialDamageEffect } from "@system/damage/index.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
@@ -10,11 +10,11 @@ import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { StrikeAdjustment } from "../synthetics.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElement, RuleElementOptions } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
-class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
+class AdjustStrikeRuleElement extends RuleElement<AdjustStrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     constructor(data: AdjustStrikeSource, options: RuleElementOptions) {
@@ -150,7 +150,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                                 return;
                             }
 
-                            const traits: { value: string[] } = weapon.system.traits;
+                            const traits = weapon.system.traits;
 
                             // If the weapon's base damage type is the same as a modular or versatile damage type, skip
                             // adding the trait
@@ -163,9 +163,9 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                             }
 
                             if (this.mode === "add") {
-                                traits.value = addOrUpgradeTrait(traits.value, change);
-                            } else if (traits.value.includes(change)) {
-                                traits.value.splice(traits.value.indexOf(change), 1);
+                                addOrUpgradeTrait(traits, change);
+                            } else {
+                                removeTrait(traits, change);
                             }
                         },
                     };
@@ -204,9 +204,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
     }
 }
 
-interface AdjustStrikeRuleElement
-    extends RuleElementPF2e<AdjustStrikeSchema>,
-        ModelPropsFromRESchema<AdjustStrikeSchema> {}
+interface AdjustStrikeRuleElement extends RuleElement<AdjustStrikeSchema>, ModelPropsFromRESchema<AdjustStrikeSchema> {}
 
 type AdjustStrikeSchema = RuleElementSchema & {
     mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;

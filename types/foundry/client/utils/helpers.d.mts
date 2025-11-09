@@ -6,6 +6,8 @@ import {
     ItemUUID,
     TokenDocument,
     TokenDocumentUUID,
+    User,
+    UserUUID,
     WorldDocumentUUID,
 } from "@client/documents/_module.mjs";
 import { ClientDocument } from "@client/documents/abstract/client-document.mjs";
@@ -68,14 +70,30 @@ export type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUI
  * @returns The Document or its index entry if it resides in a Compendium, otherwise null.
  * @throws If the uuid resolves to a Document that cannot be retrieved synchronously, and the strict option is true.
  */
+export function fromUuidSync<TResult extends User = User>(
+    uuid: UserUUID,
+    options?: {
+        relative?: ClientDocument;
+        invalid?: boolean;
+        strict?: boolean;
+    },
+): TResult | null;
+export function fromUuidSync<TResult extends Actor | CompendiumIndexData = Actor | CompendiumIndexData>(
+    uuid: UserUUID,
+    options?: {
+        relative?: ClientDocument;
+        invalid?: boolean;
+        strict?: boolean;
+    },
+): TResult | null;
 export function fromUuidSync<
     TResult extends (Document & { name?: string }) | CompendiumIndexData =
-        | (Document & { name?: string })
+        | (ClientDocument & { name?: string })
         | CompendiumIndexData,
 >(
     uuid: string,
     options?: {
-        relative?: Document;
+        relative?: ClientDocument;
         invalid?: boolean;
         strict?: boolean;
     },
@@ -102,7 +120,10 @@ export function getDocumentClass(documentName: string): typeof Document | undefi
  * @param options Options which modify the sort behavior
  * @returns An Array of updates for the caller of the helper function to perform
  */
-export function performIntegerSort<TObject extends object>(source: TObject, options?: SortOptions<TObject>): TObject[];
+export function performIntegerSort<TObject extends object>(
+    source: TObject,
+    options?: SortOptions<TObject>,
+): { target: TObject; update: Record<string, number> }[];
 
 declare interface SortOptions<TObject extends object> {
     /** The target object relative which to sort */

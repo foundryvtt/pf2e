@@ -1,0 +1,55 @@
+{
+    "_id": "cEGqwfN7EIpMCkNM",
+    "img": "icons/magic/symbols/mask-metal-silver-white.webp",
+    "name": "Effect: Triangular Teeth",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Triangular Teeth]</p>\n<p>You gain a +2 status bonus to damage with the next Strike you make against the marked creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "triangular-teeth-damage",
+                "uuid": ""
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:triangular-teeth-damage"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "damage"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,6 +1,6 @@
 import type { CompendiumDocument } from "@client/documents/_module.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
-import type { CompendiumIndex, CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import { localizer, sluggify } from "@util";
 import type { CompendiumBrowserSources } from "./browser.ts";
 
@@ -16,7 +16,11 @@ class PackLoader {
         documentType: "Actor" | "Item",
         packs: string[],
         indexFields: string[],
-    ): AsyncGenerator<{ pack: CompendiumCollection<CompendiumDocument>; index: CompendiumIndex }, void, unknown> {
+    ): AsyncGenerator<
+        { pack: CompendiumCollection<CompendiumDocument>; index: Collection<string, CompendiumIndexData> },
+        void,
+        unknown
+    > {
         const localize = localizer("PF2E.ProgressBar");
         const sources = this.#getSources();
 
@@ -49,7 +53,7 @@ class PackLoader {
     }
 
     /** Set art provided by a module if any is available */
-    #setModuleArt(packName: string, index: CompendiumIndex): void {
+    #setModuleArt(packName: string, index: Collection<string, CompendiumIndexData>): void {
         if (!packName.startsWith("pf2e.")) return;
         for (const record of index) {
             const uuid = `Compendium.${packName}.Actor.${record._id}` as const;
@@ -60,15 +64,18 @@ class PackLoader {
 
     #getSources(): Set<string> {
         const sources = new Set<string>();
-        for (const source of Object.values(this.sourcesSettings.sources)) {
+        for (const [slug, source] of Object.entries(this.sourcesSettings.sources)) {
             if (source?.load) {
-                sources.add(source.name);
+                sources.add(slug);
             }
         }
         return sources;
     }
 
-    #createFilteredIndex(index: CompendiumIndex, sources: Set<string>): CompendiumIndex {
+    #createFilteredIndex(
+        index: Collection<string, CompendiumIndexData>,
+        sources: Set<string>,
+    ): Collection<string, CompendiumIndexData> {
         if (sources.size === 0) {
             // Make sure everything works as before as long as the settings are not yet defined
             return index;
@@ -79,7 +86,7 @@ class PackLoader {
         }
 
         const filteredIndex = new Collection<string, CompendiumIndexData>();
-        const knownSources = Object.values(this.sourcesSettings.sources).map((value) => value?.name);
+        const knownSources = Object.keys(this.sourcesSettings.sources);
 
         for (const data of index) {
             const source = this.#getSourceFromIndexData(data);
@@ -153,12 +160,12 @@ class PackLoader {
         if (!system) return "";
 
         // Handle unmigrated data
-        return (
+        return sluggify(
             system.publication?.title ??
-            system.details?.publication?.title ??
-            system.source?.value ??
-            system.details?.source?.value ??
-            ""
+                system.details?.publication?.title ??
+                system.source?.value ??
+                system.details?.source?.value ??
+                "",
         );
     }
 

@@ -32,6 +32,7 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -120,7 +121,27 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:type:spell",
+                                    {
+                                        "or": [
+                                            "item:slug:force-barrage",
+                                            "item:slug:quandary",
+                                            "item:slug:revealing-light"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.WispVulnerabilities"
+                            }
+                        ],
+                        "key": "Immunity",
+                        "type": "magic"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -144,6 +165,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> An enemy within 15 feet is under a fear effect or dying</p>\n<hr />\n<p><strong>Effect</strong> The will-o'-wisp feeds on the creature's terror. It regains @Damage[2d4[healing]]{2d4 Hit Points}, and if it has Gone Dark, its glow reignites.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "ORC",
@@ -254,12 +279,7 @@
                 "temp": 0,
                 "value": 50
             },
-            "immunities": [
-                {
-                    "exceptions": [],
-                    "type": "magic"
-                }
-            ],
+            "immunities": [],
             "speed": {
                 "otherSpeeds": [
                     {

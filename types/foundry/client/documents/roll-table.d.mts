@@ -1,10 +1,11 @@
+import DocumentSheetV2 from "@client/applications/api/document-sheet.mjs";
 import { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
 import { RollMode } from "@common/constants.mjs";
 import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
 import Roll from "../dice/roll.mjs";
-import { BaseRollTable, ChatMessage, Folder, TableResult } from "./_module.mjs";
+import { BaseRollTable, ChatMessage, Folder, RollTableSource, TableResult } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import CompendiumCollection from "./collections/compendium-collection.mjs";
 
@@ -175,7 +176,10 @@ export default class RollTable extends ClientBaseRollTable {
 }
 
 export default interface RollTable extends ClientBaseRollTable {
+    readonly _source: RollTableSource;
     readonly results: EmbeddedCollection<TableResult<this>>;
+
+    get sheet(): DocumentSheetV2;
 }
 
 /**

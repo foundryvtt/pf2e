@@ -1,0 +1,49 @@
+{
+    "_id": "hlgCesYXXHG8r9X4",
+    "img": "icons/creatures/slimes/slime-face-melting-green.webp",
+    "name": "Spell Effect: Outcast's Curse (Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse]</p>\n<p>You must roll twice and use the worse result whenever attempting a Deception, Diplomacy, Intimidation, or Performance check.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "removeAfterRoll": false,
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation",
+                    "performance"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

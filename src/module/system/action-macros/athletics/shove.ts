@@ -28,7 +28,7 @@ function shoveCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
 function shove(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const modifiers = options?.modifiers;
-    const rollOptions = ["action:shove"];
+    const rollOptions = ["action:shove", "forced-movement"];
     ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
@@ -71,7 +71,7 @@ class ShoveAction extends SingleCheckAction {
                 { outcome: ["success"], text: `${PREFIX}.Notes.success` },
                 { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
             ],
-            rollOptions: ["action:shove"],
+            rollOptions: ["forced-movement"],
             section: "skill",
             slug: "shove",
             statistic: "athletics",

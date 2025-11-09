@@ -161,7 +161,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round.</p>\n<hr />\n<p><strong>Effect</strong> The city guards engage in a coordinated melee attack against each enemy within @Template[emanation|distance:10]{10 feet}, with a @Check[reflex|dc:19|basic] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d10[piercing]] damage or @Damage[1d10[slashing]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(1d10+7)[piercing]] damage or @Damage[(1d10+7)[slashing]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(1d10+10)[piercing]] damage or @Damage[(1d10+10)[slashing]] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round.</p><hr /><p><strong>Effect</strong> The city guards engage in a coordinated melee attack against each enemy within @Template[emanation|distance:10]{10 feet}, with a @Check[reflex|dc:19|basic|options:area-effect] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d10[untyped]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(1d10+7)[untyped]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(1d10+10)[untyped]|options:area-damage] damage</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -173,7 +173,34 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "lower-halberds",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.lowerHalberds}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -195,7 +222,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The city guards draw or reload their crossbows, then launch a ranged attack in the form of a volley. This volley is a @Template[type:burst|distance:10] within 120 feet that deals @Damage[2d8[piercing]] damage with a @Check[reflex|dc:19|basic] save. When the city guards are reduced to 2 or fewer segments, this area decreases to a @Template[type:burst|distance:5].</p>"
+                    "value": "<p>The city guards draw or reload their crossbows, then launch a ranged attack in the form of a volley. This volley is a @Template[type:burst|distance:10] within 120 feet that deals @Damage[2d8[piercing]|options:area-damage] damage with a @Check[reflex|dc:19|basic|options:area-effect] save. When the city guards are reduced to 2 or fewer segments, this area decreases to a @Template[type:burst|distance:5].</p>"
                 },
                 "publication": {
                     "license": "ORC",

@@ -1,5 +1,4 @@
-import { SceneDimensions } from "@client/_types.mjs";
-import { TokenAnimationOptions } from "@client/canvas/placeables/token.mjs";
+import { TokenAnimationOptions } from "@client/_types.mjs";
 import {
     DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
@@ -22,6 +21,8 @@ import {
     NoteSource,
     RegionDocument,
     RegionSource,
+    SceneDimensions,
+    SceneSource,
     TileDocument,
     TokenDocument,
     TokenSource,
@@ -88,7 +89,7 @@ export default class Scene extends ClientBaseScene {
     getDimensions(): SceneDimensions;
 
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;
@@ -164,6 +165,8 @@ export default class Scene extends ClientBaseScene {
 }
 
 export default interface Scene extends ClientBaseScene {
+    readonly _source: SceneSource;
+
     readonly drawings: EmbeddedCollection<DrawingDocument<this>>;
     readonly lights: EmbeddedCollection<AmbientLightDocument<this>>;
     readonly notes: EmbeddedCollection<NoteDocument<this>>;
@@ -174,7 +177,7 @@ export default interface Scene extends ClientBaseScene {
     readonly tiles: EmbeddedCollection<TileDocument<this>>;
     readonly walls: EmbeddedCollection<WallDocument<this>>;
 
-    get sheet(): SceneConfig<this> | null;
+    get sheet(): SceneConfig<this>;
 
     getEmbeddedCollection(embeddedName: "Token"): this["tokens"];
 

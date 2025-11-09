@@ -115,23 +115,50 @@
             button,
             input:not([type="range"]),
             select {
-                &:hover:not(:disabled),
+                &:hover:not(:disabled, .inline-control),
                 &:focus {
                     border-color: var(--color-border-dark-1);
                     box-shadow: 0 0 4px var(--color-pf-secondary);
                 }
             }
 
+            input:read-only,
             input:disabled,
             select:disabled {
                 color: var(--color-disabled);
                 opacity: 0.8;
-                pointer-events: none;
             }
 
             > section.sidebar,
             > .sheet-body {
                 height: calc(100% - var(--space-10));
+            }
+
+            button.inline-control {
+                background: transparent;
+                border: 1px solid transparent;
+                box-shadow: none;
+                display: flex;
+                height: var(--button-size);
+                line-height: normal;
+                margin: unset;
+                text-decoration: none;
+                transition: none;
+                width: auto;
+
+                &:hover {
+                    text-shadow: 0 0 8px var(--color-shadow-primary);
+                }
+
+                &:disabled {
+                    --button-text-color: var(--color-text-subtle);
+                    text-shadow: none;
+                }
+            }
+
+            button.icon {
+                flex: 0 0 var(--button-size);
+                width: var(--button-size);
             }
 
             @import "sidebar";
@@ -308,10 +335,6 @@
             }
 
             &.material-runes {
-                .precious-material select {
-                    min-width: 0;
-                    width: 0;
-                }
                 .form-group {
                     flex-wrap: nowrap;
                 }
@@ -366,6 +389,11 @@
 
             .item-controls {
                 flex: 0 1 auto;
+            }
+
+            select.force-fit {
+                min-width: 0;
+                width: 0;
             }
 
             select.readonly {

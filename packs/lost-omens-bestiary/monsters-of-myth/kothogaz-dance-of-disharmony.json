@@ -39,6 +39,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -91,6 +92,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -144,13 +146,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 100,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "range-increment-100"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
                     "value": "ranged"
@@ -295,14 +299,34 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Kothogaz is permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}. It can use this extra action to Stride or Strike.</p>"
+                    "value": "<p>Kothogaz is permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. It can use this extra action to Stride or Strike.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+                    },
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:granter:id:{item|id}"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -521,7 +545,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Kothogaz raises a pustule from the ground within 120 feet, which erupts in a @Template[burst|distance:10]{10-foot radius}, 200-foot-high cylinder of cloying filth. Creatures in the area must succeed at a @Check[reflex|dc:44|basic] save or take @Damage[6d10[poison]] damage. On a failure, they can't fly for 1 round (1 minute on a critical failure); flying creatures fall safely to the ground.</p>"
+                    "value": "<p>Kothogaz raises a pustule from the ground within 120 feet, which erupts in a @Template[cylinder|distance:10]{10-foot radius}, 200-foot-high cylinder of cloying filth. Creatures in the area must succeed at a @Check[reflex|dc:44|basic|options:area-effect] save or take @Damage[6d10[poison]|options:area-damage] damage. On a failure, they can't fly for 1 round (1 minute on a critical failure); flying creatures fall safely to the ground.</p>"
                 },
                 "publication": {
                     "license": "OGL",

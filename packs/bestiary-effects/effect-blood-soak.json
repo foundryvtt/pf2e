@@ -1,10 +1,10 @@
 {
     "_id": "wPIGBcpCqCWgrCiq",
-    "img": "icons/skills/wounds/blood-cells-vessel-red-orange.webp",
+    "img": "icons/skills/wounds/blood-cells-red.webp",
     "name": "Effect: Blood Soak",
     "system": {
         "description": {
-            "value": "<p>The creature gains a +4 status bonus to damage rolls.</p>"
+            "value": "<p>The redcap brigade gains a status bonus to damage rolls for 1 minute. The bonus is +2 if they spend one action on Bloody Reaping, +6 if they spend two actions, or +8 if they spend 3 actions. They gain a +4 status bonus to damage rolls with Bowl Over and Stomp.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -12,19 +12,54 @@
             "unit": "minutes",
             "value": 1
         },
+        "fromSpell": false,
         "level": {
-            "value": 5
+            "value": 1
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Monster Core"
+            "title": "Pathfinder Battlecry!"
         },
         "rules": [
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "selector": "damage",
-                "type": "status",
+                "predicate": [
+                    "bloody-reaping-one"
+                ],
+                "selector": "inline-damage",
+                "slug": "bloody-reaping-one-action-bonus",
+                "value": 2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "bloody-reaping-two"
+                ],
+                "selector": "inline-damage",
+                "slug": "bloody-reaping-two-action-bonus",
+                "value": 6
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "bloody-reaping-three"
+                ],
+                "selector": "inline-damage",
+                "slug": "bloody-reaping-three-action-bonus",
+                "value": 8
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "bowl-ower-and-stomp"
+                ],
+                "selector": "inline-damage",
+                "slug": "bowl-ower-and-stomp-bonus",
                 "value": 4
             }
         ],
@@ -36,7 +71,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

@@ -1,17 +1,11 @@
-import { processChoicesFromData } from "@module/rules/helpers.ts";
+import { createBatchRuleElementUpdate, processChoicesFromData } from "@module/rules/helpers.ts";
 import { Predicate } from "@system/predication.ts";
-import {
-    DataUnionField,
-    PredicateField,
-    StrictArrayField,
-    StrictBooleanField,
-    StrictStringField,
-} from "@system/schema-data-fields.ts";
+import { DataUnionField, PredicateField, StrictArrayField, StrictBooleanField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import * as R from "remeda";
 import { RollOptionToggle } from "../../synthetics.ts";
 import { AELikeRuleElement } from "../ae-like.ts";
-import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import { RuleElement, RuleElementOptions } from "../base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
 import { Suboption, type RollOptionSchema } from "./data.ts";
 import fields = foundry.data.fields;
@@ -20,7 +14,7 @@ import fields = foundry.data.fields;
  * Set a roll option at a specificed domain
  * @category RuleElement
  */
-class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
+class RollOptionRuleElement extends RuleElement<RollOptionSchema> {
     /** True if this roll option has a suboptions configuration */
     hasSubOptions: boolean;
 
@@ -75,20 +69,13 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             }),
             suboptions: new DataUnionField(
                 [
-                    new fields.SchemaField(
-                        {
-                            config: new fields.StringField({ required: true, nullable: false }),
-                            predicate: new PredicateField({ required: false, nullable: false, initial: undefined }),
-                        },
-                        { required: false, nullable: false, initial: undefined },
-                    ),
-                    new StrictArrayField(new fields.EmbeddedDataField(Suboption), {
-                        required: true,
-                        nullable: false,
-                        initial: [],
+                    new StrictArrayField(new fields.EmbeddedDataField(Suboption)),
+                    new fields.SchemaField({
+                        config: new fields.StringField({ required: true, blank: false }),
+                        predicate: new PredicateField(),
                     }),
                 ],
-                { required: false, nullable: false, initial: [] },
+                { required: false, nullable: false, initial: () => [] },
             ),
             mergeable: new fields.BooleanField({ required: false }),
             value: new ResolvableValueField({
@@ -100,12 +87,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             selection: new fields.StringField({ required: false, blank: false, nullable: false, initial: undefined }),
             toggleable: new DataUnionField(
                 [
-                    new StrictStringField<"totm">({
-                        required: false,
-                        nullable: false,
-                        choices: ["totm"],
-                        initial: undefined,
-                    }),
+                    new fields.StringField<"totm">({ required: false, nullable: false, choices: ["totm"] }),
                     new StrictBooleanField({ required: false, nullable: false, initial: false }),
                 ],
                 { required: false, nullable: false, initial: undefined },
@@ -190,9 +172,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                             choice.predicate || suboptions.predicate.length
                                 ? this.resolveInjectedProperties(
                                       new Predicate(choice.predicate ?? fu.deepClone(suboptions.predicate)),
-                                      {
-                                          injectables: { choice },
-                                      },
+                                      { injectables: { choice } },
                                   )
                                 : null,
                     },
@@ -391,24 +371,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     async toggle(value = !this.resolveValue(), selection: string | null = null): Promise<boolean | null> {
         if (!this.toggleable) throw ErrorPF2e("Attempted to toggle non-toggleable roll option");
 
-        const actor = this.actor;
-        const updates: { _id: string; "system.rules": RuleElementSource[] }[] = [];
-
         if (this.mergeable && selection) {
             // Update the items containing rule elements in the merge family
-            const rulesByItem = R.groupBy(this.#resolveSuboptionRules(), (r) => r.item.id);
-            for (const [itemId, rules] of Object.entries(rulesByItem)) {
-                const item = actor.items.get(itemId, { strict: true });
-                const ruleSources = item.toObject().system.rules;
-                const rollOptionSources = rules
-                    .map((rule) => (typeof rule.sourceIndex === "number" ? ruleSources[rule.sourceIndex] : null))
-                    .filter((source): source is RollOptionSource => source?.key === "RollOption");
-                for (const ruleSource of rollOptionSources) {
-                    ruleSource.value = value;
-                    ruleSource.selection = selection;
-                }
-                updates.push({ _id: itemId, "system.rules": ruleSources });
-            }
+            const rules = this.#resolveSuboptionRules();
+            const updates = createBatchRuleElementUpdate(rules, { value, selection });
+            const result = await this.actor.updateEmbeddedDocuments("Item", updates);
+            return result.length > 0 ? value : null;
         } else {
             // Directly update the rule element on the item
             const ruleSources = this.item.toObject().system.rules;
@@ -417,12 +385,9 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             if (!thisSource) return null;
             thisSource.value = value;
             if (selection) thisSource.selection = selection;
-            updates.push({ _id: this.item.id, "system.rules": ruleSources });
+            const updated = await this.item.update({ "system.rules": ruleSources });
+            return updated ? value : null;
         }
-
-        const result = await this.actor.updateEmbeddedDocuments("Item", updates);
-
-        return result.length > 0 ? value : null;
     }
 
     /* -------------------------------------------- */
@@ -446,7 +411,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 
     /** Remove the parent effect if configured so */
-    override async afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
+    override async afterRoll({ domains, rollOptions }: RuleElement.AfterRollParams): Promise<void> {
         const option = this.#resolveOption({ withSuboption: true });
         if (
             !this.ignored &&
@@ -462,7 +427,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 }
 
-interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromRESchema<RollOptionSchema> {
+interface RollOptionRuleElement extends RuleElement<RollOptionSchema>, ModelPropsFromRESchema<RollOptionSchema> {
     value: boolean | string;
 }
 

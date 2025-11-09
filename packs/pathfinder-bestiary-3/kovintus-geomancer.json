@@ -463,7 +463,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Plants in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
+                    "value": "<p>Plants in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a –10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -783,7 +783,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.Rn2LkoSq1XhLsODV"
             },
-            "img": "systems/pf2e/icons/spells/pummeling-rubble.webp",
+            "img": "icons/magic/earth/projectiles-stone-salvo-gray.webp",
             "name": "Pummeling Rubble",
             "sort": 1300000,
             "system": {
@@ -961,6 +961,11 @@
             "name": "Sling",
             "sort": 1500000,
             "system": {
+                "ammo": {
+                    "baseType": "sling-bullets",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "sling",
                 "bonus": {
                     "value": 0
@@ -1045,30 +1050,17 @@
             "name": "Sling Bullets",
             "sort": 1600000,
             "system": {
-                "baseItem": null,
+                "baseItem": "sling-bullets",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -1085,13 +1077,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "sling-bullets",
-                "stackGroup": "slingBullets",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -1099,7 +1089,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "WrlWLg3CTbIvRroV",
@@ -1136,6 +1126,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1185,13 +1176,16 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 50,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "propulsive",
-                        "range-increment-50",
                         "reload-1"
                     ]
                 },

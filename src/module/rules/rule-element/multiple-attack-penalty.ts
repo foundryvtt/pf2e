@@ -1,26 +1,19 @@
 import { MAPSynthetic } from "../synthetics.ts";
-import { RuleElementPF2e } from "./base.ts";
+import { RuleElement } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
  */
-class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
+class MultipleAttackPenaltyRuleElement extends RuleElement<MAPRuleSchema> {
+    static override autogenForms = true;
+
     static override defineSchema(): MAPRuleSchema {
-        return {
-            ...super.defineSchema(),
-            selector: new fields.StringField({
-                required: true,
-                blank: false,
-                label: "PF2E.RuleEditor.General.Selector",
-            }),
-            value: new ResolvableValueField({
-                required: true,
-                initial: undefined,
-                label: "PF2E.RuleEditor.General.Value",
-            }),
-        };
+        return Object.assign(super.defineSchema(), {
+            selector: new fields.StringField({ required: true, blank: false }),
+            value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
+        });
     }
 
     override beforePrepareData(): void {
@@ -43,9 +36,7 @@ class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
     }
 }
 
-interface MultipleAttackPenaltyRuleElement
-    extends RuleElementPF2e<MAPRuleSchema>,
-        ModelPropsFromRESchema<MAPRuleSchema> {}
+interface MultipleAttackPenaltyRuleElement extends RuleElement<MAPRuleSchema>, ModelPropsFromRESchema<MAPRuleSchema> {}
 
 type MAPRuleSchema = RuleElementSchema & {
     selector: fields.StringField<string, string, true, false, false>;

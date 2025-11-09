@@ -29,7 +29,42 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens Knights of Lastwall"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "shared-sight"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:shared-sight",
+                    {
+                        "not": "item:trait:cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Shared Sight]"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [

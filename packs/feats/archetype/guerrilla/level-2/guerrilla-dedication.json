@@ -1,0 +1,151 @@
+{
+    "_id": "EVgqBU9BsEdPlRxD",
+    "folder": "640TgMeMxYMqBIn7",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Guerrilla Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're skilled in subtle tactics and using the environment against your enemies. You become trained in your choice of Deception or Thievery; if you are already trained in both, you become an expert in one instead. When you take this dedication, choose a single, discrete urban or wilderness location, such as \"Mzali\" or \"the Verduran Forest\"; this becomes your favored location. When you are in this location and undetected by all enemies, you can @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] without attempting a Stealth check as long as you move no more than half your Speed. During exploration, this also allows you to automatically approach within 15 feet of other creatures while Avoiding their Notice, as long as they aren't actively Searching or on guard.</p>\n<p>You can change your favored location by spending 1 week of downtime in the new location you would like to set as your favored location.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.6bVnGg5GyWZgYZst]{Guerrilla}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Stealth and Survival"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "predicate": [
+                            "skill:deception:rank:0"
+                        ],
+                        "value": "deception-trained"
+                    },
+                    {
+                        "label": "PF2E.Skill.Thievery",
+                        "predicate": [
+                            "skill:thievery:rank:0"
+                        ],
+                        "value": "thievery-trained"
+                    },
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "predicate": [
+                            "skill:deception:rank:1",
+                            {
+                                "gte": [
+                                    "skill:thievery:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "deception-expert"
+                    },
+                    {
+                        "label": "PF2E.Skill.Thievery",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:deception:rank",
+                                    1
+                                ]
+                            },
+                            "skill:thievery:rank:1"
+                        ],
+                        "value": "thievery-expert"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "lte": [
+                                    "skill:deception:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "lte": [
+                                    "skill:thievery:rank",
+                                    1
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "guerrilla-dedication-skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "predicate": [
+                    "guerrilla-dedication-skill:deception-trained"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "predicate": [
+                    "guerrilla-dedication-skill:deception-expert"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.thievery.rank",
+                "predicate": [
+                    "guerrilla-dedication-skill:thievery-trained"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.thievery.rank",
+                "predicate": [
+                    "guerrilla-dedication-skill:thievery-expert"
+                ],
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

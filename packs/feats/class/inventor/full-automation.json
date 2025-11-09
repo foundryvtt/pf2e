@@ -29,7 +29,42 @@
             "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:granter:id:{item|id}"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "feature:armor-innovation"
+                        ],
+                        "text": "PF2E.SpecificRule.Inventor.FullAutomation.QuickenedAddendum.Armor"
+                    },
+                    {
+                        "predicate": [
+                            "feature:construct-innovation"
+                        ],
+                        "text": "PF2E.SpecificRule.Inventor.FullAutomation.QuickenedAddendum.Construct"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation"
+                        ],
+                        "text": "PF2E.SpecificRule.Inventor.FullAutomation.QuickenedAddendum.Weapon"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

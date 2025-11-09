@@ -1,12 +1,12 @@
 import type { CharacterPF2e } from "@actor";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Coins } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { OneToFour } from "@module/data.ts";
 import { calculateDC } from "@module/dc.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessIndex, RollBrief } from "@system/degree-of-success.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { EarnIncomeResult, earnIncome } from "./calculate.ts";
-import { eventToRollParams } from "@module/sheet/helpers.ts";
 
 function escapeHtml(text: string): string {
     const p = document.createElement("p");
@@ -23,7 +23,7 @@ function degreeOfSuccessLabel(degreeIndex: DegreeOfSuccessIndex): string {
     return game.i18n.localize(`PF2E.Check.Result.Degree.Check.${degreeSlug}`);
 }
 
-function coinsToString(coins: CoinsPF2e, degreeOfSuccess: DegreeOfSuccessIndex): string {
+function coinsToString(coins: Coins, degreeOfSuccess: DegreeOfSuccessIndex): string {
     if (degreeOfSuccess === 0) {
         return "none";
     } else {
@@ -107,7 +107,7 @@ function runEarnIncome({ actor, event, skill, level, days }: RunEarnIncomeParams
 
 interface RunEarnIncomeParams {
     actor: CharacterPF2e;
-    event: JQuery.TriggeredEvent | Event | undefined;
+    event: Event | undefined;
     skill: Statistic;
     level: number;
     days: number;

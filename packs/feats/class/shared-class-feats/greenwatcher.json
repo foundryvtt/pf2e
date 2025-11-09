@@ -32,15 +32,35 @@
         "rules": [
             {
                 "adjustment": {
-                    "criticalFailure": "one-degree-better"
+                    "criticalFailure": "to-failure"
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
                     "item:type:spell",
                     "origin:trait:fey"
                 ],
-                "selector": "saving-throw",
-                "type": "saves"
+                "selector": "saving-throw"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:trait:fey"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Feat.Greenwatcher.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:trait:fey"
+                ],
+                "property": "materials",
+                "value": "cold-iron"
             }
         ],
         "traits": {

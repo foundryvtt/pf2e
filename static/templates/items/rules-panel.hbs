@@ -10,42 +10,52 @@
     <div class="rules flexcol">
         <div class="nerd-details flexcol">
             <div class="form-group">
-                <label for="{{options.id}}-uuid">
+                <label for="{{rootId}}-uuid">
                     <span>{{localize "PF2E.UUID.Label"}}</span>
-                    <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Rules.Hint.UUID"></i>
+                    <span class="icon fa-solid fa-circle-info"
+                          data-tooltip aria-label="{{localize "PF2E.Item.Rules.Hint.UUID"}}"></span>
                 </label>
-                <input id="{{options.id}}-uuid" disabled value="{{item.uuid}}" />
+                <div class="form-fields">
+                    <input type="text" id="{{rootId}}-uuid" value="{{item.uuid}}" readonly />
+                </div>
                 <div class="item-controls">
-                    <a data-clipboard="{{item.uuid}}"><i class="fa-solid fa-fw fa-clipboard"></i></a>
+                    <button type="button" class="inline-control icon fa-solid fa-clipboard"
+                            data-action="copy-to-clipboard" data-clipboard="{{item.uuid}}"
+                            data-tooltip aria-label="{{localize "PF2E.Item.Rules.CopyToClipboard"}}"></button>
                 </div>
             </div>
             {{#if item.sourceId}}
                 <div class="form-group">
-                    <label for="{{options.id}}-source-id">
+                    <label for="{{rootId}}-source-id">
                         <span>{{localize "PF2E.UUID.SourceId"}}</span>
                         <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Rules.Hint.SourceId"></i>
                     </label>
-                    <input id="{{options.id}}-source-id" disabled value="{{item.sourceId}}" />
+                    <input type="text" id="{{rootId}}-source-id" value="{{item.sourceId}}" readonly />
                     <div class="item-controls">
-                        <a data-clipboard="{{item.sourceId}}"><i class="fa-solid fa-fw fa-clipboard"></i></a>
+                        <button type="button" class="inline-control icon fa-solid fa-clipboard"
+                                data-action="copy-to-clipboard" data-clipboard="{{item.sourceId}}"
+                                data-tooltip aria-label="{{localize "PF2E.Item.Rules.CopyToClipboard"}}"></button>
                     </div>
                 </div>
             {{/if}}
             <div class="form-group">
-                <label for="{{options.id}}-slug">
+                <label for="{{rootId}}-slug">
                     <span>{{localize "PF2E.Slug"}}</span>
-                    <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Rules.Hint.Slug"></i>
+                    <span class="icon fa-solid fa-circle-info"
+                          data-tooltip aria-label="{{localize "PF2E.Item.Rules.Hint.Slug"}}"></span>
                 </label>
-                <input id="{{options.id}}-slug" type="text" name="system.slug" value="{{item.system.slug}}" />
+                <input id="{{rootId}}-slug" type="text" name="system.slug" value="{{item.system.slug}}" />
                 <div class="item-controls">
-                    <a data-action="regenerate-slug" data-tooltip="PF2E.Item.Rules.RegenerateSlug"><i class="fa-solid fa-fw fa-sync-alt"></i></a>
+                    <button type="button" class="inline-control icon fa-solid fa-sync-alt" data-action="regenerate-slug"
+                            data-tooltip aria-label="{{localize "PF2E.Item.Rules.RegenerateSlug"}}"></button>
                 </div>
             </div>
             <div class="form-group">
-                <a data-action="view-roll-options" data-tooltip-class="pf2e roll-options" data-tooltip-direction="RIGHT">
-                    {{localize "PF2E.Item.Rules.ViewRollOptions"}}
-                    <i class="fa-solid fa-circle-info"></i>
-                </a>
+                <button type="button" class="inline-control view-roll-options" data-action="view-roll-options"
+                   data-tooltip-class="pf2e roll-options" data-tooltip-direction="RIGHT">
+                    <span>{{localize "PF2E.Item.Rules.ViewRollOptions"}}</span>
+                    <i class="fa-solid fa-circle-info" inert></i>
+                </button>
             </div>
         </div>
         <div class="rule-element-forms flexcol">
@@ -57,7 +67,10 @@
             <select data-action="select-rule-element">
                 {{selectOptions rules.selection.types selected=rules.selection.selected}}
             </select>
-            <a data-action="add-rule-element"><i class="fa-solid fa-plus"></i> {{localize "PF2E.Item.Rules.New"}}</a>
+            <button type="button" class="inline-control" data-action="add-rule-element">
+                <i class="fa-solid fa-plus" inert></i>
+                <span>{{localize "PF2E.Item.Rules.New"}}</span>
+            </button>
         </div>
     </div>
 {{/if}}

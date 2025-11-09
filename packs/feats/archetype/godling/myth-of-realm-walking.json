@@ -1,0 +1,65 @@
+{
+    "_id": "n7GdtqrIaQPGaptn",
+    "folder": "O7SJLJtCStA1pAHP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Myth of Realm-Walking",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your myth speaks of distant travel to countless countries, planes, or dimensions. When any effect attempts to anchor you to a plane (such as @UUID[Compendium.pf2e.spells-srd.Item.Planar Tether]) or to banish you from the current plane (such as @UUID[Compendium.pf2e.spells-srd.Item.Banishment]), that effect gains the incapacitation trait. If it already has the incapacitation trait, you gain a +4 status bonus to your save against the effect. If you successfully save against such an effect, the creature that attempted to use this effect on you must succeed at a @Check[will|against:class-spell] save against your class or spell DC (whichever is higher) to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure).</p>\n<p>You also lay claim to one of the following domains of your choice: dreams, fate, or travel.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Godling Dedication"
+                },
+                {
+                    "value": "hero-god accomplishment"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #218: Titanbane"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:incapacitation",
+                    {
+                        "or": [
+                            "item:slug:planar-tether",
+                            "item:slug:banishment"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "mythic"
+            ]
+        }
+    },
+    "type": "feat"
+}

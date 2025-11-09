@@ -1,0 +1,55 @@
+{
+    "_id": "feQwOL1QfZDfVrt8",
+    "img": "icons/magic/perception/eye-ringed-green.webp",
+    "name": "Effect: Overclock Senses",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Overclock Senses]</p>\n<p>You gain a +2 circumstance bonus to your AC against ranged attacks and to Reflex saving throws.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Gatewalkers Player's Guide (Remastered)"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:ranged"
+                ],
+                "selector": [
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -4,7 +4,7 @@ export class MockJournalEntry {
     readonly pages: object[] = [];
 
     constructor(source: foundry.documents.JournalEntrySource) {
-        this._source = fu.duplicate(source);
+        this._source = fu.deepClone(source);
         this.pages = source.pages;
     }
 }

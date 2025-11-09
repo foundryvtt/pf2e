@@ -176,7 +176,7 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;
@@ -350,17 +350,17 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * @param options.context  Additional render context to provide to the template.
      * @returns A Promise which resolves to the created Document, or null if the dialog was closed.
      */
-    static createDialog<T extends typeof Document>(
-        this: T,
+    static createDialog<T extends ClientDocument>(
+        this: ConstructorOf<T>,
         data?: object,
-        createOptions?: DatabaseCreateOperation<Document | null>,
+        createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
         options?: {
             folders?: { id: string; name: string }[];
             types?: string[];
             template?: string;
             context?: object;
-        } & object,
-    ): Promise<InstanceType<T>>;
+        },
+    ): Promise<T | null>;
 
     /**
      * Present a Dialog form to confirm deletion of this Document.
@@ -375,7 +375,7 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * Only world Documents may be exported.
      * @param options Additional options passed to the {@link ClientDocument#toCompendium} method
      */
-    exportToJSON(options?: object): void;
+    exportToJSON(options?: ToCompendiumOptions): void;
 
     /**
      * Serialize salient information about this Document when dragging it.
@@ -394,7 +394,11 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * @returns The resolved Document
      * @throws If a Document could not be retrieved from the provided data.
      */
-    static fromDropData<T extends typeof Document>(this: T, data: object, options?: object): Promise<InstanceType<T>>;
+    static fromDropData<T extends ClientDocument>(
+        this: ConstructorOf<T>,
+        data: object,
+        options?: object,
+    ): Promise<T | null>;
 
     /**
      * Create the Document from the given source with migration applied to it.
@@ -435,29 +439,11 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
     /**
      * Transform the Document data to be stored in a Compendium pack.
      * Remove any features of the data which are world-specific.
-     * @param pack                   A specific pack being exported to
-     * @param options                Additional options which modify how the document is converted
-     * @param options.clearFlags     Clear the flags object
-     * @param options.clearSource    Clear any prior source information
-     * @param options.clearSort      Clear the currently assigned sort order
-     * @param options.clearFolder    Clear the currently assigned folder
-     * @param options.clearOwnership Clear document ownership
-     * @param options.clearState     Clear fields which store document state
-     * @param options.keepId         Retain the current Document id
+     * @param pack A specific pack being exported to
+     * @param options Additional options which modify how the document is converted
      * @returns A data object of cleaned data suitable for compendium import
      */
-    toCompendium(
-        pack?: CompendiumCollection,
-        options?: {
-            clearSort?: boolean;
-            clearFolder?: boolean;
-            clearFlags?: boolean;
-            clearSource?: boolean;
-            clearOwnership?: boolean;
-            clearState?: boolean;
-            keepId?: boolean;
-        },
-    ): object;
+    toCompendium(pack?: CompendiumCollection, options?: ToCompendiumOptions): object;
 
     /* -------------------------------------------- */
     /*  Enrichment                                  */
@@ -552,7 +538,7 @@ export interface ClientDocumentStatic {
      * @param options.context  Additional render context to provide to the template.
      * @returns A Promise which resolves to the created Document, or null if the dialog was closed.
      */
-    createDialog<T extends Document>(
+    createDialog<T extends ClientDocument>(
         this: ConstructorOf<T>,
         data?: object,
         createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
@@ -564,5 +550,22 @@ export interface ClientDocumentStatic {
         },
     ): Promise<T | null>;
 
-    fromDropData<T extends Document>(this: ConstructorOf<T>, data: object, options?: object): Promise<T | null>;
+    fromDropData<T extends ClientDocument>(this: ConstructorOf<T>, data: object, options?: object): Promise<T | null>;
+}
+
+export interface ToCompendiumOptions {
+    /** Clear the currently assigned sort order */
+    clearSort?: boolean;
+    /** Clear the currently assigned folder */
+    clearFolder?: boolean;
+    /** Clear the flags object */
+    clearFlags?: boolean;
+    /** Clear any prior source information */
+    clearSource?: boolean;
+    /** Clear document ownership */
+    clearOwnership?: boolean;
+    /** Clear fields which store document state */
+    clearState?: boolean;
+    /** Retain the current Document id */
+    keepId?: boolean;
 }

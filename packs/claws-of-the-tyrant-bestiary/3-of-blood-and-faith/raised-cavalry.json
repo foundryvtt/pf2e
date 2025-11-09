@@ -1,0 +1,491 @@
+{
+    "_id": "vdywUTHF4uhA7cyh",
+    "folder": "1hdNljMZCWQZtriy",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "ryrpo0dYB34q74c9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VNXVs0sFkhOFCvk5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mounted",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When not mounted, the raised cavalry is slowed 1.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "mounted",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "not": "mounted"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tEnhJSVleSY4Mflw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shuffle Forces",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The raised cavalry consists of skeletons, zombies, and other undead hastily bound to a shared cause. The cavalry has resistance 20 to physical damage, as it shuffles its weakest members to the front lines. When the cavalry is reduced to 12 squares or fewer, its resistance to physical drops to 10. Once the cavalry reaches the 2-segment threshold, it loses its resistance to physical damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "hp-remaining",
+                                    241
+                                ]
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 20
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "hp-remaining",
+                                    121
+                                ]
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ibVS9VnTf7FEenJI",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Thresholds</strong> 360 (4 segments), 240 (3 segments), 140 (2 segments)</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ixWW1DVbvaGbLBLi",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopMovement]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-movement",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "b5qRTs0yg9bGT8PN",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gU3zgGJUG2tBxi7r",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
+            "name": "Claws and Jaws",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Members of the cavalry leap from their mounts and attack each enemy within 10 feet (@Check[reflex|dc:41|basic] save).</p>\n<p>The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(2d12+14)[piercing], (2d12+14)[slashing],1d12[void]]{2d12+14 piercing and slashing plus 1d12 void}</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(3d12+14)[piercing], (3d12+14)[slashing],1d12[void]]{3d12+14 piercing and slashing plus 1d12 void}</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(4d12+14)[piercing], (4d12+14)[slashing],1d12[void]]{4d12+14 piercing and slashing plus 1d12 void}</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ww1W9rSOdSFUuQ5r",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hail of Arrows",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Members of the raised cavalry draw or reload their shortbows, then launch a ranged attack in the form of a volley. This volley is a @Template[type:burst|distance:10] within 60 feet that deals @Damage[7d8[piercing]|options:area-damage] damage (@Check[reflex|dc:41|basic|options:area-effect] save). When the cavalry is reduced to 2 segments, this area decreases to a @Template[type:burst|distance:5].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CW2A6gvQDkEQk2gM",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trampling Charge",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The raised cavalry Strides twice with a +10-foot circumstance bonus to its Speed. During this movement, the cavalry can move through the spaces of Medium or smaller creatures. It deals @Damage[(3d12+14)[bludgeoning]] damage to each creature whose space it moves through (@Check[reflex|dc:41|basic|options:inflicts:prone] save). A creature that fails its save is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The cavalry can affect the same creature only once in a single use of Trampling Charge.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "trampling-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "trampling-charge"
+                        ],
+                        "selector": "land-speed",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Raised Cavalry",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 6
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 5
+            },
+            "str": {
+                "mod": 10
+            },
+            "wis": {
+                "mod": 6
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 42
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "Thresholds 360 (4 segments), 240 (3 segments), 140 (2 segments)",
+                "max": 360,
+                "temp": 0,
+                "value": 360
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [],
+            "speed": {
+                "details": "troop movement",
+                "otherSpeeds": [],
+                "value": 40
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 20
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 20
+                },
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 20
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 19
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Undead are plentiful throughout the Gravelands, but even so, necromancers must sometimes get creative to organize the varied undead they have on hand into a cohesive military unit. While the typical raised cavalry is a mix of skeletons, zombies, and ghouls, many units also incorporate mummies, ghosts, and more powerful undead.</p>\n<p>The Knights of Lastwall have reported battalions of undead rising from the fields where they were buried, presumably in preparation for a future assault. One of the most infamous of these staging grounds was Fallowdeep, the network of subterranean tunnels beneath the former dwarven fortress of Hammer Rock. When the Whispering Tyrant attacked the nations of the Inner Sea, Fallowdeep's supply of undead was vastly depleted, but caches of corpses no doubt remain there for a resourceful necromancer to exploit.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Claws of the Tyrant"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 32,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 31
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 37,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "mindless",
+                "troop",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

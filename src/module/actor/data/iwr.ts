@@ -3,7 +3,8 @@ import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { IWRException } from "@module/rules/rule-element/iwr/base.ts";
 import { Predicate, PredicateStatement } from "@system/predication.ts";
-import { isObject, objectHasKey, setHasElement } from "@util";
+import { objectHasKey, setHasElement } from "@util";
+import * as R from "remeda";
 
 abstract class IWR<TType extends IWRType> {
     readonly type: TType;
@@ -83,15 +84,17 @@ abstract class IWR<TType extends IWRType> {
     }
 
     protected describe(iwrType: IWRException<TType>): PredicateStatement[] {
-        if (isObject(iwrType)) return iwrType.definition;
+        if (R.isPlainObject(iwrType)) return iwrType.definition;
 
         switch (iwrType) {
             case "air":
             case "alchemical":
             case "earth":
+            case "light":
             case "metal":
             case "olfactory":
             case "radiation":
+            case "time":
             case "visual":
             case "water":
             case "wood":
@@ -137,6 +140,8 @@ abstract class IWR<TType extends IWRType> {
                 ];
             case "holy":
                 return [{ or: ["origin:action:trait:holy", "item:trait:holy"] }];
+            case "magic":
+                return [{ or: ["origin:action:trait:impulse", "item:from-spell", "item:type:spell"] }];
             case "magical":
                 return [
                     {
@@ -301,9 +306,12 @@ class Weakness extends IWR<WeaknessType> implements WeaknessSource {
 
     override value: number;
 
-    constructor(data: IWRConstructorData<WeaknessType> & { value: number }) {
+    readonly applyOnce: boolean;
+
+    constructor(data: IWRConstructorData<WeaknessType> & { value: number; applyOnce?: boolean }) {
         super(data);
         this.value = data.value;
+        this.applyOnce = data.applyOnce ?? APPLY_ONCE_WEAKNESSES.has(this.type);
     }
 
     override toObject(): Readonly<WeaknessDisplayData> {
@@ -318,6 +326,7 @@ type WeaknessDisplayData = IWRDisplayData<WeaknessType> & Pick<Weakness, "value"
 
 interface WeaknessSource extends IWRSource<WeaknessType> {
     value: number;
+    applyOnce?: boolean;
 }
 
 class Resistance extends IWR<ResistanceType> implements ResistanceSource {
@@ -367,9 +376,11 @@ interface ResistanceSource extends IWRSource<ResistanceType> {
 }
 
 /** Weaknesses to things that "[don't] normally deal damage, such as water": applied separately as untyped damage */
-const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
+const APPLY_ONCE_WEAKNESSES: Set<WeaknessType> = new Set([
     ...MAGIC_TRADITIONS,
     "air",
+    "arrow-vulnerability",
+    "axe-vulnerability",
     "earth",
     "ghost-touch",
     "holy",
@@ -384,5 +395,5 @@ const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
     "wood",
 ]);
 
-export { Immunity, NON_DAMAGE_WEAKNESSES, Resistance, Weakness };
+export { APPLY_ONCE_WEAKNESSES, Immunity, Resistance, Weakness };
 export type { ImmunitySource, IWRSource, ResistanceSource, WeaknessSource };

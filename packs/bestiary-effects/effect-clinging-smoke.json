@@ -1,0 +1,100 @@
+{
+    "_id": "hHALCOBKk1j8yRfv",
+    "img": "icons/magic/air/fog-gas-smoke-blue-gray.webp",
+    "name": "Effect: Clinging Smoke",
+    "system": {
+        "description": {
+            "value": "<p><strong>Success</strong> You take a –5-foot status penalty to all Speeds.</p>\n<p><strong>Failure</strong> As success, except –10 feet to speed and you are also clumsy 1.</p>\n<p><strong>Critical Failure</strong> As failure, except you are also slowed 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #204: Stage Fright"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "clinging-smoke"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "slug": "clinging-smoke-penalty",
+                "type": "status",
+                "value": -5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "clinging-smoke:failure",
+                            "clinging-smoke:critical-failure"
+                        ]
+                    }
+                ],
+                "selector": "all-speeds",
+                "slug": "clinging-smoke-penalty",
+                "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "clinging-smoke:failure",
+                            "clinging-smoke:critical-failure"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "clinging-smoke:critical-failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

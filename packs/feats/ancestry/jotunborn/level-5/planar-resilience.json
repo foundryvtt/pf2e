@@ -1,0 +1,63 @@
+{
+    "_id": "29lo48f8TrU5kdwh",
+    "folder": "qiDgiFJGy0wJ6qMn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Planar Resilience",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your body has adapted to the variety of harsh climes that you encounter in your travels. You treat temperature-based environmental effects as if they were one step less extreme (incredible cold or heat becomes extreme, extreme cold or heat becomes severe, and so on).</p>\n<p>Additionally, the planar energies that move through you allow you to further adapt your body with some concentration and effort. During your daily preparations, choose either cold or fire. You gain resistance to that damage equal to half your level (minimum 1).</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "resistance",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
+                "value": "max(1,floor(@actor.level / 2))"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "jotunborn"
+            ]
+        }
+    },
+    "type": "feat"
+}

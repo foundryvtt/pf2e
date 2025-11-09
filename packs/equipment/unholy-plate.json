@@ -15,6 +15,7 @@
             "value": "<p>Crafted from black iron, this crude suit of <em>+2 resilient full plate</em> is designed to make you look like a horned demon with your face peering out of the screaming maw of the beast.</p>\n<p>While wearing the armor, you can attack with the helmet's horns. They're a martial melee weapon with the effects of a +2 weapon potency rune. They deal 2d8 piercing damage and have the deadly d12 and unholy traits. On a critical hit with the horns, the target must succeed at a @Check[fortitude|dc:30] or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure). The horns can't be etched with any runes.</p>\n<p>If you're holy, you're @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and can't recover from this condition while wearing unholy plate.</p><hr /><p><strong>Activate—Demonic Slip</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Translocate].</p><hr /><p><strong>Craft Requirements</strong> You're unholy; supply one casting of <em>translocate</em>.</p>"
         },
         "dexCap": 0,
+        "grade": null,
         "group": "plate",
         "hardness": 0,
         "hp": {
@@ -58,8 +59,10 @@
                 ]
             },
             {
-                "key": "WeaponPotency",
-                "selector": "{item|id}-attack",
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "runes-potency",
                 "value": 2
             },
             {

@@ -1,0 +1,54 @@
+{
+    "_id": "drh6p7VWdByUvRlf",
+    "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
+    "name": "Effect: Rage of the Sky Father",
+    "system": {
+        "description": {
+            "value": "<p>You gain the electricity trait, immunity to electricity damage, and your attacks deal an additional 1d6 electricity damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #218: Titanbane"
+        },
+        "rules": [
+            {
+                "add": [
+                    "electricity"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Immunity",
+                "type": "electricity"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

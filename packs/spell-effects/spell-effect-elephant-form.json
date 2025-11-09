@@ -22,6 +22,97 @@
         },
         "rules": [
             {
+                "brackets": [
+                    {
+                        "start": 5,
+                        "value": {
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 21
+                                }
+                            },
+                            "strikes": {
+                                "foot": {
+                                    "damage": {
+                                        "dice": 4,
+                                        "modifier": 6
+                                    },
+                                    "modifier": 18,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-10"
+                                    ]
+                                },
+                                "trunk": {
+                                    "modifier": 18,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15"
+                                    ]
+                                },
+                                "tusk": {
+                                    "damage": {
+                                        "dice": 4,
+                                        "modifier": 6
+                                    },
+                                    "modifier": 18,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15"
+                                    ]
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 7,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "21 + @actor.level"
+                            },
+                            "size": "grg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 25
+                                }
+                            },
+                            "strikes": {
+                                "foot": {
+                                    "damage": {
+                                        "dice": 4,
+                                        "modifier": 15
+                                    },
+                                    "modifier": 25,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15"
+                                    ]
+                                },
+                                "trunk": {
+                                    "modifier": 25,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-20"
+                                    ]
+                                },
+                                "tusk": {
+                                    "damage": {
+                                        "dice": 4,
+                                        "modifier": 15
+                                    },
+                                    "modifier": 25,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-20"
+                                    ]
+                                }
+                            },
+                            "tempHP": 25
+                        }
+                    }
+                ],
                 "key": "BattleForm",
                 "overrides": {
                     "armorClass": {
@@ -53,7 +144,6 @@
                                 "die": "d8",
                                 "modifier": 9
                             },
-                            "img": "icons/commodities/biological/foot-black-grey.webp",
                             "modifier": 16,
                             "traits": [
                                 "unarmed"
@@ -80,7 +170,6 @@
                                 "die": "d6",
                                 "modifier": 9
                             },
-                            "img": "systems/pf2e/icons/unarmed-attacks/trunk.webp",
                             "modifier": 16,
                             "traits": [
                                 "unarmed",
@@ -92,101 +181,6 @@
                     "traits": [
                         "animal"
                     ]
-                },
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": {
-                                "size": "huge",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 21
-                                    }
-                                },
-                                "strikes": {
-                                    "foot": {
-                                        "damage": {
-                                            "dice": 4,
-                                            "modifier": 6
-                                        },
-                                        "modifier": 18,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-10"
-                                        ]
-                                    },
-                                    "trunk": {
-                                        "modifier": 18,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-15"
-                                        ]
-                                    },
-                                    "tusk": {
-                                        "damage": {
-                                            "dice": 4,
-                                            "modifier": 6
-                                        },
-                                        "modifier": 18,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-15"
-                                        ]
-                                    }
-                                },
-                                "tempHP": 20
-                            }
-                        },
-                        {
-                            "start": 7,
-                            "value": {
-                                "armorClass": {
-                                    "modifier": "21 + @actor.level"
-                                },
-                                "size": "grg",
-                                "skills": {
-                                    "athletics": {
-                                        "modifier": 25
-                                    }
-                                },
-                                "strikes": {
-                                    "foot": {
-                                        "damage": {
-                                            "dice": 4,
-                                            "modifier": 15
-                                        },
-                                        "modifier": 25,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-15"
-                                        ]
-                                    },
-                                    "trunk": {
-                                        "modifier": 25,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-20"
-                                        ]
-                                    },
-                                    "tusk": {
-                                        "damage": {
-                                            "dice": 4,
-                                            "modifier": 15
-                                        },
-                                        "modifier": 25,
-                                        "traits": [
-                                            "unarmed",
-                                            "reach-20"
-                                        ]
-                                    }
-                                },
-                                "tempHP": 25
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
                 }
             },
             {

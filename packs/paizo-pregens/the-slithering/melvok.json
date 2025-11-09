@@ -957,7 +957,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals 2d4 cold damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ray of Frost]</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals 2d4 cold damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a –10-foot status penalty to its Speeds for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ray of Frost]</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2952,6 +2952,11 @@
             "name": "Crossbow",
             "sort": 200000,
             "system": {
+                "ammo": {
+                    "baseType": "bolts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "crossbow",
                 "bonus": {
                     "value": 0
@@ -3302,31 +3307,17 @@
             "name": "Bolts",
             "sort": 700000,
             "system": {
-                "baseItem": null,
+                "baseItem": "bolts",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -3343,13 +3334,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "bolts",
-                "stackGroup": "bolts",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -3357,7 +3346,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "5modjSlVT9AZHwgC",
@@ -3446,6 +3435,7 @@
                 "bulk": {
                     "value": 1
                 },
+                "category": "coin",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -3471,15 +3461,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 5,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
-                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -4433,7 +4422,6 @@
                 },
                 "rules": [
                     {
-                        "adjustName": true,
                         "choices": [
                             {
                                 "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Black",
@@ -4583,28 +4571,7 @@
                         "key": "ActiveEffectLike",
                         "mode": "add",
                         "path": "system.attributes.familiarAbilities.value",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 5,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 11,
-                                    "start": 6,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 17,
-                                    "start": 12,
-                                    "value": 3
-                                },
-                                {
-                                    "start": 18,
-                                    "value": 4
-                                }
-                            ]
-                        }
+                        "value": "match(when(lte(@actor.level, 5), 1), when(btwn(@actor.level, 6, 11), 2), when(btwn(@actor.level, 12, 17), 3), when(gte(@actor.level, 18), 4))"
                     }
                 ],
                 "slug": "familiar-witch",
@@ -4873,11 +4840,7 @@
                     "type": "fire",
                     "value": 2
                 }
-            ],
-            "speed": {
-                "otherSpeeds": [],
-                "value": 25
-            }
+            ]
         },
         "build": {
             "attributes": {

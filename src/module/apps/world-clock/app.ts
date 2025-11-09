@@ -8,7 +8,7 @@ import * as R from "remeda";
 import { animateDarkness } from "./animate-darkness.ts";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
 
-interface WorldClockData {
+interface WorldClockRenderContext extends fa.ApplicationRenderContext {
     date: string;
     time: string;
     options?: object;
@@ -17,6 +17,11 @@ interface WorldClockData {
 }
 
 export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
+    constructor() {
+        super();
+        this.#initialize();
+    }
+
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         id: "world-clock",
         position: {
@@ -81,11 +86,6 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
             advanceOrRetract.innerText = game.i18n.localize(retractTime ? Retract : Advance);
         }
     };
-
-    constructor() {
-        super();
-        this.#initialize();
-    }
 
     /** Setting: the date theme (Imperial Calendar not yet supported) */
     get dateTheme(): "AR" | "IC" | "AD" | "CE" {
@@ -195,7 +195,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         }
     }
 
-    protected override async _prepareContext(options: HandlebarsRenderOptions): Promise<WorldClockData> {
+    protected override async _prepareContext(options: HandlebarsRenderOptions): Promise<WorldClockRenderContext> {
         const date =
             this.dateTheme === "CE"
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
@@ -246,7 +246,10 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     }
 
     /** Advance the world time by a static or input value */
-    protected override async _onRender(context: WorldClockData, options: HandlebarsRenderOptions): Promise<void> {
+    protected override async _onRender(
+        context: WorldClockRenderContext,
+        options: HandlebarsRenderOptions,
+    ): Promise<void> {
         await super._onRender(context, options);
 
         document.removeEventListener("keydown", this.#controlKeyHandler);
@@ -267,7 +270,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     static createSyncedMessage(): HTMLSpanElement {
         const managedBy = document.createElement("span");
         managedBy.classList.add("managed");
-        managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.SETTINGS.WorldClock.SyncDarknessScene.ManagedBy"));
+        managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.Scene.SyncDarkness.ManagedBy"));
         // Create a link to open world clock settings
         const anchor = document.createElement("a");
         const wtLink = managedBy.querySelector("wt");

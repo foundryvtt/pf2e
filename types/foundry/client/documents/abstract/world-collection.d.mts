@@ -39,10 +39,10 @@ export default abstract class WorldCollection<
     apps: (Application | ApplicationV2)[];
 
     /**
-     * Initialize the WorldCollection object by constructing its contained Document instances
+     * Initialize the DocumentCollection by constructing any initially provided Document instances
      * @param data
      */
-    protected _initialize(data: TDocument["_source"][]): void;
+    protected _initialize(): void;
 
     /* -------------------------------------------- */
     /*  Directory Collection Mixin                  */
@@ -158,8 +158,14 @@ export default abstract class WorldCollection<
 }
 
 export interface FromCompendiumOptions {
-    addFlags?: boolean;
+    /** Clear the currently assigned folder. */
+    clearFolder?: boolean;
+    /** Clear fields which store Document state. */
+    clearState?: boolean;
+    /** Clear the current sort order. */
     clearSort?: boolean;
-    clearPermissions?: boolean;
+    /** Clear Document ownership (recursive). */
+    clearOwnership?: boolean;
+    /** Retain the Document ID from the source Compendium. */
     keepId?: boolean;
 }

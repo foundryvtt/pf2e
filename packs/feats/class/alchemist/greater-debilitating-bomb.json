@@ -5,7 +5,7 @@
     "name": "Greater Debilitating Bomb",
     "system": {
         "actionType": {
-            "value": "free"
+            "value": "passive"
         },
         "actions": {
             "value": null
@@ -32,14 +32,29 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": [
-                    "alchemical",
-                    "bomb",
-                    "debilitating-bomb"
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
                 ],
-                "selector": "attack-roll",
-                "text": "If your bomb hits, the target must succed at a Fortitude save against your Class DC, or suffer one of the following @UUID[Compendium.pf2e.feats-srd.Item.Greater Debilitating Bomb]{effects}",
+                "predicate": [
+                    "debilitating-bomb",
+                    {
+                        "not": "feat:true-debilitating-bomb"
+                    }
+                ],
+                "selector": "alchemical-bomb-base-attack-roll",
+                "text": "PF2E.SpecificRule.Alchemist.DebilitatingBomb.GreaterAttackRollNote",
                 "title": "{item|name}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:base:alchemical-bomb"
+                ],
+                "property": "other-tags",
+                "value": "greater-debilitating-bomb"
             }
         ],
         "traits": {

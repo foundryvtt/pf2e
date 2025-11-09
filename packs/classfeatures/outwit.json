@@ -28,20 +28,14 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "target:mark:hunted-prey"
-                ],
-                "selector": [
-                    "deception",
-                    "intimidation",
-                    "stealth"
-                ],
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:recall-knowledge",
+                    {
+                        "or": [
+                            "check:statistic:deception",
+                            "check:statistic:intimidation",
+                            "check:statistic:stealth",
+                            "action:recall-knowledge"
+                        ]
+                    },
                     "target:mark:hunted-prey"
                 ],
                 "selector": "skill-check",
@@ -51,11 +45,51 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "target:mark:hunted-prey"
+                    "origin:mark:hunted-prey"
                 ],
                 "selector": "ac",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:hunters-edge-sharing"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "item:slug:animal-companion-ranger",
+                                    "feat:masterful-companion"
+                                ]
+                            }
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Outwit)]"
+                    },
+                    {
+                        "predicate": [
+                            "feat:masterful-companion",
+                            "item:slug:animal-companion-ranger"
+                        ],
+                        "text": "PF2E.SpecificRule.Ranger.MasterfulHunter.Outwit",
+                        "title": "PF2E.SpecificRule.Ranger.MasterfulHunter.Label"
+                    },
+                    {
+                        "predicate": [
+                            "feat:masterful-companion",
+                            "item:slug:animal-companion-ranger"
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Share Hunter's Edge (Outwit, Masterful)]"
+                    }
+                ]
             }
         ],
         "traits": {

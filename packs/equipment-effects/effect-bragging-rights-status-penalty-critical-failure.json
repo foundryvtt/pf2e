@@ -1,0 +1,47 @@
+{
+    "_id": "ZnJhU0SIlE3DCxZB",
+    "img": "icons/magic/control/debuff-energy-hold-teal-blue.webp",
+    "name": "Effect: Bragging Rights (Status Penalty Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Doom Switch]</p>\n<p>You take a -2 status penalty to attack rolls against the target.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:enemy"
+                ],
+                "selector": "attack-roll",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

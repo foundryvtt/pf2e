@@ -3,9 +3,9 @@ import type { ImageFilePath } from "@common/constants.d.mts";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import type { Size, TraitsWithRarity, ZeroToTwo } from "@module/data.ts";
 import type { MaterialDamageEffect } from "@system/damage/types.ts";
-import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
+import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, TraitConfig } from "../base/data/system.ts";
 import type { ITEM_CARRY_TYPES } from "../base/data/values.ts";
-import type { CoinsPF2e } from "./helpers.ts";
+import type { Coins } from "./helpers.ts";
 import type { PhysicalItemTrait, PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
 import type { UsageDetails } from "./usage.ts";
 
@@ -21,9 +21,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
     traits: PhysicalItemTraits<PhysicalItemTrait>;
     quantity: number;
     baseItem: string | null;
-    bulk: {
-        value: number;
-    };
+    bulk: { value: number };
     hp: PhysicalItemHPSource;
     hardness: number;
     price: PartialPrice;
@@ -48,8 +46,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
 
 interface IdentificationSource {
     status: IdentificationStatus;
-    unidentified: MystifiedData;
-    misidentified: object;
+    unidentified: MystifiedData | null;
 }
 
 interface ItemMaterialSource {
@@ -62,6 +59,7 @@ interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, 
         attribute: AttributeString;
         selected: boolean;
     };
+    equipped: EquippedData;
     hp: PhysicalItemHitPoints;
     price: Price;
     bulk: BulkData;
@@ -120,6 +118,7 @@ type EquippedData = {
 
 interface PhysicalItemTraits<T extends PhysicalItemTrait> extends TraitsWithRarity<T> {
     otherTags: string[];
+    config?: TraitConfig;
 }
 
 interface PhysicalItemHPSource {
@@ -131,7 +130,7 @@ interface PhysicalItemHitPoints extends PhysicalItemHPSource {
     brokenThreshold: number;
 }
 
-type Coins = {
+type RawCoins = {
     pp?: number;
     gp?: number;
     sp?: number;
@@ -139,20 +138,19 @@ type Coins = {
 };
 
 interface PartialPrice {
-    value: Coins;
+    value: RawCoins;
     per?: number;
     /** Whether the price adjusts according to its size */
     sizeSensitive?: boolean;
 }
 
 interface Price extends Required<PartialPrice> {
-    value: CoinsPF2e;
+    value: Coins;
 }
 
 export type {
     BasePhysicalItemSource,
     BulkData,
-    Coins,
     EquippedData,
     IdentificationData,
     IdentificationStatus,
@@ -170,4 +168,5 @@ export type {
     PhysicalSystemData,
     PhysicalSystemSource,
     Price,
+    RawCoins,
 };

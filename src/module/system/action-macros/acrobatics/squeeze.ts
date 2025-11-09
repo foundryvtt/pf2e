@@ -36,7 +36,6 @@ const action = new SingleCheckAction({
         { outcome: ["success"], text: `${PREFIX}.Notes.success` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:squeeze"],
     sampleTasks: {
         trained: `${PREFIX}.SampleTasks.Trained`,
         master: `${PREFIX}.SampleTasks.Master`,

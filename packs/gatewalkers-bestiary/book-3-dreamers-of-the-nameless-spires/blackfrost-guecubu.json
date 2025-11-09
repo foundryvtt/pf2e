@@ -143,6 +143,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -319,7 +320,7 @@
                 "category": "offensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the blackfrost guecubu is destroyed, it shatters and fills the air around it with a cloud of razor-sharp shards of ice. Creatures in a @Template[emanation|distance:10] take @Damage[8d8[cold]] (@Check[reflex|dc:26|basic]). Creatures that critically fail this save also take @Damage[1d6[bleed]].</p>"
+                    "value": "<p>When the blackfrost guecubu is destroyed, it shatters and fills the air around it with a cloud of razor-sharp shards of ice. Creatures in a @Template[emanation|distance:10] take @Damage[8d8[cold]|options:area-damage] (@Check[reflex|dc:26|basic|options:area-effect,inflicts:bleed]). Creatures that critically fail this save also take @Damage[1d6[bleed]].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -350,14 +351,29 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the blackfrost guecubu successfully @UUID[Compendium.pf2e.actionspf2e.Item.Shove]{Shoves} a creature into an ice or frozen earth barrier, the target must succeed at a @Check[reflex|dc:26] save or become merged with the barrier, with the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Stone] until the target escapes (DC 26).</p>"
+                    "value": "<p>When the blackfrost guecubu successfully [[/act shove]]{Shoves} a creature into an ice or frozen earth barrier, the target must succeed at a @Check[reflex|dc:26] save or become merged with the barrier, with the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Stone] until the target [[/act escape dc=26]]{Escapes}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:shove"
+                        ],
+                        "selector": "skill-check",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

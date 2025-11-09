@@ -1,12 +1,12 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
 import {
     SingleCheckAction,
     SingleCheckActionUseOptions,
     SingleCheckActionVariant,
     SingleCheckActionVariantData,
 } from "@actor/actions/index.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { CheckResultCallback } from "@system/action-macros/types.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function subsist(options: SkillActionOptions): void {
     if (!options?.skill) {
@@ -14,7 +14,7 @@ function subsist(options: SkillActionOptions): void {
         return;
     }
     const modifiers = [
-        new ModifierPF2e({
+        new Modifier({
             label: "PF2E.Actions.Subsist.AfterExplorationPenalty",
             modifier: -5,
             predicate: ["action:subsist:after-exploration"],
@@ -76,7 +76,6 @@ class SubsistAction extends SingleCheckAction {
                 { outcome: ["failure"], text: "PF2E.Actions.Subsist.Notes.failure" },
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.Subsist.Notes.criticalFailure" },
             ],
-            rollOptions: ["action:subsist"],
             sampleTasks: {
                 untrained: "PF2E.Actions.Subsist.SampleTasks.Untrained",
                 trained: "PF2E.Actions.Subsist.SampleTasks.Trained",
@@ -98,4 +97,4 @@ class SubsistAction extends SingleCheckAction {
 
 const action = new SubsistAction();
 
-export { subsist as legacy, action };
+export { action, subsist as legacy };

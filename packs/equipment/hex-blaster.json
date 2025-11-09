@@ -3,6 +3,11 @@
     "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/hex-blaster.webp",
     "name": "Hex Blaster",
     "system": {
+        "ammo": {
+            "baseType": "rounds-arquebus",
+            "builtIn": false,
+            "capacity": 1
+        },
         "baseItem": "arquebus",
         "bonus": {
             "value": 0
@@ -24,6 +29,7 @@
             "value": "<p>This <em>+2 striking fearsome arquebus</em> is composed of warped and twisted wood engraved with eerie runes. When the weapon fires, the blast sometimes sounds like the cackling of a diabolical witch.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You afflict a creature you can see with a hex of impending doom. The hex lasts for 1 minute. As long as the creature is hexed, when you hit it with a round from the hex blaster, the creature must attempt a @Check[will|dc:28] save at the end of your turn; the creature attempts a single Will save regardless of the number of times you hit it.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. It also takes @Damage[1d6[persistent,mental]] damage.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. It also takes @Damage[2d6[persistent,mental]] damage.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 2 and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute. It also takes @Damage[4d6[persistent,mental]] damage and is cursed with a hex of impending doom. If the target falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] from damage dealt by this Strike or the persistent mental damage, it remains unconscious for 1 day or until this curse is removed. After 1 day, if the creature is still unconscious, it must succeed at a @Check[fortitude|dc:28|traits:death,incapacitation] save or die; this effect has the death and incapacitation traits.</p>"
         },
         "expend": 1,
+        "grade": null,
         "group": "firearm",
         "hardness": 0,
         "hp": {

@@ -12,6 +12,11 @@
             "name": "Crossbow",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "bolts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "crossbow",
                 "bonus": {
                     "value": 0
@@ -255,7 +260,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from poor manacles requires two successful @Check[thievery|dc:17|traits:action:pick-a-lock] checks.</p>"
+                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a –15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from poor manacles requires two successful @Check[thievery|dc:17|traits:action:pick-a-lock] checks.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -420,30 +425,17 @@
             "name": "Bolts",
             "sort": 700000,
             "system": {
-                "baseItem": null,
+                "baseItem": "bolts",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -460,13 +452,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "bolts",
-                "stackGroup": "bolts",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -474,7 +464,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "R639Wn6gSEo6YcVk",
@@ -509,6 +499,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "guisarme",
                 "traits": {
@@ -522,9 +513,6 @@
         },
         {
             "_id": "2LtS5kSuhSpS0IQJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.HbYwSi428oXESdNh.Item.a6VT956imq0UeyhM"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 900000,
@@ -549,6 +537,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -592,11 +581,14 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 120,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "crossbow",
                 "traits": {
                     "value": [
-                        "range-increment-120",
                         "reload-1"
                     ]
                 }
@@ -646,7 +638,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 10 feet uses an action with the move trait or leaves a space within the constable's reach during its move action</p><hr /><p><strong>Effect</strong> The constable attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] the triggering creature. On a success, the triggering action is disrupted.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 10 feet uses an action with the move trait or leaves a space within the constable's reach during its move action</p><hr /><p><strong>Effect</strong> The constable attempts to [[/act trip]] the triggering creature. On a success, the triggering action is disrupted.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -675,7 +667,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The equestrian constable @UUID[Compendium.pf2e.actionspf2e.Item.Seek]{Seeks} or @UUID[Compendium.pf2e.actionspf2e.Item.Point Out]{Points Out} a target. They can @UUID[Compendium.pf2e.actionspf2e.Item.Interact] to draw an item or @UUID[Compendium.pf2e.actionspf2e.Item.Command an Animal] to approach or attack the target.</p>"
+                    "value": "<p>The equestrian constable [[/act seek]]{Seeks} or @UUID[Compendium.pf2e.actionspf2e.Item.Point Out]{Points Out} a target. They can Interact to draw an item or @UUID[Compendium.pf2e.actionspf2e.Item.Command an Animal] to approach or attack the target.</p>"
                 },
                 "publication": {
                     "license": "ORC",

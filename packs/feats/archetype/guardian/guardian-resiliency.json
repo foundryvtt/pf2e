@@ -1,0 +1,61 @@
+{
+    "_id": "2Fs30aBxpFZMTJfN",
+    "folder": "JnEMJDh1jH8xZjO1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Guardian Resiliency",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain 3 additional Hit Points for each guardian archetype class feat you have. As you continue selecting guardian archetype class feats, you continue to gain additional Hit Points in this way.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Guardian Dedication"
+                },
+                {
+                    "value": "class granting no more Hit Points per level than 10 + your Constitution modifier"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.guardianDedicationCount",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "3 * @actor.flags.pf2e.guardianDedicationCount"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

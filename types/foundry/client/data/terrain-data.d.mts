@@ -1,9 +1,10 @@
 import Token from "@client/canvas/placeables/token.mjs";
+import { TokenMovementCostFunction } from "@client/documents/_types.mjs";
 import TokenDocument from "@client/documents/token.mjs";
 import { DataSchema } from "@common/abstract/_types.mjs";
 import DataModel from "@common/abstract/data.mjs";
 import * as fields from "@common/data/fields.mjs";
-import { TokenMeasureMovementPathOptions, TokenMovementCostFunction } from "../_types.mjs";
+import { TokenMeasureMovementPathOptions } from "../_types.mjs";
 
 /**
  * The base TerrainData.
@@ -55,12 +56,17 @@ export class TerrainData extends BaseTerrainData {
 
     static override resolveTerrainEffects(effects: Partial<TerrainDataSource>[]): TerrainData;
 
-    static override getMovementCostFunction(token: TokenDocument): TokenMovementCostFunction;
+    static override getMovementCostFunction(
+        token: TokenDocument,
+        options?: TokenMeasureMovementPathOptions,
+    ): TokenMovementCostFunction;
 
     prepareBaseData(): void;
 
     override equals(other: BaseTerrainData): boolean;
 }
+
+export interface TerrainData extends BaseTerrainData, fields.ModelPropsFromSchema<TerrainDataSchema> {}
 
 type TerrainDataSchema = {
     /** The difficulty of the terrain (the movement cost multiplier) */
@@ -68,3 +74,5 @@ type TerrainDataSchema = {
 };
 
 type TerrainDataSource = fields.SourceFromSchema<TerrainDataSchema>;
+
+export {};

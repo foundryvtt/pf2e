@@ -1,0 +1,137 @@
+{
+    "_id": "D42eBeJYHnTSrzB1",
+    "folder": "72YwVdCn52tsSyGQ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "KVDzZCz0gxtamdOL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Entry Denied",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The PCs fail the Trial of Runes</p><hr /><p><strong>Effect</strong> Each sentry whose question the PCs answered correctly crashes to the ground. A creature directly below a head when it falls takes @Damage[(6d12+37)[bludgeoning]] damage (@Check[reflex|dc:42|basic] save). The 10-foot area beneath the head becomes difficult terrain. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m6tiPtQGebU13E7w",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Lightning Arc",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>(electricity) One creature (other than the peacock phoenix) within 60 feet of the sentry takes @Damage[(3d12+19)[electricity]] damage (@Check[reflex|dc:42|basic] save). A target wearing metal armor or made of metal takes a –1 circumstance penalty to its save; if damaged, they are @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round. A creature may only be targeted once by a lightning arc each round—any lightning arcs that go unused as a result of there not being enough targets instead restore 20 HP each to the peacock phoenix.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Rune Sentries",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 43
+            },
+            "emitsSound": "encounter",
+            "hardness": 28,
+            "hp": {
+                "details": "",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 46
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Arcs of lightning arc flash from the eyes of the floating sentries.</p>",
+            "disable": "<p>@Check[arcana|dc:45] (legendary) to turn the lightning back against the sentry, causing the head to plummet, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (9th rank; counteract DC 36) to counteract the magic that empowers the sentry, causing it to plummet. Each sentry must be counteracted or destroyed separately.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #220: Crypt of Runes"
+            },
+            "reset": "",
+            "routine": "<p>(6 actions) Each Rune Sentry grants the hazard 1 action; a Rune Sentry that's plummeted or been disabled or destroyed reduces the hazard's available actions by 1. On the hazard's turn, all active Rune Sentries spend their action to use Lightning Arc.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 26
+            },
+            "reflex": {
+                "value": 32
+            },
+            "will": {
+                "value": 35
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "arcane"
+            ]
+        }
+    },
+    "type": "hazard"
+}

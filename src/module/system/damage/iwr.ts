@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { Immunity, NON_DAMAGE_WEAKNESSES, Resistance, Weakness } from "@actor/data/iwr.ts";
+import { Immunity, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ResistanceType } from "@actor/types.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
@@ -37,12 +37,10 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         resistances: roll.options.bypass?.resistance.redirect ?? [],
     };
 
-    const nonDamageWeaknesses = weaknesses.filter(
-        (w) =>
-            NON_DAMAGE_WEAKNESSES.has(w.type) &&
-            instances.some((i) => w.test([...i.formalDescription, ...rollOptions])),
+    const applyOnceWeaknesses = weaknesses.filter(
+        (w) => w.applyOnce && instances.some((i) => w.test([...i.formalDescription, ...rollOptions])),
     );
-    const damageWeaknesses = weaknesses.filter((w) => !nonDamageWeaknesses.includes(w));
+    const damageWeaknesses = weaknesses.filter((w) => !applyOnceWeaknesses.includes(w));
 
     const applications = instances
         .flatMap((instance): IWRApplication[] => {
@@ -263,7 +261,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             return instanceApplications;
         })
         .concat(
-            ...nonDamageWeaknesses.map(
+            ...applyOnceWeaknesses.map(
                 (w): IWRApplication => ({ category: "weakness", type: w.typeLabel, adjustment: w.value }),
             ),
         )

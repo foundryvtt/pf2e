@@ -520,6 +520,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -647,6 +648,10 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The risen nemesis targets a creature it can see within 30 feet and alters its perception of time. The target must attempt a @Check[will|dc:42] save. Regardless of success or failure, the creature then becomes temporarily immune to this ability for 24 hours.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature perceives time to flow backward briefly and becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> Time flows backward for the creature, leaving them unable to interact with the world around them. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}, after which it is slowed 1 for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature's mind becomes stuck in a time loop, and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] by the disorienting sight for 1 minute. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round or end it entirely on a critical success.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -666,7 +671,7 @@
         },
         {
             "_id": "Y72R1RbURKO0JsrR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Predestined Defeat",
             "sort": 1200000,
             "system": {
@@ -678,7 +683,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The risen nemesis rolls initiative</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> At the start of combat, an inverted, reversed explosion of spiritual and void energy implodes in a @Template[type:emanation|distance:30] centered on the risen nemesis—a reversal of the creature's spiritually explosive death. All creatures in the area take @Damage[16d8[spirit]] damage (@Check[fortitude|dc:39|basic] save); creatures that fail this save are also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as time seems to distort around them.</p>"
+                    "value": "<p><strong>Trigger</strong> The risen nemesis rolls initiative</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> At the start of combat, an inverted, reversed explosion of spiritual and void energy implodes in a @Template[type:emanation|distance:30] centered on the risen nemesis—a reversal of the creature's spiritually explosive death. All creatures in the area take @Damage[16d8[spirit]|options:area-damage] damage (@Check[fortitude|dc:39|basic|options:area-effect,inflicts:slowed] save); creatures that fail this save are also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as time seems to distort around them.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "OGL",
@@ -775,7 +784,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Destruction is the beginning, not the end! The Risen Nemesis rewinds time on a pile of rubble that they can see within 120 feet, causing the rubble in a @Template[type:burst|distance:10] to restore itself to its pre-destroyed state and causing the area to no longer serve as difficult terrain. All creatures in the area must make a @Check[reflex|dc:42] save. The Risen Nemesis cannot use Undo Destruction again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature avoids being harmed by the violence of the repairs.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d10[bludgeoning],2d10[piercing],2d10[slashing]]{2d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage as pieces of rubble bash, slice, and pierce them while it swirls through the air to rebuild.</p>\n<p><strong>Failure</strong> As success but @Damage[4d10[bludgeoning],4d10[piercing],4d10[slashing]]{4d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage and the creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure but @Damage[8d10[bludgeoning],8d10[piercing],8d10[slashing]]{8d10 bludgeoning, 8d10 piercing, and 8d10 slashing} damage and the target is carried away with the rubble. They become @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the rebuilt structure (usually the wall or floor within the rubble pile or closest to it; @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 42). The restrained character might be so encased in rubble that they run the risk of suffocation.</p>"
+                    "value": "<p>Destruction is the beginning, not the end! The Risen Nemesis rewinds time on a pile of rubble that they can see within 120 feet, causing the rubble in a @Template[type:burst|distance:10] to restore itself to its pre-destroyed state and causing the area to no longer serve as difficult terrain. All creatures in the area must make a @Check[reflex|dc:42|options:area-effect,damaging-effect,inflicts:prone,inflicts:restrained] save. The Risen Nemesis cannot use Undo Destruction again for [[/gmr 1d4 #Recharge Undo Destruction]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature avoids being harmed by the violence of the repairs.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d10[bludgeoning],2d10[piercing],2d10[slashing]|options:area-damage]{2d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage as pieces of rubble bash, slice, and pierce them while it swirls through the air to rebuild.</p>\n<p><strong>Failure</strong> As success but @Damage[4d10[bludgeoning],4d10[piercing],4d10[slashing]|options:area-damage]{4d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage and the creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure but @Damage[8d10[bludgeoning],8d10[piercing],8d10[slashing]|options:area-damage]{8d10 bludgeoning, 8d10 piercing, and 8d10 slashing} damage and the target is carried away with the rubble. They become @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the rebuilt structure (usually the wall or floor within the rubble pile or closest to it; [[/act escape dc=42]]). The restrained character might be so encased in rubble that they run the risk of suffocation.</p>"
                 },
                 "publication": {
                     "license": "OGL",

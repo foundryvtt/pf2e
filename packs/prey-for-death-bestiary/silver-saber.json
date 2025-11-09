@@ -33,6 +33,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -70,12 +71,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": null,
+                    "max": 30
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
-                        "magical",
-                        "range-30"
+                        "magical"
                     ]
                 }
             },
@@ -348,8 +352,23 @@
                 },
                 "rules": [
                     {
+                        "inMemoryOnly": true,
                         "key": "GrantItem",
                         "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+                    },
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:granter:id:{item|id}"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
                     }
                 ],
                 "slug": null,

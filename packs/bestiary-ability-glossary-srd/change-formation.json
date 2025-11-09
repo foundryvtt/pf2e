@@ -18,7 +18,124 @@
             "remaster": true,
             "title": "Pathfinder NPC Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "change-formation",
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.ChangeFormation.Loose.Label",
+                        "value": "loose"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeFormation.MarchingColumn.Label",
+                        "value": "marching-column"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeFormation.TurtleShell.Label",
+                        "value": "turtle-shell"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeFormation.Wedge.Label",
+                        "value": "wedge"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "change-formation:loose",
+                    {
+                        "not": "item:slug:change-formation"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.NPCAbility.ChangeFormation.Loose.Drawback"
+                    }
+                ]
+            },
+            {
+                "key": "Weakness",
+                "mode": "remove",
+                "predicate": [
+                    "change-formation:loose"
+                ],
+                "type": [
+                    "area-damage",
+                    "splash-damage"
+                ],
+                "value": 0
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "change-formation:marching-column"
+                ],
+                "selector": "all-speeds",
+                "slug": "marching-column-speed-bonus",
+                "type": "circumstance",
+                "value": 10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "change-formation:marching-column"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "change-formation:marching-column"
+                ],
+                "selector": "reflex",
+                "slug": "marching-column-reflex-penalty",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:ranged",
+                    "change-formation:turtle-shell"
+                ],
+                "selector": "ac",
+                "slug": "turtle-shell-ac-bonus",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "change-formation:turtle-shell"
+                ],
+                "selector": "reflex",
+                "slug": "turtle-shell-reflex-bonus",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "change-formation:turtle-shell"
+                ],
+                "selector": "all-speeds",
+                "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "change-formation:wedge"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            }
+        ],
         "traits": {
             "value": [
                 "concentrate",

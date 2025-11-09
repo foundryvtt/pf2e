@@ -12,6 +12,7 @@ export { ConditionPF2e } from "./condition/document.ts";
 export { EffectPF2e } from "./effect/document.ts";
 
 // Physical Items
+export { AmmoPF2e } from "./ammo/document.ts";
 export { ArmorPF2e } from "./armor/document.ts";
 export { BookPF2e } from "./book/document.ts";
 export { ConsumablePF2e } from "./consumable/document.ts";

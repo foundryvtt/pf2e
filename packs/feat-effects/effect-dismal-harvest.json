@@ -1,0 +1,42 @@
+{
+    "_id": "nb2Qy9XpdH4X3yQl",
+    "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
+    "name": "Effect: Dismal Harvest",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Dismal Harvest]</p>\n<p>You gain temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "10 + (ceil((@actor.level - 6)/2) * 5)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

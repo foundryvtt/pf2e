@@ -47,7 +47,7 @@ declare global {
          * n.toNearest(0.25); // 17.25
          * ```
          */
-        toNearest(interval?: number, method?: string): number;
+        toNearest(interval?: number, method?: "round" | "ceil" | "floor"): number;
 
         /**
          * A faster numeric between check which avoids type coercion to the Number object.

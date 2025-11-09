@@ -1,0 +1,67 @@
+{
+    "_id": "NHQJQK9aHA1AROsi",
+    "img": "icons/equipment/neck/amulet-heart.webp",
+    "name": "Locket of Love Left Behind",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>There's a tiny picture of a beloved partner, child, or even place nestled inside this small gold locket with a heart on the front. The locket reminds you that no matter how terrible the ravages of war are, you have something very important to live for. While wearing the necklace, you gain a +5-foot status bonus to your Speeds when you have the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition. If you are dying, the DC of recovery checks is reduced by 1.</p>\n<p><strong>Activate—True Love's Power</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>Trigger</strong> You would die due to a death effect rather than the dying condition</p><hr /><p><strong>Effect</strong> Your love pulls you back from the brink of death and the locket cracks. You avoid dying and remain at 1 Hit Point. You cannot use the ability again until you replace the casing of the locket, which typically takes around 1 month and costs 600 gp.</p><hr /><p><em>PFS Note:</em> Replacing the casing of a <em>locket of love left behind</em> takes 30 days of Downtime.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 11
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 1200
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:fleeing"
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "subtract",
+                "path": "system.attributes.dying.recoveryDC",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        }
+    },
+    "type": "equipment"
+}

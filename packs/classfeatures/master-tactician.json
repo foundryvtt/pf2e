@@ -1,0 +1,95 @@
+{
+    "_id": "wHVfwjs6LJOgDERO",
+    "img": "icons/sundries/flags/banner-yellow.webp",
+    "name": "Master Tactician",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You are among the greatest tacticians to have ever led forces on the field of battle. Your proficiency rank for commander class DC increases to master, and you add two new tactics to your folio; these can be any mobility or offensive tactics you don't already have in your folio, or you can choose from expert tactics or master tactics you have access to. The total number of tactics you can have prepared increases to five. In addition, you gain legendary proficiency in Warfare Lore.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:trait:tactic",
+                        {
+                            "or": [
+                                "item:tag:commander-mobility-tactic",
+                                "item:tag:commander-offensive-tactic",
+                                "item:tag:commander-expert-tactic",
+                                "item:tag:commander-master-tactic"
+                            ]
+                        }
+                    ],
+                    "itemType": "action"
+                },
+                "flag": "firstTactic",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Commander.Tactics.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.firstTactic}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:trait:tactic",
+                        {
+                            "or": [
+                                "item:tag:commander-mobility-tactic",
+                                "item:tag:commander-offensive-tactic",
+                                "item:tag:commander-expert-tactic",
+                                "item:tag:commander-master-tactic"
+                            ]
+                        }
+                    ],
+                    "itemType": "action"
+                },
+                "flag": "secondTactic",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Commander.Tactics.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.secondTactic}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "commander": {
+                    "attribute": null,
+                    "rank": 3
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "commander"
+            ]
+        }
+    },
+    "type": "feat"
+}

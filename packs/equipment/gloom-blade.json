@@ -24,6 +24,7 @@
             "value": "<p>As black as coal, this blade grows more potent in darkness. While in bright light, it functions as a <em>+1 shortsword</em> and doesn't appear to radiate a magic aura to @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic] or similar spells unless the spells are 4th rank or higher.</p>\n<p>In dim light or darkness, the <em>gloom blade</em> becomes a <em>+2 striking shortsword</em>. Whenever you use the <em>gloom blade</em> to attack a creature you're undetected by, you deal 1d6 additional precision damage.</p>\n<p>To upgrade the <em>gloom blade's</em> fundamental runes, start with the base <em>+1 shortsword</em>, but if you improve it beyond a <em>+2 striking shortsword</em>, the runes apply in dim light or darkness as well.</p>"
         },
         "expend": null,
+        "grade": null,
         "group": "sword",
         "hardness": 0,
         "hp": {
@@ -60,7 +61,9 @@
                 "toggleable": true
             },
             {
-                "key": "WeaponPotency",
+                "itemId": "{item|_id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     {
                         "or": [
@@ -69,11 +72,13 @@
                         ]
                     }
                 ],
-                "selector": "{item|_id}-attack",
+                "property": "runes-potency",
                 "value": 2
             },
             {
-                "key": "Striking",
+                "itemId": "{item|_id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     {
                         "or": [
@@ -82,7 +87,7 @@
                         ]
                     }
                 ],
-                "selector": "{item|_id}-damage",
+                "property": "runes-striking",
                 "value": 1
             },
             {

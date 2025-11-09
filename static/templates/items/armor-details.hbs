@@ -129,6 +129,7 @@
         <label for="{{fieldIdPrefix}}material">{{localize "PF2E.PreciousMaterialLabel"}}</label>
         <select
             id="{{fieldIdPrefix}}material"
+            class="force-fit"
             data-property="system.material"
             data-value-base="{{json item._source.system.material}}"
             data-dtype="JSON"
@@ -139,20 +140,29 @@
 
     {{#unless item.isBarding}}
         {{#unless abpEnabled}}
-            <div class="form-group">
-                <label for="{{fieldIdPrefix}}rune-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
-                <select name="system.runes.potency" id="{{fieldIdPrefix}}rune-potency" data-dtype="Number">
-                    <option value="0"></option>
-                    {{selectOptions (omit runeTypes.potency 0) selected=data.runes.potency labelAttr="name" localize=true}}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="{{fieldIdPrefix}}rune-resilient">{{localize "PF2E.Item.Armor.Rune.Resilient.Label"}}</label>
-                <select name="system.runes.resilient" id="{{fieldIdPrefix}}rune-resilient" data-dtype="Number">
-                    <option value="0"></option>
-                    {{selectOptions (omit runeTypes.resilient 0) selected=data.runes.resilient labelAttr="name" localize=true}}
-                </select>
-            </div>
+            {{#if data.grade}}
+                <div class="form-group">
+                    <label for="{{fieldIdPrefix}}grade">{{localize "PF2E.Item.Physical.FIELDS.grade.label"}}</label>
+                    <select data-property="system.grade" id="{{fieldIdPrefix}}grade">
+                        {{selectOptions grades selected=data.grade}}
+                    </select>
+                </div>
+            {{else}}
+                <div class="form-group">
+                    <label for="{{fieldIdPrefix}}rune-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
+                    <select data-property="system.runes.potency" id="{{fieldIdPrefix}}rune-potency" data-dtype="Number">
+                        <option value="0"></option>
+                        {{selectOptions (omit runeTypes.potency 0) selected=data.runes.potency labelAttr="name" localize=true}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="{{fieldIdPrefix}}rune-resilient">{{localize "PF2E.Item.Armor.Rune.Resilient.Label"}}</label>
+                    <select data-property="system.runes.resilient" id="{{fieldIdPrefix}}rune-resilient" data-dtype="Number">
+                        <option value="0"></option>
+                        {{selectOptions (omit runeTypes.resilient 0) selected=data.runes.resilient labelAttr="name" localize=true}}
+                    </select>
+                </div>
+            {{/if}}
         {{/unless}}
 
         {{#each propertyRuneSlots as |slot index|}}
@@ -196,7 +206,6 @@
         </div>
     {{/unless}}
 </fieldset>
-
 
 <div class="form-group stacked">
     <label>

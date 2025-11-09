@@ -1,0 +1,324 @@
+{
+    "_id": "w6MKljfQYYaCYsFR",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "RVKn86nfvO4Zlgzq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "xTmrNuD6cBHe5A7j": {
+                        "damage": "3d10+17",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "deadly-3d12",
+                        "magical",
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vzKvAZRlu4GWvWhV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Repair Mode",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When the adamant sentinel is at 0 HP, it isn't destroyed. Instead, it enters repair mode, during which it's @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, can't take reactions, and can take only the Self-Repair action. Once it has more than 30 HP, it can use any type of action and can use reactions, though it remains slowed 1 and can't take any reactions until the start of its next turn. If a critical hit with a @UUID[Compendium.pf2e.equipment-srd.Item.Vorpal] adamantine weapon reduces the sentinel to 0 HP, or if such a weapon hits it while it's already at 0 HP, the sentinel is destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CH5GoYz2ZgnnwodL",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Destructive Strike",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On a critical hit, the adamant sentinel's fst Strike breaks the target's armor, if any, in addition to dealing damage to the target. If the target has a shield raised, the sentinel breaks the shield instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "fist-attack",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BMzVFs0AdPpW1E9J",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Inexorable March",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The adamant sentinel Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can try to bar the way by attempting a @Check[fortitude|dc:45|options:damaging-effect] save.</p><hr /><p><strong>Critical Success</strong> The sentinel halts its movement and cannot enter the creature's square.</p>\n<p><strong>Success</strong> As critical success, but the resisting creature takes @Damage[(3d10+17)[bludgeoning]] damage.</p>\n<p><strong>Failure</strong> The resisting creature takes @Damage[(3d10+17)[bludgeoning]] damage, and its armor, if any, is broken. If the resisting creature has a shield raised, the sentinel breaks the shield instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zheqb66ZfWQy3rCc",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Self-Repair",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sentinel repairs itself, regaining @Damage[30[healing]] Hit Points.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LcTLFm6mVOfK9AEb",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Vent",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sentinel vents a @Template[type:cone|distance:30] of superheated steam from its internal forge. This deals @Damage[15d6[fire]|options:area-damage] damage to all creatures in the cone (@Check[reflex|dc:40|basic|options:area-effect]). The sentinel can't use Vent again for [[/gmr 1d6 #Recharge Vent]]{1d6 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Adamant Sentinel",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 9
+            },
+            "dex": {
+                "mod": -1
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 9
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 42
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "repair mode",
+                "max": 255,
+                "temp": 0,
+                "value": 255
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "vorpal-adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 20
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "spells",
+                    "value": 20
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 18
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Crafted from a nigh-indestructible metal of great rarity, adamant sentinels can't be destroyed except by the most powerful foes. Crafting an adamant sentinel requires a quantity of adamantine so massive that collecting it usually requires mounting a mining expedition to a distant planet, the Plane of Earth, or an Outer Plane.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core 2"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 26,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 33
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 29
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 38
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

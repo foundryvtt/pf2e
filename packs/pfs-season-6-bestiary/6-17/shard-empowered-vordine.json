@@ -455,6 +455,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "trident",
                 "traits": {
@@ -497,6 +498,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "whip",
                 "traits": {
@@ -543,6 +545,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -586,6 +589,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "trident",
                 "traits": {
@@ -856,17 +860,15 @@
                         "toggleable": true
                     },
                     {
-                        "definition": [
-                            "item:slug:trident",
-                            {
-                                "not": "item:ranged"
-                            }
-                        ],
                         "itemType": "melee",
                         "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "trident-of-dis"
+                            "item:slug:trident",
+                            "trident-of-dis",
+                            {
+                                "not": "item:ranged"
+                            }
                         ],
                         "property": "traits",
                         "value": "reach-10"
@@ -904,6 +906,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The vordine draws upon the power of the warshard to bolster its health. It gains fast healing 5 for 1 minute.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
                 },
                 "publication": {
                     "license": "OGL",

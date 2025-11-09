@@ -513,13 +513,18 @@
                 },
                 "counteraction": false,
                 "damage": {},
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
                 "description": {
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @UUID[Compendium.pf2e.spells-srd.Item.Slow].</p>\n<hr />\n<p><strong>Area</strong> 50 ft long by 50 ft wide</p>"
+                    "value": "<p><strong>Area</strong> 50 feet long by 50 feet wide</p><hr /><p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Creatures that have the water trait and that are in the area when you Cast the Spell must attempt a Fortitude save, with the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Slow] spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": ""
+                    "value": "1 hour"
                 },
                 "level": {
                     "value": 5
@@ -529,9 +534,9 @@
                     "value": "LPsC4aPQJcVgNEdo"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -643,7 +648,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.HBJPsonQnWcC3qdX"
             },
-            "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
+            "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Hallucinatory Terrain",
             "sort": 1100000,
             "system": {
@@ -2056,6 +2061,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -2114,6 +2120,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -2169,6 +2176,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -2458,14 +2466,21 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When Markish damages a living creature with his claw Strike, he gains 15 temporary Hit Points and the creature must succeed at a @Check[fortitude|dc:36] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Further damage Markish deals increases the condition value by 1 on a failed save, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}.</p>"
+                    "value": "<p>When Markish damages a living creature with his claw Strike, he gains 15 temporary Hit Points and the creature must succeed at a @Check[fortitude|dc:36|options:inflicts:drained] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Further damage Markish deals increases the condition value by 1 on a failed save, to a maximum of drained 4.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Drain Life]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.drainLifeTempHP",
+                        "value": 15
+                    }
+                ],
                 "slug": "drain-life",
                 "traits": {
                     "rarity": "common",
@@ -2525,7 +2540,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Markish releases a jet of shadowy water in a @Template[line|distance:60], dealing @Damage[9d6[bludgeoning]] damage and @Damage[6d6[void]] damage (@Check[reflex|dc:36|basic] save). A creature who critically fails its save is also pushed 10 feet (20 feet on a critical failure) and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure). Markish can't use Rush of Shadows for [[/gmr 1d4 #Recharge Rush of Shadows]]{1d4 rounds}.</p>"
+                    "value": "<p>Markish releases a jet of shadowy water in a @Template[line|distance:60], dealing @Damage[9d6[bludgeoning],6d6[void]|options:area-damage]{9d6 bludgeoning damage and 6d6 void damage} (@Check[reflex|dc:36|basic|options:area-effect,inflicts:enfeebled,forced-movement] save). A creature who critically fails its save is also pushed 10 feet (20 feet on a critical failure) and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure). Markish can't use Rush of Shadows for [[/gmr 1d4 #Recharge Rush of Shadows]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

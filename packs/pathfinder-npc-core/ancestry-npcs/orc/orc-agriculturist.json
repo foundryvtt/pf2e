@@ -12,6 +12,11 @@
             "name": "Blowgun",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "blowgun-darts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "blowgun",
                 "bonus": {
                     "value": 0
@@ -265,75 +270,10 @@
             "type": "weapon"
         },
         {
-            "_id": "lLlBo3v2UFwVE0Ou",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.sqhr1crb184s3Vnd"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/ammunition/blowgun-darts.webp",
-            "name": "Blowgun Darts",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "blowgun-darts",
-                "stackGroup": "blowgunDarts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "APRPzp0ZL4lcquwz",
             "img": "icons/commodities/flowers/clover-purple.webp",
             "name": "Poisonous Herb",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -390,6 +330,56 @@
             "type": "consumable"
         },
         {
+            "_id": "lLlBo3v2UFwVE0Ou",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.sqhr1crb184s3Vnd"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/ammunition/blowgun-darts.webp",
+            "name": "Blowgun Darts",
+            "sort": 500000,
+            "system": {
+                "baseItem": "blowgun-darts",
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "blowgun-darts",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
+        },
+        {
             "_id": "H9gvfUbqF0rmp8Nz",
             "flags": {
                 "pf2e": {
@@ -420,6 +410,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "pitchfork",
                 "traits": {
@@ -461,6 +452,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "sickle",
                 "traits": {
@@ -498,6 +490,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -541,13 +534,16 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "blowgun",
                 "traits": {
                     "value": [
                         "agile",
                         "nonlethal",
-                        "range-increment-20",
                         "reload-1"
                     ]
                 }

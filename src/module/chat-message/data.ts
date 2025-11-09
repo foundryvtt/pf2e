@@ -3,8 +3,9 @@ import type { ActorUUID, TokenDocumentUUID } from "@client/documents/_module.d.m
 import type { DocumentUUID } from "@client/utils/_module.d.mts";
 import type { RollMode } from "@common/constants.d.mts";
 import type { ChatMessageFlags } from "@common/documents/chat-message.d.mts";
-import type { ItemType, SpellSource } from "@item/base/data/index.ts";
+import type { SpellSource } from "@item/base/data/index.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
+import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { ZeroToTwo } from "@module/data.ts";
 import type { RollNoteSource } from "@module/notes.ts";
 import type { CheckCheckContext } from "@system/check/index.ts";
@@ -21,7 +22,7 @@ export interface ItemOriginFlag {
     uuid: string;
     castRank?: number;
     messageId?: string;
-    variant?: { overlays: string[] };
+    variant?: { overlays: string[] } | null;
     rollOptions?: string[];
 }
 
@@ -33,7 +34,7 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
         casting?: { id: string; tradition: MagicTradition; embeddedSpell?: SpellSource } | null;
         modifiers?: RawModifier[];
         dice?: RawDamageDice[];
-        journalEntry?: DocumentUUID;
+        journalEntry?: DocumentUUID | null;
         appliedDamage?: AppliedDamageFlag | null;
         treatWoundsMacroFlag?: { bonus: number };
         [key: string]: unknown;
@@ -46,7 +47,8 @@ type ChatContextFlag =
     | DamageDamageContextFlag
     | SpellCastContextFlag
     | SelfEffectContextFlag
-    | DamageTakenContextFlag;
+    | DamageTakenContextFlag
+    | AreaAttackContextFlag;
 
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
@@ -123,6 +125,15 @@ interface SpellCastContextFlag {
     rollMode?: RollMode;
 }
 
+interface AreaAttackContextFlag {
+    type: "area-fire" | "auto-fire";
+    area: { type: EffectAreaShape; value: number };
+    identifier: string;
+    domains: string[];
+    options: string[];
+    outcome?: never;
+}
+
 interface SelfEffectContextFlag {
     type: "self-effect";
     item: string;
@@ -153,6 +164,7 @@ interface AppliedDamageFlag {
 export type {
     ActorTokenFlag,
     AppliedDamageFlag,
+    AreaAttackContextFlag,
     ChatContextFlag,
     ChatMessageFlagsPF2e,
     ChatMessageSourcePF2e,

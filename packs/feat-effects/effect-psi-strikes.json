@@ -4,13 +4,13 @@
     "name": "Effect: Psi Strikes",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Psi Strikes]</p>\n<p>The attack deals an extra 1d6 force damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Psi Strikes]</p>\n<p>Your chosen attack deals an extra 1d6 force damage.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-end",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 0
         },
         "level": {
             "value": 4
@@ -34,23 +34,21 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": [
-                    {
-                        "not": "parent:origin:item:tag:mindshifted"
-                    }
-                ],
-                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "slug": "psi-strikes"
             },
             {
-                "damageType": "mental",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
+                "key": "DamageAlteration",
+                "mode": "override",
                 "predicate": [
-                    "parent:origin:item:tag:mindshifted"
+                    "parent:origin:item:tag:mindshifted",
+                    "dice:slug:psi-strikes"
                 ],
-                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
-                "slug": "mindshift"
+                "property": "damage-type",
+                "selectors": [
+                    "{item|flags.pf2e.rulesSelections.weapon}-damage"
+                ],
+                "value": "mental"
             }
         ],
         "start": {

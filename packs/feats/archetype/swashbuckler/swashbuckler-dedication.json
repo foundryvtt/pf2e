@@ -34,8 +34,22 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:swashbuckler-style",
+                        {
+                            "not": "item:tag:class-archetype"
+                        }
+                    ]
+                },
+                "flag": "swashbucklersStyle",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Swashbuckler.Style.Prompt"
+            },
+            {
                 "key": "GrantItem",
-                "uuid": "Compendium.pf2e.classfeatures.Item.Swashbuckler's Style"
+                "uuid": "{item|flags.pf2e.rulesSelections.swashbucklersStyle}"
             },
             {
                 "adjustName": false,

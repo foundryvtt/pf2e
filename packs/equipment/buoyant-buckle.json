@@ -1,0 +1,86 @@
+{
+    "_id": "TXN2QFzKLAnjFSLw",
+    "img": "icons/equipment/chest/shirt-collared-grey.webp",
+    "name": "Buoyant Buckle",
+    "system": {
+        "acBonus": 1,
+        "baseItem": "leather-armor",
+        "bulk": {
+            "value": 1
+        },
+        "category": "light",
+        "checkPenalty": -1,
+        "containerId": null,
+        "description": {
+            "value": "<p>This <em>+1 leather armor</em> has several large pouches along the sides of the torso as well as the front and back sides of the legs. While wearing this armor, you can quickly inflate these large pouches with air, allowing you to float in water.</p>\n<p><strong>Activate—Flotation</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You inflate large pouches that allow you to float. You gain a swim Speed equal to half your land Speed. You can swim only along the surface of the water while this is active. You can stow the flotation devices as a 1-minute exploration activity. If the pouches take any damage (AC 10, Hardness 0), they quickly deflate, ending the effect.</p>"
+        },
+        "dexCap": 4,
+        "grade": null,
+        "group": "leather",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 250
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "buoyant-buckle",
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "buoyant-buckle"
+                ],
+                "selector": "swim",
+                "value": "floor(@actor.system.movement.speeds.land.value / 2)"
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "resilient": 0
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "resilient": 0
+            }
+        },
+        "speedPenalty": 0,
+        "strength": 0,
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        }
+    },
+    "type": "armor"
+}

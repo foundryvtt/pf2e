@@ -343,6 +343,11 @@
             "name": "Blowgun",
             "sort": 600000,
             "system": {
+                "ammo": {
+                    "baseType": "blowgun-darts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "blowgun",
                 "bonus": {
                     "value": 0
@@ -592,7 +597,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from good manacles requires five successful @Check[thievery|dc:32|traits:action:pick-a-lock] checks.</p>"
+                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a –15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from good manacles requires five successful @Check[thievery|dc:32|traits:action:pick-a-lock] checks.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -635,79 +640,13 @@
             "type": "equipment"
         },
         {
-            "_id": "WCn25d9U81Qwv8zt",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.sqhr1crb184s3Vnd"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/blowgun-dart.webp",
-            "name": "Blowgun Darts",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 5
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "blowgun-darts",
-                "stackGroup": "blowgunDarts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "whOhQBoKXdvoe8Bu",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zo0ophqfKunJFxZN"
             },
             "img": "icons/commodities/materials/liquid-orange.webp",
             "name": "Lethargy Poison",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -777,7 +716,7 @@
             },
             "img": "icons/consumables/potions/bottle-conical-corked-purple.webp",
             "name": "Purple Worm Venom",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -838,6 +777,56 @@
                 }
             },
             "type": "consumable"
+        },
+        {
+            "_id": "WCn25d9U81Qwv8zt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.sqhr1crb184s3Vnd"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/blowgun-dart.webp",
+            "name": "Blowgun Darts",
+            "sort": 1200000,
+            "system": {
+                "baseItem": "blowgun-darts",
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "blowgun-darts",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
         },
         {
             "_id": "jEFmMCQkUOlH3g51",
@@ -928,6 +917,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -983,6 +973,10 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -991,7 +985,6 @@
                         "agile",
                         "magical",
                         "nonlethal",
-                        "range-increment-20",
                         "reload-1"
                     ]
                 },
@@ -1048,7 +1041,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The Scarlet Triad agent's Strike hits an off-guard creature and deals damage.</p>\n<hr />\n<p><strong>Effect</strong> The Scarlet Triad agent applies one of the following debilitations to the creature, which lasts until the end of their next turn.</p>\n<ul>\n<li><em>Brow Gash</em> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</li>\n<li><em>Deep Cut</em> The target takes an additional 2d6 precision damage from the Scarlet Triad agent's attacks.</li>\n<li><em>Hamstring</em> The target takes a -10-foot status penalty to its Speeds.</li>\n<li><em>Low Blow</em> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}.</li>\n</ul>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Hamstring]</p>"
+                    "value": "<p><strong>Trigger</strong> The Scarlet Triad agent's Strike hits an off-guard creature and deals damage.</p>\n<hr />\n<p><strong>Effect</strong> The Scarlet Triad agent applies one of the following debilitations to the creature, which lasts until the end of their next turn.</p>\n<ul>\n<li><em>Brow Gash</em> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</li>\n<li><em>Deep Cut</em> The target takes an additional 2d6 precision damage from the Scarlet Triad agent's attacks.</li>\n<li><em>Hamstring</em> The target takes a –10-foot status penalty to its Speeds.</li>\n<li><em>Low Blow</em> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}.</li>\n</ul>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Hamstring]</p>"
                 },
                 "publication": {
                     "license": "OGL",

@@ -22,19 +22,16 @@ function activateSocketListener(): void {
                 break;
             case "showSheet": {
                 const document = await fromUuid(message.document);
-                if (!sender.isGM || !document) return;
-
-                const { tab, campaign } = message.options ?? {};
+                if (!sender.isGM || !document?.sheet) return;
 
                 // If campaign is defined, defer to the party's campaign model
+                const { tab, campaign } = message.options ?? {};
                 if (campaign) {
                     if (!(document instanceof PartyPF2e)) return;
                     const type = campaign === true ? null : campaign;
                     return document.campaign?.renderSheet?.({ tab, type });
                 }
-
                 document.sheet.render(true, { tab } as AppV1RenderOptions);
-
                 break;
             }
             default:

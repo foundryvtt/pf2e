@@ -1074,6 +1074,11 @@
             "name": "Hand Crossbow",
             "sort": 1700000,
             "system": {
+                "ammo": {
+                    "baseType": "bolts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "hand-crossbow",
                 "bonus": {
                     "value": 0
@@ -1238,16 +1243,16 @@
             "type": "weapon"
         },
         {
-            "_id": "QT162hKvunvpuni5",
+            "_id": "KB3KXraI3RJFTPRs",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
-            "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
-            "name": "Chain Shirt",
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
             "sort": 1900000,
             "system": {
-                "acBonus": 2,
-                "baseItem": "chain-shirt",
+                "acBonus": 1,
+                "baseItem": "leather-armor",
                 "bulk": {
                     "value": 1
                 },
@@ -1255,16 +1260,16 @@
                 "checkPenalty": -1,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chain mail. However, it is much lighter than chain mail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
                 },
-                "dexCap": 3,
+                "dexCap": 4,
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
-                "group": "chain",
+                "group": "leather",
                 "hardness": 0,
                 "hp": {
                     "max": 0,
@@ -1279,7 +1284,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 5
+                        "gp": 2
                     }
                 },
                 "publication": {
@@ -1295,15 +1300,12 @@
                     "resilient": 0
                 },
                 "size": "med",
-                "slug": "chain-shirt",
+                "slug": "leather-armor",
                 "speedPenalty": 0,
-                "strength": 1,
+                "strength": 0,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "flexible",
-                        "noisy"
-                    ]
+                    "value": []
                 }
             },
             "type": "armor"
@@ -1375,31 +1377,17 @@
             "name": "Bolts",
             "sort": 2100000,
             "system": {
-                "baseItem": null,
+                "baseItem": "bolts",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -1416,13 +1404,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "bolts",
-                "stackGroup": "bolts",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -1430,7 +1416,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "OSqvPT6Kb8Od7g2m",
@@ -1463,12 +1449,14 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [
                     {
                         "key": "RollOption",
                         "label": "PF2E.TraitVersatileS",
                         "option": "versatile-s-shortsword",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": true
                     },
                     {
                         "key": "DamageAlteration",
@@ -1497,9 +1485,6 @@
         },
         {
             "_id": "uIlZMbbMIb5xfie3",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 2300000,
@@ -1524,6 +1509,7 @@
                     "remaster": true,
                     "title": "Pathfinder NPC Core"
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1556,7 +1542,7 @@
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "1d6+3",
+                        "damage": "1d6+6",
                         "damageType": "piercing"
                     }
                 },
@@ -1568,11 +1554,14 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
-                        "range-increment-60",
                         "reload-1"
                     ]
                 }
@@ -1580,39 +1569,10 @@
             "type": "melee"
         },
         {
-            "_id": "36ET5jV2rkhYn3A0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Manipulation Specialist",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When competing in a social or intellectual arena, the mastermind is a 7th-level challenge.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "WPfgNQXR7Zw6gYO5",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Perception +17 to Sense Motive",
-            "sort": 2600000,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+7 to Sense Motive",
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1647,6 +1607,35 @@
             "type": "action"
         },
         {
+            "_id": "36ET5jV2rkhYn3A0",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Manipulation Specialist",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When competing in a social or intellectual arena, the mastermind is a 7th-level challenge.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "dSa8OQfOz63lYKQ2",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Versatile Performance",
@@ -1660,7 +1649,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The mastermind can use Performance instead of Diplomacy to [[/act make-an-impression skill=performance]]{Make an Impression} and instead of Deception to [[/act impersonate skill=performance]]{Impersonate}.</p>"
+                    "value": "<p>The mastermind can use Performance instead of Diplomacy to [[/act make-an-impression skill=performance]] and instead of Deception to [[/act impersonate skill=performance]].</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1677,26 +1666,41 @@
         },
         {
             "_id": "v3VQfpzwMQ3vAQCU",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Scoundrel's Feint",
             "sort": 2800000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the mastermind successfully Feints, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the mastermind's melee attacks until the end of the mastermind's next turn. On a critical success, the target is off-guard against all melee attacks for that time, not just the mastermind's.</p>"
+                    "value": "<p>When the mastermind successfully [[/act feint]]{Feints}, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the mastermind's melee attacks until the end of the mastermind's next turn. On a critical success, the target is off-guard against all melee attacks for that time, not just the mastermind's.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:feint"
+                        ],
+                        "selector": "skill-check",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1721,7 +1725,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The creature's Strikes deal an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": "<p>The mastermind deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1844,7 +1848,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "(+17 to Sense Motive)",
             "mod": 10,
             "senses": []
         },

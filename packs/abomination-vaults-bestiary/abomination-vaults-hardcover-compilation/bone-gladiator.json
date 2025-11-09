@@ -32,6 +32,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -62,14 +63,25 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A critical hit jostles the skeleton's loose bones, making it @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}. Additional critical hits increase this value, up to @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4}.</p>"
+                    "value": "<p>A critical hit jostles the skeleton's loose bones, making it @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}. Additional critical hits increase this value, up to clumsy 4.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -175,7 +187,7 @@
                 "mod": 4
             },
             "con": {
-                "mod": 5
+                "mod": 4
             },
             "dex": {
                 "mod": 0

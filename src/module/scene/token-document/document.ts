@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { PrototypeTokenPF2e } from "@actor/data/base.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
-import type { TrackedAttributesDescription } from "@client/_types.d.mts";
+import type { TokenAnimationOptions, TrackedAttributesDescription } from "@client/_types.d.mts";
 import type { TokenResourceData } from "@client/canvas/placeables/token.d.mts";
 import type { TokenUpdateCallbackOptions } from "@client/documents/token.d.mts";
 import type { Point } from "@common/_types.d.mts";
@@ -12,8 +12,8 @@ import type {
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
 import type { ImageFilePath, TokenDisplayMode, VideoFilePath } from "@common/constants.d.mts";
+import type { GridMeasurePathResult } from "@common/grid/_types.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
-import { TokenAnimationOptionsPF2e } from "@module/canvas/token/object.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { DifficultTerrainGrade, EnvironmentFeatureRegionBehavior, RegionDocumentPF2e } from "@scene";
@@ -29,19 +29,18 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     declare auras: Map<string, TokenAura>;
 
     /** The most recently used animation for later use when a token override is reverted. */
-    #lastAnimation: TokenAnimationOptionsPF2e | null = null;
+    #lastAnimation: TokenAnimationOptions | null = null;
 
     /** Returns if the token is in combat, though some actors have different conditions */
     override get inCombat(): boolean {
         if (this.actor?.isOfType("party")) {
             return this.actor.members.every((a) => game.combat?.getCombatantByActor(a.id));
         }
-
         return super.inCombat;
     }
 
     /** This should be in Foundry core, but ... */
-    get scene(): this["parent"] {
+    get scene(): TParent {
         return this.parent;
     }
 
@@ -71,7 +70,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Is this token's scale locked at 1 or (for small creatures) 0.8? */
     get autoscale(): boolean {
-        return this.flags.pf2e.autoscale;
+        return this.linkToActorSize && game.pf2e.settings.tokens.autoscale && this.flags.pf2e.autoscale;
     }
 
     get playersCanSeeName(): boolean {
@@ -104,6 +103,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         return bounds;
+    }
+
+    get isTiny(): boolean {
+        return this.height < 1 || this.width < 1;
     }
 
     /** The pixel-coordinate pair constituting this token's center */
@@ -196,6 +199,38 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super.getTrackedAttributeChoices(attributes);
     }
 
+    /** Synchronize the token image with the actor image if the token does not currently have an image */
+    static assignDefaultImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
+        const actor = token.actor;
+        if (!actor) return;
+
+        // Always override token images if in Nath mode
+        if (game.pf2e.settings.tokens.nathMode && isDefaultTokenImage(token)) {
+            token.texture.src = ((): ImageFilePath | VideoFilePath => {
+                switch (actor.alliance) {
+                    case "party":
+                        return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
+                    case "opposition":
+                        return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
+                    default:
+                        return token.texture.src ?? CONST.DEFAULT_TOKEN;
+                }
+            })();
+        } else if (isDefaultTokenImage(token)) {
+            token.texture.src = actor._source.img;
+        }
+    }
+
+    /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
+    static prepareScale(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
+        if (!token.flags.pf2e.autoscale) return;
+        const absoluteScale = token.actor?.size === "sm" ? 0.8 : 1;
+        const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
+        token.texture.scaleX = mirrorX * absoluteScale;
+        const mirrorY = token.texture.scaleY < 0 ? -1 : 1;
+        token.texture.scaleY = mirrorY * absoluteScale;
+    }
+
     /** Make stamina, resolve, and shield HP editable despite not being present in template.json */
     override getBarAttribute(barName: string, options?: { alternative?: string }): TokenResourceData | null {
         const attribute = super.getBarAttribute(barName, options);
@@ -213,6 +248,23 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return attribute;
     }
 
+    /** Recalculate measurements of tiny-token movement to avoid upstream's partial square calculations. */
+    override measureMovementPath(
+        waypoints: fd.TokenMeasureMovementPathWaypoint[],
+        options?: { cost?: fd.TokenMovementCostFunction },
+    ): GridMeasurePathResult {
+        if (!canvas.grid.isSquare) return super.measureMovementPath(waypoints, options);
+        const normalized = this.isTiny
+            ? waypoints.map((p) => ({
+                  ...p,
+                  ...canvas.grid.getTopLeftPoint({ x: p.x ?? 0, y: p.y ?? 0 }),
+                  width: 1,
+                  height: 1,
+              }))
+            : waypoints;
+        return super.measureMovementPath(normalized, options);
+    }
+
     protected override _initialize(options?: Record<string, unknown>): void {
         this.auras = new Map();
         super._initialize(options);
@@ -221,23 +273,16 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
-
-        this.flags = fu.mergeObject(this.flags, { pf2e: {} });
+        const flags = fu.mergeObject(this.flags, { pf2e: {} });
         const actor = this.actor;
         if (!actor) return;
 
         TokenDocumentPF2e.assignDefaultImage(this);
 
         // Dimensions and scale
-        const linkDefault = SIZE_LINKABLE_ACTOR_TYPES.has(actor.type);
-        const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
-
-        const autoscaleDefault = game.pf2e.settings.tokens.autoscale;
-        // Autoscaling is a secondary feature of linking to actor size
-        const autoscale = linkToActorSize ? (this.flags.pf2e.autoscale ?? autoscaleDefault) : false;
-        this.flags.pf2e = Object.assign(this.flags.pf2e, { linkToActorSize, autoscale });
-
-        // Token dimensions from actor size
+        flags.pf2e.linkToActorSize ??= SIZE_LINKABLE_ACTOR_TYPES.has(actor.type);
+        const settingEnabled = game.pf2e.settings.tokens.autoscale;
+        flags.pf2e.autoscale = settingEnabled && flags.pf2e.linkToActorSize ? (flags.pf2e.autoscale ?? true) : false;
         TokenDocumentPF2e.prepareScale(this);
 
         // Merge token overrides from REs into this document
@@ -337,62 +382,21 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
     }
 
-    /** Ensure that actors that don't allow synthetics are linked */
-    protected override _preCreate(
-        data: this["_source"],
-        options: DatabaseCreateCallbackOptions,
-        user: fd.BaseUser,
-    ): Promise<boolean | void> {
-        if (this.actor?.allowSynthetics === false && data.actorLink === false) {
-            this._source.actorLink = true;
-        }
-        return super._preCreate(data, options, user);
-    }
-
-    /** Ensure that actors that don't allow synthetics stay linked */
-    protected override _preUpdate(
-        data: Record<string, unknown>,
-        options: TokenUpdateCallbackOptions,
-        user: fd.BaseUser,
-    ): Promise<boolean | void> {
-        if (this.actor?.allowSynthetics === false && (data.actorLink ?? this.actorLink) === false) {
-            data.actorLink = true;
-        }
-        return super._preUpdate(data, options, user);
-    }
-
-    /** Synchronize the token image with the actor image if the token does not currently have an image */
-    static assignDefaultImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
-        const actor = token.actor;
-        if (!actor) return;
-
-        // Always override token images if in Nath mode
-        if (game.pf2e.settings.tokens.nathMode && isDefaultTokenImage(token)) {
-            token.texture.src = ((): ImageFilePath | VideoFilePath => {
-                switch (actor.alliance) {
-                    case "party":
-                        return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
-                    case "opposition":
-                        return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
-                    default:
-                        return token.texture.src ?? CONST.DEFAULT_TOKEN;
-                }
-            })();
-        } else if (isDefaultTokenImage(token)) {
-            token.texture.src = actor._source.img;
-        }
-    }
-
-    /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
-    static prepareScale(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
-        const linkToActorSize = token.flags.pf2e.linkToActorSize;
-        const autoscale = game.pf2e.settings.tokens.autoscale && token.flags.pf2e.autoscale !== false;
-        if (linkToActorSize && autoscale) {
-            const absoluteScale = token.actor?.size === "sm" ? 0.8 : 1;
-            const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
-            token.texture.scaleX = mirrorX * absoluteScale;
-            const mirrorY = token.texture.scaleY < 0 ? -1 : 1;
-            token.texture.scaleY = mirrorY * absoluteScale;
+    protected override _inferMovementAction(): string {
+        const actor = this.actor;
+        switch (actor?.type) {
+            case "character":
+            case "npc":
+            case "familiar":
+                return !actor.inCombat ? "travel" : actor.hasCondition("prone") ? "crawl" : "walk";
+            case "army":
+                return "deploy";
+            case "vehicle":
+                return "drive";
+            case "party":
+                return "travel";
+            default:
+                return "displace";
         }
     }
 
@@ -458,6 +462,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const postUpdate = this.toObject(false);
         const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
         const tokenChanges = fu.diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+        if (!this.actorLink && this.autoscale && fu.hasProperty(updates, "system.traits.size")) {
+            tokenChanges.texture = fu.mergeObject(tokenChanges, R.pick(this.texture, ["scaleX", "scaleY"]));
+        }
 
         if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
             const tokenOverrides = this.actor?.synthetics.tokenOverrides ?? {};
@@ -479,6 +486,30 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
+
+    /** Ensure that actors that don't allow synthetics are linked. */
+    protected override _preCreate(
+        data: DeepPartial<this["_source"]>,
+        options: DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
+    ): Promise<boolean | void> {
+        if (this.actor?.allowSynthetics === false && data.actorLink === false) {
+            this._source.actorLink = true;
+        }
+        return super._preCreate(data, options, user);
+    }
+
+    /** Ensure that actors that don't allow synthetics stay linked. */
+    protected override _preUpdate(
+        data: Record<string, unknown>,
+        options: TokenUpdateCallbackOptions,
+        user: fd.BaseUser,
+    ): Promise<boolean | void> {
+        if (this.actor?.allowSynthetics === false && (data.actorLink ?? this.actorLink) === false) {
+            data.actorLink = true;
+        }
+        return super._preUpdate(data, options, user);
+    }
 
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void {
@@ -512,20 +543,22 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         operation?: Partial<DatabaseOperation<Document | null>>,
     ): void {
         super._onRelatedUpdate(update, operation);
-        const { actor, scene } = this;
-        if (!actor || !(scene instanceof ScenePF2e)) return;
-
-        // Follow up any actor (or descendant document thereof) modification with a size synchronization
-        if (this.linkToActorSize && actor.system.traits?.size) {
-            const dimensions = actor.system.traits.size.tokenDimensions;
-            if (dimensions.width !== this.width || dimensions.height !== this.height) {
-                scene.syncTokenDimensions(this, dimensions);
-            }
-        }
+        if (!(this.scene instanceof ScenePF2e)) return;
 
         // Simulate update to detect and fulfill canvas-affecting actor changes
         const updates = Array.isArray(update) ? update : [update];
         this.simulateUpdate(updates[0]);
+
+        // Follow up any actor (or descendant document thereof) modification with a size synchronization
+        const actor = this.actor;
+        if (!actor?.isOwner) return;
+        const activeGM = game.users.activeGM; // Let the active GM take care of updates if available
+        if ((!activeGM || game.user === activeGM) && this.linkToActorSize && actor.system.traits?.size) {
+            const dimensions = actor.system.traits.size.tokenDimensions;
+            if (dimensions.width !== this.width || dimensions.height !== this.height) {
+                this.scene.syncTokenDimensions(this, dimensions);
+            }
+        }
     }
 
     protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {

@@ -141,19 +141,19 @@
                         {{/if}}
                     {{/each}}
 
-                    {{#if actor.system.actions}}
+                    {{#if attacks}}
                         {{!-- Attacks --}}
                         <ol class="actions-list attacks-list strikes-list item-list">
-                            {{#each actor.system.actions as |action index|}}
+                            {{#each attacks as |action index|}}
                                 <li class="item action" data-action-index="{{index}}" data-strike="" data-item-id="{{action.item.id}}">
                                     <h4 class="attack-name tags">
                                         <span>
                                             <strong>{{localize action.attackRollType}}</strong>
-                                            <span class="action-glyph">{{{actionGlyph 1}}}</span>
+                                            <span class="action-glyph">{{action.glyph}}</span>
                                             {{action.label}}
                                         </span>
-                                        {{#each action.traits as |trait|}}
-                                            <div class="tag tag_transparent" data-tooltip="{{trait.description}}">{{localize trait.label}}</div>
+                                        {{#each action.traitsAndTags as |trait|}}
+                                            <li class="tag tag_transparent" {{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</li>
                                         {{/each}}
                                         {{#each action.additionalEffects as |effect|}}
                                             <div class="tag tag_transparent" data-tag="{{effect.tag}}">{{localize effect.label}}</div>

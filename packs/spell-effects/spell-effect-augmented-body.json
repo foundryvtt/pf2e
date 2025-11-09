@@ -42,7 +42,7 @@
                 ],
                 "key": "ChoiceSet",
                 "label": "PF2E.SpecificRule.SpellEffectAugmentedBody.Prompt",
-                "rollOption": "augmentated-body"
+                "rollOption": "augmented-body"
             },
             {
                 "key": "Resistance",
@@ -63,7 +63,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "augmented-body:sping-loaded-legs"
+                    "augmented-body:spring-loaded-legs"
                 ],
                 "selector": "land-speed",
                 "type": "status",
@@ -80,6 +80,9 @@
                 },
                 "key": "Strike",
                 "label": "PF2E.SpecificRule.SpellEffectAugmentedBody.ClockworkFist",
+                "predicate": [
+                    "augmented-body:clockwork-arm"
+                ],
                 "slug": "clockwork-fist",
                 "traits": [
                     "agile",
@@ -89,32 +92,24 @@
                 ]
             },
             {
-                "key": "Striking",
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
-                    {
-                        "gte": [
-                            "item:level",
-                            3
-                        ]
-                    },
                     "augmented-body:clockwork-arm"
                 ],
-                "selector": "{item|id}-damage",
-                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,7),2,1))"
+                "property": "runes-striking",
+                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,7),2,ternary(gte(@item.level,3),1,0)))"
             },
             {
-                "key": "WeaponPotency",
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
-                    {
-                        "gte": [
-                            "item:level",
-                            3
-                        ]
-                    },
                     "augmented-body:clockwork-arm"
                 ],
-                "selector": "{item|id}-attack",
-                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,5),2,1))"
+                "property": "runes-potency",
+                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,5),2,ternary(gte(@item.level,3),1,0)))"
             }
         ],
         "start": {

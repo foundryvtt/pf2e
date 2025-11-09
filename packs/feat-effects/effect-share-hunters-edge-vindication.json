@@ -1,0 +1,100 @@
+{
+    "_id": "LpudOmKE8bHZgYeL",
+    "img": "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
+    "name": "Effect: Share Hunter's Edge (Vindication)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Animal Companion (Ranger)], @UUID[Compendium.pf2e.feats-srd.Item.Shared Prey], @UUID[Compendium.pf2e.feats-srd.Item.Triple Threat], @UUID[Compendium.pf2e.feats-srd.Item.Warden's Boon]</p>\n<p>You gain a +1 status bonus to your spell attack rolls against the marked creature, and they take a –1 status penalty to their saving throws against divine spells you cast.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "share-hunters-edge"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                "predicate": [
+                    "action:seek",
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                "predicate": [
+                    "action:track",
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:2",
+                "predicate": [
+                    "target:mark:share-hunters-edge"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Ranger.Vindicator.Edge",
+                "predicate": [
+                    "target:mark:share-hunters-edge",
+                    "spellcasting:tradition:divine"
+                ],
+                "selector": "spell-attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:tradition:divine"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Ranger.Vindicator.SpellPenaltyAddendum"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Vindication Edge]"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

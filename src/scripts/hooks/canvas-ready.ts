@@ -1,6 +1,5 @@
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
 
-/** This runs after game data has been requested and loaded from the servers, so entities exist */
 export const CanvasReady = {
     listen: (): void => {
         Hooks.once("canvasReady", () => {
@@ -22,24 +21,9 @@ export const CanvasReady = {
             // Accomodate hex grid play with a usable default cone angle
             CONFIG.MeasuredTemplate.defaults.angle = canvas.grid.isHexagonal ? 60 : 90;
 
-            const hasSceneTerrains = !!canvas.scene.flags.pf2e.environmentTypes?.length;
             for (const token of canvas.tokens.placeables) {
-                // Reset actors to add scene and region terrains and refresh their available roll options
-                // The first reset is performed in the ready hook
-                if (game.ready) {
-                    if (
-                        hasSceneTerrains ||
-                        (token.document.regions ?? []).some((r) =>
-                            r.behaviors.some((b) => !b.disabled && b.type === "environment"),
-                        )
-                    ) {
-                        token.actor?.reset();
-                    }
-                }
                 // Redraw effects on visible tokens
-                if (token.visible) {
-                    token.renderFlags.set({ redrawEffects: true });
-                }
+                if (token.visible) token.renderFlags.set({ redrawEffects: true });
             }
 
             // Show clear-measured-templates buttons

@@ -2,6 +2,23 @@
 .actor.sheet.vehicle .crb-style {
     --font-primary: var(--body-serif);
 
+    display: grid;
+    grid:
+        "sidebar header" 4.625rem
+        "sidebar nav" minmax(min-content, max-content)
+        "sidebar content" 1fr
+        / 14.375rem 1fr;
+
+    font-family: var(--body-serif);
+
+    background: url("/assets/sheet/header.webp"), url("/assets/sheet/background.webp");
+    background-repeat: repeat-x, no-repeat;
+    background-size:
+        auto 5.625rem,
+        cover;
+    background-attachment: local;
+    height: 100%;
+
     .sheet-navigation {
         min-width: 375px;
     }
@@ -31,8 +48,9 @@
 
         &.actions {
             ol.actions-list li.action .icon {
-                height: var(--font-size-18);
-                width: var(--font-size-18);
+                height: var(--font-size-20);
+                width: var(--font-size-20);
+                font-size: var(--font-size-14);
             }
 
             .frequency {
@@ -93,6 +111,7 @@
 
                 .detail-small {
                     display: flex;
+                    gap: var(--space-8);
                 }
             }
 
@@ -100,6 +119,7 @@
                 display: flex;
                 flex-wrap: wrap;
                 padding-top: 8px;
+                column-gap: var(--space-8);
             }
 
             .vehicle-properties > div {
@@ -159,9 +179,7 @@
                 margin-bottom: 1rem;
 
                 > .editor {
-                    display: inherit;
-                    flex-direction: inherit;
-                    flex: inherit;
+                    --min-height: 250px;
                 }
             }
 

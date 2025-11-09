@@ -35,6 +35,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -79,11 +80,14 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": null,
+                    "max": 60
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
-                        "range-60",
                         "sonic"
                     ]
                 },
@@ -198,7 +202,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The oppali emits a massive blast of discordant noise that deals @Damage[9d8[sonic]] damage to creatures within a @Template[cone|distance:60] (@Check[fortitude|dc:29|basic]). Creatures who fail the save are also @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round. The oppali can't use its Trumpet Blast again for [[/gmr 1d4 #Recharge Trumpet Blast]]{1d4 rounds} or until it takes at least 20 points of sonic damage from a single source (whichever comes first).</p>"
+                    "value": "<p>The oppali emits a massive blast of discordant noise that deals @Damage[9d8[sonic]|options:area-damage] damage to creatures within a @Template[cone|distance:60] (@Check[fortitude|dc:29|basic|options:area-effect,inflicts:deafened]). Creatures who fail the save are also @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round. The oppali can't use its Trumpet Blast again for [[/gmr 1d4 #Recharge Trumpet Blast]]{1d4 rounds} or until it takes at least 20 points of sonic damage from a single source (whichever comes first).</p>"
                 },
                 "publication": {
                     "license": "OGL",

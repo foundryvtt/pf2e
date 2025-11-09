@@ -1,0 +1,42 @@
+{
+    "_id": "Df9NeqlUatsTVvy9",
+    "img": "icons/consumables/grains/bread-loaf-boule-tan.webp",
+    "name": "Effect: Tough Cookie",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Tough Cookie]</p>\n<p>You gain a number of temporary Hit Points equal to half your maximum Hit Points that last for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "floor(@actor.system.attributes.hp.max / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

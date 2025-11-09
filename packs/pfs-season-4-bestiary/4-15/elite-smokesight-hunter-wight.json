@@ -12,6 +12,11 @@
             "name": "Composite Longbow",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "composite-longbow",
                 "bonus": {
                     "value": 0
@@ -247,6 +252,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -299,6 +305,10 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 100,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -306,7 +316,6 @@
                     "value": [
                         "deadly-d10",
                         "propulsive",
-                        "range-increment-100",
                         "volley-30"
                     ]
                 },
@@ -433,14 +442,21 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the hunter wight damages a living creature using an unarmed attack or their bound weapon, they gain 8 temporary Hit Points, and the creature must succeed at a @Check[fortitude|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Further damage dealt by the hunter wight's unarmed and bound weapon attacks increases the value of the drained condition by 1 on a failed save, to a maximum of drained 4.</p>"
+                    "value": "<p>When the hunter wight damages a living creature using an unarmed attack or their bound weapon, they gain 8 temporary Hit Points, and the creature must succeed at a @Check[fortitude|dc:24|options:inflicts:drained] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Further damage dealt by the hunter wight's unarmed and bound weapon attacks increases the value of the drained condition by 1 on a failed save, to a maximum of drained 4.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Drain Life]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.drainLifeTempHP",
+                        "value": 8
+                    }
+                ],
                 "slug": "drain-life",
                 "traits": {
                     "rarity": "common",

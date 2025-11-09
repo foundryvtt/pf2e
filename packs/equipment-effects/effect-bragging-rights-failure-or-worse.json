@@ -1,0 +1,76 @@
+{
+    "_id": "PJUNqF2k9x8IiZhb",
+    "img": "icons/magic/control/debuff-energy-hold-teal-blue.webp",
+    "name": "Effect: Bragging Rights (Failure or Worse)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Doom Switch] on Failure or Critical Failure</p>\n<p>You and allies take status penalty to attack rolls against the target.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "bragging-rights"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "bragging-rights:failure"
+                ],
+                "selectors": [
+                    "strike-attack-roll"
+                ],
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Bragging Rights (Status Penalty Failure)"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "bragging-rights:critical-failure"
+                ],
+                "selectors": [
+                    "strike-attack-roll"
+                ],
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Bragging Rights (Status Penalty Critical Failure)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

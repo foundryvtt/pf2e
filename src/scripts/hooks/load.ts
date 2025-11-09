@@ -1,4 +1,4 @@
-import { ActorProxyPF2e } from "@actor";
+import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ArmySystemData } from "@actor/army/data.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { FamiliarSystemData } from "@actor/familiar/data.ts";
@@ -19,7 +19,10 @@ import { FeatSystemData } from "@item/feat/data.ts";
 import { HeritageSystemData } from "@item/heritage/data.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
+import { TreasureSystemData } from "@item/treasure/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
+import { DoorControlPF2e } from "@module/canvas/door-control.ts";
 import { EnvironmentCanvasGroupPF2e } from "@module/canvas/group/environment.ts";
 import {
     AmbientLightPF2e,
@@ -27,11 +30,13 @@ import {
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
     RegionPF2e,
+    RulerPF2e,
     TemplateLayerPF2e,
     TokenPF2e,
 } from "@module/canvas/index.ts";
 import { TokenLayerPF2e } from "@module/canvas/layer/token.ts";
-import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
+import { TerrainDataPF2e } from "@module/canvas/token/movement/terrain-data.ts";
+import { TokenRulerPF2e } from "@module/canvas/token/ruler.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActorsPF2e } from "@module/collection/actors.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
@@ -48,6 +53,7 @@ import {
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene/index.ts";
+import { DifficultTerrainBehaviorType } from "@scene/region-behavior/difficult-terrain.ts";
 import { PrototypeTokenConfigPF2e } from "@scene/token-document/index.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
@@ -58,40 +64,50 @@ import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import * as R from "remeda";
 
 /** Not an actual hook listener but rather things to run on initial load */
-export const Load = {
-    listen(): void {
+export class Load {
+    static listen(): void {
         // Assign database backend to handle migrations
         CONFIG.DatabaseBackend = new ClientDatabaseBackendPF2e();
 
         // Assign document classes
         CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
         CONFIG.Actor.collection = ActorsPF2e;
+        CONFIG.Actor.defaultType = "character";
         CONFIG.Actor.documentClass = ActorProxyPF2e;
         CONFIG.AmbientLight.documentClass = AmbientLightDocumentPF2e;
         CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
         CONFIG.Combat.documentClass = EncounterPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
+        CONFIG.Item.defaultType = "action";
         CONFIG.Item.documentClass = ItemProxyPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
         CONFIG.MeasuredTemplate.defaults.angle = 90;
         CONFIG.MeasuredTemplate.defaults.width = 1;
         CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
         CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
+
         CONFIG.Region.documentClass = RegionDocumentPF2e;
         CONFIG.Region.objectClass = RegionPF2e;
         CONFIG.RegionBehavior.dataModels.environment = EnvironmentBehaviorType;
         CONFIG.RegionBehavior.dataModels.environmentFeature = EnvironmentFeatureBehaviorType;
+        CONFIG.RegionBehavior.dataModels.modifyMovementCost = DifficultTerrainBehaviorType;
         CONFIG.RegionBehavior.documentClass = RegionBehaviorPF2e;
         CONFIG.RegionBehavior.typeIcons.environment = "fa-solid fa-mountain-sun";
         CONFIG.RegionBehavior.typeIcons.environmentFeature = "fa-solid fa-wind";
         CONFIG.RegionBehavior.typeLabels.environment = "PF2E.Region.Environment.Label";
         CONFIG.RegionBehavior.typeLabels.environmentFeature = "PF2E.Region.EnvironmentFeature.Label";
+
         CONFIG.Scene.documentClass = ScenePF2e;
         CONFIG.Tile.documentClass = TileDocumentPF2e;
+
         CONFIG.Token.documentClass = TokenDocumentPF2e;
-        CONFIG.Token.prototypeSheetClass = PrototypeTokenConfigPF2e;
+        CONFIG.Token.movement.TerrainData = TerrainDataPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
+        CONFIG.Token.prototypeSheetClass = PrototypeTokenConfigPF2e;
+        CONFIG.Token.rulerClass = TokenRulerPF2e;
+        Load.#configureMovement();
+
         CONFIG.User.documentClass = UserPF2e;
 
         // Actor system data models
@@ -115,30 +131,36 @@ export const Load = {
         CONFIG.Item.dataModels.heritage = HeritageSystemData;
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
+        CONFIG.Item.dataModels.treasure = TreasureSystemData;
 
-        // Assign canvas layer and placeable classes
+        // Assign canvas-related classes
+        CONFIG.Canvas.doorControlClass = DoorControlPF2e;
         CONFIG.Canvas.exploredColor = 0x262626; // Increased from 0 (black)
         CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
         CONFIG.Canvas.groups.environment.groupClass = EnvironmentCanvasGroupPF2e;
         CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
         CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
         CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
-        CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
+        CONFIG.Canvas.rulerClass = RulerPF2e;
 
         CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll, DamageInstance);
         for (const TermCls of [ArithmeticExpression, Grouping, InstancePool, IntermediateDie]) {
             CONFIG.Dice.termTypes[TermCls.name] = TermCls;
         }
 
-        // Add functions to the `Math` namespace for use in `Roll` formulas
-        Math.eq = (a: number, b: number): boolean => a === b;
-        Math.gt = (a: number, b: number): boolean => a > b;
-        Math.gte = (a: number, b: number): boolean => a >= b;
-        Math.lt = (a: number, b: number): boolean => a < b;
-        Math.lte = (a: number, b: number): boolean => a <= b;
-        Math.ne = (a: number, b: number): boolean => a !== b;
-        Math.ternary = (condition: boolean | number, ifTrue: number, ifFalse: number): number =>
-            condition ? ifTrue : ifFalse;
+        Math.btwn = (v, gte, lte) => v >= gte && v <= lte;
+        Math.eq = (a, b) => a === b;
+        Math.gt = (a, b) => a > b;
+        Math.gte = (a, b) => a >= b;
+        Math.lt = (a, b) => a < b;
+        Math.lte = (a, b) => a <= b;
+        Math.ne = (a, b) => a !== b;
+        Math.ternary = (condition, ifTrue, ifFalse) => (condition ? ifTrue : ifFalse);
+
+        Math.match = (...args) => args.find((a) => a !== null) ?? 0;
+        Math.when = (condition, then) => (condition ? then : null);
+
+        CONFIG.queries["pf2e.trade"] = TradeDialog.handleQuery;
 
         // Mystery Man but with a drop shadow
         Actor.DEFAULT_ICON = "systems/pf2e/icons/default-icons/mystery-man.svg";
@@ -188,6 +210,95 @@ export const Load = {
             }
         });
 
+        this.#initializeHotReload();
+    }
+
+    static #configureMovement(): void {
+        const movementActions = CONFIG.Token.movement.actions;
+        for (const key of ["crawl", "climb", "jump"]) {
+            delete movementActions[key]?.getCostFunction;
+        }
+
+        // Default action for creatures unless prone
+        movementActions.walk.canSelect = (token) => {
+            const actor = token.actor as ActorPF2e | null;
+            return !!actor?.isOfType("creature") && !actor.hasCondition("prone");
+        };
+        movementActions.walk.img = null;
+
+        // Default action for creatures when prone
+        movementActions.crawl.canSelect = (token) => {
+            const actor = token.actor as ActorPF2e | null;
+            return !!actor?.isOfType("creature") && actor.hasCondition("prone");
+        };
+
+        // Default action for vehicles
+        movementActions.drive = {
+            label: "TOKEN.MOVEMENT.ACTIONS.drive.label",
+            icon: "fa-solid fa-car-side",
+            order: 0,
+            canSelect: (t) => t.actor?.type === "vhiecle",
+            deriveTerrainDifficulty: () => 1,
+        };
+
+        // Default action for armies
+        movementActions.deploy = {
+            label: "TOKEN.MOVEMENT.ACTIONS.deploy.label",
+            icon: "fa-solid fa-person-military-pointing fa-flip-horizontal",
+            order: 0,
+            canSelect: (t) => t.actor?.type === "army",
+        };
+
+        movementActions.jump.order = 1;
+        movementActions.jump.canSelect = (tokenDoc) => {
+            const actor = tokenDoc.actor as ActorPF2e | null;
+            return !!(actor?.isOfType("creature") && !actor.hasCondition("prone"));
+        };
+        movementActions.jump.deriveTerrainDifficulty = () => 1;
+
+        movementActions.fly.order = 2;
+        movementActions.fly.canSelect = (tokenDoc) => {
+            const actor = tokenDoc.actor as ActorPF2e | null;
+            return !!(actor?.isOfType("creature") && actor.system.movement.speeds.fly);
+        };
+
+        movementActions.burrow.order = 3;
+        movementActions.burrow.canSelect = (tokenDoc) => {
+            const actor = tokenDoc.actor as ActorPF2e | null;
+            return !!(actor?.isOfType("creature") && actor.system.movement.speeds.burrow);
+        };
+
+        movementActions.climb.order = 4;
+        movementActions.climb.canSelect = (tokenDoc) => {
+            const actor = tokenDoc.actor as ActorPF2e | null;
+            return !!actor?.isOfType("creature");
+        };
+        movementActions.climb.deriveTerrainDifficulty = () => 1;
+
+        movementActions.swim.order = 5;
+        movementActions.swim.canSelect = (tokenDoc) => {
+            const actor = tokenDoc.actor as ActorPF2e | null;
+            return !!actor?.isOfType("creature");
+        };
+
+        movementActions.travel = {
+            order: 0,
+            icon: "fa-solid fa-person-hiking",
+            label: "TOKEN.MOVEMENT.ACTIONS.travel.label",
+            canSelect: (tokenDoc) => {
+                const actor = tokenDoc.actor as ActorPF2e | null;
+                if (!actor) return false;
+                return actor.isOfType("party") || (actor.isOfType("creature") && !actor.inCombat);
+            },
+        };
+
+        movementActions.blink.order = 6;
+    }
+
+    /** Hot reload for localization and template files */
+    static #initializeHotReload(): void {
+        if (!import.meta.hot) return;
+
         function rerenderApps(path: string): void {
             const apps = [...Object.values(ui.windows), ...foundry.applications.instances.values()];
             for (const app of apps) {
@@ -200,37 +311,34 @@ export const Load = {
             if (path.includes("system/effects")) game.pf2e.effectPanel.render();
         }
 
-        // HMR for localization and template files
-        if (import.meta.hot) {
-            import.meta.hot.on("lang-update", async ({ path }: { path: string }): Promise<void> => {
-                const lang = await fu.fetchJsonWithTimeout(path);
-                if (!R.isPlainObject(lang)) {
-                    ui.notifications.error(`Failed to load ${path}`);
-                    return;
-                }
-                const apply = (): void => {
-                    fu.mergeObject(game.i18n.translations, lang);
-                    rerenderApps(path);
-                };
-                if (game.ready) {
-                    apply();
-                } else {
-                    Hooks.once("ready", apply);
-                }
-            });
+        import.meta.hot.on("lang-update", async ({ path }: { path: string }): Promise<void> => {
+            const lang = await fu.fetchJsonWithTimeout(path);
+            if (!R.isPlainObject(lang)) {
+                ui.notifications.error(`Failed to load ${path}`);
+                return;
+            }
+            const apply = (): void => {
+                fu.mergeObject(game.i18n.translations, lang);
+                rerenderApps(path);
+            };
+            if (game.ready) {
+                apply();
+            } else {
+                Hooks.once("ready", apply);
+            }
+        });
 
-            import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
-                const apply = async (): Promise<void> => {
-                    delete Handlebars.partials[path];
-                    await fa.handlebars.getTemplate(path);
-                    rerenderApps(path);
-                };
-                if (game.ready) {
-                    apply();
-                } else {
-                    Hooks.once("ready", apply);
-                }
-            });
-        }
-    },
-};
+        import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
+            const apply = async (): Promise<void> => {
+                delete Handlebars.partials[path];
+                await fa.handlebars.getTemplate(path);
+                rerenderApps(path);
+            };
+            if (game.ready) {
+                apply();
+            } else {
+                Hooks.once("ready", apply);
+            }
+        });
+    }
+}

@@ -12,6 +12,11 @@
             "name": "Hand Crossbow",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "bolts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "hand-crossbow",
                 "bonus": {
                     "value": 0
@@ -418,30 +423,17 @@
             "name": "Bolts",
             "sort": 700000,
             "system": {
-                "baseItem": null,
+                "baseItem": "bolts",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -458,13 +450,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "bolts",
-                "stackGroup": "bolts",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -472,10 +462,15 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "xuyjTEDoDAmb5acN",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "IGUOzNrIaqQKPR2j"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sap",
             "sort": 800000,
@@ -500,6 +495,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -513,9 +509,6 @@
         },
         {
             "_id": "uXA8SDbNRrkOAR8F",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 900000,
@@ -540,6 +533,7 @@
                     "remaster": true,
                     "title": "Pathfinder NPC Core"
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -555,6 +549,11 @@
         },
         {
             "_id": "wfNSTwrVHkHF5YLS",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "3tjip0HhguL5l2lw"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hand Crossbow",
             "sort": 1000000,
@@ -579,11 +578,14 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
-                        "range-increment-60",
                         "reload-1"
                     ]
                 }
@@ -837,11 +839,11 @@
         },
         "attributes": {
             "ac": {
-                "details": "(20 vs. traps)",
+                "details": "(19 vs. traps)",
                 "value": 17
             },
             "allSaves": {
-                "value": ""
+                "value": "(+11 Reflex vs. traps)"
             },
             "hp": {
                 "details": "",

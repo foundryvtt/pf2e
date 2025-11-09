@@ -1,6 +1,6 @@
 import { CreaturePF2e } from "@actor";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function determineSizeBonus(actorSize: ActorSizePF2e, targetSize: ActorSizePF2e) {
@@ -21,7 +21,7 @@ export function whirlingThrow(options: SkillActionOptions): void {
             if (opts.actor instanceof CreaturePF2e && opts.target instanceof CreaturePF2e) {
                 const actorSize = opts.actor.system.traits.size;
                 const targetSize = opts.target.system.traits.size;
-                const sizeModifier = new ModifierPF2e(
+                const sizeModifier = new Modifier(
                     "Size Modifier",
                     determineSizeBonus(actorSize, targetSize),
                     "circumstance",

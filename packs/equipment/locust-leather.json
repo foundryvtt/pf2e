@@ -1,0 +1,88 @@
+{
+    "_id": "5sBRskeiJgEBtcJw",
+    "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
+    "name": "Locust Leather",
+    "system": {
+        "acBonus": 2,
+        "baseItem": "studded-leather-armor",
+        "bulk": {
+            "value": 1
+        },
+        "category": "light",
+        "checkPenalty": -1,
+        "containerId": null,
+        "description": {
+            "value": "<p>This <em>+1 studded leather</em> armor was specially designed for removing locusts and similar vermin that had swarmed over portions of the battlefield. It's fully sealed along all of its seams with extra stitching and care, granting a +1 item bonus to Reflex saving throws against Swarming Bites, Swarming Stings, and similar abilities from swarms. In addition, you can create a cloud of smoke that can drive swarms from the area.</p>\n<p><strong>Activate—Poison Fumes</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You emit a quickly fading toxic cloud around you in a @Template[type:emanation|distance:5]. All creatures within the emanation take @Damage[5d6[poison]|options:area-damage] damage (@Check[fortitude|dc:24|basic|options:area-effect] save). Swarms that fail this save also take @Damage[1d6[persistent,poison]] damage.</p>"
+        },
+        "dexCap": 3,
+        "grade": null,
+        "group": "leather",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 8
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:swarming-bites",
+                            "action:swarming-stings",
+                            "locust-leather"
+                        ]
+                    }
+                ],
+                "selector": "reflex",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "resilient": 0
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "resilient": 0
+            }
+        },
+        "speedPenalty": 0,
+        "strength": 1,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        }
+    },
+    "type": "armor"
+}

@@ -118,6 +118,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -166,6 +167,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -213,6 +215,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "trident",
                 "traits": {
@@ -260,6 +263,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "trident",
                 "traits": {
@@ -417,13 +421,16 @@
                 },
                 "rules": [
                     {
-                        "category": "precision",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:frightened",
-                            "target:condition:sickened"
+                            {
+                                "or": [
+                                    "target:condition:frightened",
+                                    "target:condition:sickened"
+                                ]
+                            }
                         ],
                         "selector": "strike-damage"
                     }
@@ -449,7 +456,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The sedacthy shrieks across a range of painfully high tones, dealing @Damage[3d6[sonic],1d6[mental]]{3d6 sonic damage and 1d6 mental damage} to all creatures in a @Template[cone|distance:30], with a @Check[fortitude|dc:23|basic] save. A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                    "value": "<p>The sedacthy shrieks across a range of painfully high tones, dealing @Damage[3d6[sonic],1d6[mental]|options:area-damage]{3d6 sonic damage and 1d6 mental damage} to all creatures in a @Template[cone|distance:30], with a @Check[fortitude|dc:23|basic|options:area-effect] save. A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
                 },
                 "publication": {
                     "license": "ORC",

@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AttributeString } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
@@ -10,18 +10,18 @@ import type {
     DatabaseUpdateCallbackOptions,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
-import type { MeasuredTemplateType, RollMode } from "@common/constants.d.mts";
+import type { RollMode } from "@common/constants.d.mts";
 import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { ConsumablePF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, RawItemChatData } from "@item/base/data/index.ts";
 import type { ItemDescriptionData } from "@item/base/data/system.ts";
-import { performLatePreparation } from "@item/helpers.ts";
+import { createEffectAreaLabel, performLatePreparation, placeItemTemplate } from "@item/helpers.ts";
 import { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
 import { spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
-import { RangeData } from "@item/types.ts";
+import type { RangeData } from "@item/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, Rarity, ZeroToThree, ZeroToTwo } from "@module/data.ts";
@@ -63,14 +63,9 @@ import {
 } from "@util";
 import * as R from "remeda";
 import { SpellArea, SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData } from "./data.ts";
-import {
-    createDescriptionPrepend,
-    createSpellAreaLabel,
-    createSpellRankLabel,
-    getPassiveDefenseLabel,
-} from "./helpers.ts";
+import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
-import { EffectAreaShape, MagicTradition, SpellTrait } from "./types.ts";
+import type { MagicTradition, SpellTrait } from "./types.ts";
 
 class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly parentItem: ConsumablePF2e<TParent> | null;
@@ -237,7 +232,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const areaData = this.system.area;
         if (!areaData) return null;
 
-        return { ...areaData, label: createSpellAreaLabel(areaData) };
+        return { ...areaData, label: createEffectAreaLabel(areaData) };
     }
 
     /** Whether the "damage" roll of this spell deals damage or heals (or both, depending on the target) */
@@ -335,13 +330,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             damageKinds.map((k) => `spell-${k}`),
             damageKinds.map((k) => `${this.id}-${k}`),
             isAttack ? ["attack-damage", "attack-spell-damage"] : null,
+            this.isMelee ? "melee-damage" : null,
             checkStatistic.base ? damageKinds.map((k) => `${checkStatistic.base?.slug}-${k}`) : null,
         ]
             .flat()
-            .filter(R.isTruthy);
+            .filter(R.isNonNull);
 
         const spellTraits = R.unique([...this.system.traits.value, spellcasting.tradition])
-            .filter(R.isTruthy)
+            .filter(R.isNonNull)
             .sort();
         const actionAndTraitOptions = new Set(["action:cast-a-spell", "self:action:slug:cast-a-spell", ...spellTraits]);
         const contextData = await new DamageContext({
@@ -369,7 +365,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         };
 
         // Add modifiers and damage die adjustments
-        const modifiers: ModifierPF2e[] = [];
+        const modifiers: Modifier[] = [];
         const damageDice: DamageDicePF2e[] = [];
         const originClone = contextData.origin.actor;
         const { damageAlterations, modifierAdjustments } = actor.synthetics;
@@ -380,7 +376,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 .filter(([, d]) => d.applyMod)
                 .map(
                     ([k, d]) =>
-                        new ModifierPF2e({
+                        new Modifier({
                             label: CONFIG.PF2E.abilities[attribute],
                             slug: `ability-${k}`,
                             // Not a restricted attribute modifier in the same way it is for checks or weapon damage
@@ -471,7 +467,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     loadVariant(options: SpellVariantOptions = {}): SpellPF2e | null {
         if (this.original) {
             const entryId = this.system.location.value;
-            return this.original.loadVariant({ entryId, ...options });
+            const overlayIds = this.appliedOverlays?.values().toArray() ?? [];
+            return this.original.loadVariant({ entryId, overlayIds, ...options });
         }
         const { castRank, overlayIds } = options;
         const appliedOverlays: Map<SpellOverlayType, string> = new Map();
@@ -480,10 +477,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const overrides = (() => {
             // If there are no overlays, return an override if this is a simple heighten or if its a different entry id
+            const isEntryChange = options.entryId && options.entryId !== this.system.location.value;
             if (overlays.length === 0 && heightenOverlays.length === 0) {
                 if (castRank !== this.rank) {
                     return fu.mergeObject(this.toObject(), { system: { location: { heightenedLevel: castRank } } });
-                } else if (!options.entryId || options.entryId === this.system.location.value) {
+                } else if (!isEntryChange) {
                     return null;
                 }
             }
@@ -532,8 +530,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         // Create the variant and run additional prep since it exists outside the normal cycle
-        const actor = this.parent;
-        const variant = new SpellPF2e(overrides, { parent: actor, parentItem: this.parentItem });
+        overrides.system.location.value = options.entryId ?? this.system.location.value;
+        const variant = new SpellPF2e(overrides, { parent: this.parent, parentItem: this.parentItem });
         variant.original = this;
         variant.appliedOverlays = appliedOverlays;
         variant.system.traits.value = Array.from(variant.traits);
@@ -553,56 +551,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     placeTemplate(message?: ChatMessagePF2e): Promise<MeasuredTemplatePF2e> {
-        if (!canvas.ready) throw ErrorPF2e("No canvas");
-        const templateConversion: Record<EffectAreaShape, MeasuredTemplateType> = {
-            burst: "circle",
-            cone: "cone",
-            cube: "rect",
-            cylinder: "circle",
-            emanation: "circle",
-            line: "ray",
-            square: "rect",
-        } as const;
-
         const area = this.system.area;
         if (!area) throw ErrorPF2e("Attempted to create template with non-area spell");
-        const templateType = templateConversion[area.type];
-
-        const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = {
-            t: templateType,
-            distance: (Number(area.value) / 5) * canvas.dimensions.distance,
-            fillColor: game.user.color.toString(),
-            flags: {
-                pf2e: {
-                    messageId: message?.id,
-                    origin: {
-                        name: this.name,
-                        slug: this.slug,
-                        traits: fu.deepClone(this.system.traits.value),
-                        ...this.getOriginData(),
-                    },
-                    areaShape: this.system.area?.type ?? null,
-                },
-            },
-        };
-
-        switch (templateType) {
-            case "ray":
-                templateData.width = CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
-                break;
-            case "cone":
-                templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
-                break;
-            case "rect": {
-                const distance = templateData.distance ?? 0;
-                templateData.distance = Math.hypot(distance, distance);
-                templateData.width = distance;
-                templateData.direction = 45;
-                break;
-            }
-        }
-
-        return canvas.templates.createPreview(templateData);
+        return placeItemTemplate(area, { item: this, message });
     }
 
     override prepareBaseData(): void {
@@ -801,7 +752,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override async toMessage(
-        event?: Maybe<MouseEvent>,
+        event?: Maybe<PointerEvent>,
         { create = true, data, rollMode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
@@ -991,7 +942,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     async rollAttack(
         this: SpellPF2e<ActorPF2e>,
-        event: MouseEvent,
+        event: PointerEvent,
         attackNumber = 1,
         context: StatisticRollParameters = {},
     ): Promise<Rolled<CheckRoll> | null> {
@@ -1015,7 +966,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     async rollDamage(
         this: SpellPF2e<ActorPF2e>,
-        event: MouseEvent,
+        event: PointerEvent,
         mapIncreases?: ZeroToTwo,
     ): Promise<Rolled<DamageRoll> | null> {
         const element = htmlClosest(event.target, "[data-cast-rank]");
@@ -1048,7 +999,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     /** Roll counteract check */
-    async rollCounteract(event?: MouseEvent): Promise<Rolled<CheckRoll> | null> {
+    async rollCounteract(event?: PointerEvent): Promise<Rolled<CheckRoll> | null> {
         const actor: ActorPF2e | null = this.actor;
         if (!actor?.isOfType("character", "npc")) {
             return null;
@@ -1097,10 +1048,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override getOriginData(): ItemOriginFlag {
         const flag = super.getOriginData();
         flag.castRank = this.rank;
-        if (this.isVariant && this.appliedOverlays) {
-            flag.variant = { overlays: [...this.appliedOverlays.values()] };
-        }
-
+        flag.variant = this.isVariant && this.appliedOverlays ? { overlays: [...this.appliedOverlays.values()] } : null;
         return flag;
     }
 
@@ -1120,13 +1068,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (!this.actor) {
-            this._source.system.location = { value: null };
-        }
+        if (!this.actor) this._source.system.location = { value: null };
 
         if (this._source.system.ritual) {
             this._source.system.damage = {};

@@ -1,0 +1,198 @@
+{
+    "_id": "uipHFJExLu3B2yfn",
+    "folder": "6bjzqtD29qANaHac",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "B7HnAd5n2RmEEH3P",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Warped Wood",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Any living or undead creatures approach within 30 feet of the haunt's locus (the center of the open balcony) inside the tavern</p><hr /><p><strong>Effect</strong> The haunt makes a table flip Strike with a reach of 20 feet against a random creature in the area, and then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "warped-wood",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:table-flip",
+                            "warped-wood"
+                        ],
+                        "property": "traits",
+                        "value": "reach-20"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "remove",
+                        "predicate": [
+                            "item:slug:table-flip",
+                            "warped-wood"
+                        ],
+                        "property": "traits",
+                        "value": "reach-10"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "O4jhAEvWEHtU17Fd",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Table Flip",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "PyzNOaw7PsncIBht": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fa3VYt9HLK0H6Ld4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Chair Toss",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "BgGWkemC5cTVgGYP": {
+                        "damage": "1d6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>No multiple attack penalty</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 30
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Somewhat Haunted Hollows",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The spirits of innumerable dryads and peaceful wood elementals, ripped from their bodies as they were turned into furniture, writhe and seethe, lashing out at both living and undead alike.</p>",
+            "disable": "<p>@Check[diplomacy|dc:14] (trained), @Check[nature|dc:14] (trained), or @Check[religion|dc:14] (trained) to set the spirits to rest or @Check[deception|dc:17], @Check[intimidation|dc:17], or @Check[occultism|dc:17] to convince the spirits that their eternal rest is coming soon.</p><p>A PC may make a Strike against AC 13 to destroy a single table or chair in the room, this functions as a successful check to @UUID[Compendium.pf2e.actionspf2e.Item.Aid] another PC attempting to disable the haunt; two total successes are required to disable the haunt. If all of the tables and chairs are destroyed, the haunt is temporarily disabled until dawn of the next day.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-99: Under the Eye of the Mantis"
+            },
+            "reset": "",
+            "routine": "<p>(two actions) The Haunted Hollows haunt uses table flip or chair toss Strikes at different creatures in the area, favoring those who are trying to disable the haunt first, but otherwise choosing randomly. The table flip Strikes originate with any table in the room, destroying the table in the process. The chair toss Strikes originate with any chair or bar stool in the room, destroying that object in the process. If the haunt is not disabled, these objects reform and return to their original positions at dawn of the next day.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -211,7 +211,7 @@ export class StatusEffects {
      * A click event handler to increment or decrement valued conditions.
      * @param event The window click event
      */
-    static async #setStatusValue(control: HTMLElement, event: MouseEvent): Promise<void> {
+    static async #setStatusValue(control: HTMLElement, event: PointerEvent): Promise<void> {
         event.preventDefault();
         event.stopPropagation();
 
@@ -261,7 +261,7 @@ export class StatusEffects {
         }
     }
 
-    static async #toggleStatus(token: TokenPF2e, control: HTMLElement, event: MouseEvent): Promise<void> {
+    static async #toggleStatus(token: TokenPF2e, control: HTMLElement, event: PointerEvent): Promise<void> {
         const { actor } = token;
         if (!actor) return;
 

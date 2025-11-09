@@ -9,3 +9,23 @@
         max-width: fit-content;
     }
 }
+
+.item-ref {
+    align-items: center;
+    border: 1px solid var(--color-border-light-2);
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1.625rem auto 2em 1em;
+    height: calc(1.625rem + 2px);
+    img {
+        object-fit: cover;
+    }
+    &.empty {
+        border-style: dotted;
+        padding: 0 var(--space-4);
+    }
+}
+
+tagify-tags[name="system.ammunition.categories"] tags {
+    --placeholder-color: var(--color-text-secondary);
+}

@@ -1,0 +1,348 @@
+{
+    "_id": "gTkvu3RRiDHNONzf",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "gQIYZVpf1qNwa6Ow",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "bloodfire-fever",
+                        "knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "za86nrxw3rczla2y7kh6": {
+                        "damage": "1d12+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "x4OEHVayXoDctjTN",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 15 (Deactivated by Electricity or Fire)",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire",
+                            "electricity"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 15
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bog3AI0yepCWDb7l",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Flailing Bite",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The trollhound takes electricity or fire damage</p><hr /><p><strong>Effect</strong> The trollhound makes a jaws Strike against a random creature within reach. If the trollhound has persistent fire damage, they attempt a @Check[flat|dc:15] to remove it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "flailing-bite",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rNvBPBkYMgq0NgB1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bloodfire Fever",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Trollhounds and trolls are immune to bloodfire fever</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> enfeebled 1 and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (1 day)</p>\n<p><strong>Stage 5</strong> enfeebled 2, clumsy 2, and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "bloodfire-fever",
+                "traits": {
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZmtESxVSvUQ9co65",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pack Attack",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The trollhound deals an extra 1d6 damage to any creature within reach of at least two of the trollhound's allies.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "pack-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LagTlM8Vm0W8iV4U",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Trollhound",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "regeneration 15 (deactivated by electricity or fire)",
+                "max": 65,
+                "temp": 0,
+                "value": 65
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 35
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 8
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 8
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Trollhounds are squat, slavering beasts akin to trolls in canine form. With a similar nigh-insatiable hunger stoked by their regenerative metabolisms, packs of wild trollhounds prowl the foothills of regions where trolls dwell to hunt for vast quantities of meat. In some regions, trolls breed trollhounds as pets, utilizing the trollhounds' keen sense of smell to aid in the hunt.</p>\n<p>Covered in fetid, weeping sores, trollhounds are carriers of a debilitating contagion known as bloodfire fever. Creatures that contract the disease through the bite of a trollhound experience deep internal pain, as if their blood were on fire. Additional symptoms include loss of muscle coordination, pus-filled blisters, and overall lethargy and fatigue. Other than living with the pain from skin irritation, both trolls and trollhounds are immune to the major effects of the disease.</p>\n<p>Trollhounds are fearless on the hunt and in combat, relying on their ability to regenerate to carry them through. Not even the threat of fire is enough to repel them, as the beasts don't recognize the danger it represents. Nevertheless, fire is one of the most effective tools in combating trollhounds; canny hunters know to burn every last remnant of a supposedly slain trollhound, for their regenerative powers are potent indeed.</p>\n<p>While trolls have had great success in domesticating, training, and even befriending trollhounds, the same can't be said for other would-be masters. Whether impeded by constant exposure to trollhounds' diseased slobber, their ravenous hunger that never seems to be fully sated, or simply their foul personality and quick-to-bite temperament, most attempts to use trollhounds in place of more reliable guardians end in pain, misery, and a pack of feral trollhounds escaping into the hinterlands.</p>\n<p>Left to their own devices, trollhounds will breed relatively quickly. It can take less than a year for a small pack to multiply into such a size that they pose a significant threat to the countryside. Best to leave the trollhounds to the trolls, as they say!</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core 2"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 6,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 6
+            },
+            "athletics": {
+                "base": 9
+            },
+            "stealth": {
+                "base": 8
+            },
+            "survival": {
+                "base": 6
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "beast",
+                "troll",
+                "wood"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -2061,6 +2061,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "orc-necksplitter",
                 "traits": {
@@ -2104,6 +2105,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "javelin",
                 "traits": {
@@ -2142,6 +2144,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "claw",
                 "traits": {
@@ -2182,6 +2185,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "jaws",
                 "traits": {
@@ -2328,10 +2332,10 @@
             "sort": 3400000,
             "system": {
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
@@ -2355,12 +2359,7 @@
                         "key": "DamageDice",
                         "predicate": [
                             "destructive-touch",
-                            {
-                                "or": [
-                                    "item:slug:claw",
-                                    "item:slug:jaws"
-                                ]
-                            }
+                            "item:category:unarmed"
                         ],
                         "selector": "strike-damage"
                     }

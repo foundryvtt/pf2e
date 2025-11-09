@@ -13,7 +13,7 @@ import { ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import type { ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags, eventToRollParams } from "@module/sheet/helpers.ts";
 import type { SocketMessage } from "@scripts/socket.ts";
@@ -90,9 +90,11 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             game.user.isGM && this.isEditable
                 ? { enabled: this.actor.inventory.coins.copperValue > 0 && members.some(isReallyPC) }
                 : null;
-
-        const travelSpeed = this.actor.system.attributes.speed.total;
-
+        const travelSpeed = this.actor.system.movement.speeds.travel.value;
+        const hexplorationActivities = Object.entries(CONFIG.PF2E.hexplorationActivities).map(([key, activities]) => ({
+            speed: Number(key),
+            activities,
+        }));
         return {
             ...base,
             playerRestricted: !game.pf2e.settings.metagame.partyStats,
@@ -116,10 +118,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 feetPerMinute: travelSpeed * 10,
                 milesPerHour: travelSpeed / 10,
                 milesPerDay: travelSpeed * 0.8,
-                activities:
-                    Object.entries(CONFIG.PF2E.hexplorationActivities).find(
-                        ([max]) => Number(max) >= this.actor.system.attributes.speed.total,
-                    )?.[1] ?? 0,
+                activities: hexplorationActivities.find((max) => max.speed >= travelSpeed)?.activities ?? 0,
             },
             orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
         };
@@ -165,10 +164,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 owner: actor.isOwner,
                 observer,
                 limited: observer || actor.limited,
-                speeds: [
-                    { label: "PF2E.Actor.Speed.Label", value: actor.attributes.speed.value },
-                    ...actor.attributes.speed.otherSpeeds.map((s) => R.pick(s, ["label", "value"])),
-                ],
+                speeds: Object.values(actor.system.movement.speeds).filter(R.isNonNull),
                 senses: (() => {
                     return condenseSenses(actor.perception.senses.contents).map((r) => ({
                         acuity: r.acuity,
@@ -183,6 +179,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     img: action.img,
                     traits: createSheetTags(CONFIG.PF2E.actionTraits, action.system.traits?.value ?? []),
                 })),
+                coins: actor.inventory.coins.goldValue,
+                wealth: actor.inventory.totalWealth.goldValue,
                 restricted,
             };
         });
@@ -309,7 +307,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const tab = openSheetLink.dataset.tab;
             const actorUUID = htmlClosest(openSheetLink, "[data-actor-uuid]")?.dataset.actorUuid;
             const actor = fromUuidSync(actorUUID ?? "");
-            openSheetLink.addEventListener("click", async () => actor?.sheet.render(true, { tab }));
+            if (actor instanceof ActorPF2e) {
+                openSheetLink.addEventListener("click", async () => actor.sheet.render(true, { tab }));
+            }
         }
 
         // Control active overview summary
@@ -446,7 +446,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     /** Override to allow divvying/outward transfer of items via party member blocks in inventory members sidebar. */
     protected override async _onDropItem(
         event: DragEvent,
-        data: DropCanvasItemDataPF2e & { fromInventory?: boolean },
+        data: DropCanvasItemData & { fromInventory?: boolean },
     ): Promise<ItemPF2e[]> {
         const droppedRegion = htmlClosest(event.target, "[data-region]")?.dataset.region;
         const targetActorUUID = htmlClosest(event.target, "[data-actor-uuid]")?.dataset.actorUuid;
@@ -584,6 +584,9 @@ interface MemberBreakdown {
         img: string;
         traits: SheetOptions;
     }[];
+
+    coins: number;
+    wealth: number;
 
     /** If true, the current user is restricted from seeing meta details */
     restricted: boolean;

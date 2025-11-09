@@ -1,0 +1,63 @@
+{
+    "_id": "BTE7BTAwnw2O5fz3",
+    "folder": "6JuWlCfOlFt4XvgQ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Snare Expert",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your knowledge of traps aids you in defending your hideout. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Snare Crafting] feat. When you set a snare, any saving throw it requires uses the higher of your class DC or the snare's DC. Snares you set within your favored location increase their Stealth DC by 2.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Guerrilla Dedication"
+                },
+                {
+                    "value": "trained in Crafting"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Snare Crafting"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:category:snare"
+                ],
+                "selector": "inline-dc",
+                "value": "@actor.system.attributes.classDC.totalModifier"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

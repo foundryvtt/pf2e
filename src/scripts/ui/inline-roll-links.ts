@@ -1,11 +1,11 @@
 import { ActorPF2e } from "@actor";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Modifier } from "@actor/modifiers.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
 import type { MeasuredTemplateType } from "@common/constants.d.mts";
 import { ItemPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
-import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
+import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
@@ -95,7 +95,7 @@ export class InlineRollLinks {
         return (flavor ? `<span data-visibility="${showDC}">${flavor}</span> ` : "") + `${target.outerHTML}`.trim();
     }
 
-    static #onClickInlineAction(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
+    static #onClickInlineAction(event: PointerEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
         const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill, pf2Options, pf2Traits } = link.dataset;
 
         const slug = sluggify(pf2Action ?? "");
@@ -131,7 +131,7 @@ export class InlineRollLinks {
         }
     }
 
-    static async #onClickInlineCheck(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): Promise<void> {
+    static async #onClickInlineCheck(event: PointerEvent, link: HTMLAnchorElement | HTMLSpanElement): Promise<void> {
         const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment, pf2Roller, pf2RollOptions } = link.dataset;
         const against = link.dataset.against || link.dataset.pf2Defense; // pf2Defense is only checked for backwards compat
         const overrideTraits = "overrideTraits" in link.dataset;
@@ -206,7 +206,10 @@ export class InlineRollLinks {
             : extraRollOptions.filter((t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits);
 
         // Pre-emptively grab statistics to visibly error if the statistic is missing from all of them
-        const actorStatistics = actors.map((actor) => ({ actor, statistic: actor.getStatistic(pf2Check) }));
+        const actorStatistics = actors.map((actor) => {
+            const relatedItem = itemFromDoc?.actor?.uuid === actor.uuid ? itemFromDoc : null;
+            return { actor, statistic: actor.getStatistic(pf2Check, { item: relatedItem }) };
+        });
         if (!actorStatistics.some(({ statistic }) => !!statistic)) {
             ui.notifications.error(
                 game.i18n.format("PF2E.ErrorMessage.MissingStatisticSelected", { statistic: pf2Check }),
@@ -258,7 +261,7 @@ export class InlineRollLinks {
                 } else if (against) {
                     const defenseStat = opposingActor?.getStatistic(against)?.clone({
                         modifiers: adjustment
-                            ? [new ModifierPF2e({ label: "PF2E.InlineCheck.DCAdjustment", modifier: adjustment })]
+                            ? [new Modifier({ label: "PF2E.InlineCheck.DCAdjustment", modifier: adjustment })]
                             : [],
                         rollOptions: [
                             item?.isOfType("action", "feat") ? `${opposingRole}:action:slug:${item.slug}` : null,
@@ -311,7 +314,7 @@ export class InlineRollLinks {
         }
     }
 
-    static #onClickInlineTemplate(_event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
+    static #onClickInlineTemplate(_event: PointerEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
         if (!canvas.ready) return;
 
         const templateConversion: Record<string, MeasuredTemplateType> = {
@@ -353,9 +356,7 @@ export class InlineRollLinks {
             }
         }
 
-        const flags: { pf2e: Record<string, unknown> } = {
-            pf2e: {},
-        };
+        const flags: { pf2e: Record<string, JSONValue> } = { pf2e: {} };
 
         const normalSize = (Math.ceil(data.distance) / 5) * 5 || 5;
         if (tupleHasValue(EFFECT_AREA_SHAPES, pf2EffectArea) && data.distance === normalSize) {

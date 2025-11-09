@@ -48,7 +48,7 @@
             {
                 "key": "BaseSpeed",
                 "selector": "climb",
-                "value": "max(5,floor(@actor.attributes.speed.total/2))"
+                "value": "max(5,floor(@actor.system.movement.speeds.land.value/2))"
             },
             {
                 "key": "BaseSpeed",
@@ -56,7 +56,7 @@
                     "feat:quick-climb"
                 ],
                 "selector": "climb",
-                "value": "@actor.attributes.speed.total"
+                "value": "@actor.system.movement.speeds.land.value"
             }
         ],
         "traits": {

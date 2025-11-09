@@ -1,5 +1,5 @@
 import { CreaturePF2e, type FamiliarPF2e } from "@actor";
-import { Abilities, CreatureSpeeds, LabeledSpeed } from "@actor/creature/data.ts";
+import { Abilities } from "@actor/creature/data.ts";
 import { CreatureUpdateCallbackOptions, ResourceData } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
@@ -7,15 +7,18 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import {
     MultipleAttackPenaltyData,
     calculateMAPs,
+    createAreaAttackMessage,
+    createDamageRollFunctions,
+    getAttackDamageDomains,
     getStrikeAttackDomains,
-    getStrikeDamageDomains,
     isReallyPC,
     setHitPointsRollOptions,
 } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import {
     CheckModifier,
-    ModifierPF2e,
+    Modifier,
+    ModifierType,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
     adjustModifiers,
@@ -24,15 +27,25 @@ import {
 } from "@actor/modifiers.ts";
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
-import type { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
+import type { AttributeString, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
-import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, DeityPF2e, FeatPF2e, HeritagePF2e } from "@item";
+import type {
+    AmmoPF2e,
+    AncestryPF2e,
+    BackgroundPF2e,
+    ClassPF2e,
+    DeityPF2e,
+    FeatPF2e,
+    HeritagePF2e,
+    ItemPF2e,
+} from "@item";
 import { WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import type { ItemType } from "@item/base/data/index.ts";
+import { ActionCost } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import type { WeaponCategory } from "@item/weapon/types.ts";
@@ -47,7 +60,7 @@ import {
 } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { Check, CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e, DamageType } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
@@ -55,13 +68,15 @@ import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
+import { ErrorPF2e, getActionGlyph, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { CharacterCrafting } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
     CharacterAbilities,
+    CharacterAreaAttack,
+    CharacterAttack,
     CharacterAttributes,
     CharacterFlags,
     CharacterSkillData,
@@ -75,10 +90,11 @@ import {
 import { CharacterFeats } from "./feats/index.ts";
 import {
     PCAttackTraitHelpers,
-    WeaponAuxiliaryAction,
     createForceOpenPenalty,
-    createHinderingPenalty,
     createShoddyPenalty,
+    getAttackAmmo,
+    getItemProficiencyRank,
+    getWeaponAuxiliaryActions,
     imposeOversizedWeaponCondition,
 } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
@@ -140,15 +156,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return fu.deepClone(this.system.abilities);
     }
 
-    get handsFree(): ZeroToTwo {
-        const heldItems = this.inventory.filter((i) => i.isHeld && i.type !== "shield" && !i.traits.has("free-hand"));
-        return Math.clamp(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
+    get handsFree(): number {
+        return this.system.hands.free.value;
     }
 
     /** The number of hands this PC "really" has free, ignoring allowances for shields and the Free-Hand trait */
-    get handsReallyFree(): ZeroToTwo {
-        const heldItems = this.inventory.filter((i) => i.isHeld);
-        return Math.clamp(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
+    get handsReallyFree(): number {
+        return this.system.hands.free.really;
     }
 
     override get hitPoints(): CharacterHitPointsSummary {
@@ -165,8 +179,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** Retrieve lore skills, class statistics, and tradition-specific spellcasting */
     override getStatistic(slug: GuaranteedGetStatisticSlug): Statistic<this>;
-    override getStatistic(slug: string): Statistic<this> | null;
-    override getStatistic(slug: string): Statistic | null {
+    override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic<this> | null;
+    override getStatistic(slug: string, options?: { item: ItemPF2e | null }): Statistic | null {
         switch (slug) {
             case "class":
             case "class-dc":
@@ -191,7 +205,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 return this.spellcasting.base;
         }
 
-        return this.classDCs[slug] ?? super.getStatistic(slug);
+        return this.classDCs[slug] ?? super.getStatistic(slug, options);
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
@@ -324,8 +338,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Attributes
         const attributes: Partial<CharacterAttributes> = this.system.attributes;
-        attributes.polymorphed = false;
-        attributes.battleForm = false;
         attributes.classDC = null;
         attributes.spellDC = null;
         attributes.classOrSpellDC = { rank: 0, value: 0 };
@@ -373,7 +385,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.system.traits.size = new ActorSizePF2e({ value: "med" });
 
         // Attack and defense proficiencies
-        type PartialMartialProficiency = Record<string, Partial<MartialProficiency> | undefined>;
+        type PartialMartialProficiency = Record<string, DeepPartial<MartialProficiency> | undefined>;
         const attacks: PartialMartialProficiency = (system.proficiencies.attacks ??= {});
         // Set custom attack proficiencies to be visible
         for (const attack of Object.values(attacks).filter(R.isDefined)) {
@@ -398,13 +410,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Crafting
         system.crafting = fu.mergeObject({ formulas: [], entries: {} }, system.crafting ?? {});
 
+        // Hands
+        this.system.hands = {
+            max: { value: 2, active: 2 },
+            free: { value: 2, really: 2 },
+        };
+
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
-
-        // If there are no parties, clear the exploration activities list
-        if (!this.parties.size) {
-            this.system.exploration = [];
-        }
     }
 
     /** After AE-likes have been applied, set numeric roll options */
@@ -442,6 +455,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         build.languages.value = sourceLanguages.filter((l) => !grantedLanguages.includes(l)).length - countReducedBy;
         build.languages.max += Math.max(this.system.abilities.int.mod, 0);
 
+        this.prepareHandsData();
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
     }
@@ -458,6 +472,21 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         super.prepareDataFromItems();
         this.prepareBuildData();
+    }
+
+    /** Determine hands free from held items. */
+    protected prepareHandsData(): void {
+        const maxHands = this.system.hands.max.value;
+        let heldCount = 0;
+        let reallyHeldCount = 0;
+        for (const item of this.inventory) {
+            const handsHeld = item.handsHeld;
+            if (!handsHeld) continue;
+            reallyHeldCount += handsHeld;
+            if (item.type !== "shield" && !item.system.traits.value.includes("free-hand")) heldCount += handsHeld;
+        }
+        this.system.hands.free.value = Math.clamp(maxHands - heldCount, 0, maxHands);
+        this.system.hands.free.really = Math.clamp(maxHands - reallyHeldCount, 0, maxHands);
     }
 
     override prepareDerivedData(): void {
@@ -477,8 +506,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // PFS Level Bump - check and DC modifiers
         if (system.pfs.levelBump) {
             const params = { slug: "level-bump", label: "PF2E.PFS.LevelBump", modifier: 1 };
-            this.synthetics.modifiers.all.push(() => new ModifierPF2e(params));
-            this.synthetics.modifiers.damage.push(() => new ModifierPF2e(params));
+            this.synthetics.modifiers.all.push(() => new Modifier(params));
+            this.synthetics.modifiers.damage.push(() => new Modifier(params));
         }
 
         // Calculate HP and SP
@@ -486,7 +515,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const ancestryHP = system.attributes.ancestryhp;
             const classHP = system.attributes.classhp;
             const hitPoints = system.attributes.hp;
-            const modifiers = [new ModifierPF2e("PF2E.AncestryHP", ancestryHP, "untyped")];
+            const modifiers = [new Modifier("PF2E.AncestryHP", ancestryHP, "untyped")];
 
             if (game.pf2e.settings.variants.stamina) {
                 const halfClassHp = Math.floor(classHP / 2);
@@ -499,15 +528,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     max: system.abilities[system.details.keyability.value].mod,
                 };
 
-                modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, "untyped"));
+                modifiers.push(new Modifier("PF2E.ClassHP", halfClassHp * this.level, "untyped"));
             } else {
-                modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, "untyped"));
+                modifiers.push(new Modifier("PF2E.ClassHP", classHP * this.level, "untyped"));
                 delete system.resources.resolve;
 
                 // Facilitate level-zero variant play by always adding the constitution modifier at at least level 1
                 const conHP = system.abilities.con.mod * Math.max(this.level, 1);
                 modifiers.push(
-                    new ModifierPF2e({
+                    new Modifier({
                         slug: "hp-con",
                         label: "PF2E.AbilityCon",
                         ability: "con",
@@ -538,7 +567,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             // PFS Level Bump - hit points
             if (system.pfs.levelBump) {
                 const hitPointsBump = Math.max(10, Math.floor(stat.totalModifier * 0.1));
-                stat.push(new ModifierPF2e("PF2E.PFS.LevelBump", hitPointsBump, "untyped"));
+                stat.push(new Modifier("PF2E.PFS.LevelBump", hitPointsBump, "untyped"));
             }
 
             stat.max = stat.totalModifier;
@@ -597,25 +626,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             attribute: armorStatistic.attribute ?? "dex",
         });
 
-        // Apply the speed penalty from this character's held shield
-        const heldShield = this.heldShield;
-        if (heldShield?.speedPenalty) {
-            const speedPenalty = new ModifierPF2e({
-                slug: "shield-speed-penalty",
-                label: heldShield.name,
-                modifier: heldShield.speedPenalty,
-            });
-            speedPenalty.predicate.push({ not: "self:shield:ignore-speed-penalty" });
-            this.synthetics.modifiers.speed ??= [];
-            this.synthetics.modifiers.speed.push(() => speedPenalty);
-        }
-
-        // Speeds
-        const speeds = (system.attributes.speed = this.prepareSpeed("land"));
-        speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
+        this.prepareMovementData();
 
         // Strike actions
-        system.actions = this.prepareStrikes();
+        system.actions = this.prepareAttacks();
         this.flags.pf2e.highestWeaponDamageDice = Math.max(
             ...system.actions.filter((s) => s.ready).map((s) => s.item.system.damage.dice),
             0,
@@ -725,11 +739,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Upgrade light barding proficiency to trained if this PC is somehow an animal
         this.system.proficiencies.defenses["light-barding"].rank ||=
-            this.traits.has("animal") && !isReallyPC(this)
+            this.system.traits.value.includes("animal") && !isReallyPC(this)
                 ? (Math.max(this.system.proficiencies.defenses["light-barding"].rank, 1) as ZeroToFour)
                 : 0;
 
-        const modifiers: ModifierPF2e[] = [];
+        const modifiers: Modifier[] = [];
         const dexCapSources: DexterityModifierCapData[] = [
             { value: Infinity, source: "" },
             ...synthetics.dexterityModifierCaps,
@@ -755,20 +769,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const attributeModifier = modifiers
             .filter((m) => m.type === "ability" && !!m.ability)
             .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
-        const proficiency = Object.entries(this.system.proficiencies.defenses as Record<string, MartialProficiency>)
-            .filter(([key, proficiency]) => {
-                if (!wornArmor) return key === "unarmored";
-                if (wornArmor.category === key) return true;
-                return proficiency.definition?.test(wornArmor.getRollOptions("item")) ?? false;
-            })
-            .map(([_k, v]) => v)
-            .reduce((best, p) => (p.rank > best.rank ? p : best), { rank: 0 as ZeroToFour });
+        const attribute = attributeModifier.ability ?? "dex";
+        const rank = wornArmor
+            ? getItemProficiencyRank(this, wornArmor)
+            : this.system.proficiencies.defenses["unarmored"].rank;
 
-        return new ArmorStatistic(this, {
-            rank: proficiency.rank,
-            attribute: attributeModifier.ability ?? "dex",
-            modifiers: [attributeModifier],
-        });
+        return new ArmorStatistic(this, { rank, attribute, modifiers: [attributeModifier] });
     }
 
     private prepareSaves(): void {
@@ -777,27 +783,33 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.saves = R.mapToObj(SAVE_TYPES, (saveType) => {
             const save = this.system.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
-            const modifiers: ModifierPF2e[] = [];
+            const modifiers: Modifier[] = [];
             const selectors = [saveType, `${save.attribute}-based`, "saving-throw", "all"];
 
-            // Add resilient bonuses for wearing armor with a resilient rune.
-            if (wornArmor?.system.runes.resilient && wornArmor.isInvested) {
-                const slug = "resilient";
-                modifiers.push(
-                    new ModifierPF2e({
-                        slug,
-                        type: "item",
-                        label: wornArmor.name,
-                        modifier: wornArmor.system.runes.resilient,
-                        adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, selectors, slug),
-                    }),
-                );
+            // Add resilient bonuses for wearing armor with a resilient rune or trait.
+            if (wornArmor) {
+                const fromTraits = wornArmor.system.traits.config?.resilient ?? 0;
+                const fromRunes = wornArmor.isInvested ? wornArmor.system.runes.resilient : 0;
+                const resilientModifier = Math.max(fromTraits, fromRunes);
+                if (resilientModifier) {
+                    const slug = "resilient";
+                    const modifierAdjustments = this.synthetics.modifierAdjustments;
+                    modifiers.push(
+                        new Modifier({
+                            slug,
+                            type: "item",
+                            label: wornArmor.name,
+                            modifier: resilientModifier,
+                            adjustments: extractModifierAdjustments(modifierAdjustments, selectors, slug),
+                        }),
+                    );
+                }
             }
 
             const affectedByBulwark = saveType === "reflex" && wornArmor?.traits.has("bulwark");
             if (affectedByBulwark) {
                 const slug = "bulwark";
-                const bulwarkModifier = new ModifierPF2e({
+                const bulwarkModifier = new Modifier({
                     slug,
                     type: "untyped",
                     label: CONFIG.PF2E.armorTraits.bulwark,
@@ -839,11 +851,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const skill = system.skills[skillSlug];
 
             const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
-            const modifiers: ModifierPF2e[] = [];
+            const modifiers: Modifier[] = [];
 
             if (skill.armor && typeof wornArmor?.strength === "number" && wornArmor.checkPenalty < 0) {
                 const slug = "armor-check-penalty";
-                const armorCheckPenalty = new ModifierPF2e({
+                const armorCheckPenalty = new Modifier({
                     slug,
                     label: "PF2E.ArmorCheckPenalty",
                     modifier: wornArmor.checkPenalty,
@@ -886,10 +898,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         });
 
         // Assemble lore items, key'd by a normalized slug
-        const loreItems = R.mapToObj(this.itemTypes.lore, (loreItem) => {
-            const rawLoreSlug = sluggify(loreItem.name);
-            return [/\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`, loreItem];
-        });
+        const loreItems = R.mapToObj(this.itemTypes.lore, (loreItem) => [loreItem.slug, loreItem]);
 
         // Add Lore skills to skill statistics
         for (const [slug, loreItem] of Object.entries(loreItems)) {
@@ -920,14 +929,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         });
     }
 
-    override prepareSpeed(movementType: "land"): CreatureSpeeds;
-    override prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
-    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
-    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null {
-        const statistic = super.prepareSpeed(movementType);
-        if (!statistic) return null;
-
-        const wornArmor = this.wornArmor;
+    override prepareMovementData(): void {
+        const { wornArmor, heldShield } = this;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
         const strength = this.system.abilities.str.mod;
         const requirement = wornArmor?.strength ?? null;
@@ -935,35 +938,37 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             typeof requirement === "number" && strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty,
             0,
         );
-        const derivedFromLand = !!("derivedFromLand" in statistic && statistic.derivedFromLand);
-        const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
         const slug = "armor-speed-penalty";
-        const armorPenalty =
-            penaltyValue && !derivedFromLand
-                ? new ModifierPF2e({
-                      slug,
-                      label: modifierName,
-                      modifier: penaltyValue,
-                      type: "untyped",
-                      predicate: new Predicate({ not: "armor:ignore-speed-penalty" }),
-                      adjustments: extractModifierAdjustments(
-                          this.synthetics.modifierAdjustments,
-                          ["all-speeds", "speed", `${movementType}-speed`],
-                          slug,
-                      ),
-                  })
-                : null;
+        const armorPenalty = penaltyValue
+            ? new Modifier({
+                  slug,
+                  label: wornArmor?.name ?? "PF2E.ArmorSpeedLabel",
+                  domains: ["all-speeds"],
+                  modifier: penaltyValue,
+                  type: "untyped",
+                  predicate: new Predicate({ nor: ["armor:ignore-speed-penalty"] }),
+              })
+            : null;
 
-        if (armorPenalty) {
-            statistic.push(armorPenalty);
-            statistic.calculateTotal(new Set(this.getRollOptions(["all-speeds", "speed", `${movementType}-speed`])));
-        }
+        // Speed penalty from held shield
+        const shieldPenalty = heldShield?.speedPenalty
+            ? new Modifier({
+                  slug: "shield-speed-penalty",
+                  label: heldShield.name,
+                  domains: ["all-speeds"],
+                  modifier: heldShield.speedPenalty,
+                  predicate: new Predicate({ not: "self:shield:ignore-speed-penalty" }),
+              })
+            : null;
 
-        // A hindering penalty can't be removed or mitigated
-        const hinderingPenalty = createHinderingPenalty(this);
-        if (hinderingPenalty) statistic.push(hinderingPenalty);
+        // "You take a –5 penalty to all your Speeds (to a minimum of a 5-foot Speed). This is separate from and in
+        // "addition to the armor's Speed penalty, and affects you even if your Strength or an ability lets you reduce
+        // "or ignore the armor's Speed penalty."
+        const hinderingPenalty = wornArmor?.traits.has("hindering")
+            ? new Modifier({ slug: "hindering", label: "PF2E.TraitHindering", domains: ["all-speeds"], modifier: -5 })
+            : null;
 
-        return statistic;
+        super.prepareMovementData([armorPenalty, shieldPenalty, hinderingPenalty].filter(R.isNonNull));
     }
 
     private prepareFeats(): void {
@@ -1016,7 +1021,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** Prepare this character's strike actions */
-    prepareStrikes({ includeBasicUnarmed = true } = {}): CharacterStrike[] {
+    prepareAttacks({ includeBasicUnarmed = true } = {}): CharacterAttack[] {
         const { itemTypes, synthetics } = this;
 
         // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
@@ -1065,7 +1070,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             : null;
 
         const ammos = [
-            ...itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed),
+            ...itemTypes.ammo.filter((i) => !i.isStowed),
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
         const offensiveCategories = R.keys(CONFIG.PF2E.weaponCategories);
@@ -1082,7 +1087,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 .filter((s) => !s.isStowed && !s.isBroken && !s.isDestroyed)
                 .map((s) => s.generateWeapon()),
             this.inventory.flatMap((i) =>
-                i.isEquipped ? i.subitems.filter((i): i is WeaponPF2e<this> => i.isOfType("weapon")) : [],
+                i.isEquipped
+                    ? i.subitems.filter(
+                          (sub): sub is WeaponPF2e<this> =>
+                              sub.isOfType("weapon") && i.isOfType("weapon") && !sub.isAmmoFor(i),
+                      )
+                    : [],
             ),
         ]
             .flat()
@@ -1090,9 +1100,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Sort alphabetically, force basic unarmed attack to end, move all held items to the beginning, and then move
         // all readied strikes to beginning
+        // For SF2e, all area weapons main usage is an area attack, but all automatic weapons have area attacks as secondary
         const handsReallyFree = this.handsReallyFree;
-        const strikes = weapons
-            .map((w) => this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree, ammos }))
+        const attacks = weapons
+            .map((w) =>
+                w.baseType === "grenade" || w.system.traits.config.area
+                    ? this.prepareAreaAttack(w, { ammos })
+                    : this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree, ammos }),
+            )
             .sort((a, b) =>
                 a.label
                     .toLocaleLowerCase(game.i18n.lang)
@@ -1103,26 +1118,170 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .sort((a, b) => (a.item.isHeld === b.item.isHeld ? 0 : a.item.isHeld ? -1 : 1))
             .sort((a, b) => (a.ready === b.ready ? 0 : a.ready ? -1 : 1));
 
-        // Finally, position subitem weapons directly below their parents
-        for (const subitemStrike of strikes.filter((s) => s.item.parentItem)) {
-            const subitem = subitemStrike.item;
-            const parentStrike = strikes.find((s) => (s.item.shield ?? s.item) === subitem.parentItem);
-            if (parentStrike) {
-                strikes.splice(strikes.indexOf(subitemStrike), 1);
-                strikes.splice(strikes.indexOf(parentStrike) + 1, 0, subitemStrike);
+        // Create alt usages for each strike, based on traits and such
+        for (const attack of attacks) {
+            const weapon = attack.item;
+            attack.altUsages.push(
+                ...weapon
+                    .getAltUsages()
+                    .map((w) => this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree })),
+            );
+            if (attack.type === "area-fire" && weapon.baseType !== "grenade") {
+                // If this was an area fire, add the normal strike as a secondary usage at the front
+                attack.altUsages.unshift(
+                    this.prepareStrike(weapon, { categories: offensiveCategories, handsReallyFree }),
+                );
+            } else if (weapon.system.traits.value.includes("automatic")) {
+                // If this is an automatic weapon, add the area usage at the very end
+                attack.altUsages.push(this.prepareAreaAttack(weapon));
             }
         }
 
-        return strikes;
+        // Finally, position subitem weapons directly below their parents
+        for (const subitemStrike of attacks.filter((s) => s.item.parentItem)) {
+            const subitem = subitemStrike.item;
+            const parentStrike = attacks.find((s) => (s.item.shield ?? s.item) === subitem.parentItem);
+            if (parentStrike) {
+                attacks.splice(attacks.indexOf(subitemStrike), 1);
+                attacks.splice(attacks.indexOf(parentStrike) + 1, 0, subitemStrike);
+            }
+        }
+
+        return attacks;
+    }
+
+    private prepareAreaAttack(
+        weapon: WeaponPF2e<CharacterPF2e>,
+        { ammos = [] }: { ammos?: (AmmoPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[] } = {},
+    ): CharacterAreaAttack {
+        const actor = weapon.actor;
+        const isAutomatic = weapon.system.traits.value.includes("automatic");
+        const action = isAutomatic ? "auto-fire" : "area-fire";
+
+        const classDC =
+            actor.getStatistic("class") ??
+            new Statistic(this, { slug: "class", label: "PF2E.Actor.Character.ClassDC.Label" });
+        const tracking = weapon.system.traits.config?.tracking;
+        const domains = ["all", `${action}-save`];
+        const statistic = classDC.extend({
+            modifiers: tracking
+                ? [
+                      new Modifier({
+                          slug: "tracking",
+                          label: "PF2E.Item.Weapon.Tracking",
+                          type: "item",
+                          modifier: tracking,
+                          adjustments: extractModifierAdjustments(
+                              actor.synthetics.modifierAdjustments,
+                              domains,
+                              "tracking",
+                          ),
+                      }),
+                  ]
+                : [],
+        });
+
+        const area = ((): { type: EffectAreaShape; value: number } => {
+            // Handle grenades
+            if (weapon.baseType === "grenade") {
+                const description = weapon.system.description.value;
+                const areaMatch = description.match(/Template\[burst\|distance:(?<distance>\d+)\]/);
+                const value = Number(areaMatch?.groups?.distance ?? 5);
+                return { type: "burst", value };
+            }
+
+            const itemRange = weapon.system.range || actor.getReach({ weapon: weapon });
+
+            // Handle automatic weapons
+            if (weapon.system.traits.value.includes("automatic")) {
+                return {
+                    type: "cone",
+                    value: Math.max(5, Math.floor(itemRange / 2) - (Math.floor(itemRange / 2) % 5)),
+                };
+            }
+
+            // Handle area weapons
+            const areaAnnotation = weapon.system.traits.config.area;
+            if (!areaAnnotation) throw ErrorPF2e(`Unable to calculate area for weapon ${weapon.uuid}`);
+            const type = areaAnnotation.type;
+            return { type, value: areaAnnotation.value || (type === "burst" ? 5 : itemRange) };
+        })();
+
+        const actionLabel = `PF2E.Actions.${sluggify(action, { camel: "bactrian" })}.Title`;
+        const weaponSlug = weapon.slug ?? sluggify(weapon.name);
+        const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
+        const actionCost: ActionCost = { type: "action", value: weapon.baseType === "grenade" ? 1 : 2 };
+        const weaponRollOptions = new Set(weapon.getRollOptions("item"));
+        const proficiencyRank = getItemProficiencyRank(actor, weapon, weaponRollOptions);
+        const options = [
+            `self:action:slug:${action}`,
+            meleeOrRanged,
+            "area-damage",
+            "area-effect",
+            ...weaponRollOptions,
+        ];
+
+        const identifier = `${weapon.id}.${weaponSlug}.${action}`;
+        const hiddenCauseStowed = weapon.isStowed && this.flags.pf2e.hideStowed;
+        const hiddenCauseUnarmed = weapon.slug === "basic-unarmed" && !this.flags.pf2e.showBasicUnarmed;
+
+        return {
+            slug: identifier,
+            type: action,
+            attackRollType: actionLabel,
+            label: weapon.name,
+            visible: !(hiddenCauseStowed || hiddenCauseUnarmed),
+            glyph: getActionGlyph(actionCost),
+            description: weapon.description,
+            ready: true,
+            canAttack: true,
+            altUsages: [],
+            auxiliaryActions: getWeaponAuxiliaryActions(weapon),
+            modifiers: [],
+            item: weapon,
+            statistic,
+            weaponTraits: weapon.system.traits.value
+                .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
+                .sort((a, b) => a.label.localeCompare(b.label)),
+            variants: [
+                {
+                    label: game.i18n.format("PF2E.ActionWithDC", {
+                        label: game.i18n.localize(actionLabel),
+                        dc: statistic.dc.value,
+                    }),
+                    roll: () => {
+                        createAreaAttackMessage({
+                            actor,
+                            item: weapon,
+                            statistic,
+                            action,
+                            identifier,
+                            actionCost,
+                            domains,
+                            options,
+                            area,
+                        });
+                    },
+                },
+            ],
+            ...createDamageRollFunctions(weapon, {
+                action,
+                statistic,
+                baseOptions: options,
+                actionTraits: ["attack"],
+                proficiencyRank,
+            }),
+            ammunition: getAttackAmmo(weapon, { ammos }),
+        };
     }
 
     /** Prepare a strike action from a weapon */
     private prepareStrike(
         weapon: WeaponPF2e<CharacterPF2e>,
-        { categories, handsReallyFree, ammos = [] }: PrepareStrikeOptions,
+        { handsReallyFree, ammos = [] }: PrepareStrikeOptions,
     ): CharacterStrike {
         const synthetics = this.synthetics;
-        const modifiers: ModifierPF2e[] = [];
+        const modifiers: Modifier[] = [];
 
         // Apply strike adjustments affecting the weapon
         const strikeAdjustments = [
@@ -1134,24 +1293,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
         // Process again (first done during weapon data preparation) in case of late-arriving strike adjustment
         processTwoHandTrait(weapon);
-        const weaponTraits = weapon.traits;
+        const weaponTraits = weapon.system.traits.value;
         const weaponRollOptions = new Set(weapon.getRollOptions("item"));
-
-        // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
-        // certain criteria also count as weapon of different category
-        const proficiencies = this.system.proficiencies;
-        const categoryRank = proficiencies.attacks[weapon.category]?.rank ?? 0;
-        const groupRank = proficiencies.attacks[`weapon-group-${weapon.group}`]?.rank ?? 0;
-
-        // Weapons that are interchangeable for all rules purposes (e.g., longbow and composite longbow)
-        const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
-        const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
-        const baseWeaponRank = proficiencies.attacks[`weapon-base-${baseWeapon}`]?.rank ?? 0;
-        const syntheticRanks = Object.values(proficiencies.attacks)
-            .filter((p): p is MartialProficiency => !!p?.definition?.test(weaponRollOptions))
-            .map((p) => p.rank);
-
-        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
+        const proficiencyRank = getItemProficiencyRank(this, weapon, weaponRollOptions);
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
         const baseOptions = [
             "action:strike",
@@ -1168,10 +1312,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Determine the default ability and score for this attack.
         const defaultAttribute = weapon.defaultAttribute;
         modifiers.push(createAttributeModifier({ actor: this, attribute: defaultAttribute, domains: attackDomains }));
-        if (weapon.isMelee && weaponTraits.has("finesse")) {
+        if (weapon.isMelee && weaponTraits.includes("finesse")) {
             modifiers.push(createAttributeModifier({ actor: this, attribute: "dex", domains: attackDomains }));
         }
-        if (weapon.isRanged && weaponTraits.has("brutal")) {
+        if (weapon.isRanged && weaponTraits.includes("brutal")) {
             modifiers.push(createAttributeModifier({ actor: this, attribute: "str", domains: attackDomains }));
         }
 
@@ -1190,48 +1334,58 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (weapon.group === "bomb" && !ABP.isEnabled(this)) {
             const attackBonus = Number(weapon.system.bonus?.value) || 0;
             if (attackBonus !== 0) {
-                modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, "item"));
+                modifiers.push(new Modifier("PF2E.ItemBonusLabel", attackBonus, "item"));
             }
         }
 
-        // Get best weapon potency
-        const weaponPotency = (() => {
-            const potency = attackDomains
-                .flatMap((key) => fu.deepClone(synthetics.weaponPotency[key] ?? []))
-                .filter((wp) => wp.predicate.test(initialRollOptions));
+        // Handle item or potency bonus to attack rolls
+        {
+            const grade = weapon.system.grade;
+            const potencyRune = weapon.system.runes.potency;
+            const trackingMod = weapon.system.traits.config.tracking || 0;
 
-            if (weapon.system.runes.potency > 0) {
-                potency.push({
-                    label: "PF2E.Item.Weapon.Rune.Potency",
-                    bonus: weapon.system.runes.potency,
-                    type: "item",
-                    predicate: new Predicate(),
+            // Get all weapon potency synthetics. These don't work for sf2e unless the type is potency (ABP)
+            const potencySynthetics = attackDomains
+                .flatMap((key) => fu.deepClone(synthetics.weaponPotency[key] ?? []))
+                .filter((wp) => wp.predicate.test(initialRollOptions) && (!grade || wp.type === "potency"));
+            const bestSynthetic = potencySynthetics.length
+                ? potencySynthetics.reduce((highest, current) => (highest.bonus > current.bonus ? highest : current))
+                : null;
+
+            // Calculate the best choice between rune/tracking/synthetics. Potency synthetics add the magical trait.
+            // The potency rune already adds the magical trait during data preparation.
+            type BonusSource = { slug: string; label: string; type: ModifierType; modifier: number; magical?: boolean };
+            const sources: BonusSource[] = [
+                { slug: "weapon-potency", label: "PF2E.Item.Weapon.Rune.Potency", type: "item", modifier: potencyRune },
+                { slug: "tracking", label: "PF2E.Item.Weapon.Tracking", type: "item", modifier: trackingMod },
+            ];
+            if (bestSynthetic) {
+                sources.push({
+                    slug: bestSynthetic.type === "item" ? "weapon-potency" : "attack-potency",
+                    label: bestSynthetic.label,
+                    type: bestSynthetic.type,
+                    modifier: bestSynthetic.bonus,
+                    magical: true,
                 });
             }
+            const best = sources.reduce((result, current) => (result.modifier >= current.modifier ? result : current));
 
-            return potency.length > 0
-                ? potency.reduce((highest, current) => (highest.bonus > current.bonus ? highest : current))
-                : null;
-        })();
+            if (best.modifier > 0) {
+                const { slug, type } = best;
+                modifiers.push(
+                    new Modifier({
+                        ...R.pick(best, ["slug", "type", "label", "modifier"]),
+                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, attackDomains, slug),
+                    }),
+                );
 
-        if (weaponPotency) {
-            const slug = weaponPotency.type === "item" ? "weapon-potency" : "attack-potency";
-            modifiers.push(
-                new ModifierPF2e({
-                    slug,
-                    type: weaponPotency.type,
-                    label: weaponPotency.label,
-                    modifier: weaponPotency.bonus,
-                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, attackDomains, slug),
-                }),
-            );
-            // In case of a WeaponPotency RE, add traits to establish the weapon as being magical
-            if (!weapon.isMagical && (weaponPotency.type === "item" || !ABP.isEnabled(weapon.actor))) {
-                weapon.system.traits.value.push("magical");
+                // In case of a WeaponPotency RE, add traits to establish the weapon as being magical
+                if (!weapon.isMagical && best.magical && (type === "item" || !ABP.isEnabled(weapon.actor))) {
+                    weapon.system.traits.value.push("magical");
+                }
+
+                weapon.flags.pf2e.attackItemBonus = best.modifier;
             }
-
-            // Update logged value in case a rule element has changed it
-            weapon.flags.pf2e.attackItemBonus = weaponPotency.bonus;
         }
 
         const shoddyPenalty = createShoddyPenalty(this, weapon, attackDomains);
@@ -1243,90 +1397,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...extractModifiers(synthetics, attackDomains, { injectables: { weapon }, resolvables: { weapon } }),
         );
 
-        const auxiliaryActions: WeaponAuxiliaryAction[] = [];
-        const isRealItem = this.items.has(weapon.id);
-        const traitsArray = weapon.system.traits.value;
-
-        if (weapon.system.traits.toggles.modular.options.length > 0) {
-            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
-        }
-        if (weapon.isEquipped) {
-            if (traitsArray.includes("parry") && !this.rollOptions.all["self:effect:parry"]) {
-                auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "parry" }));
-            }
-        }
-        if (isRealItem && weapon.category !== "unarmed" && !weapon.parentItem) {
-            const usage = weapon.system.usage;
-            const weaponAsShield = weapon.shield;
-            const canWield2H =
-                usage.hands === 2 ||
-                (usage.hands === 1 && this.handsFree > 0 && !!weaponAsShield) ||
-                traitsArray.some((t) => t.startsWith("fatal-aim")) ||
-                traitsArray.some((t) => t.startsWith("two-hand"));
-
-            switch (weapon.carryType) {
-                case "held": {
-                    if (weaponAsShield) {
-                        const hasShieldRaised = !!this.rollOptions.all["self:effect:raise-a-shield"];
-                        const hasGreaterCover = !!this.rollOptions.all["self:cover-level:greater"];
-                        if (!hasShieldRaised) {
-                            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "raise-a-shield" }));
-                        } else if (weaponAsShield.isTowerShield && weaponAsShield.isRaised) {
-                            const action = hasGreaterCover ? "end-cover" : "take-cover";
-                            const annotation = "tower-shield";
-                            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action, annotation }));
-                        }
-                    }
-
-                    if (weapon.handsHeld === 2) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "grip", hands: 1 }),
-                        );
-                    } else if (weapon.handsHeld === 1 && canWield2H) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "grip", hands: 2 }),
-                        );
-                    }
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "sheathe", hands: 0 }),
-                    );
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "drop", hands: 0 }),
-                    );
-
-                    break;
-                }
-                case "worn": {
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 1 }),
-                    );
-                    if (canWield2H) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 2 }),
-                        );
-                    }
-                    break;
-                }
-                case "stowed": {
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "retrieve", hands: 1 }),
-                    );
-                    break;
-                }
-                case "dropped": {
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 1 }),
-                    );
-                    if (canWield2H) {
-                        auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 2 }),
-                        );
-                    }
-                    break;
-                }
-            }
-        }
-
         const weaponSlug = weapon.slug ?? sluggify(weapon.name);
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = [
@@ -1336,7 +1406,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             meleeOrRanged,
         ];
         const strikeStat = new StatisticModifier(weaponSlug, modifiers, rollOptions);
-        const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories, handsReallyFree }));
+
         const versatileLabel = (damageType: DamageType): string => {
             switch (damageType) {
                 case "bludgeoning":
@@ -1346,8 +1416,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 case "slashing":
                     return CONFIG.PF2E.weaponTraits["versatile-s"];
                 default: {
-                    const weaponTraits: Record<string, string | undefined> = CONFIG.PF2E.weaponTraits;
-                    return weaponTraits[`versatile-${damageType}`] ?? CONFIG.PF2E.damageTypes[damageType];
+                    const traitsConfig: Record<string, string | undefined> = CONFIG.PF2E.weaponTraits;
+                    return traitsConfig[`versatile-${damageType}`] ?? CONFIG.PF2E.damageTypes[damageType];
                 }
             }
         };
@@ -1369,7 +1439,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && handsReallyFree > 0);
 
         const traitToggles = weapon.system.traits.toggles;
-        const doubleBarrel = weaponTraits.has("double-barrel") ? traitToggles.doubleBarrel : null;
+        const doubleBarrel = weaponTraits.includes("double-barrel") ? traitToggles.doubleBarrel : null;
         const versatileOptions =
             weapon.altUsageType === "thrown"
                 ? []
@@ -1395,16 +1465,17 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             options: Array.from(baseOptions),
             traits: actionTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
             handsAvailable,
-            weaponTraits: Array.from(weaponTraits)
+            weaponTraits: weaponTraits
                 .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
                 .sort((a, b) => a.label.localeCompare(b.label)),
             variants: [],
             selectedAmmoId: weapon.system.selectedAmmoId,
-            canStrike: true,
-            altUsages,
-            auxiliaryActions,
+            canAttack: true,
+            altUsages: [],
+            auxiliaryActions: getWeaponAuxiliaryActions(weapon),
             doubleBarrel,
             versatileOptions,
+            ammunition: getAttackAmmo(weapon, { ammos }),
         });
 
         if (action.versatileOptions.length > 0) {
@@ -1416,19 +1487,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             });
         }
 
-        // Show the ammo list if the weapon requires ammo
-        if (weapon.system.expend) {
-            const compatible = ammos
-                .filter((a) => a.isAmmoFor(weapon))
-                .map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` }));
-            const incompatible = ammos
-                .filter((a) => !a.isAmmoFor(weapon))
-                .map((a) => ({ id: a.id, label: `${a.name} (${a.quantity})` }));
-            const ammo = weapon.ammo;
-            const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
-            action.ammunition = { compatible, incompatible, selected };
-        }
-
         action.breakdown = action.modifiers
             .filter((m) => m.enabled)
             .map((m) => `${m.label} ${m.signedValue}`)
@@ -1437,7 +1495,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Multiple attack penalty
         const createMAPenalty = (data: MultipleAttackPenaltyData, increases: ZeroToTwo) => {
             if (increases === 0) return null;
-            const penalty = new ModifierPF2e({
+            const penalty = new Modifier({
                 slug: data.slug,
                 label: data.label,
                 modifier: data[`map${increases}`],
@@ -1448,11 +1506,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const initialMAPs = calculateMAPs(weapon, { domains: attackDomains, options: initialRollOptions });
 
         const checkModifiers = [
-            (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
+            (statistic: StrikeData, otherModifiers: Modifier[]) =>
                 new CheckModifier("strike", statistic, otherModifiers),
-            (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
+            (statistic: StrikeData, otherModifiers: Modifier[]) =>
                 new CheckModifier("strike-map1", statistic, otherModifiers),
-            (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
+            (statistic: StrikeData, otherModifiers: Modifier[]) =>
                 new CheckModifier("strike-map2", statistic, otherModifiers),
         ];
 
@@ -1473,12 +1531,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const expend = weapon.system.expend ?? 0;
                 const configuredAmmo = weapon.ammo;
-                const ammoRemaining = configuredAmmo?.isOfType("consumable")
+                const ammoRemaining = configuredAmmo?.isOfType("ammo")
                     ? configuredAmmo.uses.max > 1
                         ? configuredAmmo.uses.value
                         : configuredAmmo.quantity
                     : (configuredAmmo?.quantity ?? 0);
-                params.consumeAmmo ??= expend > 0;
+                params.consumeAmmo = weapon.system.ammo?.builtIn ? false : (params.consumeAmmo ?? expend > 0);
 
                 if (params.consumeAmmo && expend > ammoRemaining) {
                     ui.notifications.warn(
@@ -1572,8 +1630,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     return null;
                 }
 
-                const roll = await CheckPF2e.roll(check, checkContext, params.event, params.callback);
-
+                const roll = await Check.roll(check, checkContext, params.event, params.callback);
                 if (roll) {
                     for (const rule of context.origin.actor.rules.filter((r) => !r.ignored)) {
                         await rule.afterRoll?.({
@@ -1591,6 +1648,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }));
         action.attack = action.roll = action.variants[0].roll;
 
+        // Note this since a damage alteration may set it to true, which we want to revert after rolling
+        const originalDiceUpgraded = weapon.flags.pf2e.damageFacesUpgraded;
+
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
                 params.options = new Set(params.options ?? []);
@@ -1600,7 +1660,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     viewOnly: params.getFormula ?? false,
                     origin: { actor: this, statistic: action, item: weapon },
                     target: { token: targetToken?.document },
-                    domains: getStrikeDamageDomains(weapon, proficiencyRank),
+                    domains: getAttackDamageDomains(weapon, proficiencyRank),
                     outcome: method === "damage" ? "success" : "criticalSuccess",
                     options: new Set([...baseOptions, ...params.options]),
                     traits: actionTraits,
@@ -1647,10 +1707,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const damage = await WeaponDamagePF2e.calculate({
                     weapon: weaponClone,
                     actor: context.origin.actor,
-                    weaponPotency,
+                    weaponPotency: weapon.flags.pf2e.attackItemBonus,
                     context: damageContext,
                 });
                 if (!damage) return null;
+                weapon.flags.pf2e.damageFacesUpgraded = originalDiceUpgraded;
 
                 if (params.getFormula) {
                     const formula = damage.damage.formula[outcome];
@@ -1715,10 +1776,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             );
             for (const proficiency of linkedProficiencies) {
                 const category = proficiencies[proficiency.sameAs ?? ""];
-                proficiency.rank = ((): ZeroToFour => {
-                    const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
-                    return Math.min(category?.rank ?? 0, maxRankIndex) as ZeroToFour;
-                })();
+                const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
+                proficiency.rank = Math.min(category?.rank ?? 0, maxRankIndex) as ZeroToFour;
             }
 
             // Deduplicate proficiencies, set proficiency bonuses to all
@@ -1915,8 +1974,8 @@ interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
 
 interface PrepareStrikeOptions {
     categories: WeaponCategory[];
-    handsReallyFree: ZeroToTwo;
-    ammos?: (ConsumablePF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
+    handsReallyFree: number;
+    ammos?: (AmmoPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
 }
 
 export { CharacterPF2e };

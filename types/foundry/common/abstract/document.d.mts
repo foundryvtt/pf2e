@@ -31,7 +31,7 @@ export default abstract class Document<
     TSchema extends DataSchema = DataSchema,
 > extends DataModel<TParent, TSchema> {
     /** A set of localization prefix paths which are used by this Document model. */
-    static LOCALIZATION_PREFIXES: string[];
+    static override LOCALIZATION_PREFIXES: string[];
 
     protected override _configure(options?: { pack?: string | null; parentCollection?: string | null }): void;
 
@@ -47,7 +47,7 @@ export default abstract class Document<
 
     protected override _initialize(options?: Record<string, unknown>): void;
 
-    protected static override _initializationOrder(): Generator<[string, DataField], void>;
+    static override _initializationOrder(): Generator<[string, DataField], void>;
 
     /* -------------------------------------------- */
     /*  Model Configuration                         */
@@ -521,7 +521,7 @@ export default abstract class Document<
      * @returns A return value of false indicates the creation operation should be cancelled.
      */
     protected _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;

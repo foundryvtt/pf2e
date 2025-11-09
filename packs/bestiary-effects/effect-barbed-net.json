@@ -4,16 +4,16 @@
     "name": "Effect: Barbed Net",
     "system": {
         "description": {
-            "value": "<p>The creature takes a -10-foot circumstance penalty to its Speeds.</p>"
+            "value": "<p>You become clumsy 1 and take a –10-foot circumstance penalty to your Speeds. If the Strike was a critical success, you are also immobilized.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
         },
         "level": {
-            "value": 3
+            "value": 1
         },
         "publication": {
             "license": "OGL",
@@ -22,10 +22,38 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.success",
+                        "value": "success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "barbed-net"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
                 "key": "FlatModifier",
-                "selector": "speed",
+                "selector": "all-speeds",
                 "type": "circumstance",
                 "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "barbed-net:critical-success"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
             }
         ],
         "start": {

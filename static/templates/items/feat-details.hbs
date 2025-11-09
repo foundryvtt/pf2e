@@ -123,7 +123,12 @@
         <ul{{#unless hasProficiencies}} class="empty"{{/unless}}>
             {{#each proficiencies as |group|~}}
                 {{#each group.options as |option|~}}
-                    {{#if option.rank~}}
+                    {{#if option.invalid~}}
+                        <li class="notification error">
+                            <span>{{option.label}}</span>
+                            <a data-action="delete-proficiency" data-slug="{{option.slug}}"><i class="fa-solid fa-trash"></i></a>
+                        </li>
+                    {{else if option.rank~}}
                         <li>
                             <label for="{{@root.fieldIdPrefix}}{{option.slug}}">{{option.label}}</label>
                             <select

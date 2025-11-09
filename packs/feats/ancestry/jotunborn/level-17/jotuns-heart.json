@@ -1,0 +1,82 @@
+{
+    "_id": "dnqTx5rziTrcgS3B",
+    "folder": "FiYm47E918RTO73a",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Jotun's Heart",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have unlocked the power of a true giant within you. Your size becomes Huge. You have a 10-foot reach. Your maximum Hit Points increase by your level.</p><hr /><p><strong>Special</strong> When you enter @UUID[Compendium.pf2e.feats-srd.Item.Jotun's Battle Stance], instead of its previous effects, it now increases the reach of any weapon you are wielding, or your fist unarmed attack, by 5 feet.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Jotun's Battle Stance"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "reach": {
+                    "override": 10
+                },
+                "resizeEquipment": true,
+                "value": "huge"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "@actor.level"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Jotunborn.JotunsHeart.ToggleLabel",
+                "option": "jotuns-heart-reach",
+                "phase": "afterDerived",
+                "predicate": [
+                    "self:effect:jotuns-battle-stance"
+                ],
+                "priority": 19,
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.base",
+                "phase": "afterDerived",
+                "predicate": [
+                    "jotuns-heart-reach"
+                ],
+                "value": 5
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "jotunborn"
+            ]
+        }
+    },
+    "type": "feat"
+}

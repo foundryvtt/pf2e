@@ -89,6 +89,11 @@
                 "toggleable": true
             },
             {
+                "key": "RollOption",
+                "option": "non-humanoid-change-shape",
+                "priority": 40
+            },
+            {
                 "itemType": "action",
                 "key": "ItemAlteration",
                 "mode": "override",
@@ -103,16 +108,13 @@
                 ]
             },
             {
-                "itemType": "action",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:change-shape"
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "traits",
+                        "value": "arcane"
+                    }
                 ],
-                "property": "traits",
-                "value": "arcane"
-            },
-            {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Change Shape"
             }

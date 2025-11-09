@@ -1,6 +1,7 @@
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Coins } from "@item/physical/helpers.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { localizer, sluggify } from "@util";
+import { sluggify } from "@util";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
@@ -9,7 +10,7 @@ import { CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from ".
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "equipment";
-    tabLabel = "TYPES.Item.equipment";
+    tabLabel = "PF2E.CompendiumBrowser.TabEquipment";
     declare filterData: EquipmentFilters;
 
     /* MiniSearch */
@@ -29,8 +30,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         "source",
     ];
 
-    #localizeCoins = localizer("PF2E.CurrencyAbbreviations");
-
     constructor(browser: CompendiumBrowser) {
         super(browser);
 
@@ -42,7 +41,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading inventory items");
 
         const inventoryItems: CompendiumBrowserIndexData[] = [];
-        const itemTypes = ["weapon", "shield", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
+        const itemTypes = [...PHYSICAL_ITEM_TYPES, "kit"];
         // Define index fields for different types of equipment
 
         const baseFields = ["img", "system.price", "system.traits", "system.publication", "system.source"];
@@ -59,7 +58,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const itemData of index) {
-                if (itemData.type === "treasure" && itemData.system.stackGroup === "coins") continue;
+                if (itemData.type === "treasure" && itemData.system.category === "coin") continue;
                 if (itemTypes.includes(itemData.type)) {
                     const skip = (() => {
                         switch (itemData.type) {
@@ -84,7 +83,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
                     const priceValue = itemData.system.price.value;
                     const priceCoins =
-                        typeof priceValue === "string" ? CoinsPF2e.fromString(priceValue) : new CoinsPF2e(priceValue);
+                        typeof priceValue === "string" ? Coins.fromString(priceValue) : new Coins(priceValue);
                     const coinValue = priceCoins.copperValue;
 
                     // Prepare publication source
@@ -204,21 +203,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
     override parseRangeFilterInput(name: string, lower: string, upper: string): RangesInputData["values"] {
         if (name === "price") {
-            const coins = {
-                cp: this.#localizeCoins("cp"),
-                sp: this.#localizeCoins("sp"),
-                gp: this.#localizeCoins("gp"),
-                pp: this.#localizeCoins("pp"),
-            };
-            for (const [english, translated] of Object.entries(coins)) {
-                lower = lower.replaceAll(translated, english);
-                upper = upper.replaceAll(translated, english);
-            }
+            const minCoins = Coins.fromString(lower);
+            const maxCoins = Coins.fromString(upper);
             return {
-                min: CoinsPF2e.fromString(lower).copperValue,
-                max: CoinsPF2e.fromString(upper).copperValue,
-                inputMin: lower,
-                inputMax: upper,
+                min: minCoins.copperValue,
+                max: maxCoins.copperValue,
+                inputMin: minCoins.toString({ short: true, defaultDenomination: "cp", normalize: false }),
+                inputMax: maxCoins.toString({ short: true, normalize: false }),
             };
         }
 
@@ -226,6 +217,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     }
 
     protected override prepareFilterData(): EquipmentFilters {
+        const defaultMinPrice = new Coins({ cp: 0 });
+        const defaultMaxPrice = new Coins({ gp: 200000 });
+        const minPriceString = defaultMinPrice.toString({ short: true, defaultDenomination: "cp", normalize: false });
+        const maxPriceString = defaultMaxPrice.toString({ short: true, normalize: false });
+
         return {
             checkboxes: {
                 itemTypes: {
@@ -277,15 +273,15 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             ranges: {
                 price: {
                     changed: false,
-                    defaultMin: `0${this.#localizeCoins("cp")}`,
-                    defaultMax: `200,000${this.#localizeCoins("gp")}`,
+                    defaultMin: minPriceString,
+                    defaultMax: maxPriceString,
                     isExpanded: false,
                     label: "PF2E.PriceLabel",
                     values: {
-                        min: 0,
-                        max: 20_000_000,
-                        inputMin: `0${this.#localizeCoins("cp")}`,
-                        inputMax: `200,000${this.#localizeCoins("gp")}`,
+                        min: defaultMinPrice.copperValue,
+                        max: defaultMaxPrice.copperValue,
+                        inputMin: minPriceString,
+                        inputMax: maxPriceString,
                     },
                 },
             },

@@ -1,0 +1,128 @@
+{
+    "_id": "vky5bQfK7SG3uOMA",
+    "img": "icons/magic/fire/flame-burning-hand-white.webp",
+    "name": "War Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your studies have focused on using magic on the battlefield along with the basics of warfare. With a sturdy breastplate to turn aside errant arrows, you confidently use your spells to turn the tide of battle. If you choose this class archetype, you must select @UUID[Compendium.pf2e.feats-srd.Item.War Mage Dedication] as your 2nd-level class feat.</p>\n<p><strong>Prerequisites:</strong> You must be a wizard.</p>\n<p><strong>War Mage Adjustments:</strong> You become trained in light and medium armor. At 11th level, you gain expert proficiency with light and medium armor, as well as unarmored defense.</p>\n<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat at 1st level.</p>\n<p>You gain the war magic class feature at 1st level.</p>\n<p>You must choose the @UUID[Compendium.pf2e.classfeatures.Item.School of Battle Magic] as your arcane school.</p>\n<p>You have familiarity with martial weapons, treating them as simple weapons for the purposes of proficiency. You do not gain the @UUID[Compendium.pf2e.classfeatures.Item.Arcane Bond] or @UUID[Compendium.pf2e.classfeatures.Item.Arcane Thesis] class features.</p>\n<p>You do not gain the @UUID[Compendium.pf2e.classfeatures.Item.Defensive Robes] feature at 13th level.</p>\n<p><strong>War Magic:</strong> As a free action that can be taken once per round at the start of your turn, you can exchange any spell you currently have memorized for @UUID[Compendium.pf2e.spells-srd.Item.Sure Strike], heightened to the same level as the replaced spell. As normal, you can cast most spells while wielding a weapon in your hands. You can Refocus by studying plans of war, maps of troop movement, and reports from the field for an active conflict in lieu of studying your spellbook.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "flag": "spellshotDedication",
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            2
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.War Mage Dedication"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.School of Battle Magic"
+            },
+            {
+                "definition": [
+                    "item:category:martial"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.Actor.Character.Proficiency.Attack.Martial",
+                "sameAs": "simple"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.light.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.unarmored.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "light": {
+                    "attribute": null,
+                    "rank": 1
+                },
+                "medium": {
+                    "attribute": null,
+                    "rank": 1
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": [
+                "Compendium.pf2e.classfeatures.Item.Arcane School",
+                "Compendium.pf2e.classfeatures.Item.Defensive Robes",
+                "Compendium.pf2e.classfeatures.Item.Arcane Bond",
+                "Compendium.pf2e.classfeatures.Item.Arcane Thesis"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

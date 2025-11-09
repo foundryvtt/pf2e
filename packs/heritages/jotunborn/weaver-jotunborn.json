@@ -1,0 +1,44 @@
+{
+    "_id": "K0NerdkFnce9KeHw",
+    "folder": "yJnvrcSz6PPOfFs8",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Weaver Jotunborn",
+    "system": {
+        "ancestry": {
+            "name": "Jotunborn",
+            "slug": "jotunborn",
+            "uuid": "Compendium.pf2e.ancestries.Item.gayvFCiQcGNCA7aM"
+        },
+        "description": {
+            "value": "<p>You've mastered the art of iivlar silk weaving, a technique that requires a fine attention to detail. You are trained in Crafting. You gain a +1 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] when searching for hidden details like secret doors or traps.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    "secret-doors-or-traps"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

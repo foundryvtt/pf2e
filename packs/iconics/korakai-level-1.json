@@ -1084,6 +1084,7 @@
                 "bulk": {
                     "value": 1
                 },
+                "category": "coin",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -1110,15 +1111,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "silver-pieces",
-                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -1139,6 +1139,7 @@
                 "bulk": {
                     "value": 1
                 },
+                "category": "coin",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -1165,15 +1166,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 9,
                 "rules": [],
                 "size": "med",
                 "slug": "copper-pieces",
-                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -1350,6 +1350,11 @@
             "name": "Sling",
             "sort": 0,
             "system": {
+                "ammo": {
+                    "baseType": "sling-bullets",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "sling",
                 "bonus": {
                     "value": 0
@@ -1434,31 +1439,17 @@
             "name": "Sling Bullets",
             "sort": 0,
             "system": {
-                "baseItem": null,
+                "baseItem": "sling-bullets",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -1475,13 +1466,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "sling-bullets",
-                "stackGroup": "slingBullets",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -1489,7 +1478,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "Nqdb6aAb3DALQvNV",
@@ -2681,21 +2670,7 @@
                         ],
                         "selector": "crafting",
                         "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 2,
-                                    "start": 1,
-                                    "value": 1
-                                }
-                            ],
-                            "field": "actor|system.skills.crafting.rank"
-                        }
+                        "value": "match(when(btwn(@actor.system.skills.crafting.rank, 3, 4), 2), when(btwn(@actor.system.skills.crafting.rank, 1, 2), 1))"
                     }
                 ],
                 "slug": "seasoned",
@@ -2807,6 +2782,9 @@
         },
         {
             "_id": "WWS5fkvizZj1SNZu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.AmFv3ClkAVRowHLI"
+            },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Tengu Weapon Familiarity",
             "sort": 0,
@@ -2915,6 +2893,9 @@
         },
         {
             "_id": "tdSKM6pDCnCa6ffz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.PRJYLksQEwT39bTl"
+            },
             "flags": {
                 "pf2e": {
                     "itemGrants": {
@@ -2982,6 +2963,9 @@
         },
         {
             "_id": "YIubqPsgP0VfbzZO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.W9cF7wZztLDb1WGY"
+            },
             "flags": {
                 "pf2e": {
                     "grantedBy": {
@@ -3062,6 +3046,9 @@
         },
         {
             "_id": "iB51ZexQXPReTiWL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.CuVvDrBaVP9nYJlt"
+            },
             "flags": {
                 "pf2e": {
                     "grantedBy": {
@@ -3115,6 +3102,9 @@
         },
         {
             "_id": "mnz9yWFgZj4gc7mG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.LIV2gH3ZUFlu0zu4"
+            },
             "flags": {
                 "pf2e": {
                     "grantedBy": {
@@ -3135,7 +3125,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>The weather seems to always oppose you in ways large and small. Even when you are calm and at rest, your hair and clothing are inconveniently blown about by gentle winds, you are slightly damp from the faintest drizzle, and your touch often comes with a static shock. When you have the @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] condition, you are opposed by the elements, with the following effects.</p>\n<p><strong>Cursebound 1</strong> Lightning is drawn to you. You gain electricity weakness 2 and electricity spells or effects that have additional effects for a creature wearing or holding metal treat you as though you were wearing metal. Any immunity or resistance you have to such spells and effects is suppressed.</p>\n<p><strong>Cursebound 2</strong> Blowing winds impose a -2 circumstance penalty to ranged attack rolls you make.</p>\n<p><strong>Cursebound 3</strong> Your weakness to electricity is equal to 5 + your level.</p>\n<p><strong>Cursebound 4</strong> The raging winds push you back, imposing a -10-foot status penalty to all your Speeds.</p>"
+                    "value": "<p>The weather seems to always oppose you in ways large and small. Even when you are calm and at rest, your hair and clothing are inconveniently blown about by gentle winds, you are slightly damp from the faintest drizzle, and your touch often comes with a static shock. When you have the @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] condition, you are opposed by the elements, with the following effects.</p>\n<p><strong>Cursebound 1</strong> Lightning is drawn to you. You gain electricity weakness 2 and electricity spells or effects that have additional effects for a creature wearing or holding metal treat you as though you were wearing metal. Any immunity or resistance you have to such spells and effects is suppressed.</p>\n<p><strong>Cursebound 2</strong> Blowing winds impose a -2 circumstance penalty to ranged attack rolls you make.</p>\n<p><strong>Cursebound 3</strong> Your weakness to electricity is equal to 5 + your level.</p>\n<p><strong>Cursebound 4</strong> The raging winds push you back, imposing a –10-foot status penalty to all your Speeds.</p>"
                 },
                 "level": {
                     "value": 1
@@ -3195,6 +3185,9 @@
         },
         {
             "_id": "ZtIwvu5U7Wjy5Knn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.1RfnAiyQ5FR7vnuH"
+            },
             "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
             "name": "Spell Repertoire",
             "sort": 0,
@@ -3270,6 +3263,9 @@
         },
         {
             "_id": "iQe93pHvuFYJqkw2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.7AVspOB6ITNzGFZi"
+            },
             "img": "icons/weapons/axes/axe-double-gold.webp",
             "name": "Oracle Spellcasting",
             "sort": 0,
@@ -3309,6 +3305,9 @@
         },
         {
             "_id": "ibB3F3Y9jRSOcQOD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.ibX2EhKkyUtbOHLj"
+            },
             "img": "icons/sundries/scrolls/scroll-runed-brown.webp",
             "name": "Oracular Curse",
             "sort": 0,
@@ -3411,6 +3410,9 @@
         },
         {
             "_id": "lZMQM4hsvvh18EsE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.NXUOtO9NytHQurlg"
+            },
             "img": "systems/pf2e/icons/features/classes/revelation-spells.webp",
             "name": "Revelation Spells",
             "sort": 0,
@@ -3556,10 +3558,6 @@
             "hp": {
                 "temp": 0,
                 "value": 15
-            },
-            "speed": {
-                "otherSpeeds": [],
-                "value": 25
             }
         },
         "build": {

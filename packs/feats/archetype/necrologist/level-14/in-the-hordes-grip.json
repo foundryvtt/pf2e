@@ -1,0 +1,63 @@
+{
+    "_id": "E7dvSRTr9s2q8TKe",
+    "folder": "vnsgucjF6l9s28iA",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "In the Horde's Grip",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When your skeletons and zombies attack, their skeletal claws and rotting hands clutch and tear flesh. Weaker foes are caught in their grip. You command your horde to perform a @UUID[Compendium.pf2e.actionspf2e.Item.Mobbing Assault]. Instead of being @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], a creature who takes physical damage from failing the saving throw is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by your horde (@UUID[Compendium.pf2e.conditionitems.Item.Restrained] on a critical failure). The DC to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] from your horde is equal to your spell DC. Creatures grabbed by your horde that fail a saving throw against the horde's Mobbing Assault take @Damage[2d6[persistent,bleed]] damage.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Grasping Corpses"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "in-the-hordes-grip",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "in-the-hordes-grip"
+                ],
+                "selector": "mobbing-assault-inline-damage",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "concentrate",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,27 +1,30 @@
 import { ActorPF2e } from "@actor";
-import { handleKingdomChatMessageEvent } from "@actor/party/kingdom/chat.ts";
-import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
+import { Kingdom } from "@actor/party/kingdom/model.ts";
+import type { ApplicationRenderContext, ApplicationRenderOptions } from "@client/applications/_types.d.mts";
+import type ChatPopout from "@client/applications/sidebar/apps/chat-popout.d.mts";
 import type { ContextMenuCondition, ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type { ChatMessageSource, ChatSpeakerData } from "@common/documents/chat-message.d.mts";
-import { EffectPF2e, type ShieldPF2e } from "@item";
+import { EffectPF2e, ItemPF2e, type ShieldPF2e } from "@item";
 import { EffectSource } from "@item/effect/data.ts";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { CombatantPF2e } from "@module/encounter/index.ts";
 import { TokenDocumentPF2e } from "@scene";
-import { CheckPF2e } from "@system/check/index.ts";
+import { Check } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { createHTMLElement, ErrorPF2e, htmlClosest, htmlQuery, objectHasKey } from "@util";
+import { createHTMLElement, ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
+import * as R from "remeda";
 
 class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
-    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+    static override DEFAULT_OPTIONS = {
         actions: {
+            activate: ChatLogPF2e.#onClickActivate,
             applyDamage: ChatLogPF2e.#onClickApplyDamage,
             applyEffect: ChatLogPF2e.#onClickApplyEffect,
             findToken: ChatLogPF2e.#onClickFindToken,
-            kingdomAction: ChatLogPF2e.#onClickKingdomAction,
+            kingdomCollect: ChatLogPF2e.#onClickKingdomAction,
             revertDamage: ChatLogPF2e.#onClickRevertDamage,
             recoverPersistentDamage: ChatLogPF2e.#onClickRecoverPersistent,
             setAsInitiative: ChatLogPF2e.#onClickSetAsInitiative,
@@ -38,13 +41,14 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         options: fa.api.HandlebarsRenderOptions,
     ): Promise<void> {
         await super._onRender(context, options);
+        if (!options.parts.includes("log")) return;
         const log = htmlQuery(this.element, "ol.chat-log");
         if (!log) throw ErrorPF2e("Unexpected failure to find ChatLog element");
         log.dataset.tooltipDirection = "UP";
         log.addEventListener("dblclick", async (event): Promise<void> => {
             const { message } = ChatLogPF2e.#messageFromEvent(event);
             const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
-            if (senderEl && message) return ChatLogPF2e.#onClickFindToken(event);
+            if (senderEl && message) return ChatLogPF2e.#onClickFindToken.call(this, event as PointerEvent);
         });
     }
 
@@ -58,9 +62,8 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         options: { speaker?: ChatSpeakerData } = {},
     ): Promise<ChatMessage | undefined> {
         const [command, matches] = ChatLogPF2e.parse(message) ?? [];
-        if (!["roll", "publicroll", "gmroll", "blindroll", "selfroll"].includes(command) || !Array.isArray(matches)) {
-            return super.processMessage(message, options);
-        }
+        const isRollCommand = ["roll", "publicroll", "gmroll", "blindroll", "selfroll"].includes(command);
+        if (!isRollCommand || !Array.isArray(matches)) return super.processMessage(message, options);
 
         const speaker = (options.speaker ??= ChatMessagePF2e.getSpeaker());
         const chatData: DeepPartial<ChatMessageSource> = { speaker, author: game.user.id, flavor: "" };
@@ -73,7 +76,9 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             const roll = await ((): Promise<Rolled<DamageRoll>> | null => {
                 try {
                     const damageRoll = new DamageRoll(formula, rollData);
-                    return looksLikeDamageRoll(damageRoll) ? damageRoll.evaluate() : null;
+                    const rollMode = command === "roll" ? game.settings.get("core", "rollMode") : command;
+                    const allowInteractive = rollMode !== "blindroll";
+                    return looksLikeDamageRoll(damageRoll) ? damageRoll.evaluate({ allowInteractive }) : null;
                 } catch {
                     return null;
                 }
@@ -104,7 +109,46 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         return element && message ? { element, message } : { element: null, message: null };
     }
 
-    static async #onClickApplyDamage(this: ChatLogPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
+    static async onRenderChatPopout(popout: ChatPopout, options: ApplicationRenderOptions): Promise<void> {
+        if (!options.isFirstRender) return;
+        Object.assign(
+            popout.options.actions,
+            R.pick(this.DEFAULT_OPTIONS.actions, [
+                "activate",
+                "applyDamage",
+                "applyEffect",
+                "findToken",
+                "revertDamage",
+                "recoverPersistentDamage",
+                "setAsInitiative",
+                "shieldBlock",
+            ]),
+        );
+    }
+
+    static async #onClickActivate(
+        this: ChatLogPF2e | ChatPopout,
+        event: PointerEvent,
+        button: HTMLElement,
+    ): Promise<void> {
+        const { message } = ChatLogPF2e.#messageFromEvent(event);
+        if (!message) throw ErrorPF2e("Unexpected failure to acquire message");
+        const uuid = button.dataset.uuid ?? "";
+        const item = await fromUuid<ItemPF2e>(uuid);
+        if (!item?.isOfType("physical") || item.quantity === 0) {
+            ui.notifications.warn("PF2E.Item.Activation.Warning.ItemDoesNotExist", { localize: true });
+            return;
+        }
+
+        // Consumables don't have a proper activation flow yet, change implementation when they do
+        await item.toMessage();
+    }
+
+    static async #onClickApplyDamage(
+        this: ChatLogPF2e | ChatPopout,
+        event: PointerEvent,
+        button: HTMLElement,
+    ): Promise<void> {
         const { message } = ChatLogPF2e.#messageFromEvent(event);
         if (!message) throw ErrorPF2e("Unexpected failure to acquire message");
         const multiplier = Number(button.dataset.multiplier);
@@ -118,7 +162,11 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         });
     }
 
-    static async #onClickApplyEffect(this: ChatLogPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
+    static async #onClickApplyEffect(
+        this: ChatLogPF2e | ChatPopout,
+        event: PointerEvent,
+        button: HTMLElement,
+    ): Promise<void> {
         if (!(button instanceof HTMLButtonElement)) return;
         button.disabled = true;
         const target = fromUuidSync(button.dataset.targets ?? "");
@@ -171,7 +219,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         }
     }
 
-    static async #onClickSetAsInitiative(this: ChatLogPF2e, event: PointerEvent): Promise<void> {
+    static async #onClickSetAsInitiative(this: ChatLogPF2e | ChatPopout, event: PointerEvent): Promise<void> {
         const { message } = ChatLogPF2e.#messageFromEvent(event);
         if (!message) return;
         const { speakerActor: actor, token } = message ?? {};
@@ -192,10 +240,31 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
 
     static async #onClickKingdomAction(this: ChatLogPF2e, event: PointerEvent): Promise<void> {
         const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
-        if (message && messageEl) return handleKingdomChatMessageEvent({ event, message, messageEl });
+        if (!message || !messageEl) return;
+
+        const party = message.actor ?? game.actors.party;
+        if (!party?.isOfType("party") || !party?.isOwner || !(party?.campaign instanceof Kingdom)) {
+            return;
+        }
+
+        const kingdom = party.campaign;
+        await kingdom.collect();
+
+        const content = createHTMLElement("div", { innerHTML: message.content });
+        htmlQuery(content, "[data-action=kingdomCollect]")?.replaceWith(
+            createHTMLElement("div", {
+                classes: ["confirmation"],
+                children: [fontAwesomeIcon("fa-check"), "Resources Collected"],
+            }),
+        );
+        await message.update({ content: content.innerHTML });
     }
 
-    static async #onClickRevertDamage(this: ChatLogPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
+    static async #onClickRevertDamage(
+        this: ChatLogPF2e | ChatPopout,
+        event: PointerEvent,
+        button: HTMLElement,
+    ): Promise<void> {
         const { message, element } = ChatLogPF2e.#messageFromEvent(event);
         const appliedDamage = message?.flags.pf2e.appliedDamage;
         if (!appliedDamage) return;
@@ -216,7 +285,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         });
     }
 
-    static async #onClickRecoverPersistent(event: PointerEvent): Promise<void> {
+    static async #onClickRecoverPersistent(this: ChatLogPF2e | ChatPopout, event: PointerEvent): Promise<void> {
         const message = ChatLogPF2e.#messageFromEvent(event).message;
         const actor = message?.speakerActor;
         const roll = message?.rolls.find((r): r is Rolled<DamageRoll> => r instanceof DamageRoll);
@@ -237,7 +306,11 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         await condition.rollRecovery();
     }
 
-    static async #onClickShieldBlock(event: PointerEvent, button: HTMLElement): Promise<void> {
+    static async #onClickShieldBlock(
+        this: ChatLogPF2e | ChatPopout,
+        event: PointerEvent,
+        button: HTMLElement,
+    ): Promise<void> {
         const { element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
         const getTokens = (): TokenDocumentPF2e[] => {
             const tokens = game.user.getActiveTokens();
@@ -340,7 +413,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         }
     }
 
-    static async #onClickFindToken(event: MouseEvent): Promise<void> {
+    static async #onClickFindToken(this: ChatLogPF2e | ChatPopout, event: PointerEvent): Promise<void> {
         if (!canvas.ready) return;
         const { message } = ChatLogPF2e.#messageFromEvent(event);
         const token = message?.token?.object;
@@ -376,6 +449,14 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             const messageActor = message.actor;
             const actor = messageActor?.isOfType("familiar") ? messageActor.master : messageActor;
             return message.isRerollable && !!actor?.isOfType("character") && actor.heroPoints.value > 0;
+        };
+
+        const canMythicPointReroll: ContextMenuCondition = (li) => {
+            const message = game.messages.get(li.dataset.messageId, { strict: true });
+            const actor = message.actor;
+            return (
+                message.isRerollable && !!actor?.isOfType("character") && actor.system.resources.mythicPoints.value > 0
+            );
         };
 
         const canShowRollDetails: ContextMenuCondition = (li) => {
@@ -445,7 +526,16 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 condition: canHeroPointReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { heroPoint: true });
+                    Check.rerollFromMessage(message, { resource: "hero-points" });
+                },
+            },
+            {
+                name: "PF2E.RerollMenu.MythicPoint",
+                icon: fa.fields.createFontAwesomeIcon("circle-m").outerHTML,
+                condition: canMythicPointReroll,
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
+                    Check.rerollFromMessage(message, { resource: "mythic-points" });
                 },
             },
             {
@@ -454,7 +544,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 condition: canReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message);
+                    Check.rerollFromMessage(message);
                 },
             },
             {
@@ -463,7 +553,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 condition: canReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { keep: "lower" });
+                    Check.rerollFromMessage(message, { keep: "lower" });
                 },
             },
             {
@@ -472,11 +562,10 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 condition: canReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { keep: "higher" });
+                    Check.rerollFromMessage(message, { keep: "higher" });
                 },
             },
         );
-
         return options;
     }
 }

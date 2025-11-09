@@ -1,0 +1,123 @@
+{
+    "_id": "1AOfjwg2uZQUcgQC",
+    "img": "icons/commodities/stone/paver-cobble-white.webp",
+    "name": "Effect: Toothy Knife",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Toothy Knife], @UUID[Compendium.pf2e.equipment-srd.Item.Toothy Knife (Greater)]</p>\n<p>The DC of your flat check to end persistent bleed damage is 17.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:toothy-knife"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Toothy Knife"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:toothy-knife-greater"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Toothy Knife (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "toothy-knife"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.ToothyKnife.ToggleLabel",
+                "option": "toothy-knife-assisted",
+                "toggleable": true
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:damage:type:bleed",
+                    "toothy-knife:toothy-knife"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 17
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:damage:type:bleed",
+                    "toothy-knife:toothy-knife",
+                    "toothy-knife-assisted"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 12
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:damage:type:bleed",
+                    "toothy-knife:toothy-knife-greater"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 19
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:damage:type:bleed",
+                    "toothy-knife:toothy-knife-greater",
+                    "toothy-knife-assisted"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 14
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

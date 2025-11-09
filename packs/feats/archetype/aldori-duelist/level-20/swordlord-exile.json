@@ -1,0 +1,67 @@
+{
+    "_id": "i8lCqWJDng4c3Cgp",
+    "folder": "VKg6B7hbIxnDBzZP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Swordlord Exile",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are a swordlord exile. You have abandoned or been abandoned by the Aldori Academy. Aldori swordlords are honor-bound to challenge you on sight. Additionally, your unbridled skill strikes terror in those around you. You can use Dueling Lore instead of Intimidation to [[/act coerce skill=dueling-lore]]{Coerce} and [[/act demoralize skill=dueling-lore]]{Demoralize} while your @UUID[Compendium.pf2e.equipment-srd.Item.Aldori Dueling Sword] is visible to the target of your attempt.</p>\n<p>With broken pride, your blade is now a disgraced tool used to remove obstacles between you and your goals, whatever they may be. The first time you hit a creature with an Aldori dueling sword each round, you deal 5 additional precision damage.</p><hr /><p><strong>Special</strong> You can't take both this feat and @UUID[Compendium.pf2e.feats-srd.Item.Aldori Swordlord].</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Aldori Duelist Dedication"
+                },
+                {
+                    "value": "you have broken or forsaken the Aldori swordpact"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "sworldlord-exile",
+                "prompt": "PF2E.SpecificRule.AldoriDuelist.SwordlordExile.ToggleLabel",
+                "toggleable": true
+            },
+            {
+                "critical": false,
+                "damageCategory": "precision",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "sworldlord-exile"
+                ],
+                "selector": "aldori-dueling-sword-base-damage",
+                "value": 5
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

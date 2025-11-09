@@ -1,0 +1,76 @@
+{
+    "_id": "SScln8qRQgVC6Brz",
+    "img": "icons/magic/symbols/question-stone-yellow.webp",
+    "name": "Effect: Pointed Question",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Pointed Question]</p>\n<p>You gain a circumstance bonus to your Perception DC if the marked creature attempts to Lie to you, and the marked creature is off-guard to the Strike you make against it using Devise a Stratagem.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "pointed-question"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 4
+                    }
+                ],
+                "flag": "pointedQuestion",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie",
+                    "origin:mark:pointed-question"
+                ],
+                "selector": "perception-dc",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.pointedQuestion"
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "target:mark:devise-a-stratagem",
+                    "target:mark:pointed-question"
+                ],
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

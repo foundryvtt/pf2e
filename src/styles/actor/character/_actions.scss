@@ -7,12 +7,10 @@
         }
 
         .toggles {
-            align-items: center;
-            display: flex;
             font-size: var(--font-size-14);
             gap: var(--space-2);
-            justify-content: center;
-            padding: 0 var(--space-3);
+            justify-content: start;
+            padding: 0 0 0 var(--space-3);
 
             button {
                 align-items: center;
@@ -137,20 +135,18 @@
             }
 
             .ammo {
-                align-items: center;
+                align-items: stretch;
                 display: flex;
-                gap: 3px;
+                flex-direction: column;
                 margin-bottom: 2px;
+                width: fit-content;
+                min-width: 20.25rem;
 
-                select.linked {
+                select {
                     font: normal var(--font-size-12) var(--sans-serif);
                     line-height: var(--font-size-12);
                     padding-top: 3px;
                     width: fit-content;
-
-                    &[data-compatible="false"] {
-                        color: #ffffff99;
-                    }
 
                     option,
                     optgroup {
@@ -158,17 +154,87 @@
                     }
                 }
 
-                .magazine {
-                    margin-right: 0.5rem;
-                    font-family: var(--sans-serif);
-                    font-weight: 600;
+                .loaded,
+                .empty {
+                    display: flex;
+                    align-items: center;
+                    gap: var(--space-4);
+                    .name {
+                        flex: 1;
+                    }
+                }
 
-                    .icon {
-                        display: inline-block;
-                        width: 0.9rem;
-                        height: 0.9rem;
-                        background-image: url("/assets/icons/heavy-bullets.svg");
-                        background-size: cover;
+                .loaded {
+                    border: 1px solid var(--color-pf-alternate-light);
+
+                    & + .loaded {
+                        border-top: none;
+                    }
+
+                    button.inline-control {
+                        flex: 1;
+                        text-align: left;
+                        padding: 0;
+                        margin: 0;
+                        height: unset;
+                    }
+
+                    img {
+                        border: none;
+                        width: 1.25rem;
+                        height: 1.25rem;
+                        object-fit: cover;
+                    }
+
+                    .magazine {
+                        font-family: var(--sans-serif);
+                        font-weight: 600;
+
+                        input {
+                            background: transparent;
+                            width: 4ch;
+                            min-width: auto;
+                            height: unset;
+                        }
+
+                        .icon {
+                            display: inline-block;
+                            width: 0.9rem;
+                            height: 0.9rem;
+                            background-image: url("/assets/icons/heavy-bullets.svg");
+                            background-size: cover;
+                        }
+                    }
+
+                    &.selected {
+                        button.inline-control {
+                            pointer-events: none;
+                        }
+                    }
+
+                    &:not(.selected) {
+                        button,
+                        .magazine {
+                            opacity: 0.8;
+                        }
+
+                        img {
+                            filter: grayscale(0.85);
+                        }
+                    }
+                }
+
+                .empty {
+                    border: 1px dashed var(--color-pf-alternate-light);
+                    line-height: unset;
+                    text-align: start;
+                    font-family: var(--body-serif);
+                    margin-top: 2px;
+                    .name {
+                        padding-left: calc(1.25rem + var(--space-4));
+                    }
+                    .remaining {
+                        margin-right: 4px;
                     }
                 }
             }
@@ -181,6 +247,7 @@
                 button {
                     // Modular damage select menu
                     select.modular {
+                        --form-field-height: 18px;
                         appearance: auto;
                         background: none;
                         color: var(--text-dark);
@@ -188,7 +255,12 @@
                         font: inherit;
                         margin-left: 0.5em;
                         padding: 0.15em 0.2em;
+                        pointer-events: unset;
                         text-transform: uppercase;
+
+                        &:focus {
+                            box-shadow: none;
+                        }
 
                         option {
                             background: var(--bg-dark);

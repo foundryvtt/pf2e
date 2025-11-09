@@ -1,0 +1,256 @@
+{
+    "_id": "T2wbyGJrH9XY24o6",
+    "img": "systems/pf2e/icons/spells/mantle-of-the-melting-heart.webp",
+    "name": "Spell Effect: Mantle of the Melting Heart",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mantle of the Melting Heart]</p>\n<p>Pick two of the options below. As a single action, which has the concentrate trait, you can change one of your chosen abilities to a different option from the list.</p><ul><li><strong>Copper Core</strong> You gain resistance 10 to electricity.</li><li><strong>Golden Flesh</strong> You become immune to poison and disease and gain a +2 circumstance bonus to your checks against any poison and disease effects currently affecting you.</li><li><strong>Reactive Touch</strong> Any metal that touches you or that you touch takes 2d6 acid damage that bypasses Hardness.</li><li><strong>Weighted Grasp</strong> You gain a cabled fist unarmed attack with the disarm, finesse, reach, and trip traits and that's in the flail group. Your cabled fist deals 1d4 bludgeoning damage plus an additional 1d6 poison damage and Grab.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.RollOptionLabel.First",
+                "option": "melting-heart-first",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.Label.CopperCore",
+                        "value": "copper-core"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.Label.GoldenFlesh",
+                        "value": "golden-flesh"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.Label.ReactiveTouch",
+                        "value": "reactive-touch"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.Label.WeightedGrasp",
+                        "value": "weighted-grasp"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.RollOptionLabel.Second",
+                "option": "melting-heart-second",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.Label.CopperCore",
+                        "predicate": [
+                            {
+                                "not": "melting-heart-first:copper-core"
+                            }
+                        ],
+                        "value": "copper-core"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.Label.GoldenFlesh",
+                        "predicate": [
+                            {
+                                "not": "melting-heart-first:golden-flesh"
+                            }
+                        ],
+                        "value": "golden-flesh"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.Label.ReactiveTouch",
+                        "predicate": [
+                            {
+                                "not": "melting-heart-first:reactive-touch"
+                            }
+                        ],
+                        "value": "reactive-touch"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.Label.WeightedGrasp",
+                        "predicate": [
+                            {
+                                "not": "melting-heart-first:weighted-grasp"
+                            }
+                        ],
+                        "value": "weighted-grasp"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:heart-of-melting",
+                "predicate": [
+                    {
+                        "or": [
+                            "melting-heart-first:reactive-touch",
+                            "melting-heart-second:reactive-touch"
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "melting-heart-first:copper-core",
+                            "melting-heart-second:copper-core"
+                        ]
+                    }
+                ],
+                "type": "electricity",
+                "value": 10
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    {
+                        "or": [
+                            "melting-heart-first:golden-flesh",
+                            "melting-heart-second:golden-flesh"
+                        ]
+                    }
+                ],
+                "type": [
+                    "disease",
+                    "poison"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.Label.GoldenFlesh",
+                "predicate": [
+                    "against-poison-disease-onself",
+                    {
+                        "or": [
+                            "melting-heart-first:golden-flesh",
+                            "melting-heart-second:golden-flesh"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "value": 2
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "flail",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.CabledFist.Label",
+                "predicate": [
+                    {
+                        "or": [
+                            "melting-heart-first:weighted-grasp",
+                            "melting-heart-second:weighted-grasp"
+                        ]
+                    }
+                ],
+                "slug": "cabled-fist",
+                "traits": [
+                    "disarm",
+                    "finesse",
+                    "reach",
+                    "trip",
+                    "unarmed"
+                ]
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "melting-heart-first:weighted-grasp",
+                            "melting-heart-second:weighted-grasp"
+                        ]
+                    }
+                ],
+                "selector": "cabled-fist-damage"
+            },
+            {
+                "damageType": "acid",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.Label.ReactiveTouch",
+                "predicate": [
+                    "target:trait:metal",
+                    {
+                        "or": [
+                            "melting-heart-first:reactive-touch",
+                            "melting-heart-second:reactive-touch"
+                        ]
+                    }
+                ],
+                "selector": "unarmed-damage"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "melting-heart-first:weighted-grasp",
+                            "melting-heart-second:weighted-grasp"
+                        ]
+                    }
+                ],
+                "selector": "cabled-fist-damage",
+                "text": "@Localize[PF2E.NPC.Abilities.Glossary.Grab]",
+                "title": "@Localize[PF2E.AttackEffectGrab]  <span class=\"action-glyph\">1</span>"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "origin:trait:metal",
+                    "self:heart-of-melting",
+                    "item:type:melee",
+                    {
+                        "not": "item:trait:reach"
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.SpecificRule.SpellEffectMantle.MeltingHeart.ReactiveTouch.DamageNote",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

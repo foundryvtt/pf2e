@@ -1,0 +1,138 @@
+{
+    "_id": "84GDSAXaMKMTg2IT",
+    "img": "icons/equipment/shield/kite-decorative-steel-claws.webp",
+    "name": "Shield",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>As a universal symbol of defense, a shield wards against a variety of effects and is associated with guardianship, vigilance, and guidance. You can choose only shields with a Bulk of 1 or less as an implement, which allows you to position your shield while managing your esoterica. Shield implements are associated with the harrow suit of shields and the astrological signs of the lantern bearer, the bridge, and the patriarch.</p><h3><strong>Initiate Benefit</strong></h3><p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat. If your shield implement would be reduced to 0 Hit Points, it's instead reduced to 1 Hit Point, its circumstance bonus to AC when you Raise a Shield is reduced by 1 (this can't reduce the bonus below 0), and you can't Shield Block with your shield implement until it loses the broken condition. You can still use your shield as an implement when it has the broken condition.</p>\n<p>At 5th level, whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Exploit Vulnerability], you can also Raise a Shield as a free action.</p><h3><strong>Adept Benefit</strong></h3><p>When you have your shield implement raised, you gain a status bonus to your saves against spells and other magic effects equal to your circumstance bonus to AC from your shield. In addition, damage you take as a result of a spell or magical effect while your Shield is Raised can trigger your Shield Block reaction, even if the damage isn't physical.</p><h3><strong>Intensify Vulnerability</strong></h3><p>Every drop of blood you spill bolsters your shield. If you succeed at a Strike against the target of your Exploit Vulnerability, your shield regains a number of Hit Points equal to half your level. If your shield is already at full Hit Points, you instead increase your shield's Hardness by your Charisma modifier until the beginning of your next turn. These effects aren't cumulative if you hit with more than one Strike.</p><h3><strong>Paragon Benefit</strong></h3><p>When you have your shield implement raised, the circumstance bonuses from your shield (both to AC and to saves against spells and other magic effects) also apply to all your allies within 15 feet. You can use your Shield Block reaction in defense of yourself or any of your allies within 15 feet.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.AllowedDrops.ShieldOneBulk",
+                    "predicate": [
+                        "item:type:shield"
+                    ]
+                },
+                "choices": {
+                    "filter": [
+                        {
+                            "not": "item:magical"
+                        }
+                    ],
+                    "itemType": "shield"
+                },
+                "flag": "shieldImplement",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Thaumaturge.Implement.Shield.Prompt"
+            },
+            {
+                "flag": "shieldImplement",
+                "key": "GrantItem",
+                "track": true,
+                "uuid": "{item|flags.pf2e.rulesSelections.shieldImplement}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.thaumaturge.shieldImplement",
+                "priority": 5,
+                "value": "{item|flags.pf2e.itemGrants.shieldImplement.id}"
+            },
+            {
+                "key": "RollOption",
+                "option": "implement-held",
+                "predicate": [
+                    "shield-implement:equipped"
+                ]
+            },
+            {
+                "key": "RollOption",
+                "option": "implement:shield:equipped",
+                "predicate": [
+                    "shield-implement:equipped"
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.itemGrants.shieldImplement.id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.84GDSAXaMKMTg2IT inline]"
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.thaumaturge.initiateBenefit",
+                "predicate": [
+                    "feat:thaumaturge-dedication"
+                ],
+                "value": "Compendium.pf2e.classfeatures.Item.Initiate Benefit (Shield)"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:thaumaturge"
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Initiate Benefit (Shield)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.thaumaturge.adeptChoices",
+                "predicate": [
+                    "class:thaumaturge"
+                ],
+                "priority": 20,
+                "value": {
+                    "label": "{item|name}",
+                    "predicate": [
+                        {
+                            "not": "feature:adept-benefit-shield"
+                        }
+                    ],
+                    "value": "Compendium.pf2e.classfeatures.Item.Adept Benefit (Shield)"
+                }
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "thaumaturge-implement"
+            ],
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

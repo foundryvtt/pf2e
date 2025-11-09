@@ -1,28 +1,57 @@
+{{formGroup systemFields.action label=(localize "PF2E.ActionTypeAction") value=data.action choices=attackActions}}
+
+{{#unless (eq data.action "strike")}}
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}area-size">{{localize "PF2E.Area.InFeet"}}</label>
+        <div class="details-container-two-columns">
+            <input
+                id="{{fieldIdPrefix}}area-size"
+                type="number"
+                data-property="system.area.value"
+                min="5"
+                step="5"
+                value="{{data.area.value}}"
+            />
+            <select id="{{fieldIdPrefix}}area-type" name="system.area.type">
+                {{selectOptions areaShapes selected=data.area.type blank="" localize=true}}
+            </select>
+        </div>
+    </div>
+{{/unless}}
+
 <div class="form-group attack-modifier">
-    <label>{{localize "PF2E.NPCWeaponAttackLabel"}}</label>
-    <input type="number" name="system.bonus.value" value="{{data.bonus.value}}" />
+    <label>{{modifierOrSave.label}}</label>
+    <input type="number" name="system.bonus.value" value="{{modifierOrSave.value}}" />
 </div>
+
+{{#unless item.traits.config.thrown}}
+    {{formGroup systemFields.range.fields.increment type="number" value=item._source.system.range.increment}}
+    {{formGroup systemFields.range.fields.max type="number" value=item._source.system.range.max}}
+{{/unless}}
 
 <ol class="form-list">
     {{#each data.damageRolls as |damageRoll key|}}
         <li class="damage-partial" data-key="{{key}}">
             <div class="form-group">
-                <label>{{localize "PF2E.DamageLabel"}}</label>
-                <input type="text" name="system.damageRolls.{{key}}.damage" value="{{lookup this "damage"}}" />
+                <div class="form-fields">
+                    <label>{{localize "PF2E.DamageLabel"}}</label>
+                    <div class="form-fields">
+                        <input type="text" name="system.damageRolls.{{key}}.damage" value="{{lookup this "damage"}}" />
+                    </div>
+
+                    <label>{{localize "PF2E.Roll.Type"}}</label>
+                    <select name="system.damageRolls.{{key}}.damageType">
+                        {{selectOptions @root.damageTypes selected=damageRoll.damageType localize=true}}
+                    </select>
+
+                    <label>{{localize "PF2E.Category"}}</label>
+                    <select name="system.damageRolls.{{key}}.category">
+                        {{selectOptions @root.damageCategories selected=damageRoll.category blank="" localize=true}}
+                    </select>
+
+                    <a class="damage-control remove-partial icon fa-solid fa-trash" data-action="remove-partial"></a>
+                </div>
             </div>
-            <div class="form-group type">
-                <label>{{localize "PF2E.Roll.Type"}}</label>
-                <select name="system.damageRolls.{{key}}.damageType">
-                    {{selectOptions @root.damageTypes selected=damageRoll.damageType localize=true}}
-                </select>
-            </div>
-            <div class="form-group category">
-                <label>{{localize "PF2E.Category"}}</label>
-                <select name="system.damageRolls.{{key}}.category">
-                    {{selectOptions @root.damageCategories selected=damageRoll.category blank="" localize=true}}
-                </select>
-            </div>
-            <a class="damage-control remove-partial" data-action="remove-partial"><i class="fa-solid fa-minus"></i></a>
         </li>
     {{/each}}
     <li class="damage-partial add">

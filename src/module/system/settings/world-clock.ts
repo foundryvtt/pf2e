@@ -1,10 +1,9 @@
 import type { ApplicationConfiguration, FormFooterButton } from "@client/applications/_module.d.mts";
 import type { FormDataExtended } from "@client/applications/ux/_module.d.mts";
-import { localizer } from "@util";
 import * as R from "remeda";
 import fields = foundry.data.fields;
 
-interface SettingsContext {
+interface SettingsContext extends fa.ApplicationRenderContext {
     rootId: string;
     fields: WorldClockSettingSchema;
     settings: WorldClockSettingData;
@@ -62,7 +61,7 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
     });
 
     /** Register World Clock settings and this menu. */
-    static registerSettings(): void {
+    static register(): void {
         game.settings.register("pf2e", "worldClock", {
             name: "PF2E.SETTINGS.WorldClock.Name",
             scope: "world",
@@ -96,6 +95,7 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
                 icon: "fa-solid fa-clock-rotate-left",
                 label: "PF2E.SETTINGS.WorldClock.ResetWorldTime.Label",
                 tooltip: "PF2E.SETTINGS.WorldClock.ResetWorldTime.Hint",
+                action: "resetWorldTime",
             },
         ];
         return {
@@ -115,12 +115,10 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
     }
 
     static async #onClickResetWorldTime(this: WorldClockSettings): Promise<void> {
-        const localize = localizer("PF2E.SETTINGS.WorldClock");
-        const title = localize("ResetWorldTime.Name");
         const templatePath = "systems/pf2e/templates/system/settings/world-clock/confirm-reset.hbs";
         const content = await fa.handlebars.renderTemplate(templatePath);
         fa.api.DialogV2.confirm({
-            window: { title },
+            window: { title: "PF2E.SETTINGS.WorldClock.ResetWorldTime.Label" },
             content,
             yes: {
                 callback: () => {

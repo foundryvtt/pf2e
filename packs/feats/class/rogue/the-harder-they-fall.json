@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You make your foes fall painfully when you trip them. When you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Trip] an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] foe, your target takes @Damage[1d6[bludgeoning]] damage. On a critical success, the target takes @Damage[1d6[bludgeoning]] damage plus your sneak attack damage.</p>"
+            "value": "<p>You make your foes fall painfully when you trip them. When you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Trip] an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] foe, your target takes 1d6 bludgeoning damage. On a critical success, the target takes 1d6 bludgeoning damage plus your sneak attack damage.</p>"
         },
         "level": {
             "value": 4
@@ -25,7 +25,40 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                "option": "target:condition:off-guard",
+                "toggleable": "totm"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:trip",
+                    "target:condition:off-guard"
+                ],
+                "selector": "skill-check",
+                "text": "PF2E.SpecificRule.Rogue.TheHarderTheyFall.CriticalSuccess",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:trip",
+                    "target:condition:off-guard"
+                ],
+                "selector": "skill-check",
+                "text": "PF2E.SpecificRule.Rogue.TheHarderTheyFall.Success",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

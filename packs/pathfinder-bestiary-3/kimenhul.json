@@ -3,13 +3,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "bhqneDVB7PGBIMMh",
+            "_id": "bm1p6Vp0YfRmEdMO",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 10
                 },
                 "description": {
                     "value": ""
@@ -37,17 +37,19 @@
                 },
                 "tradition": {
                     "value": "divine"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
         {
-            "_id": "xPDC5ZNYyp7yPbhS",
+            "_id": "HkfSCFXCDNPH4Cc9",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qDjeG6dxT4aEEC6J"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.MJx7DmjsWYzDZ3a4"
             },
+            "folder": "fi1AYNmuCRvoT15b",
             "img": "systems/pf2e/icons/spells/weird.webp",
-            "name": "Weird",
+            "name": "Phantasmagoria",
             "sort": 200000,
             "system": {
                 "area": null,
@@ -56,7 +58,8 @@
                 },
                 "counteraction": false,
                 "damage": {
-                    "0": {
+                    "1pyYgYlbN6qQ6aOV": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "16d6",
                         "kinds": [
@@ -73,7 +76,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You fill the targets' minds with terrifying images of fearsome creatures, each drawn from the targets' worst fears. Only the targets can see their assailants. Each target takes 16d6 mental damage and must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is so afraid, it might instantly die. It must attempt a Fortitude saving throw. If the target succeeds, it takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}, and it's also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] until the end of its next turn unless it critically succeeded. If it fails, it is reduced to 0 Hit Points and dies.</p>"
+                    "value": "<p>You fill the targets' minds with endless images, like countless dreams and lives colliding with each other. The onrushing information deals @Damage[16d6[mental]] damage to each target, depending on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and can't use reactions until the start of your next turn.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the start of your next turn.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is confused for 1 minute.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -84,19 +87,19 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "120 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "weird",
+                "slug": "phantasmagoria",
                 "target": {
                     "value": "any number of creatures"
                 },
@@ -112,8 +115,6 @@
                     "value": [
                         "concentrate",
                         "death",
-                        "emotion",
-                        "fear",
                         "illusion",
                         "manipulate",
                         "mental"
@@ -123,12 +124,13 @@
             "type": "spell"
         },
         {
-            "_id": "pQzYMrj90yKkCKzz",
+            "_id": "irsJJWGBsP14ZQeM",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.C2w3YfBKjIRS07DP"
             },
+            "folder": "IfuYSF4ymX48CZnm",
             "img": "systems/pf2e/icons/spells/mind-blank.webp",
-            "name": "Mind Blank (Constant)",
+            "name": "Hidden Mind (constant)",
             "sort": 300000,
             "system": {
                 "area": null,
@@ -139,7 +141,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell rank were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Hidden Mind]{Spell Effect: Mind Blank}</p>"
+                    "value": "<p>Powerful wards hide a creature from magic that would spy on it or affect its mind. The target gains a +4 status bonus to saves against mental effects. <em>Hidden mind</em> attempts to counteract any detection, revelation, and scrying effects as if its spell rank were 1 higher than its actual rank. On a success, the effect functions normally except that it detects nothing about the target and its possessions. For instance, <em>detect magic</em> would still detect other magic in the area, but not any magic on the target.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Hidden Mind]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -150,19 +152,19 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "range": {
                     "value": "30 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "mind-blank",
+                "slug": "hidden-mind",
                 "target": {
                     "value": "1 creature"
                 },
@@ -173,7 +175,6 @@
                     "rarity": "uncommon",
                     "traditions": [
                         "arcane",
-                        "divine",
                         "occult"
                     ],
                     "value": [
@@ -185,12 +186,13 @@
             "type": "spell"
         },
         {
-            "_id": "s5b07GowVsMRP7ro",
+            "_id": "WdIG7qExvn1SpJjV",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.O6VQC1Bs4aSYDa6R"
             },
+            "folder": "xqlqJ6eeiNtWb7bq",
             "img": "icons/commodities/treasure/mask-wood-tan.webp",
-            "name": "Mask of Terror (At Will)",
+            "name": "Mask of Terror (at will)",
             "sort": 400000,
             "system": {
                 "area": null,
@@ -206,7 +208,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>The target appears to be a gruesome and terrifying creature. The effect is unique to each observer, so a human viewing the target might see a demon with bloody fangs, but a demon observing the target might see a glowing angelic visage. When any creature attempts a hostile action against the target, the creature must attempt a Will save. It is then temporarily immune until the end of its next turn.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} before using its action.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}, and its action fails and is wasted.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 5 creatures. If a creature uses a hostile action or reaction that affects multiple targets simultaneously, it needs to attempt only one save against mask of terror.</p>"
+                    "value": "<p>The target appears to be a gruesome and terrifying creature. The effect is unique to each observer, so a human viewing the target might see a demon with bloody fangs, but a demon observing the target might see a glowing angelic visage.</p>\n<p>When any creature attempts a hostile action against the target, the creature must attempt a Will save. It is then temporarily immune until the end of its next turn.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} before using its action.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}, and its action fails and is wasted.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 5 creatures. If a creature uses a hostile action or reaction that affects multiple targets simultaneously, it needs to attempt only one save against <em>mask of terror</em>.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -217,12 +219,12 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -240,7 +242,6 @@
                     "rarity": "common",
                     "traditions": [
                         "arcane",
-                        "divine",
                         "occult",
                         "primal"
                     ],
@@ -258,10 +259,11 @@
             "type": "spell"
         },
         {
-            "_id": "sv5HnypOJeqYhTxv",
+            "_id": "jtRMZ0Iw0fB5hHfo",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.8kJbiBEjMWG4VUjs"
             },
+            "folder": "xqlqJ6eeiNtWb7bq",
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
             "sort": 500000,
@@ -279,7 +281,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You scramble a creature's mental faculties and sensory input. The target must attempt a Will saving throw. Regardless of the result of that save, the target is then temporarily immune for 10 minutes. Warp mind's effects happen instantly, so dispel magic and other effects that counteract spells can't counteract them. However, alter reality, miracle, primal phenomenon, restoration, or wish can still counteract the effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target spends the first action on its next turn with the @UUID[Compendium.pf2e.conditionitems.Item.Confused] condition.</p>\n<p><strong>Failure</strong> The target is Confused for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Confused permanently.</p>"
+                    "value": "<p>You scramble a creature's mental faculties and sensory input. The target must attempt a Will saving throw. Regardless of the result of that save, the target is then temporarily immune for 10 minutes. Warp mind's effects happen instantly, so @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] and other effects that counteract spells can't counteract them. However, @UUID[Compendium.pf2e.spells-srd.Item.Wish] rituals and abilities that can remove non-magical effects can still counteract the effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target spends the first action on its next turn with the @UUID[Compendium.pf2e.conditionitems.Item.Confused] condition.</p>\n<p><strong>Failure</strong> The target is Confused for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Confused permanently.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -290,12 +292,12 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "120 feet"
@@ -327,10 +329,11 @@
             "type": "spell"
         },
         {
-            "_id": "1obZ6BaRsbblaywE",
+            "_id": "LKGIHU6qykXFuUrx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.0XP2XOxT9VSiXFDr"
             },
+            "folder": "zDlxATrLAlbYA2Mv",
             "img": "icons/magic/earth/explosion-lava-stone-red.webp",
             "name": "Phantasmal Calamity",
             "sort": 600000,
@@ -362,13 +365,14 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A vision of apocalyptic destruction fills the mind of each creature in the area. The vision deals 11d6 mental damage (basic Will save). On a critical failure, the creature must also succeed at a Reflex save or believe it's trapped (stuck in a fissure, adrift at sea, or some other fate in keeping with its vision). If it fails the second save, it's also @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 minute. It can attempt a new Will save at the end of each of its turns, and on a success, it disbelieves the illusion and recovers from the Stunned condition.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A vision of apocalyptic destruction fills the mind of each creature in the area. The vision deals 11d6 mental damage (basic Will save). On a critical failure, the creature must also succeed at a @Check[reflex] save or believe it's trapped (stuck in a fissure, adrift at sea, or some other fate in keeping with its vision). If it fails the second save, it's also @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 minute. It can attempt a new Will save at the end of each of its turns, and on a success, it disbelieves the illusion and recovers from the stunned condition.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
                 "heightening": {
+                    "area": 0,
                     "damage": {
                         "0": "2d6"
                     },
@@ -380,12 +384,12 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -416,12 +420,13 @@
             "type": "spell"
         },
         {
-            "_id": "1rv8rr7V1SPtaWM4",
+            "_id": "u2p7qhu0mpuxD7Ru",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki"
             },
+            "folder": "zDlxATrLAlbYA2Mv",
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
-            "name": "True Seeing (Constant)",
+            "name": "Truesight (constant)",
             "sort": 700000,
             "system": {
                 "area": null,
@@ -432,7 +437,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You see things within 60 feet as they actually are. The GM rolls a secret counteract check against any illusion or transmutation in the area, but only for the purpose of determining whether you see through it (for instance, if the check succeeds against a polymorph spell, you can see the creature's true form, but you don't end the polymorph spell).</p>"
+                    "value": "<p>You see things within 60 feet as they actually are. The GM rolls a secret counteract check against any illusion, morph or polymorph effect in the area, but only for the purpose of determining whether you see through it (for instance, if the check succeeds against a polymorph spell, you can see the creature's true form, but you don't end the polymorph spell).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -443,19 +448,19 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "true-seeing",
+                "slug": "truesight",
                 "target": {
                     "value": ""
                 },
@@ -480,10 +485,11 @@
             "type": "spell"
         },
         {
-            "_id": "DkQKfUysJuYHWkFX",
+            "_id": "kUPRHHAJdkvqe2e8",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.LiGbewa9pO0yjbsY"
             },
+            "folder": "7cyoYPoPYA01mErU",
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
             "sort": 800000,
@@ -522,12 +528,12 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -558,12 +564,13 @@
             "type": "spell"
         },
         {
-            "_id": "pbe04bBz3BMbUs0Q",
+            "_id": "qAzTuZJKqbcHw1eu",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.qwlh6aDgi86U3Q7H"
             },
+            "folder": "7cyoYPoPYA01mErU",
             "img": "systems/pf2e/icons/spells/suggestion.webp",
-            "name": "Suggestion (At Will)",
+            "name": "Suggestion (at will)",
             "sort": 900000,
             "system": {
                 "area": null,
@@ -579,7 +586,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.</p>\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
+                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -600,12 +607,12 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -623,7 +630,6 @@
                     "rarity": "common",
                     "traditions": [
                         "arcane",
-                        "divine",
                         "occult"
                     ],
                     "value": [
@@ -631,19 +637,21 @@
                         "incapacitation",
                         "linguistic",
                         "manipulate",
-                        "mental"
+                        "mental",
+                        "subtle"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "FoWz6fNCdey5pLcj",
+            "_id": "PEOn8z7pdSJEfEv0",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.9HpwDN4MYQJnW0LG"
             },
+            "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
-            "name": "Dispel Magic (At Will)",
+            "name": "Dispel Magic (at will)",
             "sort": 1000000,
             "system": {
                 "area": null,
@@ -665,12 +673,12 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "120 feet"
@@ -701,10 +709,11 @@
             "type": "spell"
         },
         {
-            "_id": "etGdRuN08Yyfle3r",
+            "_id": "ncJ8HnYInZTkZibk",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
             },
+            "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
             "sort": 1100000,
@@ -720,7 +729,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -730,12 +739,12 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -768,12 +777,13 @@
             "type": "spell"
         },
         {
-            "_id": "O7lGGxeUoi47EMD0",
+            "_id": "hoFifX6XQgPdwCZN",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
             },
+            "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear (At Will)",
+            "name": "Fear (at will)",
             "sort": 1200000,
             "system": {
                 "area": null,
@@ -810,12 +820,12 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "bhqneDVB7PGBIMMh"
+                    "value": "bm1p6Vp0YfRmEdMO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -849,62 +859,10 @@
             "type": "spell"
         },
         {
-            "_id": "ps5xhWstNBqy3le9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spell-effects.Item.DBaMtFHRPEg1JeLs"
-            },
-            "img": "systems/pf2e/icons/spells/mind-blank.webp",
-            "name": "Spell Effect: Mind Blank",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell rank were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>"
-                },
-                "duration": {
-                    "expiry": "turn-start",
-                    "sustained": false,
-                    "unit": "days",
-                    "value": 1
-                },
-                "level": {
-                    "value": 8
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "mental"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 4
-                    }
-                ],
-                "slug": "spell-effect-mind-blank",
-                "start": {
-                    "initiative": null,
-                    "value": 126
-                },
-                "tokenIcon": {
-                    "show": true
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "effect"
-        },
-        {
             "_id": "Gj7A4LTikw9f1cDC",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -934,6 +892,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -955,7 +914,7 @@
             "_id": "3xQc4jPhxkh2EbIF",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -987,6 +946,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1012,7 +972,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1045,7 +1005,7 @@
             "_id": "UYKJzdzZCg9KRzcD",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Easy to Call",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1078,7 +1038,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1111,7 +1071,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "All-Around Vision",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1145,43 +1105,10 @@
             "type": "action"
         },
         {
-            "_id": "6jf1IhNb2PBN2aXV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity (Special)",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If the triggering creature is subject to an effect with the fear trait, the kimenhul can make two claw Strikes against the creature instead of one Strike.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "dWa7XGI4buL9uDdZ",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Feed on Fear",
-            "sort": 2100000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1208,10 +1135,42 @@
             "type": "action"
         },
         {
+            "_id": "E8sTp4v2QCJbCQmh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike (Special)",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If the triggering creature is frightened, the kimenhul can make two claw Strikes against the creature instead of one Strike.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "bnU4poD2v5S9mLDT",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Eternal Fear",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1247,7 +1206,7 @@
             "_id": "N2oBeSLsFrTuwOTn",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Frightening Flurry",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1280,7 +1239,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rend",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1310,7 +1269,7 @@
             "_id": "F9hcxqTd9pv3rmpZ",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Skip Between",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1320,7 +1279,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The kimenhul moves from the Material Plane to the Ethereal Plane or vice-versa, with the effects of @UUID[Compendium.pf2e.spells-srd.Item.Ethereal Jaunt] except that the effect has an unlimited duration and can be Dismissed.</p>\n<p>A summoned kimenhul can't use Skip Between.</p>"
+                    "value": "<p>The sahkil moves from the Universe to the Ethereal Plane or vice-versa. While in the Ethereal Plane, they're unable to affect anything in the Universe, and they cannot be seen by beings or abilities in the Universe, unless these have an ability that can gaze into the Ethereal Plane. While on the Material Plane the inverse is true for anything on the Ethereal Plane. A summoned sahkil can't use Skip Between.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1343,7 +1302,7 @@
             "_id": "HiTMvvga2hoAWC9Y",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Snatch Between",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1373,7 +1332,7 @@
             "_id": "BHNm9PtnZ9Hrj6fQ",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unsettled Mind",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1392,39 +1351,6 @@
                 },
                 "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DNDY9jZtwm6GdoBP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "improved-grab",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -1496,7 +1422,7 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "telepathy 100 feet",
+                "details": "Telepathy 100 feet",
                 "value": [
                     "chthonian",
                     "diabolic",
@@ -1560,7 +1486,7 @@
                 "base": 33
             },
             "athletics": {
-                "base": 38
+                "base": 34
             },
             "deception": {
                 "base": 38
@@ -1581,7 +1507,6 @@
                 "value": "huge"
             },
             "value": [
-                "evil",
                 "fiend",
                 "sahkil",
                 "unholy"

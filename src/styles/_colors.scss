@@ -48,11 +48,11 @@ body,
     --color-pf-tertiary: #{$tertiary-color};
     --color-pf-tertiary-dark: #{color.adjust($tertiary-color, $lightness: -10%)};
     --color-pf-tertiary-darker: #{color.adjust($tertiary-color, $lightness: -20%)};
-    --color-pf-tertiary-darkest: #{color.adjust($tertiary-color, $lightness: -51%)};
     --color-pf-tertiary-light: #{color.adjust($tertiary-color, $lightness: 10%)};
     --primary: var(--color-pf-primary);
     --secondary: var(--color-pf-secondary);
     --tertiary: var(--color-pf-tertiary);
+    --tag-color: var(--color-pf-alternate-dark);
 
     --alt: var(--color-pf-alternate);
     --alt-dark: var(--color-pf-alternate-dark);
@@ -90,9 +90,9 @@ body,
     --color-border-dark-input: #d3ccbc;
     --color-border-medium: gray;
 
-    /* Headers w/ boxes */
-    --header-color: var(--text-light);
-    --header-bg: var(--secondary);
+    /* Inventory headers boxes */
+    --color-pf-inventory-header-text: var(--color-light-1);
+    --color-pf-inventory-header-bg: var(--color-pf-alternate);
 
     /* Sidebar */
     --sidebar-label: var(--tertiary-dark);
@@ -116,6 +116,15 @@ body,
     --color-proficiency-expert: #3c005e;
     --color-proficiency-master: #664400;
     --color-proficiency-legendary: #{$primary-color};
+
+    /* Health Bars */
+    --color-pf-health-bg: #5e0000;
+    --color-pf-health-temp-bg: #171f69;
+
+    /** Encumbrance */
+    --color-pf-bulk-normal: var(--color-pf-secondary);
+    --color-pf-bulk-encumbered: var(--color-level-warning-bg);
+    --color-pf-bulk-exceeded: var(--color-level-error-bg);
 
     /* Value adjustments (e.g. weak/elite) */
     --color-pf-text-adjusted-higher: #009988;
@@ -378,6 +387,7 @@ body.theme-dark .application:not(.themed),
 .themed.theme-dark {
     --color-text-tertiary: var(--color-light-4);
     --visibility-gm-bg: var(--color-cool-4);
+    --tag-color: var(--color-text-tertiary);
 
     .tagify {
         --tags-border-color: var(--color-dark-6);

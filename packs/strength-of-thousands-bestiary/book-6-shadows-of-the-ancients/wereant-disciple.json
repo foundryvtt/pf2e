@@ -4,104 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "t5zt628d6yqu9rbc",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Mandibles",
-            "sort": 100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "werecreature-curse-of-the-werecreature"
-                    ]
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "rznHhUWlAFqMO394": {
-                        "damage": "3d10+14",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "rfsenf6lkjncup67",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Carapace Fist",
-            "sort": 200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "staggering-blow"
-                    ]
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "L4q1kQvJ6qv3uOoo": {
-                        "damage": "3d8+14",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "jeGAxO4AbrzL7CRx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 120 feet",
-            "sort": 300000,
+            "sort": 100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -137,7 +46,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Insect Empathy",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -169,7 +78,7 @@
             "_id": "35g2fh9fmfp3anxh",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Gnawing Retort",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -199,7 +108,7 @@
             "_id": "fnmutsbmx35qyk3d",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Hive Mind",
-            "sort": 600000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -268,7 +177,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 700000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -285,7 +194,115 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "hybrid",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hybrid",
+                                "value": "hybrid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
+                                "value": "humanoid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Animal",
+                                "value": "animal"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "attackModifier": 29,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 14
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.Strike.Fist.Label",
+                        "predicate": [
+                            "change-shape:humanoid"
+                        ],
+                        "slug": "fist",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 29,
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 14
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Mandibles",
+                        "predicate": [
+                            {
+                                "not": "change-shape:humanoid"
+                            }
+                        ],
+                        "slug": "mandibles",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 32,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d8",
+                                "modifier": 14
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.CarapaceFist",
+                        "predicate": [
+                            {
+                                "not": "change-shape:humanoid"
+                            }
+                        ],
+                        "slug": "carapace-fist",
+                        "traits": [
+                            "agile",
+                            "finesse",
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "change-shape:animal"
+                        ],
+                        "selector": "mandibles-damage",
+                        "text": "@Localize[PF2E.NPC.Abilities.Glossary.Grab]",
+                        "title": "@Localize[PF2E.AttackEffectGrab] <span class=\"action-glyph\">1</span>",
+                        "visibility": "owner"
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "change-shape:animal"
+                        ],
+                        "selector": "climb",
+                        "value": 20
+                    }
+                ],
                 "slug": "change-shape",
                 "traits": {
                     "rarity": "common",
@@ -305,7 +322,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Curse of the Wereant",
-            "sort": 800000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -322,7 +339,15 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "mandibles-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "werecreature-curse-of-the-werecreature",
                 "traits": {
                     "rarity": "common",
@@ -338,7 +363,7 @@
             "_id": "grw0iihgx50xog7f",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Flying Leap",
-            "sort": 900000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -392,7 +417,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Moon Frenzy",
-            "sort": 1000000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -425,7 +450,7 @@
             "_id": "or2jprf57tejx70c",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Staggering Blow",
-            "sort": 1100000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -442,7 +467,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "carapace-fist-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

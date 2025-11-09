@@ -1,5 +1,5 @@
-import { ApplicationRenderContext } from "@client/applications/_types.mjs";
-import { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.mjs";
+import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
+import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
 import { combatantAndTokenDoc } from "@module/doc-helpers.ts";
 import type { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
@@ -82,6 +82,15 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
         return { visible: true, threat, award };
     }
 
+    protected override async _renderHTML(
+        context: object,
+        options: HandlebarsRenderOptions,
+    ): Promise<Record<string, HTMLElement>> {
+        const result = await super._renderHTML(context, options);
+        if (result.tracker) this.#onRenderTracker(result.tracker);
+        return result;
+    }
+
     /** Show encounter analysis data if obtainable */
     protected override async _onRender(
         context: ApplicationRenderContext,
@@ -93,13 +102,11 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
             metricsPart.remove();
             this.parts["header"].querySelector("nav")?.after(metricsPart);
         }
-        if (options.parts.includes("tracker")) this.#onRenderTracker();
         if (game.user.isGM) this.#createSortable();
     }
 
-    #onRenderTracker() {
+    #onRenderTracker(tracker: HTMLElement) {
         const encounter = this.viewed;
-        const tracker = <HTMLOListElement | null>this.element.querySelector("ol.combat-tracker");
         if (!encounter || !tracker) return;
         const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
         const nameVisibilityButton = tokenSetsNameVisibility
@@ -323,7 +330,7 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
             NonNullable<TEncounter>
         >;
         if (typeof dropped.initiative !== "number") {
-            ui.notifications.error(game.i18n.format("PF2E.Encounter.HasNoInitiativeScore", { actor: dropped.name }));
+            ui.notifications.error("PF2E.Encounter.HasNoInitiativeScore", { format: { actor: dropped.name } });
             return;
         }
 

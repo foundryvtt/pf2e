@@ -486,6 +486,11 @@
             "name": "Crossbow",
             "sort": 200000,
             "system": {
+                "ammo": {
+                    "baseType": "bolts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "crossbow",
                 "bonus": {
                     "value": 0
@@ -570,31 +575,17 @@
             "name": "Bolts",
             "sort": 0,
             "system": {
-                "baseItem": null,
+                "baseItem": "bolts",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -611,13 +602,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "bolts",
-                "stackGroup": "bolts",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -625,7 +614,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "xwbmG36YxgiRaYcL",
@@ -708,6 +697,7 @@
                 "bulk": {
                     "value": 1
                 },
+                "category": "coin",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -734,15 +724,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 3,
                 "rules": [],
                 "size": "med",
                 "slug": "silver-pieces",
-                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -1803,6 +1792,9 @@
         },
         {
             "_id": "EAr0ob53giom2HB7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.6FasgIXUJ1X8ekRn"
+            },
             "flags": {
                 "pf2e": {
                     "itemGrants": {
@@ -1867,6 +1859,9 @@
         },
         {
             "_id": "qMU0PwMxtqIcvbHn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.uhHg9BXBiHpL5ndS"
+            },
             "flags": {
                 "pf2e": {
                     "itemGrants": {
@@ -1934,6 +1929,9 @@
         },
         {
             "_id": "63ixmMZsL2md0IFa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.lgo65ldX7WkXC8Ir"
+            },
             "flags": {
                 "pf2e": {
                     "itemGrants": {
@@ -1989,6 +1987,9 @@
         },
         {
             "_id": "f5Rlhyx87E9Qa1NQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.xTK2zsWFyxSJvYbX"
+            },
             "flags": {
                 "pf2e": {
                     "grantedBy": {
@@ -2069,6 +2070,9 @@
         },
         {
             "_id": "1s4pkFPGKccnfCsp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.25WDi1cVUrW92sUj"
+            },
             "flags": {
                 "pf2e": {
                     "grantedBy": {
@@ -2114,6 +2118,9 @@
         },
         {
             "_id": "1hI8sGCufOgJYqje",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.g3mNzNphtVxyR9Xr"
+            },
             "flags": {
                 "pf2e": {
                     "grantedBy": {
@@ -2216,6 +2223,9 @@
         },
         {
             "_id": "2F9jTh6Z8xskKLtB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.pIHjH1x0AVtiX5Tv"
+            },
             "flags": {
                 "pf2e": {
                     "grantedBy": {
@@ -2236,7 +2246,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>When you enter a new location, such as a room or corridor, you immediately notice one thing out of the ordinary. The GM determines what it is, or whether there's nothing reasonable to pick up, skipping obvious clues that can be easily noticed without a check or specifically looking for them. You learn only that an area or object is suspicious, but not why it's suspicious. For example, if you entered a study with a large bloodstain on the ground, the bloodstain is so obviously suspicious it's evident to you already, so the GM might note that there's something suspicious about the desk drawer instead. You would then need to investigate the drawer further to find out what specifically is out of the ordinary. If you wish, you can Pursue a Lead concerning this detail even if you have Pursed a Lead less than 10 minutes ago.</p>\n<p>That's Odd doesn't reveal whether creatures are suspicious. You don't typically get any benefit when you leave and come back to a place, though if a major change has happened there and time has passed, the GM might determine that you do.</p>"
+                    "value": "<p>When you enter a new location, such as a room or corridor, you immediately notice one thing out of the ordinary. The GM determines what it is, or whether there's nothing reasonable to pick up, skipping obvious clues that can be easily noticed without a check or specifically looking for them. You learn only that an area or object is suspicious, but not why it's suspicious. For example, if you entered a study with a large bloodstain on the ground, the bloodstain is so obviously suspicious it's evident to you already, so the GM might note that there's something suspicious about the desk drawer instead. You would then need to investigate the drawer further to find out what specifically is out of the ordinary. If you wish, you can Pursue a Lead concerning this detail even if you have Pursued a Lead less than 10 minutes ago.</p>\n<p>That's Odd doesn't reveal whether creatures are suspicious. You don't typically get any benefit when you leave and come back to a place, though if a major change has happened there and time has passed, the GM might determine that you do.</p>"
                 },
                 "level": {
                     "value": 1
@@ -2263,6 +2273,9 @@
         },
         {
             "_id": "J709jvGivNnK9lt2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.jftNJjBNxp2cleoi"
+            },
             "flags": {
                 "pf2e": {
                     "grantedBy": {
@@ -2307,6 +2320,9 @@
         },
         {
             "_id": "1kvPYMVbt0bTQ11V",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.m0f2B7G9eaaTmhFL"
+            },
             "flags": {
                 "pf2e": {
                     "grantedBy": {
@@ -2388,6 +2404,9 @@
         },
         {
             "_id": "gOtIE1HWcsuX3dQs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.2Fe4YZCvAr9Yf6w7"
+            },
             "img": "systems/pf2e/icons/features/classes/strategic-strike.webp",
             "name": "Strategic Strike",
             "sort": 0,
@@ -2438,6 +2457,9 @@
         },
         {
             "_id": "9AXgwGsGEuITqWPr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.Ig431EeRy3FKMmMq"
+            },
             "img": "icons/commodities/biological/organ-brain-pink-purple.webp",
             "name": "Keen Recollection",
             "sort": 0,
@@ -2488,6 +2510,9 @@
         },
         {
             "_id": "aSnOBd80IBkxj5iu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.dmK1wya8GBi9MmCB"
+            },
             "img": "icons/tools/hand/hammer-and-nail.webp",
             "name": "Skillful Lessons",
             "sort": 0,
@@ -2527,6 +2552,9 @@
         },
         {
             "_id": "sTNAls67zLLzdiDP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.lwLcUHQMOqfaNND4"
+            },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Cooperative Nature",
             "sort": 0,
@@ -2576,113 +2604,10 @@
             "type": "feat"
         },
         {
-            "_id": "we5vBOynmKYQZb80",
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Known Weaknesses",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>Whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem], you can also attempt a check to Recall Knowledge as part of that action before rolling the d20. If you critically succeed at the Recall Knowledge check, you notice a weakness and can convey the information to allies to grant each of them a +1 circumstance bonus to their next attack roll against the subject, as long as their attack is made before the beginning of your next turn. If you choose an attack stratagem, this bonus applies to that attack roll too.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Known Weakness]</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Known Weakness (critically succeeded on Recall Knowledge)",
-                        "predicate": [
-                            "devise-a-strategem",
-                            "known-weaknesses"
-                        ],
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": "known-weaknesses",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "investigator"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "33uhYfnGfLxIWlKC",
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Shared Stratagem",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>The plans you make include your allies as well as yourself. When you hit a creature with an attack on which you substituted your attack roll due to Devising a Stratagem, designate one ally. The creature you hit is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to that ally on the next attack that ally makes against that creature before the start of your next turn.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 2
-                },
-                "location": "class-2",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "target:mark:devise-a-stratagem"
-                        ],
-                        "selector": "strike-attack-roll",
-                        "text": "PF2E.SpecificRule.Investigator.SharedStratagem.Note",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": "shared-stratagem",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "investigator"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "y7ljlDxk4TyHtvg4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.backgrounds.Item.Phvnfdmz4bB7jrI3"
+            },
             "img": "systems/pf2e/icons/default-icons/background.svg",
             "name": "Barrister",
             "sort": 0,
@@ -2742,6 +2667,9 @@
         },
         {
             "_id": "KTxZs4hdtQrZCADC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.KpFetnUqTiweypZk"
+            },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Group Impression",
             "sort": 0,
@@ -2786,6 +2714,9 @@
         },
         {
             "_id": "Ju2yRnOC0r6Mtp9W",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.yUuU9xyotrpwpTyC"
+            },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Read Lips",
             "sort": 0,
@@ -2831,6 +2762,9 @@
         },
         {
             "_id": "goMy3izVq8WwAqfU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.pekKtubQTkG9m1xK"
+            },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Quiet Allies",
             "sort": 0,
@@ -2876,6 +2810,9 @@
         },
         {
             "_id": "JxY6SNCGgtixbMQx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.i4yRvVwvXbGZDsD1"
+            },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Canny Acumen (Fortitude)",
             "sort": 0,
@@ -2931,19 +2868,7 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "{item|flags.pf2e.rulesSelections.cannyAcumen}",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 16,
-                                    "start": 1,
-                                    "value": 2
-                                },
-                                {
-                                    "start": 17,
-                                    "value": 3
-                                }
-                            ]
-                        }
+                        "value": "match(when(btwn(@actor.level, 1, 16), 2), when(gte(@actor.level, 17), 3))"
                     }
                 ],
                 "slug": "canny-acumen",
@@ -2951,6 +2876,133 @@
                     "rarity": "common",
                     "value": [
                         "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "DN7hpNALZ1GlrIue",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.iWvpq3uDZcXvBJj8"
+            },
+            "folder": "He0R55LpPjtky8mJ",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Known Weaknesses",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>Whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem], you can also attempt a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] as part of that action before rolling the d20. If you critically succeed at the Recall Knowledge check, you notice a weakness and can convey the information to allies to grant each of them a +1 circumstance bonus to their next attack roll against the subject, as long as their attack is made before the beginning of your next turn. If you choose an attack stratagem, this bonus applies to that attack roll too.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Known Weaknesses]</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:devise-a-stratagem"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
+                    }
+                ],
+                "slug": "known-weaknesses",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "investigator"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "uJ1b4gpfnRxStqdc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.N4wCUZH2KG6FoGqh"
+            },
+            "folder": "He0R55LpPjtky8mJ",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Shared Stratagem",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>The plans you make include your allies as well as yourself. When you hit a creature with an attack on which you substituted your attack roll due to @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]{Devising a Stratagem}, designate one ally. The creature you hit is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to that ally on the next attack that ally makes against that creature before the start of your next turn.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "target:mark:devise-a-stratagem"
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "PF2E.SpecificRule.Investigator.SharedStratagem.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "shared-stratagem",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "investigator"
                     ]
                 }
             },
@@ -2970,10 +3022,6 @@
             "hp": {
                 "temp": 0,
                 "value": 32
-            },
-            "speed": {
-                "otherSpeeds": [],
-                "value": 25
             }
         },
         "build": {

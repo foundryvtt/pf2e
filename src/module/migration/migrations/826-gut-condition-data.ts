@@ -1,5 +1,6 @@
-import { ConditionSystemSource } from "@item/condition/data.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ConditionSystemSource } from "@item/condition/data.ts";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Remove unused cruft from condition data */
@@ -27,11 +28,13 @@ export class Migration826GutConditionData extends MigrationBase {
             }
         }
 
-        const durationData: DurationSourceWithDeletions = system.duration;
-        for (const key of ["perpetual", "text"] as const) {
-            if (key in durationData) {
-                delete durationData[key];
-                durationData[`-=${key}`] = null;
+        const durationData = system.duration;
+        if (R.isPlainObject(durationData)) {
+            for (const key of ["perpetual", "text"] as const) {
+                if (key in durationData) {
+                    delete durationData[key];
+                    durationData[`-=${key}`] = null;
+                }
             }
         }
 
@@ -44,6 +47,7 @@ interface SystemSourceWithDeletions extends ConditionSystemSource {
     "-=active"?: null;
     base?: unknown;
     "-=base"?: null;
+    duration?: DurationSourceWithDeletions;
     removable?: unknown;
     "-=removable"?: null;
     hud?: unknown;
@@ -66,6 +70,7 @@ type ValueSourceWithDeletions = {
 
 type DurationSourceWithDeletions = {
     value: number;
+    duration?: unknown;
     perpetual?: unknown;
     "-=perpetual"?: null;
     text?: unknown;

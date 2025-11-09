@@ -4,9 +4,9 @@ import type { CompendiumMetadata } from "@client/documents/collections/compendiu
 import type { CompendiumDocumentType } from "@client/utils/_module.d.mts";
 import type { ImageFilePath } from "@common/constants.mjs";
 import type { DocumentStatsData } from "@common/data/fields.d.mts";
-import type { AbilitySource, ItemSourcePF2e, ItemType, SpellcastingEntrySource } from "@item/base/data/index.ts";
+import type { AbilitySource, ItemSourcePF2e, SpellcastingEntrySource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import type { ItemInstances } from "@item/types.ts";
+import type { ItemInstances, ItemType } from "@item/types.ts";
 import type { PublicationData } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
 import { sluggify } from "@util/index.ts";
@@ -139,7 +139,7 @@ class PackExtractor {
         console.log(`Extracting pack: ${packDirectory} (Presorting: ${this.disablePresort ? "Disabled" : "Enabled"})`);
         const outPath = path.resolve(this.tempDataPath, packDirectory);
 
-        const db = new LevelDatabase(filePath, { packName: packDirectory });
+        const db = await LevelDatabase.connect(filePath, { packName: packDirectory });
         const { packSources, folders } = await db.getEntries();
 
         // Prepare subfolder data
@@ -642,6 +642,7 @@ class PackExtractor {
             "armor",
             "equipment",
             "consumable",
+            "ammo",
             "treasure",
             "backpack",
             "condition",

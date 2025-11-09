@@ -8,8 +8,8 @@ class TokenConfigPF2e extends TokenConfigMixinPF2e(fa.sheets.TokenConfig) {
         form: HTMLFormElement,
         formData: FormDataExtended,
     ): Record<string, unknown> {
-        const data = super._processFormData(event, form, formData);
-        return this.processFormData(data, form);
+        this.processFormData(formData.object, form);
+        return super._processFormData(event, form, formData);
     }
 
     protected override async _processSubmitData(

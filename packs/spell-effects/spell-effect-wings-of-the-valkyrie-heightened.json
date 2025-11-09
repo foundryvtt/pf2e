@@ -1,0 +1,43 @@
+{
+    "_id": "U5opnfw3DB1szFvV",
+    "img": "icons/commodities/materials/feather-stained-glass-blue.webp",
+    "name": "Spell Effect: Wings of the Valkyrie (Heightened)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Wings of the Valkyrie</p>\n<p>You gain a fly Speed equal to your Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.land.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

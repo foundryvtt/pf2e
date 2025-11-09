@@ -259,6 +259,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -390,14 +391,21 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When The Lonely Warrior damages a living creature with a melee Strike, using an unarmed attack or its bound weapon, The Lonely Warrior gains [[/r 5 #Temporary Hit Points]]{5 temporary Hit Points} and the creature must succeed at a @Check[fortitude|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Further damage dealt by the cairn wraith increases the drained condition value by 1 on a failed save, to a maximum of drained 4.</p>"
+                    "value": "<p>When The Lonely Warrior damages a living creature with a melee Strike, using an unarmed attack or its bound weapon, The Lonely Warrior gains 5 temporary Hit Points and the creature must succeed at a @Check[fortitude|dc:21|options:inflicts:drained] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Further damage dealt by the cairn wraith increases the drained condition value by 1 on a failed save, to a maximum of drained 4.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Drain Life]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.drainLifeTempHP",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -422,7 +430,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Lonely Warrior's funeral dirge is somewhat different from the standard cairn wight dirge: its droning, unnerving chant forces living creatures within @Template[emanation|distance:50]{50 feet} to attempt a @Check[will|dc:24] save. The Lonely Warrior can't chant a new Lonely Dirge for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} by gnawing pangs of loneliness until the end of its next turn.</p>\n<p><strong>Failure</strong> The target is stupefied 1 for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is stupefied 1 for 24 hours and takes a -2 status penalty to saves against drain life.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Funereal Dirge]</p>"
+                    "value": "<p>The Lonely Warrior's funeral dirge is somewhat different from the standard cairn wight dirge: its droning, unnerving chant forces living creatures within @Template[emanation|distance:50]{50 feet} to attempt a @Check[will|dc:24|options:area-effect,inflicts:stupefied] save. The Lonely Warrior can't chant a new Lonely Dirge for [[/gmr 1d4 #Recharge Lonely Dirge]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} by gnawing pangs of loneliness until the end of its next turn.</p>\n<p><strong>Failure</strong> The target is stupefied 1 for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is stupefied 1 for 24 hours and takes a –2 status penalty to saves against drain life.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Funereal Dirge]</p>"
                 },
                 "publication": {
                     "license": "OGL",

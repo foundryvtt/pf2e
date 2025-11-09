@@ -1,0 +1,110 @@
+{
+    "_id": "pI97a5xSg4LbBY1g",
+    "folder": "q61WPGmovSQjKoyi",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Aldori Duelist Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You are from the Broken Lands region.</p><hr /><p>Your Aldori duelist training teaches you martial techniques and increases your dedication to the Aldori dueling sword. You become trained in your choice of Acrobatics or Athletics; if you were already trained in that skill, you become an expert instead. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] feat for Dueling Lore; if you were already trained in Dueling Lore, you also become trained in a Lore skill of your choice.</p>\n<p>You have familiarity with Aldori dueling swords, treating them as martial weapons for the purposes of proficiency. You gain access to @UUID[Compendium.pf2e.equipment-srd.Item.Aldori Dueling Sword]{Aldori dueling swords}.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in martial weapons"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "predicate": [
+                            "skill:acrobatics:rank:0"
+                        ],
+                        "value": {
+                            "rank": 1,
+                            "slug": "acrobatics"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "predicate": [
+                            "skill:athletics:rank:0"
+                        ],
+                        "value": {
+                            "rank": 1,
+                            "slug": "athletics"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "predicate": [
+                            "skill:acrobatics:rank:1"
+                        ],
+                        "value": {
+                            "rank": 2,
+                            "slug": "acrobatics"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "predicate": [
+                            "skill:athletics:rank:1"
+                        ],
+                        "value": {
+                            "rank": 2,
+                            "slug": "athletics"
+                        }
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill.slug}.rank",
+                "value": "@item.flags.pf2e.rulesSelections.skill.rank"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            },
+            {
+                "definition": [
+                    "item:base:aldori-dueling-sword"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.Weapon.Base.aldori-dueling-sword",
+                "sameAs": "martial",
+                "slug": "aldori-dueling-sword"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -99,6 +99,11 @@
             "name": "Halfling Sling Staff",
             "sort": 200000,
             "system": {
+                "ammo": {
+                    "baseType": "sling-bullets",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "halfling-sling-staff",
                 "bonus": {
                     "value": 0
@@ -258,31 +263,13 @@
                 "bulk": {
                     "value": 0
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": {
-                    "formula": "10d6",
-                    "kind": "damage",
-                    "type": "fire"
-                },
+                "craftableAs": [],
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[burst|distance:10], dealing [[/r10d6]] fire damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:30|basic|name:Greater Explosive Ammunition] save.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 13
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "value": {
@@ -306,16 +293,13 @@
                         "magical"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "uses": {
                     "autoDestroy": true,
                     "max": 1,
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "RYkRKMCBdJuAwjs7",
@@ -326,31 +310,17 @@
             "name": "Sling Bullets",
             "sort": 500000,
             "system": {
-                "baseItem": null,
+                "baseItem": "sling-bullets",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -367,13 +337,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "sling-bullets",
-                "stackGroup": "slingBullets",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -381,7 +349,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "y4CJczbOp2Li8Zjo",
@@ -420,6 +388,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -470,6 +439,10 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 80,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -477,7 +450,6 @@
                     "value": [
                         "magical",
                         "propulsive",
-                        "range-increment-80",
                         "reload-1"
                     ]
                 },

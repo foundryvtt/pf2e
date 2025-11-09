@@ -32,7 +32,17 @@
             "remaster": false,
             "title": "Pathfinder Core Rulebook"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:category:snare"
+                ],
+                "selector": "inline-dc",
+                "value": "@actor.classDCs.ranger.mod"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

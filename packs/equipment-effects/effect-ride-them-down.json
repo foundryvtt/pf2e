@@ -1,0 +1,52 @@
+{
+    "_id": "2zc0u52oNcqziwnV",
+    "img": "icons/skills/social/diplomacy-unity-alliance.webp",
+    "name": "Effect: Ride Them Down!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Cavalry Commander's Lance]</p>\n<p>You gain a +1 circumstance bonus to your next attack roll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "ride-them-down"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:ride-them-down"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "attack-roll",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

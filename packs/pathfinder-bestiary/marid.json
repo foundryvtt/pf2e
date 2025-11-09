@@ -122,13 +122,18 @@
                 },
                 "counteraction": false,
                 "damage": {},
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
                 "description": {
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @UUID[Compendium.pf2e.spells-srd.Item.Slow].</p>\n<hr />\n<p><strong>Area</strong> 50 ft long by 50 ft wide</p>"
+                    "value": "<p><strong>Area</strong> 50 feet long by 50 feet wide</p><hr /><p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Creatures that have the water trait and that are in the area when you Cast the Spell must attempt a Fortitude save, with the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Slow] spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": ""
+                    "value": "1 hour"
                 },
                 "level": {
                     "value": 5
@@ -138,9 +143,9 @@
                     "value": "EyTNAb0HgeYGoaPL"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -174,7 +179,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.HBJPsonQnWcC3qdX"
             },
-            "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
+            "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Hallucinatory Terrain",
             "sort": 400000,
             "system": {
@@ -849,6 +854,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -894,6 +900,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -947,6 +954,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1121,7 +1129,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The marid releases a jet of water in a @Template[line|distance:60], dealing @Damage[9d6[bludgeoning]] damage (@Check[reflex|dc:28|basic] save). A creature that fails its save is also pushed 10 feet (20 feet on a critical failure).</p>\n<p>The marid can't use Rush of Water again for [[/gmr 1d4 #Recharge Rush of Water]]{1d4 rounds}.</p>"
+                    "value": "<p>The marid releases a jet of water in a @Template[line|distance:60], dealing @Damage[9d6[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:28|basic|options:area-effect,forced-movement] save). A creature that fails its save is also pushed 10 feet (20 feet on a critical failure).</p>\n<p>The marid can't use Rush of Water again for [[/gmr 1d4 #Recharge Rush of Water]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

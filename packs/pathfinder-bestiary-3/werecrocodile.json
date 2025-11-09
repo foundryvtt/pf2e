@@ -159,97 +159,6 @@
             "type": "armor"
         },
         {
-            "_id": "LVzeZlyXzpgBSv5s",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "werecreature-curse-of-the-werecreature",
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d10+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "8BmcD1iEjqhQRthD",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+4",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "eiBZvzNac6ZHZQDi",
             "flags": {
                 "pf2e": {
@@ -258,7 +167,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hatchet",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -284,6 +193,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -308,7 +218,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hatchet",
-            "sort": 600000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -334,6 +244,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -354,7 +265,7 @@
             "_id": "jkOvDfJsGXDaYicW",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Crocodile Empathy",
-            "sort": 700000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -386,7 +297,7 @@
             "_id": "lwULACd9cg2TzXz5",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deep Breath",
-            "sort": 800000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -419,7 +330,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Aquatic Ambush",
-            "sort": 900000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -469,7 +380,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 1000000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -486,7 +397,156 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "hybrid",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hybrid",
+                                "value": "hybrid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
+                                "value": "humanoid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Animal",
+                                "value": "animal"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "attackModifier": 10,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4",
+                                "modifier": 2
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.Strike.Fist.Label",
+                        "predicate": [
+                            "change-shape:humanoid"
+                        ],
+                        "slug": "fist",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 10,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d10",
+                                "modifier": 4
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "change-shape:humanoid",
+                                    "change-shape:animal"
+                                ]
+                            }
+                        ],
+                        "slug": "jaws",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 10,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d6",
+                                "modifier": 4
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "change-shape:humanoid",
+                                    "change-shape:animal"
+                                ]
+                            }
+                        ],
+                        "slug": "tail",
+                        "traits": [
+                            "agile",
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 10,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 4
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "change-shape:humanoid",
+                                    "change-shape:hybrid"
+                                ]
+                            }
+                        ],
+                        "slug": "jaws",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "change-shape:hybrid",
+                                    "change-shape:animal"
+                                ]
+                            }
+                        ],
+                        "selector": "swim",
+                        "value": 25
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "change-shape:animal"
+                            }
+                        ],
+                        "selector": "jaws-damage",
+                        "text": "@Localize[PF2E.NPC.Abilities.Glossary.Grab]",
+                        "title": "@Localize[PF2E.AttackEffectGrab]  <span class=\"action-glyph\">1</span>",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "werecreature-change-shape",
                 "traits": {
                     "rarity": "common",
@@ -506,7 +566,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Curse of the Werecrocodile",
-            "sort": 1100000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -523,7 +583,15 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "jaws-attack",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "werecreature-curse-of-the-werecreature",
                 "traits": {
                     "rarity": "common",
@@ -542,7 +610,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Moon Frenzy",
-            "sort": 1200000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -575,7 +643,7 @@
             "_id": "3SJ0K1VlKcITVMvi",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Twisting Thrash",
-            "sort": 1300000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -638,7 +706,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 1400000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -655,7 +723,15 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "jaws-damage",
+                        "text": "@Localize[PF2E.NPC.Abilities.Glossary.Grab]",
+                        "title": "@Localize[PF2E.AttackEffectGrab]  <span class=\"action-glyph\">1</span>",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "grab",
                 "traits": {
                     "rarity": "common",
@@ -702,12 +778,7 @@
                 "value": 55
             },
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "swim",
-                        "value": 25
-                    }
-                ],
+                "otherSpeeds": [],
                 "value": 25
             },
             "weaknesses": [

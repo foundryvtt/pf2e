@@ -1,0 +1,62 @@
+{
+    "_id": "jCwXeDnqBTw9pyhg",
+    "img": "icons/magic/unholy/hand-grasping-green.webp",
+    "name": "Effect: Siphoning Grip",
+    "system": {
+        "description": {
+            "value": "<p>You gain temporary hit points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActionNumber1",
+                        "value": 10
+                    },
+                    {
+                        "label": "PF2E.ActionNumber2",
+                        "value": 20
+                    },
+                    {
+                        "label": "PF2E.ActionNumber3",
+                        "value": 30
+                    }
+                ],
+                "flag": "siphoningGrip",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.FeatActionsLabel"
+            },
+            {
+                "key": "TempHP",
+                "value": "{item|flags.pf2e.rulesSelections.siphoningGrip}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

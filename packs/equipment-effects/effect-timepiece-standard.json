@@ -1,0 +1,85 @@
+{
+    "_id": "CV9YMSNtTV9gQJ3g",
+    "img": "icons/sundries/flags/banner-blue.webp",
+    "name": "Effect: Timepiece Standard",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Timepiece Standard], @UUID[Compendium.pf2e.equipment-srd.Item.Timepiece Standard (Major)]</p>\n<p>You gain temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:timepiece-standard",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Timepiece Standard"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:timepiece-standard-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Timepiece Standard (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "timepiece-standard"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "timepiece-standard:timepiece-standard"
+                ],
+                "value": 5
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "timepiece-standard:timepiece-standard-major"
+                ],
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

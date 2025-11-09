@@ -4,7 +4,7 @@ export class MockUser {
     readonly _source: UserSourcePF2e;
 
     constructor(data: UserSourcePF2e) {
-        this._source = fu.duplicate(data);
+        this._source = fu.deepClone(data);
     }
 
     get name(): string {

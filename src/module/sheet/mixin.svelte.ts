@@ -4,7 +4,7 @@ interface SvelteApplicationRenderContext extends fa.ApplicationRenderContext {
     /** State data tracked by the root component: objects herein must be plain object. */
     state: object;
     /** This application instance */
-    foundryApp: SvelteApplication;
+    foundryApp?: SvelteApplication;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -26,6 +26,10 @@ function SvelteApplicationMixin<
 
         /** The mounted root component, saved to be unmounted on application close */
         #mount: object = {};
+
+        protected abstract override _prepareContext(
+            options: fa.ApplicationRenderOptions,
+        ): Promise<SvelteApplicationRenderContext>;
 
         protected override async _renderHTML(
             context: SvelteApplicationRenderContext,

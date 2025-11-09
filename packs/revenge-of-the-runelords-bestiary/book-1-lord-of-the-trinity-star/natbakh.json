@@ -1,0 +1,517 @@
+{
+    "_id": "8NoFgZU5BRlGQ6yV",
+    "folder": "Ca9MPJiDZRxlgQIX",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "HRjoA4fOifp1k87b",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "L0qYUUqoHwdIzVf4": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    },
+                    "lFVpkGuABeqFbRPR": {
+                        "damage": "3d10+14",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "A5JtfgcywGsjC18O",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle Tongue",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "a0f9b6UtJOroiH2G": {
+                        "damage": "3d8+14",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "reach-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IXAW4HyPgGGs1aLX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ta5reS33mtwBHWzX"
+            },
+            "folder": "63FzE1sSn3PK5yy4",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Remove a Condition",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Cost</strong> 1 Mythic Point</p><hr /><p><strong>Effect</strong> The natbakh ends one condition affecting them.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder War of Immortals"
+                },
+                "rules": [],
+                "slug": "mythic-remove-a-condition",
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tBatmdnEmV9tkLTv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.0zvUNv8hRTdwXmhF"
+            },
+            "folder": "63FzE1sSn3PK5yy4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mythic Resilience (Reflex)",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The creature treats its saving throws with the associated save as one degree of success better than it rolled. This is not cumulative with other effects that change their degree of success, like the incapacitation trait (except for rolling a natural 1 or 20). Each time the monster gains mythic resilience, choose one save. The ability should apply to the creature's highest saves first.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder War of Immortals"
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "all": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "reflex"
+                    }
+                ],
+                "slug": "mythic-mythic-resilience",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6II0398IU0qwyA22",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Drain Dreams",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The natbakh's previous action was a successful jaws Strike that damaged a creature</p><hr /><p><strong>Effect</strong> The natbakh's suckered tongue latches on. The creature must succeed at a @Check[will|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) for 1 week as their dreams are slurped away. If the creature becomes stupefied in this way, the natbakh regains @Damage[32[healing]] HP. Draining dreams from a creature that's already stupefied doesn't restore any HP, but increases the victim's stupefied value by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 5}.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IT5pMMtsuQFJnAu8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.jNW79frpM2miwJvD"
+            },
+            "folder": "63FzE1sSn3PK5yy4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mythic Power",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The creature has a pool of 3 Mythic Points, and can spend those Mythic Points for any of the actions it has.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder War of Immortals"
+                },
+                "rules": [],
+                "slug": "mythic-mythic-power",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R4zZQfekSIVw13nI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.gNxphcYARRn2bZ1i"
+            },
+            "folder": "63FzE1sSn3PK5yy4",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Mythic Skill",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Cost</strong> 1 Mythic Point</p><hr /><p><strong>Effect</strong> The natbakh attempts its next Athletics or Stealth skill check with a +4 bonus and is considered to have mythic proficiency for that check.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder War of Immortals"
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "mythic-skill",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "mythic-skill"
+                        ],
+                        "selector": [
+                            "acrobatics",
+                            "stealth"
+                        ],
+                        "slug": "mythic-skill-bonus",
+                        "value": 4
+                    }
+                ],
+                "slug": "mythic-mythic-skill",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GqIkxxArJz4KEIkJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Nightmare Screech",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The natbakh shrieks in a @Template[type:cone|distance:50] that echoes more in the minds of those in the area than in the ears. Those in the area recall shrieks like this in forgotten nightmares, and the memories of wounds suffered in dreams cause nauseating pain. Creatures in the area take @Damage[10d8[mental]|options:area-damage] damage and must attempt a @Check[will|dc:34] save. The natbakh can't use Nightmare Screech again for [[/gmr 1d4 #Recharge Nightmare Screech]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is sickened 2, and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as they remain sickened (or 1 minute, whichever comes first).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DnqApcPCQjaMtgZr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Writhing Clutches",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A natbakh can Fly at half Speed while it has a Huge or smaller creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], or at full speed when it has a Medium or smaller creature grabbed or restrained, carrying that creature along with it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EBT2NJJuPb1rgBf6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Natbakh",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 34
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 320,
+                "temp": 0,
+                "value": 320
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "cold"
+                },
+                {
+                    "exceptions": [],
+                    "type": "controlled"
+                },
+                {
+                    "exceptions": [],
+                    "type": "emotion"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "mythic",
+                    "value": 14
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 150
+                    }
+                ],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "can't speak any language",
+                "value": [
+                    "aklo"
+                ]
+            },
+            "level": {
+                "value": 14
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Natbakhs are native to the peaks and subterranean caverns of the windswept dimension of Leng and haunt the dark skies of that nightmare realm.</p><h2>Nightmare Eruptions</h2><p>In places where the boundaries between Golarion and Leng are thin, such as the depths of the Kodar Mountains, natbakhs have a particularly horrifying method of entering the waking world. If they consume the dreaming persona of someone sleeping near such thin places, they can burst forth from that sleeper's body, killing them in life as well as in their dream, often leaving the now-dead dreamer's home in splinters before flying off to build a lair in the mountains. Such \"nightmare eruptions\" are rare, but it doesn't take many natbakhs to leave a mark in a region unprepared for their arrival.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #219: Lord of the Trinity Star"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 25,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 23
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 26
+            },
+            "athletics": {
+                "base": 28
+            },
+            "stealth": {
+                "base": 26
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "beast",
+                "dream",
+                "mythic"
+            ]
+        }
+    },
+    "type": "npc"
+}

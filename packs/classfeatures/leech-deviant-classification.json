@@ -1,0 +1,242 @@
+{
+    "_id": "WuX4ZzsE0ezQfIVS",
+    "img": "icons/magic/unholy/orb-rays-blue.webp",
+    "name": "Leech Deviant Classification",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>While deviations are often thought of as a gained ability—increased muscle mass, a well of unstable power, new senses—it's just as common that the events that cause a deviation result in loss. With a fundamental part of the subject's self stripped away, an absence remains. Though generally fatal, these events can rarely result in leech-type classifications, characterized by abilities that draw in energy and matter in a futile attempt to fill the void within.</p><h2>Backlash</h2><p>@UUID[Compendium.pf2e.classfeatures.Item.All-Consuming Hunger]</p>\n<p>The emptiness within you is a hunger that pushes at your mind to fill it, causing you to fixate powerfully on a potential source of energy near you.</p>\n<p><strong>Mild Backlash</strong> You glimpse the thrum of energy—the heat of a body, the flickering of synapses, the light of a soul—in a beautiful, captivating dance. You become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with one creature you just affected with your deviant ability; if multiple creatures would qualify, the GM chooses. This fascination lasts for 1 minute or until the target uses a hostile action against you or your allies, as normal.</p>\n<p><strong>Moderate Backlash</strong> Your fascination with the target causes you to forget your allies. As mild backlash, but you don't treat anyone as your ally (though they might still treat you as theirs), meaning that the fascination ends only if your target uses a hostile action against you.</p>\n<p><strong>Severe Backlash</strong> Your mind is filled with the single, all-consuming desire to feed upon the target. You become @UUID[Compendium.pf2e.conditionitems.Item.Confused], except that your target is always the creature affected by your deviant ability, as long as you can perceive them.</p><h2>Leech Deviant Feats</h2><p>@UUID[Compendium.pf2e.feats-srd.Item.Borrowed Ability]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Draining Touch]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Kinetic Dampening]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Feed the Void]</p><h3>Universal Deviant Feats</h3><p>@UUID[Compendium.pf2e.feats-srd.Item.Awakened Power]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Greater Awakened Power]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Gatewalkers Player's Guide (Remastered)"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices",
+                "priority": 10,
+                "value": {
+                    "greater": [],
+                    "lesser": []
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.DrainingTouchClumsyTouch",
+                    "predicate": [
+                        {
+                            "not": "awakening:draining-touch:clumsy"
+                        },
+                        "feat:draining-touch"
+                    ],
+                    "value": "draining-touch:clumsy"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.DrainingTouchDrainSpirit",
+                    "predicate": [
+                        {
+                            "not": "awakening:draining-touch:drain-spirit"
+                        },
+                        "feat:draining-touch"
+                    ],
+                    "value": "draining-touch:drain-spirit"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.DrainingTouchClumsyTouch",
+                    "predicate": [
+                        {
+                            "not": "awakening:draining-touch:clumsy"
+                        },
+                        "feat:draining-touch"
+                    ],
+                    "value": "draining-touch:clumsy"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.DrainingTouchDrainSpirit",
+                    "predicate": [
+                        {
+                            "not": "awakening:draining-touch:drain-spirit"
+                        },
+                        "feat:draining-touch"
+                    ],
+                    "value": "draining-touch:drain-spirit"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.BorrowedAbilityBorrowDefense",
+                    "predicate": [
+                        {
+                            "not": "awakening:borrowed-ability:borrow-defense"
+                        },
+                        "feat:borrowed-ability"
+                    ],
+                    "value": "borrowed-ability:borrow-defense"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.BorrowedAbilityLingeringLink",
+                    "predicate": [
+                        {
+                            "not": "awakening:borrowed-ability:lingering-link"
+                        },
+                        "feat:borrowed-ability"
+                    ],
+                    "value": "borrowed-ability:lingering-link"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.BorrowedAbilityBorrowDefense",
+                    "predicate": [
+                        {
+                            "not": "awakening:borrowed-ability:borrow-defense"
+                        },
+                        "feat:borrowed-ability"
+                    ],
+                    "value": "borrowed-ability:borrow-defense"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.BorrowedAbilityLingeringLink",
+                    "predicate": [
+                        {
+                            "not": "awakening:borrowed-ability:lingering-link"
+                        },
+                        "feat:borrowed-ability"
+                    ],
+                    "value": "borrowed-ability:lingering-link"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.KineticDampeningSafeHaven",
+                    "predicate": [
+                        {
+                            "not": "awakening:kinetic-dampening:safe-haven"
+                        },
+                        "feat:kinetic-dampening"
+                    ],
+                    "value": "kinetic-dampening:safe-haven"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.KineticDampeningWavelengthExpansion",
+                    "predicate": [
+                        {
+                            "not": "awakening:kinetic-dampening:wavelength-expansion"
+                        },
+                        "feat:kinetic-dampening"
+                    ],
+                    "value": "kinetic-dampening:wavelength-expansion"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.FeedTheVoidFeedOnSpirit",
+                    "predicate": [
+                        {
+                            "not": "awakening:feed-the-void:feed-on-spirit"
+                        },
+                        "feat:feed-the-void"
+                    ],
+                    "value": "feed-the-void:feed-on-spirit"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.FeedTheVoidFeedOnHeat",
+                    "predicate": [
+                        {
+                            "not": "awakening:feed-the-void:feed-on-heat"
+                        },
+                        "feat:feed-the-void"
+                    ],
+                    "value": "feed-the-void:feed-on-heat"
+                }
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.All-Consuming Hunger"
+            },
+            {
+                "extends": "class-spell",
+                "key": "SpecialStatistic",
+                "label": "PF2E.SpecificRule.DeviantAbilities.Label",
+                "slug": "deviant",
+                "type": "attack-roll"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

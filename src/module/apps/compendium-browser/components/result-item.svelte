@@ -4,8 +4,9 @@
     import { getSelectedActors } from "@util/token-actor-utils.ts";
     import type { Rarity } from "@module/data.ts";
     import type { CompendiumBrowserIndexData } from "../tabs/data.ts";
-    import type { KitPF2e, PhysicalItemPF2e } from "@item";
+    import type { ItemPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
     import type { ContentTabName } from "../data.ts";
+    import type { ActorPF2e } from "@actor";
 
     const props: { activeTabName: ContentTabName | ""; entry: CompendiumBrowserIndexData } = $props();
     const entry = props.entry;
@@ -17,7 +18,7 @@
                 buyPhysicalItem(uuid);
                 break;
             case "open-sheet":
-                (await fromUuid(uuid))?.sheet.render(true);
+                (await fromUuid<ActorPF2e | ItemPF2e>(uuid))?.sheet.render(true);
                 break;
             case "take-item":
                 takePhysicalItem(uuid);
@@ -42,7 +43,7 @@
         event.dataTransfer.setData(
             "text/plain",
             JSON.stringify({
-                type: fu.parseUuid(uuid).documentType,
+                type: fu.parseUuid(uuid)?.type,
                 uuid: uuid,
             }),
         );
@@ -172,7 +173,7 @@
         </div>
     {/if}
     {#if entry.price}
-        <div class="price" data-tooltip="PF2E.PriceLabel">{entry.price}</div>
+        <div class="price" data-tooltip="PF2E.PriceLabel">{entry.price.toString({ short: true })}</div>
     {/if}
     {#if entry.level !== undefined}
         <div class="level">

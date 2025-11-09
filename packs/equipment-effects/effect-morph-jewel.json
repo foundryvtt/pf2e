@@ -1,0 +1,74 @@
+{
+    "_id": "ihZsJpB9v90EFQSG",
+    "img": "icons/commodities/stone/paver-cobble-white.webp",
+    "name": "Effect: Morph Jewel",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Morph Jewel]</p>\n<p>Choose bludgeoning, piercing, or slashing. Your weapon's damage becomes that type for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "value": "{item|flags.pf2e.rulesSelections.damageType}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

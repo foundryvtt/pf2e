@@ -7,9 +7,11 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
-            "value": "<p>This intricately carved quartz wand changes color, cycling through the colors of the rainbow.</p><hr /><p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You cast 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Chromatic Armor]. Additionally, the target can use the Chromatic Armor Burst action.</p><hr /><p><strong>Chromatic Armor Burst</strong> <span class=\"action-glyph\">1</span> (concentrate, light, magical)</p>\n<p><strong>Requirements</strong> You're affected by @UUID[Compendium.pf2e.spells-srd.Item.Chromatic Armor] created by the <em>wand of chromatic burst</em></p>\n<p><strong>Effect</strong> Choose one color of the @UUID[Compendium.pf2e.spells-srd.Item.Chromatic Armor] the wand created for you. The spell ends and light of that color flashes brightly in a @Template[emanation|distance:20]. Creatures in the area take [[/r 4d6]] damage of the type associated with the color you chose, with a basic Reflex save against your spell DC. This action has the trait corresponding to the damage type you chose.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of @UUID[Compendium.pf2e.spells-srd.Item.Chromatic Armor] of the appropriate rank.</p>"
+            "value": "<p>This intricately carved quartz wand changes color, cycling through the colors of the rainbow.</p><hr /><p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You cast 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Chromatic Armor]. Additionally, the target can use the Chromatic Armor Burst action.</p><hr /><p><strong>Chromatic Armor Burst</strong> <span class=\"action-glyph\">1</span> (concentrate, light, magical)</p>\n<p><strong>Requirements</strong> You're affected by @UUID[Compendium.pf2e.spells-srd.Item.Chromatic Armor] created by the <em>wand of chromatic burst</em></p>\n<p><strong>Effect</strong> Choose one color of the @UUID[Compendium.pf2e.spells-srd.Item.Chromatic Armor] the wand created for you. The spell ends and light of that color flashes brightly in a @Template[emanation|distance:20]. Creatures in the area take @Damage[4d6[untyped]] damage of the type associated with the color you chose, with a @Check[reflex|basic] save against your spell DC. This action has the trait corresponding to the damage type you chose.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of @UUID[Compendium.pf2e.spells-srd.Item.Chromatic Armor] of the appropriate rank.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -24,8 +26,12 @@
             "type": null
         },
         "price": {
+            "per": 1,
             "value": {
-                "gp": 1000
+                "cp": 0,
+                "gp": 1000,
+                "pp": 0,
+                "sp": 0
             }
         },
         "publication": {
@@ -34,18 +40,206 @@
             "title": "Pathfinder Treasure Vault (Remastered)"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "Chromatic Burst",
+                "option": "chromatic-burst",
+                "predicate": [
+                    "self:effect:chromatic-armor"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Fire",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "chromatic-armor-first:fire",
+                                    "chromatic-armor-second:fire",
+                                    "chromatic-armor-third:fire"
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Acid",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "chromatic-armor-first:acid",
+                                    "chromatic-armor-second:acid",
+                                    "chromatic-armor-third:acid"
+                                ]
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Electricity",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "chromatic-armor-first:electricity",
+                                    "chromatic-armor-second:electricity",
+                                    "chromatic-armor-third:electricity"
+                                ]
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Poison",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "chromatic-armor-first:poison",
+                                    "chromatic-armor-second:poison",
+                                    "chromatic-armor-third:poison"
+                                ]
+                            }
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Sonic",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "chromatic-armor-first:sonic",
+                                    "chromatic-armor-second:sonic",
+                                    "chromatic-armor-third:sonic"
+                                ]
+                            }
+                        ],
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Mental",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "chromatic-armor-first:mental",
+                                    "chromatic-armor-second:mental",
+                                    "chromatic-armor-third:mental"
+                                ]
+                            }
+                        ],
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Force",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "chromatic-armor-first:force",
+                                    "chromatic-armor-second:force",
+                                    "chromatic-armor-third:force"
+                                ]
+                            }
+                        ],
+                        "value": "force"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "self:effect:chromatic-armor"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.chromaticBurst}"
+            }
+        ],
         "size": "med",
+        "spell": {
+            "_id": "GX36B6Epmh8FscLI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.NBSBFHxBm88qxQUy"
+            },
+            "folder": "7cyoYPoPYA01mErU",
+            "img": "systems/pf2e/icons/spells/chromatic-armor.webp",
+            "name": "Chromatic Armor",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You wrap the target in armor made of sheets of colored light. The armor sheds bright light for 20 feet (and dim light for the next 20 feet). Whenever a creature attacks the target and is adjacent to it, the attacker must attempt a Will save at the end of its action. On a failure, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the end of its next turn. Regardless of the result of the save, the attacker is temporarily immune until the end of its next turn. The dazzling effect has the light and visual traits.</p>\n<p>When you cast the spell, roll [[/r 2d8]]{1d8 twice} on the table below to see the armor's colors (rerolling any duplicates). Each color grants resistance 5 to the indicated damage type. If you spend three actions to Cast the Spell, roll [[/r 3d8]]{three} times instead.</p>\n<ol>\n<li><strong>Red</strong> fire</li>\n<li><strong>Orange</strong> acid</li>\n<li><strong>Yellow</strong> electricity</li>\n<li><strong>Green</strong> poison</li>\n<li><strong>Blue</strong> sonic</li>\n<li><strong>Indigo</strong> mental</li>\n<li><strong>Violet</strong> force</li>\n<li><strong>Matching Color</strong> The armor becomes the color matching the type of damage the target took most recently in the past minute. If it didn't take any of those seven types of damage or the armor is already that color, roll again, rerolling any results of 8.</li>\n</ol>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Chromatic Armor]</p>\n<hr />\n<p><strong>Heightened (+3)</strong> The resistance is increased by 5.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": null
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Secrets of Magic"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "chromatic-armor",
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2 or 3"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "light",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
+                "concentrate",
+                "light",
                 "magical",
+                "manipulate",
                 "wand"
             ]
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

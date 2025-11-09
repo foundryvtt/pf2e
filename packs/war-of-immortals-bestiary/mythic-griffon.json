@@ -28,6 +28,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -65,6 +66,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -102,6 +104,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -208,11 +211,7 @@
                 "description": {
                     "value": "<p>The Mythic Griffon has a pool of 3 Mythic Points, and can spend those Mythic Points for any of the actions it has.</p>"
                 },
-                "frequency": {
-                    "max": 3,
-                    "per": "day",
-                    "value": 3
-                },
+                "frequency": null,
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
@@ -232,7 +231,7 @@
                 "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.gNxphcYARRn2bZ1i"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Mythic Skill (Acrobatics)",
+            "name": "Mythic Skill",
             "sort": 700000,
             "system": {
                 "actionType": {
@@ -243,14 +242,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Cost</strong> 1 Mythic Point</p><hr /><p><strong>Effect</strong> The Mythic Griffon attempts its next Acrobatics skill check with a +4 bonus and is considered to have mythic proficiency for that check. This applies to one skill when this ability is gained and a second skill if the creature is 12th level or higher.</p>"
+                    "value": "<p><strong>Cost</strong> 1 Mythic Point</p><hr /><p><strong>Effect</strong> The Mythic Griffon attempts its next Acrobatics skill check with a +4 bonus and is considered to have mythic proficiency for that check.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": "Pathfinder War of Immortals"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "mythic-skill",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "mythic-skill"
+                        ],
+                        "selector": [
+                            "acrobatics"
+                        ],
+                        "slug": "mythic-skill-bonus",
+                        "value": 4
+                    }
+                ],
                 "slug": "mythic-mythic-skill",
                 "traits": {
                     "value": []

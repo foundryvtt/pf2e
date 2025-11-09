@@ -3,7 +3,7 @@ import type { Rolled } from "@client/dice/_module.d.mts";
 import type { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { ItemProxyPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Coins } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { OneToTen } from "@module/data.ts";
 import { getIncomeForLevel } from "@scripts/macros/earn-income/calculate.ts";
@@ -16,10 +16,10 @@ import appv1 = foundry.appv1;
 /** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
 
 interface Costs {
-    reductionPerDay: CoinsPF2e;
-    materials: CoinsPF2e;
-    itemPrice: CoinsPF2e;
-    lostMaterials: CoinsPF2e;
+    reductionPerDay: Coins;
+    materials: Coins;
+    itemPrice: Coins;
+    lostMaterials: Coins;
 }
 
 function calculateDaysToNoCost(costs: Costs): number {
@@ -51,10 +51,10 @@ function calculateCosts(
     degreeOfSuccess: number,
     skill: string = "crafting",
 ): Costs | null {
-    const itemPrice = CoinsPF2e.fromPrice(item.price, quantity);
+    const itemPrice = Coins.fromPrice(item.price, quantity);
     const materialCosts = itemPrice.scale(0.5);
-    const lostMaterials = new CoinsPF2e();
-    const reductionPerDay = new CoinsPF2e();
+    const lostMaterials = new Coins();
+    const reductionPerDay = new Coins();
 
     const proficiency = actor.skills[skill]?.rank;
     if (!proficiency) return null;
@@ -114,11 +114,9 @@ export async function craftSpellConsumable(
 ): Promise<void> {
     const consumableType = item.category;
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
-    const spellLevel = (
-        consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)
-    ) as OneToTen;
+    const rank = (consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)) as OneToTen;
     const validSpells = actor.itemTypes.spell
-        .filter((s) => s.baseRank <= spellLevel && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
+        .filter((s) => s.baseRank <= rank && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
         .reduce(
             (result, spell) => {
                 result[spell.baseRank] = [...(result[spell.baseRank] || []), spell];
@@ -148,7 +146,7 @@ export async function craftSpellConsumable(
                     if (!spell?.isOfType("spell")) return;
                     const data = await createConsumableFromSpell(spell, {
                         type: consumableType,
-                        heightenedLevel: spellLevel,
+                        rank,
                     });
                     return craftItem(new ItemProxyPF2e(data) as PhysicalItemPF2e, itemQuantity, actor);
                 },

@@ -1,0 +1,123 @@
+{
+    "_id": "se36qcZiG3T0ps5U",
+    "img": "icons/skills/wounds/bone-broken-knee-beam.webp",
+    "name": "Effect: Targeting Finisher",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Targeting Finisher]</p>\n<p>You gain an effect based on the selected body part.</p><ul><li><strong>Arm (or another limb used for attacks, such as a tentacle)</strong> You are enfeebled 2.</li><li><strong>Head</strong> You are stupefied 2.</li><li><strong>Legs</strong> You take a –10-foot status penalty to your Speeds.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "targeting-finisher-result"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Arms",
+                        "value": "arms"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Head",
+                        "value": "head"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Legs",
+                        "value": "legs"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "targeting-finisher"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "upgrade",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "targeting-finisher:arms"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "upgrade",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "targeting-finisher:head"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "targeting-finisher:legs"
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -10
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "detach"
+                },
+                "predicate": [
+                    "targeting-finisher-result:critical-success"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Targeting Finisher (Critical)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

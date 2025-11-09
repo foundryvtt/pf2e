@@ -4,7 +4,7 @@
     "name": "Effect: Bestial Mutagen (Major)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bestial Mutagen (Major)]</p>\n<p>You gain a +4 item bonus to Athletics checks and unarmed attack rolls. You gain a claw unarmed attack (4d8 slashing damage) with the agile trait and a jaws unarmed attack (4d10 piercing damage).</p>\n<p>You take a –2 penalty to Reflex saves, Acrobatics checks, and Stealth checks.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bestial Mutagen (Major)]</p>\n<p>You gain a +4 item bonus to Athletics checks and unarmed attack rolls. You gain a claw unarmed attack (4d8 slashing damage) with the agile trait and a jaws unarmed attack (4d10 piercing damage). You gain weapon specialization with the claw and jaws, or greater weapon specialization if you already have weapon specialization with these unarmed attacks.</p>\n<p>You take a –2 penalty to Reflex saves, Acrobatics checks, and Stealth checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -89,6 +89,58 @@
                 ],
                 "property": "other-tags",
                 "value": "bestial-mutagen-strike"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.WeaponSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "{item|id}-damage",
+                "slug": "weapon-specialization",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:proficiency:rank:3"
+                ],
+                "priority": 0,
+                "selector": "{item|id}-damage",
+                "slug": "weapon-specialization",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:proficiency:rank:4"
+                ],
+                "priority": 0,
+                "selector": "{item|id}-damage",
+                "slug": "weapon-specialization",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "feature:weapon-specialization",
+                    {
+                        "not": "feature:greater-weapon-specialization"
+                    }
+                ],
+                "relabel": "PF2E.GreaterWeaponSpecialization",
+                "selector": "{item|id}-damage",
+                "slug": "weapon-specialization",
+                "value": 2
             }
         ],
         "start": {

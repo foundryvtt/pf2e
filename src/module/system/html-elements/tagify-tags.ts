@@ -66,8 +66,8 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
         for (const attribute of this.attributes) {
             if (attribute.name === "name" || attribute.name === "value") continue;
             this._primaryInput.setAttribute(attribute.name, attribute.value);
-            // Remove transfered attributes, expect class, from this element
-            if (attribute.name !== "class") {
+            // Remove transfered attributes except class and disabled from this element
+            if (attribute.name !== "class" && attribute.name !== "disabled") {
                 this.removeAttribute(attribute.name);
             }
         }

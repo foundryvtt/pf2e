@@ -6,10 +6,9 @@
         <select name="system.rules.{{index}}.type" class="short">
             {{selectOptions types selected=rule.type localize=true}}
         </select>
-        {{{form.resolvableAddBracket "value"}}}
     </div>
 </div>
-{{{form.resolvableBrackets "value"}}}
+
 {{#if (eq rule.type "regeneration")}}
     <div class="form-group">
         <label class="short">{{localize "PF2E.RuleEditor.FastHealing.DeactivatedBy"}}</label>

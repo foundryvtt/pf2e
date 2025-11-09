@@ -1,0 +1,242 @@
+{
+    "_id": "rHfZWy3hzhV71F0Q",
+    "img": "icons/magic/movement/trail-streak-zigzag-teal.webp",
+    "name": "Flicker Deviant Classification",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whether due to an artificially accelerated metabolism or the lingering effects of temporal phenomena, the end result of the flicker classification is largely the same—abilities that result in the perception of higher-than-average speed, kinetic acuity, and reflexes.</p><h2>Backlash</h2><p>@UUID[Compendium.pf2e.classfeatures.Item.Desynchronized Motions]</p>\n<p>As your body speeds faster and faster, you risk falling out of sync with reality, as the world slows around you to the point that your interactions with it become strange and unpredictable.</p>\n<p><strong>Mild Backlash</strong> The friction of your motion through a slower world sets you alight. You take @Damage[(2+floor(@actor.level/5))d4[persistent,fire]] damage. At 5th level, and every 5 levels after, the persistent fire damage increases by 1d4. You take this persistent fire damage even if in a liquid environment, such as underwater, as your motion simply surrounds you in boiling water.</p>\n<p><strong>Moderate Backlash</strong> You fall out of phase with nearby matter, becoming trapped in the process. You take the mild backlash effects, catching on fire, and your legs also partially phase into the ground, making you @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. You can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your deviation DC, or you can slowly extract yourself without attempting a check over the course of 1 minute.</p>\n<p><strong>Severe Backlash</strong> Your body accelerates to such a degree that your senses and impulses cannot keep up. You become trapped in your own mind for what seems like an eternity, taking 1d4 nonlethal mental damage for each level you have (@Damage[(@actor.level)d4[mental]]). When you return, you are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} for 10 minutes, and then @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until your next daily preparation. Your body ages one year during this time.</p><h2>Flicker Deviant Feats</h2><p>@UUID[Compendium.pf2e.feats-srd.Item.Overclock Senses]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Sonic Dash]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Lightspeed Assault]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Unstable Gearshift]</p><h3>Universal Deviant Feats</h3><p>@UUID[Compendium.pf2e.feats-srd.Item.Awakened Power]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Greater Awakened Power]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Gatewalkers Player's Guide (Remastered)"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices",
+                "priority": 10,
+                "value": {
+                    "greater": [],
+                    "lesser": []
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.SonicDashSonicBoom",
+                    "predicate": [
+                        {
+                            "not": "awakening:sonic-dash:sonic-boom"
+                        },
+                        "feat:sonic-dash"
+                    ],
+                    "value": "sonic-dash:sonic-boom"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.SonicDashSlipstream",
+                    "predicate": [
+                        {
+                            "not": "awakening:sonic-dash:slipstream"
+                        },
+                        "feat:sonic-dash"
+                    ],
+                    "value": "sonic-dash:slipstream"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.SonicDashSonicBoom",
+                    "predicate": [
+                        {
+                            "not": "awakening:sonic-dash:sonic-boom"
+                        },
+                        "feat:sonic-dash"
+                    ],
+                    "value": "sonic-dash:sonic-boom"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.SonicDashSlipstream",
+                    "predicate": [
+                        {
+                            "not": "awakening:sonic-dash:slipstream"
+                        },
+                        "feat:sonic-dash"
+                    ],
+                    "value": "sonic-dash:slipstream"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.OverclockSensesFocus",
+                    "predicate": [
+                        {
+                            "not": "awakening:overclock-senses:focus"
+                        },
+                        "feat:overclock-senses"
+                    ],
+                    "value": "overclock-senses:focus"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.OverclockSensesReact",
+                    "predicate": [
+                        {
+                            "not": "awakening:overclock-senses:react"
+                        },
+                        "feat:overclock-senses"
+                    ],
+                    "value": "overclock-senses:react"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.OverclockSensesFocus",
+                    "predicate": [
+                        {
+                            "not": "awakening:overclock-senses:focus"
+                        },
+                        "feat:overclock-senses"
+                    ],
+                    "value": "overclock-senses:focus"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.OverclockSensesReact",
+                    "predicate": [
+                        {
+                            "not": "awakening:overclock-senses:react"
+                        },
+                        "feat:overclock-senses"
+                    ],
+                    "value": "overclock-senses:react"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.UnstableGearshiftBlur",
+                    "predicate": [
+                        {
+                            "not": "awakening:unstable-gearshift:blur"
+                        },
+                        "feat:unstable-gearshift"
+                    ],
+                    "value": "unstable-gearshift:blur"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.UnstableGearshiftPhaseOut",
+                    "predicate": [
+                        {
+                            "not": "awakening:unstable-gearshift:phase-out"
+                        },
+                        "feat:unstable-gearshift"
+                    ],
+                    "value": "unstable-gearshift:phase-out"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.LightspeedAssaultTeleport",
+                    "predicate": [
+                        {
+                            "not": "awakening:lightspeed-assault:teleport"
+                        },
+                        "feat:lightspeed-assault"
+                    ],
+                    "value": "lightspeed-assault:teleport"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.LightspeedAssaultFlankingAssault",
+                    "predicate": [
+                        {
+                            "not": "awakening:lightspeed-assault:flanking-assault"
+                        },
+                        "feat:lightspeed-assault"
+                    ],
+                    "value": "lightspeed-assault:flanking-assault"
+                }
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Desynchronized Motions"
+            },
+            {
+                "extends": "class-spell",
+                "key": "SpecialStatistic",
+                "label": "PF2E.SpecificRule.DeviantAbilities.Label",
+                "slug": "deviant",
+                "type": "attack-roll"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

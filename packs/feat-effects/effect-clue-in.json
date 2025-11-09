@@ -4,7 +4,7 @@
     "name": "Effect: Clue In",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Clue In]</p>\n<p>Whenever you attempt a Perception or skill check to investigate a designated subject, you gain a +1 circumstance bonus to the check.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Clue In]</p>\n<p>You gain a +1 circumstance bonus to your check. If the origin has investigator expertise, this bonus increases to +2.</p>"
         },
         "duration": {
             "expiry": null,
@@ -23,27 +23,8 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "or": [
-                            {
-                                "not": "check:type:saving-throw"
-                            },
-                            {
-                                "and": [
-                                    "check:type:saving-throw",
-                                    "parent:origin:item:tag:detectives-readiness"
-                                ]
-                            }
-                        ]
-                    }
-                ],
                 "removeAfterRoll": "if-enabled",
-                "selector": [
-                    "perception",
-                    "skill-check",
-                    "saving-throw"
-                ],
+                "selector": "check",
                 "slug": "clue-in",
                 "type": "circumstance",
                 "value": 1
@@ -54,11 +35,7 @@
                 "predicate": [
                     "parent:origin:item:tag:investigator-expertise"
                 ],
-                "selectors": [
-                    "skill-check",
-                    "perception",
-                    "saving-throw"
-                ],
+                "selector": "check",
                 "slug": "clue-in",
                 "value": 2
             }

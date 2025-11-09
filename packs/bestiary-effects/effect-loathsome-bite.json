@@ -1,0 +1,50 @@
+{
+    "_id": "LgZx5xotO08JzhVc",
+    "img": "icons/magic/death/mouth-bite-fangs-vampire.webp",
+    "name": "Effect: Loathsome Bite",
+    "system": {
+        "badge": {
+            "max": 3,
+            "min": null,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>You take a status penalty to Charisma-based checks.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "cha-based",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

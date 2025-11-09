@@ -1,0 +1,49 @@
+{
+    "_id": "3wvfYn9CujpwAjZ3",
+    "img": "icons/magic/life/heart-cross-green.webp",
+    "name": "Spell Effect: Thematic Action (Ally)",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": null,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "(@item.level)d4"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Protagonist]</p>\n<p>You gain temporary hit points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

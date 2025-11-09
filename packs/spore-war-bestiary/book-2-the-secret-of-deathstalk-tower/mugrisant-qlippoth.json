@@ -350,6 +350,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -388,6 +389,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -429,13 +431,16 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
                         "concussive",
                         "magical",
-                        "range-increment-60",
                         "unholy"
                     ]
                 }
@@ -599,7 +604,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The mugrisant opens their central maw to display a roiling mass of teratomas. The bodies of those who view this revolting sight change of their own accord, sprouting teratomas of their own. Creatures in a @Template[type:emanation|distance:30] must attempt a @Check[will|dc:36] save, after which they are temporarily immune to further Teratomatous Displays for 1 minute. Tumors created from this ability vanish when the creature isn't sickened.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[piercing]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[6d6[piercing]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[12d6[piercing]] damage, is sickened 2, and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>"
+                    "value": "<p>The mugrisant opens their central maw to display a roiling mass of teratomas. The bodies of those who view this revolting sight change of their own accord, sprouting teratomas of their own. Creatures in a @Template[type:emanation|distance:30] must attempt a @Check[will|dc:36|options:area-effect,damaging-effect,inflicts:drained,inflicts:sickened] save, after which they are temporarily immune to further Teratomatous Displays for 1 minute. Tumors created from this ability vanish when the creature isn't sickened.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[piercing]|options:area-damage] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[6d6[piercing]|options:area-damage] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[12d6[piercing]|options:area-damage] damage, is sickened 2, and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

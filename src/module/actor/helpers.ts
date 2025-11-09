@@ -3,7 +3,13 @@ import type { Rolled } from "@client/dice/_module.d.mts";
 import type { HexColorString } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
+import { ActionCost } from "@item/base/data/system.ts";
+import { createEffectAreaLabel } from "@item/helpers.ts";
+import { NPC_ATTACK_ACTIONS } from "@item/melee/values.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import { EffectAreaShape } from "@item/types.ts";
+import type { AreaAttackContextFlag } from "@module/chat-message/data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
@@ -18,19 +24,20 @@ import {
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentRegionBehavior } from "@scene/region-behavior/types.ts";
-import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { Check, CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
+import { Statistic } from "@system/statistic/statistic.ts";
 import { ErrorPF2e, getActionGlyph, signedInteger, sluggify } from "@util/misc.ts";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
 import type { DamageRollFunction } from "./data/base.ts";
 import type { ActorSourcePF2e } from "./data/index.ts";
-import { CheckModifier, ModifierPF2e, StatisticModifier, createAttributeModifier } from "./modifiers.ts";
-import type { NPCStrike } from "./npc/data.ts";
+import { CheckModifier, Modifier, StatisticModifier, createAttributeModifier } from "./modifiers.ts";
+import type { NPCAreaAttack, NPCAttackAction, NPCStrike } from "./npc/data.ts";
 import { CheckContext } from "./roll-context/check.ts";
 import { DamageContext } from "./roll-context/damage.ts";
 import type { ActorGroupUpdate, AttributeString, AuraEffectData } from "./types.ts";
@@ -359,7 +366,7 @@ function getStrikeAttackDomains(
             alternativeAttributeModifier,
             ...extractModifiers(weapon.actor.synthetics, domains, { resolvables: { weapon }, test: rollOptions }),
         ]
-            .filter((m): m is ModifierPF2e & { ability: AttributeString } => m?.type === "ability" && m.enabled)
+            .filter((m): m is Modifier & { ability: AttributeString } => m?.type === "ability" && m.enabled)
             .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
         domains.push(`${attributeModifier.ability}-attack`, `${attributeModifier.ability}-based`);
     }
@@ -367,26 +374,29 @@ function getStrikeAttackDomains(
     return R.unique(domains);
 }
 
-function getStrikeDamageDomains(
+function getAttackDamageDomains(
     weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>,
     proficiencyRank: ZeroToFour | null,
+    action?: "strike" | "auto-fire" | "area-fire",
 ): string[] {
+    action ??= !weapon.isOfType("melee") ? "strike" : weapon.system.action;
     const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
     const slug = weapon.slug ?? sluggify(weapon.name);
-    const { actor, group, traits } = weapon;
+    const { actor, group } = weapon;
+    const traits = weapon.system.traits.value;
     const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
     const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
-    const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
+    const unarmedOrWeapon = traits.includes("unarmed") ? "unarmed" : "weapon";
     const domains = [
         `${weapon.id}-damage`,
         `${slug}-damage`,
-        `${meleeOrRanged}-strike-damage`,
+        `${meleeOrRanged}-${action}-damage`,
         `${meleeOrRanged}-damage`,
         `${unarmedOrWeapon}-damage`,
         group ? `${group}-weapon-group-damage` : null,
         baseType ? `${baseType}-base-damage` : null,
         "attack-damage",
-        "strike-damage",
+        `${action}-damage`,
         "damage",
     ].filter(R.isTruthy);
 
@@ -406,7 +416,9 @@ function getStrikeDamageDomains(
 
     if (actor.isOfType("character", "npc")) {
         const strengthBasedDamage =
-            weapon.isMelee || (weapon.isThrown && !traits.has("splash")) || traits.has("propulsive");
+            weapon.isMelee ||
+            traits.includes("propulsive") ||
+            (weapon.isThrown && !traits.includes("splash") && !["alchemical-bomb", "grenade"].includes(baseType ?? ""));
 
         const attributeModifier = [
             strengthBasedDamage ? createAttributeModifier({ actor, attribute: "str", domains }) : null,
@@ -426,23 +438,25 @@ function getStrikeDamageDomains(
     return R.unique(domains);
 }
 
-/** Create a strike statistic from a melee item: for use by NPCs and Hazards */
-function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
-    const actor = item.actor;
-    if (!["hazard", "npc"].includes(actor.type)) {
+/** Create a strike or area/auto fire statistic from a melee item: for use by NPCs and Hazards */
+function attackFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAttackAction {
+    if (!["hazard", "npc"].includes(item.actor.type)) {
         throw ErrorPF2e("Attempted to create melee-item strike statistic for non-NPC/hazard");
     }
 
-    // Conditions and Custom modifiers to attack rolls
+    return item.system.action === "strike" ? strikeFromMeleeItem(item) : areaFireFromMeleeItem(item);
+}
+
+/** Create a strike statistic from a melee item: for use by NPCs and Hazards */
+function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
+    const actor = item.actor;
     const meleeOrRanged = item.isMelee ? "melee" : "ranged";
-    const baseOptions = new Set(
-        ["self:action:slug:strike", meleeOrRanged, ...item.system.traits.value].filter(R.isTruthy),
-    );
+    const baseOptions = [`self:action:slug:strike`, meleeOrRanged, ...item.system.traits.value];
     const domains = getStrikeAttackDomains(item, actor.isOfType("npc") ? 1 : null, baseOptions);
 
     const synthetics = actor.synthetics;
     const modifiers = [
-        new ModifierPF2e({
+        new Modifier({
             slug: "base",
             label: "PF2E.ModifierTitle",
             modifier: item.attackModifier,
@@ -464,6 +478,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     for (const adjustment of synthetics.strikeAdjustments) {
         adjustment.adjustWeapon?.(item);
     }
+
+    // Get the initial roll options, now that adjustments have been applied
     const initialRollOptions = new Set([
         ...baseOptions,
         ...actor.getRollOptions(domains),
@@ -494,7 +510,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         additionalEffects,
         item,
         weapon: item,
-        canStrike: true,
+        canAttack: true,
         options: Array.from(baseOptions),
         traits: [
             actionTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
@@ -514,7 +530,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     // Multiple attack penalty
     const maps = calculateMAPs(item, { domains, options: initialRollOptions });
     const createMapModifier = (prop: "map1" | "map2") => {
-        return new ModifierPF2e({
+        return new Modifier({
             slug: maps.slug,
             label: maps.label,
             modifier: maps[prop],
@@ -601,7 +617,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 dosAdjustments,
                 createMessage: params.createMessage ?? true,
             };
-            const roll = await CheckPF2e.roll(check, checkContext, params.event);
+            const roll = await Check.roll(check, checkContext, params.event);
 
             if (roll) {
                 for (const rule of context.origin.actor.rules.filter((r) => !r.ignored)) {
@@ -620,15 +636,136 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     }));
     strike.roll = strike.attack = strike.variants[0].roll;
 
-    const damageRoll =
+    const damageRoll = createDamageRollFunctions(item, {
+        action: "strike",
+        statistic: strike,
+        baseOptions,
+        actionTraits,
+        proficiencyRank: 1,
+    });
+    strike.damage = damageRoll.damage;
+    strike.critical = damageRoll.critical;
+
+    return strike;
+}
+
+function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
+    if (item.system.action === "strike") throw ErrorPF2e("Unexpected action type");
+    const action = item.system.action;
+
+    const actor = item.actor;
+    const attackSlug = item.slug ?? sluggify(item.name);
+    const meleeOrRanged = item.isMelee ? "melee" : "ranged";
+    const domains = ["all", `${action}-save`];
+    const baseOptions = [
+        `self:action:slug:${action}`,
+        meleeOrRanged,
+        ...item.system.traits.value,
+        "area-damage",
+        "area-effect",
+    ];
+
+    const synthetics = actor.synthetics;
+    const modifiers = [
+        new Modifier({
+            slug: "base",
+            label: "PF2E.ModifierTitle",
+            modifier: item.attackModifier,
+            adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, "base"),
+        }),
+        ...extractModifiers(synthetics, domains),
+    ];
+
+    const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
+    const additionalEffects = item.attackEffects.map((tag) => {
+        const items = actor.items.contents;
+        const label = attackEffects[tag] ?? items.find((i) => (i.slug ?? sluggify(i.name)) === tag)?.name ?? tag;
+        return { tag, label };
+    });
+
+    const actionCost: ActionCost = { type: "action", value: item.system.traits.value.includes("consumable") ? 1 : 2 };
+    const identifier = `${item.id}.${attackSlug}.${action}`;
+    const statistic = new Statistic(actor, {
+        slug: attackSlug,
+        label: item.name,
+        modifiers,
+    });
+
+    return {
+        slug: identifier,
+        type: action,
+        attackRollType: NPC_ATTACK_ACTIONS[action],
+        label: item.name,
+        glyph: getActionGlyph(actionCost),
+        description: item.description,
+        ready: true,
+        canAttack: true,
+        modifiers: [],
+        item,
+        statistic,
+        additionalEffects,
+        variants: [
+            {
+                label: game.i18n.format("PF2E.ActionWithDC", {
+                    label: game.i18n.localize(NPC_ATTACK_ACTIONS[action]),
+                    dc: statistic.dc.value,
+                }),
+                roll: () => {
+                    if (!item.system.area) throw ErrorPF2e("Unexpected missing area data");
+                    createAreaAttackMessage({
+                        actor,
+                        item,
+                        statistic,
+                        action,
+                        identifier,
+                        actionCost,
+                        domains,
+                        options: baseOptions,
+                        area: item.system.area,
+                    });
+                },
+            },
+        ],
+        ...createDamageRollFunctions(item, {
+            action,
+            statistic,
+            baseOptions,
+            actionTraits: ["attack"],
+            proficiencyRank: 1,
+        }),
+    };
+}
+
+/**
+ * Helper function that creates damage roll functions for character and npc attacks.
+ * While it used for character area/auto fire, its not used for character strikes yet.
+ *
+ */
+function createDamageRollFunctions(
+    item: MeleePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e>,
+    {
+        action,
+        statistic,
+        actionTraits,
+        baseOptions,
+        proficiencyRank,
+    }: {
+        action: "strike" | "area-fire" | "auto-fire";
+        statistic: NPCStrike | Statistic;
+        actionTraits: AbilityTrait[];
+        baseOptions: Iterable<string>;
+        proficiencyRank: ZeroToFour;
+    },
+): { damage: DamageRollFunction; critical: DamageRollFunction } {
+    const actor = item.actor;
+    const createDamageRoll =
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
-            const domains = getStrikeDamageDomains(item, actor.isOfType("npc") ? 1 : null);
+            const domains = getAttackDamageDomains(item, proficiencyRank);
             const targetToken = (params.target ?? game.user.targets.first())?.document ?? null;
-
             const context = await new DamageContext({
                 viewOnly: params.getFormula ?? false,
-                origin: { actor, statistic: strike, item },
+                origin: { actor, statistic, item },
                 target: { token: targetToken },
                 domains,
                 checkContext: params.checkContext,
@@ -645,7 +782,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
             const damageContext: DamageDamageContext = {
                 type: "damage-roll",
-                sourceType: "attack",
+                sourceType: action === "strike" ? "attack" : "save",
                 self: context.origin,
                 target: context.target,
                 outcome,
@@ -664,11 +801,18 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
             if (params.getFormula) damageContext.skipDialog = true;
 
-            const damage = await WeaponDamagePF2e.fromNPCAttack({
-                attack: context.origin.item,
-                actor: context.origin.actor,
-                context: damageContext,
-            });
+            const damage = item.isOfType("melee")
+                ? await WeaponDamagePF2e.fromNPCAttack({
+                      attack: item,
+                      actor: context.origin.actor,
+                      context: damageContext,
+                  })
+                : await WeaponDamagePF2e.calculate({
+                      weapon: item,
+                      actor: context.origin.actor,
+                      weaponPotency: item.flags.pf2e.attackItemBonus,
+                      context: damageContext,
+                  });
             if (!damage) return null;
 
             if (params.getFormula) {
@@ -679,10 +823,81 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             }
         };
 
-    strike.damage = damageRoll("success");
-    strike.critical = damageRoll("criticalSuccess");
+    return {
+        damage: createDamageRoll("success"),
+        critical: createDamageRoll("criticalSuccess"),
+    };
+}
 
-    return strike;
+interface AreaAttackOptions {
+    action: "area-fire" | "auto-fire";
+    actor: ActorPF2e;
+    item: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>;
+    // The statistic to area fire with. If omitted, will attempt to compute one if its a PC
+    statistic: Statistic;
+    identifier: string;
+    actionCost: ActionCost;
+    domains: string[];
+    options: string[];
+    area: { type: EffectAreaShape; value: number };
+}
+
+/** Creates an area fire message with buttons to roll saves and damage */
+async function createAreaAttackMessage({
+    action,
+    actor,
+    item,
+    statistic,
+    identifier,
+    actionCost,
+    domains,
+    options,
+    area,
+}: AreaAttackOptions): Promise<void> {
+    const dc = statistic.dc;
+
+    const key = sluggify(action, { camel: "bactrian" });
+    const title = game.i18n.localize(`PF2E.Actions.${key}.Title`);
+    const description = game.i18n.localize(`PF2E.Actions.${key}.Description`);
+
+    const token = actor.getActiveTokens(false, true).shift();
+    const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
+    const glyph = getActionGlyph(actionCost);
+    const flavor = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
+        action: { title, glyph },
+        item,
+        traits: [traitSlugToObject("attack", CONFIG.PF2E.actionTraits)],
+    });
+    const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/area-fire.hbs", {
+        actor,
+        description,
+        saveLabel: game.i18n.format("PF2E.SaveDCLabelBasic", {
+            dc: dc.value,
+            type: game.i18n.localize(CONFIG.PF2E.saves.reflex),
+        }),
+        areaLabel: createEffectAreaLabel(area),
+        saveBreakdown: dc.breakdown,
+    });
+
+    const context: AreaAttackContextFlag = {
+        type: action,
+        area,
+        identifier,
+        domains,
+        options,
+    };
+
+    await ChatMessagePF2e.create({
+        flavor,
+        content,
+        speaker,
+        flags: {
+            pf2e: {
+                context,
+                origin: item.getOriginData(),
+            },
+        },
+    });
 }
 
 /** Get the range increment of a target for a given weapon */
@@ -699,11 +914,11 @@ function calculateRangePenalty(
     increment: number | null,
     selectors: string[],
     rollOptions: Set<string>,
-): ModifierPF2e | null {
+): Modifier | null {
     if (!increment || increment === 1) return null;
 
     const slug = "range-penalty";
-    const modifier = new ModifierPF2e({
+    const modifier = new Modifier({
         label: "PF2E.RangePenalty",
         slug,
         type: "untyped",
@@ -718,8 +933,8 @@ function calculateRangePenalty(
 
 /** Whether this actor is of a the "character" type, excluding those from the PF2E Companion Compendia module */
 function isReallyPC(actor: ActorPF2e): boolean {
-    const traits = actor.traits;
-    return actor.isOfType("character") && !(traits.has("minion") || traits.has("eidolon"));
+    const traits = actor.system.traits?.value ?? [];
+    return actor.isOfType("character") && !["eidolon", "minion"].some((t) => traits.includes(t));
 }
 
 /** Recursive generator function to iterate over all items and their sub items */
@@ -752,7 +967,6 @@ async function transferItemsBetweenActors(
 
     for (const item of source.inventory) {
         if (itemFilterFn && !itemFilterFn(item)) continue;
-
         const stackableItem = dest.inventory.findStackableItem(item);
         if (stackableItem) {
             const currentQuantity = itemUpdates.get(stackableItem.id) ?? stackableItem.quantity;
@@ -760,7 +974,6 @@ async function transferItemsBetweenActors(
             itemsToDelete.push(item.id);
             continue;
         }
-
         newItems.push(item);
         itemsToDelete.push(item.id);
     }
@@ -770,14 +983,11 @@ async function transferItemsBetweenActors(
             const stackableItem = result.find((i) => i.isStackableWith(item));
             if (stackableItem) {
                 stackableItem.updateSource({
-                    system: {
-                        quantity: stackableItem.quantity + item.quantity,
-                    },
+                    system: { quantity: stackableItem.quantity + item.quantity },
                 });
             } else {
                 result.push(item);
             }
-
             return result;
         }, []);
         const sources = stacked.map((i) => i.toObject());
@@ -786,19 +996,11 @@ async function transferItemsBetweenActors(
             render: itemUpdates.size === 0,
         });
     }
-
     if (itemUpdates.size > 0) {
-        const updates = [...itemUpdates.entries()].map(([id, quantity]) => ({
-            _id: id,
-            system: { quantity },
-        }));
-
+        const updates = [...itemUpdates.entries()].map(([id, quantity]) => ({ _id: id, system: { quantity } }));
         await dest.updateEmbeddedDocuments("Item", updates);
     }
-
-    if (itemsToDelete.length > 0) {
-        await source.deleteEmbeddedDocuments("Item", itemsToDelete);
-    }
+    if (itemsToDelete.length > 0) await source.deleteEmbeddedDocuments("Item", itemsToDelete);
 }
 
 /** Creates an empty actor group update with optional additional data */
@@ -816,50 +1018,60 @@ function createActorGroupUpdate(data: Partial<ActorGroupUpdate> = {}): ActorGrou
 async function applyActorGroupUpdate(
     actor: ActorPF2e,
     data: Partial<ActorGroupUpdate>,
-    { render = true }: { render?: boolean } = {},
+    { render = true, keepId }: { render?: boolean; keepId?: boolean } = {},
 ): Promise<void> {
+    const actorUpdates = data.actorUpdates && !R.isEmpty(data.actorUpdates) ? data.actorUpdates : null;
     const itemCreates = data.itemCreates ?? [];
     const itemUpdates = data.itemUpdates ?? [];
     const itemDeletes = data.itemDeletes ?? [];
 
-    if (data.actorUpdates && !R.isEmpty(data.actorUpdates)) {
-        await actor.update(data.actorUpdates, { render: false });
+    // Determine which one is last so that we cause the re-render then
+    // If we manually re-render, other users will fail to re-render
+    const lastRender = !render
+        ? null
+        : itemDeletes.length
+          ? "delete"
+          : itemUpdates.length
+            ? "update"
+            : itemCreates.length
+              ? "create"
+              : "actorUpdate";
+
+    if (actorUpdates) {
+        await actor.update(actorUpdates, { render: lastRender === "actorUpdate" });
     }
     if (itemCreates.length > 0) {
-        await actor.createEmbeddedDocuments("Item", itemCreates, { render: false });
+        await actor.createEmbeddedDocuments("Item", itemCreates, { render: lastRender === "create", keepId });
     }
     if (itemUpdates.length > 0) {
-        await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
+        await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: lastRender === "update" });
     }
     if (itemDeletes.length > 0) {
-        await actor.deleteEmbeddedDocuments("Item", itemDeletes, { render: false });
-    }
-
-    const changed = data.actorUpdates || itemCreates.length || itemUpdates.length || itemDeletes.length;
-    if (render && changed) {
-        actor.render();
+        await actor.deleteEmbeddedDocuments("Item", itemDeletes, { render: lastRender === "delete" });
     }
 }
 
 export {
     applyActorGroupUpdate,
+    attackFromMeleeItem,
     auraAffectsActor,
     calculateMAPs,
     calculateRangePenalty,
     checkAreaEffects,
     createActorGroupUpdate,
+    createAreaAttackMessage,
+    createDamageRollFunctions,
     createEncounterRollOptions,
     createEnvironmentRollOptions,
+    getAttackDamageDomains,
     getRangeIncrement,
     getStrikeAttackDomains,
-    getStrikeDamageDomains,
     isOffGuardFromFlanking,
     isReallyPC,
     iterateAllItems,
     migrateActorSource,
     resetActors,
     setHitPointsRollOptions,
-    strikeFromMeleeItem,
     transferItemsBetweenActors,
     userColorForActor,
 };

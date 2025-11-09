@@ -1,0 +1,80 @@
+{
+    "_id": "UFghSYXiBJIDV0jI",
+    "folder": "mGGZeOTiVPO8xhBp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Field Propagandist Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Having devoted your life to crafting propaganda, you know that winning the hearts and minds of soldiers can be a deciding factor in securing the successful outcome of a war. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Spread Propaganda] exploration activity.</p>\n<p>While you are not immune to propaganda, you are resistant to it. You gain a +2 circumstance bonus to your Perception DC against attempts made by others to Lie to you. If you have the Lie to Me skill feat, you gain a +2 circumstance bonus to your Deception DC.</p>\n<p>You become trained in Society. If you were already trained, you become an expert instead.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.f7a4f9nUuk00X3qu]{Field Propagandist}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Charisma +2"
+                },
+                {
+                    "value": "trained in Deception and Diplomacy"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie"
+                ],
+                "selector": "perception-dc",
+                "slug": "field-propagandist-perception-dc-bonus",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "feat:lie-to-me"
+                ],
+                "selector": "deception-dc",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.society.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Spread Propaganda"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

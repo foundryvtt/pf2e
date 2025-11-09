@@ -127,7 +127,7 @@
         },
         {
             "_id": "dT41anVs1Byhwbok",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
             "name": "Clash of Steel",
             "sort": 500000,
             "system": {
@@ -139,7 +139,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p><hr /><p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The line infantry lays into each enemy in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:21|basic|options:area-effect] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d6+2)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d6+7)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d6+10)[slashing]|options:area-damage] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The line infantry lays into each enemy in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:21|basic|options:area-effect] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d6+2)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d6+7)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d6+10)[slashing]|options:area-damage] damage</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -183,7 +183,58 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "change-formation",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeFormation.MarchingColumn.Label",
+                                "value": "marching-column"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeFormation.Wedge.Label",
+                                "value": "wedge"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "change-formation:marching-column"
+                        ],
+                        "selector": "all-speeds",
+                        "slug": "marching-column-speed-bonus",
+                        "type": "circumstance",
+                        "value": 10
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "change-formation:marching-column"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "change-formation:marching-column"
+                        ],
+                        "selector": "reflex",
+                        "slug": "marching-column-reflex-penalty",
+                        "value": -2
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "change-formation:wedge"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

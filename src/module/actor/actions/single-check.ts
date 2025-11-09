@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
+import { Modifier, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { DCSlug } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ItemPF2e } from "@item";
@@ -14,7 +14,8 @@ import {
     CheckResultCallback,
 } from "@system/action-macros/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { getActionGlyph, isObject, tupleHasValue } from "@util";
+import { getActionGlyph, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionUseOptions } from "./types.ts";
 
@@ -25,9 +26,7 @@ function toRollNoteSource(data: SingleCheckActionRollNoteData): RollNoteSource {
 }
 
 function isValidDifficultyClass(dc: unknown): dc is CheckDC | DCSlug {
-    if (isObject<{ value: unknown }>(dc) && typeof dc.value === "number") {
-        return true;
-    }
+    if (R.isObjectType(dc) && "value" in dc && typeof dc.value === "number") return true;
 
     const slug = String(dc);
     return (
@@ -39,6 +38,8 @@ interface SingleCheckActionVariantData extends BaseActionVariantData {
     difficultyClass?: CheckDC | DCSlug;
     modifiers?: RawModifier[];
     notes?: SingleCheckActionRollNoteData[];
+
+    /** Additional roll options beyond the base action's and `action:${actionSlug}:${variantSlug}` */
     rollOptions?: string[];
     statistic?: string | string[];
 }
@@ -47,6 +48,8 @@ interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantD
     difficultyClass?: CheckDC | DCSlug;
     modifiers?: RawModifier[];
     notes?: SingleCheckActionRollNoteData[];
+
+    /** Additional roll options beyond `action:${slug}`, which is implicit */
     rollOptions?: string[];
     statistic: string | string[];
 }
@@ -67,7 +70,7 @@ interface ActionCheckPreview {
 
 interface SingleCheckActionUseOptions extends ActionUseOptions {
     difficultyClass: CheckDC | DCSlug | number;
-    modifiers: ModifierPF2e[];
+    modifiers: Modifier[];
     multipleAttackPenalty: number;
     notes: SingleCheckActionRollNoteData[];
     rollOptions: string[];
@@ -89,8 +92,10 @@ class SingleCheckActionVariant extends BaseActionVariant {
             this.#difficultyClass = data.difficultyClass;
             this.#modifiers = data?.modifiers;
             this.#notes = data.notes ? data.notes.map(toRollNoteSource) : undefined;
-            this.#rollOptions = data.rollOptions;
             this.#statistic = data.statistic;
+            this.#rollOptions = data.slug
+                ? [`action:${action.slug}:${data.slug.trim()}`, ...(data.rollOptions ?? [])]
+                : data.rollOptions;
         }
     }
 
@@ -107,7 +112,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
     }
 
     get rollOptions(): string[] {
-        return this.#rollOptions ?? this.#action.rollOptions;
+        return this.#rollOptions ? [...this.#action.rollOptions, ...this.#rollOptions] : this.#action.rollOptions;
     }
 
     get statistic(): string | string[] {
@@ -128,11 +133,11 @@ class SingleCheckActionVariant extends BaseActionVariant {
     }
 
     override async use(options: Partial<SingleCheckActionUseOptions> = {}): Promise<CheckResultCallback[]> {
-        const modifiers = this.modifiers.map((raw) => new ModifierPF2e(raw)).concat(options.modifiers ?? []);
+        const modifiers = this.modifiers.map((raw) => new Modifier(raw)).concat(options.modifiers ?? []);
         if (options.multipleAttackPenalty) {
             const map = options.multipleAttackPenalty;
             const modifier = map > 0 ? Math.min(2, map) * -5 : map;
-            modifiers.push(new ModifierPF2e({ label: "PF2E.MultipleAttackPenalty", modifier }));
+            modifiers.push(new Modifier({ label: "PF2E.MultipleAttackPenalty", modifier }));
         }
         const notes = (this.notes as SingleCheckActionRollNoteData[])
             .concat(options.notes ?? [])
@@ -195,10 +200,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
         if (args.actor) {
             const statistic = args.actor.getStatistic(args.slug);
             if (statistic) {
-                const modifiers = [
-                    ...statistic.modifiers,
-                    ...this.modifiers.map((modifier) => new ModifierPF2e(modifier)),
-                ];
+                const modifiers = [...statistic.modifiers, ...this.modifiers.map((modifier) => new Modifier(modifier))];
                 const modifier = new StatisticModifier(
                     args.slug,
                     modifiers,
@@ -226,7 +228,7 @@ class SingleCheckAction extends BaseAction<SingleCheckActionVariantData, SingleC
         this.difficultyClass = data.difficultyClass;
         this.modifiers = data.modifiers ?? [];
         this.notes = (data.notes ?? []).map(toRollNoteSource);
-        this.rollOptions = data.rollOptions ?? [];
+        this.rollOptions = [`action:${this.slug}`, ...(data.rollOptions ?? [])];
         this.statistic = data.statistic;
     }
 

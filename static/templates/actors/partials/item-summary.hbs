@@ -17,10 +17,10 @@
     {{/if}}
     {{#if chatData.levelLabel}}<div class="level">{{chatData.levelLabel}}</div>{{/if}}
 
-    {{#if item.price}}
+    {{#if price}}
         <section>
             <div>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</div>
-            <div>{{localize "PF2E.Item.Physical.PriceLabel" price=item.price.value}}</div>
+            <div>{{localize "PF2E.Item.Physical.PriceLabel" price=price}}</div>
         </section>
     {{/if}}
 {{/if}}
@@ -48,7 +48,15 @@
                 <button type="button" class="blue spell_damage" data-action="spellDamage">{{localize chatData.damageLabel}}: {{chatData.formula}}</button>
             {{/if}}
             {{#if (and chatData.area (not chatData.isAura))}}
-                <button type="button" class="blue" data-action="spellTemplate" data-visibility="owner">
+                <button
+                    type="button"
+                    class="blue"
+                    data-action="spellTemplate"
+                    data-visibility="owner"
+                    {{#if (or (eq chatData.area.type "cone") (eq chatData.area.type "line"))}}
+                        data-tooltip="PF2E.Item.Spell.MeasuredTemplate.PlacementTooltip"
+                    {{/if}}
+                >
                     {{localize "PF2E.Item.Spell.MeasuredTemplate.Place" area=chatData.area.label}}
                 </button>
             {{/if}}

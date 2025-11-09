@@ -1,8 +1,9 @@
 import { AbilityTrait, ActionCategory } from "@item/ability/index.ts";
-import { ActionType, ItemType } from "@item/base/data/index.ts";
+import type { ActionType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
-import { SvelteApplicationMixin } from "@module/sheet/mixin.svelte.ts";
+import type { ItemType } from "@item/types.ts";
+import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";
 import { untrack } from "svelte";
@@ -93,9 +94,11 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         },
     };
 
-    protected override _onFirstRender(context: object, options: fa.ApplicationRenderOptions): void {
-        super._onFirstRender(context, options);
-        // Reset visible tabs when the browser was fully closed
+    protected override async _onFirstRender(
+        context: fa.ApplicationRenderContext,
+        options: fa.ApplicationRenderOptions,
+    ): Promise<void> {
+        await super._onFirstRender(context, options);
         this.#setVisibleTabs();
     }
 
@@ -131,13 +134,8 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const showCampaign = game.settings.get("pf2e", "campaignType") !== "none";
         for (const tab of this.tabsArray) {
             tab.visible = visible ? visible.includes(tab.tabName) : true;
-
-            if (!showCampaign && tab.tabName === "campaignFeature") {
-                tab.visible = false;
-            }
-            if (tab.isGMOnly && !isGM) {
-                tab.visible = false;
-            }
+            if (!showCampaign && tab.tabName === "campaignFeature") tab.visible = false;
+            if (tab.isGMOnly && !isGM) tab.visible = false;
         }
     }
 
@@ -289,12 +287,12 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
         const userSettings = game.settings.get("pf2e", "compendiumBrowserPacks");
         for (const pack of game.packs) {
+            if (!pack.testUserPermission(game.user, "LIMITED")) continue;
             const tabNames = R.unique(
                 R.unique(pack.index.map((entry) => entry.type))
                     .filter((t): t is BrowsableType => setHasElement(browsableTypes, t))
                     .flatMap((t) => typeToTab.get(t) ?? []),
             );
-
             for (const tabName of tabNames) {
                 settings[tabName][pack.collection] = {
                     load: userSettings[tabName]?.[pack.collection]?.load !== false,
@@ -336,7 +334,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 }
 
-interface CompendiumBrowserContext {
+interface CompendiumBrowserContext extends SvelteApplicationRenderContext {
     state: CompendiumBrowserState;
 }
 

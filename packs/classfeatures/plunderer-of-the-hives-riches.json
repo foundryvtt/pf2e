@@ -1,0 +1,119 @@
+{
+    "_id": "YL3yActlXBpXrSBl",
+    "img": "icons/creatures/invertebrates/bee-yellow.webp",
+    "name": "Plunderer of the Hive's Riches",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You take what's yours, even if an army should stand in your way. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Energized Spark] feat, with your choice of either poison or sonic damage. When you critically succeed at a Strike, the taste of honey fills your mouth as you plunder part of your foe's vitality for yourself, gaining temporary Hit Points equal to half the creature's level that last for 1 minute.</p>\n<p>When you Spark Transcendence, a mass of buzzing insects fill the air around you, granting you concealment until the beginning of your next turn. You can't use this concealment to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak], as normal for concealment when your position is still obvious.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #217: Death Sails a Wine-Dark Sea"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "energizedSpark",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "energizedSpark": "{item|flags.pf2e.rulesSelections.energizedSpark}"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Energized Spark"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "plunderer-of-the-hives-riches"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:plunderer-of-the-hives-riches"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.PlundererOfTheHivesRiches.Description"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.CriticalSpecializationToggle",
+                "option": "epithet-critical-specialization",
+                "priority": 51,
+                "toggleable": true
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "epithet-critical-specialization"
+                ]
+            },
+            {
+                "alternate": true,
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "epithet-critical-specialization"
+                ],
+                "text": "PF2E.SpecificRule.Exemplar.Epithet.PlundererOfTheHivesRiches.CriticalSpecialization"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "exemplar-dominion-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

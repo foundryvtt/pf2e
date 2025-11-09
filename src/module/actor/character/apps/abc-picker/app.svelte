@@ -1,9 +1,23 @@
 <script lang="ts">
     import { ErrorPF2e } from "@util";
-    import type { KeyboardEventHandler, MouseEventHandler } from "svelte/elements";
+    import type { MouseEventHandler } from "svelte/elements";
     import type { ABCPickerContext } from "./app.ts";
 
     const { actor, foundryApp, state: data }: ABCPickerContext = $props();
+    let searchQuery = $state("");
+    const filteredItems = $derived.by(() => {
+        const query = searchQuery.trim();
+        if (!query.length) return data.items;
+
+        const regexp = new RegExp(RegExp.escape(query), "i");
+        return data.items.filter((item) => {
+            if (searchQuery.length === 0) return true;
+            const name = item.name;
+            const originalName = item.originalName;
+            return regexp.test(name) || (originalName && regexp.test(originalName));
+        });
+    });
+
     const typePlural = game.i18n.localize(`PF2E.Item.${data.itemType.capitalize()}.Plural`);
     const searchPlaceholder = game.i18n.format("PF2E.Actor.Character.ABCPicker.SearchPlaceholder", {
         items: typePlural,
@@ -12,7 +26,7 @@
     /** Open an item sheet to show additional details. */
     const viewItemSheet: MouseEventHandler<HTMLButtonElement> = async (event): Promise<void> => {
         const uuid = event.currentTarget.closest("li")?.dataset?.uuid ?? "";
-        const item = await fromUuid(uuid);
+        const item = await fromUuid<Item>(uuid);
         item?.sheet.render(true);
     };
 
@@ -26,26 +40,15 @@
         actor.createEmbeddedDocuments("Item", [{ ...item.toObject(), _id: null }]);
         foundryApp.close();
     };
-
-    /** Search list and show or hide according to match result. */
-    const searchItems: KeyboardEventHandler<HTMLInputElement> = (event) => debouncedSearch(event.currentTarget.value);
-    const debouncedSearch = fu.debounce((query: string) => {
-        const regexp = new RegExp(RegExp.escape(query.trim()), "i");
-        for (const row of foundryApp.element.getElementsByTagName("li")) {
-            const name = row.innerText ?? "";
-            const originalName = row.dataset.originalName;
-            row.hidden = !regexp.test(name) && !(originalName && regexp.test(originalName));
-        }
-    }, 200);
 </script>
 
 <search>
     <i class="fa-solid fa-search"></i>
-    <input type="search" spellcheck="false" placeholder={searchPlaceholder} onkeyup={searchItems} />
+    <input type="search" spellcheck="false" placeholder={searchPlaceholder} bind:value={searchQuery} />
 </search>
 
 <menu class="scrollable">
-    {#each data.items as item}
+    {#each filteredItems as item}
         <li data-uuid={item.uuid} class:no-rarity={!item.rarity} data-original-name={item.originalName || null}>
             <img src={item.img} loading="lazy" alt="Class icon" />
             <div class="name">{item.name}</div>

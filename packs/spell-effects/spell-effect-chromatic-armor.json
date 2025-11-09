@@ -22,6 +22,22 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Actions.TwoActions",
+                        "value": "two"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Actions.ThreeActions",
+                        "value": "three"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Actions.Prompt",
+                "rollOption": "actions-used"
+            },
+            {
                 "choices": [
                     {
                         "label": "PF2E.SpecificRule.ChromaticArmor.Fire",
@@ -52,13 +68,193 @@
                         "value": "force"
                     }
                 ],
-                "flag": "chromaticArmor",
+                "flag": "chromaticArmorFirst",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.ChromaticArmor.Prompt"
+                "prompt": "PF2E.SpecificRule.ChromaticArmor.Prompt",
+                "rollOption": "chromatic-armor-first"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Fire",
+                        "predicate": [
+                            {
+                                "not": "chromatic-armor-first:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Acid",
+                        "predicate": [
+                            {
+                                "not": "chromatic-armor-first:acid"
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Electricity",
+                        "predicate": [
+                            {
+                                "not": "chromatic-armor-first:electricity"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Poison",
+                        "predicate": [
+                            {
+                                "not": "chromatic-armor-first:poison"
+                            }
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Sonic",
+                        "predicate": [
+                            {
+                                "not": "chromatic-armor-first:sonic"
+                            }
+                        ],
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Mental",
+                        "predicate": [
+                            {
+                                "not": "chromatic-armor-first:mental"
+                            }
+                        ],
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Force",
+                        "predicate": [
+                            {
+                                "not": "chromatic-armor-first:force"
+                            }
+                        ],
+                        "value": "force"
+                    }
+                ],
+                "flag": "chromaticArmorSecond",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.ChromaticArmor.Prompt",
+                "rollOption": "chromatic-armor-second"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Fire",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "chromatic-armor-first:fire",
+                                    "chromatic-armor-second:fire"
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Acid",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "chromatic-armor-first:acid",
+                                    "chromatic-armor-second:acid"
+                                ]
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Electricity",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "chromatic-armor-first:electricity",
+                                    "chromatic-armor-second:electricity"
+                                ]
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Poison",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "chromatic-armor-first:poison",
+                                    "chromatic-armor-second:poison"
+                                ]
+                            }
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Sonic",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "chromatic-armor-first:sonic",
+                                    "chromatic-armor-second:sonic"
+                                ]
+                            }
+                        ],
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Mental",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "chromatic-armor-first:mental",
+                                    "chromatic-armor-second:mental"
+                                ]
+                            }
+                        ],
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Force",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "chromatic-armor-first:force",
+                                    "chromatic-armor-second:force"
+                                ]
+                            }
+                        ],
+                        "value": "force"
+                    }
+                ],
+                "flag": "chromaticArmorThird",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "actions-used:three"
+                ],
+                "prompt": "PF2E.SpecificRule.ChromaticArmor.Prompt",
+                "rollOption": "chromatic-armor-third"
             },
             {
                 "key": "Resistance",
-                "type": "{item|flags.pf2e.rulesSelections.chromaticArmor}",
+                "type": "{item|flags.pf2e.rulesSelections.chromaticArmorFirst}",
+                "value": "5+5*floor((@item.level - 4) / 3)"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.chromaticArmorSecond}",
+                "value": "5+5*floor((@item.level - 4) / 3)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "actions-used:three"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.chromaticArmorThird}",
                 "value": "5+5*floor((@item.level - 4) / 3)"
             },
             {
@@ -66,8 +262,8 @@
                 "value": {
                     "animation": {
                         "intensity": 1,
-                        "speed": 3,
-                        "type": "pulse"
+                        "speed": 0,
+                        "type": "radialrainbow"
                     },
                     "bright": 20,
                     "color": "#343434",

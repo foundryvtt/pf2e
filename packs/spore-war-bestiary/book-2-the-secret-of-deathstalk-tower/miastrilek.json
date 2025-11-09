@@ -684,6 +684,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -722,12 +723,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
                         "magical",
-                        "range-increment-60",
                         "unholy"
                     ]
                 }
@@ -880,7 +884,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The miastrilek disgorges a spray of acid and rubble in a @Template[type:cone|distance:30], dealing 6d6 piercing and @Damage[6d6[acid]] damage (@Check[reflex|dc:30|basic] save). The area becomes hazardous terrain for 1 minute (@Damage[2d6[acid]] damage). A creature can take this damage only once per turn. The miastrilek must wait [[/gmr 1d4 #rounds]]{1d4 rounds} before Spewing Pollution again.</p>"
+                    "value": "<p>The miastrilek disgorges a spray of acid and rubble in a @Template[type:cone|distance:30], dealing @Damage[6d6[piercing],6d6[acid]|options:area-damage]{6d6 piercing and 6d6 acid damage} (@Check[reflex|dc:30|basic|options:area-effect] save). The area becomes hazardous terrain for 1 minute (@Damage[2d6[acid]] damage). A creature can take this damage only once per turn. The miastrilek must wait [[/gmr 1d4 #Recharge Spew Pollution]]{1d4 rounds} before Spewing Pollution again.</p>"
                 },
                 "publication": {
                     "license": "OGL",

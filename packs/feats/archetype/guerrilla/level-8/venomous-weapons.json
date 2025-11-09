@@ -1,0 +1,62 @@
+{
+    "_id": "PdQ3wVgMqvBlC2at",
+    "folder": "vbeu7QGs9jvrjQQh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Venomous Weapons",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your skill with poisons is such that your preferred weapons also contain trace amounts of it, even when you don't actively apply a dose. Blowguns and slings you are wielding have the venomous trait.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Poisoned Sticks and Stones"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:base:blowgun",
+                            "item:base:sling"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "venomous"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

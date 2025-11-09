@@ -1,9 +1,15 @@
 import type { ActorPF2e } from "@actor";
 import type * as ItemInstance from "@item";
+import { Size } from "@module/data.ts";
+import type { ITEM_TYPES } from "./values.ts";
+import { EFFECT_AREA_SHAPES } from "./values.ts";
+
+type ItemType = (typeof ITEM_TYPES)[number];
 
 interface ItemInstances<TParent extends ActorPF2e | null> {
     action: ItemInstance.AbilityItemPF2e<TParent>;
     affliction: ItemInstance.AfflictionPF2e<TParent>;
+    ammo: ItemInstance.AmmoPF2e<TParent>;
     ancestry: ItemInstance.AncestryPF2e<TParent>;
     armor: ItemInstance.ArmorPF2e<TParent>;
     background: ItemInstance.BackgroundPF2e<TParent>;
@@ -34,4 +40,8 @@ type RangeData = {
     max: number;
 };
 
-export type { ItemInstances, RangeData };
+type EffectAreaShape = (typeof EFFECT_AREA_SHAPES)[number];
+
+type ItemSize = Exclude<Size, "sm">;
+
+export type { EffectAreaShape, ItemInstances, ItemSize, ItemType, RangeData };

@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Energy runs through your blood more powerfully. When you use Energy Emanation, you can create an emanation of @Template[emanation|distance:5]{5 feet}, @Template[emanation|distance:10]{10 feet}, or @Template[emanation|distance:15]{15 feet}. The damage increases to @Damage[(6+max(0,@actor.level - 9))d6[@actor.flags.pf2e.elementalHeartDwarf.damageType]|options:area-damage], instead of 1d6 plus an additional 1d6 for every 2 levels above 1st.</p>"
+            "value": "<p>Energy runs through your blood more powerfully. When you use Energy Emanation, you can create an emanation of @Template[emanation|distance:5]{5 feet}, @Template[emanation|distance:10]{10 feet}, or @Template[emanation|distance:15]{15 feet}. The damage increases to 6d6 plus an additional 1d6 for every level you have above 9th, instead of 1d6 plus an additional 1d6 for every 2 levels above 1st.</p>"
         },
         "level": {
             "value": 9
@@ -29,7 +29,32 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "property": "dice-number",
+                "selectors": [
+                    "energy-emanation-inline-damage"
+                ],
+                "slug": "base",
+                "value": "max(6,@actor.level - 3)"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:energy-emanation"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

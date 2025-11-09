@@ -29,7 +29,80 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:rushing-goat-stance"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Monk.FiveGodsRam.RollOptionLabel",
+                "option": "five-gods-ram",
+                "suboptions": [
+                    {
+                        "label": "PF2E.GenericLabel.StrikeCount.First",
+                        "value": "first-strike"
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.StrikeCount.Second",
+                        "value": "second-strike"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "five-gods-ram:first-strike"
+                ],
+                "selector": [
+                    "ramming-horn-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Monk.FiveGodsRam.FirstStrike.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "five-gods-ram:second-strike"
+                ],
+                "selector": [
+                    "ramming-horn-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Monk.FiveGodsRam.SecondStrike.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "five-gods-ram:first-strike",
+                            "five-gods-ram:second-strike"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ramming-horn-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Monk.FiveGodsRam.FailureNote",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

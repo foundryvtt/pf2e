@@ -497,13 +497,16 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 80,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "agile",
-                        "range-increment-80"
+                        "agile"
                     ]
                 },
                 "weaponType": {
@@ -719,7 +722,6 @@
                 },
                 "rules": [
                     {
-                        "domain": "ac",
                         "key": "RollOption",
                         "option": "deflect-aggression",
                         "toggleable": true
@@ -732,6 +734,14 @@
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "deflect-aggression"
+                        ],
+                        "type": "all-damage",
+                        "value": 15
                     }
                 ],
                 "slug": null,
@@ -771,7 +781,7 @@
                     {
                         "key": "Note",
                         "predicate": [
-                            "dimension-of-time-lore"
+                            "check:statistic:base:dimension-of-time-lore"
                         ],
                         "selector": "initiative",
                         "text": "{item|system.description.value}",
@@ -801,7 +811,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature that takes mental damage from the love siktempora's emotional bolt must succeed at a @Check[will|dc:37] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the siktempora until the end of the target's next turn. Hostile actions don't end this fascinated condition.</p>"
+                    "value": "<p>A creature that takes mental damage from the love siktempora's emotional bolt must succeed at a @Check[will|dc:37|options:inflicts:fascinated] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the siktempora until the end of the target's next turn. Hostile actions don't end this fascinated condition.</p>"
                 },
                 "publication": {
                     "license": "OGL",

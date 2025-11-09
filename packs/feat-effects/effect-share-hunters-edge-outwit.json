@@ -1,0 +1,100 @@
+{
+    "_id": "ltIvO9ZQlmqGD89Y",
+    "img": "icons/creatures/invertebrates/spider-web-black.webp",
+    "name": "Effect: Share Hunter's Edge (Outwit)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Animal Companion (Ranger)], @UUID[Compendium.pf2e.feats-srd.Item.Shared Prey], @UUID[Compendium.pf2e.feats-srd.Item.Triple Threat], @UUID[Compendium.pf2e.feats-srd.Item.Warden's Boon]</p>\n<p>You gain a +2 circumstance bonus to Deception checks, Intimidation checks, Stealth checks, and any checks to Recall Knowledge about the marked creature, and a +1 circumstance bonus to AC against the marked creature's attacks.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "share-hunters-edge"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                "predicate": [
+                    "action:seek",
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                "predicate": [
+                    "action:track",
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:2",
+                "predicate": [
+                    "target:mark:share-hunters-edge"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Outwit.Label",
+                "predicate": [
+                    "origin:mark:share-hunters-edge"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Outwit.Label",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:statistic:deception",
+                            "check:statistic:intimidation",
+                            "check:statistic:stealth",
+                            "action:recall-knowledge"
+                        ]
+                    },
+                    "target:mark:share-hunters-edge"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 3648
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

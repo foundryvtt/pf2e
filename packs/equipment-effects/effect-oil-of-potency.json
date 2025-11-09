@@ -1,0 +1,192 @@
+{
+    "_id": "1OLlwExJz7ii2Lu2",
+    "img": "systems/pf2e/icons/equipment/consumables/oils/oil-of-potency.webp",
+    "name": "Effect: Oil of Potency",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Oil of Potency], @UUID[Compendium.pf2e.equipment-srd.Item.Oil of Potency (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Oil of Potency (Major)]</p><ul><li>A weapon temporarily becomes a <em>+1 striking weapon</em>, a <em>+2 greater striking weapon</em>, or a <em>+3 major striking weapon</em>.</li><li>Armor temporarily becomes <em>+1 resilient armor</em>, <em>+2 greater resilient armor</em>, or <em>+3 major resilient armor</em>.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:oil-of-potency",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Oil of Potency"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:item:slug:oil-of-potency-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Oil of Potency (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:oil-of-potency-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Oil of Potency (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "oil-of-potency"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "armor",
+                        "weapon"
+                    ]
+                },
+                "flag": "item",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Item"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "oil-of-potency:oil-of-potency"
+                ],
+                "property": "runes-potency",
+                "value": 1
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "oil-of-potency:oil-of-potency-greater"
+                ],
+                "property": "runes-potency",
+                "value": 2
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "oil-of-potency:oil-of-potency-major"
+                ],
+                "property": "runes-potency",
+                "value": 3
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:type:weapon",
+                    "oil-of-potency:oil-of-potency"
+                ],
+                "property": "runes-striking",
+                "value": 1
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:type:weapon",
+                    "oil-of-potency:oil-of-potency-greater"
+                ],
+                "property": "runes-striking",
+                "value": 2
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:type:weapon",
+                    "oil-of-potency:oil-of-potency-major"
+                ],
+                "property": "runes-striking",
+                "value": 3
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:type:armor",
+                    "oil-of-potency:oil-of-potency"
+                ],
+                "property": "runes-resilient",
+                "value": 1
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:type:armor",
+                    "oil-of-potency:oil-of-potency-greater"
+                ],
+                "property": "runes-resilient",
+                "value": 2
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:type:armor",
+                    "oil-of-potency:oil-of-potency-major"
+                ],
+                "property": "runes-resilient",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

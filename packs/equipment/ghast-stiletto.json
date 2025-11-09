@@ -21,9 +21,10 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p>A <em>ghast stiletto</em> is a <em>+1 dagger</em> wrapped in the still-undead skin of a ghast. While you wield the dagger, you gain a +1 status bonus to all saves against paralysis.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command, Interact (divine, necromancy, olfactory)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The ghast stiletto afflicts the next living target struck by the dagger with a terrible wound that emits the foul stench of the grave. For the next minute, the target creature, as well as any creatures within a @Template[emanation|distance:10], must succeed at a @Check[fortitude|dc:16|traits:divine,necromancy,olfactory] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as it's sickened on a critical failure). While within the emanation, the creature takes a –2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Craft Requirements</strong> The initial raw materials must include skin from a ghast.</p>"
+            "value": "<p>A <em>ghast stiletto</em> is a <em>+1 dagger</em> wrapped in the still-undead skin of a ghast. While you wield the dagger, you gain a +1 status bonus to all saves against @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]{Paralysis}.</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command, Interact (divine, necromancy, olfactory)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> The ghast stiletto afflicts the next living target struck by the dagger with a terrible wound that emits the foul stench of the grave. For the next minute, the target creature, as well as any creatures within a @Template[emanation|distance:10], must succeed at a @Check[fortitude|dc:16|showDC:all|options:area-effect,inflicts:sickened,inflicts:slowed|traits:divine,necromancy,olfactory] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as it's sickened on a critical failure). While within the emanation, the creature takes a –2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p><hr /><p><strong>Craft Requirements</strong> The initial raw materials must include skin from a ghast.</p>"
         },
         "expend": null,
+        "grade": null,
         "group": "knife",
         "hardness": 0,
         "hp": {
@@ -56,7 +57,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "inflicts:paralysis"
+                    "inflicts:paralyzed"
                 ],
                 "selector": "saving-throw",
                 "type": "status",

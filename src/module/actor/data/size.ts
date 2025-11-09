@@ -1,8 +1,8 @@
 import { Size, SIZES, ZeroToFive } from "@module/data.ts";
 
 interface SizeDimensions {
-    length: number;
-    width: number;
+    long: number;
+    wide: number;
 }
 
 export class ActorSizePF2e {
@@ -22,12 +22,12 @@ export class ActorSizePF2e {
 
     /** The default space (in a Pathfinder 2e rules context) of each size */
     static #defaultSpaces: Record<Size, SizeDimensions> = {
-        tiny: { length: 2.5, width: 2.5 },
-        sm: { length: 5, width: 5 },
-        med: { length: 5, width: 5 },
-        lg: { length: 10, width: 10 },
-        huge: { length: 15, width: 15 },
-        grg: { length: 20, width: 20 },
+        tiny: { long: 2.5, wide: 2.5 },
+        sm: { long: 5, wide: 5 },
+        med: { long: 5, wide: 5 },
+        lg: { long: 10, wide: 10 },
+        huge: { long: 15, wide: 15 },
+        grg: { long: 20, wide: 20 },
     };
 
     /** A ranked ordering of sizes */
@@ -41,20 +41,20 @@ export class ActorSizePF2e {
     };
 
     /**
-     * @param value A size category
-     * @param [length] A length of a Pathfinder "space"
-     * @param [width]  A width of a Pathfinder "space"
-     * @param [smallIsMedium] Treat small as medium
+     * @param params
+     * @param params.value A size category
+     * @param params.long A length of a Pathfinder "space"
+     * @param params.wide A width of a Pathfinder "space"
+     * @param params.smallIsMedium Treat small as medium
      */
-    constructor(params: { value?: Size; length?: number; width?: number; smallIsMedium?: boolean }) {
+    constructor(params: { value?: Size; long?: number; wide?: number; smallIsMedium?: boolean }) {
         if (typeof params.value !== "string" || (params.smallIsMedium && params.value === "sm")) {
             params.value = "med";
         }
-
         this.value = params.value;
         const spaces = ActorSizePF2e.#defaultSpaces[params.value] ?? ActorSizePF2e.#defaultSpaces.med;
-        this.long = params.length ?? spaces.length;
-        this.wide = params.width ?? spaces.width;
+        this.long = params.long ?? spaces.long;
+        this.wide = params.wide ?? spaces.wide;
     }
 
     /**
@@ -128,8 +128,8 @@ export class ActorSizePF2e {
                     : SIZES[SIZES.indexOf(this.value) + 1];
 
         const newSpace = ActorSizePF2e.#defaultSpaces[this.value];
-        this.long = newSpace.length;
-        this.wide = newSpace.width;
+        this.long = newSpace.long;
+        this.wide = newSpace.wide;
     }
 
     /**
@@ -141,8 +141,8 @@ export class ActorSizePF2e {
         this.value = toTiny ? "tiny" : SIZES[SIZES.indexOf(this.value) - 1];
 
         const newSpace = ActorSizePF2e.#defaultSpaces[this.value];
-        this.long = newSpace.length;
-        this.wide = newSpace.width;
+        this.long = newSpace.long;
+        this.wide = newSpace.wide;
     }
 
     toString(): string {

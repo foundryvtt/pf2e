@@ -8,7 +8,6 @@ const materialIWR = R.mapValues(
     // Exclude niche materials from APs that have no IWR properties, as well as ones that count as more-common materials
     R.omit(materialDamageEffects, [
         "keep-stone",
-        "peachwood",
         "sisterstone-dusk",
         "sisterstone-scarlet",
         "sovereign-steel",
@@ -99,6 +98,7 @@ const immunityTypes = {
     stupefied: "PF2E.Damage.IWR.Type.stupefied",
     "swarm-attacks": "PF2E.Damage.IWR.Type.swarm-attacks",
     "swarm-mind": "PF2E.Damage.IWR.Type.swarm-mind",
+    time: "PF2E.Damage.IWR.Type.time",
     trip: "PF2E.Damage.IWR.Type.trip",
     "unarmed-attacks": "PF2E.Damage.IWR.Type.unarmed-attacks",
     unconscious: "PF2E.Damage.IWR.Type.unconscious",
@@ -155,6 +155,7 @@ const weaknessTypes = {
     spells: "PF2E.Damage.IWR.Type.spells",
     spirit: "PF2E.Damage.RollFlavor.spirit",
     "splash-damage": "PF2E.Damage.IWR.Type.splash-damage",
+    time: "PF2E.Damage.IWR.Type.time",
     "unarmed-attacks": "PF2E.Damage.IWR.Type.unarmed-attacks",
     "vampire-weaknesses": "PF2E.Damage.IWR.Type.vampire-weaknesses",
     vitality: "PF2E.Damage.RollFlavor.vitality",
@@ -212,6 +213,7 @@ const resistanceTypes = {
     sonic: "PF2E.Damage.RollFlavor.sonic",
     spells: "PF2E.Damage.IWR.Type.spells",
     spirit: "PF2E.Damage.RollFlavor.spirit",
+    time: "PF2E.Damage.IWR.Type.time",
     "unarmed-attacks": "PF2E.Damage.IWR.Type.unarmed-attacks",
     vitality: "PF2E.Damage.RollFlavor.vitality",
     void: "PF2E.Damage.RollFlavor.void",

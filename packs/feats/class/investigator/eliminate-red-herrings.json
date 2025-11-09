@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You have a keen sense for avoiding spurious lines of inquiry. When you roll a critical failure on a skill check to Recall Knowledge related to a question about one of your active investigations, you get a failure instead.</p>"
+            "value": "<p>You have a keen sense for avoiding spurious lines of inquiry. When you roll a critical failure on a skill check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] related to a question about one of your active investigations, you get a failure instead.</p>"
         },
         "level": {
             "value": 1
@@ -27,17 +27,15 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalFailure"
-                ],
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
                 "predicate": [
                     "pursue-a-lead",
                     "action:recall-knowledge"
                 ],
-                "selector": "skill-check",
-                "text": "{item|description}",
-                "title": "{item|name}"
+                "selector": "skill-check"
             }
         ],
         "traits": {

@@ -1,0 +1,84 @@
+{
+    "_id": "obtuYCjovpcVaaHQ",
+    "img": "icons/commodities/materials/hair-tuft-white.webp",
+    "name": "Shining Hackle",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Some troops wear this plume of short feathers in their hats as part of a formal uniform, but the soft glow emanating from it can be useful elsewhere. While wearing the shining hackle, you gain a +1 item bonus to Perception checks based on sight, but you also take a –1 item penalty to your Stealth checks.</p>\n<p><strong>Activate—Glowing Hackle</strong> <span class=\"action-glyph\">1</span> (concentrate, light)</p><hr /><p><strong>Effect</strong> Your shining hackle glows even brighter, shedding bright light in a 20-foot radius (and dim light for the next 20 feet). This effect lasts until you Dismiss it.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {}
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:visual"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "type": "item",
+                "value": -1
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "shining-hackle"
+                ],
+                "value": {
+                    "alpha": 0.05,
+                    "animation": {},
+                    "bright": 20,
+                    "color": "#ffe8c7",
+                    "dim": 40
+                }
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitItem",
+                "option": "shining-hackle",
+                "toggleable": true
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornheadwear"
+        }
+    },
+    "type": "equipment"
+}

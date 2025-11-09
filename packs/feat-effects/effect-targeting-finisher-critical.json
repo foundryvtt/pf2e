@@ -1,0 +1,121 @@
+{
+    "_id": "hbWnrLZpqemQVdvb",
+    "img": "icons/skills/wounds/bone-broken-knee-beam.webp",
+    "name": "Effect: Targeting Finisher (Critical)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Targeting Finisher]</p>\n<p>You gain an effect based on the selected body part.</p><ul><li><strong>Arm (or another limb used for attacks, such as a tentacle)</strong> You are enfeebled 1.</li><li><strong>Head</strong> You are stupefied 1.</li><li><strong>Legs</strong> You take a –5-foot status penalty to your Speeds.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Arms",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "self:effect:targeting-finisher"
+                                    },
+                                    "targeting-finisher:arms"
+                                ]
+                            }
+                        ],
+                        "value": "arms"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Head",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "self:effect:targeting-finisher"
+                                    },
+                                    "targeting-finisher:head"
+                                ]
+                            }
+                        ],
+                        "value": "head"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Legs",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "self:effect:targeting-finisher"
+                                    },
+                                    "targeting-finisher:legs"
+                                ]
+                            }
+                        ],
+                        "value": "legs"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "targeting-finisher-critical"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "targeting-finisher-critical:arms",
+                    {
+                        "not": "targeting-finisher:arms"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "targeting-finisher-critical:head",
+                    {
+                        "not": "targeting-finisher:head"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "targeting-finisher-critical:legs",
+                    {
+                        "not": "targeting-finisher:legs"
+                    }
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

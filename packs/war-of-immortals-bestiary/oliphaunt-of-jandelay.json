@@ -269,6 +269,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -309,6 +310,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -348,6 +350,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -385,13 +388,16 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 150,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
                         "deadly-2d8",
-                        "propulsive",
-                        "range-increment-150"
+                        "propulsive"
                     ]
                 }
             },
@@ -724,7 +730,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Cost</strong> all the creature's Mythic Points</p>\n<p><strong>Trigger</strong> The creature would die and has at least 1 Mythic Point</p><hr /><p><strong>Effect</strong> When the Oliphaunt of Jandelay would die, as long as it has at least 1 Mythic Point, it immediately expends all remaining Mythic Points it has, remains standing and conscious, and recovers 50% of its maximum Hit Points.</p>"
+                    "value": "<p><strong>Cost</strong> all the creature's Mythic Points</p>\n<p><strong>Trigger</strong> The creature would die and has at least 1 Mythic Point</p><hr /><p><strong>Effect</strong> When the Oliphaunt of Jandelay would die, as long as it has at least 1 Mythic Point, it immediately expends all remaining Mythic Points it has, remains standing and conscious, and recovers @Damage[(floor(@actor.system.attributes.hp.max/2))[healing]]{50% of its maximum Hit Points}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -850,7 +856,13 @@
                     "remaster": true,
                     "title": "Pathfinder War of Immortals"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "mythic-power",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -904,14 +916,35 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Oliphaunt of Jandelay emits a cacophonous blast from its trunk in a @Template[type:cone|distance:120]. Each creature in the area must attempt a @Check[fortitude|dc:49] save. If the Oliphaunt spends 1 Mythic Point as part of the activity, the DC becomes 51 and the damage dice are increased to d12s. The Oliphaunt of Jandelay can't use Trumpeting Blast again for [[/gmr 1d4 #Recharge Trumpeting Blast]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[7d10[sonic]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>\n<p><strong>Failure</strong> The creature takes @Damage[14d10[sonic]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 2 rounds, and is deafened for 2 rounds.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[28d10[sonic]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 2 rounds, and is deafened for 4 rounds.</p>"
+                    "value": "<p>The Oliphaunt of Jandelay emits a cacophonous blast from its trunk in a @Template[type:cone|distance:120]. Each creature in the area must attempt a @Check[fortitude|dc:49|options:area-effect,damaging-effect,inflicts:deafened,inflicts:slowed] save. If the Oliphaunt spends 1 Mythic Point as part of the activity, the DC becomes 51 and the damage dice are increased to d12s. The Oliphaunt of Jandelay can't use Trumpeting Blast again for [[/gmr 1d4 #Recharge Trumpeting Blast]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[7d10[sonic]|options:area-damage] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>\n<p><strong>Failure</strong> The creature takes @Damage[14d10[sonic]|options:area-damage] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 2 rounds, and is deafened for 2 rounds.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[28d10[sonic]|options:area-damage] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 2 rounds, and is deafened for 4 rounds.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "mythic-power"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": 12
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "mythic-power"
+                        ],
+                        "selector": "{item|id}-inline-dc",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

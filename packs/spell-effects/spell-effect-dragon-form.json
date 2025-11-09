@@ -1,0 +1,422 @@
+{
+    "_id": "1pC1qjvCuAKzjYo8",
+    "img": "icons/creatures/reptiles/dragon-horned-blue.webp",
+    "name": "Spell Effect: Dragon Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Dragon Form]</p>\n<p>You gain a Large dragon battle form. Choose one type of dragon. While in this form, you gain the dragon trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p><ul><li><p>AC = 18 + your level. Ignore your armor's check penalty and Speed reduction.</p></li><li><p>10 temporary Hit Points.</p></li><li><p>Speed 40 feet, fly 100 feet. You gain any of the following Speeds the chosen dragon has, but with the listed amount: burrow 20 feet, climb 40 feet, swim 60 feet.</p></li><li><p>Resistance 10 against the damage type of your Dragon Breath.</p></li><li><p>Darkvision and imprecise scent 60 feet.</p></li><li><p>The following unarmed melee attacks, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +22, and your damage bonus is +6. These attacks are Strength based (for the purpose of the enfeebled condition, for example). If your unarmed attack modifier is higher, you can use it instead. See below for more on these attacks.</p><ul><li><p><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws, <strong>Damage</strong> 2d12 piercing plus 2d6 damage of the same damage type as your Dragon Breath;</p></li><li><p><strong>Melee</strong> <span class=\"action-glyph\">1</span> claw (agile), <strong>Damage</strong> 3d10 slashing;</p></li><li><p><strong>Melee</strong> <span class=\"action-glyph\">1</span> tail (reach 10 feet), <strong>Damage</strong> 3d10 bludgeoning.</p></li></ul></li><li><p>Athletics modifier of +23, unless your own is higher.</p></li><li><p><strong>Dragon Breath</strong> <span class=\"action-glyph\"><strong>2</strong></span> You exhale deadly magical energy in an area, dealing 10d6 damage to each creature in the area with a basic save against your spell DC. The shape, damage type, and save type match that of your chosen dragon's breath. If the chosen dragon's breath can deal more than one type of damage, choose one when you cast dragon form. The shape is a 30-foot cone or a 100-foot line. Once activated, Dragon Breath can't be used again for 1d4 rounds. Dragon Breath has the tradition trait matching the type of dragon and the damage trait matching the type of damage it deals, if applicable.</p></li><li><p><strong>Tradition Resistance</strong> If the dragon's magical tradition matches that of your dragon form spell, you gain the listed ability. <strong>Arcane</strong> resistance 5 against magic; <strong>divine</strong> resistance 10 to spirit, vitality, and void; <strong>occult</strong> resistance 10 to mental; <strong>primal</strong> resistance 5 to physical damage.</p></li></ul><hr /><p><strong>Heightened (8th)</strong> Your battle form is Huge, you gain a +20-foot status bonus to your fly Speed, and your attacks have 10-foot reach (or 15-foot reach if they previously had 10-foot reach). You instead gain AC = 21 + your level, 15 temporary HP, an attack modifier of +28, a damage bonus of +12, and Athletics +28. Your Dragon Breath deals an additional 4d6 damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Dragon.Adamantine",
+                        "value": {
+                            "breathShape": "cone",
+                            "damageType": "bludgeoning",
+                            "dragonType": "adamantine",
+                            "saveType": "reflex",
+                            "tradition": "primal"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Dragon.Conspirator",
+                        "value": {
+                            "breathShape": "cone",
+                            "damageType": "poison",
+                            "dragonType": "conspirator",
+                            "saveType": "fortitude",
+                            "tradition": "occult"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Dragon.Diabolic",
+                        "value": {
+                            "breathShape": "cone",
+                            "damageType": "fire",
+                            "dragonType": "diabolic",
+                            "saveType": "reflex",
+                            "tradition": "divine"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Dragon.Empyreal",
+                        "value": {
+                            "breathShape": "cone",
+                            "damageType": "spirit",
+                            "dragonType": "empyreal",
+                            "saveType": "reflex",
+                            "tradition": "divine"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Dragon.Fortune",
+                        "value": {
+                            "breathShape": "cone",
+                            "damageType": "force",
+                            "dragonType": "fortune",
+                            "saveType": "reflex",
+                            "tradition": "arcane"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Dragon.Horned",
+                        "value": {
+                            "breathShape": "cone",
+                            "damageType": "poison",
+                            "dragonType": "horned",
+                            "saveType": "fortitude",
+                            "tradition": "primal"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Dragon.Mirage",
+                        "value": {
+                            "breathShape": "cone",
+                            "damageType": "mental",
+                            "dragonType": "mirage",
+                            "saveType": "will",
+                            "tradition": "arcane"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Dragon.Omen",
+                        "value": {
+                            "breathShape": "cone",
+                            "damageType": "mental",
+                            "dragonType": "omen",
+                            "saveType": "will",
+                            "tradition": "occult"
+                        }
+                    }
+                ],
+                "flag": "dragonForm",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DragonDisciple.Prompt"
+            },
+            {
+                "key": "RollOption",
+                "option": "dragon-form:{item|flags.pf2e.rulesSelections.dragonForm.dragonType}"
+            },
+            {
+                "key": "RollOption",
+                "option": "dragon-form-tradition:{item|flags.pf2e.rulesSelections.dragonForm.tradition}"
+            },
+            {
+                "brackets": [
+                    {
+                        "start": 6,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "18 + @actor.level"
+                            },
+                            "size": "lg",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 23
+                                }
+                            },
+                            "strikes": {
+                                "claw": {
+                                    "damage": {
+                                        "modifier": 6
+                                    },
+                                    "modifier": 22
+                                },
+                                "jaws": {
+                                    "damage": {
+                                        "modifier": 6
+                                    },
+                                    "modifier": 22
+                                },
+                                "tail": {
+                                    "damage": {
+                                        "modifier": 6
+                                    },
+                                    "modifier": 22
+                                }
+                            },
+                            "tempHP": 10
+                        }
+                    },
+                    {
+                        "start": 8,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "21 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 28
+                                }
+                            },
+                            "strikes": {
+                                "claw": {
+                                    "damage": {
+                                        "modifier": 12
+                                    },
+                                    "modifier": 28,
+                                    "traits": [
+                                        "unarmed",
+                                        "agile",
+                                        "reach-10"
+                                    ]
+                                },
+                                "jaws": {
+                                    "damage": {
+                                        "modifier": 12
+                                    },
+                                    "modifier": 28,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-10"
+                                    ]
+                                },
+                                "tail": {
+                                    "damage": {
+                                        "modifier": 12
+                                    },
+                                    "modifier": 28,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15"
+                                    ]
+                                }
+                            },
+                            "tempHP": 15
+                        }
+                    }
+                ],
+                "key": "BattleForm",
+                "overrides": {
+                    "hasHands": true,
+                    "resistances": [
+                        {
+                            "type": "{item|flags.pf2e.rulesSelections.dragonForm.damageType}",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 60
+                        }
+                    },
+                    "speeds": {
+                        "fly": 100,
+                        "land": 40
+                    },
+                    "strikes": {
+                        "claw": {
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 3,
+                                "die": "d10"
+                            },
+                            "img": "icons/creatures/claws/claw-scaled-red.webp",
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        },
+                        "jaws": {
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d12"
+                            },
+                            "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "tail": {
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 3,
+                                "die": "d10"
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "dragon"
+                    ]
+                }
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "dragon-form:adamantine"
+                ],
+                "selector": "burrow",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "dragon-form:conspirator",
+                            "dragon-form:mirage"
+                        ]
+                    }
+                ],
+                "selector": "climb",
+                "value": 40
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "dragon-form:horned"
+                ],
+                "selector": "swim",
+                "value": 60
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:spellcasting:tradition:primal",
+                    "dragon-form-tradition:primal"
+                ],
+                "type": "physical",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:spellcasting:tradition:occult",
+                    "dragon-form-tradition:occult"
+                ],
+                "type": "mental",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:spellcasting:tradition:arcane",
+                    "dragon-form-tradition:arcane"
+                ],
+                "type": "spells",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:spellcasting:tradition:divine",
+                    "dragon-form-tradition:divine"
+                ],
+                "type": [
+                    "spirit",
+                    "void",
+                    "vitality"
+                ],
+                "value": 10
+            },
+            {
+                "flag": "dragonBreath",
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Dragon Breath (Dragon Form)"
+            },
+            {
+                "itemId": "{item|flags.pf2e.itemGrants.dragonBreath.id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.DragonForm.DragonBreath.{item|flags.pf2e.rulesSelections.dragonForm.breathShape}.{item|flags.pf2e.rulesSelections.dragonForm.saveType}"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.itemGrants.dragonBreath.id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "dragon-form:adamantine"
+                    }
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.dragonForm.damageType}"
+            },
+            {
+                "itemId": "{item|flags.pf2e.itemGrants.dragonBreath.id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.dragonForm.tradition}"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|flags.pf2e.itemGrants.dragonBreath.id}-inline-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.dragonForm.damageType}"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "parent:level",
+                            8
+                        ]
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "{item|flags.pf2e.itemGrants.dragonBreath.id}-inline-damage"
+                ],
+                "value": 4
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.dragonForm.damageType}",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "jaws-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -12,6 +12,11 @@
             "name": "+1 Striking Crossbow",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "bolts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "crossbow",
                 "bonus": {
                     "value": 0
@@ -507,92 +512,13 @@
             "type": "consumable"
         },
         {
-            "_id": "6HFLIEIDtd4x3Xku",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rKknk8odXDBpON5l"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/ammunition/explosive-ammunition.webp",
-            "name": "Explosive Bolt",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": {
-                    "formula": "6d6",
-                    "kind": "damage",
-                    "type": "fire"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[burst|distance:10], dealing @Damage[6d6[fire]|options:area-damage] damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:25|basic|options:area-effect] save.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 9
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 130
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 2,
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.AmmunitionNotes.ExplosiveAmmunition.Normal.Text",
-                        "title": "PF2E.AmmunitionNotes.ExplosiveAmmunition.Normal.Title"
-                    }
-                ],
-                "size": "med",
-                "slug": "explosive-ammunition",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "fire",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "oD4f4KqyuTJEE7N2",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.bz8Y8bVUe7QfBk9g"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/darkvision-elixir.webp",
             "name": "Darkvision Elixir (Greater)",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -660,7 +586,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
             "name": "Elixir of Life (Moderate)",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -733,7 +659,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/blackfinger-blight.webp",
             "name": "Blackfinger Blight",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -803,7 +729,7 @@
             },
             "img": "icons/weapons/wands/wand-carved-fire.webp",
             "name": "Sunrod",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -865,6 +791,64 @@
             "type": "consumable"
         },
         {
+            "_id": "6HFLIEIDtd4x3Xku",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rKknk8odXDBpON5l"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/ammunition/explosive-ammunition.webp",
+            "name": "Explosive Bolt",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "craftableAs": [],
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[burst|distance:10], dealing @Damage[6d6[fire]|options:area-damage] damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:25|basic|options:area-effect] save.</p>"
+                },
+                "level": {
+                    "value": 9
+                },
+                "price": {
+                    "value": {
+                        "gp": 130
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 2,
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.AmmunitionNotes.ExplosiveAmmunition.Normal.Text",
+                        "title": "PF2E.AmmunitionNotes.ExplosiveAmmunition.Normal.Title"
+                    }
+                ],
+                "size": "med",
+                "slug": "explosive-ammunition",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "fire",
+                        "magical"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
+        },
+        {
             "_id": "OPPKrcRTv1mCJE8l",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
@@ -877,6 +861,7 @@
                 "bulk": {
                     "value": 1
                 },
+                "category": "coin",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -902,15 +887,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 88,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
-                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -953,6 +937,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -1005,13 +990,16 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 120,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "magical",
-                        "range-increment-120",
                         "reload-1"
                     ]
                 },

@@ -23,7 +23,7 @@
             }
         },
         "description": {
-            "value": "<p>Whether you desire simple security after a life of uncertainty or you're actually just a control freak, power over your own fate is the thing you've always wanted. On the night of the Missing Moment, you glimpsed such power amid the light of a glowing archway, and you stepped through, eager to claim control over your destiny. What happened next, you don't remember—you came to at the same place you'd started, though clearly a lot of time had passed. Ever since that night, your body has felt heavier than before. You soon discovered that you could will your very bones into extending from your flesh like thorns from a rose's stem. Though you didn't choose the title gatewalker for yourself, you're sure you can use your strange new power to exercise control over your life.</p>\n<p>Your deviant abilities are of the troll classification. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Bone Spikes] deviant feat. As a quirk, whenever you use a deviant ability, the very fibers of your muscles flex and expand to impossible proportions. Your actual strength remains the same during these times, but few can deny your fearsome appearance.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Intimidation skill and the Legal Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Glare] skill feat.</p>"
+            "value": "<p>Whether you desire simple security after a life of uncertainty or you're actually just a control freak, power over your own fate is the thing you've always wanted. On the night of the Missing Moment, you glimpsed such power amid the light of a glowing archway, and you stepped through, eager to claim control over your destiny. What happened next, you don't remember—you came to at the same place you'd started, though clearly a lot of time had passed. Since that night, you've discovered that you can will your body into manifesting an eerie, destructive ability. Though you didn't choose the title gatewalker for yourself, you're sure you can use your strange new power to exercise control over your life.</p>\n<p>Your deviant abilities are of either the dragon or the troll classification. If you choose dragon, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Blasting Beams] deviant feat with the electricity type. If you choose troll, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Bone Spikes] deviant feat. As a quirk, whenever you use a deviant ability, the fibers of your muscles flex and expand to impossible proportions, as if your mortal frame struggles to contain the impossible power within it. Your actual strength remains the same during these times, but few can deny your fearsome appearance.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Intimidation skill and the Legal Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Glare] skill feat.</p>"
         },
         "items": {
             "w2FQs": {
@@ -40,8 +40,22 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Blasting Beams"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Bone Spikes"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DeviantAbilities.Prompt"
+            },
+            {
                 "key": "GrantItem",
-                "uuid": "Compendium.pf2e.feats-srd.Item.Bone Spikes"
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
             }
         ],
         "trainedSkills": {

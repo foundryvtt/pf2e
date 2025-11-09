@@ -124,7 +124,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends appv1.sheets.Ac
         });
     }
 
-    #getSpellFromEvent(event: MouseEvent): SpellPF2e<ActorPF2e> {
+    #getSpellFromEvent(event: PointerEvent): SpellPF2e<ActorPF2e> {
         const itemId = htmlClosest(event.target, "li[data-item-id]")?.dataset.itemId;
         const item = this.actor.items.get(itemId, { strict: true });
         if (!item.isOfType("spell")) throw ErrorPF2e("Unexpected item type");

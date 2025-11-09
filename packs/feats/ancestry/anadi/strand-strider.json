@@ -25,7 +25,21 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens The Mwangi Expanse"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "change-shape:spider",
+                            "change-shape:hybrid"
+                        ]
+                    }
+                ],
+                "selector": "climb",
+                "value": 25
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

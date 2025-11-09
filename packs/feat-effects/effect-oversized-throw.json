@@ -1,0 +1,78 @@
+{
+    "_id": "ewEZ9zB5cjdUMtQj",
+    "img": "icons/commodities/wood/wood-wheel-brown.webp",
+    "name": "Effect: Oversized Throw",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Oversized Throw]</p>\n<p>You gain a ranged Strike. It is a simple ranged weapon that deals 1d10 bludgeoning damage, has a range increment of 20 feet, and has the thrown weapon trait. The damage increases to 2d10 bludgeoning damage if you have weapon specialization in simple weapons, or 3d10 bludgeoning if you have greater weapon specialization.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "category": "simple",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Barbarian.OversizedThrow.Label",
+                "range": {
+                    "increment": 20
+                },
+                "traits": [
+                    "thrown"
+                ]
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:id:{item|id}",
+                    "feature:weapon-specialization"
+                ],
+                "property": "damage-dice-number",
+                "value": 2
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:id:{item|id}",
+                    "feature:greater-weapon-specialization"
+                ],
+                "property": "damage-dice-number",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

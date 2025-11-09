@@ -1,0 +1,87 @@
+{
+    "_id": "AocUY91Tpy1QCdyu",
+    "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
+    "name": "Spell Effect: Ash-Strewn Ending",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Ash-Strewn Ending</p>\n<p>You gain resistance to void damage and a status bonus to saving throws against death effects. If the ritual was a critical failure you gain weakness and a penalty to these checks instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 7
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #218: Titanbane"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "ash-strewn-ending"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "ash-strewn-ending:success"
+                ],
+                "type": "void",
+                "value": "ternary(gte(@item.level,8),20,ternary(gte(@item.level,6),15,10))"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "ash-strewn-ending:critical-failure"
+                ],
+                "type": "void",
+                "value": "ternary(gte(@item.level,8),20,ternary(gte(@item.level,6),15,10))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:death"
+                ],
+                "selector": "saving-throw",
+                "slug": "ash-strewn-ending",
+                "type": "status",
+                "value": "ternary(gte(@item.level,8),4,ternary(gte(@item.level,6),3,2))"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "ash-strewn-ending:critical-failure"
+                ],
+                "selector": "saving-throw",
+                "slug": "ash-strewn-ending",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

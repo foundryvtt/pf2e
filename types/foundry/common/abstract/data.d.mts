@@ -30,7 +30,7 @@ export default abstract class DataModel<
     readonly parent: TParent;
 
     /** The defined and cached Data Schema for all instances of this DataModel. */
-    protected static _schema: fields.SchemaField<DataSchema> | undefined;
+    static _schema: fields.SchemaField<DataSchema> | undefined;
 
     /** Configure the data model instance before validation and initialization workflows are performed. */
     protected _configure(): void;
@@ -60,6 +60,8 @@ export default abstract class DataModel<
         fields: foundry.data.validation.DataModelValidationFailure | null;
         joint: foundry.data.validation.DataModelValidationFailure | null;
     };
+
+    static LOCALIZATION_PREFIXES: string[];
 
     /* ---------------------------------------- */
     /*  Data Cleaning Methods                   */

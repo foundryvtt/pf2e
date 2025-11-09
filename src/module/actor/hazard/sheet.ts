@@ -1,13 +1,13 @@
-import { StrikeData } from "@actor/data/base.ts";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import { createNPCAttackTraitsAndTags } from "@module/sheet/helpers.ts";
 import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery } from "@util/dom.ts";
 import { tagify, traitSlugToObject } from "@util/tags.ts";
 import type { HazardPF2e } from "./document.ts";
-import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
+import { HazardActionSheetData, HazardAttackSheedData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -56,17 +56,9 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             reset: await enrich(system.details.reset),
         });
 
-        const strikesWithDescriptions: (StrikeData & { damageFormula?: string })[] = system.actions;
-        for (const attack of strikesWithDescriptions) {
-            if (attack.description.length > 0) {
-                const rollData = attack.item.getRollData();
-                attack.description = await TextEditorPF2e.enrichHTML(attack.description, { rollData });
-            }
-            attack.damageFormula = String(await attack.damage?.({ getFormula: true }));
-        }
-
         return {
             ...sheetData,
+            attacks: await this.#prepareAttacks(),
             actions: this.#prepareActions(),
             complexityOptions: [
                 { value: "false", label: "PF2E.Actor.Hazard.Simple" },
@@ -95,6 +87,31 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             hasRoutineDetails: !!system.details.routine?.trim(),
             hasResetDetails: !!system.details.reset?.trim(),
         };
+    }
+
+    async #prepareAttacks() {
+        const actor = this.actor;
+        const results: HazardAttackSheedData[] = [];
+        for (const attack of actor.system.actions) {
+            const description =
+                attack.description.length > 0
+                    ? await TextEditorPF2e.enrichHTML(attack.description, { rollData: attack.item.getRollData() })
+                    : null;
+
+            results.push({
+                description,
+                damageFormula: String(await attack.damage?.({ getFormula: true })),
+                breakdown: attack.type === "strike" ? attack.breakdown : attack.statistic.dc.breakdown,
+                additionalEffects: attack.additionalEffects,
+                attackRollType: attack.attackRollType,
+                glyph: attack.glyph,
+                variants: attack.variants,
+                item: attack.item,
+                traitsAndTags: createNPCAttackTraitsAndTags(attack.item),
+            });
+        }
+
+        return results;
     }
 
     #prepareActions(): HazardActionSheetData {

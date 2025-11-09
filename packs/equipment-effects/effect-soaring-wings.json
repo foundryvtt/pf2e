@@ -1,0 +1,43 @@
+{
+    "_id": "1XmE0W0tVH5NXGL2",
+    "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
+    "name": "Effect: Soaring Wings",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Soaring Wings], @UUID[Compendium.pf2e.equipment-srd.Item.Soaring Wings (Greater)]</p>\n<p>You gain a fly Speed equal to either your land Speed or 20 feet, whichever is greater.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "max(20,@actor.system.movement.speeds.land.total)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -34,7 +34,6 @@ const action = new SingleCheckAction({
         { outcome: ["criticalSuccess", "success"], text: `${PREFIX}.Notes.success` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:gather-information"],
     sampleTasks: {
         untrained: `${PREFIX}.SampleTasks.Untrained`,
         trained: `${PREFIX}.SampleTasks.Trained`,

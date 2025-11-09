@@ -1,1 +1,23 @@
-<textarea name="system.rules.{{index}}" spellcheck="false">{{json rule}}</textarea>
+{{~#if autogenerate~}}
+    {{#each fields as |field key|}}
+        {{#unless (includes ../omittedFields key)}}
+            {{#if (includes ../hiddenFields key)}}
+                {{#unless (eq (lookup ../rule key) undefined)}}
+                    <input type="hidden" name="{{../basePath}}.{{key}}" value="{{json (lookup ../rule key)}}"
+                           data-dtype="JSON" />
+                {{/unless}}
+            {{else if (ne key "predicate")}}
+                {{formGroup field name=(concat ../basePath "." key) value=(lookup ../rule key)
+                            rootId=../rootId
+                            elementType=(../form.elementType field)
+                            placeholder=(ifThen (eq key "label") ../item.name "")}}
+            {{/if}}
+        {{/unless}}
+    {{/each}}
+    {{#unless (includes omittedFields "predicate")}}
+        {{formGroup fields.predicate name=(concat basePath ".predicate")
+                    value=(lookup rule "predicate") placeholder="[]" rootId=rootId}}
+    {{/unless}}
+{{~else~}}
+    <textarea name="system.rules.{{index}}" spellcheck="false">{{json rule}}</textarea>
+{{/if~}}

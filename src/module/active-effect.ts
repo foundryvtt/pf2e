@@ -6,7 +6,9 @@ import * as R from "remeda";
 
 export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> extends ActiveEffect<TParent> {
     /** Create an active effect from an (abstract) effect for use in token effect icons */
-    static fromEffect<TActor extends ActorPF2e>(effect: AbstractEffectPF2e<TActor>): ActiveEffectPF2e<TActor> {
+    static fromEffect<TItem extends ItemPF2e<ActorPF2e>>(
+        effect: AbstractEffectPF2e<ActorPF2e>,
+    ): ActiveEffectPF2e<TItem> {
         const isEffect = effect.isOfType("effect");
         const isCondition = effect.isOfType("condition");
 
@@ -38,12 +40,12 @@ export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> exten
         );
     }
 
+    /** Only allow the death overlay effect */
     protected override async _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        // Only allow the death overlay effect
-        return data.statuses.includes("dead") ? super._preCreate(data, options, user) : false;
+        return data.statuses?.includes("dead") ? super._preCreate(data, options, user) : false;
     }
 }

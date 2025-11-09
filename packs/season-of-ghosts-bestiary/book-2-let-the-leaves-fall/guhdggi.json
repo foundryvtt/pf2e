@@ -30,8 +30,8 @@
                 "slots": {},
                 "slug": null,
                 "spelldc": {
-                    "dc": 18,
-                    "value": 10
+                    "dc": 22,
+                    "value": 14
                 },
                 "tradition": {
                     "value": "occult"
@@ -704,6 +704,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -751,6 +752,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -808,7 +810,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The guhdggi opens both of its mouths and, from its innermost humanoid mouth, belches forth a blast of red butterflies in a @Template[cone|distance:15]. All creatures in the area must attempt a @Check[reflex|dc:22|options:area-effect,damaging-effect] save as the hideous insects' razor sharp wings and tiny claws slash and cut away at exposed flesh. The guhdggi can't Belch Butterflies again for [[/gmr 1d4 #Recharge Belch Butterflies]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage from the butterflies.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[slashing]|options:area-damage] damage from the butterflies.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[slashing]|options:area-damage] damage, @Damage[1d6[persistent,bleed]|options:area-damage] damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[slashing]|options:area-damage] damage, @Damage[2d6[persistent,bleed]|options:area-damage] damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+                    "value": "<p>The guhdggi opens both of its mouths and, from its innermost humanoid mouth, belches forth a blast of red butterflies in a @Template[cone|distance:15]. All creatures in the area must attempt a @Check[reflex|dc:22|options:area-effect,damaging-effect,inflicts:sickened] save as the hideous insects' razor sharp wings and tiny claws slash and cut away at exposed flesh. The guhdggi can't Belch Butterflies again for [[/gmr 1d4 #Recharge Belch Butterflies]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage from the butterflies.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[slashing]|options:area-damage] damage from the butterflies.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[slashing],1d6[bleed]|options:area-damage]{4d6 slashing damage, 1d6 persistent bleed damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[slashing],2d6[bleed]|options:area-damage]{8d6 slashing damage, 2d6 persistent bleed damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -839,7 +841,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The guhdggi has grappled a Medium or smaller creature with its hair lash and doesn't have a creature caged</p>\n<hr />\n<p><strong>Effect</strong> The guhdggi attempts an Athletics check opposed by the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] creature's Reflex DC. If it succeeds, it places the creature into the cage it carries on its back. The guhdggi's hair lash no longer grapples the creature, and it can't attack a creature in its cage.</p>\n<p>The caged creature is grabbed. It takes @Damage[(2d4+6)[mental]] damage when first caged and at the end of each of its turns while it's caged. A caged victim can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] or @UUID[Compendium.pf2e.actionspf2e.Item.Escape] the cage with a DC 22 check, or it can attack the cage's wicker bars, but only with unarmed attacks or with weapons of light Bulk or less. Other creatures can attack the wicker bars as well but can't attempt to Force Open the cage or aid a caged creature's Escape if the guhdggi can resist. Attacks against the cage resolve against the guhdggi's AC, and if the cage takes at least 16 bludgeoning or slashing damage from a single attack or spell, the caged creature gets free.</p>\n<p>If the guhdggi dies, its cage crumbles to fragments.</p>"
+                    "value": "<p><strong>Requirements</strong> The guhdggi has grappled a Medium or smaller creature with its hair lash and doesn't have a creature caged</p><hr /><p><strong>Effect</strong> The guhdggi attempts an @Check[athletics|against:reflex] check opposed by the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] creature's Reflex DC. If it succeeds, it places the creature into the cage it carries on its back. The guhdggi's hair lash no longer grapples the creature, and it can't attack a creature in its cage.</p>\n<p>The caged creature is grabbed. It takes @Damage[(2d4+6)[mental]] damage when first caged and at the end of each of its turns while it's caged. A caged victim can attempt to [[/act force-open dc=22]] or [[/act escape dc=22]] the cage with a DC 22 check, or it can attack the cage's wicker bars, but only with unarmed attacks or with weapons of light Bulk or less. Other creatures can attack the wicker bars as well but can't attempt to Force Open the cage or aid a caged creature's Escape if the guhdggi can resist. Attacks against the cage resolve against the guhdggi's AC, and if the cage takes at least 16 bludgeoning or slashing damage from a single attack or spell, the caged creature gets free.</p>\n<p>If the guhdggi dies, its cage crumbles to fragments.</p>"
                 },
                 "publication": {
                     "license": "OGL",

@@ -1,0 +1,203 @@
+{
+    "_id": "Ny6kEKDxr9GhLoTC",
+    "img": "systems/pf2e/icons/features/classes/sihedron.webp",
+    "name": "Effect: Runelord Researcher",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.backgrounds.Item.Runelord Researcher]</p>\n<p>You gain a +1 status bonus to saving throws against the chosen effect.</p><ul><li><strong>Envy</strong> any effect that has the incapacitation trait (against foes who are higher level than you, the status bonus increases to +2)</li><li><strong>Gluttony</strong> death effects and void</li><li><strong>Greed</strong> polymorph and effects that can cause the following conditions: enfeebled, clumsy, or petrified</li><li><strong>Lust</strong> emotion</li><li><strong>Pride</strong> illusion</li><li><strong>Sloth</strong> effects that cause paralysis, slow, stun, or that grant penalties to your Speed</li><li><strong>Wrath</strong> effects that cause acid, cold, electricity, fire, or sonic damage (choose one)</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Revenge of the Runelords Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Envy",
+                        "value": "envy"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Gluttony",
+                        "value": "gluttony"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Greed",
+                        "value": "greed"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Lust",
+                        "value": "lust"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Pride",
+                        "value": "pride"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Sloth",
+                        "value": "sloth"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Runelord.School.Wrath",
+                        "value": "wrath"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Runelord.School.Prompt",
+                "rollOption": "thassilonian-school"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            "thassilonian-school:wrath"
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            "thassilonian-school:wrath"
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            "thassilonian-school:wrath"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            "thassilonian-school:wrath"
+                        ],
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "thassilonian-school:envy",
+                                    "item:trait:incapacitation"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "thassilonian-school:gluttony",
+                                    {
+                                        "or": [
+                                            "item:trait:death",
+                                            "item:trait:void"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "thassilonian-school:greed",
+                                    {
+                                        "or": [
+                                            "item:trait:polymorph",
+                                            "inflicts:enfeebled",
+                                            "inflicts:clumsy",
+                                            "inflicts:petrified"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "thassilonian-school:lust",
+                                    "item:trait:emotion"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "thassilonian-school:pride",
+                                    "item:trait:illusion"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "thassilonian-school:sloth",
+                                    {
+                                        "or": [
+                                            "inflicts:paralyzed",
+                                            "inflicts:slowed",
+                                            "inflicts:stunned",
+                                            "inflicts:speed-penalty"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "thassilonian-school:wrath",
+                                    "item:damage:type:{item|flags.pf2e.rulesSelections.damageType}"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "runelord-scholar",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "thassilonian-school:envy",
+                    {
+                        "gte": [
+                            "origin:level",
+                            "self:level"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "runelord-scholar",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

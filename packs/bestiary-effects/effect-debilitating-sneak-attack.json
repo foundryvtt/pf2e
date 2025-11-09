@@ -1,0 +1,70 @@
+{
+    "_id": "MIznUE9YmCI01ZMr",
+    "img": "icons/skills/melee/strike-sword-blood-red.webp",
+    "name": "Effect: Debilitating Sneak Attack",
+    "system": {
+        "description": {
+            "value": "<p>You either become enfeebled 1 or take a –10-foot status penalty to your Speeds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.condition.enfeebled.name",
+                        "value": "enfeebled"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.SpeedPenalty.Label",
+                        "value": "speed-penalty"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "label": "PF2E.SpecificRule.Prompt.Penalty",
+                "rollOption": "debilitating-sneak-attack"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "debilitating-sneak-attack:enfeebled"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "debilitating-sneak-attack:speed-penalty"
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

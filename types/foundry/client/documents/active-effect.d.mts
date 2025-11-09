@@ -184,7 +184,7 @@ export default class ActiveEffect<
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;
@@ -213,6 +213,7 @@ export default class ActiveEffect<
 }
 
 export default interface ActiveEffect<TParent extends Actor | Item | null = Actor | Item | null> {
+    readonly _source: ActiveEffectSource;
     duration: PreparedEffectDurationData;
 }
 

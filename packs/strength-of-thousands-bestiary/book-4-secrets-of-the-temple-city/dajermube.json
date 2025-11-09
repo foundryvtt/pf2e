@@ -550,6 +550,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -598,14 +599,17 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 100,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "magical",
-                        "range-increment-100"
+                        "magical"
                     ]
                 },
                 "weaponType": {
@@ -811,7 +815,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the nemhaith damages a living creature with its spirit tendril Strike, the creature must succeed at a @Check[fortitude|dc:36] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>\n<p>Further damage dealt by the nemhaith increases the condition value by 1 on a failed save, to a maximum of drained 4.</p>"
+                    "value": "<p>When the nemhaith damages a living creature with its spirit tendril Strike, the creature must succeed at a @Check[fortitude|dc:36|options:inflicts:drained] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>\n<p>Further damage dealt by the nemhaith increases the condition value by 1 on a failed save, to a maximum of drained 4.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -843,7 +847,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The nemhaith's bound spirits rage and smash everything in a @Template[emanation|distance:30]. Creatures in this area take @Damage[4d6[sonic]] damage and @Damage[4d6[void]] damage (@Check[fortitude|dc:36|basic] save).</p>"
+                    "value": "<p>The nemhaith's bound spirits rage and smash everything in a @Template[emanation|distance:30]. Creatures in this area take @Damage[4d6[sonic],4d6[void]|options:area-damage]{4d6 sonic damage and 4d6 void damage} (@Check[fortitude|dc:36|basic|options:area-effect] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",

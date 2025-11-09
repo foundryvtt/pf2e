@@ -1,0 +1,53 @@
+{
+    "_id": "zNdEXVVMbC9i4Yox",
+    "img": "icons/magic/air/fog-gas-smoke-swirling-gray.webp",
+    "name": "Effect: Kettle Up (Boiling)",
+    "system": {
+        "description": {
+            "value": "<p>You take a –2 penalty to Perception checks to hear sources other than the flynkett.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "lte": [
+                            "target:distance",
+                            30
+                        ]
+                    },
+                    "target:audible"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

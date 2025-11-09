@@ -1,15 +1,19 @@
 import { ActorPF2e } from "@actor";
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
+import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import { PhysicalItemPF2e, type ItemPF2e } from "@item";
-import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { isSpellConsumableUUID } from "@item/consumable/spell-consumables.ts";
+import { placeItemTemplate } from "@item/helpers.ts";
+import { Coins } from "@item/physical/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
 import { CheckRoll } from "@system/check/index.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { CheckDCReference } from "@system/statistic/index.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e, CheckContextChatFlag } from "../index.ts";
 
@@ -17,7 +21,7 @@ class ChatCards {
     static #lastClick = 0;
 
     static listen(message: ChatMessagePF2e, html: HTMLElement): void {
-        const selector = ["a[data-action], button[data-action]"].join(",");
+        const selector = ["a[data-action], button[data-action], .collapsed[data-action=expand-description]"].join(",");
         for (const button of htmlQueryAll<HTMLButtonElement>(html, selector)) {
             button.addEventListener("click", async (event) => this.#onClickButton({ message, event, html, button }));
         }
@@ -37,13 +41,13 @@ class ChatCards {
         if (!actor) return;
 
         // Confirm roll permission
-        if (!game.user.isGM && !actor.isOwner && !["spell-save", "expand-description"].includes(action)) {
+        if (!actor.isOwner && !["spell-save", "expand-description", "roll-area-save"].includes(action)) {
             return;
         }
 
-        // Handle strikes
-        const strikeAction = message._strike;
-        if (strikeAction && action?.startsWith("strike-")) {
+        // Handle attacks
+        const attack = message._attack;
+        if (attack?.type === "strike" && action?.startsWith("strike-")) {
             const context = (
                 message.rolls.some((r) => r instanceof CheckRoll) ? (message.flags.pf2e.context ?? null) : null
             ) as CheckContextChatFlag | null;
@@ -57,27 +61,47 @@ class ChatCards {
 
             switch (sluggify(action ?? "")) {
                 case "strike-attack":
-                    strikeAction.variants[0].roll(rollArgs);
+                    attack.variants[0].roll(rollArgs);
                     return;
                 case "strike-attack2":
-                    strikeAction.variants[1].roll(rollArgs);
+                    attack.variants[1].roll(rollArgs);
                     return;
                 case "strike-attack3":
-                    strikeAction.variants[2].roll(rollArgs);
+                    attack.variants[2].roll(rollArgs);
                     return;
                 case "strike-damage": {
                     const method = button.dataset.outcome === "success" ? "damage" : "critical";
-                    strikeAction[method]?.(rollArgs);
+                    attack[method]?.(rollArgs);
                     return;
                 }
             }
+        }
+
+        if (action === "expand-description") {
+            const element = htmlClosest(button, ".description, .collapsed");
+            if (element && "autoCollapse" in element.dataset) {
+                element.classList.remove("collapsed");
+                const shadow = element.nextElementSibling;
+                if (shadow?.classList.contains("shadow")) {
+                    shadow.remove();
+                }
+                delete button.dataset.tooltip;
+                delete button.dataset.action;
+                game.tooltip.deactivate();
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
+            } else if (element && item) {
+                // temporary support for the old way involving dom replacement
+                // todo: remove in a future release
+                element.innerHTML = (await item.getDescription()).value;
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+            return;
         }
 
         // Handle everything else
         if (item) {
             const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
 
-            // Spell actions
             switch (action) {
                 case "spell-attack":
                     await spell?.rollAttack(event);
@@ -91,8 +115,15 @@ class ChatCards {
                 case "spell-damage":
                     spell?.rollDamage(event);
                     return;
-                case "spell-save":
-                    return this.#rollActorSaves({ event, button, actor, item });
+                case "spell-save": {
+                    const saveType = button.dataset.save;
+                    const dcValue = Number(button.dataset.dc ?? "NaN");
+                    const dc = Number.isInteger(dcValue) ? { value: Number(dcValue) } : null;
+                    if (!tupleHasValue(SAVE_TYPES, saveType)) {
+                        throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
+                    }
+                    return this.#rollActorSaves({ event, saveType, origin: actor, item, dc });
+                }
                 case "affliction-save":
                     if (item?.isOfType("affliction")) {
                         item.rollRecovery();
@@ -164,14 +195,6 @@ class ChatCards {
                     }
                     return;
                 }
-                case "expand-description": {
-                    const element = htmlClosest(button, ".description");
-                    if (element) {
-                        element.innerHTML = (await item.getDescription()).value;
-                        element.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }
-                    break;
-                }
                 case "elemental-blast-damage": {
                     if (!actor.isOfType("character")) return;
                     const roll = message.rolls.find(
@@ -194,6 +217,20 @@ class ChatCards {
                             event,
                         });
                     }
+                    return;
+                }
+                case "roll-area-save": {
+                    const dc = attack && "statistic" in attack ? attack.statistic.dc : null;
+                    return this.#rollActorSaves({ event, saveType: "reflex", origin: actor, item, dc });
+                }
+                case "roll-area-damage":
+                    attack?.damage?.({ event });
+                    return;
+                case "place-area-template": {
+                    const context = message.flags.pf2e.context;
+                    const area = tupleHasValue(["area-fire", "auto-fire"], context?.type) ? context.area : null;
+                    if (area) placeItemTemplate(area, { item, message });
+                    return;
                 }
             }
         } else if (action && actor.isOfType("character", "npc")) {
@@ -209,14 +246,14 @@ class ChatCards {
                 await onRepairChatCardEvent(event, message, buttonGroup);
             } else if (physicalItem && action === "pay-crafting-costs") {
                 const quantity = Number(buttonGroup?.dataset.craftingQuantity) || 1;
-                const craftingCost = CoinsPF2e.fromPrice(physicalItem.price, quantity);
+                const craftingCost = Coins.fromPrice(physicalItem.price, quantity);
                 const coinsToRemove = button.classList.contains("full") ? craftingCost : craftingCost.scale(0.5);
                 if (!(await actor.inventory.removeCoins(coinsToRemove))) {
                     ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                     return;
                 }
 
-                if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
+                if (isSpellConsumableUUID(physicalItem.uuid) && physicalItem.isOfType("consumable")) {
                     craftSpellConsumable(physicalItem, quantity, actor);
                     ChatMessagePF2e.create({
                         author: game.user.id,
@@ -251,7 +288,7 @@ class ChatCards {
                     speaker: { alias: actor.name },
                 });
             } else if (physicalItem && action === "lose-materials") {
-                const craftingCost = CoinsPF2e.fromPrice(physicalItem.price, quantity);
+                const craftingCost = Coins.fromPrice(physicalItem.price, quantity);
                 const materialCosts = craftingCost.scale(0.5);
                 const coinsToRemove = materialCosts.scale(0.1);
                 if (!(await actor.inventory.removeCoins(coinsToRemove))) {
@@ -267,7 +304,7 @@ class ChatCards {
                     });
                 }
             } else if (action === "receieve-crafting-item" && physicalItem) {
-                if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
+                if (isSpellConsumableUUID(physicalItem.uuid) && physicalItem.isOfType("consumable")) {
                     return craftSpellConsumable(physicalItem, quantity, actor);
                 } else {
                     return craftItem(physicalItem, quantity, actor);
@@ -290,44 +327,35 @@ class ChatCards {
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
-    static async #rollActorSaves({ event, button, actor, item }: RollActorSavesParams): Promise<void> {
+    static async #rollActorSaves({ event, saveType, origin, item, dc }: RollActorSavesParams): Promise<void> {
         const tokens = game.user.getActiveTokens();
         if (tokens.length === 0) {
             ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
             return;
         }
-        const saveType = button.dataset.save;
-        if (!tupleHasValue(SAVE_TYPES, saveType)) {
-            throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
-        }
 
-        const dc = Number(button.dataset.dc ?? "NaN");
         for (const token of tokens) {
             const save = token.actor?.saves?.[saveType];
             if (!save) return;
 
-            save.check.roll({
-                ...eventToRollParams(event, { type: "check" }),
-                dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
-                item,
-                origin: actor,
-            });
+            save.check.roll({ ...eventToRollParams(event, { type: "check" }), dc, item, origin });
         }
     }
 }
 
 interface OnClickButtonParams {
     message: ChatMessagePF2e;
-    event: MouseEvent;
+    event: PointerEvent;
     html: HTMLElement;
     button: HTMLButtonElement;
 }
 
 interface RollActorSavesParams {
-    event: MouseEvent;
-    button: HTMLButtonElement;
-    actor: ActorPF2e;
+    event: PointerEvent;
+    saveType: SaveType;
+    origin: ActorPF2e;
     item: ItemPF2e<ActorPF2e>;
+    dc: CheckDC | CheckDCReference | null;
 }
 
 export { ChatCards };

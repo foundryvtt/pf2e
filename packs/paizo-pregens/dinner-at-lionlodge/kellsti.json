@@ -231,21 +231,7 @@
                         ],
                         "selector": "crafting",
                         "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 2,
-                                    "start": 1,
-                                    "value": 1
-                                }
-                            ],
-                            "field": "actor|system.skills.crafting.rank"
-                        }
+                        "value": "match(when(btwn(@actor.system.skills.crafting.rank, 3, 4), 2), when(btwn(@actor.system.skills.crafting.rank, 1, 2), 1))"
                     }
                 ],
                 "slug": "specialty-crafting",
@@ -2095,6 +2081,11 @@
             "name": "Shortbow",
             "sort": 0,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "shortbow",
                 "bonus": {
                     "value": 0
@@ -2431,31 +2422,17 @@
             "name": "Arrows",
             "sort": 0,
             "system": {
-                "baseItem": null,
+                "baseItem": "arrows",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -2472,13 +2449,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
-                "stackGroup": "arrows",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -2486,7 +2461,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "VO26DvChxwCo0Z8s",
@@ -2858,6 +2833,7 @@
                 "bulk": {
                     "value": 1
                 },
+                "category": "coin",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -2883,15 +2859,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 15,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
-                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3981,7 +3956,6 @@
                 },
                 "rules": [
                     {
-                        "adjustName": true,
                         "choices": [
                             {
                                 "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Black",
@@ -4055,11 +4029,7 @@
                     "type": "acid",
                     "value": 2
                 }
-            ],
-            "speed": {
-                "otherSpeeds": [],
-                "value": 25
-            }
+            ]
         },
         "build": {
             "attributes": {

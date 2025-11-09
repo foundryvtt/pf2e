@@ -1,4 +1,4 @@
-import { User, UserSource } from "../_module.mjs";
+import { User } from "../_module.mjs";
 import WorldCollection from "../abstract/world-collection.mjs";
 import { UserActivity } from "../user.mjs";
 
@@ -16,7 +16,7 @@ export default class Users<TUser extends User = User> extends WorldCollection<TU
      */
     current: TUser | null;
 
-    protected override _initialize(data: UserSource[]): void;
+    protected override _initialize(): void;
 
     static override documentName: "User";
 
@@ -28,6 +28,19 @@ export default class Users<TUser extends User = User> extends WorldCollection<TU
      * This can be useful for workflows which occur on all clients, but where only one user should take action.
      */
     get activeGM(): TUser | null;
+
+    /**
+     * Get the designated User among the Users that satisfy the given condition.
+     * Returns `null` if no Users satisfy the given condition.
+     * Returns a User with the highest role among the qualifying Users.
+     * Qualifying Users aren't necessary active Users unless it is part of the condition.
+     * @example
+     * // Get the designated User for creating Tokens that is active
+     * const user = game.users.getDesignatedUser(user => user.active && user.can("TOKEN_CREATE"));
+     * @param condition The condition the Users must satisfy
+     * @returns The designated User or `null`
+     */
+    getDesignatedUser(condition: (user: TUser) => boolean): TUser | null;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */

@@ -457,6 +457,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "trident",
                 "traits": {
@@ -505,6 +506,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "whip",
                 "traits": {
@@ -557,6 +559,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -606,6 +609,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "trident",
                 "traits": {
@@ -838,17 +842,15 @@
                         "toggleable": true
                     },
                     {
-                        "definition": [
-                            "item:slug:trident",
-                            {
-                                "not": "item:ranged"
-                            }
-                        ],
                         "itemType": "melee",
                         "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "trident-of-dis"
+                            "item:slug:trident",
+                            "trident-of-dis",
+                            {
+                                "not": "item:ranged"
+                            }
                         ],
                         "property": "traits",
                         "value": "reach-10"

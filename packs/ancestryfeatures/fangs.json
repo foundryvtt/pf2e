@@ -35,15 +35,32 @@
                     }
                 },
                 "group": "brawling",
-                "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
                 "key": "Strike",
                 "label": "PF2E.BattleForm.Attack.Fangs",
+                "predicate": [
+                    {
+                        "or": [
+                            "change-shape:hybrid",
+                            "change-shape:spider"
+                        ]
+                    }
+                ],
                 "range": null,
                 "slug": "fangs",
                 "traits": [
                     "finesse",
                     "unarmed"
                 ]
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}"
+                ],
+                "property": "other-tags",
+                "value": "anadi-fangs"
             }
         ],
         "traits": {

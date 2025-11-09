@@ -4,7 +4,7 @@ import { svelte as sveltePlugin } from "@sveltejs/vite-plugin-svelte";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
-import Glob from "glob";
+import { globSync } from "glob";
 import path from "path";
 import Peggy from "peggy";
 import * as Vite from "vite";
@@ -15,6 +15,7 @@ import packageJSON from "./package.json" with { type: "json" };
 import { sluggify } from "./src/util/misc.ts";
 import systemJSON from "./static/system.json" with { type: "json" };
 
+const SYSTEM_ID = "pf2e" as "pf2e" | "sf2e";
 const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync("npm run build:conditions", { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
@@ -31,7 +32,7 @@ function getUuidRedirects(): Record<CompendiumUUID, CompendiumUUID> {
         const filename = `${sluggify(name)}.json`;
         const jsonPath = fs.existsSync(path.resolve(dirPath, filename))
             ? path.resolve(dirPath, filename)
-            : Glob.sync(path.resolve(dirPath, "**", filename)).at(0);
+            : globSync(path.resolve(dirPath, "**", filename), { windowsPathsNoEscape: true }).at(0);
         if (!jsonPath) throw new Error(`Failure looking up pack JSON for ${to}`);
         const docJSON = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
         const id = docJSON._id;
@@ -48,7 +49,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 
     const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
     const ROLL_PARSER = Peggy.generate(rollGrammar, { output: "source" }).replace(
-        'return {\n    StartRules: ["Expression"],\n    SyntaxError: peg$SyntaxError,\n    parse: peg$parse\n  };',
+        'return {\n    StartRules: ["Expression"],\n    SyntaxError: peg$SyntaxError,\n    parse: peg$parse,\n  };',
         'AbstractDamageRoll.parser = { StartRules: ["Expression"], SyntaxError: peg$SyntaxError, parse: peg$parse };',
     );
 
@@ -73,7 +74,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     };
 
     const plugins = [
-        checker({ typescript: false }),
+        checker({ typescript: true }),
         tsconfigPaths({ loose: true }),
         sveltePlugin({
             preprocess: command === "serve" ? hmrPreprocess : undefined,
@@ -184,6 +185,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         base: command === "build" ? "./" : "/systems/pf2e/",
         publicDir: "static",
         define: {
+            SYSTEM_ID: JSON.stringify(SYSTEM_ID),
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
@@ -212,11 +214,11 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 external: new RegExp(
                     [
                         "(?:",
-                        reEscape("../../icons/weapons/"),
+                        reEscape("../icons/weapons/"),
                         "[-a-z/]+",
                         reEscape(".webp"),
                         "|",
-                        reEscape("../ui/parchment.jpg"),
+                        reEscape("ui/parchment.jpg"),
                         ")$",
                     ].join(""),
                 ),
@@ -244,7 +246,16 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             },
         },
         plugins,
-        css: { devSourcemap: buildMode === "development" },
+        css: {
+            devSourcemap: buildMode === "development",
+            preprocessorOptions: {
+                scss: {
+                    additionalData: (existing: string) => {
+                        return SYSTEM_ID === "sf2e" ? `${existing}\n@import "sf2e/index";` : existing;
+                    },
+                },
+            },
+        },
     };
 });
 

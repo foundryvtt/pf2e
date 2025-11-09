@@ -1,4 +1,5 @@
 import { Point } from "../_types.mjs";
+import { GridOffset2D, HexagonalGridCoordinates2D, HexagonalGridCube2D } from "./_types.mjs";
 import { HexagonalGrid } from "./hexagonal.mjs";
 
 /**
@@ -6,21 +7,21 @@ import { HexagonalGrid } from "./hexagonal.mjs";
  * This class relies on having an active canvas scene in order to know the configuration of the hexagonal grid.
  */
 export class GridHex {
-    /** The hexagonal grid to which this hex belongs. */
-    grid: HexagonalGrid;
-
-    /** The cube coordinate of this hex */
-    cube: HexagonalGridCube;
-
-    /** The offset coordinate of this hex */
-    offset: GridOffset;
-
     /**
      * Construct a GridHex instance by providing a hex coordinate.
      * @param coordinates  The coordinates of the hex to construct
      * @param grid         The hexagonal grid instance to which this hex belongs
      */
-    constructor(coordinates: HexagonalGridCoordinates, grid: HexagonalGrid);
+    constructor(coordinates: HexagonalGridCoordinates2D, grid: HexagonalGrid);
+
+    /** The hexagonal grid to which this hex belongs. */
+    grid: HexagonalGrid;
+
+    /** The cube coordinate of this hex */
+    cube: HexagonalGridCube2D;
+
+    /** The offset coordinate of this hex */
+    offset: GridOffset2D;
 
     /** Return a reference to the pixel point in the center of this hexagon. */
     get center(): Point;

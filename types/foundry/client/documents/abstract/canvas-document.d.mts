@@ -54,7 +54,7 @@ export class CanvasDocument<TParent extends Document | null = Document | null> e
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: Record<string, unknown>,
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;
@@ -68,6 +68,10 @@ export class CanvasDocument<TParent extends Document | null = Document | null> e
     ): void;
 
     protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
+}
+
+export interface CanvasDocument<TParent extends Document | null = Document | null> extends ClientDocument<TParent> {
+    hidden: boolean;
 }
 
 export interface CanvasDocumentStatic extends ClientDocumentStatic {}

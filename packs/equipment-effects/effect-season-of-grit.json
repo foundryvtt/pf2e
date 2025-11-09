@@ -1,0 +1,49 @@
+{
+    "_id": "d6VzjIU3ajRX0pyF",
+    "img": "icons/magic/nature/leaf-glow-maple-orange-purple.webp",
+    "name": "Effect: Season of Grit",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Constant Crosier]</p>\n<p>You gain a +1 status bonus to Fortitude saves and resistance 5 to persistent damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "fortitude",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "persistent-damage",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

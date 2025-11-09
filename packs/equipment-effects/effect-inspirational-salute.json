@@ -1,0 +1,55 @@
+{
+    "_id": "jFCNPTgcIouJ6EsC",
+    "img": "icons/magic/control/buff-flight-wings-purple.webp",
+    "name": "Effect: Inspirational Salute",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Warpipes]</p>\n<p>You gain a +1 status bonus to damage rolls and saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "critical": false,
+                "key": "FlatModifier",
+                "selector": "damage",
+                "slug": "inspirational-salute-damage-bonus",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:type:fear"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

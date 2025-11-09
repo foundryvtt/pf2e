@@ -1,0 +1,122 @@
+{
+    "_id": "YUj8kxyGTWRbbyBu",
+    "img": "icons/containers/ammunition/arrows-quiver-black.webp",
+    "name": "Effect: Convert Arrows",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Endless Quiver], @UUID[Compendium.pf2e.equipment-srd.Item.Endless Quiver (Greater)]</p>\n<p>Your Strikes using arrows are considered adamantine, cold iron, dawnsilver, or silver.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 11
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:group:bow"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.PreciousMaterialAdamantine",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:endless-quiver-greater"
+                                ]
+                            }
+                        ],
+                        "value": "adamantine"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialDawnsilver",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:endless-quiver-greater"
+                                ]
+                            }
+                        ],
+                        "value": "dawnsilver"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialColdIron",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:endless-quiver"
+                                ]
+                            }
+                        ],
+                        "value": "cold-iron"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSilver",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:endless-quiver"
+                                ]
+                            }
+                        ],
+                        "value": "silver"
+                    }
+                ],
+                "flag": "material",
+                "key": "ChoiceSet"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "material-type",
+                "value": "{item|flags.pf2e.rulesSelections.material}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

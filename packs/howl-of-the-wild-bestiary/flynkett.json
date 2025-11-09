@@ -3,53 +3,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "gU0KATAOWTIIx1dS",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "CmxcrhMWe6OlyzLU": {
-                        "damage": "2d4+4",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "nZLRo7EoUuyGF4iZ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Acid Spit",
-            "sort": 200000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -75,12 +32,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": null,
+                    "max": 40
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
-                        "acid",
-                        "range-40"
+                        "acid"
                     ]
                 },
                 "weaponType": {
@@ -91,9 +51,9 @@
         },
         {
             "_id": "6YnIhpOQ5MuJkq7l",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Glide",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -122,9 +82,9 @@
         },
         {
             "_id": "iUhS0qcMQrvdqAug",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Kettle Up",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -141,7 +101,75 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "kettle-up",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "Kettle Up - Boiling",
+                        "option": "boiling",
+                        "predicate": [
+                            "kettle-up"
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:glide",
+                            "kettle-up"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.NPCAbility.Flynkett.KettleUp.Note"
+                            }
+                        ]
+                    },
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:kettle-up",
+                            "boiling"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.NPCAbility.Flynkett.KettleUp.BoilingEffect"
+                            }
+                        ]
+                    },
+                    {
+                        "attackModifier": 9,
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d4",
+                                "modifier": 4
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "kettle-up"
+                            }
+                        ],
+                        "slug": "claw",
+                        "traits": [
+                            "agile",
+                            "unarmed"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -151,9 +179,9 @@
         },
         {
             "_id": "bTPVUFyH1OjjS4CW",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Spill",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -163,14 +191,27 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The flynkett is Kettled Up</p>\n<p><strong>Trigger</strong> The flynkett takes physical damage or is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>\n<hr />\n<p><strong>Effect</strong> The flynkett spills the contents of its full skin flaps, releasing its digestive juices in a cloud of acidic vapor that deals @Damage[2d8[acid]] damage to all non-flynkett creatures within @Template[emanation|distance:20]{20 feet} (@Check[fortitude|dc:18|basic] save). If the flynkett was boiling, the damage is increased to @Damage[4d8[acid]].</p>"
+                    "value": "<p><strong>Requirements</strong> The flynkett is Kettled Up</p>\n<p><strong>Trigger</strong> The flynkett takes physical damage or is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p><hr /><p><strong>Effect</strong> The flynkett spills the contents of its full skin flaps, releasing its digestive juices in a cloud of acidic vapor that deals @Damage[2d8[acid]|options:area-damage] damage to all non-flynkett creatures within @Template[emanation|distance:20]{20 feet} (@Check[fortitude|dc:18|basic|options:area-effect] save). If the flynkett was boiling, the damage is increased to 4d8.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "boiling"
+                        ],
+                        "property": "dice-number",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

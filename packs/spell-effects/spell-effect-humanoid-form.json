@@ -1,0 +1,186 @@
+{
+    "_id": "B9Hzt4ki8eqlXxyh",
+    "img": "systems/pf2e/icons/spells/humanoid-form.webp",
+    "name": "Spell Effect: Humanoid Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Humanoid Form]</p>\n<p>You transform your appearance to that of a Small or Medium humanoid. You gain the humanoid trait. If this transformation reduces your size, it reduces your reach accordingly (typically to 5 feet). You gain a +4 status bonus to Deception checks to pass as a generic member of the chosen ancestry, and you add your level even if you're untrained, but you can't make yourself look like a specific person.</p>\n<p><strong>Heightened (3rd)</strong> You gain darkvision or low-light vision if the form you assume has that ability.</p>\n<p><strong>Heightened (5th)</strong> You can take on the appearance of a Large humanoid. If this increases your size, you gain the effects of the enlarge spell.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidSmall",
+                        "value": "small"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
+                        "value": "medium"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidLarge",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:item:level",
+                                    5
+                                ]
+                            }
+                        ],
+                        "value": "large"
+                    }
+                ],
+                "flag": "humanoidForm",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Form",
+                "rollOption": "humanoid-form"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Item.Ability.Category.None",
+                        "value": "none"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.LowLightVision",
+                        "value": "low-light-vision"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+                        "value": "darkvision"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "gte": [
+                            "parent:origin:item:level",
+                            3
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Sense",
+                "rollOption": "vision-type"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    {
+                        "not": "humanoid-form:large"
+                    }
+                ],
+                "reach": {
+                    "override": 5
+                },
+                "resizeEquipment": true,
+                "value": "{item|flags.pf2e.rulesSelections.humanoidForm}"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "humanoid-form:large"
+                ],
+                "reach": {
+                    "override": 10
+                },
+                "resizeEquipment": true,
+                "value": "{item|flags.pf2e.rulesSelections.humanoidForm}"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "humanoid-form:large"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "add": [
+                    "humanoid"
+                ],
+                "key": "ActorTraits",
+                "remove": []
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "vision-type:darkvision"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "vision-type:low-light-vision"
+                ],
+                "selector": "low-light-vision"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.HumanoidForm.RollOptionLabel",
+                "option": "pass-as-humanoid",
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "pass-as-humanoid"
+                ],
+                "selector": "deception",
+                "slug": "humanoid-form-status-bonus",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "pass-as-humanoid",
+                    "proficiency:untrained"
+                ],
+                "selector": "deception",
+                "slug": "humanoid-form-proficiency-bonus",
+                "type": "proficiency",
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "humanoid-form:large"
+                ],
+                "selector": "melee-damage",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

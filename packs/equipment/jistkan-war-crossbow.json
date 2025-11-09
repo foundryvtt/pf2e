@@ -1,0 +1,127 @@
+{
+    "_id": "b7Qqj2Pzj6SwihwD",
+    "img": "icons/weapons/crossbows/crossbow-purple.webp",
+    "name": "Jistkan War Crossbow",
+    "system": {
+        "ammo": {
+            "baseType": "bolts",
+            "builtIn": false,
+            "capacity": 1
+        },
+        "baseItem": "arbalest",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 2
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d10"
+        },
+        "description": {
+            "value": "<p>These <em>+3 greater striking grievous arbalests</em> are a fantastically intricate creation of the ancient Jistka Imperium, seamlessly weaving together mechanical ingenuity and powerful magic to create one of the deadliest projectile weapons ever devised by human hands.</p><hr /><p><strong>Activate—Bolt of War</strong> <span class=\"action-glyph\">1</span></p>\n<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Effect</strong> Make a Strike with the Jistkan war crossbow, ignoring the penalty for making a Strike within your second or third range increment. Additionally, the arbalest gains the splash trait and deals 10 piercing splash damage for this Strike.</p>"
+        },
+        "expend": 1,
+        "grade": null,
+        "group": "crossbow",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 18
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 22000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "range": 110,
+        "reload": {
+            "value": "1"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "Jistkan War Crossbow - Bolt of War",
+                "option": "bolt-of-war",
+                "toggleable": true
+            },
+            {
+                "critical": false,
+                "damageCategory": "splash",
+                "damageType": "piercing",
+                "key": "FlatModifier",
+                "predicate": [
+                    "bolt-of-war"
+                ],
+                "selector": "{item|id}-damage",
+                "value": 10
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}",
+                    "bolt-of-war"
+                ],
+                "property": "traits",
+                "value": "splash"
+            }
+        ],
+        "runes": {
+            "potency": 3,
+            "property": [
+                "grievous"
+            ],
+            "striking": 2
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 3,
+                "property": [
+                    "grievous"
+                ],
+                "striking": 2
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "backstabber",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "weapon"
+}

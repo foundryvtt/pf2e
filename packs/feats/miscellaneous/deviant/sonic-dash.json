@@ -1,0 +1,54 @@
+{
+    "_id": "SC5oZbyvLO5CQwhl",
+    "folder": "0xnakREinRcowzlH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sonic Dash",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You bounce up and down once, then sprint forward. You Stride twice in a straight line. You can use Sonic Dash while Burrowing, Climbing, Flying, or Swimming instead of Striding if you have the corresponding movement type.</p>\n<p><strong>Awakening</strong> Your Sonic Dash generates a sonic boom, dealing 1d4 sonic damage for every two levels you have (@Damage[floor(@actor.level/2)d4[sonic]|options:area-damage]) to all creatures other than you in a @Template[type:emanation|distance:5] at the point you end your Sonic Dash, with a @Check[fortitude|against:deviant|basic]save. Creatures that fail are @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round, or 1 minute on a critical failure.</p>\n<p><strong>Awakening</strong> Your speed generates a slipstream that allows you to reposition your allies. You can dash through a willing ally's space during your Sonic Dash, causing them to be drawn by winds alongside you. You deposit them in any unoccupied space adjacent to you at the end of your Sonic Dash.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Gatewalkers Player's Guide (Remastered)"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:flicker-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Flicker Deviant Classification"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "deviant",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

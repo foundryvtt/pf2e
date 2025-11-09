@@ -334,14 +334,41 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The nightmarchers fling a hail of spears and stones, dealing @Damage[(5d6+9)[bludgeoning]] damage or @Damage[(5d6+9)[piercing]] damage to creatures in a @Template[burst|distance:10] within 20 feet (@Check[reflex|dc:31|basic] save).</p>\n<p>When the nightmarchers are reduced to 8 or fewer squares, this decreases to a @Template[burst|distance:5].</p>"
+                    "value": "<p>The nightmarchers fling a hail of spears and stones, dealing @Damage[(5d6+9)[untyped]|options:area-damage] damage to creatures in a @Template[burst|distance:10] within 20 feet (@Check[reflex|dc:31|basic|options:area-effect] save).</p>\n<p>When the nightmarchers are reduced to 8 or fewer squares, this decreases to a @Template[burst|distance:5].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "missile-volley",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.missileVolley}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -352,7 +379,7 @@
         },
         {
             "_id": "L9XsoNHRPeOdO6cL",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
             "name": "Striking Koa",
             "sort": 1000000,
             "system": {
@@ -364,7 +391,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The troop attacks with spears, clubs, and leiomano against enemies within @Template[emanation|distance:5]{5 feet} (@Check[reflex|dc:33|basic] save) for their choice of bludgeoning, piercing, or slashing damage depending on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(2d6+2)[bludgeoning]] damage, @Damage[(2d6+2)[piercing]] damage, or @Damage[(2d6+2)[slashing]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(4d6+12)[bludgeoning]] damage, @Damage[(4d6+12)[piercing]] damage, or @Damage[(4d6+12)[slashing]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(6d6+12)[bludgeoning]] damage, @Damage[(6d6+12)[piercing]] damage, or @Damage[(6d6+12)[slashing]] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The troop attacks with spears, clubs, and leiomano against enemies within @Template[emanation|distance:5]{5 feet} (@Check[reflex|dc:33|basic|options:area-effect] save) for their choice of bludgeoning, piercing, or slashing damage depending on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(2d6+2)[untyped]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(4d6+12)[untyped]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(6d6+12)[untyped]|options:area-damage] damage</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -376,7 +403,38 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "striking-koa",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.strikingKoa}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

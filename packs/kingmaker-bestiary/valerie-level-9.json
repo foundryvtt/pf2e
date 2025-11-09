@@ -648,31 +648,17 @@
             "name": "Arrows",
             "sort": 0,
             "system": {
-                "baseItem": null,
+                "baseItem": "arrows",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -689,13 +675,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
-                "stackGroup": "arrows",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -703,7 +687,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "k2yP1HnLCGbWlAto",
@@ -1306,6 +1290,11 @@
             "name": "Composite Shortbow",
             "sort": 0,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "composite-shortbow",
                 "bonus": {
                     "value": 0
@@ -1598,34 +1587,12 @@
                 },
                 "rules": [
                     {
+                        "diceNumber": "match(when(lte(@actor.level, 9), 1), when(btwn(@actor.level, 10, 17), 2), when(gte(@actor.level, 18), 3))",
                         "key": "DamageDice",
                         "predicate": [
                             "power-attack"
                         ],
-                        "selector": "melee-strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 9,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 17,
-                                    "start": 10,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "start": 18,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                }
-                            ]
-                        }
+                        "selector": "melee-strike-damage"
                     },
                     {
                         "domain": "damage",
@@ -2056,7 +2023,7 @@
                 },
                 "category": "skill",
                 "description": {
-                    "value": "<p>You can <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"1\">Demoralize</span> with a mere glare. When you do, Demoralize loses the auditory trait and gains the visual trait, and you don't take a penalty if the creature doesn't understand your language.</p>"
+                    "value": "<p>You can @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] with a mere glare. When you do, Demoralize loses the auditory trait and gains the visual trait, and you don't take a penalty if the creature doesn't understand your language.</p>"
                 },
                 "level": {
                     "taken": 4,
@@ -2071,12 +2038,17 @@
                     ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "slug": "intimidating-glare",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2189,21 +2161,7 @@
                         "selector": "intimidation",
                         "slug": "intimidating-prowess",
                         "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": "round(@actor.abilities.str.mod / 3)"
-                                },
-                                {
-                                    "end": 2,
-                                    "start": 2,
-                                    "value": 1
-                                }
-                            ],
-                            "field": "actor|system.skills.intimidation.rank"
-                        }
+                        "value": "match(when(btwn(@actor.system.skills.intimidation.rank, 3, 4), round(@actor.abilities.str.mod / 3)), when(btwn(@actor.system.skills.intimidation.rank, 2, 2), 1))"
                     }
                 ],
                 "slug": "intimidating-prowess",
@@ -3196,10 +3154,6 @@
             "hp": {
                 "temp": 0,
                 "value": 134
-            },
-            "speed": {
-                "otherSpeeds": [],
-                "value": 25
             }
         },
         "build": {

@@ -7,9 +7,11 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
-            "value": "<p>This extravagant wand is made of gold and capped with a large, sparkling gemstone. Its handle is wrapped in plush, padded fabric.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Pet Cache] but the accommodations inside the extradimensional space are luxurious and spacious. The food is delicious gourmet cuisine tailored to the pet's palate, the habitat is the perfect temperature and environment for the pet, complete with comfortable bed or lounging area. A pair of phantom hands pamper the pet, patting, grooming, or playing with it at the creature's whim.</p>\n<hr />\n<p><strong>Craft Requirements</strong> Supply a casting of @UUID[Compendium.pf2e.spells-srd.Item.Pet Cache].</p>"
+            "value": "<p>This extravagant wand is made of gold and capped with a large, sparkling gemstone. Its handle is wrapped in plush, padded fabric.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p><hr /><p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Pet Cache] but the accommodations inside the extradimensional space are luxurious and spacious. The food is delicious gourmet cuisine tailored to the pet's palate, the habitat is the perfect temperature and environment for the pet, complete with comfortable bed or lounging area. A pair of phantom hands pamper the pet, patting, grooming, or playing with it at the creature's whim.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of @UUID[Compendium.pf2e.spells-srd.Item.Pet Cache].</p>"
         },
         "hardness": 0,
         "hp": {
@@ -24,8 +26,12 @@
             "type": null
         },
         "price": {
+            "per": 1,
             "value": {
-                "gp": 75
+                "cp": 0,
+                "gp": 75,
+                "pp": 0,
+                "sp": 0
             }
         },
         "publication": {
@@ -36,6 +42,70 @@
         "quantity": 1,
         "rules": [],
         "size": "med",
+        "spell": {
+            "_id": "fQJ3Gu4ZliP9zW8J",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.F1nlmqOIucch3Cmt"
+            },
+            "folder": "T8AzYUgNIAgTJ9Iz",
+            "img": "icons/consumables/eggs/egg-speckled-green.webp",
+            "name": "Pet Cache",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You open your cloak or create a gap with your hands, drawing the target into a pocket dimension just large enough for its basic comfort. No other creature can enter this extradimensional space, and the target can bring along objects only if they were designed to be worn by a creature of its kind. The space has enough air, food, and water to sustain the target for the duration.</p>\n<p>You can @UUID[Compendium.pf2e.actionspf2e.Item.Dismiss] the spell. The spell also ends if you die or enter an extradimensional space. When the spell ends, the target reappears in the nearest unoccupied space (outside of any extradimensional space you may have entered).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "8 hours"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": null
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "pet-cache",
+                "target": {
+                    "value": "1 willing creature that is your companion"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "extradimensional",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -46,7 +116,12 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

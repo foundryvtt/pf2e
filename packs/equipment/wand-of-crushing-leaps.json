@@ -7,9 +7,11 @@
         "bulk": {
             "value": 0.1
         },
+        "category": "wand",
         "containerId": null,
+        "damage": null,
         "description": {
-            "value": "<p>This supple, light wooden wand drifts to the ground like a feather or leaf when dropped, landing unharmed. A thin coil of metal wraps around the wand's handle.</p><hr /><p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Jump], but can jump up to 60 feet. When you land you shatter the ground, making each creature in a @Template[emanation|distance:5] @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of its next turn. In addition, the space you land in and all squares in the emanation become difficult terrain for 1 minute.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of 1st-rank <em>jump</em>.</p>"
+            "value": "<p>This supple, light wooden wand drifts to the ground like a feather or leaf when dropped, landing unharmed. A thin coil of metal wraps around the wand's handle.</p><hr /><p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Jump], but can jump up to 60 feet. When you land you shatter the ground, making each creature in a @Template[emanation|distance:5] @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of its next turn. In addition, the space you land in and all squares in the emanation become difficult terrain for 1 minute.</p><hr /><p><strong>Craft Requirements</strong> Supply a casting of 1st-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Jump]</em>.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -24,8 +26,12 @@
             "type": null
         },
         "price": {
+            "per": 1,
             "value": {
-                "gp": 80
+                "cp": 0,
+                "gp": 80,
+                "pp": 0,
+                "sp": 0
             }
         },
         "publication": {
@@ -36,6 +42,81 @@
         "quantity": 1,
         "rules": [],
         "size": "med",
+        "spell": {
+            "_id": "u3ZxaoQP0LuPouK6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Q7QQ91vQtyi1Ux36"
+            },
+            "folder": "T8AzYUgNIAgTJ9Iz",
+            "img": "systems/pf2e/icons/spells/jump.webp",
+            "name": "Jump",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Your legs surge with strength, ready to leap high and far. You jump 30 feet in any direction without touching the ground. You must land on a space of solid ground within 30 feet of you, or else you fall after using your next action.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range becomes touch, the target changes to one touched creature, and the duration becomes 1 minute, allowing the target to jump as described whenever it takes the @UUID[Compendium.pf2e.actionspf2e.Item.Leap] action.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "touch"
+                            },
+                            "target": {
+                                "value": "1 creature"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": null
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "jump",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "manipulate",
+                        "move"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -45,7 +126,12 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": false,
+            "max": 1,
+            "value": 1
         }
     },
-    "type": "equipment"
+    "type": "consumable"
 }

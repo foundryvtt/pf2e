@@ -7,7 +7,7 @@ import { ActionFilters, CompendiumBrowserIndexData } from "./data.ts";
 
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "action";
-    tabLabel = "PF2E.Item.Ability.Plural";
+    tabLabel = "PF2E.CompendiumBrowser.TabAbilities";
     declare filterData: ActionFilters;
 
     /* MiniSearch */

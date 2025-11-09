@@ -1,0 +1,88 @@
+{
+    "_id": "BEou3aEkDXsQaTp3",
+    "img": "icons/equipment/wrist/bracer-white-armored.webp",
+    "name": "Effect: Do No Harm",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Medic's Armband], @UUID[Compendium.pf2e.equipment-srd.Item.Medic's Armband (Greater)]</p>\n<p>You take a status penalty to damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:medics-armband"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Medic's Armband"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:medics-armband-greater"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Medic's Armband (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "medics-armband"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "slug": "medics-armband",
+                "type": "status",
+                "value": -4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "medics-armband:medics-armband-greater"
+                ],
+                "selector": "damage",
+                "slug": "medics-armband",
+                "value": -8
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

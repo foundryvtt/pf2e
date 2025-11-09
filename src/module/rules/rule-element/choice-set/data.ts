@@ -1,6 +1,6 @@
-import { ItemType } from "@item/base/data/index.ts";
-import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
-import { RawPredicate } from "@system/predication.ts";
+import type { ItemType } from "@item/types.ts";
+import type { PickableThing } from "@module/apps/pick-a-thing-prompt/app.ts";
+import type { RawPredicate } from "@system/predication.ts";
 import type {
     DataUnionField,
     PredicateField,
@@ -59,8 +59,8 @@ type ChoiceSetSchema = RuleElementSchema & {
     /** A predicate indicating valid dropped item selections */
     allowedDrops: fields.SchemaField<
         AllowedDropsSchema,
-        SourceFromSchema<AllowedDropsSchema>,
-        ModelPropsFromSchema<AllowedDropsSchema>,
+        fields.SourceFromSchema<AllowedDropsSchema>,
+        fields.ModelPropsFromSchema<AllowedDropsSchema>,
         false,
         true,
         false
@@ -74,7 +74,7 @@ type AllowedDropsSchema = {
     predicate: PredicateField;
 };
 
-type AllowedDropsData = ModelPropsFromSchema<AllowedDropsSchema>;
+type AllowedDropsData = fields.ModelPropsFromSchema<AllowedDropsSchema>;
 
 type ChoiceSetObject = ChoiceSetOwnedItems | ChoiceSetAttacks | ChoiceSetPackQuery | ChoiceSetConfig;
 type UninflatedChoiceSet = string | PickableThing[] | ChoiceSetObject;

@@ -1997,6 +1997,11 @@
             "name": "Composite Shortbow",
             "sort": 2500000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "composite-shortbow",
                 "bonus": {
                     "value": 0
@@ -2205,30 +2210,17 @@
             "name": "Arrows",
             "sort": 2800000,
             "system": {
-                "baseItem": null,
+                "baseItem": "arrows",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -2245,13 +2237,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
-                "stackGroup": "arrows",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -2259,7 +2249,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "CNH1mHAcglan3Xho",
@@ -2295,6 +2285,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "light-mace",
                 "traits": {
@@ -2344,6 +2335,10 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "composite-shortbow",
                 "traits": {
@@ -2351,7 +2346,6 @@
                         "deadly-d10",
                         "magical",
                         "propulsive",
-                        "range-increment-60",
                         "reload-0"
                     ]
                 },
@@ -2375,7 +2369,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The shrine maiden nocks an arrow and whispers a chant before unleashing a torrent of holy power in the form of dozens of ghostly glowing arrows. Creatures in a @Template[line|distance:60] take @Damage[10d6[force]] damage (@Check[reflex|dc:28|basic] save). On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 28) for 1 minute.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The shrine maiden nocks an arrow and whispers a chant before unleashing a torrent of holy power in the form of dozens of ghostly glowing arrows. Creatures in a @Template[line|distance:60] take @Damage[10d6[force]|options:area-damage] damage (@Check[reflex|dc:28|basic|options:area-effect,inflicts:immobilized] save). On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] ([[/act escape dc=28]]) for 1 minute.</p>"
                 },
                 "frequency": {
                     "max": 1,

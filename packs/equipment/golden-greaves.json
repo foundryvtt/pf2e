@@ -1,0 +1,86 @@
+{
+    "_id": "jroRwrcUuYg9m1YU",
+    "img": "icons/equipment/leg/pants-cloth-tasset-bronze.webp",
+    "name": "Golden Greaves",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>These shiny greaves made of splinted metal coated with gold protect the shins and help you stand your ground in the heat of battle. While wearing the greaves, you gain a +1 item bonus to your Fortitude DC against forced movement effects and to your Reflex DC against effects that would knock you @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Activate—Make Them Fall</strong> <span class=\"action-glyph\">r</span> (concentrate, misfortune)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> An enemy fails to @UUID[Compendium.pf2e.actionspf2e.Item.Reposition], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] you</p><hr /><p><strong>Effect</strong> Your golden greaves glow with a strange light, and you move your legs in just the right way to completely throw off your opponent. Your opponent instead critically fails on the triggering check.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 80
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.GoldenGreaves.ToggleLabel",
+                "option": "golden-greaves",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "forced-movement",
+                            "golden-greaves"
+                        ]
+                    }
+                ],
+                "selector": "fortitude-dc",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:prone",
+                            "golden-greaves"
+                        ]
+                    }
+                ],
+                "selector": "reflex-dc",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        }
+    },
+    "type": "equipment"
+}

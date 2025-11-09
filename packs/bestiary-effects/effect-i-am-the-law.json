@@ -1,0 +1,60 @@
+{
+    "_id": "y3D02GsvQHveTnuz",
+    "img": "icons/skills/melee/strike-weapons-orange.webp",
+    "name": "Effect: I Am the Law!",
+    "system": {
+        "description": {
+            "value": "<p>You can use your reaction to Grapple, Strike, or Trip with a +2 status bonus.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 15
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": true,
+                "selector": "strike-attack-roll",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": true,
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

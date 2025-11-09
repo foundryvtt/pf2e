@@ -1,5 +1,6 @@
+import { createEffectAreaLabel } from "@item/helpers.ts";
 import { localizer } from "@util";
-import type { SpellArea, SpellPF2e } from "./index.ts";
+import type { SpellPF2e } from "./index.ts";
 
 function createSpellRankLabel(spell: SpellPF2e, castRank?: number): string {
     const typeLabel = spell.isCantrip
@@ -11,28 +12,6 @@ function createSpellRankLabel(spell: SpellPF2e, castRank?: number): string {
             : game.i18n.localize("TYPES.Item.spell");
 
     return castRank ? game.i18n.format("PF2E.ItemLevel", { type: typeLabel, level: castRank }) : typeLabel;
-}
-
-function createSpellAreaLabel(areaData: SpellArea): string {
-    const formatString = "PF2E.Item.Spell.Area";
-    const shape = game.i18n.localize(`PF2E.Area.Shape.${areaData.type}`);
-
-    // Handle special cases of very large areas
-    const largeAreaLabel = {
-        1320: "PF2E.Area.Size.Quarter",
-        2640: "PF2E.Area.Size.Half",
-        5280: "1",
-    }[areaData.value];
-    if (largeAreaLabel) {
-        const size = game.i18n.localize(largeAreaLabel);
-        const unit = game.i18n.localize("PF2E.Area.Size.Mile");
-        return game.i18n.format(formatString, { shape, size, unit, units: unit });
-    }
-
-    const size = Number(areaData.value);
-    const unit = game.i18n.localize("PF2E.Foot.Label");
-    const units = game.i18n.localize("PF2E.Foot.Plural");
-    return game.i18n.format(formatString, { shape, size, unit, units });
 }
 
 async function createDescriptionPrepend(
@@ -74,7 +53,7 @@ async function createDescriptionPrepend(
     const areaLabel = (() => {
         const label = spell.area?.label;
         if (!label) return null;
-        const baseLabel = spell._source.system.area ? createSpellAreaLabel(spell._source.system.area) : label;
+        const baseLabel = spell._source.system.area ? createEffectAreaLabel(spell._source.system.area) : label;
         return { label, baseLabel };
     })();
 
@@ -115,4 +94,4 @@ function getPassiveDefenseLabel(statistic: string, { localize = false } = {}): s
     return label && localize ? game.i18n.localize(label) : label;
 }
 
-export { createDescriptionPrepend, createSpellAreaLabel, createSpellRankLabel, getPassiveDefenseLabel };
+export { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel };

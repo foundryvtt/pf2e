@@ -1,0 +1,58 @@
+{
+    "_id": "qTbVcHLfFDuyJTTG",
+    "img": "icons/magic/defensive/shield-barrier-glowing-triangle-red.webp",
+    "name": "Effect: Guard Charge",
+    "system": {
+        "description": {
+            "value": "<p>You gains a +2 circumstance bonus to you AC, Reflex saves, and saves against fear when you are adjacent to the viking guard.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "reflex"
+                ],
+                "slug": "guard-charge-defense-bonus",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "slug": "guard-charge-fear-bonus",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -7,17 +7,17 @@ import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { ItemGrantDeleteAction, ItemGranterSource, ItemSourceFlagsPF2e } from "@item/base/data/system.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
-import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import { RuleElement, RuleElementOptions } from "../base.ts";
 import type { ChoiceSetSource } from "../choice-set/data.ts";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element.ts";
 import type { ModelPropsFromRESchema, RuleElementSource } from "../data.ts";
 import { ItemAlteration } from "../item-alteration/alteration.ts";
 import type { GrantItemSchema } from "./schema.ts";
 
-class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
+class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
     static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     /** The id of the granted item */
@@ -30,7 +30,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     preselectChoices: Record<string, string | number> = {};
 
     /** Actions taken when either the parent or child item are deleted */
-    onDeleteActions: Partial<OnDeleteActions> | null = null;
+    onDeleteActions: OnDeleteActions | null = null;
 
     constructor(data: GrantItemSource, options: RuleElementOptions) {
         // Run slightly earlier if granting an in-memory condition
@@ -108,7 +108,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
     }
 
-    override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
+    override async preCreate(args: RuleElement.PreCreateParams): Promise<void> {
         if (this.inMemoryOnly || this.invalid) return;
 
         const { itemSource, pendingItems, itemUpdates, operation } = args;
@@ -279,19 +279,17 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
     }
 
-    #getOnDeleteActions(data: GrantItemSource): Partial<OnDeleteActions> | null {
+    #getOnDeleteActions(data: GrantItemSource): OnDeleteActions | null {
         const actions = data.onDeleteActions;
-        if (isObject<OnDeleteActions>(actions)) {
-            const ACTIONS = GrantItemRuleElement.ON_DELETE_ACTIONS;
-            return tupleHasValue(ACTIONS, actions.granter) || tupleHasValue(ACTIONS, actions.grantee)
-                ? R.pick(
-                      actions,
-                      ([actions.granter ? "granter" : [], actions.grantee ? "grantee" : []] as const).flat(),
-                  )
-                : null;
-        }
-
-        return null;
+        if (!R.isPlainObject(actions)) return null;
+        const ACTIONS = GrantItemRuleElement.ON_DELETE_ACTIONS;
+        const { granter, grantee } = actions;
+        return granter || grantee
+            ? {
+                  granter: tupleHasValue(ACTIONS, granter) ? granter : null,
+                  grantee: tupleHasValue(ACTIONS, grantee) ? grantee : null,
+              }
+            : null;
     }
 
     /** Apply preselected choices to the granted item's choices sets. */
@@ -359,7 +357,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
     /** Run the preCreate callbacks of REs from the granted item */
     async #runGrantedItemPreCreates(
-        originalArgs: Omit<RuleElementPF2e.PreCreateParams, "ruleSource">,
+        originalArgs: Omit<RuleElement.PreCreateParams, "ruleSource">,
         grantedItem: ItemPF2e<ActorPF2e>,
         grantedSource: ItemSourcePF2e,
         operation: Partial<DatabaseCreateOperation<ActorPF2e | null>>,
@@ -387,7 +385,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         const conditionSource = game.pf2e.ConditionManager.conditions.get(uuid)?.toObject();
         if (!conditionSource) return this.failValidation(validationFailure);
-        const { actor } = this;
+        const actor = this.actor;
         if (actor.isImmuneTo(conditionSource.system.slug)) return;
 
         for (const alteration of this.alterations) {
@@ -427,7 +425,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     }
 }
 
-interface GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema>, ModelPropsFromRESchema<GrantItemSchema> {}
+interface GrantItemRuleElement extends RuleElement<GrantItemSchema>, ModelPropsFromRESchema<GrantItemSchema> {}
 
 interface GrantItemSource extends RuleElementSource {
     uuid?: unknown;
@@ -441,8 +439,8 @@ interface GrantItemSource extends RuleElementSource {
 }
 
 interface OnDeleteActions {
-    granter: ItemGrantDeleteAction;
-    grantee: ItemGrantDeleteAction;
+    granter: ItemGrantDeleteAction | null;
+    grantee: ItemGrantDeleteAction | null;
 }
 
 export { GrantItemRuleElement, type GrantItemSource };

@@ -162,7 +162,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a -10-foot circumstance penalty to its Speeds while in the area. Once per round, you can make a vine lash out from any square within the expanse of creepers by using a single action, which has the concentrate trait. This vine has a 15-foot reach. Make a melee spell attack roll against the target; on a success, the vine pulls the target into the creepers and makes it @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
+                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a –10-foot circumstance penalty to its Speeds while in the area. Once per round, you can make a vine lash out from any square within the expanse of creepers by using a single action, which has the concentrate trait. This vine has a 15-foot reach. Make a melee spell attack roll against the target; on a success, the vine pulls the target into the creepers and makes it @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -396,7 +396,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Plants in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
+                    "value": "<p>Plants in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a –10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -631,6 +631,11 @@
             "name": "Shortbow",
             "sort": 1000000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "shortbow",
                 "bonus": {
                     "value": 0
@@ -717,31 +722,17 @@
             "name": "Arrows",
             "sort": 1100000,
             "system": {
-                "baseItem": null,
+                "baseItem": "arrows",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -758,13 +749,11 @@
                 "rules": [],
                 "size": "huge",
                 "slug": "arrows",
-                "stackGroup": "arrows",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -772,7 +761,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "owEhZQazHR2YiCJ4",
@@ -807,6 +796,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -854,6 +844,10 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [
                     {
                         "key": "Note",
@@ -869,7 +863,6 @@
                         "acid",
                         "evil",
                         "magical",
-                        "range-increment-60",
                         "reload-0",
                         "unholy"
                     ]
@@ -914,13 +907,16 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "deadly-2d10",
-                        "range-increment-60",
                         "unholy"
                     ]
                 },
@@ -1213,7 +1209,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The taiga yai commands underground plant roots to drag a creature within 60 feet into the earth. The target must succeed at a @Check[fortitude|dc:35] save or be @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for [[/gmr 1d4 #rounds]]{1d4 rounds}. After this time, the creature is buried; it is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], begins to suffocate, and takes @Damage[4d6[bludgeoning]] damage each round they remain buried. To @UUID[Compendium.pf2e.actionspf2e.Item.Escape] either while immobilized or grabbed, the creature must succeed at a DC 35 Escape check or an adjacent ally must succeed at a @Check[athletics|dc:33] check to pull them out.</p>"
+                    "value": "<p>The taiga yai commands underground plant roots to drag a creature within 60 feet into the earth. The target must succeed at a @Check[fortitude|dc:35] save or be @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for [[/gmr 1d4 #rounds]]{1d4 rounds}. After this time, the creature is buried; it is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], begins to suffocate, and takes @Damage[4d6[bludgeoning]] damage each round they remain buried. To escape either while immobilized or grabbed, the creature must succeed at a [[/act escape dc=35]] check or an adjacent ally must succeed at a @Check[athletics|dc:33] check to pull them out.</p>"
                 },
                 "publication": {
                     "license": "OGL",

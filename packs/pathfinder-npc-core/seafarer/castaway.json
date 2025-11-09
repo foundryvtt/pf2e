@@ -12,6 +12,11 @@
             "name": "Blowgun",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "blowgun-darts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "blowgun",
                 "bonus": {
                     "value": 0
@@ -27,7 +32,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": ""
+                    "die": null
                 },
                 "description": {
                     "value": "<p>This long, narrow tube is used for shooting blowgun darts, using only the power of a forcefully exhaled breath.</p>"
@@ -188,30 +193,17 @@
             "name": "Blowgun Darts",
             "sort": 300000,
             "system": {
-                "baseItem": null,
+                "baseItem": "blowgun-darts",
                 "bulk": {
                     "value": 0
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -228,13 +220,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "blowgun-darts",
-                "stackGroup": "blowgunDarts",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -242,7 +232,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "QWn7bQWXZJT1HXvY",
@@ -275,6 +265,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "hatchet",
                 "traits": {
@@ -312,6 +303,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -343,18 +335,18 @@
                     "value": 15
                 },
                 "damageRolls": {
-                    "N5qlRvD4E15jymHD": {
+                    "0": {
+                        "damage": "1",
+                        "damageType": "piercing"
+                    },
+                    "1": {
                         "damage": "2d6",
                         "damageType": "poison"
                     },
-                    "jvK32t0QgpgKGpmP": {
+                    "2": {
                         "category": "persistent",
                         "damage": "1d6",
                         "damageType": "poison"
-                    },
-                    "z0jx6PTUlqUnGGqd": {
-                        "damage": "1",
-                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -365,13 +357,16 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 20,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "blowgun",
                 "traits": {
                     "value": [
                         "agile",
                         "nonlethal",
-                        "range-increment-20",
                         "reload-1"
                     ]
                 }
@@ -379,10 +374,39 @@
             "type": "melee"
         },
         {
+            "_id": "09j7nyB7xIsDzUjQ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Skittish",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The castaway takes damage from a Strike</p><hr /><p><strong>Effect</strong> The castaway Steps away from the source of the Strike.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "Uw90ORYkncHQoIko",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Cockamamie Rant",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -392,7 +416,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The castaway launches into a nonsensical verbal stream of consciousness. Creatures in a @Template[type:emanation|distance:30] must succeed at a @Check[will|dc:19] save or be @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. Once a creature has succeeded at a save against the castaway's Cockamamie Rant, they are immune to its effects for 24 hours.</p>"
+                    "value": "<p>The castaway launches into a nonsensical verbal stream of consciousness. Creatures in a @Template[type:emanation|distance:30] must succeed at a @Check[will|dc:19|options:inflicts:confused] save or be @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. Once a creature has succeeded at a save against the castaway's Cockamamie Rant, they are immune to its effects for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -416,7 +440,7 @@
             "_id": "SY7NSR2TRJp2YPXQ",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Snare Master",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -455,7 +479,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"

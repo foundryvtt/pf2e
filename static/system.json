@@ -2,10 +2,10 @@
     "id": "pf2e",
     "title": "Pathfinder Second Edition",
     "description": "A community contributed game system for Pathfinder Second Edition",
-    "version": "7.2.0",
+    "version": "7.7.1",
     "license": "./LICENSE",
     "manifest": "https://raw.githubusercontent.com/foundryvtt/pf2e/v13-dev/static/system.json",
-    "download": "https://github.com/foundryvtt/pf2e/releases/download/7.2.0/pf2e.zip",
+    "download": "https://github.com/foundryvtt/pf2e/releases/download/7.7.1/pf2e.zip",
     "changelog": "https://github.com/foundryvtt/pf2e/blob/v13-dev/CHANGELOG.md",
     "url": "https://github.com/foundryvtt/pf2e",
     "bugs": "https://github.com/foundryvtt/pf2e/issues",
@@ -13,8 +13,8 @@
     "socket": true,
     "primaryTokenAttribute": "attributes.hp",
     "compatibility": {
-        "minimum": "13.345",
-        "verified": "13.345",
+        "minimum": "13.348",
+        "verified": "13.350",
         "maximum": "13"
     },
     "authors": [
@@ -41,11 +41,74 @@
         "diagonals": 4
     },
     "documentTypes": {
+        "Actor": {
+            "army": {
+                "htmlFields": [
+                    "details.description"
+                ]
+            },
+            "familiar": {},
+            "hazard": {
+                "htmlFields": [
+                    "details.description"
+                ]
+            },
+            "loot": {
+                "htmlFields": [
+                    "details.description"
+                ]
+            },
+            "party": {
+                "htmlFields": [
+                    "details.description"
+                ]
+            },
+            "vehicle": {
+                "htmlFields": [
+                    "details.description"
+                ]
+            }
+        },
+        "Item": {
+            "treasure": {
+                "htmlFields": [
+                    "description.value",
+                    "description.gm",
+                    "identification.unidentified.data.description.value"
+                ]
+            }
+        },
         "RegionBehavior": {
             "environment": {},
             "environmentFeature": {}
         }
     },
+    "languages": [
+        {
+            "lang": "en",
+            "name": "Main (English)",
+            "path": "lang/en.json",
+            "flags": {}
+        },
+        {
+            "lang": "en",
+            "name": "Actions (English)",
+            "path": "lang/action-en.json",
+            "flags": {}
+        },
+        {
+            "lang": "en",
+            "name": "Rules Elements (English)",
+            "path": "lang/re-en.json",
+            "flags": {}
+        },
+        {
+            "lang": "en",
+            "name": "Kingmaker (English)",
+            "path": "lang/kingmaker-en.json",
+            "flags": {}
+        }
+    ],
     "packs": [
         {
             "name": "abomination-vaults-bestiary",
@@ -77,6 +140,19 @@
             "name": "agents-of-edgewatch-bestiary",
             "label": "Agents of Edgewatch",
             "path": "packs/agents-of-edgewatch-bestiary",
+            "type": "Actor",
+            "banner": "systems/pf2e/assets/compendium-banner/red.webp",
+            "system": "pf2e",
+            "ownership": {
+                "PLAYER": "LIMITED",
+                "ASSISTANT": "OWNER"
+            },
+            "flags": {}
+        },
+        {
+            "name": "battlecry-bestiary",
+            "label": "Battlecry!",
+            "path": "packs/battlecry-bestiary",
             "type": "Actor",
             "banner": "systems/pf2e/assets/compendium-banner/red.webp",
             "system": "pf2e",
@@ -142,6 +218,19 @@
             "name": "curtain-call-bestiary",
             "label": "Curtain Call",
             "path": "packs/curtain-call-bestiary",
+            "type": "Actor",
+            "banner": "systems/pf2e/assets/compendium-banner/red.webp",
+            "system": "pf2e",
+            "ownership": {
+                "PLAYER": "LIMITED",
+                "ASSISTANT": "OWNER"
+            },
+            "flags": {}
+        },
+        {
+            "name": "dawn-of-the-frogs",
+            "label": "Dawn of the Frogs",
+            "path": "packs/standalone-adventures",
             "type": "Actor",
             "banner": "systems/pf2e/assets/compendium-banner/red.webp",
             "system": "pf2e",
@@ -373,6 +462,19 @@
             "flags": {}
         },
         {
+            "name": "pathfinder-monster-core-2",
+            "label": "Monster Core 2",
+            "path": "packs/pathfinder-monster-core-2",
+            "type": "Actor",
+            "banner": "systems/pf2e/assets/compendium-banner/red.webp",
+            "system": "pf2e",
+            "ownership": {
+                "PLAYER": "LIMITED",
+                "ASSISTANT": "OWNER"
+            },
+            "flags": {}
+        },
+        {
             "name": "pathfinder-npc-core",
             "label": "NPC Core",
             "path": "packs/pathfinder-npc-core",
@@ -490,6 +592,19 @@
             "flags": {}
         },
         {
+            "name": "pfs-season-7-bestiary",
+            "label": "Season 7",
+            "path": "packs/pfs-season-7-bestiary",
+            "type": "Actor",
+            "banner": "systems/pf2e/assets/compendium-banner/red.webp",
+            "system": "pf2e",
+            "ownership": {
+                "PLAYER": "LIMITED",
+                "ASSISTANT": "OWNER"
+            },
+            "flags": {}
+        },
+        {
             "name": "prey-for-death-bestiary",
             "label": "Prey for Death",
             "path": "packs/prey-for-death-bestiary",
@@ -506,6 +621,19 @@
             "name": "quest-for-the-frozen-flame-bestiary",
             "label": "Quest for the Frozen Flame",
             "path": "packs/quest-for-the-frozen-flame-bestiary",
+            "type": "Actor",
+            "banner": "systems/pf2e/assets/compendium-banner/red.webp",
+            "system": "pf2e",
+            "ownership": {
+                "PLAYER": "LIMITED",
+                "ASSISTANT": "OWNER"
+            },
+            "flags": {}
+        },
+        {
+            "name": "revenge-of-the-runelords-bestiary",
+            "label": "Revenge of the Runelords",
+            "path": "packs/revenge-of-the-runelords-bestiary",
             "type": "Actor",
             "banner": "systems/pf2e/assets/compendium-banner/red.webp",
             "system": "pf2e",
@@ -897,7 +1025,7 @@
             "label": "Spells",
             "path": "packs/spells",
             "type": "Item",
-            "banner": "systems/pf2e/assets/compendium-banner/blue.webp",
+            "banner": "systems/pf2e/assets/compendium-banner/green.webp",
             "system": "pf2e",
             "ownership": {
                 "PLAYER": "OBSERVER",
@@ -988,7 +1116,7 @@
             "label": "Feat/Feature Effects",
             "path": "packs/feat-effects",
             "type": "Item",
-            "banner": "systems/pf2e/assets/compendium-banner/green.webp",
+            "banner": "systems/pf2e/assets/compendium-banner/blue.webp",
             "system": "pf2e",
             "ownership": {
                 "PLAYER": "OBSERVER",
@@ -1027,7 +1155,7 @@
             "label": "Equipment",
             "path": "packs/equipment",
             "type": "Item",
-            "banner": "systems/pf2e/assets/compendium-banner/blue.webp",
+            "banner": "systems/pf2e/assets/compendium-banner/green.webp",
             "system": "pf2e",
             "ownership": {
                 "PLAYER": "OBSERVER",
@@ -1215,6 +1343,7 @@
                         "kingmaker-bestiary",
                         "myth-speaker-bestiary",
                         "quest-for-the-frozen-flame-bestiary",
+                        "revenge-of-the-runelords-bestiary",
                         "season-of-ghosts-bestiary",
                         "seven-dooms-for-sandpoint-bestiary",
                         "shades-of-blood-bestiary",
@@ -1231,6 +1360,7 @@
                     "sorting": "m",
                     "color": "#573938",
                     "packs": [
+                        "battlecry-bestiary",
                         "pathfinder-dark-archive",
                         "book-of-the-dead-bestiary",
                         "rage-of-elements-bestiary",
@@ -1250,6 +1380,7 @@
                     "packs": [
                         "claws-of-the-tyrant-bestiary",
                         "crown-of-the-kobold-king-bestiary",
+                        "dawn-of-the-frogs",
                         "fall-of-plaguestone-bestiary",
                         "malevolence-bestiary",
                         "menace-under-otari-bestiary",
@@ -1274,7 +1405,8 @@
                         "pfs-season-3-bestiary",
                         "pfs-season-4-bestiary",
                         "pfs-season-5-bestiary",
-                        "pfs-season-6-bestiary"
+                        "pfs-season-6-bestiary",
+                        "pfs-season-7-bestiary"
                     ]
                 }
             ],
@@ -1282,7 +1414,9 @@
                 "pathfinder-bestiary",
                 "pathfinder-bestiary-2",
                 "pathfinder-bestiary-3",
+                "pathfinder-draconic-codex",
                 "pathfinder-monster-core",
+                "pathfinder-monster-core-2",
                 "pathfinder-npc-core"
             ]
         },
@@ -1360,32 +1494,6 @@
                 "domains",
                 "journals"
             ]
-        }
-    ],
-    "languages": [
-        {
-            "lang": "en",
-            "name": "Main (English)",
-            "path": "lang/en.json",
-            "flags": {}
-        },
-        {
-            "lang": "en",
-            "name": "Actions (English)",
-            "path": "lang/action-en.json",
-            "flags": {}
-        },
-        {
-            "lang": "en",
-            "name": "Rules Elements (English)",
-            "path": "lang/re-en.json",
-            "flags": {}
-        },
-        {
-            "lang": "en",
-            "name": "Kingmaker (English)",
-            "path": "lang/kingmaker-en.json",
-            "flags": {}
         }
     ]
 }

@@ -1,0 +1,52 @@
+{
+    "_id": "AwMp9BwvNMrLylDJ",
+    "img": "icons/sundries/books/book-open-brown.webp",
+    "name": "Effect: Revealing Hypothesis",
+    "system": {
+        "description": {
+            "value": "<p>Your strikes against a target creature deal an additional 2d6 precision damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 15
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "revealing-hypothesis"
+            },
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:revealing-hypothesis"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

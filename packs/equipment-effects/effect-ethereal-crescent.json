@@ -1,0 +1,106 @@
+{
+    "_id": "Vk9Fwo0Xl1EF9fEF",
+    "img": "icons/commodities/stone/paver-cobble-white.webp",
+    "name": "Effect: Ethereal Crescent",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ethereal Crescent], @UUID[Compendium.pf2e.equipment-srd.Item.Ethereal Crescent (Greater)]</p>\n<p>Your weapon gains the effects of a <em>ghost touch</em> rune, or <em>astral</em> rune if granted by a <em>greater ethereal crescent.</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:ethereal-crescent"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Ethereal Crescent"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:ethereal-crescent-greater"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Ethereal Crescent (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "ethereal-crescent"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "ethereal-crescent:ethereal-crescent"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "ethereal-crescent:ethereal-crescent-greater"
+                ],
+                "property": "property-runes",
+                "value": "astral"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

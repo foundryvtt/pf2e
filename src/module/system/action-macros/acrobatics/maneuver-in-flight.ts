@@ -38,7 +38,6 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:maneuver-in-flight"],
     sampleTasks: {
         trained: `${PREFIX}.SampleTasks.Trained`,
         expert: `${PREFIX}.SampleTasks.Expert`,

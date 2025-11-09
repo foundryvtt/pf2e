@@ -24,6 +24,7 @@
             "value": "<p>This +2 striking warhammer is inlaid with precious metals and decorated with geometric patterns in a dwarven style. If you're a dwarf, a dwarven thrower functions for you as a +2 greater striking returning warhammer with the thrown 30 feet trait, and your attacks with the hammer deal 1d8 additional damage against giants.</p>"
         },
         "expend": null,
+        "grade": null,
         "group": "hammer",
         "hardness": 0,
         "hp": {
@@ -54,11 +55,13 @@
         },
         "rules": [
             {
-                "key": "Striking",
+                "itemId": "{item|_id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "self:ancestry:dwarf"
                 ],
-                "selector": "{item|_id}-damage",
+                "property": "runes-striking",
                 "value": 2
             },
             {

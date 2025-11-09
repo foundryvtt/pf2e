@@ -1,5 +1,5 @@
 import { LaxSchemaField } from "@system/schema-data-fields.ts";
-import { RuleElementPF2e } from "./rule-element/base.ts";
+import { RuleElement } from "./rule-element/base.ts";
 
 import { ActorTraitsRuleElement } from "./rule-element/actor-traits.ts";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success.ts";
@@ -35,7 +35,6 @@ import { SenseRuleElement } from "./rule-element/sense.ts";
 import { SpecialResourceRuleElement } from "./rule-element/special-resource.ts";
 import { SpecialStatisticRuleElement } from "./rule-element/special-statistic.ts";
 import { StrikeRuleElement } from "./rule-element/strike.ts";
-import { StrikingRuleElement } from "./rule-element/striking.ts";
 import { SubstituteRollRuleElement } from "./rule-element/substitute-roll.ts";
 import { TempHPRuleElement } from "./rule-element/temp-hp.ts";
 import { TokenEffectIconRuleElement } from "./rule-element/token-effect-icon.ts";
@@ -43,14 +42,13 @@ import { TokenImageRuleElement } from "./rule-element/token-image.ts";
 import { TokenLightRuleElement } from "./rule-element/token-light.ts";
 import { TokenMarkRuleElement } from "./rule-element/token-mark/rule-element.ts";
 import { TokenNameRuleElement } from "./rule-element/token-name.ts";
-import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency.ts";
 export type { RuleElementSynthetics } from "./synthetics.ts";
 
 /**
  * @category RuleElement
  */
 class RuleElements {
-    static readonly builtin: Record<string, RuleElementConstructor | undefined> = {
+    static readonly builtin: Record<string, RuleElementConstructor> = {
         ActiveEffectLike: AELikeRuleElement,
         ActorTraits: ActorTraitsRuleElement,
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
@@ -83,7 +81,6 @@ class RuleElements {
         SpecialResource: SpecialResourceRuleElement,
         SpecialStatistic: SpecialStatisticRuleElement,
         Strike: StrikeRuleElement,
-        Striking: StrikingRuleElement,
         SubstituteRoll: SubstituteRollRuleElement,
         TempHP: TempHPRuleElement,
         TokenEffectIcon: TokenEffectIconRuleElement,
@@ -92,17 +89,16 @@ class RuleElements {
         TokenMark: TokenMarkRuleElement,
         TokenName: TokenNameRuleElement,
         Weakness: WeaknessRuleElement,
-        WeaponPotency: WeaponPotencyRuleElement,
     };
 
-    static custom: Record<string, RuleElementConstructor | undefined> = {};
+    static custom: Record<string, RuleElementConstructor> = {};
 
-    static get all(): Record<string, RuleElementConstructor | undefined> {
+    static get all(): Record<string, RuleElementConstructor> {
         return { ...this.builtin, ...this.custom };
     }
 
-    static fromOwnedItem(options: RuleElementOptions): RuleElementPF2e[] {
-        const rules: RuleElementPF2e[] = [];
+    static fromOwnedItem(options: RuleElementOptions): RuleElement[] {
+        const rules: RuleElement[] = [];
         const item = options.parent;
         for (const [sourceIndex, source] of item.system.rules.entries()) {
             if (typeof source.key !== "string") {
@@ -113,21 +109,17 @@ class RuleElements {
             }
             const REConstructor = this.custom[source.key] ?? this.custom[source.key] ?? this.builtin[source.key];
             if (REConstructor) {
-                const rule = ((): RuleElementPF2e | null => {
-                    try {
-                        return new REConstructor(source, { ...options, sourceIndex });
-                    } catch (error) {
-                        if (!options?.suppressWarnings) {
-                            console.warn(
-                                `PF2e System | Failed to construct rule element ${source.key} on item ${item.name}`,
-                                `(${item.uuid})`,
-                            );
-                            console.warn(error);
-                        }
-                        return null;
+                try {
+                    rules.push(new REConstructor(source, { ...options, sourceIndex }));
+                } catch (error) {
+                    if (!options?.suppressWarnings) {
+                        console.warn(
+                            `PF2e System | Failed to construct rule element ${source.key} on item ${item.name}`,
+                            `(${item.uuid})`,
+                        );
+                        console.warn(error);
                     }
-                })();
-                if (rule) rules.push(rule);
+                }
             } else {
                 const { name, uuid } = item;
                 console.warn(`PF2e System | Unrecognized rule element ${source.key} on item ${name} (${uuid})`);
@@ -137,9 +129,9 @@ class RuleElements {
     }
 }
 
-type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (new (
+type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema>; LOCALIZATION_PREFIXES: string[] } & (new (
     data: RuleElementSource,
     options: RuleElementOptions,
-) => RuleElementPF2e);
+) => RuleElement);
 
-export { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements };
+export { RuleElement, RuleElementOptions, RuleElements, RuleElementSource };

@@ -184,6 +184,7 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "12d6",
                         "kinds": [
@@ -200,13 +201,14 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You draw in the blood and life force of other creatures through your outstretched arms. You deal 12d6 void damage to living creatures in the area. You gain temporary Hit Points equal to half the damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You draw in the blood and life force of other creatures through your outstretched arms. You deal 12d6 void damage to living creatures in the area with a basic Fortitude save.</p>\n<p>You gain temporary Hit Points equal to half the damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
                 "heightening": {
+                    "area": 0,
                     "damage": {
                         "0": "2d6"
                     },
@@ -220,9 +222,9 @@
                     "value": "9W1uv8Y1wMAVaFXg"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -512,7 +514,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.y6rAdMK6EFlV6U0t"
             },
-            "img": "systems/pf2e/icons/spells/burning-hands.webp",
+            "img": "icons/magic/fire/flame-burning-hand-orange.webp",
             "name": "Burning Hands",
             "sort": 700000,
             "system": {
@@ -897,7 +899,7 @@
         },
         {
             "_id": "oxt3avp66riyk2nh",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
             "name": "Frenetic Assault",
             "sort": 1300000,
             "system": {
@@ -909,7 +911,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span> actions</p>\n<strong>Frequency</strong> once per round\n<hr />\n<p><strong>Effect</strong> The members of the brigade wildly swing their weapons-primarily spears-in a frenzied attack at each enemy adjacent to the troop (@Check[reflex|dc:29|basic] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d12+1)[piercing]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d12+11)[piercing]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d12+11)[piercing]] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The members of the brigade wildly swing their weapons-primarily spears-in a frenzied attack at each enemy adjacent to the troop (@Check[reflex|dc:29|basic] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d12+1)[piercing]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d12+11)[piercing]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d12+11)[piercing]] damage</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1068,7 +1070,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The brigade calls upon Walkena to burn and blind their foes. The sun warriors present their religious symbols and create a white-hot flash of light in a @Template[cone|distance:45]. Creatures in the cone take @Damage[10d8[fire]] damage (@Check[fortitude|dc:29|basic] save). Creatures that fail their save become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. Creatures that critically fail become @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round instead. When the troop is reduced to 2 or fewer segments, this area decreases to a @Template[cone|distance:20].</p>"
+                    "value": "<p>The brigade calls upon Walkena to burn and blind their foes. The sun warriors present their religious symbols and create a white-hot flash of light in a @Template[cone|distance:45]. Creatures in the cone take @Damage[10d8[fire]|options:area-damage] damage (@Check[fortitude|dc:29|basic|options:area-effect,inflicts:blinded,inflicts:dazzled] save). Creatures that fail their save become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. Creatures that critically fail become @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round instead. When the troop is reduced to 2 or fewer segments, this area decreases to a @Template[cone|distance:20].</p>"
                 },
                 "publication": {
                     "license": "OGL",

@@ -12,14 +12,20 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p>The Melfesh Monster Burrows twice. At any point in this movement, it can shed a temporary fungal limb to grasp a creature within 10 feet. The creature must succeed at a @Check[reflex|dc:21|name:Burrowing Grasp] save or be @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round (on a critical failure, 2 rounds) or until it Escapes (DC 21). This ability grants the Melfesh Monster a burrow speed of 15 feet and replaces its fly speed and Envelop.</p>"
+            "value": "<p>The Melfesh Monster Burrows twice. At any point in this movement, it can shed a temporary fungal limb to grasp a creature within 10 feet. The creature must succeed at a @Check[reflex|dc:21|name:Burrowing Grasp|options:inflicts:immobilized] save or be @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round (on a critical failure, 2 rounds) or until it [[/act escape dc=21]]{Escapes}. This ability grants the Melfesh Monster a burrow speed of 15 feet and replaces its fly speed and Envelop.</p>"
         },
         "publication": {
             "license": "OGL",
             "remaster": false,
             "title": "Pathfinder Lost Omens Monsters of Myth"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "burrow",
+                "value": 15
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

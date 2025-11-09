@@ -1,0 +1,66 @@
+{
+    "_id": "JksGGYzQqsNqeTQj",
+    "img": "icons/magic/unholy/orb-swirling-pink.webp",
+    "name": "Effect: Aura of Sophistry (Unholy)",
+    "system": {
+        "description": {
+            "value": "<p>You take a –1 penalty to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] and gain the effects of the @UUID[Compendium.pf2e.feats-srd.Item.Dubious Knowledge] feat when Recalling Knowledge; whenever an affected creature Recalls Knowledge, they become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} and gain weakness 4 to mental damage for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #217: Death Sails a Wine-Dark Sea"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "value": -1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "text": "PF2E.SpecificRule.DubiousKnowledge.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "text": "PF2E.NPCAbility.Pyrkaion.AuraOfSophistryNote",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -279,6 +279,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "greataxe",
                 "traits": {
@@ -326,6 +327,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "hatchet",
                 "traits": {
@@ -333,48 +335,6 @@
                         "agile",
                         "sweep"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Wi40ecNm1HWCr4IZ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Antler",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "werecreature-curse-of-the-werecreature"
-                    ]
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "ybV0LLXdGeTJL4V5": {
-                        "damage": "1d8+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
                 },
                 "weaponType": {
                     "value": "melee"
@@ -391,7 +351,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hatchet",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -416,6 +376,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "hatchet",
                 "traits": {
@@ -434,7 +395,7 @@
             "_id": "PBbZheMzP1YRLCYf",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Deer Empathy",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -465,7 +426,7 @@
             "_id": "eAZIsoNkpFDUXhr2",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Cold Adaptation",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -497,7 +458,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -516,24 +477,32 @@
                 },
                 "rules": [
                     {
+                        "alwaysActive": true,
                         "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
                         "option": "change-shape",
+                        "selection": "hybrid",
                         "suboptions": [
                             {
-                                "label": "PF2E.TraitHuman",
-                                "value": "human"
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hybrid",
+                                "value": "hybrid"
                             },
                             {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.Moose",
-                                "value": "moose"
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
+                                "value": "humanoid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Animal",
+                                "value": "animal"
                             }
                         ],
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": true
                     },
                     {
                         "key": "CreatureSize",
                         "predicate": [
-                            "change-shape:human"
+                            "change-shape:humanoid"
                         ],
                         "value": "medium"
                     },
@@ -550,10 +519,12 @@
                         "key": "Strike",
                         "label": "PF2E.BattleForm.Attack.Fist",
                         "predicate": [
-                            "change-shape:human"
+                            "change-shape:humanoid"
                         ],
                         "slug": "fist",
-                        "traits": []
+                        "traits": [
+                            "unarmed"
+                        ]
                     },
                     {
                         "attackModifier": 11,
@@ -568,10 +539,37 @@
                         "key": "Strike",
                         "label": "PF2E.BattleForm.Attack.Hoof",
                         "predicate": [
-                            "change-shape:moose"
+                            "change-shape:animal"
                         ],
                         "slug": "hoof",
-                        "traits": []
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 11,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d8",
+                                "modifier": 6
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Antler",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "change-shape:animal",
+                                    "change-shape:hybrid"
+                                ]
+                            }
+                        ],
+                        "slug": "antler",
+                        "traits": [
+                            "unarmed"
+                        ]
                     }
                 ],
                 "slug": "change-shape",
@@ -593,7 +591,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Curse of the Weremoose",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -610,7 +608,15 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "antler-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "werecreature-curse-of-the-werecreature",
                 "traits": {
                     "rarity": "common",
@@ -629,7 +635,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Moon Frenzy",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -662,7 +668,7 @@
             "_id": "w6LNTDUzUbVxW3Rj",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Thundering Charge",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"

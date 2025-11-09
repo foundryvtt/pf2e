@@ -26,6 +26,7 @@
         },
         "rules": [
             {
+                "actorFlag": true,
                 "choices": [
                     {
                         "label": "PF2E.TraitAir",
@@ -52,11 +53,14 @@
                         "value": "wood"
                     }
                 ],
+                "flag": "elementalInstinctElement",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Element",
                 "rollOption": "elemental-instinct"
             },
             {
+                "actorFlag": true,
+                "adjustName": false,
                 "choices": [
                     {
                         "label": "PF2E.TraitBludgeoning",
@@ -118,13 +122,13 @@
                         "value": "slashing"
                     }
                 ],
-                "flag": "damage",
+                "flag": "elementalInstinctDamage",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.DamageType",
                 "rollOption": "elemental-instinct:damage"
             },
             {
-                "damageType": "{item|flags.pf2e.rulesSelections.damage}",
+                "damageType": "{item|flags.pf2e.rulesSelections.elementalInstinctDamage}",
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [

@@ -2024,6 +2024,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -2068,6 +2069,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -2112,6 +2114,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -2155,12 +2158,15 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": null,
+                    "max": 100
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
-                        "mental",
-                        "range-100"
+                        "mental"
                     ]
                 },
                 "weaponType": {
@@ -2207,13 +2213,51 @@
             "type": "action"
         },
         {
+            "_id": "YP65OrOnvfmyc4cP",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 to Sense Motive",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:sense-motive"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "EHlHjhHk7jncKixn",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Status to All Saves vs. Occult",
-            "sort": 3300000,
+            "sort": 3400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2251,9 +2295,9 @@
         },
         {
             "_id": "OpdWoyPywj7o3f4N",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Retract Body",
-            "sort": 3400000,
+            "sort": 3500000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -2296,9 +2340,9 @@
         },
         {
             "_id": "mVB17TASKITmaKOR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Conjure Disguise",
-            "sort": 3500000,
+            "sort": 3600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2309,6 +2353,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon conjures a perfect flesh-suit replica of a humanoid they've seen of their size or smaller and compresses themself into it, along with generating appropriate clothing for the humanoid. This process takes 1 minute to complete, during which the dragon is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard]. If the dragon stops or is interrupted in this process, the suit is destroyed. Once the process is complete, the dragon can remain in this disguise indefinitely.</p>\n<p>The transformation has the effects of @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Change Shape], except that the disguise is not actively magical in nature and doesn't register as magical to detect magic and similar effects. The dragon loses Retract Body while transformed.</p>\n<p>If the dragon is critically hit while wearing the disguise, the suit is destroyed and immediately explodes. This has the effects of Detonate Disguise, except that creatures use the outcome one degree of success better than they rolled on their save.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2338,6 +2386,34 @@
                         ],
                         "toggleable": true,
                         "value": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape:humanoid-small"
+                        ],
+                        "value": "small"
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape:humanoid-medium"
+                        ],
+                        "value": "medium"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "change-shape:humanoid-medium",
+                                    "change-shape:humanoid-small"
+                                ]
+                            }
+                        ],
+                        "selector": "deception-dc",
+                        "type": "status",
+                        "value": 4
                     }
                 ],
                 "slug": null,
@@ -2353,9 +2429,9 @@
         },
         {
             "_id": "kK41S41L533fMggZ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Detonate Disguise",
-            "sort": 3600000,
+            "sort": 3700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -2384,9 +2460,9 @@
         },
         {
             "_id": "uyo6N99p8gLhdfCs",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Rushed Transformation",
-            "sort": 3700000,
+            "sort": 3800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -2397,6 +2473,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> Using the aid of magic and an exhausting amount of effort, the dragon quickly reshapes their body into the form of a generic humanoid figure. This has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Humanoid Form] except that it lasts only 1 minute, and the dragon doesn't gain the +4 status bonus to Deception as the transformation makes use of the dragon's body to crudely mimic a humanoid form. The dragon can Dismiss the effect.</p>\n<p>Whenever the effect ends, the dragon leaves behind scraps of magically conjured flesh, which could give away the dragon's presence.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2418,9 +2498,9 @@
         },
         {
             "_id": "ab0Z4gMjfbVX1DVf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Smoke Breath",
-            "sort": 3800000,
+            "sort": 3900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -2430,7 +2510,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon unleashes a noxious cloud of smoke that deals @Damage[10d6[poison]] damage in a @Template[cone|distance:50] (@Check[fortitude|dc:33|basic] save). The smoke remains for 1 minute. This has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Mist], except it fills the cone's area.</p>\n<p>The dragon can't use Smoke Breath again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon unleashes a noxious cloud of smoke that deals @Damage[10d6[poison]|options:area-damage] damage in a @Template[cone|distance:50] (@Check[fortitude|dc:33|basic|options:area-effect] save). The smoke remains for 1 minute. This has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Mist], except it fills the cone's area.</p>\n<p>The dragon can't use Smoke Breath again for [[/gmr 1d4 #Recharge Smoke Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2450,9 +2530,9 @@
         },
         {
             "_id": "lhnqwfK5RkPmG7XJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 3900000,
+            "sort": 4000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2498,7 +2578,7 @@
             "_id": "BXRE4OLcT4DK8VgJ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Lore (any one region or settlement)",
-            "sort": 4000000,
+            "sort": 4100000,
             "system": {
                 "description": {
                     "value": ""

@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You have built a reputation for yourself in your social identity. Choose one archetype that you meet the prerequisites for. You gain that archetype's dedication feat and can select feats from that archetype, even if you haven't yet gained enough feats in the vigilante archetype to take another dedication feat.</p>\n<p>These feats become part of your social identity and gain the social trait-for instance, a fighter vigilante could take the wizard dedication feat and have a wizard social identity. Using these feats in your social identity doesn't risk exposing your vigilante identity, but using them in your vigilante identity could put you at risk for exposure.</p>"
+            "value": "<p>You have built a reputation for yourself in your social identity. Choose one archetype that you meet the prerequisites for. You gain that archetype's dedication feat and can select feats from that archetype, even if you haven't yet gained enough feats in the vigilante archetype to take another dedication feat.</p>\n<p>These feats become part of your social identity and gain the social trait-for instance, a fighter vigilante could take the @UUID[Compendium.pf2e.feats-srd.Item.Wizard Dedication] feat and have a wizard social identity. Using these feats in your social identity doesn't risk exposing your vigilante identity, but using them in your vigilante identity could put you at risk for exposure.</p>"
         },
         "level": {
             "value": 4
@@ -29,7 +29,32 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:class",
+                        "item:trait:dedication"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "traits",
+                        "value": "social"
+                    }
+                ],
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

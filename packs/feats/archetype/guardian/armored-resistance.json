@@ -1,0 +1,75 @@
+{
+    "_id": "xACFBsq6c48R0BNF",
+    "folder": "JnEMJDh1jH8xZjO1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Armored Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>While you are wearing medium or heavy armor, you gain resistance to physical damage equal to half your character level when you use the @UUID[Compendium.pf2e.actionspf2e.Item.Intercept Attack] reaction to take damage instead of your ally.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Guardian's Intercept"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.guardianDedicationCount",
+                "value": 1
+            },
+            {
+                "disabledIf": [
+                    {
+                        "nor": [
+                            "armor:category:medium",
+                            "armor:category:heavy"
+                        ]
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "option": "armored-resistance",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armored-resistance"
+                ],
+                "type": "physical",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

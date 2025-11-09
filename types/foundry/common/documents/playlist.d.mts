@@ -46,3 +46,5 @@ type PlaylistSchema = {
 };
 
 export type PlaylistSource = fields.SourceFromSchema<PlaylistSchema>;
+
+export {};

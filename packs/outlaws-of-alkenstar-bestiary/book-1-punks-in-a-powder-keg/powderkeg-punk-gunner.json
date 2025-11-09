@@ -107,6 +107,11 @@
             "name": "Flintlock Pistol",
             "sort": 200000,
             "system": {
+                "ammo": {
+                    "baseType": "rounds-flintlock-pistol",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "flintlock-pistol",
                 "bonus": {
                     "value": 0
@@ -252,80 +257,13 @@
             "type": "armor"
         },
         {
-            "_id": "3QGZS6l7NrX4auyR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3QGZS6l7NrX4auyR"
-            },
-            "img": "icons/weapons/ammunition/shot-round-lead.webp",
-            "name": "Rounds (Flintlock Pistol)",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-flintlock-pistol",
-                "stackGroup": "rounds10",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "hRdqGbLS3yjyl01v",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dymL1IbxU5zR9fqo"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/searning-suture.webp",
             "name": "Searing Suture (Lesser)",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -386,6 +324,57 @@
             "type": "consumable"
         },
         {
+            "_id": "3QGZS6l7NrX4auyR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3QGZS6l7NrX4auyR"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Flintlock Pistol)",
+            "sort": 500000,
+            "system": {
+                "baseItem": "rounds-flintlock-pistol",
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-flintlock-pistol",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
+        },
+        {
             "_id": "oQn9MbofdpQllV9x",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
@@ -414,6 +403,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -465,6 +455,10 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 40,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -472,7 +466,6 @@
                     "value": [
                         "concussive",
                         "fatal-d8",
-                        "range-increment-40",
                         "reload-1"
                     ]
                 },

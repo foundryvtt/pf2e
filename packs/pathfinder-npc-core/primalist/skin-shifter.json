@@ -237,6 +237,11 @@
             "name": "Longbow",
             "sort": 400000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "longbow",
                 "bonus": {
                     "value": 0
@@ -479,30 +484,17 @@
             "name": "Arrows",
             "sort": 700000,
             "system": {
-                "baseItem": null,
+                "baseItem": "arrows",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -519,13 +511,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
-                "stackGroup": "arrows",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -533,7 +523,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "u7iqM7resgUqIeOV",
@@ -566,6 +556,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "spiked-gauntlet",
                 "traits": {
@@ -608,13 +599,16 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 100,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "longbow",
                 "traits": {
                     "value": [
                         "deadly-d10",
                         "magical",
-                        "range-increment-100",
                         "reload-0",
                         "volley-30"
                     ]
@@ -624,9 +618,6 @@
         },
         {
             "_id": "TdUNc8KZZyIhdF7G",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.mkyMSRTbDV4lho2o.Item.0rfQ5Yx0cKAEXQY3"
-            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Animal Empathy",
             "sort": 1000000,
@@ -668,14 +659,43 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The skin shifter casts their choice of a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Aerial Form], @UUID[Compendium.pf2e.spells-srd.Item.Animal Form], @UUID[Compendium.pf2e.spells-srd.Item.Dinosaur Form], or @UUID[Compendium.pf2e.spells-srd.Item.Pest Form] spell. They must transform into an animal of a kind they've seen within the last 24 hours. They can't gain temporary HP again from a spell cast with Gift of the Wild Spirits for 10 minutes. Their Strikes for forms other than pest form have reach 10 feet, a +20 attack modifier, and a +13 damage bonus (or a +9 damage bonus for aerial form). Most other changes to their statistics are listed above.</p>\n<p>While polymorphed, the skin shifter can still use Gift of the Wild Spirits, though they're still prevented from casting other spells as normal.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The skin shifter casts their choice of a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Aerial Form], @UUID[Compendium.pf2e.spells-srd.Item.Animal Form], @UUID[Compendium.pf2e.spells-srd.Item.Dinosaur Form], or @UUID[Compendium.pf2e.spells-srd.Item.Pest Form] spell. They must transform into an animal of a kind they've seen within the last 24 hours. They can't gain temporary HP again from a spell cast with Gift of the Wild Spirits for 10 minutes. Their Strikes for forms other than <em>pest form</em> have reach 10 feet, a +20 attack modifier, and a +13 damage bonus (or a +9 damage bonus for <em>aerial form</em>). Most other changes to their statistics are listed above.</p>\n<p>While polymorphed, the skin shifter can still use Gift of the Wild Spirits, though they're still prevented from casting other spells as normal.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.SkinShifter.AnimalForm",
+                        "option": "animal-form",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.NPCAbility.SkinShifter.AnimalForm",
+                        "predicate": [
+                            "animal-form"
+                        ],
+                        "selector": "ac",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.NPCAbility.SkinShifter.AnimalForm",
+                        "predicate": [
+                            "animal-form"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -731,7 +751,10 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common",
+                    "wildsong"
+                ]
             },
             "level": {
                 "value": 8
@@ -748,7 +771,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "(+18 in animal form)",
             "mod": 16,
             "senses": []
         },

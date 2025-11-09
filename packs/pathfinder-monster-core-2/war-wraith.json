@@ -1,0 +1,457 @@
+{
+    "_id": "ZQ7lS9TYOFv07m1a",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "ufKyCPbrtLdIEkhB",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wraith Touch",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "UNKGg4goRhcILEn6": {
+                        "damage": "2d12+6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "divine",
+                        "finesse",
+                        "void"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "CDrGJNZcn8d8maks",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Draining Presence",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. A living creature that enters the aura must succeed at a @Check[fortitude|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. It recovers after it has been out of the aura for 1 minute. A creature that succeeds at its save is temporarily immune to draining presence for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [],
+                        "key": "Aura",
+                        "radius": 10,
+                        "traits": [
+                            "void"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CqbSuuiuP30QY7Pi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sunlight Powerlessness",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>While in sunlight, a war wraith is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bx7HTKB2Cd5Db5Go",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ioAkNiCDsnaxL5mw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Absorb Wraith",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The war wraith extends their hand toward another wraith creature within 100 feet. The target wraith dissolves and streaks toward the war wraith in a straight line, dealing @Damage[3d10[void]] damage to each creature along the line with a @Check[fortitude|dc:28|basic] save. The war wraith absorbs the essence of the target wraith, becoming @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 minute. They can use their extra action only to Fly or Strike. An unwilling target can resist being absorbed if it succeeds at a @Check[will|dc:28] save.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GGdtrmGxML8I818d",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Grip of Fear",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The wraith reaches into an adjacent creature's chest, gripping its heart. The target takes @Damage[9d6[mental]] damage with a @Check[will|dc:28|basic] save. On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] until the start of the wraith's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cBdweJUy2lUI4Xwx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Robes of Welcome",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The wraith wraps their robes around an adjacent living creature, exposing it to void's embrace. If any creature is cursed by the wraith's void's embrace, the wraith can't impose void's embrace on another creature.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BCrA1CC6jddgg3Js",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Void's Embrace",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the victim succeeds at a saving throw against this curse while in sunlight, the curse ends. While a creature has this curse, it bypasses the resistance of the wraith that cursed it</p>\n<p><strong>Saving Throw</strong> @Check[will|dc:28]</p>\n<p><strong>Stage 1</strong> the victim is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] in any light (1 hour)</p>\n<p><strong>Stage 2</strong> the victim gains lifesense 30 feet but is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] in any light (1 hour)</p>\n<p><strong>Stage 3</strong> as stage 2, but the creature also has void healing (1 hour)</p>\n<p><strong>Stage 4</strong> the victim becomes @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and can't awaken (1 day)</p>\n<p><strong>Stage 5</strong> the creature dies and becomes a wraith under the command of the war wraith, its body crumbling to ash</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "death",
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "War Wraith",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 6
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": 3
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 130,
+                "temp": 0,
+                "value": 130
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "spirit",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 60
+                    }
+                ],
+                "value": null
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These menacing spiritual remnants of wicked warlords or bloodthirsty generals are towering specters of shadow and death. Like other wraiths, war wraiths haunt the shadowy places of the world but are more likely to travel greater distances to sow terror or amass influence, often sticking to dark glades or sinister ruins when journeying across sun-dappled lands. War wraiths tend to be arrogant and rarely form a pack with others of their kind, preferring instead to dominate groups of ordinary wraiths. A particularly powerful necromancer might compel packs of war wraiths into service. However, a particularly malevolent goal—such as eradicating a bastion of light and life—might draw several war wraiths together in a common purpose.</p><h2>War Wraith Origins</h2><p>Not every war wraith was once an individual. Many of them coalesce over time, merging from multiple wraiths where lost souls accumulate and have their spirits and consciousnesses shorn apart or undermined in some way. These war wraiths tend to think and communicate not as one potent being, but as a riot of voices—often conflicting but truly bone-chilling when they agree to work in unison. In locations where void energy focuses, such as in the Void or on the Isle of Terror, war wraiths form in this way frequently.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core 2"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 21
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 19
+            },
+            "intimidation": {
+                "base": 21
+            },
+            "stealth": {
+                "base": 19
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "incorporeal",
+                "undead",
+                "unholy",
+                "wraith"
+            ]
+        }
+    },
+    "type": "npc"
+}

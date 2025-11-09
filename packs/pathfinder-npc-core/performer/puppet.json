@@ -1,0 +1,380 @@
+{
+    "_id": "r75kLP8MgLx46ZTO",
+    "folder": "uzP2byPDuRK5UKFH",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "h3QkxJga72xuJhl7",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Puppet Type",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<ul><li><strong>Smart Puppet</strong> The smart puppet is covered in runes that give it occult power. It makes a ranged Strike against a creature within 30 feet at a +15 attack modifier. A successful Strike deals 2d6 mental damage.</li><li><strong>Strong Puppet</strong> The strong puppet wields a tiny sword and shield. It makes a melee Strike against a creature whose space it shares at a +15 attack modifier. A successful Strike deals 2d8 slashing damage. In addition, the strong puppet gains a +1 circumstance bonus to AC for 1 round.</li><li><strong>Swift Puppet</strong> The swift puppet wields two tiny daggers. It makes a melee Strike against a creature whose space it shares at a +15 attack modifier. A successful Strike deals 2d4 piercing damage. If the swift puppet hits a creature that was hit by another puppet this round, its Strike deals an additional 1d4 precision damage.</li></ul><hr /><ul><li><strong>Fiend Puppet</strong> The puppet makes a ranged Strike against a creature within 30 feet for 1d10 spirit damage, plus 1d4 spirit damage if the target is holy.</li><li><strong>Poisoner Puppet</strong> The puppet makes a melee Strike with a tiny syringe of poison against a creature whose space it shares, dealing 1d4 piercing damage plus 1d6 persistent poison damage.</li><li><strong>Undead Puppet</strong> The puppet makes a melee Strike against a creature whose space it shares, dealing 2d8 void damage and making the target @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit).</li></ul>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "value": 5
+                    },
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "puppet-type",
+                        "priority": 49,
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Puppet.Smart.Label",
+                                "value": "smart"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Puppet.Strong.Label",
+                                "value": "strong"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Puppet.Swift.Label",
+                                "value": "swift"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Puppet.Fiend.Label",
+                                "value": "fiend"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Puppet.Poisoner.Label",
+                                "value": "poisoner"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Puppet.Undead.Label",
+                                "value": "undead"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "attackModifier": 15,
+                        "damage": {
+                            "base": {
+                                "damageType": "mental",
+                                "dice": 2,
+                                "die": "d6"
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.WeaponStrikeLabel",
+                        "predicate": [
+                            "puppet-type:smart"
+                        ],
+                        "range": {
+                            "increment": null,
+                            "max": 30
+                        },
+                        "slug": "smart-strike",
+                        "traits": [
+                            "occult"
+                        ]
+                    },
+                    {
+                        "attackModifier": 15,
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8"
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.NPCAbility.Puppet.Strong.StrikeLabel",
+                        "predicate": [
+                            "puppet-type:strong"
+                        ],
+                        "slug": "strong-strike",
+                        "traits": [
+                            "occult"
+                        ]
+                    },
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Puppet.Strong.Shield",
+                        "option": "strong-shield",
+                        "predicate": [
+                            "puppet-type:strong"
+                        ],
+                        "priority": 51,
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.NPCAbility.Puppet.Strong.Shield",
+                        "predicate": [
+                            "puppet-type:strong",
+                            "strong-shield"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "attackModifier": 15,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.NPCAbility.Puppet.Swift.StrikeLabel",
+                        "predicate": [
+                            "puppet-type:swift"
+                        ],
+                        "slug": "swift-strike",
+                        "traits": [
+                            "occult"
+                        ]
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Puppet.Swift.AnotherPuppetHit",
+                        "option": "another-puppet-hit",
+                        "predicate": [
+                            "puppet-type:swift"
+                        ],
+                        "priority": 51,
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "label": "PF2E.NPCAbility.Puppet.Swift.Label",
+                        "predicate": [
+                            "another-puppet-hit"
+                        ],
+                        "selector": "swift-strike-damage"
+                    },
+                    {
+                        "attackModifier": 15,
+                        "damage": {
+                            "base": {
+                                "damageType": "spirit",
+                                "dice": 1,
+                                "die": "d10"
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.WeaponStrikeLabel",
+                        "predicate": [
+                            "puppet-type:fiend"
+                        ],
+                        "range": {
+                            "increment": null,
+                            "max": 30
+                        },
+                        "slug": "fiend-strike",
+                        "traits": [
+                            "occult"
+                        ]
+                    },
+                    {
+                        "damageType": "spirit",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "label": "PF2E.NPCAbility.Puppet.Fiend.Label",
+                        "predicate": [
+                            "target:trait:holy"
+                        ],
+                        "selector": "fiend-strike-damage"
+                    },
+                    {
+                        "attackModifier": 15,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.NPCAbility.Puppet.Poisoner.StrikeLabel",
+                        "predicate": [
+                            "puppet-type:poisoner"
+                        ],
+                        "slug": "poisoner-strike",
+                        "traits": [
+                            "occult"
+                        ]
+                    },
+                    {
+                        "category": "persistent",
+                        "damageType": "poison",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "label": "PF2E.NPCAbility.Puppet.Poisoner.Label",
+                        "selector": "poisoner-strike-damage"
+                    },
+                    {
+                        "attackModifier": 15,
+                        "damage": {
+                            "base": {
+                                "damageType": "void",
+                                "dice": 2,
+                                "die": "d8"
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.WeaponStrikeLabel",
+                        "predicate": [
+                            "puppet-type:undead"
+                        ],
+                        "slug": "undead-strike",
+                        "traits": [
+                            "occult"
+                        ]
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "undead-strike-attack",
+                        "text": "PF2E.NPCAbility.Puppet.Undead.Note.Success",
+                        "title": "PF2E.NPCAbility.Puppet.Undead.Label",
+                        "visibility": "owner"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "undead-strike-attack",
+                        "text": "PF2E.NPCAbility.Puppet.Undead.Note.CriticalSuccess",
+                        "title": "PF2E.NPCAbility.Puppet.Undead.Label",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Puppet",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 0
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>On the surface, puppeteers are simply providers of entertainment to the masses. With their little puppets and simple stories, their pantomimes are fun for the whole family. However, some puppeteers have a secret. They can animate their puppets with magic, sending them out to cause all manner of mischief in the dead of night. Puppeteers of this ilk tend to travel by themselves, though they might be found as part of a traveling group if they become lonely. They may serve as an innocent front for more illicit dealings or as lackeys to a larger group of thieves and ne'er do wells.</p><hr /><p>Performances come in a wide variety of forms, from musical methods like singing and instruments to physical dancing and juggling to simple orating and conversing.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder NPC Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 0,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "skills": {},
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "tiny"
+            },
+            "value": []
+        }
+    },
+    "type": "npc"
+}

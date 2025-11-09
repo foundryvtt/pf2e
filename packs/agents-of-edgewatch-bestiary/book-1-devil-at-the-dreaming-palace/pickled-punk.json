@@ -35,6 +35,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -88,6 +89,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -117,7 +119,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The first time each round that a pickled punk takes fire damage, its fumes combust, dealing @Damage[5[fire]] damage to all other creatures within the area of its Suffocating Fumes aura.</p>"
+                    "value": "<p>The first time each round that a pickled punk takes fire damage, its fumes combust, dealing @Damage[5[fire]|options:area-damage] damage to all other creatures within the area of its Suffocating Fumes aura.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -147,7 +149,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>5 feet. A creature that enters or begins its turn within the aura must attempt a @Check[fortitude|dc:14] save, or @Check[fortitude|dc:17] if the pickled punk is attached to the creature.</p>\n<p>On a failed save, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, and on a critical failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute.</p>"
+                    "value": "<p>5 feet. A creature that enters or begins its turn within the aura must attempt a @Check[fortitude|dc:14|options:area-effect,inflicts:sickened,inflicts:enfeebled] save, or @Check[fortitude|dc:17|options:area-effect,inflicts:sickened,inflicts:enfeebled] if the pickled punk is attached to the creature.</p>\n<p>On a failed save, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, and on a critical failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -191,7 +193,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a pickled punk hits a target larger than itself, it uses bizarre excretions to adhere to that creature. This is similar to Grabbing the creature, but the pickled punk is not off-guard, and it moves with that creature rather than holding it in place.</p>\n<p>Each turn while attached, the pickled punk automatically deals the damage from its jaws Strike to the creature to which it's attached. It also wriggles about, gaining a +2 circumstance bonus to AC as long as it's not also grabbed or restrained.</p>"
+                    "value": "<p>When a pickled punk hits a target larger than itself, it uses bizarre excretions to adhere to that creature. This is similar to Grabbing the creature, but the pickled punk is not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], and it moves with that creature rather than holding it in place.</p>\n<p>Each turn while attached, the pickled punk automatically deals the damage from its jaws Strike to the creature to which it's attached. It also wriggles about, gaining a +2 circumstance bonus to AC as long as it's not also @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -207,9 +209,16 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "attach"
+                            "attach",
+                            {
+                                "nor": [
+                                    "self:condition:grabbed",
+                                    "self:condition:restrained"
+                                ]
+                            }
                         ],
                         "selector": "ac",
+                        "type": "circumstance",
                         "value": 2
                     }
                 ],

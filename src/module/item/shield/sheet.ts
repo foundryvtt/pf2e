@@ -1,6 +1,6 @@
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
-    CoinsPF2e,
+    Coins,
     MATERIAL_DATA,
     MaterialSheetData,
     PhysicalItemSheetData,
@@ -44,13 +44,14 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
         return {
             ...sheetData,
             baseHardness: shield._source.system.hardness,
-            basePrice: new CoinsPF2e(shield._source.system.price.value),
+            basePrice: new Coins(shield._source.system.price.value),
             baseTypes: sortStringRecord(CONFIG.PF2E.baseShieldTypes),
             canChangeMaterial: !shield.isSpecific || !!shield.system.material.type,
             preciousMaterials: this.getMaterialSheetData(shield, materialData),
             propertyRuneSlots,
             reinforcing: R.mapToObj(REINFORCING_RUNE_LOC_PATHS, (value, index) => [index, value]),
             weaponRunes: weaponRunes ? RUNE_DATA.weapon : null,
+            grades: R.mapValues(CONFIG.PF2E.grades, (v) => game.i18n.localize(v)),
         };
     }
 
@@ -89,7 +90,7 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
 
 interface ShieldSheetData extends PhysicalItemSheetData<ShieldPF2e> {
     baseHardness: number;
-    basePrice: CoinsPF2e;
+    basePrice: Coins;
     baseTypes: Record<BaseShieldType, string>;
     canChangeMaterial: boolean;
     preciousMaterials: MaterialSheetData;
@@ -100,6 +101,7 @@ interface ShieldSheetData extends PhysicalItemSheetData<ShieldPF2e> {
     }[];
     reinforcing: Record<number, string | null>;
     weaponRunes: typeof RUNE_DATA.weapon | null;
+    grades: Record<string, string>;
 }
 
 export { ShieldSheetPF2e };

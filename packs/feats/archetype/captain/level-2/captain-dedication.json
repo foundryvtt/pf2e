@@ -1,0 +1,103 @@
+{
+    "_id": "bw2atPkRJL83Av9G",
+    "folder": "ShtP2ZBEPvuqrvT1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Captain Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in your choice of Diplomacy or Intimidation; if you are already trained in both of these skills, you become trained in a skill of your choice. You also gain your choice of the @UUID[Compendium.pf2e.feats-srd.Item.Group Impression] or the @UUID[Compendium.pf2e.feats-srd.Item.Group Coercion] skill feat. If you already have both of these skill feats, you gain another 1st-level skill feat for which you qualify.</p>\n<p>You also gain the assistance of a dedicated follower, who has agreed to accompany you on your journeys. They have the minion trait and begin as a novice follower.</p><hr /><p><strong>Special</strong> Once you have a follower, you can never take a feat or class feature that grants an animal companion or another companion that prevents you from having an animal companion.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Charisma +2"
+                },
+                {
+                    "value": "you don't have an animal companion, construct companion, or other companion that functions similarly"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "predicate": [
+                            "skill:diplomacy:rank:0"
+                        ],
+                        "skill": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "predicate": [
+                            "skill:intimidation:rank:0"
+                        ],
+                        "value": "intimidation"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "skill:diplomacy:rank:0",
+                            "skill:intimidation:rank:0"
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Group Coercion"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Group Impression"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,5 +1,6 @@
 import type { ImmunityType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
+import * as R from "remeda";
 
 const ATTRIBUTE_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
 
@@ -9,11 +10,11 @@ const ACTOR_TYPES = ["army", "character", "familiar", "hazard", "loot", "npc", "
 
 const SAVE_TYPES = ["fortitude", "reflex", "will"] as const;
 
-const IMMUNITY_TYPES = new Set(Object.keys(immunityTypes)) as Set<ImmunityType>;
+const IMMUNITY_TYPES: Set<ImmunityType> = new Set(R.keys(immunityTypes));
 
-const WEAKNESS_TYPES = new Set(Object.keys(weaknessTypes)) as Set<WeaknessType>;
+const WEAKNESS_TYPES: Set<WeaknessType> = new Set(R.keys(weaknessTypes));
 
-const RESISTANCE_TYPES = new Set(Object.keys(resistanceTypes)) as Set<ResistanceType>;
+const RESISTANCE_TYPES: Set<ResistanceType> = new Set(R.keys(resistanceTypes));
 
 const UNAFFECTED_TYPES = new Set(["bleed", "good", "evil", "lawful", "chaotic", "spirit", "vitality", "void"] as const);
 

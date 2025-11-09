@@ -12,6 +12,11 @@
             "name": "Crossbow",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "bolts",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "crossbow",
                 "bonus": {
                     "value": 0
@@ -459,31 +464,17 @@
             "name": "Bolts",
             "sort": 700000,
             "system": {
-                "baseItem": null,
+                "baseItem": "bolts",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -500,13 +491,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "bolts",
-                "stackGroup": "bolts",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -514,7 +503,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "qu7Gla2a7DxXInkc",
@@ -547,6 +536,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -559,9 +549,6 @@
         },
         {
             "_id": "d8BIFJSfmdwffGcU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.HbYwSi428oXESdNh.Item.a6VT956imq0UeyhM"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 900000,
@@ -586,6 +573,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -629,11 +617,14 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 120,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
-                        "range-increment-120",
                         "reload-1"
                     ]
                 }
@@ -692,7 +683,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>10 feet. Creatures in the aura who are the same or lower level than the watch officer take a -2 status penalty to their Will DC against the watch officer's attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] or @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] them.</p>"
+                    "value": "<p>10 feet. Creatures in the aura who are the same or lower level than the watch officer take a -2 status penalty to their Will DC against the watch officer's attempts to [[/act coerce]] or [[/act demoralize]] them.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -701,6 +692,21 @@
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "includesSelf": false,
+                                "predicate": [
+                                    {
+                                        "gte": [
+                                            "self:level",
+                                            "target:level"
+                                        ]
+                                    }
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Air of Authority"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 10,
                         "slug": "air-of-authority",
@@ -749,10 +755,9 @@
                         },
                         "key": "AdjustDegreeOfSuccess",
                         "predicate": [
-                            "fear"
+                            "item:trait:fear"
                         ],
-                        "selector": "will",
-                        "type": "save"
+                        "selector": "will"
                     }
                 ],
                 "slug": null,
@@ -951,7 +956,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "(+9 to sense motive)",
+            "details": "(+9 to Sense Motive)",
             "mod": 8,
             "senses": []
         },

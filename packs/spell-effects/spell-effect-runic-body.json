@@ -22,19 +22,25 @@
         },
         "rules": [
             {
-                "key": "WeaponPotency",
+                "fromEquipment": false,
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
-                    "unarmed"
+                    "item:category:unarmed"
                 ],
-                "selector": "strike-attack-roll",
+                "property": "runes-potency",
                 "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,6),2,1))"
             },
             {
-                "key": "Striking",
+                "fromEquipment": false,
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
-                    "unarmed"
+                    "item:category:unarmed"
                 ],
-                "selector": "strike-damage",
+                "property": "runes-striking",
                 "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,6),2,1))"
             }
         ],

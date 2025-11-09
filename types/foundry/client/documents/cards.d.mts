@@ -1,4 +1,6 @@
+import DocumentSheetV2 from "@client/applications/api/document-sheet.mjs";
 import { ImageFilePath } from "@common/constants.mjs";
+import { CardsSource } from "@common/documents/cards.mjs";
 import { BaseCards } from "./_module.mjs";
 import ClientDocumentMixin from "./abstract/client-document.mjs";
 import Card from "./card.mjs";
@@ -25,6 +27,12 @@ export default class Cards extends ClientDocumentMixin(BaseCards) {
 
     /** Can this Cards document be cloned in a duplicate workflow? */
     get canClone(): boolean;
+}
+
+export default interface Cards {
+    readonly _source: CardsSource;
+
+    get sheet(): DocumentSheetV2;
 }
 
 export {};

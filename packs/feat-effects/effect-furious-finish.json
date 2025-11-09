@@ -1,0 +1,104 @@
+{
+    "_id": "VxaHh8r8QVfPfxcw",
+    "img": "icons/skills/melee/strike-flail-destructive-yellow.webp",
+    "name": "Effect: Furious Finish",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Furious Finish]</p>\n<p>You gain a circumstance bonus to damage equal to the number of rounds remaining in your Rage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.One",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Two",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Three",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Four",
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Five",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Six",
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Seven",
+                        "value": 7
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Eight",
+                        "value": 8
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Nine",
+                        "value": 9
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Ten",
+                        "value": 10
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Barbarian.FuriousFinish.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.bonus"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Barbarian.FuriousFinish.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

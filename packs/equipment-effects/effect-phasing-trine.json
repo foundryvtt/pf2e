@@ -1,0 +1,57 @@
+{
+    "_id": "R5zy2SnV5GSgKeiL",
+    "img": "icons/commodities/stone/paver-cobble-white.webp",
+    "name": "Effect: Phasing Trine",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Phasing Trine]</p>\n<p>Your Strikes with the selected weapon ignore all cover and circumstance bonuses to AC from shields.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:ranged"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "EphemeralEffect",
+                "selectors": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Phasing Trine (Reduce AC)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

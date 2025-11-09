@@ -1,0 +1,180 @@
+{
+    "_id": "IkRDtRFBdQd1LRvD",
+    "folder": "3h06Halkdn06mSXI",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "0q9Zd69VoWhQwenx",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Splinter Shower",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A Medium or smaller creature steps into the room</p><hr /><p><strong>Effect</strong> A wooden beam explodes as a rock drops onto it, shooting large splinters in all directions and making a splinter Strike against every creature in the room. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BmNPiFaMFbVfDL4B",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Splinter",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "QE0fC11fqnkJwxI1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    },
+                    "bQeYKcCK7gKipMc2": {
+                        "damage": "2d10+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "B5pXZwTw3sAoqLCq",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Shattered Beam",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The main beam has been struck by the hanging stone four times</p><hr /><p><strong>Effect</strong> The main beam abruptly shatters into pieces and the boulders of the trap collapse, dealing @Damage[12d8[bludgeoning]] damage to all creatures held within.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Boulder Cage",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "to destroy the beams holding the side stones and disable the trap",
+                "max": 64,
+                "temp": 0,
+                "value": 64
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>trained</p>",
+                "value": 11
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Several large boulders are separated by wooden support beams, entrapping a woman and three young children within.</p>",
+            "disable": "<p>@Check[thievery|dc:28] (expert) on the support beams to separate them enough to allow Mayor Eliana's family to escape without being crushed.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure: The Scourge of Sheerleaf"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The trap uses its first action to slam a hanging stone into the main beam of the trap, and its last two actions to launch splinter Strikes against two Medium or smaller creatures. The main beam can withstand four rounds of this before splintering.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 19
+            },
+            "reflex": {
+                "value": 13
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

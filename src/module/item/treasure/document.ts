@@ -8,7 +8,7 @@ import type { TreasureSource, TreasureSystemData } from "./data.ts";
 
 class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get isCoinage(): boolean {
-        return this.system.stackGroup === "coins";
+        return this.system.category === "coin";
     }
 
     get denomination(): CoinDenomination | null {
@@ -17,20 +17,12 @@ class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         return options.length === 1 ? options[0] : null;
     }
 
-    /** Set non-coinage treasure price from its numeric value and denomination */
-    override prepareBaseData(): void {
-        super.prepareBaseData();
-        this.system.price.sizeSensitive = false;
-        if (this.isCoinage) this.system.size = "med";
-    }
-
     override async getChatData(
         this: TreasurePF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
     ): Promise<RawItemChatData> {
         const systemData = this.system;
         const traits = this.traitChatData({});
-
         return this.processChatData(htmlOptions, { ...systemData, traits });
     }
 }

@@ -1,0 +1,67 @@
+{
+    "_id": "CFIAFefybUC27v9I",
+    "img": "icons/equipment/hand/gauntlet-armored-leather-grey.webp",
+    "name": "Grippy Gloves",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A good pair of gloves is a critical item for any soldier, particularly if you plan to get up close to your enemy. When you wear these black leather gloves with fine silver stitching, you gain a +1 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Climb], @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], and @UUID[Compendium.pf2e.actionspf2e.Item.Reposition].</p>\n<p><strong>Activate—Sticky Grip</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> You have an enemy @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p><hr /><p><strong>Effect</strong> Your gloves help you squeeze even more tightly, keeping your opponent from moving freely. The enemy you have grabbed or restrained is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 90
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:climb",
+                            "action:grapple",
+                            "action:reposition"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worngloves"
+        }
+    },
+    "type": "equipment"
+}

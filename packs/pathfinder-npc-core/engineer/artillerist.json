@@ -12,6 +12,11 @@
             "name": "Dueling Pistol",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "rounds-dueling-pistol",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "dueling-pistol",
                 "bonus": {
                     "value": 0
@@ -302,30 +307,17 @@
             "name": "Rounds (Dueling Pistol)",
             "sort": 500000,
             "system": {
-                "baseItem": null,
+                "baseItem": "rounds-dueling-pistol",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -342,15 +334,12 @@
                 "rules": [],
                 "size": "med",
                 "slug": "rounds-dueling-pistol",
-                "stackGroup": "rounds10",
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "alchemical"
+                        "alchemical",
+                        "consumable"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -358,13 +347,10 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "XPrAc5v0cINleOFN",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 600000,
@@ -389,6 +375,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -433,6 +420,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "light-hammer",
                 "traits": {
@@ -474,6 +462,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "light-hammer",
                 "traits": {
@@ -516,6 +505,10 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "dueling-pistol",
                 "traits": {
@@ -523,7 +516,6 @@
                         "concealable",
                         "concussive",
                         "fatal-d10",
-                        "range-increment-60",
                         "reload-1"
                     ]
                 }
@@ -679,7 +671,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The artillerist activates a shoulder-mounted artillery piece to launch an explosive shell up to 120 feet away that explodes in @Template[type:burst|distance:10]. Creatures within the burst take @Damage[2d6[piercing],2d6[fire]|options:area-damage] damage with a @Check[reflex|dc:19|basic|options:area-effect] save. A creature that fails its save is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The artillerist can't use Bombard again until they reload the artillery with 2 Interact actions; these actions don't have to be consecutive.</p>"
+                    "value": "<p>The artillerist activates a shoulder-mounted artillery piece to launch an explosive shell up to 120 feet away that explodes in @Template[type:burst|distance:10]. Creatures within the burst take @Damage[2d6[piercing],2d6[fire]|options:area-damage] damage with a @Check[reflex|dc:19|basic|options:area-effect,inflicts:prone] save. A creature that fails its save is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The artillerist can't use Bombard again until they reload the artillery with 2 Interact actions; these actions don't have to be consecutive.</p>"
                 },
                 "publication": {
                     "license": "ORC",

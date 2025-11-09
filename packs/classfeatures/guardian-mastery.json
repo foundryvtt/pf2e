@@ -1,0 +1,95 @@
+{
+    "_id": "CdDcUXv9J3aEo9HR",
+    "img": "icons/skills/melee/shield-block-gray-yellow.webp",
+    "name": "Guardian Mastery",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You are known for your suit of armor more than the person inside. Your proficiency rank for your guardian class DC increases to master. While wearing armor, when you attempt a Reflex save to avoid a damaging effect, such as a @UUID[Compendium.pf2e.spells-srd.Item.Fireball], you can add your armor's item bonus to AC instead of your Dexterity modifier; if your armor has the bulwark trait, increase this bonus by 1. If you get a success when you do this, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 19
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "damaging-effect"
+                ],
+                "selector": "reflex",
+                "slug": "guardian-mastery",
+                "type": "item",
+                "value": "@actor.wornArmor.system.acBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "damaging-effect"
+                ],
+                "selector": "reflex",
+                "slug": "dex",
+                "suppress": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "armor:trait:bulwark"
+                ],
+                "selector": "reflex",
+                "slug": "guardian-mastery",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "damaging-effect"
+                ],
+                "selector": "reflex",
+                "slug": "bulwark",
+                "suppress": true
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "damaging-effect"
+                ],
+                "selector": "reflex"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "guardian": {
+                    "attribute": null,
+                    "rank": 3
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

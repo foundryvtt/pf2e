@@ -8,17 +8,16 @@ import type {
 } from "@common/abstract/_module.d.mts";
 import type { UserAction } from "@common/constants.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
-import type { ItemType } from "@item/base/data/index.ts";
-import { RuleElementPF2e } from "@module/rules/index.ts";
+import type { ItemType } from "@item/types.ts";
+import { RuleElement } from "@module/rules/index.ts";
 import type { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
-import * as R from "remeda";
 import type { PartySource, PartySystemData } from "./data.ts";
 import { Kingdom } from "./kingdom/model.ts";
 import type { PartySheetRenderOptions } from "./sheet.ts";
-import { PartyCampaign } from "./types.ts";
+import type { PartyCampaign } from "./types.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -85,7 +84,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Only prepare rule elements for non-physical items (in case campaign items exist) */
-    protected override prepareRuleElements(): RuleElementPF2e<RuleElementSchema>[] {
+    protected override prepareRuleElements(): RuleElement<RuleElementSchema>[] {
         return this.items.contents
             .filter((item) => !item.isOfType("physical"))
             .flatMap((item) => item.prepareRuleElements())
@@ -94,10 +93,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     override prepareBaseData(): void {
-        // Provide base structure for parent method
-        this.system.details.level = { value: 0 };
-        const partialSystem: DeepPartial<PartySystemData> = this.system;
-        partialSystem.attributes = {};
         super.prepareBaseData();
 
         // Fetch members, and update their parties if this isn't a clone
@@ -111,22 +106,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             }
         }
 
-        // Determine alliance based on the contained members
-        this.system.details.alliance = this.members.some((m) => m.alliance === "party")
-            ? "party"
-            : this.members.some((m) => m.alliance === "opposition")
-              ? "opposition"
-              : null;
-
-        // Filler until put into use for encounter metrics
-        const partyLevel = Math.round(
-            R.meanBy(
-                this.members.filter((m) => m.isOfType("character")),
-                (m) => m.level,
-            ),
-        );
-        this.system.details.level.value = partyLevel;
-
+        // Kingmaker things
         if (game.pf2e.settings.campaign.type === "kingmaker" && !this.campaign) {
             Object.defineProperty(this, "campaign", {
                 value: new Kingdom(fu.deepClone(this.system._source.campaign ?? {}), { parent: this.system }),
@@ -141,12 +121,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        if (!game.ready) return; // exit early if game isn't ready yet
-
-        // Compute travel speed. Creature travel speed isn't implemented yet
-        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));
-        this.attributes.speed = { total: travelSpeed };
-
         this.prepareSynthetics();
         this.campaign?.prepareDerivedData();
     }
@@ -216,7 +190,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: this["_source"],
+        data: DeepPartial<this["_source"]>,
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {

@@ -632,94 +632,10 @@
             "type": "equipment"
         },
         {
-            "_id": "OD4CDNtEcxchsBTV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Pipe",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "hIp5LFMuKitlZInw": {
-                        "damage": "2d6",
-                        "damageType": "fire"
-                    },
-                    "w5lhnOP4u2MDWRMe": {
-                        "damage": "2d6+7",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "fire",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "oU4uuwWCxaAZKc0K",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Telekinetic Manipulation",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "pull",
-                        "push"
-                    ]
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "HfBgbCPswQOoQeMs": {
-                        "damage": "2d6+7",
-                        "damageType": "force"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "force",
-                        "magical",
-                        "range-increment-60"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "PeFjJ2NEjzAyuFwe",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Recklessly Overconfident",
-            "sort": 1300000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -773,7 +689,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Remove a Condition",
-            "sort": 1400000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -804,7 +720,7 @@
             "_id": "1lLrbiH0yjRU8K6F",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Trickster's Network",
-            "sort": 1500000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -833,7 +749,7 @@
             "_id": "waKXoyG5D33mRgJf",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Immortal Tricks",
-            "sort": 1600000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -842,6 +758,7 @@
                     "value": null
                 },
                 "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>When the Immortal Trickster is reduced to 0 Hit Points, he returns to life at full health and with all his powers and Mythic Points recharged after 24 hours. He usually, but not always, returns at the site of his death, though he can appear anywhere on the same world where there are coyotes, foxes, or ravens.</p>"
                 },
@@ -865,7 +782,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mythic Resistance",
-            "sort": 1700000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -894,7 +811,7 @@
             "_id": "PAcGRRR6FuPF8d0W",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Bond with Mortals",
-            "sort": 1800000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -905,6 +822,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The Immortal Trickster forms a bond with a mortal creature. While the bond exists, the mortals bonded to the Immortal Trickster increase their current and maximum Hit Points by 10 and gain a +2 status bonus to their attack and damage rolls, as well as to skill checks they make using Deception, Stealth, or Thievery. The Immortal Trickster can communicate telepathically with any of his bonded mortals as long as both beings are on the same plane. Each week that they are bonded to the Trickster, the bonded mortals increase their doomed value by 1; their doomed value cannot be increased above 3 by this ability and their doomed value cannot decrease while they remain bonded to the Trickster. The Immortal Trickster can be bonded with up to six mortals at a time, and they can take this action again to end the bond or to form a new bond. The bond also ends if the mortal dies. Whenever one of his bonded mortals dies, the Immortal Trickster becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} or increases the value of his drained condition by 1, and the Trickster gains a +2 status bonus on the next attack roll or skill check he attempts.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "OGL",
@@ -929,7 +850,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 1900000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -946,7 +867,179 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "humanoid-medium",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
+                                "value": "humanoid-medium"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Coyote",
+                                "value": "coyote"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Fox",
+                                "value": "fox"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Raven",
+                                "value": "raven"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape:coyote"
+                        ],
+                        "value": "small"
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "change-shape:fox",
+                                    "change-shape:raven"
+                                ]
+                            }
+                        ],
+                        "value": "tiny"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "change-shape:coyote",
+                                    "change-shape:fox"
+                                ]
+                            }
+                        ],
+                        "selector": "land-speed",
+                        "slug": "change-shape-land-speed-bonus",
+                        "value": 5
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "change-shape:raven"
+                        ],
+                        "selector": "fly-speed",
+                        "value": 25
+                    },
+                    {
+                        "attackModifier": 23,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 4
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Bite",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "change-shape:coyote",
+                                    "change-shape:fox"
+                                ]
+                            }
+                        ],
+                        "slug": "bite",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 23,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 4
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Beak",
+                        "predicate": [
+                            "change-shape:raven"
+                        ],
+                        "slug": "beak",
+                        "traits": [
+                            "agile",
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 23,
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.NPCAbility.ImmortalTrickster.Attack.Pipe",
+                        "predicate": [
+                            "change-shape:humanoid-medium"
+                        ],
+                        "slug": "pipe",
+                        "traits": [
+                            "agile",
+                            "finesse",
+                            "magical",
+                            "fire"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "pipe-damage"
+                    },
+                    {
+                        "attackModifier": 23,
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "force",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.NPCAbility.ImmortalTrickster.Attack.TelekineticManipulation",
+                        "predicate": [
+                            "change-shape:humanoid-medium"
+                        ],
+                        "range": {
+                            "increment": 60,
+                            "max": null
+                        },
+                        "slug": "telekinetic-manipulation",
+                        "traits": [
+                            "force",
+                            "magical"
+                        ]
+                    }
+                ],
                 "slug": "change-shape",
                 "traits": {
                     "value": [
@@ -961,7 +1054,7 @@
             "_id": "9yG1XDG6DQawPlpo",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Confounding Theft",
-            "sort": 2000000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -992,7 +1085,7 @@
             "_id": "veMhzsuzWzb3G4Ay",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Cunning Escape",
-            "sort": 2100000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1003,6 +1096,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The Immortal Trickster trades places with one of his sensory animals (see trickster's network, above). The animal appears in the square the Trickster is currently occupying and the Trickster teleports to the animal's original location with all of his possessions. If a creature has witnessed the Trickster's Change Shape, they must succeed at a @Check[perception|dc:38] check to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] or be fooled into thinking that the Trickster has simply changed shape into an animal instead of teleported.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1027,7 +1124,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mythic Power",
-            "sort": 2200000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1059,7 +1156,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Mythic Skill",
-            "sort": 2300000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -1076,7 +1173,25 @@
                     "remaster": true,
                     "title": "Pathfinder War of Immortals"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "mythic-skill",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "mythic-skill"
+                        ],
+                        "selector": [
+                            "deception",
+                            "thievery"
+                        ],
+                        "slug": "mythic-skill-bonus",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1091,7 +1206,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Pull",
-            "sort": 2400000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1108,7 +1223,19 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "selector": "telekinetic-manipulation-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}   <span class=\"action-glyph\">1</span>",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "pull",
                 "traits": {
                     "value": []
@@ -1123,7 +1250,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Recharge Spell",
-            "sort": 2500000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1155,7 +1282,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Push",
-            "sort": 2600000,
+            "sort": 2400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1172,7 +1299,19 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "selector": "telekinetic-manipulation-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}   <span class=\"action-glyph\">1</span>",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "push",
                 "traits": {
                     "value": []
@@ -1225,6 +1364,14 @@
                 {
                     "exceptions": [],
                     "type": "paralyzed"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "mythic",
+                    "value": 11
                 }
             ],
             "speed": {

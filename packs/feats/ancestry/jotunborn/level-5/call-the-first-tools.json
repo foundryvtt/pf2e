@@ -1,0 +1,65 @@
+{
+    "_id": "3uuP1MYBdLAXE7VL",
+    "folder": "qiDgiFJGy0wJ6qMn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Call the First Tools",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 3
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>You can call upon the ancient powers bestowed on you by the gods to create any tools you might need at a moment's notice. You conjure forth a simple tool, such as a shovel or hammer, into your hands. This tool remains conjured until your next daily preparations so long as it's on your person. If the tool leaves your possession for more than 1 minute, it falls apart into a pile of silk that then dissolves into nothingness.</p>\n<p>At 9th level, you can use this ability once per hour instead of once per day. When using it in this way, you can maintain only one tool at a time; any previous tool you conjured dissolves into nothingness.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
+                "property": "frequency-per",
+                "value": "PT1H"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "jotunborn",
+                "manipulate",
+                "occult"
+            ]
+        }
+    },
+    "type": "feat"
+}

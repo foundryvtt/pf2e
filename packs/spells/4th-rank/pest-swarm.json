@@ -1,0 +1,55 @@
+{
+    "_id": "fRqHDOWmgcUTeT03",
+    "folder": "7cyoYPoPYA01mErU",
+    "img": "icons/creatures/invertebrates/wasp-swarm-tan.webp",
+    "name": "Pest Swarm",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {},
+        "defense": null,
+        "description": {
+            "value": "<p>Sometimes the most common irritations can band together and become threats to your enemies. You reach out to the pests and nuisances around you, forming a small squadron of them to harass and occupy your opponents. They swarm from the forests, the air, and even the dirt beneath your feet. The pest squadron occupies the space of a Large creature, and like a swarm, they can occupy the same space as other creatures. When you Cast this Spell, choose one of the pest squadrons below to summon.</p><ul><li><p><strong>Cockroaches</strong> Speed 30 feet, climb 30 feet.</p><ul><li><p><strong>Arrive</strong> <em>Scurrying Swarm</em> The swarm of cockroaches scuttles toward the enemy, swarming them and climbing up the bodies of any enemy touching the ground. They deal @Damage[4d6[piercing]|options:area-damage] damage (@Check[reflex|basic|options:area-effect] save) to all enemies within their space and in a @Template[emanation|distance:5]. On a critical failure, a creature can't use concentrate actions for 1 round as they try and brush away the insects.</p></li><li><p><strong>Depart</strong> <em>Farewell Dirt</em> The cockroaches disperse, climbing down from the creatures and leaving behind their debris and dirt. All enemies in their space must attempt a @Check[fortitude|options:area-effect,inflicts:sickened] save. On a failure, a creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} on a critical failure).</p></li></ul></li><li><p><strong>Mosquitoes</strong> Speed 30 feet, fly 50 feet.</p><ul><li><strong>Arrive</strong> <em>Biting Flight</em> The mosquitoes arrive in a hazy cloud, landing on the exposed skin of your opponents and dealing @Damage[4d6[piercing]|options:area-damage] damage to enemies in their space (@Check[reflex|basic|options:area-effect] save).</li><li><strong>Depart</strong> <em>Parting Gift</em> The swarm attempts to drain their opponents before flying off. All enemies in their space and in a @Template[emanation|distance:5] must succeed at a @Check[fortitude|options:area-effect,inflicts:drained] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</li></ul></li><li><p><strong>Pigeons</strong> Speed 20 feet, fly 40 feet.</p><ul><li><strong>Arrive</strong> <em>Dive Bomb</em> The swarm of pigeons dives into the crowd of enemies and attacks with beaks and talons. Each enemy within their space takes @Damage[2d8[piercing],2d4[slashing]|options:area-damage] damage (@Check[reflex|basic|options:area-effect] save). On a critical failure, a creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</li><li><strong>Depart</strong> (sonic) <em>Wing Snap</em> The pigeon swarm snaps their wingtips together to startle their opponents before leaving. Each enemy within their space takes @Damage[4d6[sonic]|options:area-damage] damage (@Check[fortitude|basic|options:area-effect] save).</li></ul></li><li><p><strong>Rats</strong> Speed 30 feet, burrow 20 feet.</p><ul><li><strong>Arrive</strong> <em>Chittering Race</em> Rats swarm the legs of your enemies, biting at them and digging their sharp nails into whatever exposed flesh reveals itself. Each enemy in their space takes @Damage[4d6[piercing]|options:area-damage] damage (@Check[reflex|basic|options:area-effect] save).</li><li><strong>Depart</strong> <em>Underfoot</em> The rats scurry underfoot, tripping up enemies and burrowing underground to make a swift getaway. Each enemy in their space must succeed a @Check[reflex|options:area-effect,damaging-effect,inflicts:prone] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] and take @Damage[2d6[bludgeoning]|options:area-damage] damage. The area the rat swarm was in becomes difficult terrain for 1 round.</li></ul></li><li><p><strong>Skunks</strong> Speed 30 feet, climb 20 feet;</p><ul><li><strong>Arrive</strong> <em>Mustelid Charge</em> Skunks race to the scene, and each enemy within their space and within a @Template[emanation|distance:5] take @Damage[4d6[piercing]|options:area-damage] damage (@Check[reflex|basic|options:area-effect] save) as the skunks snarl and bite.</li><li><strong>Depart</strong> (acid) <em>Stink Bomb</em> Before leaving, the skunks launch a final offensive maneuver and release their stink glands in a @Template[cone|distance:15]. All creatures in the area take @Damage[2d6[acid]|options:area-damage] damage (@Check[fortitude|basic|options:area-effect,inflicts:sickened] save). On a failure, a creature is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (sickened 2 on a critical failure).</li></ul></li><li><p><strong>Spiders</strong> Speed 30 feet, climb 30 feet.</p><ul><li><p><strong>Arrive</strong> (poison) <em>Venomous Swarm</em> A horde of violin spiders crawls up from the ground, climbing onto enemies within their space and in a @Template[emanation|distance:5] and biting them. Each enemy takes @Damage[3d6[piercing]|options:area-damage] damage (@Check[fortitude|basic|options:area-effect] save). Enemies who fail are exposed to violin spider venom.</p></li><li><p><strong>Depart</strong> <em>Spinning Webs</em> As the violin spiders depart, they spray sticky webs at their enemies in a @Template[cone|distance:30]. All creatures in this cone must attempt a @Check[reflex|options:area-effect] save. On a failure, a creature takes a –10-foot circumstance penalty to their Speeds (–20-foot circumstance penalty on a critical failure) for 1 minute; a creature can remove this penalty with a successful @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your spell DC. The area of the cone is also difficult terrain for 1 round.</p></li></ul></li></ul><hr /><p><strong>Violin Spider Venom</strong> (poison)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:24|traits:poison]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]|traits:poison] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]|traits:poison] and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> 2d6 poison, @Damage[1d6[persistent,bleed]], and clumsy 1 (1 round)</p>\n<p><strong>Stage 4</strong> 2d6 poison, @Damage[2d6[persistent,bleed]], and clumsy 1 (1 round)</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": "until the end of your next turn"
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "range": {
+            "value": "30 feet"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": ""
+        },
+        "time": {
+            "value": "3"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [
+                "arcane",
+                "occult",
+                "primal"
+            ],
+            "value": [
+                "concentrate",
+                "incarnate",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "spell"
+}

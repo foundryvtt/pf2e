@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
 import { damageDieSizeToFaces, nextDamageDieSize } from "@system/damage/helpers.ts";
 import { BaseDamageData } from "@system/damage/types.ts";
@@ -27,7 +27,7 @@ class DamageAlteration {
     }
 
     getNewValue(
-        damage: BaseDamageData | DamageDicePF2e | ModifierPF2e,
+        damage: BaseDamageData | DamageDicePF2e | Modifier,
         item: ItemPF2e | null,
     ): DamageAlterationValue | null {
         const rule = this.#rule;
@@ -92,7 +92,7 @@ class DamageAlteration {
         }
     }
 
-    applyTo<TDamage extends DamageDicePF2e | ModifierPF2e>(
+    applyTo<TDamage extends DamageDicePF2e | Modifier>(
         damage: TDamage,
         options: { item: ItemPF2e<ActorPF2e>; test: string[] | Set<string> },
     ): TDamage {

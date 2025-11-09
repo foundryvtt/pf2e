@@ -1,13 +1,13 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { CheckResultCallback } from "@system/action-macros/types.ts";
 import { CreaturePF2e } from "@actor";
-import { RawModifier, ModifierPF2e } from "@actor/modifiers.ts";
 import {
     SingleCheckAction,
     SingleCheckActionUseOptions,
     SingleCheckActionVariant,
     SingleCheckActionVariantData,
 } from "@actor/actions/index.ts";
+import { Modifier, RawModifier } from "@actor/modifiers.ts";
+import { CheckResultCallback } from "@system/action-macros/types.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 interface ChatMessageCheckFlags {
     context: {
@@ -29,7 +29,7 @@ async function createForgeryCallback(
                 .map((modifier) => {
                     return { ...modifier, predicate: [] };
                 })
-                .map((modifier) => new ModifierPF2e(modifier));
+                .map((modifier) => new Modifier(modifier));
             return result.actor.skills.society
                 .extend({
                     slug: result.actor.skills.society.slug,
@@ -88,7 +88,7 @@ async function createForgeryCallback(
 
 function createForgery(options: SkillActionOptions): Promise<void> {
     const modifiers = [
-        new ModifierPF2e({
+        new Modifier({
             label: "PF2E.Actions.CreateForgery.UnspecificHandwriting",
             modifier: 4,
             predicate: ["action:create-forgery:unspecific-handwriting"],
@@ -152,7 +152,6 @@ class CreateForgeryAction extends SingleCheckAction {
                 { outcome: ["failure"], text: "PF2E.Actions.CreateForgery.Notes.failure" },
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.CreateForgery.Notes.criticalFailure" },
             ],
-            rollOptions: ["action:create-forgery"],
             section: "skill",
             slug: "create-forgery",
             statistic: "society",
@@ -167,4 +166,4 @@ class CreateForgeryAction extends SingleCheckAction {
 
 const action = new CreateForgeryAction();
 
-export { createForgery as legacy, action };
+export { action, createForgery as legacy };

@@ -1,0 +1,86 @@
+{
+    "_id": "Af7vcTToxetHThj4",
+    "folder": "9YoO0Fwj4tTYDKIt",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Avenging Runelord Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The call of a long dead runelord has infected your soul and transformed your fate. Choose one of the following sins: envy, gluttony, greed, sloth, or wrath. You become trained in Arcana. If you are already trained in Arcana, you become trained in the skill of your choice. At 14th level, you gain expert proficiency in Arcana. At 16th level, if you gain master proficiency in Arcana.</p>\n<p>You have familiarity with weapons in the polearm and spear weapon groups—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons. You learn the Thassilonian language.</p>\n<p>You gain the ability to cast an arcane spell as an innate spell. This spell must be chosen from the following list: @UUID[Compendium.pf2e.spells-srd.Item.Darkvision], @UUID[Compendium.pf2e.spells-srd.Item.Mystic Armor], @UUID[Compendium.pf2e.spells-srd.Item.Runic Body], @UUID[Compendium.pf2e.spells-srd.Item.Runic Weapon], @UUID[Compendium.pf2e.spells-srd.Item.See the Unseen], @UUID[Compendium.pf2e.spells-srd.Item.Sending], or @UUID[Compendium.pf2e.spells-srd.Item.Truesight]; alternatively, you can choose any spell of 6th rank or lower from the sin spells listed for your chosen sin. You can cast this spell as an arcane innate spell once per day. The spell is automatically heightened to a spell rank equal to half your level rounded up. Use mythic proficiency to determine any attack rolls or spell DCs.</p>\n<p>Your obsession with revenge allows you to reflexively lash out at those who harm you with blasts of arcane magic. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Runelord's Response] reaction.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.rdvJzOtMtoVHh8dZ]{Avenging Runelord (Rare)}</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #219: Lord of the Trinity Star"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Runelord's Response"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.granted",
+                "value": {
+                    "slug": "thassilonian",
+                    "source": "{item|name}"
+                }
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:group:polearm",
+                            "item:group:spear"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialPolearmsAndSpears",
+                "sameAs": "simple"
+            },
+            {
+                "definition": [
+                    "item:category:advanced",
+                    {
+                        "or": [
+                            "item:group:polearm",
+                            "item:group:spear"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialPolearmsAndSpears",
+                "sameAs": "martial",
+                "slug": "advanced-runelord-weapons"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "destiny",
+                "mythic"
+            ]
+        }
+    },
+    "type": "feat"
+}

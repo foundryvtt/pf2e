@@ -54,9 +54,14 @@
                 },
                 "counteraction": false,
                 "damage": {},
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
                 "description": {
-                    "value": "<p>You tap into the target's senses, allowing you to see, hear, and otherwise sense whatever it senses for the spell's duration. If the target wishes to prevent you from doing so, it can attempt a Will save, negating the spell on a success, but most animals don't bother to do so. While tapping into the target's senses, you can't use your own body's senses, but you can change back and forth from your body's senses to the target's senses using a single action, which has the concentrate trait.</p>"
+                    "value": "<p>You tap into the target's senses, allowing you to sense whatever it senses for the spell's duration. If the target wishes to prevent you from doing so, it can attempt a Will save, negating the spell on a success, but most animals don't bother to do so. While tapping into the target's senses, you can't use your own body's senses, but you can change back and forth from your body's senses to the target's senses using a Sustain action.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -70,9 +75,9 @@
                     "value": "FI4bTwgTPlgef4vr"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "range": {
                     "value": "120 feet"
@@ -117,7 +122,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p><strong>Traditions</strong> divine, occult, primal</p>\n <p class=\"item-block-line\">\n <span>\n <strong>Duration</strong>\n 1 hour\n </span></p>\n\n<hr class=\"item-block-divider\"><p>You can ask questions of and receive answers from plants and fungi, but the spell doesn't make them more friendly or intelligent than normal. Most normal plants and fungi have a distinctive view of the world around them, so they don't recognize details about creatures or know anything about the world beyond their immediate vicinity. Cunning plant or fungus monsters are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration is 8 hours.</p>"
+                    "value": "<p>You can ask questions of and receive answers from plants and fungi, but the spell doesn't make them more friendly or intelligent than normal. Most normal plants and fungi have a distinctive view of the world around them, so they don't recognize details about creatures or know anything about the world beyond their immediate vicinity. Cunning plant or fungus monsters are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration is 8 hours.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -181,7 +186,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p><strong>Traditions</strong> primal</p>\n <p class=\"item-block-line\">\n <span>\n <strong>Duration</strong>\n 1 hour\n </span></p>\n\n<hr class=\"item-block-divider\"><p>You can ask questions of, receive answers from, and use the Diplomacy skill with animals. The spell doesn't make them more friendly than normal. Cunning animals are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
+                    "value": "<p>You can ask questions of, receive answers from, and use the Diplomacy skill with animals. The spell doesn't make them more friendly than normal. Cunning animals are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -253,6 +258,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -295,6 +301,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -382,7 +389,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>20 feet. A blooming guardian is in a constant state of decomposition; to keep this entropy at bay, the flowers that cover their antlers continually siphon life from the surrounding area. All living creatures that enter or start their turn in the emanation take @Damage[6d4[void]] damage (@Check[fortitude|dc:36|basic] save). At the start of their turn in any round that the blooming guardian deals damage with siphoning buds, they gain 10 temporary Hit Points, plus 2 temporary Hit Points for each creature damaged beyond the first since the blooming guardian's last turn, to a maximum of 20 temporary Hit Points.</p>"
+                    "value": "<p>20 feet. A blooming guardian is in a constant state of decomposition; to keep this entropy at bay, the flowers that cover their antlers continually siphon life from the surrounding area. All living creatures that enter or start their turn in the emanation take @Damage[6d4[void]|options:area-damage] damage (@Check[fortitude|dc:36|basic|options:area-effect] save). At the start of their turn in any round that the blooming guardian deals damage with siphoning buds, they gain 10 temporary Hit Points, plus 2 temporary Hit Points for each creature damaged beyond the first since the blooming guardian's last turn, to a maximum of 20 temporary Hit Points.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -545,7 +552,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The blooming guardian is in Full Bloom</p>\n<hr />\n<p><strong>Effect</strong> The blooming guardian confronts their mortality, causing their flowers to burst and spray their pollen. All creatures in a @Template[cone|distance:40] take @Damage[10d10[void]] damage with a @Check[fortitude|dc:36] save. The blooming guardian then exits Full Bloom and can't enter it again for [[/gmr 1d4 #Recharge Full Bloom]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Creatures that are @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] lose that condition and increase the drained condition by the same value.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage.</p>"
+                    "value": "<p><strong>Requirements</strong> The blooming guardian is in Full Bloom</p>\n<hr />\n<p><strong>Effect</strong> The blooming guardian confronts their mortality, causing their flowers to burst and spray their pollen. All creatures in a @Template[cone|distance:40] take @Damage[10d10[void]|options:area-damage] damage with a @Check[fortitude|dc:36|options:area-effect,damaging-effect,inflicts:drained] save. The blooming guardian then exits Full Bloom and can't enter it again for [[/gmr 1d4 #Recharge Full Bloom]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Creatures that are @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] lose that condition and increase the drained condition by the same value.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",

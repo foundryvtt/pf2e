@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { DatabaseUpdateOperation } from "@common/abstract/_module.d.mts";
 import type { ScenePF2e } from "@scene";
 
 export class MockToken {
@@ -10,7 +11,7 @@ export class MockToken {
         data: foundry.documents.TokenSource,
         context: { parent?: ScenePF2e | null; actor?: ActorPF2e | null } = {},
     ) {
-        this._source = fu.duplicate(data);
+        this._source = fu.deepClone(data);
         this.parent = context.parent ?? null;
         this.actor = context.actor ?? null;
     }

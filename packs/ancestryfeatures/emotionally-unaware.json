@@ -26,25 +26,26 @@
         },
         "rules": [
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "or": [
-                            {
-                                "nor": [
-                                    "check:statistic:perception",
-                                    "check:statistic:initiative"
-                                ]
-                            },
-                            "action:sense-motive"
-                        ]
-                    }
-                ],
                 "selector": [
                     "diplomacy",
-                    "performance",
+                    "performance"
+                ],
+                "slug": "emotionally-unaware-diplomacy-performance-penalty",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": [
                     "perception"
                 ],
+                "slug": "emotionally-unaware-sense-motive-penalty",
                 "type": "circumstance",
                 "value": -1
             }

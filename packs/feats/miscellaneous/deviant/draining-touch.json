@@ -1,0 +1,56 @@
+{
+    "_id": "fFVqsMseN4zA9R24",
+    "folder": "0xnakREinRcowzlH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Draining Touch",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You reach out your arm, grasping hungrily for a source of energy. Attempt a melee Strike. If you succeed, you deal 1d8 cold damage for every 2 levels you have to the target (@Damage[(floor(@actor.level/2))d8[cold]]), or double damage on a critical success.</p>\n<p><strong>Awakening</strong> You drain enough energy from a creature to leave it with lingering aftereffects. Your Draining Touch also leaves a creature @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} if your attack was a critical success.</p>\n<p><strong>Awakening</strong> You can pull away not just physical energy, but a creature's spirit as well. Your Draining Touch can deal your choice of cold, spirit, or void damage, changing the cold trait to spirit or void as appropriate.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Gatewalkers Player's Guide (Remastered)"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:leech-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Leech Deviant Classification"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "attack",
+                "cold",
+                "deviant",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

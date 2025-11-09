@@ -1,0 +1,68 @@
+{
+    "_id": "IIjE6NOYpOfRuCBR",
+    "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
+    "name": "Effect: Mirrored Wall",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Mirrored Wall]</p>\n<p>You take a circumstance penalty to your Fortitude save.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 15
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeOne",
+                        "value": -1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeTwo",
+                        "value": -2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeThree",
+                        "value": -3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeFour",
+                        "value": -4
+                    }
+                ],
+                "flag": "penalty",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Penalty"
+            },
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.penalty"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

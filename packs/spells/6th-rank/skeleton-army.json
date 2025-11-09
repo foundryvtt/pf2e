@@ -1,0 +1,115 @@
+{
+    "_id": "y1dcR5unn2UwlUR9",
+    "folder": "zDlxATrLAlbYA2Mv",
+    "img": "icons/magic/death/undead-skeleton-deformed-red.webp",
+    "name": "Skeleton Army",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {},
+        "defense": null,
+        "description": {
+            "value": "<p>With a fistful of compressed bones, you summon a legion of skeletal hulks to fight in your war, refusing to let them rest until they've given up their last inches of usefulness to your cause. The undead army occupies the space of a Huge creature and has a Speed of 40 feet.</p>\n<p><strong>Arrive</strong> <em>Bone March</em> The skeletal hulks rise from the dirt, slashing through your enemies and attacking with their dirt-encrusted, bony hands. Enemies within a 20-foot emanation take 4d8 slashing damage (basic Reflex save). On a critical failure, a creature also take @Damage[2d8[persistent,bleed]] damage.</p>\n<p><strong>Depart</strong> <em>Tossed Heads</em> Before crumpling into a pile of bones, the skeleton army removes their skulls and throws them at the enemy lines, chattering and howling, dealing 6d6 piercing damage to enemies in a 20-foot burst (basic Reflex save) within 30 feet. On a critical failure, a creature is also @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": "until the end of your next turn"
+        },
+        "level": {
+            "value": 6
+        },
+        "overlays": {
+            "eLg8mD8aWt68nT3q": {
+                "name": "Skeleton Army (Depart)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "area": {
+                        "type": "burst",
+                        "value": 20
+                    },
+                    "damage": {
+                        "ErVJnIAQz4hkag4m": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "6d6",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "piercing"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": true,
+                            "statistic": "reflex"
+                        }
+                    }
+                }
+            },
+            "hIFQ7lDb8B33PlrY": {
+                "name": "Skeleton Army (Arrive)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "area": {
+                        "type": "emanation",
+                        "value": 20
+                    },
+                    "damage": {
+                        "byg54NfQWfvEJGt7": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "4d8",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "slashing"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": true,
+                            "statistic": "reflex"
+                        }
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "range": {
+            "value": "100 feet"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": ""
+        },
+        "time": {
+            "value": "3"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "arcane",
+                "divine",
+                "occult"
+            ],
+            "value": [
+                "concentrate",
+                "incarnate",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "spell"
+}

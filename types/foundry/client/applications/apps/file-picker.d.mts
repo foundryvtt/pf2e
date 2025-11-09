@@ -2,6 +2,7 @@ import User from "@client/documents/user.mjs";
 import {
     ApplicationClosingOptions,
     ApplicationConfiguration,
+    ApplicationRenderContext,
     ApplicationTab,
     ApplicationTabsConfiguration,
     FormFooterButton,
@@ -66,7 +67,7 @@ interface FilePickerUploadResponse {
     error?: string;
 }
 
-interface FilePickerContext {
+interface FilePickerContext extends ApplicationRenderContext {
     rootId: string;
     bucket?: string | null;
     buckets: string[] | null;
@@ -94,7 +95,9 @@ interface FilePickerContext {
  * The FilePicker application renders contents of the server-side public directory.
  * This app allows for navigating and uploading files to the public path.
  */
-export default class FilePicker extends HandlebarsApplicationMixin(ApplicationV2<FilePickerConfiguration>) {
+export default class FilePicker extends HandlebarsApplicationMixin(
+    ApplicationV2<FilePickerConfiguration, HandlebarsRenderOptions, FilePickerContext>,
+) {
     static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration>;
 
     static override PARTS: Record<string, HandlebarsTemplatePart>;
@@ -128,7 +131,7 @@ export default class FilePicker extends HandlebarsApplicationMixin(ApplicationV2
     /**
      *  @param [options={}] Options that configure the behavior of the FilePicker
      */
-    constructor(options: ApplicationConfiguration & FilePickerConfiguration);
+    constructor(options: FilePickerConfiguration);
 
     /** The full requested path given by the user */
     request: string;

@@ -1,0 +1,158 @@
+{
+    "_id": "hhoqUJ45UaRyXps3",
+    "folder": "72YwVdCn52tsSyGQ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "QKvVOAG7be8PSzqV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Collapse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature inspects the wall at the top of the stairs or begins to descend the stairs after reaching the top</p><hr /><p><strong>Effect</strong> The floor at the bottom of the stairwell disappears, revealing a seemingly bottomless pit. Meanwhile, the stairwell begins to collapse, starting from the top and working its way down. Any PC standing on the lower few steps falls into the pit unless they Grab the Edge with a successful @Check[reflex|dc:40] save. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q7sjDIn99tw1hGN7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Leaden Limbs",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The trap drains vigor from creatures in the stairwell, making their limbs feel as heavy as lead. Each creature in the area must attempt a @Check[fortitude|dc:40] saving throw with the following results.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of their next turn.</p>\n<p><strong>Failure</strong> The creature's clumsy condition value increases by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4}. The creature is slowed 1 as long as they remain clumsy. The clumsy condition ends as soon as the creature exits the stairwell.</p>\n<p><strong>Critical Failure</strong> As failure, but the value increases by 2, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pJ7k0S3Rmqy7lkPo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Crumbling Stairs",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A stretch of stairs crumbles, dropping into the void at the bottom of the stairwell. The first time the trap takes this action, the upper third of the stairwell collapses. The second time, the middle third collapses. The third time, the entire stairwell collapses. A creature on a collapsing section of stairs can try to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] with a @Check[reflex|dc:40] save to avoid falling into the void. Flying creatures avoid the fall automatically but might tumble into the void anyway if their slowed condition prevents them from taking the Fly action on their turn.</p>\n<p>Though it appears to stretch forever, the void at the bottom of the stairwell functions as a portal to the Crypt of Sloth. Creatures who plummet into the void experience a fall that seems to take hours, but are eventually deposited in the middle of area <strong>B10</strong>, taking @Damage[80[bludgeoning]] damage from the fall.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Slothful Stairs",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 35
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A supernatural exhaustion fills creatures who climb the stairs.</p>",
+            "disable": "<p>@Check[athletics|dc:45] (legendary) to wedge crumbling stones into cracks to jam the collapsing stairs, @Check[thievery|dc:48] (master) to deface the hidden magical runes that power the trap; or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (9th rank, counteract DC 36) to counteract a rune; three total successes are required to disable the trap</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path #220: Crypt of Runes"
+            },
+            "reset": "<p>The trap continues taking Leaden Limbs actions (and the void at the bottom of the stairwell remains open) for as long as creatures remain in the area. Once no creatures remain, the stairwell rebuilds itself, the void closes, and the trap resets.</p>",
+            "routine": "<p>(2 actions) The haunt uses Leaden Limbs once, then Crumbling Stairs once.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

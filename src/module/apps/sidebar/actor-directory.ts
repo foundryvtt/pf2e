@@ -9,10 +9,11 @@ import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
 import { htmlClosest, htmlQueryAll } from "@util";
 import * as R from "remeda";
+import { TradeDialog, TradeRequestData } from "../trade-dialog/app.ts";
 
 /** Extend ActorDirectory to show more information */
 class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>> {
-    static override DEFAULT_OPTIONS: Partial<fa.sidebar.DocumentDirectoryConfiguration> = {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.sidebar.DocumentDirectoryConfiguration> = {
         actions: {
             togglePartyFolder: ActorDirectoryPF2e.#togglePartyFolder,
             openPartySheet: ActorDirectoryPF2e.#openPartySheet,
@@ -80,7 +81,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
     }
 
     protected override async _prepareFooterContext(
-        context: object & { buttons?: object[] },
+        context: fa.ApplicationRenderContext & { buttons?: object[] },
         options: HandlebarsRenderOptions,
     ): Promise<void> {
         await super._prepareFooterContext(context, options);
@@ -99,6 +100,16 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
         game.settings.set("pf2e", "activePartyFolderState", this.#extraFolders[game.actors.party?.id ?? ""] ?? true);
     }
 
+    override render(options: Partial<HandlebarsRenderOptions> = {}): Promise<this> {
+        // Ensure the entire directory gets re-rendered when the parties are
+        // This prevents drag/drop events from breaking on party only re-renders such as changing the active one
+        if (options.parts && options.parts.includes("parties") && !options.parts.includes("directory")) {
+            options.parts.push("directory");
+        }
+
+        return super.render(options);
+    }
+
     override async _onRender(context: object, options: HandlebarsRenderOptions): Promise<void> {
         // Move the party list into the directory part
         // This must occur before super._onRender() so that drag/drop is registered correctly
@@ -111,20 +122,22 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
         await super._onRender(context, options);
 
         // Inject any additional buttons for specific party implementations
-        for (const party of game.actors.filter((a) => a.isOfType("party"))) {
-            const sidebarButtons = party.campaign?.createSidebarButtons?.() ?? [];
-            if (sidebarButtons.length) {
-                this.element
-                    .querySelector(`li[data-party][data-entry-id="${party.id}"] header .folder-name`)
-                    ?.after(...sidebarButtons);
+        if (options.parts.includes("directory")) {
+            for (const party of game.actors.filter((a) => a.isOfType("party"))) {
+                const sidebarButtons = party.campaign?.createSidebarButtons?.() ?? [];
+                if (sidebarButtons.length) {
+                    this.element
+                        .querySelector(`li[data-party][data-entry-id="${party.id}"] header .folder-name`)
+                        ?.after(...sidebarButtons);
+                }
             }
-        }
 
-        // Strip actor level from actors we lack proper observer permission for
-        for (const element of htmlQueryAll(this.element, "li.directory-item.actor")) {
-            const actor = game.actors.get(element.dataset.entryId, { strict: true });
-            if (!actor.testUserPermission(game.user, "OBSERVER")) {
-                element.querySelector("span.actor-level")?.remove();
+            // Strip actor level from actors we lack proper observer permission for
+            for (const element of htmlQueryAll(this.element, "li.directory-item.actor")) {
+                const actor = game.actors.get(element.dataset.entryId, { strict: true });
+                if (!actor.testUserPermission(game.user, "OBSERVER")) {
+                    element.querySelector("span.actor-level")?.remove();
+                }
             }
         }
     }
@@ -199,26 +212,40 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
     }
 
     protected override async _handleDroppedEntry(target: HTMLElement, data: ActorSidebarDropData): Promise<void> {
-        await super._handleDroppedEntry(target, data);
+        if (!data.uuid) return super._handleDroppedEntry(target, data);
 
-        // Handle dragging members to and from parties (if relevant)
         const toPartyId = htmlClosest(target, "[data-party]")?.dataset.entryId;
+        const toParty = game.actors.get(toPartyId ?? "");
+        const droppedEntry = await this._getDroppedEntryFromData(data);
+
+        // If this is a entry we have to create in a party, then create it here without going upstream
+        if (
+            toParty?.isOfType("party") &&
+            !this._entryAlreadyExists(droppedEntry) &&
+            droppedEntry.isOfType("creature")
+        ) {
+            const entry = await ActorPF2e.create(droppedEntry.toObject(), { render: false });
+            await toParty.addMembers(entry as CreaturePF2e);
+            return;
+        }
+
+        // Handle dragging members from parties (if relevant)
         if (toPartyId !== data.fromParty && data.uuid) {
-            const toParty = game.actors.get(toPartyId ?? "");
             const fromParty = game.actors.get(data.fromParty ?? "");
-            const actor = fromUuidSync(data.uuid);
-            if (fromParty instanceof PartyPF2e) {
+            if (fromParty?.isOfType("party")) {
                 await fromParty.removeMembers(data.uuid as ActorUUID);
             }
-            if (toParty instanceof PartyPF2e && actor instanceof CreaturePF2e) {
-                await toParty.addMembers(actor);
+            if (toParty?.isOfType("party") && droppedEntry.isOfType("creature")) {
+                await toParty.addMembers(droppedEntry);
             }
         }
+
+        await super._handleDroppedEntry(target, data);
     }
 
     /** Overriden to not fire folder events on party actors */
     protected override _createContextMenus(): void {
-        this._createContextMenu(this._getFolderContextOptions, ".folder:not([data-party]) .folder-header", {
+        this._createContextMenu(this._getFolderContextOptions, ".folder:not([data-party]) > .folder-header", {
             fixed: true,
             hookName: "getFolderContextOptions",
             parentClassHooks: false,
@@ -232,20 +259,68 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
     protected override _getEntryContextOptions(): ContextMenuEntry[] {
         const entries = super._getEntryContextOptions();
-        entries.push({
-            name: "PF2E.Actor.Party.Sidebar.RemoveMember",
-            icon: fa.fields.createFontAwesomeIcon("bus").outerHTML,
-            condition: (li) => !!li.closest("[data-party]") && !li.closest(".folder-header"),
-            callback: (li) => {
-                const actorId = li.dataset.entryId;
-                const partyId = li.closest<HTMLElement>("[data-party]")?.dataset.entryId;
-                const actor = game.actors.get(actorId ?? "");
-                const party = game.actors.get(partyId ?? "");
-                if (actor && party instanceof PartyPF2e) {
-                    party.removeMembers(actor.uuid);
-                }
+        const createTradeArgs = (
+            traderActor: ActorPF2e,
+            selfActor: ActorPF2e | null = null,
+            checkReach = false,
+        ): TradeRequestData | null => {
+            const token = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
+            selfActor ??= token?.actor ?? game.user.character;
+            if (!selfActor) return null;
+            const owners = game.users
+                .filter((u) => u.active && !u.isSelf && traderActor.testUserPermission(u, "OWNER"))
+                .sort((a, b) => Number(a.isGM) - Number(b.isGM));
+            const assignee = owners.find((u) => u.character === traderActor);
+            const traderUser = assignee ?? owners[0];
+            if (!traderUser) return null;
+            const args = { self: { actor: selfActor }, trader: { user: traderUser, actor: traderActor } };
+            return TradeDialog.canTrade(args, { checkReach }) ? args : null;
+        };
+        entries.push(
+            {
+                name: TradeDialog.localize("Request.MenuLabel"),
+                icon: fa.fields.createFontAwesomeIcon("money-bill-transfer", { style: "regular" }).outerHTML,
+                condition: (li) => {
+                    if (foundry.applications.instances.has("trade-dialog")) return false;
+                    const actor = game.actors.get(li.dataset.entryId, { strict: true });
+                    if (canvas.tokens.controlled.some((t) => t.actor === actor)) return false;
+
+                    // For the purpose of showing the menu item, find any eligible actor
+                    const token = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
+                    const selfActor =
+                        token?.actor ??
+                        game.user.character ??
+                        game.actors.find((a) => a.isOwner && a.isOfType("character", "npc") && a.isAllyOf(actor));
+                    return !!createTradeArgs(actor, selfActor);
+                },
+                callback: (li) => {
+                    const token = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
+                    const selfActor = token?.actor ?? game.user.character;
+                    if (!selfActor?.isOfType("character", "npc")) {
+                        ui.notifications.warn(TradeDialog.localize("Error.SelectToken"));
+                        return;
+                    }
+                    const traderActor = game.actors.get(li.dataset.entryId, { strict: true });
+                    const checkReach = game.pf2e.settings.automation.reachEnforcement.has("merchants");
+                    const args = createTradeArgs(traderActor, selfActor, checkReach);
+                    if (args) TradeDialog.requestTrade(args);
+                },
             },
-        } satisfies ContextMenuEntry);
+            {
+                name: "PF2E.Actor.Party.Sidebar.RemoveMember",
+                icon: fa.fields.createFontAwesomeIcon("eject").outerHTML,
+                condition: (li) => game.user.isGM && !!li.closest("[data-party]") && !li.closest(".folder-header"),
+                callback: (li) => {
+                    const actorId = li.dataset.entryId;
+                    const partyId = li.closest<HTMLElement>("[data-party]")?.dataset.entryId;
+                    const actor = game.actors.get(actorId ?? "");
+                    const party = game.actors.get(partyId ?? "");
+                    if (actor && party instanceof PartyPF2e) {
+                        party.removeMembers(actor.uuid);
+                    }
+                },
+            },
+        );
         return entries;
     }
 

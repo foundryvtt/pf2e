@@ -1,0 +1,51 @@
+{
+    "_id": "BmptyIaMhq7siOqR",
+    "img": "icons/commodities/treasure/token-brass-round.webp",
+    "name": "Effect: Aura of Reflection",
+    "system": {
+        "description": {
+            "value": "<p>You are dazzled and take a –2 penalty to Will saves against the ninkonda's abilities.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:signature:{item|origin.signature}"
+                ],
+                "selector": "will",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

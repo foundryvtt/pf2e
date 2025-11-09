@@ -124,6 +124,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -153,7 +154,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Whenever the gang tough makes a successful melee Strike against a frightened creature, the Strike deals an extra weapon die of damage.</p>"
+                    "value": "<p>Whenever the gang tough makes a successful melee Strike against a @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creature, the Strike deals an extra weapon die of damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -165,23 +166,15 @@
                         "diceNumber": 1,
                         "key": "DamageDice",
                         "predicate": [
-                            {
-                                "or": [
-                                    "bullyrag-beatdown",
-                                    "target:condition:frightened"
-                                ]
-                            },
-                            {
-                                "not": "ranged"
-                            }
+                            "target:condition:frightened"
                         ],
-                        "selector": "strike-damage"
+                        "selector": "melee-strike-damage"
                     },
                     {
                         "key": "RollOption",
-                        "label": "Target is frightened",
-                        "option": "bullyrag-beatdown",
-                        "toggleable": true
+                        "label": "PF2E.SpecificRule.TOTMToggle.Frightened",
+                        "option": "target:condition:frightened",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": null,
@@ -219,9 +212,13 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
+                        "predicate": [
+                            "item:damage:type:bludgeoning"
+                        ],
                         "selector": "strike-damage",
-                        "text": "When the gang tough's Strike with a bludgeoning weapon is a critical hit and deals damage, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.",
-                        "title": "{item|name}"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,

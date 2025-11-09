@@ -30,6 +30,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -67,6 +68,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -106,6 +108,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -190,7 +193,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The frost roc spreads its wings and then flaps them furiously, unleashing a blast of ice-rimed feathers in a @Template[cone|distance:60]. All creatures in the area must attempt a @Check[reflex|dc:34|options:damaging-effect] save. The frost roc can't use Frozen Feathers again for [[/gmr 1d4 #Recharge Frozen Feathers]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[piercing]] damage and @Damage[5d6[cold]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[5d6[piercing]] damage and @Damage[10d6[cold]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[piercing]] damage, @Damage[15d6[cold]] damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>"
+                    "value": "<p>The frost roc spreads its wings and then flaps them furiously, unleashing a blast of ice-rimed feathers in a @Template[cone|distance:60]. All creatures in the area must attempt a @Check[reflex|dc:34|options:area-effect,damaging-effect] save. The frost roc can't use Frozen Feathers again for [[/gmr 1d4 #Recharge Frozen Feathers]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[piercing],5d6[cold]|options:area-damage]{3d6 piercing damage and 5d6 cold damage}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[5d6[piercing],10d6[cold]|options:area-damage]{5d6 piercing damage and 10d6 cold damage}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[piercing],15d6[cold]|options:area-damage]{8d6 piercing and 15d6 cold damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -222,7 +225,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A frost roc gains a +2 circumstance bonus to hit with its beak Strike if the target is grabbed or restrained in its talon.</p>"
+                    "value": "<p>A frost roc gains a +2 circumstance bonus to hit with its beak Strike if the target is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in its talon.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -231,15 +234,21 @@
                 },
                 "rules": [
                     {
+                        "domain": "attack-roll",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.Target.GrabbedByNPC",
-                        "option": "target:in-talon",
+                        "option": "snack",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "target:in-talon"
+                            "snack",
+                            {
+                                "or": [
+                                    "target:condition:grabbed",
+                                    "target:condition:restrained"
+                                ]
+                            }
                         ],
                         "selector": "beak-attack",
                         "type": "circumstance",

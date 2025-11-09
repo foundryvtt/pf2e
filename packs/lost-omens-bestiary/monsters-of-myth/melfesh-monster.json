@@ -33,6 +33,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -78,6 +79,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -122,14 +124,17 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "fire",
-                        "magical",
-                        "range-increment-30"
+                        "magical"
                     ]
                 },
                 "weaponType": {
@@ -292,7 +297,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The Melfesh Monster has created a spore cloud, and the cloud is within range of one of the Melfesh Monster's fire abilities</p>\n<hr />\n<p><strong>Effect</strong> The Melfesh Monster targets the cloud with one of its abilities with the fire trait. The spore cloud explodes, dealing @Damage[4d10[fire]] damage and @Damage[4[persistent,fire]] damage in a @Template[burst|distance:40] originating from a single square within the cloud (@Check[reflex|dc:24|basic] save).</p>"
+                    "value": "<p><strong>Requirements</strong> The Melfesh Monster has created a spore cloud, and the cloud is within range of one of the Melfesh Monster's fire abilities</p>\n<hr />\n<p><strong>Effect</strong> The Melfesh Monster targets the cloud with one of its abilities with the fire trait. The spore cloud explodes, dealing @Damage[4d10[fire],4[persistent,fire]|options:area-damage]{4d10 fire damage and 4 persistent fire damage} in a @Template[burst|distance:40] originating from a single square within the cloud (@Check[reflex|dc:24|basic|options:area-effect] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -324,7 +329,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The Melfesh Monster conjures a cloud of spores within 60 feet in a @Template[burst|distance:20]. The cloud lasts 1 minute. Creatures that enter or begin their turn within the cloud must succeed at a @Check[fortitude|dc:21] save or take @Damage[3d8[poison]] damage, be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, and inhale spores that remain in their bodies for 1 minute (on a critical failure, @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} and an additional @Damage[4[persistent,poison]] damage).</p>"
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The Melfesh Monster conjures a cloud of spores within 60 feet in a @Template[burst|distance:20]. The cloud lasts 1 minute. Creatures that enter or begin their turn within the cloud must succeed at a @Check[fortitude|dc:21|options:area-effect,damaging-effect,inflicts:sickened] save or take @Damage[3d8[poison]|options:area-damage] damage, be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, and inhale spores that remain in their bodies for 1 minute (on a critical failure, @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} and an additional @Damage[4[persistent,poison]] damage).</p>"
                 },
                 "frequency": {
                     "max": 1,

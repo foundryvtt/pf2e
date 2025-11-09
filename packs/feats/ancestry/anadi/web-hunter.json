@@ -25,7 +25,29 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens The Mwangi Expanse"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Anadi.WebHunter.ToggleLabel",
+                "option": "web-hunter-same-object",
+                "toggleable": true
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 15,
+                "selector": "tremorsense"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "web-hunter-same-object"
+                ],
+                "range": 60,
+                "selector": "tremorsense"
+            }
+        ],
         "subfeatures": {
             "senses": {
                 "tremorsense": {

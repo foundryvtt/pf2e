@@ -2,15 +2,14 @@
     <header class="card-header flexrow">
         <img src="{{item.img}}" alt="{{item.name}}" />
         <h3>{{item.name}}{{#if item.actionCost}} {{{actionGlyph item.actionCost}}}{{/if}}</h3>
+        <div class="tags paizo-style" data-tooltip-class="pf2e">
+            {{#each data.traits as |trait|}}
+                {{#unless trait.mystified}}
+                    <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
+                {{/unless}}
+            {{/each}}
+        </div>
     </header>
-
-    <div class="tags paizo-style" data-tooltip-class="pf2e">
-        {{#each data.traits as |trait|}}
-            {{#unless trait.mystified}}
-                <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
-            {{/unless}}
-        {{/each}}
-    </div>
 
     {{#if item.description}}
         <div class="card-content">

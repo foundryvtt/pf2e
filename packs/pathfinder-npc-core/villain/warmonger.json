@@ -98,6 +98,11 @@
             "name": "Composite Longbow",
             "sort": 200000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "composite-longbow",
                 "bonus": {
                     "value": 0
@@ -244,6 +249,56 @@
             "type": "armor"
         },
         {
+            "_id": "trEfKDJPN6Ti89PB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
+            "name": "Arrows",
+            "sort": 400000,
+            "system": {
+                "baseItem": "arrows",
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
+        },
+        {
             "_id": "JkXremjnxvTwRm2Y",
             "flags": {
                 "pf2e": {
@@ -252,7 +307,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Battle Axe",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -274,6 +329,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "battle-axe",
                 "traits": {
@@ -287,12 +343,9 @@
         },
         {
             "_id": "k4QgCzSabz0qcXWf",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -314,12 +367,12 @@
                     "remaster": true,
                     "title": "Pathfinder NPC Core"
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
                         "agile",
-                        "finesse",
                         "nonlethal",
                         "unarmed"
                     ]
@@ -336,7 +389,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -358,6 +411,10 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 100,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "composite-longbow",
                 "traits": {
@@ -365,7 +422,6 @@
                         "deadly-d10",
                         "magical",
                         "propulsive",
-                        "range-increment-100",
                         "reload-0",
                         "volley-30"
                     ]
@@ -375,9 +431,9 @@
         },
         {
             "_id": "EquchyQOSzMmr0YX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Warfare Lore",
-            "sort": 700000,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "War Ready",
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -404,9 +460,9 @@
         },
         {
             "_id": "k4XybdKxQyLja2A4",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pain Training",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -423,7 +479,25 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "penalty:slug:drained",
+                                    "penalty:slug:dying",
+                                    "penalty:slug:enfeebled",
+                                    "penalty:slug:sickened",
+                                    "penalty:slug:wounded"
+                                ]
+                            }
+                        ],
+                        "selector": "all",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -438,7 +512,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Strike",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -465,9 +539,9 @@
         },
         {
             "_id": "MeBdzrbLiBNsKGFP",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Patch and Set",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -501,9 +575,9 @@
         },
         {
             "_id": "IdqR8gAWKJ0Jevp4",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Power Through",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -530,9 +604,9 @@
         },
         {
             "_id": "KNrYEY4UP6EdYPBy",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Sight Prey",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -565,9 +639,9 @@
         },
         {
             "_id": "DczifYM6oEvgGgrD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "War Cry",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -578,6 +652,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> The warmonger critically hits or knocks out an enemy</p><hr /><p><strong>Effect</strong> The warmonger screams a battle cry. Each ally in a @Template[type:emanation|distance:30] that hears it deals an additional 1d6 damage with its Strikes for 1 round.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: War Cry]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
                 },
                 "publication": {
                     "license": "ORC",
@@ -600,7 +678,7 @@
             "_id": "FOyqjUHVdCgNNaYy",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""

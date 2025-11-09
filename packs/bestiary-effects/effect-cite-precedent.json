@@ -4,25 +4,29 @@
     "name": "Effect: Cite Precedent",
     "system": {
         "description": {
-            "value": "<p>The creature gains a -2 circumstance penalty on the next Diplomacy check in a legal argument.</p>"
+            "value": "<p>You gain a -2 circumstance penalty on your next Diplomacy check in a legal argument.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
         },
         "level": {
-            "value": -1
+            "value": 0
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Gamemastery Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
         },
         "rules": [
             {
                 "key": "FlatModifier",
+                "predicate": [
+                    "action:legal-argument"
+                ],
+                "removeAfterRoll": "if-enabled",
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": -2

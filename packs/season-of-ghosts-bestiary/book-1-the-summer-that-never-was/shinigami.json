@@ -777,6 +777,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -908,7 +909,7 @@
         },
         {
             "_id": "OP05loKNOdvZLWo1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pouch of Four Gems",
             "sort": 1600000,
             "system": {
@@ -937,7 +938,7 @@
         },
         {
             "_id": "3TDlbJcSIPf4aWf8",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Release Soul",
             "sort": 1700000,
             "system": {
@@ -949,14 +950,41 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> One of the gems in the shinigami's pouch contains a soul from bind soul</p>\n<hr />\n<p><strong>Effect</strong> The shinigami crushes the gem, sending the soul to the Boneyard while releasing a wave of necromantic energy. All creatures within a @Template[emanation|distance:30] take 18d6 damage (@Check[fortitude|dc:38|basic] save); the shinigami chooses whether this damage is @Damage[18d6[vitality]]{vitality} damage or @Damage[18d6[void]]{void} damage. A creature who takes damage from this effect and fails the saving throw is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
+                    "value": "<p><strong>Requirements</strong> One of the gems in the shinigami's pouch contains a soul from bind soul</p><hr /><p><strong>Effect</strong> The shinigami crushes the gem, sending the soul to the Boneyard while releasing a wave of necromantic energy. All creatures within a @Template[emanation|distance:30] take @Damage[18d6[untyped]|options:area-damage] damage (@Check[fortitude|dc:38|basic|options:area-effect,inflicts:drained,inflicts:sickened] save); the shinigami chooses whether this damage is vitality damage or void damage. A creature who takes damage from this effect and fails the saving throw is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "release-soul",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitVitality",
+                                "value": "vitality"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.releaseSoul}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -966,7 +994,7 @@
         },
         {
             "_id": "PSrn4FuENTmrcC6U",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spirit Touch",
             "sort": 1800000,
             "system": {

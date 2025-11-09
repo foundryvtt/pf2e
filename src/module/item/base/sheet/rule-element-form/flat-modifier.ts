@@ -1,5 +1,6 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { MODIFIER_TYPES, ModifierType } from "@actor/modifiers.ts";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { FlatModifierRuleElement, FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
 import type { DamageCategoryUnique } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
@@ -39,10 +40,9 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
 
             (t) => [t, game.i18n.localize(`PF2E.ModifierType.${t}`)],
         );
+        if (typeof data.rule.selector === "string") data.rule.selector = [data.rule.selector];
 
-        return {
-            ...data,
-            selectorIsArray: Array.isArray(this.rule.selector),
+        return Object.assign(data, {
             abilities: CONFIG.PF2E.abilities,
             types,
             damageCategories: R.pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
@@ -51,10 +51,12 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
                 { value: "false", label: "PF2E.RuleEditor.General.CriticalBehavior.false" },
                 { value: "true", label: "PF2E.RuleEditor.General.CriticalBehavior.true" },
             ],
-        };
+        });
     }
 
-    override updateObject(formData: Partial<FlatModifierSource> & Partial<Record<string, JSONValue>>): void {
+    override updateObject(
+        formData: { key: string } & Partial<FlatModifierSource> & Partial<Record<string, JSONValue>>,
+    ): void {
         // Flat Modifier types may have mutually exclusive properties
         delete formData[formData.type === "ability" ? "value" : "ability"];
 
@@ -73,7 +75,6 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
 }
 
 interface FlatModifierFormSheetData extends RuleElementFormSheetData<FlatModifierSource, FlatModifierRuleElement> {
-    selectorIsArray: boolean;
     abilities: typeof CONFIG.PF2E.abilities;
     types: Record<ModifierType, string>;
     damageCategories: Record<DamageCategoryUnique, string>;

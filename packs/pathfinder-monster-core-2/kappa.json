@@ -1,0 +1,246 @@
+{
+    "_id": "hoqQ2x6x1tffC6wX",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Xin5gLW8GjfYSI7T",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d10+3",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hNINRCjSznMQLm9Y",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Head Bowl",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The depression atop a kappa's head is filled with water. Spilling, evaporating, or otherwise removing all the water from the top of a kappa's head reduces all their Speeds to 5 feet until the basin is again filled with water. A kappa who becomes @UUID[Compendium.pf2e.conditionitems.Item.Prone] must succeed at a @Check[reflex|dc:15] save or spill their water, and a kappa who becomes @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] automatically spills their water.</p>\n<p>If a kappa is grappled, @UUID[Compendium.pf2e.conditionitems.Item.Restrained], or stunned, another creature can attempt to spill the water from their bowl by spending a single action, which has the attack and manipulate traits, to attempt an Athletics check against the kappa's Fortitude DC. On a success, the creature spills the kappa's water.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ihoEI2qxesvqV97C",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Pull Arm",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The kappa pulls one of their arms, gaining 10-foot reach with that arm. The opposing arm shrinks to little more than a hand extending from their shell. The kappa can still use their shortened hand to hold things, but they can't use that hand to wield a shield or weapon. By spending a single action to pull their opposing arm, the kappa can return their arms to their original length.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "pull-arm",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "pull-arm",
+                            "item:slug:claw"
+                        ],
+                        "property": "traits",
+                        "value": "reach-10"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Kappa",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 35,
+                "temp": 0,
+                "value": 35
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 40
+                    }
+                ],
+                "value": 15
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "thalassic"
+                ]
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Mischievous by nature, kappas delight in playing pranks on unsuspecting travelers. While usually not overtly malicious, they can be a significant nuisance, stealing clothes from unsuspecting bathers or snatching unattended food from campfires. Kappas also enjoy proving their worth in competitions of strength and, despite their propensity for trickery, are known to be honorable competitors who keep their word and remain polite in conversation.</p>\n<p>While kappas vary in physical attributes from region to region, they're all amphibious, turtle-like humanoids with beaked mouths, webbed hands and feet, and slimy scales that range in color from bluish green to pale yellow. They often have black hair, arranged in a ring to accommodate the central depression atop their head. Water from a kappa's home lake, stream, or river fills this depression, or head bowl, which is believed to be the source of their strength. Younger kappas are easily tricked into bowing and accidentally emptying the water from their own head bowls. Losing this water makes a kappa lethargic. The longer a kappa's head bowl remains empty, the weaker they grow. While this rarely poses a serious danger for a kappa living near their home body of water, it can prove fatal to a more adventurous kappa wandering afar.</p>\n<p>Kappas aren't inherently hostile and have been known to befriend lonely children and lend aid to stranded adventurers by providing directions or minor medical treatment. Still, many areas where kappas dwell feature posted signs warning of their presence that encourage travelers venturing near water to toss in a cucumber—kappas' favorite food—in exchange for safe passage. Kappas sometimes put up these signs themselves to increase the likelihood of receiving a tasty treat.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core 2"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 7
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8,
+                "special": []
+            },
+            "athletics": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "to Grapple"
+                    }
+                ]
+            },
+            "medicine": {
+                "base": 9,
+                "special": []
+            },
+            "survival": {
+                "base": 7,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "amphibious",
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

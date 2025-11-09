@@ -654,7 +654,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>An infusion of vitality energy grants a creature continuous healing. The target temporarily gains regeneration 15, which restores 15 Hit Points to it at the start of each of its turns. While it has regeneration, the target can't die from damage and its @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition can't increase to a value that would kill it (this stops most creatures from going beyond dying 3), though if its @UUID[Compendium.pf2e.conditionitems.Item.Wounded] value becomes 4 or higher, it stays @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] until its wounds are treated. If the target takes acid or fire damage, its regeneration deactivates until after the end of its next turn. Each time the creature regains Hit Points from regeneration, it also regrows one damaged or ruined organ (if any). During the spell's duration, the creature can also reattach severed body parts by spending an Interact action to hold the body part to the area it was severed from.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> The regeneration increases to 20.</p>"
+                    "value": "<p>An infusion of vital energy grants a creature continuous healing. The target temporarily gains regeneration 15, which restores 15 Hit Points to it at the start of each of its turns. While it has regeneration, the target can't die from taking Hit Point damage and its @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition can't increase to a value that would kill it (this stops most creatures' dying condition at dying 3), though if its @UUID[Compendium.pf2e.conditionitems.Item.Wounded] value becomes 4 or higher, it stays @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] until its wounds are treated. If the target takes acid or fire damage, its regeneration deactivates until after the end of its next turn.</p>\n<p>Each time the creature regains Hit Points from regeneration, it also regrows one damaged or ruined organ (if any). During the spell's duration, the creature can also reattach severed body parts by spending an Interact action to hold the body part to the area it was severed from.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Regenerate]</p>\n<hr />\n<p><strong>Heightened (9th)</strong> The regeneration increases to 20.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -667,9 +667,9 @@
                     "value": "Jkps95l9DKtpNrr8"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -2964,6 +2964,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -3136,7 +3137,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Daemonic Infector exhales a @Template[line|distance:30] of concentrated fumes.</p>\n<p>Each creature in the area takes @Damage[12d10[poison]|options:area-damage] damage (@Check[fortitude|dc:44|basic] save; on a critical failure the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}).</p>\n<p>The Infector can't Breathe Death again for [[/gmr 1d4 #Recharge Breathe Death]]{1d4 rounds}.</p>"
+                    "value": "<p>The Daemonic Infector exhales a @Template[line|distance:30] of concentrated fumes.</p>\n<p>Each creature in the area takes @Damage[12d10[poison]|options:area-damage] damage (@Check[fortitude|dc:44|basic|options:area-effect,inflicts:drained] save; on a critical failure the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}).</p>\n<p>The Infector can't Breathe Death again for [[/gmr 1d4 #Recharge Breathe Death]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

@@ -1,0 +1,349 @@
+{
+    "_id": "Ptnncwp118gIvmvG",
+    "img": "icons/creatures/magical/spirit-poison-smoke-green.webp",
+    "name": "Spell Effect: Demon Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Demon Form]</p>\n<p>You transform into a demon battle form. While in this form, you gain the demon and fiend traits. You have hands in this battle form and can use manipulate actions. You gain the following statistics and abilities regardless of the form that you choose:</p><ul><li>AC = 20 + your level. Ignore your armor check's penalty and Speed reduction.</li><li>30 temporary Hit Points, weakness 5 to cold iron, and weakness 5 to holy.</li><li>Darkvision.</li><li>One or more attacks specific to the battle form you use. You're trained with them. Your attack modifier is +22, and you use the listed damage. These attacks are Strength based (for the purpose of the enfeebled condition, for example). If your attack modifier is higher for the given unarmed attack or weapon, you can use it instead.</li><li>Athletics modifier of +23, unless your own modifier is higher.</li></ul><p>You also gain specific abilities based on the type of demon you choose:</p><ul><li><p><strong>Abrikandilu</strong> Speed 25 feet;</p><ul><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws (magical, unholy), <strong>Damage</strong> 2d6+12 piercing, and clumsy 1 for 1 minute on a critical hit;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> claw (agile, magic, unholy), <strong>Damage</strong> 2d6+12 slashing;</li><li><strong>Ranged</strong><span class=\"action-glyph\">1</span> hurled debris (range increment 20 feet, unholy), Damage 2d6+6 bludgeoning.</li></ul></li><li><p><strong>Brimorak</strong> Speed 30 feet;</p><ul><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> flaming sword (magical, unholy), <strong>Damage</strong> 2d8+10 slashing plus 1d6 fire;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> hoof (agile, unholy), <strong>Damage</strong> 2d4+10 bludgeoning plus 1d6 fire.</li></ul></li><li><p><strong>Kithangian</strong> Size Large, Speed 30 feet;</p><ul><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> pincer (magical, reach 10 feet, unholy), <strong>Damage</strong> 1d12+12 slashing, and you can spend an action after a hit to attempt to Grab the target</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> stinger (agile, magical, reach 10 feet, unholy), <strong>Damage</strong> 1d8+12 piercing; all melee Strikes deal 2d6 additional precision damage to animals.</li></ul></li><li><p><strong>Vloriak</strong> Speed 25 feet; resistance 10 to acid;</p><ul><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> claw (unholy), Damage 2d6+12 piercing plus 1d6 spirit;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> tongue (agile, reach 10 feet, unholy), Damage 1d6+12 acid plus 1d6 spirit.</li></ul></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.DemonForm.ChoiceSet.Abrikandilu",
+                        "value": "abrikandilu"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.DemonForm.ChoiceSet.Brimorak",
+                        "value": "brimorak"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.DemonForm.ChoiceSet.Kithangian",
+                        "value": "kithangian"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.DemonForm.ChoiceSet.Vloriak",
+                        "value": "vloriak"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.BattleForm.DemonForm.Prompt",
+                "rollOption": "demon-form"
+            },
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "20 + @actor.level"
+                    },
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "land": 25
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 12
+                            },
+                            "modifier": 22,
+                            "predicate": [
+                                {
+                                    "or": [
+                                        "demon-form:abrikandilu",
+                                        "demon-form:vloriak"
+                                    ]
+                                }
+                            ],
+                            "traits": [
+                                "unarmed",
+                                "agile",
+                                "magical",
+                                "unholy"
+                            ]
+                        },
+                        "hoof": {
+                            "ability": "str",
+                            "baseType": "hoof",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d4",
+                                "modifier": 10
+                            },
+                            "img": "icons/sundries/misc/horseshoe-iron.webp",
+                            "modifier": 22,
+                            "predicate": [
+                                "demon-form:brimorak"
+                            ],
+                            "traits": [
+                                "unarmed",
+                                "agile",
+                                "magical",
+                                "unholy"
+                            ]
+                        },
+                        "hurled debris": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 6
+                            },
+                            "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
+                            "modifier": 22,
+                            "predicate": [
+                                "demon-form:abrikandilu"
+                            ],
+                            "traits": [
+                                "unarmed",
+                                "reach-20",
+                                "unholy"
+                            ]
+                        },
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 12
+                            },
+                            "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                            "modifier": 22,
+                            "predicate": [
+                                "demon-form:abrikandilu"
+                            ],
+                            "traits": [
+                                "unarmed",
+                                "magical",
+                                "unholy"
+                            ]
+                        },
+                        "longsword": {
+                            "ability": "str",
+                            "baseType": "longsword",
+                            "category": "martial",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 10
+                            },
+                            "group": "sword",
+                            "img": "icons/magic/fire/dagger-rune-enchant-flame-red.webp",
+                            "label": "PF2E.BattleForm.Attack.FlamingSword",
+                            "modifier": 22,
+                            "predicate": [
+                                "demon-form:brimorak"
+                            ],
+                            "traits": [
+                                "magical",
+                                "unholy"
+                            ]
+                        },
+                        "pincer": {
+                            "ability": "str",
+                            "baseType": "pincer",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 1,
+                                "die": "d12",
+                                "modifier": 12
+                            },
+                            "modifier": 22,
+                            "predicate": [
+                                "demon-form:kithangian"
+                            ],
+                            "traits": [
+                                "unarmed",
+                                "magical",
+                                "reach-10",
+                                "unholy"
+                            ]
+                        },
+                        "stinger": {
+                            "ability": "str",
+                            "baseType": "stinger",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d8",
+                                "modifier": 12
+                            },
+                            "modifier": 22,
+                            "predicate": [
+                                "demon-form:kithangian"
+                            ],
+                            "traits": [
+                                "unarmed",
+                                "agile",
+                                "magical",
+                                "reach-10",
+                                "unholy"
+                            ]
+                        },
+                        "tongue": {
+                            "ability": "str",
+                            "baseType": "tongue",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "acid",
+                                "dice": 1,
+                                "die": "d6",
+                                "modifier": 12
+                            },
+                            "modifier": 22,
+                            "predicate": [
+                                "demon-form:vloriak"
+                            ],
+                            "traits": [
+                                "unarmed",
+                                "agile",
+                                "reach-10",
+                                "unholy"
+                            ]
+                        }
+                    },
+                    "tempHP": 30,
+                    "traits": [
+                        "demon",
+                        "fiend"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "cold-iron",
+                            "value": 5
+                        },
+                        {
+                            "type": "holy",
+                            "value": 5
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "demon-form:abrikandilu"
+                ],
+                "selector": "jaws-attack-roll",
+                "text": "PF2E.BattleForm.DemonForm.Note.AbrikandiluCritical",
+                "title": "{item|name}"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "demon-form:brimorak"
+                ],
+                "selector": [
+                    "hoof-damage",
+                    "longsword-damage"
+                ]
+            },
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "demon-form:kithangian",
+                    "target:trait:animal"
+                ],
+                "selector": "stinger-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "demon-form:kithangian"
+                ],
+                "selector": "pincer-attack",
+                "text": "PF2E.BattleForm.Note.Grab",
+                "title": "{item|name}"
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "demon-form:vloriak"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "demon-form:vloriak"
+                ],
+                "type": "acid",
+                "value": 10
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "demon-form:kithangian"
+                ],
+                "value": "large"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

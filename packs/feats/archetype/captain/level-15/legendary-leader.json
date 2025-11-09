@@ -1,0 +1,67 @@
+{
+    "_id": "TBg1eRh0lLUV4ewp",
+    "folder": "creh8ZITzeTLZWI6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Legendary Leader",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Your fame has spread throughout the lands. When you first attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] or @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on an intelligent creature, the GM rolls a secret @Check[flat|dc:11|traits:secret] to see if they have heard of you. On a success, you gain a +2 circumstance modifier to the skill check for that action. The GM can adjust this flat check as appropriate for circumstances in which you may be more or less known.</p>\n<p>You can also leverage your notoriety and your network of assistants and admirers to earn money. You can @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income] using the skill you used to meet the prerequisites of this feat. When you do, you gain a +2 circumstance bonus to the check; this bonus increases to a +3 if you have the Cadre feat, as your retainers praise your deeds and find those who might pay to meet you.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Captain Dedication"
+                },
+                {
+                    "value": "legendary in Diplomacy or Intimidation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:earn-income",
+                            "action:make-an-impression"
+                        ]
+                    },
+                    "legendary-leader"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

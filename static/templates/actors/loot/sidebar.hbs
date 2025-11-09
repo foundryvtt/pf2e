@@ -1,12 +1,13 @@
 <section class="sheet-sidebar sidebar sidebar-loot">
     <div class="image-container">
         <img class="actor-image" src="{{actor.img}}" alt="{{actor.name}}"{{#if editable}} data-edit="img"{{/if}} />
-        <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
+        <a class="hover-icon icon fa-solid fa-image" role="button" data-action="show-image"
+           data-tooltip aria-label="{{localize "SIDEBAR.CharArt"}}"></a>
     </div>
 
     {{#if (and user.isGM isLoot)}}
         <div class="gm-settings">
-            <div class="loot-distribution" data-sidebar-buttons="">
+            <div class="loot-distribution" data-sidebar-buttons>
                 <button type="button" data-action="split-coins"><i class="fa-solid fa-coins"></i> {{localize "PF2E.loot.SplitCoinsLabel"}}</button>
                 <button type="button" data-action="loot-npcs"><i class="fa-solid fa-box-open"></i> {{localize "PF2E.loot.LootNPCsLabel"}}</button>
                 <button type="button" data-action="send-to-party-stash" {{disabled (not hasActiveParty)}}><i class="fa-solid fa-users-viewfinder"></i> {{localize "PF2E.loot.SendToPartyStash"}}</button>
@@ -14,16 +15,16 @@
             <div class="form-group">
                 <label for="{{document.uuid}}-hidden-when-empty">
                     <span>{{localize "PF2E.loot.HiddenWhenEmpty.Label"}}</span>
-                    <i class="fa-solid fa-circle-info" data-tooltip="PF2E.loot.HiddenWhenEmpty.Hint"></i>
+                    <i class="fa-solid fa-circle-info" inert
+                       data-tooltip aria-label="{{localize "PF2E.loot.HiddenWhenEmpty.Hint"}}"></i>
                 </label>
                 <input type="checkbox" id="{{document.uuid}}-hidden-when-empty" name="system.hiddenWhenEmpty" {{checked data.hiddenWhenEmpty}} />
             </div>
         </div>
     {{/if}}
 
-    {{#if owner}}
-        {{editor enrichedContent.description target="system.details.description" button=true user=user editable=editable}}
-    {{else}}
-        <div class="description">{{{enrichedContent.description}}}</div>
-    {{/if}}
+    <div class="description flexrow">
+        {{formInput systemFields.details.fields.description value=data.details.description
+                    enriched=enrichedContent.description toggled=true compact=true}}
+    </div>
 </section>

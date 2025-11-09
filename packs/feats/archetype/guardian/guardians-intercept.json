@@ -1,0 +1,69 @@
+{
+    "_id": "vC4hrYAynasBDz16",
+    "folder": "JnEMJDh1jH8xZjO1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Guardian's Intercept",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can use the @UUID[Compendium.pf2e.actionspf2e.Item.Intercept Attack] reaction once per 10 minutes.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Guardian Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.guardianDedicationCount",
+                "value": 1
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "frequency-max",
+                        "value": 1
+                    },
+                    {
+                        "mode": "override",
+                        "property": "frequency-per",
+                        "value": "PT10M"
+                    }
+                ],
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Intercept Attack"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

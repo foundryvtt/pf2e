@@ -1,0 +1,323 @@
+{
+    "_id": "z2qSD3VrlRsXGHT5",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "AlDSrVGyweTmAY0N",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hoof",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tC5SlnihlaxwiNPE",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Horn",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "0eEbWDjEXskh1gvK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cold Adaptation",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The bison reduces the effects it suffers from cold environments by one step.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zDFtneAmSUjx6qnK",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Pointed Charge",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bison surges forward at its foe, horns lowered. It Strides twice. If the bison ends its movement within melee range of an enemy, it makes a horn Strike against that enemy. This Strike gains the fatal d12 trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "pointed-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:slug:horn"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "pointed-charge"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "deadly-d12"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LaB8UoWpNQqZKM30",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Rolling Thunder",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bison kicks up dust and shakes the ground as it charges.</p>\n<p>The stampeding bison Strides up to twice its Speed in a straight line, dealing @Damage[(4d6+6)[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:21|basic|options:area-effect] save) to any Medium or smaller creature in its path.</p>\n<p>Multiple bison can participate in Rolling Thunder by spending this ability's actions and waiting to charge until the herd is ready. Before the beginning of their next turn, they can then charge as a reaction triggered by an adjacent bison beginning its Rolling Thunder charge. All bison in the combined charge must charge in parallel lines, so the areas can't overlap. The combined charge deals an additional @Damage[3d6[bludgeoning]] damage to creatures in the area, and a creature that fails the Reflex saving throw is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "z8BBIDN9nKLoG4FV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Bison",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 20
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Bison are large bovines with short faces and two horns; they weigh an upwards1 of 2,000 pounds and stand up to 6 feet at the withers. Bison herds thunder across the grassy plains of Golarion, shaking the earth. They're a common sight along the Whistling Plains east of Taldor and the wide grasslands of the nation of Karazh in Casmaron; they also frequently appear in the cooler northeastern reaches of Avistan, the River Kingdoms through Numeria, and the Realm of the Mammoth Lords and western Sarkoris.</p>\n<p>Communal by nature, bison gather in large numbers for the summer mating season before the bulls split off to wander the prairie grasses. Bison have adapted well to harsh prairie winters, as their shaggy fur, which grows thicker in winter, insulates them; in the face of blizzards, they survive by facing steadfastly into the howling winds and hunkering down to reduce their exposure.</p>\n<p>The way that bison wallow in dirt or rub against large stones might make it easy to mistake their docile nature for passivity. However, this presumption has been the ruin of many hunting parties. Their plentiful meat and thick furs make bison an appealing bounty, but with the ground thundering beneath them, bison can quickly overpower inexperienced hunters unprepared for a stampeding herd. These hunting parties sometimes hire particularly daring adventures, who can add their spells, steel, and expertise to ensure a successful hunt.</p>\n<p>While the bison of the plains are the best known and most numerous, they have cousins both in thick boreal forests and along wide, open steppes. These bison variants stand taller but can't match the speed and aggression of their smaller plains relatives.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core 2"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 8,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 14
+            },
+            "survival": {
+                "base": 10
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -144,7 +144,10 @@ export interface ApplicationWindowRenderOptions {
     controls: boolean;
 }
 
-type ApplicationRenderContext = object;
+interface ApplicationRenderContext {
+    /** Tab data prepared from an entry in {@link foundry.applications.api.ApplicationV2.TABS} */
+    tabs?: Record<string, ApplicationTab>;
+}
 
 export interface ApplicationClosingOptions {
     /** Whether to animate the close, or perform it instantaneously */
@@ -169,7 +172,7 @@ export type ApplicationClickAction = ApplicationClickHandler | { handler: Applic
  * @param formData Processed data for the submitted form
  */
 export type ApplicationFormSubmission = (
-    event: SubmitEvent | Event,
+    event: Event,
     form: HTMLFormElement,
     formData: FormDataExtended,
 ) => Promise<void>;

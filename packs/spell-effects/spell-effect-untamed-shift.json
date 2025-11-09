@@ -379,70 +379,24 @@
             },
             {
                 "damageType": "bleed",
+                "diceNumber": "match(when(lte(@item.level, 5), 0), when(btwn(@item.level, 6, 9), 2), when(gte(@item.level, 10), 4))",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
                     "item:id:{item|_id}"
                 ],
-                "selector": "claw-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": {
-                                "diceNumber": 0
-                            }
-                        },
-                        {
-                            "end": 9,
-                            "start": 6,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 10,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "selector": "claw-damage"
             },
             {
                 "category": "persistent",
                 "damageType": "poison",
+                "diceNumber": "match(when(lte(@item.level, 5), 0), when(btwn(@item.level, 6, 9), 2), when(gte(@item.level, 10), 4))",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
                     "item:id:{item|_id}"
                 ],
-                "selector": "jaws-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": {
-                                "diceNumber": 0
-                            }
-                        },
-                        {
-                            "end": 9,
-                            "start": 6,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 10,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "selector": "jaws-damage"
             }
         ],
         "start": {

@@ -12,6 +12,11 @@
             "name": "Dwarven Scattergun",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "rounds-dwarven-scattergun",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "dwarven-scattergun",
                 "bonus": {
                     "value": 0
@@ -307,80 +312,13 @@
             "type": "equipment"
         },
         {
-            "_id": "LnIhfL58EXF76QqH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.HUgVrYvdy9SkqRZ9"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/ammunition/rounds-large.webp",
-            "name": "Rounds (Dwarven Scattergun)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 5,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 5,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-dwarven-scattergun",
-                "stackGroup": "rounds5",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "rulzIJtH4wzjhysd",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UMAXLDpI6YLSfYX1"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/drugs/alcohol.webp",
             "name": "Flask of Whiskey",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -444,6 +382,57 @@
             "type": "consumable"
         },
         {
+            "_id": "LnIhfL58EXF76QqH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.HUgVrYvdy9SkqRZ9"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/ammunition/rounds-large.webp",
+            "name": "Rounds (Dwarven Scattergun)",
+            "sort": 600000,
+            "system": {
+                "baseItem": "rounds-dwarven-scattergun",
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "price": {
+                    "per": 5,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-dwarven-scattergun",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
+        },
+        {
             "_id": "4w2LTZI9OzE7borg",
             "flags": {
                 "pf2e": {
@@ -477,6 +466,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -521,6 +511,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -566,6 +557,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -614,6 +606,10 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 50,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -621,7 +617,6 @@
                     "value": [
                         "concussive",
                         "kickback",
-                        "range-increment-50",
                         "reload-1",
                         "scatter-10"
                     ]
@@ -646,7 +641,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The barkeep has been in enough bar fights to know how to throw a few punches. When fighting in their bar and making a nonlethal attack, the barkeep gains a +1 circumstance bonus to attack rolls and deals an additional [[/r {1d4}]]{1d4 damage}.</p>"
+                    "value": "<p>The barkeep has been in enough bar fights to know how to throw a few punches. When fighting in their bar and making a nonlethal attack, the barkeep gains a +1 circumstance bonus to attack rolls and deals an additional 1d4 damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -656,14 +651,14 @@
                 "rules": [
                     {
                         "key": "RollOption",
-                        "label": "Fighting in their own bar",
                         "option": "bar-brawler",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "bar-brawler"
+                            "bar-brawler",
+                            "item:trait:nonlethal"
                         ],
                         "selector": "attack",
                         "type": "circumstance",
@@ -674,7 +669,8 @@
                         "dieSize": "d4",
                         "key": "DamageDice",
                         "predicate": [
-                            "bar-brawler"
+                            "bar-brawler",
+                            "item:trait:nonlethal"
                         ],
                         "selector": "strike-damage"
                     }

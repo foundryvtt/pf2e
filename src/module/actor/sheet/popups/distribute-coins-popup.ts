@@ -1,5 +1,5 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Coins } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import appv1 = foundry.appv1;
 
@@ -65,7 +65,7 @@ export class DistributeCoinsPopup extends appv1.api.FormApplication<ActorPF2e, D
             return;
         }
 
-        const coinShare = new CoinsPF2e();
+        const coinShare = new Coins();
         if (formData.breakCoins) {
             const thisActorCopperValue = thisActor.inventory.coins.copperValue;
             const copperToDistribute = Math.trunc(thisActorCopperValue / playerCount);

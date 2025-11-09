@@ -17,7 +17,7 @@ export class ProseMirrorDropDown {
     constructor(
         title: string,
         items: ProseMirrorMenuItem[],
-        options?: { cssClass?: string; icon: string; onAction?: (event: MouseEvent) => void },
+        options?: { cssClass?: string; icon: string; onAction?: (event: PointerEvent) => void },
     );
 
     /** Attach event listeners. */

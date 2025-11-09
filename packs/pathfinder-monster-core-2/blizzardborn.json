@@ -1,0 +1,285 @@
+{
+    "_id": "USDlLyXSuwUwGIoo",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Dl3UGQoscCRmkBr4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ice Claw",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+8",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "versatile-b"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kGtoT27Bnsx2GlhF",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Snow Vision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The blizzardborn ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from falling snow.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "x422oM3jxbzTKS15",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shattering Ice",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy hits the blizzardborn with an attack that deals physical damage</p><hr /><p><strong>Effect</strong> A portion of the blizzardborn's body shatters into an explosion of razor-sharp ice crystals and blinding snow that deals @Damage[2d6[piercing]|options:area-damage] damage to opponents in a @Template[type:emanation|distance:5] (@Check[reflex|dc:24|basic|options:area-effect,inflicts:blinded] save). Anyone who fails is also @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round (3 rounds on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KjLNlMhj1B1UhTtm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ice Burrow",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The blizzardborn can @UUID[Compendium.pf2e.actionspf2e.Item.Burrow] through ice or snow with a Speed of 20 feet. It moves at its full burrow Speed, leaving no tunnels or signs of its passing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Blizzardborn",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 105,
+                "temp": 0,
+                "value": 105
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "cold"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                }
+            ],
+            "speed": {
+                "details": "ice burrow only",
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 20
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "thalassic"
+                ]
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Freezing and thawing in a near-constant loop, blizzardborn resemble humanoid forms composed of a mixture of partially melted snow and sleet. These elementals move with crunching strides, their bodies constantly sloshing and sloughing off shards of ice. Because of their ability to refreeze, blizzardborn can travel into warmer environments safely, though they tend to look more like slush in these areas.</p><hr /><p>Water elementals that become infused with cold or mist have increased mobility in regions outside of bodies of water.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core 2"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "snow vision",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 15,
+                "special": []
+            },
+            "stealth": {
+                "base": 14,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "in ice or snow"
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "cold",
+                "elemental",
+                "water"
+            ]
+        }
+    },
+    "type": "npc"
+}

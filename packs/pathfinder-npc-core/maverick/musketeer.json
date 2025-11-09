@@ -12,6 +12,11 @@
             "name": "Flintlock Musket",
             "sort": 100000,
             "system": {
+                "ammo": {
+                    "baseType": "rounds-flintlock-musket",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "flintlock-musket",
                 "bonus": {
                     "value": 0
@@ -253,30 +258,17 @@
             "name": "Rounds (Flintlock Musket)",
             "sort": 400000,
             "system": {
-                "baseItem": null,
+                "baseItem": "rounds-flintlock-musket",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -293,15 +285,12 @@
                 "rules": [],
                 "size": "med",
                 "slug": "rounds-flintlock-musket",
-                "stackGroup": "rounds10",
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "alchemical"
+                        "alchemical",
+                        "consumable"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -309,7 +298,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "gN3M7AQN6HYbbIDU",
@@ -342,6 +331,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "rapier",
                 "traits": {
@@ -383,6 +373,7 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -427,13 +418,16 @@
                     "remaster": true,
                     "title": ""
                 },
+                "range": {
+                    "increment": 70,
+                    "max": null
+                },
                 "rules": [],
                 "slug": "flintlock-musket",
                 "traits": {
                     "value": [
                         "concussive",
                         "fatal-d10",
-                        "range-increment-70",
                         "reload-1"
                     ]
                 }

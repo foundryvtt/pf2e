@@ -1,12 +1,14 @@
 <div class="inventory-details">
     <div class="form-group">
-        <label>{{localize "PF2E.PriceLabel"}}</label>
-        <input type="text" name="system.price.value" value="{{priceString}}" />
+        <label for="{{item.uuid}}-system.price.value">{{localize "PF2E.PriceLabel"}}</label>
+        <div class="form-fields">
+            <input type="text" id="{{item.uuid}}-system.price.value" name="system.price.value" value="{{priceString}}" />
+        </div>
     </div>
 </div>
 
 <div class="form-group stacked kit-list">
-    <label for="system.traits">{{localize "PF2E.KitItems"}}</label>
+    <span class="label">{{localize "PF2E.KitItems"}}</span>
     {{#> kitItems @root}}system.{{/kitItems}}
 </div>
 

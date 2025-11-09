@@ -36,6 +36,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -80,6 +81,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": "tail",
                 "traits": {
@@ -214,7 +216,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The desert drake spits a ball of electrically charged sand to a range of 60 feet that explodes into a cloud with a @Template[burst|distance:15]. Creatures in the area take @Damage[9d6[electricity]] damage (@Check[reflex|dc:28|basic] save). The cloud remains for [[/gmr 1d4 #Cloud Duration]]{1d4 rounds}, granting @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} to everything within. The desert drake can't use Sandstorm Breath again for [[/gmr 1d6 #Recharge Sandstorm Breath]]{1d6 rounds}.</p>"
+                    "value": "<p>The desert drake spits a ball of electrically charged sand to a range of 60 feet that explodes into a cloud with a @Template[burst|distance:15]. Creatures in the area take @Damage[9d6[electricity]|options:area-damage] damage (@Check[reflex|dc:28|basic|options:area-effect] save). The cloud remains for [[/gmr 1d4 #Cloud Duration]]{1d4 rounds}, granting @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} to everything within. The desert drake can't use Sandstorm Breath again for [[/gmr 1d6 #Recharge Sandstorm Breath]]{1d6 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -248,6 +250,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p>The desert drake moves up to twice its Speed. It can do this three times per day.</p>"
+                },
+                "frequency": {
+                    "max": 3,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "OGL",

@@ -1,0 +1,55 @@
+{
+    "_id": "nBlTMBTX6owUiyCF",
+    "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+    "name": "Effect: Vainglorious Whispers",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 status bonus to saving throws against fear effects and a –2 penalty to attack rolls and skill checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "skill-check"
+                ],
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -15,7 +15,7 @@ export default class CombatantConfig extends HandlebarsApplicationMixin(Document
 
     static override PARTS: Record<string, HandlebarsTemplatePart>;
 
-    override readonly title: string;
+    override get title(): string;
 
     protected override _prepareContext(options: HandlebarsRenderOptions): Promise<DocumentSheetRenderContext>;
 }

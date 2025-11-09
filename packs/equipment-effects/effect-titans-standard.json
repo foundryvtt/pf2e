@@ -1,0 +1,91 @@
+{
+    "_id": "9VD3ngP8HzbEqm20",
+    "img": "icons/sundries/flags/banner-blue.webp",
+    "name": "Effect: Titan's Standard",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Titan's Standard]</p>\n<p>You become Large and your equipment grows with you. While Large, you are clumsy 1, and your reach increases by 5 feet (or by 10 feet if you started out Tiny).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 18
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeTiny",
+                        "predicate": [
+                            "self:size:tiny"
+                        ],
+                        "value": "tiny"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "self:size:medium",
+                                    "self:size:small"
+                                ]
+                            }
+                        ],
+                        "value": "medium-or-small"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "titans-standard-initial-size"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "titans-standard-initial-size:tiny"
+                ],
+                "reach": {
+                    "add": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "titans-standard-initial-size:medium-or-small"
+                ],
+                "reach": {
+                    "add": 5
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -35,7 +35,6 @@ class IdentifyMagicAction extends SingleCheckAction {
                 { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
                 { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
             ],
-            rollOptions: ["action:identify-magic"],
             section: "skill",
             slug: "identify-magic",
             statistic: ["arcana", "nature", "occultism", "religion"],

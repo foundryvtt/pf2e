@@ -6,7 +6,7 @@ import type {
     DatabaseUpdateCallbackOptions,
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
-import { DocumentFlags } from "@common/data/_module.mjs";
+import type { DocumentFlags } from "@common/data/_module.d.mts";
 import type { CombatantSource } from "@common/documents/combatant.d.mts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
@@ -16,15 +16,15 @@ class CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
     TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends Combatant<TParent, TTokenDocument> {
-    static override async createDocuments<TDocument extends Document>(
+    static override createDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
+        data?: (TDocument | DeepPartial<TDocument["_source"]>)[],
         operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static override async createDocuments(
-        data: (CombatantPF2e | PreCreate<CombatantSource>)[] = [],
+        data: (CombatantPF2e | DeepPartial<CombatantSource>)[] = [],
         operation: Partial<DatabaseCreateOperation<EncounterPF2e | null>> = {},
-    ): Promise<Combatant[]> {
+    ): Promise<Document[]> {
         this.#swapPartyForMembers(data, operation);
         return super.createDocuments(data, operation);
     }
@@ -173,7 +173,7 @@ class CombatantPF2e<
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.flags.pf2e = Object.assign(this.flags.pf2e ?? {}, { overridePriority: {} });
+        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { overridePriority: {} });
         this.flags.pf2e.roundOfLastTurn ??= null;
         this.flags.pf2e.initiativeStatistic ??= null;
     }

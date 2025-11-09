@@ -111,7 +111,7 @@
         },
         {
             "_id": "ehoIrrcpMgO4wHXS",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
             "name": "Knives Drawn",
             "sort": 400000,
             "system": {
@@ -123,7 +123,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The mob descends on its opponents with knives, dealing damage to each enemy in its space and in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:18|basic] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[2d4[piercing]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d4+5)[piercing]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(2d4+7)[piercing]] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The mob descends on its opponents with knives, dealing damage to each enemy in its space and in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:18|basic|options:area-effect] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[2d4[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d4+5)[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(2d4+7)[piercing]|options:area-damage] damage</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "OGL",

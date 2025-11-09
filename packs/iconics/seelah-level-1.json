@@ -889,6 +889,11 @@
             "name": "Shortbow",
             "sort": 3400000,
             "system": {
+                "ammo": {
+                    "baseType": "arrows",
+                    "builtIn": false,
+                    "capacity": null
+                },
                 "baseItem": "shortbow",
                 "bonus": {
                     "value": 0
@@ -975,31 +980,17 @@
             "name": "Arrows",
             "sort": 3500000,
             "system": {
-                "baseItem": null,
+                "baseItem": "arrows",
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
                 "containerId": null,
-                "damage": null,
+                "craftableAs": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
                 "level": {
                     "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -1016,13 +1007,11 @@
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
-                "stackGroup": "arrows",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": [
+                        "consumable"
+                    ]
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -1030,7 +1019,7 @@
                     "value": 1
                 }
             },
-            "type": "consumable"
+            "type": "ammo"
         },
         {
             "_id": "HqvlB0UWhWNdGQjt",
@@ -1045,6 +1034,7 @@
                 "bulk": {
                     "value": 1
                 },
+                "category": "coin",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -1071,15 +1061,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
-                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -1100,6 +1089,7 @@
                 "bulk": {
                     "value": 1
                 },
+                "category": "coin",
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -1126,15 +1116,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 3,
                 "rules": [],
                 "size": "med",
                 "slug": "silver-pieces",
-                "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -1787,758 +1776,6 @@
             "type": "class"
         },
         {
-            "_id": "8rQRXN9H72mlQcmA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.ehL7mnkqxN5wIkgu"
-            },
-            "flags": {
-                "pf2e": {
-                    "itemGrants": {
-                        "iomedae": {
-                            "id": "LT2z1wMBjhIZaoZf",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/deity.webp",
-            "name": "Deity (Champion)",
-            "sort": 200,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>As a champion, you are a warrior in the name of a deity you revere above all others. The most common deities in Pathfinder appear on pages 35–39 of Player Core, along with their edicts, areas of concern, and the benefits you get for being a devotee of that deity. Choose one deity.</p><h2>Skill</h2><p>You become trained in the divine skill listed for your deity. As normal, if you're already trained in that skill, you become trained in a different skill of your choice.</p><h2>Anathema</h2><p>Champions care deeply about the edicts and anathema they take from their deity, sanctification, and cause. As with any implementation of edicts and anathema in the rules, these are a tool for roleplaying between you, the GM, and the other players at the table—you're still playing a nuanced character, not strictly following a script.</p>\n<p>Acts fundamentally opposed to your deity's ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Similarly, using items, spells, or actions that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, assisting with a ritual that raises undead would be anathema to Pharasma, the goddess of death. Many actions that are anathema don't appear in any deity's formal list. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your holy or unholy trait, your focus pool, and your blessing of the devoted. These abilities can be regained only if you repent by conducting an atone ritual. If your deity doesn't require the specific sanctification you had, your GM might let you retrain your sanctification and cause while still following the same deity.</p><h2>Sanctification</h2><p>Depending on your deity, their sanctification can make you holy or unholy. This commits you to one side of a struggle over souls. Whether you become holy, unholy, or neither will limit your choice of causes, devotion spells, and feats.</p>\n<p>If you \"can be\" holy or unholy according to your deity's sanctification entry, you make that choice, and if you \"must be\" holy or unholy, you gain the trait automatically. If the deity lists \"none,\" you can choose only options that don't require the holy or unholy trait. If you are holy or unholy and gain the opposing trait in some way, you lose the previous trait until you atone.</p>\n<p>Unholy sanctification for a champion can be extremely disruptive to a typical game and should be a player character option only in appropriate adventures or campaigns where the group collectively decides to embrace them. Unholy sanctification and causes are uncommon options.</p>\n<p><strong>Holy:</strong> You gain the holy trait and add that trait to any Strikes you make. You gain the edict, \"Do not knowingly harm innocents or fail to prevent harm to an innocent if your direct intervention could save them\" and the anathema \"Commit murder.\" Even if your game includes behavior outside the Pathfinder baseline, the acts listed there are anathema to you.</p>\n<p><strong>Unholy:</strong> You gain the unholy trait and add that trait to any Strikes you make. You gain the edict, \"Do not put another's needs before your own or those of your deity\" and the anathema \"Commit an entirely altruistic act, such as giving something away in charity\" and \"Put anyone's needs before those of your deity.\" None of these prevents you from performing acts others might consider helpful, but these acts must be done with the expectation that they ultimately further your own goals or those of your deity</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "8Vma71iA20fzdi3s",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                {
-                                    "or": [
-                                        "item:category:deity",
-                                        "item:category:pantheon"
-                                    ]
-                                }
-                            ],
-                            "itemType": "deity"
-                        },
-                        "flag": "deity",
-                        "key": "ChoiceSet",
-                        "predicate": [
-                            {
-                                "not": "deity"
-                            }
-                        ],
-                        "prompt": "PF2E.SpecificRule.Prompt.Deity",
-                        "selection": "Compendium.pf2e.deities.Item.Iomedae"
-                    },
-                    {
-                        "allowDuplicate": false,
-                        "flag": "iomedae",
-                        "key": "GrantItem",
-                        "predicate": [
-                            {
-                                "not": "deity"
-                            }
-                        ],
-                        "uuid": "{item|flags.pf2e.rulesSelections.deity}"
-                    },
-                    {
-                        "adjustName": false,
-                        "choices": [
-                            {
-                                "label": "PF2E.TraitHoly",
-                                "predicate": [
-                                    {
-                                        "or": [
-                                            "deity:primary:sanctification:can:holy",
-                                            "deity:primary:sanctification:must:holy"
-                                        ]
-                                    }
-                                ],
-                                "value": "holy"
-                            },
-                            {
-                                "label": "PF2E.TraitUnholy",
-                                "predicate": [
-                                    {
-                                        "or": [
-                                            "deity:primary:sanctification:can:unholy",
-                                            "deity:primary:sanctification:must:unholy"
-                                        ]
-                                    }
-                                ],
-                                "value": "unholy"
-                            },
-                            {
-                                "label": "PF2E.NoneOption",
-                                "predicate": [
-                                    {
-                                        "nor": [
-                                            "deity:primary:sanctification:must:holy",
-                                            "deity:primary:sanctification:must:unholy"
-                                        ]
-                                    }
-                                ],
-                                "value": "none"
-                            }
-                        ],
-                        "flag": "sanctification",
-                        "key": "ChoiceSet",
-                        "predicate": [
-                            {
-                                "nor": [
-                                    "deity:primary:sanctification:none",
-                                    "sanctification:holy",
-                                    "sanctification:unholy"
-                                ]
-                            }
-                        ],
-                        "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
-                        "rollOption": "sanctification",
-                        "selection": "holy",
-                        "slug": "sanctification"
-                    },
-                    {
-                        "add": [
-                            "holy"
-                        ],
-                        "key": "ActorTraits",
-                        "predicate": [
-                            "sanctification:holy"
-                        ]
-                    },
-                    {
-                        "add": [
-                            "unholy"
-                        ],
-                        "key": "ActorTraits",
-                        "predicate": [
-                            "sanctification:unholy"
-                        ]
-                    },
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "predicate": [
-                            "class:champion",
-                            "sanctification:holy"
-                        ],
-                        "property": "traits",
-                        "value": "holy"
-                    },
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "predicate": [
-                            "class:champion",
-                            "sanctification:unholy"
-                        ],
-                        "property": "traits",
-                        "value": "unholy"
-                    }
-                ],
-                "slug": "deity-champion",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "tiP9jw0NX0kNWWql",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH"
-            },
-            "flags": {
-                "pf2e": {
-                    "itemGrants": {
-                        "shieldBlock": {
-                            "id": "7jwddqcTSPS6hpLP",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
-            "name": "Shield Block",
-            "sort": 400,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction that lets you reduce damage with your shield.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "8Vma71iA20fzdi3s",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "flag": "shieldBlock",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
-                    }
-                ],
-                "slug": "shield-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion",
-                        "druid",
-                        "fighter"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "gnXSEPz1hce8BbTo",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.D4k8wuq1ncHFCBZz"
-            },
-            "flags": {
-                "pf2e": {
-                    "itemGrants": {
-                        "justice": {
-                            "id": "5daijUw3MyQkaHnA",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/sundries/flags/banner-symbol-sun-gold-red.webp",
-            "name": "Cause",
-            "sort": 500,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You devote yourself to a specific cause in your deity's name. Some are limited to sanctification, as noted in parentheses. Your cause adds to your edicts and anathema and grants you a special reaction called your champion's reaction, which appears after the divider, along with its upgrades if you gain the relentless reaction and exalted reaction class features at higher levels.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Desecration] (Unholy):</strong> You selfishly corrupt and destroy.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Grandeur] (Holy):</strong> You exemplify the glory and splendor of the celestial realms.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Iniquity] (Unholy):</strong> You destroy, take advantage, and act with dishonor.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Justice]:</strong> You follow laws and mete out just punishment.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Liberation]:</strong> You oppose tyranny and fight for freedom.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Obedience]:</strong> You enforce hierarchies and order.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Redemption] (Holy):</strong> You try to redeem those who commit wicked deeds.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "8Vma71iA20fzdi3s",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:type:feature",
-                                "item:tag:champion-cause",
-                                {
-                                    "or": [
-                                        {
-                                            "and": [
-                                                "item:tag:holy",
-                                                "sanctification:holy"
-                                            ]
-                                        },
-                                        {
-                                            "and": [
-                                                "item:tag:unholy",
-                                                "sanctification:unholy"
-                                            ]
-                                        },
-                                        {
-                                            "nor": [
-                                                "item:tag:holy",
-                                                "item:tag:unholy"
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        "flag": "cause",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.DeityAndCause.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Justice"
-                    },
-                    {
-                        "allowDuplicate": false,
-                        "flag": "justice",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.cause}"
-                    }
-                ],
-                "slug": "cause",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "LT2z1wMBjhIZaoZf",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.deities.Item.eErEiVmBqltYXFJ6"
-            },
-            "flags": {
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "8rQRXN9H72mlQcmA",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/deities/iomedae.webp",
-            "name": "Iomedae",
-            "sort": 0,
-            "system": {
-                "attribute": [
-                    "con",
-                    "str"
-                ],
-                "category": "deity",
-                "description": {
-                    "value": "<p>Prior to her ascension and inheritance of many of the god of humanity's worshippers, Iomedae was a holy warrior in wars against the undead. The Inheritor upholds the values of virtue, fighting against the wicked and unjust.</p>\n<p><strong>Edicts</strong> be temperate, fight for justice and honor, hold valor in your heart</p>\n<p><strong>Anathema</strong> abandon a companion in need, dishonor yourself, refuse a challenge from an equal</p>\n<p><strong>Areas of Concern</strong> honor, justice, rulership, and valor</p>"
-                },
-                "domains": {
-                    "alternate": [
-                        "duty"
-                    ],
-                    "primary": [
-                        "confidence",
-                        "might",
-                        "truth",
-                        "zeal"
-                    ]
-                },
-                "font": [
-                    "heal"
-                ],
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [],
-                "sanctification": {
-                    "modal": "must",
-                    "what": [
-                        "holy"
-                    ]
-                },
-                "skill": [
-                    "intimidation"
-                ],
-                "slug": "iomedae",
-                "spells": {
-                    "1": "Compendium.pf2e.spells-srd.Item.Sure Strike",
-                    "2": "Compendium.pf2e.spells-srd.Item.Enlarge",
-                    "4": "Compendium.pf2e.spells-srd.Item.Fire Shield"
-                },
-                "traits": {},
-                "weapons": [
-                    "longsword"
-                ]
-            },
-            "type": "deity"
-        },
-        {
-            "_id": "7jwddqcTSPS6hpLP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
-            },
-            "flags": {
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "tiP9jw0NX0kNWWql",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Shield Block",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take physical damage (bludgeoning, piercing, or slashing) from an attack.</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [],
-                "slug": "shield-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "5daijUw3MyQkaHnA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.peEXunfbSD8WcMFk"
-            },
-            "flags": {
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "gnXSEPz1hce8BbTo",
-                        "onDelete": "cascade"
-                    },
-                    "itemGrants": {
-                        "retributiveStrike": {
-                            "id": "KqpnXn2n13vVrJMW",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/skills/melee/sword-winged-holy-orange.webp",
-            "name": "Justice",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>In your deity's name you seek justice, following the law and punishing those who transgress it.</p>\n<p><strong>Edicts</strong> follow the law, respect legitimate authorities or leadership</p>\n<p><strong>Anathema</strong> take advantage of another, cheat</p><hr /><p><strong>Champion's Reaction</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike]</p>\n<p><strong>Relentless Reaction (9th Level)</strong> If your Strike hits, the target takes persistent spirit damage equal to your Charisma modifier.</p>\n<p><strong>Exalted Reaction (11th Level)</strong> Each ally in your champion's aura with the target in their melee reach can spend a reaction to Strike the target with a –5 penalty.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [
-                    {
-                        "allowDuplicate": false,
-                        "flag": "retributiveStrike",
-                        "key": "GrantItem",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "class:champion",
-                                    "feat:champions-reaction"
-                                ]
-                            }
-                        ],
-                        "reevaluateOnUpdate": true,
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Retributive Strike"
-                    }
-                ],
-                "slug": "justice",
-                "traits": {
-                    "otherTags": [
-                        "champion-cause"
-                    ],
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "KqpnXn2n13vVrJMW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.EAP98XaChJEbgKcK"
-            },
-            "flags": {
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "5daijUw3MyQkaHnA",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Retributive Strike",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy damages your ally, and both are in your champion's aura</p><hr /><p><strong>Effect</strong> You protect your ally and strike your enemy. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the enemy is within reach, make a melee Strike against it.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Champion's Resistance]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Champion.TargetReaction",
-                        "option": "retributive-strike",
-                        "toggleable": true
-                    }
-                ],
-                "slug": "retributive-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "a0eyKTgGbFHLKIi4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.0x76o5OxgEmvqIDp"
-            },
-            "img": "icons/magic/control/buff-flight-wings-runes-blue-white.webp",
-            "name": "Champion's Aura",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You're surrounded by an aura in a 15-foot emanation. It has the aura and divine traits. Any follower of your deity within the aura immediately knows you're a champion of your deity. This aura is used as the range for your champion's reaction and for various other effects. You can suppress or resume the aura as a single action, which has the concentrate trait, and it ends if you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "8Vma71iA20fzdi3s",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "champions-aura",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.champion.aura",
-                        "value": 15
-                    },
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "champions-aura",
-                            {
-                                "not": "self:condition:unconscious"
-                            }
-                        ],
-                        "radius": "@actor.flags.pf2e.champion.aura"
-                    }
-                ],
-                "slug": "champions-aura",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "8Fb0mMakc21pIC5F",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.FeBsYn2mHfMVDZvw"
-            },
-            "img": "icons/skills/melee/weapons-crossed-swords-purple.webp",
-            "name": "Deific Weapon",
-            "sort": 300,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You zealously bear your deity's favored weapon. If it's an unarmed attack with a d4 damage die or a simple weapon, increase the damage die by one step (d4 to d6, d6 to d8, d8 to d10, d10 to d12). If the weapon is uncommon, you gain access to it, and if it's an advanced weapon, you treat it as a martial weapon for the purposes of proficiency</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "8Vma71iA20fzdi3s",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "fist": true,
-                        "key": "Strike",
-                        "predicate": [
-                            "deity:primary:favored-weapon:fist"
-                        ]
-                    },
-                    {
-                        "itemType": "weapon",
-                        "key": "ItemAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "item:deity-favored",
-                            {
-                                "or": [
-                                    "item:category:simple",
-                                    {
-                                        "and": [
-                                            "item:category:unarmed",
-                                            "item:damage:die:faces:4"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "property": "damage-dice-faces"
-                    }
-                ],
-                "slug": "deific-weapon",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "5xzzrq1d3qHd4dIS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.classfeatures.Item.Q1VfQZp49hkhY0HY"
-            },
-            "img": "icons/magic/light/explosion-star-glow-orange.webp",
-            "name": "Devotion Spells",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your deity's power grants you special divine spells called devotion spells, which are a type of focus spell. Choose either @UUID[Compendium.pf2e.spells-srd.Item.Shields of the Spirit] or a spell based on your deity's divine font (@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands] if your deity allows <em>heal</em>, @UUID[Compendium.pf2e.spells-srd.Item.Touch of the Void] if your deity allows <em>harm</em>).</p>\n<p>It costs 1 Focus Point to cast a focus spell. When you gain your first devotion spell, you also gain a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you regain 1 Focus Point by spending 10 minutes using the Refocus activity to pray to your deity or do service toward their causes.</p>\n<p>Your devotion spells are divine spells. Your spellcasting attribute is Charisma.</p>\n<p>Focus spells are automatically heightened to half your level rounded up. Certain feats give you more focus spells. The maximum Focus Points your focus pool can hold is equal to the number of focus spells you have, but can never be more than 3 points.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "8Vma71iA20fzdi3s",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [],
-                "slug": "devotion-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "6UpTVb3MKpr7guos",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.feats-srd.Item.Rfyhlyql1GSoDkI2"
@@ -2835,69 +2072,6 @@
             "type": "feat"
         },
         {
-            "_id": "KTW76wh8ZRfCwS1z",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.iTdbkP07UFMOo1rI"
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Nimble Reprisal",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You can use @UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] at greater distance. You can use a ranged weapon to make a ranged Strike instead of a melee Strike for Retributive Strike. The enemy needs to be in range, but not in reach, and it must still be in your champion's aura.</p>\n<p>You can also make melee Strikes against enemies a bit farther away. If the enemy that triggered your reaction is outside your reach but is within 5 feet of your reach, as part of your reaction you can Step to put the enemy in your reach before making a melee Retributive Strike.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "justice cause"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "rules": [
-                    {
-                        "itemType": "action",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:slug:retributive-strike"
-                        ],
-                        "property": "description",
-                        "value": [
-                            {
-                                "divider": true,
-                                "text": "PF2E.SpecificRule.Champion.RangedReprisal.Description"
-                            }
-                        ]
-                    }
-                ],
-                "slug": "nimble-reprisal",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "Gf0tCdxB1PVIqYVN",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.zNN9212H2FGfM7VS"
@@ -3056,6 +2230,1089 @@
                 }
             },
             "type": "action"
+        },
+        {
+            "_id": "iYbeybHkTDdOwGpL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.D4k8wuq1ncHFCBZz"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "justice": {
+                            "id": "LVrz5miEve8xpNB6",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/flags/banner-symbol-sun-gold-red.webp",
+            "name": "Cause",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You devote yourself to a specific cause in your deity's name. Some are limited to sanctification, as noted in parentheses. Your cause adds to your edicts and anathema and grants you a special reaction called your champion's reaction, which appears after the divider, along with its upgrades if you gain the relentless reaction and exalted reaction class features at higher levels.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Desecration] (Unholy):</strong> You selfishly corrupt and destroy.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Grandeur] (Holy):</strong> You exemplify the glory and splendor of the celestial realms.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Iniquity] (Unholy):</strong> You destroy, take advantage, and act with dishonor.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Justice]:</strong> You follow laws and mete out just punishment.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Liberation]:</strong> You oppose tyranny and fight for freedom.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Obedience]:</strong> You enforce hierarchies and order.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Redemption] (Holy):</strong> You try to redeem those who commit wicked deeds.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "8Vma71iA20fzdi3s",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:type:feature",
+                                "item:tag:champion-cause",
+                                {
+                                    "or": [
+                                        {
+                                            "and": [
+                                                "item:tag:holy",
+                                                "sanctification:holy"
+                                            ]
+                                        },
+                                        {
+                                            "and": [
+                                                "item:tag:unholy",
+                                                "sanctification:unholy"
+                                            ]
+                                        },
+                                        {
+                                            "nor": [
+                                                "item:tag:holy",
+                                                "item:tag:unholy"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "or": [
+                                        {
+                                            "and": [
+                                                "class:champion",
+                                                "item:tag:champion-cause"
+                                            ]
+                                        },
+                                        {
+                                            "and": [
+                                                "item:tag:champion-cause",
+                                                {
+                                                    "not": "item:tag:class-archetype"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "flag": "cause",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.DeityAndCause.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Justice"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "justice",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.cause}"
+                    }
+                ],
+                "slug": "cause",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "fJgHlK8FNsePsm8s",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.ehL7mnkqxN5wIkgu"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "championsAura": {
+                            "id": "YPogxDU3aukw4pcg",
+                            "onDelete": "detach"
+                        },
+                        "deificWeapon": {
+                            "id": "jJpusMlpVxoZZVGW",
+                            "onDelete": "detach"
+                        },
+                        "iomedae": {
+                            "id": "XX78NwuXocjnZDOi",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/deity.webp",
+            "name": "Deity (Champion)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a champion, you are a warrior in the name of a deity you revere above all others. Choose one deity.</p><h2>Skill</h2><p>You become trained in the divine skill listed for your deity. As normal, if you're already trained in that skill, you become trained in a different skill of your choice.</p><h2>Anathema</h2><p>Champions care deeply about the edicts and anathema they take from their deity, sanctification, and cause. As with any implementation of edicts and anathema in the rules, these are a tool for roleplaying between you, the GM, and the other players at the table—you're still playing a nuanced character, not strictly following a script.</p>\n<p>Acts fundamentally opposed to your deity's ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Similarly, using items, spells, or actions that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, assisting with a ritual that raises undead would be anathema to Pharasma, the goddess of death. Many actions that are anathema don't appear in any deity's formal list. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your holy or unholy trait, your focus pool, and your blessing of the devoted. These abilities can be regained only if you repent by conducting an atone ritual. If your deity doesn't require the specific sanctification you had, your GM might let you retrain your sanctification and cause while still following the same deity.</p><h2>Sanctification</h2><p>Depending on your deity, their sanctification can make you holy or unholy. This commits you to one side of a struggle over souls. Whether you become holy, unholy, or neither will limit your choice of causes, devotion spells, and feats.</p>\n<p>If you \"can be\" holy or unholy according to your deity's sanctification entry, you make that choice, and if you \"must be\" holy or unholy, you gain the trait automatically. If the deity lists \"none,\" you can choose only options that don't require the holy or unholy trait. If you are holy or unholy and gain the opposing trait in some way, you lose the previous trait until you atone.</p>\n<p>Unholy sanctification for a champion can be extremely disruptive to a typical game and should be a player character option only in appropriate adventures or campaigns where the group collectively decides to embrace them. Unholy sanctification and causes are uncommon options.</p>\n<p><strong>Holy:</strong> You gain the holy trait and add that trait to any Strikes you make. You gain the edict, \"Do not knowingly harm innocents or fail to prevent harm to an innocent if your direct intervention could save them\" and the anathema \"Commit murder.\" Even if your game includes behavior outside the Pathfinder baseline, the acts listed there are anathema to you.</p>\n<p><strong>Unholy:</strong> You gain the unholy trait and add that trait to any Strikes you make. You gain the edict, \"Do not put another's needs before your own or those of your deity\" and the anathema \"Commit an entirely altruistic act, such as giving something away in charity\" and \"Put anyone's needs before those of your deity.\" None of these prevents you from performing acts others might consider helpful, but these acts must be done with the expectation that they ultimately further your own goals or those of your deity</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "8Vma71iA20fzdi3s",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                {
+                                    "or": [
+                                        "item:category:deity",
+                                        "item:category:pantheon",
+                                        "item:category:covenant"
+                                    ]
+                                }
+                            ],
+                            "itemType": "deity"
+                        },
+                        "flag": "deity",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            {
+                                "not": "deity"
+                            }
+                        ],
+                        "priority": 99,
+                        "prompt": "PF2E.SpecificRule.Prompt.Deity",
+                        "selection": "Compendium.pf2e.deities.Item.Iomedae"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "iomedae",
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "not": "deity"
+                            }
+                        ],
+                        "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitHoly",
+                                "predicate": [
+                                    {
+                                        "or": [
+                                            "deity:primary:sanctification:can:holy",
+                                            "deity:primary:sanctification:must:holy"
+                                        ]
+                                    }
+                                ],
+                                "value": "holy"
+                            },
+                            {
+                                "label": "PF2E.TraitUnholy",
+                                "predicate": [
+                                    {
+                                        "or": [
+                                            "deity:primary:sanctification:can:unholy",
+                                            "deity:primary:sanctification:must:unholy"
+                                        ]
+                                    }
+                                ],
+                                "value": "unholy"
+                            },
+                            {
+                                "label": "PF2E.NoneOption",
+                                "predicate": [
+                                    {
+                                        "nor": [
+                                            "deity:primary:sanctification:must:holy",
+                                            "deity:primary:sanctification:must:unholy"
+                                        ]
+                                    }
+                                ],
+                                "value": "none"
+                            }
+                        ],
+                        "flag": "sanctification",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "sanctification:none",
+                                    "sanctification:holy",
+                                    "sanctification:unholy"
+                                ]
+                            }
+                        ],
+                        "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
+                        "rollOption": "sanctification",
+                        "selection": "holy",
+                        "slug": "sanctification"
+                    },
+                    {
+                        "add": [
+                            "{item|flags.pf2e.rulesSelections.sanctification}"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            {
+                                "not": "sanctification:none"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "not": "sanctification:none"
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "{item|flags.pf2e.rulesSelections.sanctification}"
+                    },
+                    {
+                        "flag": "deificWeapon",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:champion"
+                        ],
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Deific Weapon"
+                    },
+                    {
+                        "flag": "championsAura",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Champion's Aura"
+                    }
+                ],
+                "slug": "deity-champion",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "6gucLAcCLuEMTHyV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "shieldBlock": {
+                            "id": "7dogJvyqEZc6X4Sg",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
+            "name": "Shield Block",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction that lets you reduce damage with your shield.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "8Vma71iA20fzdi3s",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "shieldBlock",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
+                    }
+                ],
+                "slug": "shield-block",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion",
+                        "druid",
+                        "exemplar",
+                        "fighter",
+                        "inventor"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "LVrz5miEve8xpNB6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.peEXunfbSD8WcMFk"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "iYbeybHkTDdOwGpL",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "retributiveStrike": {
+                            "id": "i9En8UT9aYKM6jnz",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/skills/melee/sword-winged-holy-orange.webp",
+            "name": "Justice",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>In your deity's name you seek justice, following the law and punishing those who transgress it.</p>\n<p><strong>Edicts</strong> follow the law, respect legitimate authorities or leadership</p>\n<p><strong>Anathema</strong> take advantage of another, cheat</p><hr /><p><strong>Champion's Reaction</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike]</p>\n<p><strong>Relentless Reaction (9th Level)</strong> If your Strike hits, the target takes persistent spirit damage equal to your Charisma modifier.</p>\n<p><strong>Exalted Reaction (11th Level)</strong> Each ally in your champion's aura with the target in their melee reach can spend a reaction to Strike the target with a –5 penalty.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "allowDuplicate": false,
+                        "flag": "retributiveStrike",
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:champion",
+                                    "feat:champions-reaction"
+                                ]
+                            }
+                        ],
+                        "reevaluateOnUpdate": true,
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Retributive Strike"
+                    }
+                ],
+                "slug": "justice",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "otherTags": [
+                        "champion-cause"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "i9En8UT9aYKM6jnz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.EAP98XaChJEbgKcK"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "LVrz5miEve8xpNB6",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Retributive Strike",
+            "sort": 8500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy damages your ally, and both are in your champion's aura</p><hr /><p><strong>Effect</strong> You protect your ally and strike your enemy. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the enemy is within reach, make a melee Strike against it.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Champion's Resistance]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "retributive-strike",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feature:relentless-reaction",
+                                    "feat:shining-oath",
+                                    "feat:fiendsbane-oath",
+                                    "feat:dragonslayer-oath",
+                                    "feat:esoteric-oath"
+                                ]
+                            }
+                        ],
+                        "toggleable": true
+                    }
+                ],
+                "slug": "retributive-strike",
+                "traits": {
+                    "value": [
+                        "champion",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XX78NwuXocjnZDOi",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.deities.Item.eErEiVmBqltYXFJ6"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "fJgHlK8FNsePsm8s",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "mxeDA21feNRRstOp",
+            "img": "systems/pf2e/icons/deities/iomedae.webp",
+            "name": "Iomedae",
+            "sort": 0,
+            "system": {
+                "attribute": [
+                    "con",
+                    "str"
+                ],
+                "category": "deity",
+                "description": {
+                    "value": "<p>Most recent of the once-mortal gods to ascend to prominence via the Starstone, Iomedae represents honor, justice, rulership, and valor. Called the Light of the Sword by some, the goddess attracts the worship of those who seek to drive back villainy, chaos, and wickedness. Iomedae focuses on supporting benevolent order for the virtuous and meting out merciful justice to the selfish, tyrannical, and destructive. While she and her followers would rather convince the errant to change their ways with words or generous deeds, they don't falter when they strike at the hearts of the unrepentant, the allies of fiends, and those who pay lip service to the \"greater good\" while committing despicable acts. Iomedae is the patron of choice for those who wish to take an active hand in the battle to protect the innocent and punish the guilty.</p>\n<p><strong>Title</strong> The Inheritor</p>\n<p><strong>Areas of Concern</strong> honor, justice, rulership, valor</p>\n<p><strong>Edicts</strong> be temperate, fight for justice and honor, hold valor in your heart</p>\n<p><strong>Anathema</strong> abandon a companion in need, dishonor yourself, refuse a challenge from an equal</p>\n<p><strong>Religious Symbol</strong> sword and sun</p>\n<p><strong>Sacred Animal</strong> lion</p>\n<p><strong>Sacred Colors</strong> red, white</p>"
+                },
+                "domains": {
+                    "alternate": [
+                        "duty"
+                    ],
+                    "primary": [
+                        "confidence",
+                        "might",
+                        "truth",
+                        "zeal"
+                    ]
+                },
+                "font": [
+                    "heal"
+                ],
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens Divine Mysteries"
+                },
+                "rules": [],
+                "sanctification": {
+                    "modal": "must",
+                    "what": [
+                        "holy"
+                    ]
+                },
+                "skill": [
+                    "intimidation"
+                ],
+                "slug": "iomedae",
+                "spells": {
+                    "1": "Compendium.pf2e.spells-srd.Item.Sure Strike",
+                    "2": "Compendium.pf2e.spells-srd.Item.Enlarge",
+                    "4": "Compendium.pf2e.spells-srd.Item.Fire Shield"
+                },
+                "traits": {},
+                "weapons": [
+                    "longsword"
+                ]
+            },
+            "type": "deity"
+        },
+        {
+            "_id": "jJpusMlpVxoZZVGW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.FeBsYn2mHfMVDZvw"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "fJgHlK8FNsePsm8s",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/skills/melee/weapons-crossed-swords-purple.webp",
+            "name": "Deific Weapon",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You zealously bear your deity's favored weapon. If it's an unarmed attack with a d4 damage die or a simple weapon, increase the damage die by one step (d4 to d6, d6 to d8, d8 to d10, d10 to d12). If the weapon is uncommon, you gain access to it, and if it's an advanced weapon, you treat it as a martial weapon for the purposes of proficiency</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "fist": true,
+                        "key": "Strike",
+                        "predicate": [
+                            "deity:primary:favored-weapon:fist"
+                        ]
+                    },
+                    {
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:deity-favored",
+                            {
+                                "or": [
+                                    "item:category:simple",
+                                    {
+                                        "and": [
+                                            "item:category:unarmed",
+                                            "item:damage:die:faces:4"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "property": "damage-dice-faces"
+                    },
+                    {
+                        "definition": [
+                            "item:category:advanced",
+                            "item:deity-favored"
+                        ],
+                        "key": "MartialProficiency",
+                        "sameAs": "martial",
+                        "slug": "deific-weapon"
+                    }
+                ],
+                "slug": "deific-weapon",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "YPogxDU3aukw4pcg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.0x76o5OxgEmvqIDp"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "fJgHlK8FNsePsm8s",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/magic/control/buff-flight-wings-runes-blue-white.webp",
+            "name": "Champion's Aura",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You're surrounded by an aura in a 15-foot emanation. It has the aura and divine traits. Any follower of your deity within the aura immediately knows you're a champion of your deity. This aura is used as the range for your champion's reaction and for various other effects. You can suppress or resume the aura as a single action, which has the concentrate trait, and it ends if you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "champions-aura",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.champion.aura",
+                        "value": 15
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "champions-aura",
+                            {
+                                "not": "self:condition:unconscious"
+                            }
+                        ],
+                        "radius": "@actor.flags.pf2e.champion.aura",
+                        "slug": "champions-aura"
+                    }
+                ],
+                "slug": "champions-aura",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "7dogJvyqEZc6X4Sg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "6gucLAcCLuEMTHyV",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "waujsnHrfCsPk0zO",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Shield Block",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take physical damage (bludgeoning, piercing, or slashing) from an attack.</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "WOcapydMP4fOWCCO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.0x76o5OxgEmvqIDp"
+            },
+            "img": "icons/magic/control/buff-flight-wings-runes-blue-white.webp",
+            "name": "Champion's Aura",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You're surrounded by an aura in a 15-foot emanation. It has the aura and divine traits. Any follower of your deity within the aura immediately knows you're a champion of your deity. This aura is used as the range for your champion's reaction and for various other effects. You can suppress or resume the aura as a single action, which has the concentrate trait, and it ends if you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "8Vma71iA20fzdi3s",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "champions-aura",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.champion.aura",
+                        "value": 15
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "champions-aura",
+                            {
+                                "not": "self:condition:unconscious"
+                            }
+                        ],
+                        "radius": "@actor.flags.pf2e.champion.aura",
+                        "slug": "champions-aura"
+                    }
+                ],
+                "slug": "champions-aura",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "2hTYmb5RbPN1Z8GA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.Q1VfQZp49hkhY0HY"
+            },
+            "img": "icons/magic/light/explosion-star-glow-orange.webp",
+            "name": "Devotion Spells",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your deity's power grants you special divine spells called devotion spells, which are a type of focus spell. Choose either @UUID[Compendium.pf2e.spells-srd.Item.Shields of the Spirit] or a spell based on your deity's divine font (@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands] if your deity allows <em>heal</em>, @UUID[Compendium.pf2e.spells-srd.Item.Touch of the Void] if your deity allows <em>harm</em>).</p>\n<p>It costs 1 Focus Point to cast a focus spell. When you gain your first devotion spell, you also gain a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you regain 1 Focus Point by spending 10 minutes using the Refocus activity to pray to your deity or do service toward their causes.</p>\n<p>Your devotion spells are divine spells. Your spellcasting attribute is Charisma.</p>\n<p>Focus spells are automatically heightened to half your level rounded up. Certain feats give you more focus spells. The maximum Focus Points your focus pool can hold is equal to the number of focus spells you have, but can never be more than 3 points.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "8Vma71iA20fzdi3s",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "devotion-spells",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "aJOUK50aFb0q5AcF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.FeBsYn2mHfMVDZvw"
+            },
+            "img": "icons/skills/melee/weapons-crossed-swords-purple.webp",
+            "name": "Deific Weapon",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You zealously bear your deity's favored weapon. If it's an unarmed attack with a d4 damage die or a simple weapon, increase the damage die by one step (d4 to d6, d6 to d8, d8 to d10, d10 to d12). If the weapon is uncommon, you gain access to it, and if it's an advanced weapon, you treat it as a martial weapon for the purposes of proficiency</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "8Vma71iA20fzdi3s",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "fist": true,
+                        "key": "Strike",
+                        "predicate": [
+                            "deity:primary:favored-weapon:fist"
+                        ]
+                    },
+                    {
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:deity-favored",
+                            {
+                                "or": [
+                                    "item:category:simple",
+                                    {
+                                        "and": [
+                                            "item:category:unarmed",
+                                            "item:damage:die:faces:4"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "property": "damage-dice-faces"
+                    },
+                    {
+                        "definition": [
+                            "item:category:advanced",
+                            "item:deity-favored"
+                        ],
+                        "key": "MartialProficiency",
+                        "sameAs": "martial",
+                        "slug": "deific-weapon"
+                    }
+                ],
+                "slug": "deific-weapon",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "162Bi2cdob712GnF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.iTdbkP07UFMOo1rI"
+            },
+            "folder": "TyGXf14sFGJxyN6Z",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Nimble Reprisal",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You can use @UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] at greater distance. You can use a ranged weapon to make a ranged Strike instead of a melee Strike for Retributive Strike. The enemy needs to be in range, but not in reach, and it must still be in your champion's aura.</p>\n<p>You can also make melee Strikes against enemies a bit farther away. If the enemy that triggered your reaction is outside your reach but is within 5 feet of your reach, as part of your reaction you can Step to put the enemy in your reach before making a melee Retributive Strike.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "justice cause"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:retributive-strike"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "divider": true,
+                                "text": "PF2E.SpecificRule.Champion.RangedReprisal.Description"
+                            }
+                        ]
+                    }
+                ],
+                "slug": "nimble-reprisal",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Seelah (Level 1)",
@@ -3072,10 +3329,6 @@
             "hp": {
                 "temp": 0,
                 "value": 20
-            },
-            "speed": {
-                "otherSpeeds": [],
-                "value": 25
             }
         },
         "build": {

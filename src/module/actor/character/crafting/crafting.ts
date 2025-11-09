@@ -57,16 +57,8 @@ class CharacterCrafting {
                 const formula = formulaMap.get(item.uuid);
                 if (!formula) return null;
 
-                const isAmmo = item.isOfType("consumable") && item.isAmmo;
-                const isMundaneAmmo = isAmmo && !item.isMagical;
-                const isConsumable =
-                    (item.isOfType("consumable") && item.category !== "wand") ||
-                    (item.isOfType("weapon") && item.baseType === "alchemical-bomb");
-
-                const batchSize = Math.max(
-                    item.system.price.per,
-                    isMundaneAmmo ? Math.clamp(item.system.price.per, 1, 10) : isConsumable && !isAmmo ? 4 : 1,
-                );
+                const isConsumable = item.system.traits.value.includes("consumable");
+                const batchSize = Math.max(item.system.price.per, isConsumable ? 4 : 1);
 
                 return {
                     ...formula,

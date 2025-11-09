@@ -40,7 +40,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                 integer: true,
                 min: 5,
                 step: 5,
-                max: 50,
+                max: 300,
                 initial: 5,
             });
         const immunityTypes: Record<ImmunityType, string> = CONFIG.PF2E.immunityTypes;
@@ -166,7 +166,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                 ),
             }),
             details: new fields.SchemaField({
-                description: blankableString(),
+                description: new fields.HTMLField({ required: true, nullable: false, initial: "" }),
                 level: new fields.SchemaField({
                     value: requiredInteger({ min: -1, initial: 0 }),
                 }),
@@ -193,13 +193,26 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-
         this.details.alliance = null;
+
+        // Set the dimensions of this vehicle in its size object
+        const size = this.traits.size;
+        const dimensions = this.parent.dimensions;
+        size.long = dimensions.length;
+        size.wide = dimensions.width;
 
         if (!this.attributes.immunities.some((i) => i.type === "object-immunities")) {
             this.attributes.immunities.push(new Immunity({ type: "object-immunities", source: "TYPES.Actor.vehicle" }));
         }
+
+        // Attempt to parse out a meaningful drive speed
+        const driveSpeed = Math.floor(Number.parseInt(this.details.speed)) || null;
+        this.movement = { speeds: { drive: { value: driveSpeed } } };
     }
+}
+
+interface VehicleMovementData {
+    speeds: { drive: { value: number | null } };
 }
 
 interface VehicleSystemData
@@ -208,6 +221,7 @@ interface VehicleSystemData
     traits: VehicleTraits;
     attributes: VehicleAttributes;
     details: VehicleDetails;
+    movement: VehicleMovementData;
 }
 
 type VehicleSystemSchema = ActorSystemSchema & {
@@ -282,7 +296,7 @@ type VehicleAttributesSchema = {
 type VehicleAttributesSource = fields.SourceFromSchema<VehicleAttributesSchema>;
 
 type VehicleDetailsSchema = {
-    description: fields.StringField<string, string, true, false, true>;
+    description: fields.HTMLField;
     level: fields.SchemaField<{
         value: fields.NumberField<number, number, true, false, true>;
     }>;
@@ -329,4 +343,4 @@ interface TokenDimensions {
 }
 
 export { VehicleSystemData };
-export type { TokenDimensions, VehicleSource, VehicleTrait };
+export type { TokenDimensions, VehicleSource, VehicleSystemSchema, VehicleTrait };

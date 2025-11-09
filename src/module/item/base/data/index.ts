@@ -1,5 +1,6 @@
 import type { AbilitySource } from "@item/ability/data.ts";
 import type { AfflictionSource } from "@item/affliction/data.ts";
+import type { AmmoSource } from "@item/ammo/data.ts";
 import type { AncestrySource } from "@item/ancestry/data.ts";
 import type { ArmorSource } from "@item/armor/data.ts";
 import type { BackgroundSource } from "@item/background/data.ts";
@@ -17,14 +18,13 @@ import type { HeritageSource } from "@item/heritage/data.ts";
 import type { KitSource } from "@item/kit/data.ts";
 import type { LoreSource } from "@item/lore.ts";
 import type { MeleeSource } from "@item/melee/data.ts";
-import type { PhysicalItemType } from "@item/physical/types.ts";
 import type { ShieldSource } from "@item/shield/data.ts";
 import type { SpellSource } from "@item/spell/data.ts";
 import type { SpellcastingEntrySource } from "@item/spellcasting-entry/data.ts";
 import type { TreasureSource } from "@item/treasure/data.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
 import type { PROFICIENCY_RANKS, Rarity } from "@module/data.ts";
-import { ItemDescriptionData } from "./system.ts";
+import type { ItemDescriptionData } from "./system.ts";
 
 type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
 
@@ -46,11 +46,10 @@ type NonPhysicalItemType =
     | "spell"
     | "spellcastingEntry";
 
-type ItemType = NonPhysicalItemType | PhysicalItemType;
-
 type AbstractEffectSource = EffectSource | ConditionSource | AfflictionSource;
 
 type PhysicalItemSource =
+    | AmmoSource
     | ArmorSource
     | BookSource
     | ConsumableSource
@@ -125,7 +124,6 @@ export type {
     EquipmentSource,
     FeatSource,
     ItemSourcePF2e,
-    ItemType,
     KitSource,
     LoreSource,
     MagicItemSource,

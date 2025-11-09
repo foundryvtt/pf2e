@@ -27,7 +27,7 @@
         },
         "rules": [
             {
-                "domain": "attack-roll",
+                "domain": "alchemical-bomb-base-attack-roll",
                 "key": "RollOption",
                 "option": "debilitating-bomb",
                 "toggleable": true
@@ -39,10 +39,12 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "item:base:alchemical-bomb",
-                    "debilitating-bomb"
+                    "debilitating-bomb",
+                    {
+                        "not": "feat:greater-debilitating-bomb"
+                    }
                 ],
-                "selector": "attack-roll",
+                "selector": "alchemical-bomb-base-attack-roll",
                 "text": "PF2E.SpecificRule.Alchemist.DebilitatingBomb.AttackRollNote",
                 "title": "{item|name}"
             }

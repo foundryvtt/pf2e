@@ -1,3 +1,4 @@
+import User from "@client/documents/user.mjs";
 import { ApplicationConfiguration, ApplicationRenderOptions } from "../_types.mjs";
 import ApplicationV2 from "./application.mjs";
 
@@ -7,7 +8,7 @@ export default class DialogV2<
 > extends ApplicationV2<TConfig, TRenderOptions> {
     static override DEFAULT_OPTIONS: DeepPartial<DialogV2Configuration>;
 
-    override _initializeApplicationOptions(options: DeepPartial<TConfig>): TConfig;
+    protected override _initializeApplicationOptions(options: DeepPartial<TConfig>): TConfig;
 
     protected override _renderHTML(): Promise<HTMLFormElement>;
 
@@ -71,9 +72,7 @@ export default class DialogV2<
     static prompt({
         ok,
         ...options
-    }: {
-        ok: Partial<DialogV2Button>;
-    } & Partial<DialogV2Configuration & DialogV2WaitOptions>): Promise<unknown>;
+    }: { ok: Partial<DialogV2Button> } & DeepPartial<DialogV2Configuration & DialogV2WaitOptions>): Promise<unknown>;
 
     /**
      * Spawn a dialog and wait for it to be dismissed or submitted.
@@ -92,60 +91,101 @@ export default class DialogV2<
         render,
         ...options
     }: {
-        rejectClose: boolean;
-        close: DialogV2CloseCallback;
-        render: DialogV2RenderCallback;
-    } & Partial<DialogV2Configuration>): Promise<unknown>;
+        rejectClose?: boolean;
+        close?: DialogV2CloseCallback;
+        render?: DialogV2RenderCallback;
+    } & DeepPartial<DialogV2Configuration>): Promise<unknown>;
+
+    /**
+     * Present an asynchronous Dialog query to a specific User for response.
+     * @param user A User instance or a User id
+     * @param type The type of Dialog to present
+     * @param config Dialog configuration forwarded on to the Dialog.prompt, Dialog.confirm, Dialog.input, or
+     *               Dialog.wait function depending on the query type. Callback options are not supported.
+     * @returns The query response or null if no response was provided
+     *
+     * @see {@link DialogV2.prompt}
+     * @see {@link DialogV2.confirm}
+     * @see {@link DialogV2.input}
+     * @see {@link DialogV2.wait}
+     */
+    static query(user: User | string, type: "prompt" | "confirm" | "input" | "wait", config?: object): Promise<unknown>;
+
+    /**
+     * The dialog query handler.
+     * @internal
+     */
+    static _handleQuery: (options: { type: "prompt" | "confirm" | "input" | "wait"; config: object }) => unknown;
 }
 
 export interface DialogV2Button {
     /** The button action identifier. */
     action: string;
+
     /** The button label. Will be localized. */
     label: string;
+
     /** FontAwesome icon classes. */
     icon?: string;
+
     /** CSS classes to apply to the button. */
     class?: string;
-    /** Whether this button represents the default action to take if the user
-     * submits the form without pressing a button, i.e. with an Enter keypress. */
-    default?: boolean;
+
+    /** CSS style to apply to the button. */
+    style?: Record<string, string>;
+
+    /** The button type. */
+    type?: string;
+
+    /** Whether the button is disabled */
+    disabled?: boolean;
+
     /**
-     * A function to invoke when the button is clicked. The value returned from
-     * this function will be used as the dialog's submitted value.  Otherwise,
-     * the button's identifier is used.
+     * Whether this button represents the default action to take if the user submits the form without pressing a button,
+     * i.e. with an Enter keypress.
+     */
+    default?: boolean;
+
+    /**
+     * A function to invoke when the button is clicked. The value returned from this function will be used as the
+     * dialog's submitted value. Otherwise, the button's identifier is used.
      */
     callback?: DialogV2ButtonCallback;
 }
 
 export interface DialogV2Configuration extends ApplicationConfiguration {
-    /**
-     * Modal dialogs prevent interaction with the rest of the UI until they are
-     * dismissed or submitted.
-     */
+    /** Modal dialogs prevent interaction with the rest of the UI until they are dismissed or submitted. */
     modal?: boolean;
+
     /** Button configuration. */
     buttons: DialogV2Button[];
-    /** The dialog content */
-    content?: string; // The dialog content
-    /** A function to invoke when the dialog is submitted. This will not be
-     * called if the dialog is dismissed
+
+    /**
+     * The dialog content: a HTML string or a <div> element. If string,
+     *     the content is cleaned with {@link foundry.utils.cleanHTML}.
+     *     Otherwise, the content is not cleaned.
+     */
+    content?: string | HTMLDivElement;
+
+    /**
+     * A function to invoke when the dialog is submitted. This will not be
+     *     called if the dialog is dismissed.
      */
     submit?: DialogV2SubmitCallback;
 }
 
 export interface DialogV2WaitOptions {
-    /**
-     * A synchronous function to invoke whenever the dialog is rendered.
-     */
+    /** A synchronous function to invoke whenever the dialog is rendered. */
     render?: DialogV2RenderCallback;
-    /**
-     * A synchronous function to invoke when the dialog is closed under any
-     * circumstances.
-     */
+
+    /** A synchronous function to invoke when the dialog is closed under any circumstances. */
     close?: DialogV2CloseCallback;
+
     /** Throw a Promise rejection if the dialog is dismissed. */
     rejectClose?: boolean;
+
+    /** Options forwarded to the dialog's render call. */
+    renderOptions?: ApplicationRenderOptions;
 }
 
 /**
@@ -157,8 +197,8 @@ export interface DialogV2WaitOptions {
 export type DialogV2ButtonCallback = (
     event: PointerEvent | SubmitEvent,
     button: HTMLButtonElement,
-    dialog: HTMLDialogElement,
-) => void | Promise<void> | Promise<unknown>;
+    dialog: DialogV2,
+) => Promise<unknown> | unknown;
 
 /**
  * A dialog render handler method.

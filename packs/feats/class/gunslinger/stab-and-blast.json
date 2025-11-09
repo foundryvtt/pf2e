@@ -25,7 +25,22 @@
             "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "stab-and-blast",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "stab-and-blast"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

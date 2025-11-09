@@ -10,7 +10,7 @@ import Document from "@common/abstract/document.mjs";
 import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import { IterableWeakMap, IterableWeakSet } from "@common/utils/_module.mjs";
 import ActorSheet from "../appv1/sheets/actor-sheet.mjs";
-import { ActiveEffect, ActorUUID, BaseActor, Combat, Item, Scene, TokenDocument } from "./_module.mjs";
+import { ActiveEffect, ActorSource, ActorUUID, BaseActor, Combat, Item, Scene, TokenDocument } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import Actors from "./collections/actors.mjs";
 
@@ -280,11 +280,12 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
 }
 
 declare interface Actor<TParent extends TokenDocument | null = TokenDocument | null> extends ClientBaseActor<TParent> {
+    readonly _source: ActorSource;
+
     // readonly effects: EmbeddedCollection<ActiveEffect<this>>;
     // readonly items: EmbeddedCollection<Item<this>>;
 
     get sheet(): ActorSheet<Actor>;
-
     get uuid(): ActorUUID;
 }
 

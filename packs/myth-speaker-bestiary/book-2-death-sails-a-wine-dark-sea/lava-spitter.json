@@ -1,0 +1,359 @@
+{
+    "_id": "GNWqtXXqZEWDwe8w",
+    "folder": "oGg1ltMB9N3OxRv3",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "tq7GvfV91SbYEMgs",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "THQV1WKyf2Bygbcv": {
+                        "damage": "2d6+3",
+                        "damageType": "piercing"
+                    },
+                    "kfYxM8WuLd9OcSJ9": {
+                        "category": "persistent",
+                        "damage": "2",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "OKG6dGaMxfnzkkWS",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Lava Spit",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "Xm8vVOUwJghuVMt5": {
+                        "damage": "2d8+1",
+                        "damageType": "fire"
+                    },
+                    "aANj4aikdl0sqg4o": {
+                        "category": "persistent",
+                        "damage": "2",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 20
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kv4Z4CmoS7NvfBRK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Smoke Vision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The lava spitter ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from smoke.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QjtSRTVAUODkEYhQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fiery Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a lava spitter is in contact with lava or an area of equivalent heat, it gains fast healing 5.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "fiery-healing",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:lava",
+                                    "fiery-healing"
+                                ]
+                            }
+                        ],
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ygWXaqeRBoD006tL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Too Hot to Handle",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A creature that successfully grapples or hits a lava spitter with an unarmed attack takes @Damage[3d6[fire]] damage (@Check[reflex|dc:20|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:category:unarmed"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|description}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "J2ig3i6YHktYcCn7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spew Lava",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The lava spitter expels a @Template[type:cone|distance:15] of lava, dealing @Damage[5d6[fire]|options:area-damage] damage to every creature within the cone (@Check[reflex|dc:20|basic|options:area-effect] save). This area becomes hazardous terrain for 1 minute. A creature takes @Damage[2[fire]|options:area-damage] damage each time it moves into one of these squares. The lava spitter then can't Spew Lava for [[/gmr 1d4 #Recharge Spew Lava]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Lava Spitter",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 20
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "fiery healing",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                },
+                {
+                    "exceptions": [],
+                    "type": "mental"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "pyric"
+                ]
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The archipelago of Iblydos is quite geologically active, with sinkholes, volcanoes, and lava fissures pockmarking many of the islands. The island's more industrious inhabitants have created methods to tap into this power to heat their cities and water supply. Unfortunately, these public works require a level of maintenance not every city-state can afford or has the engineering acumen to perform successfully. In addition, several ancient city-state governments that employed such technology failed long ago, leaving behind sprawling networks of pipes and tunnels that either no longer function or are on the precipice of failure. When these systems fail, the result is often catastrophic to any living creatures in the area, not to mention to the overall infrastructure and civic property.</p>\n<p>To combat this, a group of engineer-minded hero-gods tried to develop mechanical creatures that could not only survive the tremendous heat in these networks but feed on it. They imagined deploying these constructs into damaged geothermal systems where they could repair the structures and be used again. They designed the constructs with serpentine bodies to easily move about the narrow pipes and tunnels. That the constructs could consume and be fueled by the dangerous debris they cleared was a bonus intended to maintain the network of tunnels so they didn't fall into disrepair.</p>\n<p>A few of these constructs operate as intended, but many rebelled against their creators, causing massive damage to any place where they were deployed. Dubbed lava spitters, these constructs now roam the pipes and tunnels beneath cities, their red-hot bellies scorching the ground wherever they crawl.</p><h2>Fire Giant Friends</h2><p>With their ability to crawl through small areas and an understanding of how to clean out blockages and slag, lava spitters have developed a symbiotic relationship with fire giants in their settlements. The giants appreciate the work the creatures do and have little fear of being harmed by them, while the lava spitters are happy to frolic in the giants' forges. Some fire giants even keep the little creatures as pets. It has become the height of fashion among fire giant royalty to have lava spitters curl around their fingers like rings.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #217: Death Sails a Wine-Dark Sea"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "smoke vision",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 12
+            },
+            "stealth": {
+                "base": 10
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "construct",
+                "elemental",
+                "fire"
+            ]
+        }
+    },
+    "type": "npc"
+}

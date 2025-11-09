@@ -6,7 +6,7 @@ import { CompendiumBrowserIndexData, HazardFilters } from "./data.ts";
 
 export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "hazard";
-    tabLabel = "PF2E.Actor.Hazard.Plural";
+    tabLabel = "PF2E.CompendiumBrowser.TabHazard";
     declare filterData: HazardFilters;
 
     /* MiniSearch */

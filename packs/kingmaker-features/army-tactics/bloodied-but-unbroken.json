@@ -40,19 +40,7 @@
                     "attack-roll"
                 ],
                 "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 9,
-                            "value": 1
-                        },
-                        {
-                            "start": 10,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|level"
-                }
+                "value": "match(when(lte(@actor.level, 9), 1), when(gte(@actor.level, 10), 2))"
             }
         ],
         "traits": {

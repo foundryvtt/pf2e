@@ -1,0 +1,68 @@
+#measurement {
+    --counter-scale: 1;
+    .waypoint-label {
+        &:has(+ .waypoint-label.last) .action-glyph {
+            display: none;
+        }
+
+        .total-measurement,
+        .delta-measurement {
+            .additional-cost {
+                text-decoration: underline wavy var(--color-text-subtle);
+            }
+        }
+
+        .total-measurement {
+            color: var(--color-text-emphatic);
+
+            .additional-cost {
+                color: var(--color-text-secondary);
+            }
+        }
+
+        .delta-measurement {
+            color: var(--color-text-secondary);
+
+            .additional-cost {
+                color: var(--color-text-tertiary);
+            }
+        }
+
+        .action-glyph {
+            color: var(--color-text-emphatic);
+            font-size: 1.5em;
+        }
+    }
+
+    .action-marker {
+        --transformX: 0;
+        --transformY: 0;
+        color: var(--color-dark-1);
+        font-size: var(--font-size-24);
+        height: calc(var(--ui-scale) * 100px);
+        left: var(--position-x);
+        position: absolute;
+        text-shadow:
+            0 0 2px var(--color-light-1),
+            -1px -1px 1px var(--color-light-1),
+            1px -1px 1px var(--color-light-1),
+            -1px 1px 1px var(--color-light-1),
+            1px 1px 1px var(--color-light-1);
+        top: var(--position-y);
+        width: calc(var(--ui-scale) * 100px);
+    }
+
+    .waypoint-label,
+    .action-marker {
+        transform: scale(calc(0.55 * var(--counter-scale))) translate(var(--transformX), var(--transformY));
+        .overage {
+            color: red;
+            font-weight: bold;
+        }
+    }
+}
+
+#token-hover-distance {
+    --transformY: -60px;
+    --transformX: calc(var(ui-scale) * 100px);
+}

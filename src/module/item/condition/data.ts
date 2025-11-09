@@ -1,9 +1,9 @@
 import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.d.mts";
 import type { AbstractEffectSchema, DurationData } from "@item/abstract-effect/data.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
-import type { ItemType } from "@item/base/data/index.ts";
 import { ItemSystemModel } from "@item/base/data/model.ts";
 import type { BaseItemSourcePF2e, ItemSystemSource } from "@item/base/data/system.ts";
+import type { ItemType } from "@item/types.ts";
 import type { DamageType } from "@system/damage/index.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
 import { LaxArrayField, SlugField } from "@system/schema-data-fields.ts";
@@ -102,9 +102,9 @@ type ConditionSystemSchema = AbstractEffectSchema & {
     group: fields.StringField<string, string, true, true, true>;
     value: fields.SchemaField<ConditionValueSchema>;
     persistent?: fields.SchemaField<
-        PersistentSourceSchema,
-        SourceFromSchema<PersistentSourceSchema>,
-        ModelPropsFromSchema<PersistentSourceSchema>,
+        PersistentDamageValueSchema,
+        SourceFromSchema<PersistentDamageValueSchema>,
+        ModelPropsFromSchema<PersistentDamageValueSchema>,
         true,
         true,
         true
@@ -145,7 +145,7 @@ type ConditionSystemSource = SourceFromSchema<ConditionSystemSchema> & {
     schema?: ItemSystemSource["schema"];
 };
 
-type PersistentSourceSchema = {
+type PersistentDamageValueSchema = {
     formula: fields.StringField<string, string, true, false, true>;
     damageType: fields.StringField<DamageType, DamageType, true, false, true>;
     dc: fields.NumberField<number, number, true, false, true>;
@@ -153,7 +153,7 @@ type PersistentSourceSchema = {
     criticalHit: fields.BooleanField<boolean, boolean, true, false, true>;
 };
 
-interface PersistentDamageData extends SourceFromSchema<PersistentSourceSchema> {
+interface PersistentDamageData extends SourceFromSchema<PersistentDamageValueSchema> {
     damage: DamageRoll;
     expectedValue: number;
 }
@@ -161,4 +161,4 @@ interface PersistentDamageData extends SourceFromSchema<PersistentSourceSchema> 
 type ConditionValueData = { isValued: true; value: number } | { isValued: false; value: null };
 
 export { ConditionSystemData };
-export type { ConditionSource, ConditionSystemSource, PersistentDamageData };
+export type { ConditionSource, ConditionSystemSource, PersistentDamageData, PersistentDamageValueSchema };

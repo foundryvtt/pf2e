@@ -7,7 +7,6 @@ import * as R from "remeda";
 import { CompendiumBrowser, CompendiumBrowserOpenTabOptions } from "../browser.ts";
 import { BrowserTabs, ContentTabName } from "../data.ts";
 import type { BrowserFilter, CheckboxOptions, CompendiumBrowserIndexData, RangesInputData, TraitData } from "./data.ts";
-import ux = foundry.applications.ux;
 
 export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
@@ -18,7 +17,7 @@ export abstract class CompendiumBrowserTab {
     results: CompendiumBrowserIndexData[] = $derived.by(() => {
         if (!this.filterData) return [];
         this.browser.resetListElement();
-        const searchText = ux.SearchFilter.cleanQuery(this.filterData.search.text);
+        const searchText = fa.ux.SearchFilter.cleanQuery(this.filterData.search.text);
         if (searchText) {
             const searchResult = this.searchEngine.search(searchText);
             return this.sortResult(searchResult.filter(this.filterIndexData.bind(this)));
@@ -92,7 +91,7 @@ export abstract class CompendiumBrowserTab {
                 }
                 return Array.from(wordSegmenter.segment(term))
                     .map((t) =>
-                        ux.SearchFilter.cleanQuery(t.segment.toLocaleLowerCase(game.i18n.lang)).replace(/['"]/g, ""),
+                        fa.ux.SearchFilter.cleanQuery(t.segment.toLocaleLowerCase(game.i18n.lang)).replace(/['"]/g, ""),
                     )
                     .filter((t) => t.length > 1);
             },

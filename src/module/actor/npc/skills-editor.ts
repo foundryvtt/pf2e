@@ -71,7 +71,7 @@ export class NPCSkillsEditor extends appv1.api.DocumentSheet<NPCPF2e> {
                 const skill = htmlClosest(event.target, "[data-skill]")?.dataset.skill;
                 if (!objectHasKey(CONFIG.PF2E.skills, skill)) return;
 
-                const special = fu.duplicate(this.actor._source.system.skills[skill]?.special ?? []);
+                const special = fu.deepClone(this.actor._source.system.skills[skill]?.special ?? []);
                 special.push({ label: "", base: 0 });
                 this.actor.update({ [`system.skills.${skill}.special`]: special });
             });

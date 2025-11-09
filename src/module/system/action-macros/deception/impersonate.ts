@@ -37,7 +37,6 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:impersonate"],
     section: "skill",
     slug: "impersonate",
     statistic: "deception",

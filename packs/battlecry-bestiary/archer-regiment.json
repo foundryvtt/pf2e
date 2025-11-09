@@ -1,0 +1,352 @@
+{
+    "_id": "pC4qg7AarAty1K7K",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "icFtpyk3vKrnSxKV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>HP</strong> 210;<strong>Thresholds</strong> 140 (3 segments), 70 (2 segments)</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "i5jWmQ8e6h6E4QoP",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopMovement]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-movement",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8AcivAl6LMDAhval",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
+            "name": "Dagger Defense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p><hr /><p>The archer regiment draws daggers to attack close-range enemies. Each enemy in a @Template[type:emanation|distance:5] must attempt a @Check[reflex|dc:29|basic|options:area-effect] save. The damage depends on the number of actions. The archer regiment gains a +1 circumstance bonus to AC until the beginning of their next turn.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(2d4+2)[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(4d4+12)[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(4d4+15)[piercing]|options:area-damage] damage</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Dagger Defense",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Dagger Defense"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VulwEYPqDylG33H9",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drilled in Formations",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The archer regiment uses @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Change Formation]. An archer regiment unit typically knows the loose and marching column formations.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "change-formation",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeFormation.Loose.Label",
+                                "value": "loose"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeFormation.MarchingColumn.Label",
+                                "value": "marching-column"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "change-formation:loose",
+                            {
+                                "or": [
+                                    "item:slug:rain-of-arrows",
+                                    "item:slug:dagger-defense"
+                                ]
+                            }
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.NPCAbility.ChangeFormation.Loose.Drawback"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "Weakness",
+                        "mode": "remove",
+                        "predicate": [
+                            "change-formation:loose"
+                        ],
+                        "type": [
+                            "area-damage",
+                            "splash-damage"
+                        ],
+                        "value": 0
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "change-formation:marching-column"
+                        ],
+                        "selector": "all-speeds",
+                        "type": "circumstance",
+                        "value": 10
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "change-formation:marching-column"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "change-formation:marching-column"
+                        ],
+                        "selector": "reflex",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R51FceAqG8YYfUtl",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Rain of Arrows",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The archer regiment fires their longbows in a coordinated volley. This volley is either a @Template[type:burst|distance:15] within 200 feet that deals @Damage[4d8[piercing]|options:area-damage] damage or a @Template[type:burst|distance:10] within 100 feet that deals @Damage[6d8[piercing]|options:area-damage] damage. Either effect has a @Check[reflex|dc:29|basic|options:area-effect] save. When the archer regiment is reduced to 2 segments, both areas are reduced by 5 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Archer Regiment",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 7
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 32
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "(4 segments); Thresholds 140 (3 segments), 70 (2 segments)",
+                "max": 210,
+                "temp": 0,
+                "value": 210
+            },
+            "speed": {
+                "details": "troop movement",
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 12
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Archer regiments are capable of filling the sky with arrows at great distances, making them vital to any war leader who wishes to weaken the enemy before they get close to allied units or encampments.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Battlecry!"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 22,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 22
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 25
+            },
+            "stealth": {
+                "base": 22
+            },
+            "survival": {
+                "base": 22
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "human",
+                "humanoid",
+                "troop"
+            ]
+        }
+    },
+    "type": "npc"
+}

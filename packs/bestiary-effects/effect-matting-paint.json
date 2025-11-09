@@ -1,0 +1,48 @@
+{
+    "_id": "qrsvaUIMdC0Uq9fQ",
+    "img": "icons/commodities/materials/liquid-green.webp",
+    "name": "Effect: Matting Paint",
+    "system": {
+        "description": {
+            "value": "<p>You become Clumsy 1 and take a –5-foot circumstance penalty to your Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #218: Titanbane"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "circumstance",
+                "value": -5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

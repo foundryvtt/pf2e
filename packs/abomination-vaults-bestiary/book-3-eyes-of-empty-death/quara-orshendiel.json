@@ -42,7 +42,8 @@
                 },
                 "tradition": {
                     "value": "divine"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -275,6 +276,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "knife",
                 "hardness": 0,
                 "hp": {
@@ -337,6 +339,11 @@
             "name": "Repeating Hand Crossbow",
             "sort": 600000,
             "system": {
+                "ammo": {
+                    "baseType": "magazine-repeating-hand-crossbow",
+                    "builtIn": false,
+                    "capacity": 1
+                },
                 "baseItem": "repeating-hand-crossbow",
                 "bonus": {
                     "value": 0
@@ -363,6 +370,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "crossbow",
                 "hardness": 0,
                 "hp": {
@@ -440,6 +448,7 @@
                     "inSlot": true,
                     "invested": null
                 },
+                "grade": null,
                 "group": "chain",
                 "hardness": 0,
                 "hp": {
@@ -596,77 +605,13 @@
             "type": "equipment"
         },
         {
-            "_id": "p0YKYixgeSqZxDVT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xk9bw9ccupAIx7xT"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/magazine-with-5-bolts.webp",
-            "name": "Repeating Hand Crossbow Magazine",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 9
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "repeating-hand-crossbow-magazine",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 5,
-                    "value": 5
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "iVTeyuWxtumKvgfY",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.nn2HAN1XKkKHfVnM"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/stupor-poison.webp",
             "name": "Stupor Poison",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -731,6 +676,53 @@
             "type": "consumable"
         },
         {
+            "_id": "p0YKYixgeSqZxDVT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xk9bw9ccupAIx7xT"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/magazine-with-5-bolts.webp",
+            "name": "Repeating Hand Crossbow Magazine",
+            "sort": 1100000,
+            "system": {
+                "baseItem": "arrows",
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": ""
+                },
+                "level": {
+                    "value": 0
+                },
+                "price": {
+                    "value": {
+                        "sp": 9
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "repeating-hand-crossbow-magazine",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": []
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 5,
+                    "value": 5
+                }
+            },
+            "type": "ammo"
+        },
+        {
             "_id": "JEA54JYtf51IHnRH",
             "flags": {
                 "pf2e": {
@@ -764,6 +756,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -815,12 +808,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "range-increment-60",
                         "reload-0",
                         "repeating"
                     ]
@@ -1243,36 +1239,6 @@
                         "toggleable": true
                     }
                 ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hw9SLn99zC7mqeTR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stupor Poison",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Stupor poison is a more potent distillation of @UUID[Compendium.pf2e.equipment-srd.Item.Lethargy Poison]. Further exposure to stupor poison doesn't require the target to attempt additional saving throws; only failing a saving throw against an ongoing exposure can progress its stage.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:20|traits:alchemical,incapacitation,injury,poison,sleep]</p>\n<p><strong>Maximum Duration</strong> 6 hours</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and off-guard (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up (1 round)</p>\n<p><strong>Stage 4</strong> unconscious with no Perception check to wake up ([[/r 1d6 #hours]]{1d6 hours})</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

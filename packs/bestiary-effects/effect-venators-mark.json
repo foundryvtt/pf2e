@@ -1,0 +1,55 @@
+{
+    "_id": "2TlbtDHEGcFG8NPF",
+    "img": "icons/skills/targeting/crosshair-triple-strike-orange.webp",
+    "name": "Effect: Venator's Mark",
+    "system": {
+        "description": {
+            "value": "<p>You take a –1 status penalty to all attacks against aeons, as well as to saving throws against efects from aeons.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:aeon",
+                            "origin:trait:aeon"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "attack",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

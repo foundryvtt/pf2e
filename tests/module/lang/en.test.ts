@@ -1,4 +1,4 @@
-import json from "../../../static/lang/en.json";
+import json from "../../../static/lang/en.json" with { type: "json" };
 
 describe("Load json file", () => {
     test("it should be a valid JSON object", async () => {

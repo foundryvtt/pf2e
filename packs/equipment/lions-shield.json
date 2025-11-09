@@ -12,6 +12,7 @@
         "description": {
             "value": "<p>This steel shield (Hardness 6, HP 36, BT 18) is forged into the shape of a roaring lion's head. The lion's head functions as <em>+1 striking shield boss</em> that can't be removed from the shield.</p><hr /><p><strong>Activate—Lion's Bite</strong> <span class=\"action-glyph\">F</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Your shield is raised</p>\n<p><strong>Effect</strong> You animate the lion's head, making a melee Strike with it. The shield's biting maw is a martial melee weapon that deals 2d6 piercing damage and has the deadly d6 trait; it can't be enhanced by runes.</p>\n<p>The shield remains animated for 1 minute, during which time you can Strike with it each time you Raise the Shield, as well as with a Strike action.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Lion's Bite]</p>"
         },
+        "grade": null,
         "hardness": 6,
         "hp": {
             "max": 36,
@@ -52,14 +53,23 @@
                 "slug": "lions-head"
             },
             {
-                "key": "WeaponPotency",
-                "label": "PF2E.PotencyRuneLabel",
-                "selector": "lions-head-attack",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:slug:lions-head"
+                ],
+                "property": "runes-potency",
                 "value": 1
             },
             {
-                "key": "Striking",
-                "selector": "lions-head-damage",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:slug:lions-head"
+                ],
+                "property": "runes-striking",
                 "value": 1
             }
         ],

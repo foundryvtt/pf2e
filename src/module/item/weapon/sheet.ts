@@ -2,9 +2,10 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
+    type Grade,
     MATERIAL_DATA,
-    MaterialSheetData,
-    PhysicalItemSheetData,
+    type MaterialSheetData,
+    type PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
     RUNE_DATA,
     getPropertyRuneSlots,
@@ -89,11 +90,37 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         const specificMagicData =
             weapon._source.system.specific ?? R.pick(weapon._source.system, ["material", "runes"]);
+        const ammoTypes = R.pipe(
+            CONFIG.PF2E.ammoTypes,
+            R.entries(),
+            R.map(
+                ([key, data]): foundry.applications.fields.FormSelectOption => ({
+                    value: key,
+                    label: game.i18n.localize(data.label),
+                    group: data.weapon ? game.i18n.localize("PF2E.Item.Ammo.Groups.WeaponSpecific") : undefined,
+                }),
+            ),
+            R.sortBy((o) => o.label),
+        );
+
+        // Add dart as a hardcoded weapon as ammo. Get a full list in the future
+        ammoTypes.push({
+            value: "dart",
+            label: game.i18n.localize("PF2E.Weapon.Base.dart"),
+            group: game.i18n.localize("PF2E.Item.Ammo.Groups.Weapons"),
+        });
+
+        // The ammo data for the currently set ammo type. Used to determine if the weapon can have capacity
+        const ammoData = objectHasKey(CONFIG.PF2E.ammoTypes, this.item.system.ammo?.baseType)
+            ? CONFIG.PF2E.ammoTypes[this.item.system.ammo.baseType]
+            : null;
 
         return {
             ...sheetData,
             abpEnabled,
             adjustedDiceHint,
+            ammoTypes: [{ value: "", label: game.i18n.localize("PF2E.Item.Weapon.AnyBasicAmmo") }, ...ammoTypes],
+            canHaveCapacity: !ammoData?.magazine,
             baseTypes: sortStringRecord(CONFIG.PF2E.baseWeaponTypes),
             categories: CONFIG.PF2E.weaponCategories,
             conditionTypes: sortStringRecord(CONFIG.PF2E.conditionTypes),
@@ -124,6 +151,11 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                     .map((p) => ({ slug: p.slug, name: game.i18n.localize(p.name) }))
                     .sort((a, b) => a.name.localeCompare(b.name)),
             },
+            grades: R.mapValues(CONFIG.PF2E.grades, (v, slug) => {
+                const label = game.i18n.localize(v);
+                const data = CONFIG.PF2E.weaponImprovements[slug];
+                return game.i18n.format("PF2E.Item.Weapon.GradeOption", { grade: label, ...data });
+            }),
             specificMagicData,
             weaponMAP: CONFIG.PF2E.weaponMAP,
             weaponRanges,
@@ -195,9 +227,10 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             }
         }
 
-        // Set reload to null if its empty string
-        if (formData["system.reload.value"] === "") {
-            formData["system.reload.value"] = null;
+        // Set certain properties to null if its empty string
+        const emptyIsNull = ["system.reload.value", "system.ammo.baseType"];
+        for (const prop of emptyIsNull) {
+            if (!formData[prop]) formData[prop] = null;
         }
 
         return super._updateObject(event, formData);
@@ -215,7 +248,8 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     abpEnabled: boolean;
     adjustedDiceHint: string | null;
     adjustedLevelHint: string | null;
-    adjustedPriceHint: string | null;
+    ammoTypes: foundry.applications.fields.FormSelectOption[];
+    canHaveCapacity: boolean;
     baseTypes: typeof CONFIG.PF2E.baseWeaponTypes;
     categories: typeof CONFIG.PF2E.weaponCategories;
     conditionTypes: typeof CONFIG.PF2E.conditionTypes;
@@ -238,6 +272,7 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     preciousMaterials: MaterialSheetData;
     propertyRuneSlots: PropertyRuneSheetSlot[];
     runeTypes: Omit<typeof RUNE_DATA.weapon, "property"> & { property: { slug: string; name: string }[] };
+    grades: Record<Grade, string>;
     specificMagicData: SpecificWeaponData;
     weaponMAP: typeof CONFIG.PF2E.weaponMAP;
     weaponRanges: Record<number, string>;

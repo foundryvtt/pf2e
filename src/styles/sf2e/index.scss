@@ -1,0 +1,81 @@
+@use "sass:color";
+
+$primary-color: #1d3c53;
+$secondary-color: #40256f;
+
+body,
+.app,
+.themed.theme-light {
+    /* Color Definitions */
+    --color-bg-trait: #2d4f6a;
+    --color-border-trait: #9edae6;
+
+    /** Proficiency ranks */
+    --color-proficiency-trained: #2c4e69;
+    --color-proficiency-expert: #5b3a96;
+    --color-proficiency-master: #3a7b59;
+    --color-proficiency-legendary: #98503d;
+
+    /* Color Overrides */
+    --color-pf-primary: #{$primary-color};
+    --color-pf-primary-dark: #{color.adjust($primary-color, $lightness: -5%)};
+    --color-pf-primary-darker: #{color.adjust($primary-color, $lightness: -10%)};
+    --color-pf-primary-light: #{color.adjust($primary-color, $lightness: 5%)};
+    --color-pf-primary-lighter: #{color.adjust($primary-color, $lightness: 10%)};
+    --color-pf-secondary: #{$secondary-color};
+    --color-pf-secondary-dark: #{color.adjust($secondary-color, $lightness: -10%)};
+    --color-pf-secondary-light: #{color.adjust($secondary-color, $lightness: 10%)};
+    --color-pf-secondary-lighter: #{color.adjust($secondary-color, $lightness: 20%)};
+}
+
+.actor.sheet {
+    --color-scrollbar: #{$primary-color};
+}
+
+.actor.sheet.character section.window-content .crb-style {
+    --logo: url("/assets/starfinder_logo.webp");
+
+    background: url("/assets/sheet/sf2e-header.webp"), url("/assets/sheet/background.webp");
+    background-size:
+        100% 5.625rem,
+        auto;
+    background-repeat: repeat-x, repeat;
+
+    > header.char-header .level {
+        filter: hue-rotate(240deg) brightness(1.1);
+    }
+
+    aside {
+        background-image: url("/assets/sheet/blue_sidebar_top.webp"), url("/assets/sheet/blue_sidebar_bottom.webp");
+        background-repeat: no-repeat;
+        background-position:
+            center calc(100% - 3.25rem),
+            center bottom;
+        background-size:
+            14rem 100%,
+            14rem 3.25rem;
+    }
+}
+
+.actor.sheet.vehicle section.window-content .crb-style {
+    background: url("/assets/sheet/sf2e-header.webp"), url("/assets/sheet/background.webp");
+    background-size:
+        100% 5.625rem,
+        auto;
+    background-repeat: repeat-x, repeat;
+
+    > header.char-header .level {
+        filter: hue-rotate(240deg) brightness(1.1);
+    }
+
+    aside {
+        background-image: url("/assets/sheet/blue_sidebar_top.webp"), url("/assets/sheet/blue_sidebar_bottom.webp");
+        background-repeat: no-repeat;
+        background-position:
+            center calc(100% - 3.25rem),
+            center bottom;
+        background-size:
+            14rem 100%,
+            14rem 3.25rem;
+    }
+}

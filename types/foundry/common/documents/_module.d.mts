@@ -37,7 +37,7 @@ export { default as BaseWall, WallSource } from "./wall.mjs";
 export type ActorUUID = `Actor.${string}` | `${TokenDocumentUUID}.Actor.${string}` | CompendiumActorUUID;
 export type CompendiumActorUUID = `Compendium.${string}.Actor.${string}`;
 export type CompendiumItemUUID = `Compendium.${string}.Item.${string}`;
-export type EmbeddedItemUUID = `Actor.${string}.Item.${string}`;
+export type EmbeddedItemUUID = `${ActorUUID}.Item.${string}`;
 export type ItemUUID = WorldItemUUID | EmbeddedItemUUID | CompendiumItemUUID;
 export type TokenDocumentUUID = `Scene.${string}.Token.${string}`;
 export type UserUUID = `User.${string}`;

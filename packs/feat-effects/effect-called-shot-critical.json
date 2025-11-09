@@ -1,0 +1,121 @@
+{
+    "_id": "kcxz1zHReNt8zm8Y",
+    "img": "icons/skills/ranged/projectile-strike-impale-gray.webp",
+    "name": "Effect: Called Shot (Critical)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Called Shot]</p>\n<p>You gain an effect based on the selected body part.</p><ul><li><strong>Arm (or another limb used for attacks, such as a tentacle)</strong> You are enfeebled 1.</li><li><strong>Head</strong> You are stupefied 1.</li><li><strong>Legs</strong> You take a –5-foot status penalty to your Speeds.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Arms",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "self:effect:called-shot"
+                                    },
+                                    "called-shot:arms"
+                                ]
+                            }
+                        ],
+                        "value": "arms"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Head",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "self:effect:called-shot"
+                                    },
+                                    "called-shot:head"
+                                ]
+                            }
+                        ],
+                        "value": "head"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BodyParts.Legs",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "self:effect:called-shot"
+                                    },
+                                    "called-shot:legs"
+                                ]
+                            }
+                        ],
+                        "value": "legs"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "called-shot-critical"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "called-shot-critical:arms",
+                    {
+                        "not": "called-shot:arms"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "called-shot-critical:head",
+                    {
+                        "not": "called-shot:head"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "called-shot-critical:legs",
+                    {
+                        "not": "called-shot:legs"
+                    }
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

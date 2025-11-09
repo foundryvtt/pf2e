@@ -1,0 +1,247 @@
+{
+    "_id": "PFB61dvUsakciV0N",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "a3cYrmsIGVchwgtR",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "slime-rot"
+                    ]
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "dfhpqhpsj4z2vuaqiehu": {
+                        "damage": "1d8+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IieLHPPUSUSDsN8d",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A slime mold can sense nearby creatures through vibration and air or water movement.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kkVojFishI8AxnVn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Slime Rot",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Onset</strong> [[/gmr 1d4 #days]]{1d4 days}</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 day)</p>\n<p><strong>Stage 4</strong> as stage 3 (1 day)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} plus @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (no Perception check to wake up) (1 day)</p>\n<p><strong>Stage 6</strong> dead, and the body erupts to release a new slime mold</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "slime-rot",
+                "traits": {
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Slime Mold",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 12
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 10
+                    }
+                ],
+                "value": 10
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>A slime mold appears as a mound of earth and detritus covered in a thick layer of fungus that exudes a faint stink of decay. The fungus actually shares a symbiotic relationship with the slime mold, serving as an external digestive system while gaining access to the nutrients it needs. The ooze remains perfectly still until living prey passes within reach, then it lashes out with disgusting pseudopods. With a touch, a slime mold can infect its prey with a foul contagion known as slime rot, a horrific disease that painfully breaks down a victim's flesh. At first, the disease manifests as painful rashes and agonized joints. In the later stages, though, the flesh of the affected creature actually begins to liquefy and run in rivulets as the creature's spores continue to work. Death, when it occurs, swiftly causes the resulting body to split open and release a brand new slime mold.</p>\n<hr />\n<p>Due to their bizarre physical structures and ability to break down and feed on a wide variety of materials, oozes are able to adapt to nearly any climate, especially when assisted by magical or alchemical tinkering. As a result, explorers frequently encounter new and terrifying varieties of these amorphous creatures.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core 2"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 6,
+            "senses": [
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "motion-sense"
+                }
+            ],
+            "vision": false
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 3
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 7
+            },
+            "stealth": {
+                "base": 6,
+                "special": [
+                    {
+                        "base": 8,
+                        "label": "amid decaying plant matter or fungus",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:fungus",
+                                    "terrain:plant"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fungus",
+                "mindless",
+                "ooze"
+            ]
+        }
+    },
+    "type": "npc"
+}

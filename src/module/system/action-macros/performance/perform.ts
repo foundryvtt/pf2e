@@ -74,55 +74,46 @@ const action = new SingleCheckAction({
     variants: [
         {
             name: `${PREFIX}.Acting.Title`,
-            rollOptions: ["action:perform", "action:perform:acting"],
             slug: "acting",
             traits: ["auditory", "concentrate", "linguistic", "visual"],
         },
         {
             name: `${PREFIX}.Comedy.Title`,
-            rollOptions: ["action:perform", "action:perform:comedy"],
             slug: "comedy",
             traits: ["auditory", "concentrate", "linguistic", "visual"],
         },
         {
             name: `${PREFIX}.Dance.Title`,
-            rollOptions: ["action:perform", "action:perform:dance"],
             slug: "dance",
             traits: ["concentrate", "move", "visual"],
         },
         {
             name: `${PREFIX}.Keyboards.Title`,
-            rollOptions: ["action:perform", "action:perform:keyboards"],
             slug: "keyboards",
             traits: ["auditory", "concentrate", "manipulate"],
         },
         {
             name: `${PREFIX}.Oratory.Title`,
-            rollOptions: ["action:perform", "action:perform:oratory"],
             slug: "oratory",
             traits: ["auditory", "concentrate", "linguistic"],
         },
         {
             name: `${PREFIX}.Percussion.Title`,
-            rollOptions: ["action:perform", "action:perform:percussion"],
             slug: "percussion",
             traits: ["auditory", "concentrate", "manipulate"],
         },
         {
             name: `${PREFIX}.Singing.Title`,
-            rollOptions: ["action:perform", "action:perform:singing"],
             slug: "singing",
             traits: ["auditory", "concentrate", "linguistic"],
         },
         {
             name: `${PREFIX}.Strings.Title`,
-            rollOptions: ["action:perform", "action:perform:strings"],
             slug: "strings",
             traits: ["auditory", "concentrate", "manipulate"],
         },
         {
             name: `${PREFIX}.Winds.Title`,
-            rollOptions: ["action:perform", "action:perform:winds"],
             slug: "winds",
             traits: ["auditory", "concentrate", "manipulate"],
         },

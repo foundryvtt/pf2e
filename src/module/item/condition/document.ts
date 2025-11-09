@@ -4,7 +4,7 @@ import type { ItemPF2e } from "@item";
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
+import { RuleElement, RuleElementOptions } from "@module/rules/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -267,8 +267,9 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     /** Log self in parent's conditions map */
-    override prepareActorData(this: ConditionPF2e<ActorPF2e>): void {
+    override prepareActorData(): void {
         super.prepareActorData();
+        if (!this.actor) return;
 
         if (this.active && this.system.persistent) {
             const { damageType } = this.system.persistent;
@@ -277,7 +278,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     /** Withhold all rule elements if this condition is inactive */
-    override prepareRuleElements(options?: RuleElementOptions): RuleElementPF2e[] {
+    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElement[] {
         return this.active ? super.prepareRuleElements(options) : [];
     }
 

@@ -3,12 +3,12 @@ import { IWRType } from "@actor/types.ts";
 import type { Predicate } from "@system/predication.ts";
 import { DataUnionField, PredicateField, StrictArrayField, StrictStringField } from "@system/schema-data-fields.ts";
 import { AELikeChangeMode } from "../ae-like.ts";
-import { RuleElementPF2e } from "../base.ts";
+import { RuleElement } from "../base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource, RuleValue } from "../data.ts";
 import fields = foundry.data.fields;
 
 /** @category RuleElement */
-abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema> {
+abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement<TSchema> {
     abstract value: RuleValue | null;
 
     static get dictionary(): Record<string, string | undefined> {
@@ -124,7 +124,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
 }
 
 interface IWRRuleElement<TSchema extends IWRRuleSchema>
-    extends RuleElementPF2e<TSchema>,
+    extends RuleElement<TSchema>,
         ModelPropsFromRESchema<IWRRuleSchema> {
     constructor: typeof IWRRuleElement<TSchema>;
 }

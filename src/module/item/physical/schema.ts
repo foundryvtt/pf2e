@@ -1,60 +1,37 @@
-import { CoinsPF2e } from "./coins.ts";
+import { PrunedSchemaField } from "@system/schema-data-fields.ts";
+import * as R from "remeda";
+import { Coins } from "./coins.ts";
 import type { Price } from "./index.ts";
+import { DENOMINATIONS } from "./values.ts";
 import fields = foundry.data.fields;
 
 class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema<PriceSchema>, Price> {
     constructor() {
         const denominationField = (): fields.NumberField<number, number, false, false, false> =>
-            new fields.NumberField({ required: false, nullable: false, initial: undefined });
-        super(
-            {
-                value: new fields.SchemaField(
-                    {
-                        cp: denominationField(),
-                        sp: denominationField(),
-                        gp: denominationField(),
-                        pp: denominationField(),
-                    },
-                    {
-                        required: true,
-                        nullable: false,
-                    },
-                ),
-                per: new fields.NumberField({
-                    required: true,
-                    nullable: false,
-                    positive: true,
-                    integer: true,
-                    initial: 1,
-                }),
-                sizeSensitive: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
-            },
-            {
+            new fields.NumberField({ required: false, nullable: false, integer: true, min: 0 });
+        super({
+            value: new PrunedSchemaField(
+                R.mapToObj(DENOMINATIONS.toReversed(), (d) => [d, denominationField()]),
+                { required: true, nullable: false },
+            ),
+            per: new fields.NumberField({
                 required: true,
                 nullable: false,
-                initial: () => ({
-                    value: {
-                        cp: undefined,
-                        sp: undefined,
-                        gp: undefined,
-                        pp: undefined,
-                    },
-                    per: 1,
-                    sizeSensitive: undefined,
-                }),
-            },
-        );
+                integer: true,
+                positive: true,
+                initial: 1,
+            }),
+            sizeSensitive: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+        });
     }
 
     override initialize(source: fields.SourceFromSchema<PriceSchema>): Price {
         const initialized = super.initialize(source);
-        initialized.value = new CoinsPF2e(initialized.value);
+        initialized.value = new Coins(initialized.value);
         initialized.sizeSensitive ??= false;
         return initialized;
     }
 }
-
-type CoinsField = fields.SchemaField<CoinsSchema, fields.SourceFromSchema<CoinsSchema>, CoinsPF2e, true, false, true>;
 
 type CoinsSchema = {
     cp: fields.NumberField<number, number, false, false, false>;
@@ -64,7 +41,7 @@ type CoinsSchema = {
 };
 
 type PriceSchema = {
-    value: CoinsField;
+    value: PrunedSchemaField<CoinsSchema>;
     per: fields.NumberField<number, number, true, false, true>;
     sizeSensitive: fields.BooleanField<boolean, boolean, false, false, false>;
 };

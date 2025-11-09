@@ -90,7 +90,7 @@ export default class ProseMirrorMenu extends ProseMirrorPlugin {
      * Handle a button press.
      * @param  event  The click event.
      */
-    protected _onAction(event: MouseEvent): void;
+    protected _onAction(event: PointerEvent): void;
 
     /** Wrap the editor view element and inject our template ready to be rendered into. */
     protected _wrapEditor(): void;

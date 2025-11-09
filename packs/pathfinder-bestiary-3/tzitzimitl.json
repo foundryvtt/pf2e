@@ -174,7 +174,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.FEsuyf203wTNE2et"
             },
-            "img": "systems/pf2e/icons/spells/wail-of-the-banshee.webp",
+            "img": "systems/pf2e/icons/spells/fatal-aria.webp",
             "name": "Wail of the Banshee",
             "sort": 400000,
             "system": {
@@ -935,6 +935,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -986,13 +987,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": null,
+                    "max": 100
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "range-100"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
                     "value": "ranged"
@@ -1159,14 +1162,21 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a tzitzimitl's claw Strike deals damages to a living creature, the tzitzimitl gains [[/r 20 #Temporary Hit Points]]{20 temporary Hit Points}, and the target must succeed at a @Check[fortitude|dc:41] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}. Further damage dealt by a tzitzimitl's Claw Strike increases the value of the drained condition by 2 on a failed save, to a maximum of drained 4.</p>"
+                    "value": "<p>When a tzitzimitl's claw Strike deals damages to a living creature, the tzitzimitl gains 20 temporary Hit Points, and the target must succeed at a @Check[fortitude|dc:41|options:inflicts:drained] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}. Further damage dealt by a tzitzimitl's Claw Strike increases the value of the drained condition by 2 on a failed save, to a maximum of drained 4.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Drain Life]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.drainLifeTempHP",
+                        "value": 20
+                    }
+                ],
                 "slug": "drain-life",
                 "traits": {
                     "rarity": "common",

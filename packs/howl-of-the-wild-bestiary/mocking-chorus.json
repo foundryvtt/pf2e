@@ -92,6 +92,7 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
@@ -135,12 +136,15 @@
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 90,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
-                        "auditory",
-                        "range-increment-90"
+                        "auditory"
                     ]
                 },
                 "weaponType": {
@@ -391,7 +395,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The mocking chorus adopts the voices of its enemies, spreading lies and jeers among would-be allies and tearing apart trusted friends. Creatures in a @Template[emanation|distance:60] of the mocking chorus must attempt a @Check[will|dc:37] save. The mocking chorus can't use petty whispers again for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 day.</p>\n<p><strong>Success</strong> As failure, but the creature takes half damage and is not @UUID[Compendium.pf2e.conditionitems.Item.Confused].</p>\n<p><strong>Failure</strong> The creature takes @Damage[12d10[mental]] damage and is confused for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[15d10[mental]] damage and is confused for 1 minute, with no save to end early.</p>"
+                    "value": "<p>The mocking chorus adopts the voices of its enemies, spreading lies and jeers among would-be allies and tearing apart trusted friends. Creatures in a @Template[emanation|distance:60] of the mocking chorus must attempt a @Check[will|dc:37|options:area-effect,damaging-effect] save. The mocking chorus can't use petty whispers again for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 day.</p>\n<p><strong>Success</strong> As failure, but the creature takes half damage and is not @UUID[Compendium.pf2e.conditionitems.Item.Confused].</p>\n<p><strong>Failure</strong> The creature takes @Damage[12d10[mental]|options:area-damage] damage and is confused for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[15d10[mental]|options:area-damage] damage and is confused for 1 minute, with no save to end early.</p>"
                 },
                 "publication": {
                     "license": "OGL",
