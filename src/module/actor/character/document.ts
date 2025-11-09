@@ -1088,7 +1088,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 i.isEquipped
                     ? i.subitems.filter(
                           (sub): sub is WeaponPF2e<this> =>
-                              sub.isOfType("weapon") && i.isOfType("weapon") && !sub.isAmmoFor(i),
+                              sub.isOfType("weapon") && !(i.isOfType("weapon") && sub.isAmmoFor(i)),
                       )
                     : [],
             ),
