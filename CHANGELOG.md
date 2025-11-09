@@ -1,3 +1,10 @@
+## 7.7.1
+
+### Bugfixes
+
+- (Supe) Fix permission check allowing players to roll saving throws for Area Fire and Auto-Fire attacks
+- (In3luki) Fix treasure-item validation not allowing a quantity of zero
+
 ## 7.7.0
 
 ### System Improvements
