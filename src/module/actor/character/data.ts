@@ -394,6 +394,8 @@ interface BasicAttackData {
     visible: boolean;
     auxiliaryActions: WeaponAuxiliaryAction[];
     weaponTraits: TraitViewData[];
+    /** Whether the character has sufficient hands available to wield this weapon or use this unarmed attack */
+    handsAvailable: boolean;
 }
 
 /** The full data for a character strike */
@@ -401,8 +403,6 @@ interface CharacterStrike extends StrikeData, BasicAttackData {
     item: WeaponPF2e<CharacterPF2e>;
     /** Domains/selectors from which modifiers are drawn */
     domains: string[];
-    /** Whether the character has sufficient hands available to wield this weapon or use this unarmed attack */
-    handsAvailable: boolean;
     altUsages: CharacterAttack[];
     doubleBarrel: { selected: boolean } | null;
     versatileOptions: VersatileWeaponOption[];

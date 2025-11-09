@@ -48,7 +48,6 @@ import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } fr
 import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
-import type { WeaponCategory } from "@item/weapon/types.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
@@ -1073,7 +1072,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...itemTypes.ammo.filter((i) => !i.isStowed),
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
-        const offensiveCategories = R.keys(CONFIG.PF2E.weaponCategories);
         const syntheticWeapons = Object.values(synthetics.strikes)
             .map((s) => s(unarmedRunes))
             .filter(R.isNonNull);
@@ -1105,8 +1103,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const attacks = weapons
             .map((w) =>
                 w.baseType === "grenade" || w.system.traits.config.area
-                    ? this.prepareAreaAttack(w, { ammos })
-                    : this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree, ammos }),
+                    ? this.prepareAreaAttack(w, { handsReallyFree, ammos })
+                    : this.prepareStrike(w, { handsReallyFree, ammos }),
             )
             .sort((a, b) =>
                 a.label
@@ -1121,19 +1119,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Create alt usages for each strike, based on traits and such
         for (const attack of attacks) {
             const weapon = attack.item;
-            attack.altUsages.push(
-                ...weapon
-                    .getAltUsages()
-                    .map((w) => this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree })),
-            );
+            attack.altUsages.push(...weapon.getAltUsages().map((w) => this.prepareStrike(w, { handsReallyFree })));
             if (attack.type === "area-fire" && weapon.baseType !== "grenade") {
                 // If this was an area fire, add the normal strike as a secondary usage at the front
-                attack.altUsages.unshift(
-                    this.prepareStrike(weapon, { categories: offensiveCategories, handsReallyFree }),
-                );
+                attack.altUsages.unshift(this.prepareStrike(weapon, { handsReallyFree }));
             } else if (weapon.system.traits.value.includes("automatic")) {
                 // If this is an automatic weapon, add the area usage at the very end
-                attack.altUsages.push(this.prepareAreaAttack(weapon));
+                attack.altUsages.push(this.prepareAreaAttack(weapon, { handsReallyFree }));
             }
         }
 
@@ -1152,7 +1144,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     private prepareAreaAttack(
         weapon: WeaponPF2e<CharacterPF2e>,
-        { ammos = [] }: { ammos?: (AmmoPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[] } = {},
+        { handsReallyFree, ammos = [] }: PrepareAttackOptions,
     ): CharacterAreaAttack {
         const actor = weapon.actor;
         const isAutomatic = weapon.system.traits.value.includes("automatic");
@@ -1224,6 +1216,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const identifier = `${weapon.id}.${weaponSlug}.${action}`;
         const hiddenCauseStowed = weapon.isStowed && this.flags.pf2e.hideStowed;
         const hiddenCauseUnarmed = weapon.slug === "basic-unarmed" && !this.flags.pf2e.showBasicUnarmed;
+        const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
         return {
             slug: identifier,
@@ -1233,13 +1226,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             visible: !(hiddenCauseStowed || hiddenCauseUnarmed),
             glyph: getActionGlyph(actionCost),
             description: weapon.description,
-            ready: true,
+            ready:
+                (weapon.isEquipped && handsAvailable) ||
+                (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && handsReallyFree > 0),
             canAttack: true,
             altUsages: [],
             auxiliaryActions: getWeaponAuxiliaryActions(weapon),
             modifiers: [],
             item: weapon,
             statistic,
+            handsAvailable,
             weaponTraits: weapon.system.traits.value
                 .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
                 .sort((a, b) => a.label.localeCompare(b.label)),
@@ -1278,7 +1274,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /** Prepare a strike action from a weapon */
     private prepareStrike(
         weapon: WeaponPF2e<CharacterPF2e>,
-        { handsReallyFree, ammos = [] }: PrepareStrikeOptions,
+        { handsReallyFree, ammos = [] }: PrepareAttackOptions,
     ): CharacterStrike {
         const synthetics = this.synthetics;
         const modifiers: Modifier[] = [];
@@ -1972,8 +1968,7 @@ interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     getResource(resource: string): ResourceData | null;
 }
 
-interface PrepareStrikeOptions {
-    categories: WeaponCategory[];
+interface PrepareAttackOptions {
     handsReallyFree: number;
     ammos?: (AmmoPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
 }
