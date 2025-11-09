@@ -1,10 +1,10 @@
 {
-    "_id": "AKKHagjg5bL1fMG5",
-    "img": "systems/pf2e/icons/spells/prying-eye.webp",
-    "name": "Effect: Overwatch Field",
+    "_id": "qPul8V5LMyHNpsOa",
+    "img": "icons/magic/symbols/rune-sigil-hook-white-red.webp",
+    "name": "Effect: Curse the Intruders",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Overwatch Dedication]</p>\n<p>You gain a +2 circumstance bonus to initiative rolls.</p>"
+            "value": "<p>You take a –2 status penalty to Fortitude saves.</p>"
         },
         "duration": {
             "expiry": null,
@@ -12,20 +12,23 @@
             "unit": "unlimited",
             "value": -1
         },
+        "fromSpell": false,
         "level": {
             "value": 1
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Guns & Gears"
+            "title": "Pathfinder Society Scenario #7-07: Draconic Folly"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "initiative",
-                "type": "circumstance",
-                "value": 2
+                "selector": [
+                    "fortitude"
+                ],
+                "type": "status",
+                "value": -2
             }
         ],
         "start": {
@@ -36,7 +39,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
