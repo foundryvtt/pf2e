@@ -1,0 +1,47 @@
+{
+    "_id": "Zy7rrPCgMTeSzKj9",
+    "img": "icons/sundries/flags/banner-flag-red-white.webp",
+    "name": "Effect: Defiant Banner",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Defiant Banner]</p>\n<p>You gain resistance to bludgeoning, piercing, and slashing damage equal to the origin's Intelligence modifier.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "bludgeoning",
+                    "piercing",
+                    "slashing"
+                ],
+                "value": "@item.origin.abilities.int.mod"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

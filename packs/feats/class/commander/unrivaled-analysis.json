@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your experience allows you to derive even more information about your opponents from a mere glance. When you use Rapid Assessment, you can attempt up to four checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about creatures you are observing.</p>"
+            "value": "<p>Your experience allows you to derive even more information about your opponents from a mere glance. When you use @UUID[Compendium.pf2e.feats-srd.Item.Rapid Assessment], you can attempt up to four checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about creatures you are observing.</p>"
         },
         "level": {
             "value": 8
@@ -29,7 +29,22 @@
             "remaster": true,
             "title": "Pathfinder Battlecry!"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:rapid-assessment"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
