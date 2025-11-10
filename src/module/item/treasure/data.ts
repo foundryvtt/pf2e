@@ -128,14 +128,12 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
         };
     }
 
-    static override migrateData<T extends foundry.abstract.DataModel>(
-        this: ConstructorOf<T>,
-        source: Record<string, unknown>,
-    ): T["_source"] {
-        if (source.size === "sm") source.size = "med";
-        if (source.stackGroup === "coins") source.category = "coin";
-        else if (source.stackGroup === "gems") source.category = "gem";
-        return super.migrateData(source);
+    static override migrateData(source: Record<string, unknown>): Record<string, unknown> {
+        const migrated = super.migrateData(source);
+        if (migrated.size === "sm") migrated.size = "med";
+        if (migrated.stackGroup === "coins") migrated.category = "coin";
+        else if (migrated.stackGroup === "gems") migrated.category = "gem";
+        return migrated;
     }
 
     get stackGroup(): "coins" | "gems" | null {

@@ -1,5 +1,5 @@
 import { CompendiumDocumentType } from "@client/utils/helpers.mjs";
-import { DataModelConstructionContext, DataSchema } from "@common/abstract/_types.mjs";
+import { DataModelConstructionContext } from "@common/abstract/_types.mjs";
 import { DocumentOwnershipLevel, PackageAvailabilityCode, PackageType, UserRole } from "@common/constants.mjs";
 import { DataFieldOptions, ObjectFieldOptions } from "@common/data/_module.mjs";
 import type DataModel from "../abstract/data.mjs";
@@ -184,7 +184,7 @@ export default abstract class BasePackage<TDataSchema extends BasePackageSchema 
      */
     static validateId(id: string): void;
 
-    static override migrateData(source: Record<string, unknown>): fields.SourceFromSchema<DataSchema>;
+    static override migrateData(source: Record<string, unknown>): Record<string, unknown>;
 
     /**
      * Retrieve the latest Package manifest from a provided remote location.

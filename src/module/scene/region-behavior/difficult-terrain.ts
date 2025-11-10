@@ -25,13 +25,7 @@ export class DifficultTerrainBehaviorType extends regionBehaviors.ModifyMovement
     }
 
     /** Ensure difficulty values are among valid choices in case of creation before assumption of system ownership.  */
-    static override migrateData<T extends foundry.abstract.DataModel>(
-        this: ConstructorOf<T>,
-        source: Record<string, unknown>,
-    ): T["_source"];
-    static override migrateData(
-        source: Record<string, unknown>,
-    ): regionBehaviors.ModifyMovementCostRegionBehaviorType["_source"] {
+    static override migrateData(source: Record<string, unknown>): Record<string, unknown> {
         const migrated = super.migrateData(source);
         if (!R.isPlainObject(migrated.difficulties)) return migrated;
         for (const [key, value] of Object.entries(migrated.difficulties)) {

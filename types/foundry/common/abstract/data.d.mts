@@ -214,7 +214,7 @@ export default abstract class DataModel<
      * @param source The candidate source data from which the model will be constructed
      * @returns Migrated source data, if necessary
      */
-    static migrateData<T extends DataModel>(this: ConstructorOf<T>, source: Record<string, unknown>): T["_source"];
+    static migrateData(source: Record<string, unknown>): Record<string, unknown>;
 
     /**
      * Wrap data migration in a try/catch which attempts it safely

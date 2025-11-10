@@ -12,10 +12,7 @@ declare class ServerSettings extends DataModel<null, ServerSettingsSchema> {
 
     static LOCALIZATION_PREFIXES: string[];
 
-    static override migrateData<T extends DataModel>(
-        this: ConstructorOf<T>,
-        source: Record<string, unknown>,
-    ): T["_source"];
+    static override migrateData(source: Record<string, unknown>): Record<string, unknown>;
 }
 
 declare interface ServerSettings
