@@ -154,8 +154,8 @@ export class InlineRollLinks {
                 return [sheetActor];
             }
 
-            // If the rolling actor is a party actor, return it (likely kingmaker)
-            if (parentActor?.isOfType("party")) {
+            // If the rolling actor is a party actor and has the requested statistic, return it (likely kingmaker)
+            if (parentActor?.isOfType("party") && parentActor?.getStatistic(pf2Check)) {
                 return [parentActor];
             }
 
