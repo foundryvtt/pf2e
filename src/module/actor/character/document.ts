@@ -67,6 +67,7 @@ import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
+import { createHTMLElement } from "@util";
 import { ErrorPF2e, getActionGlyph, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
@@ -1225,7 +1226,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             label: weapon.name,
             visible: !(hiddenCauseStowed || hiddenCauseUnarmed),
             glyph: getActionGlyph(actionCost),
-            description: weapon.description,
+            description:
+                action === "area-fire"
+                    ? game.i18n.localize("PF2E.Actions.AreaFire.Description")
+                    : game.i18n.localize("PF2E.Actions.AutoFire.Description"),
             ready:
                 (weapon.isEquipped && handsAvailable) ||
                 (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && handsReallyFree > 0),
@@ -1236,6 +1240,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             item: weapon,
             statistic,
             handsAvailable,
+            traits: ["attack"].map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
             weaponTraits: weapon.system.traits.value
                 .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
                 .sort((a, b) => a.label.localeCompare(b.label)),
@@ -1721,7 +1726,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return action;
     }
 
-    getStrikeDescription(weapon: WeaponPF2e): { description: string; criticalSuccess: string; success: string } {
+    getStrikeDescription(weapon: WeaponPF2e): { description: string } {
         const flavor = {
             description: "PF2E.Strike.Default.Description",
             criticalSuccess: "PF2E.Strike.Default.CriticalSuccess",
@@ -1741,7 +1746,20 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             flavor.description = "PF2E.Strike.Ranged.Description";
             flavor.success = "PF2E.Strike.Ranged.Success";
         }
-        return flavor;
+
+        const description = [
+            createHTMLElement("p", { children: [game.i18n.localize(flavor.description)] }).outerHTML,
+            createHTMLElement("hr").outerHTML,
+            createHTMLElement("dl", {
+                children: [
+                    createHTMLElement("dt", { innerHTML: game.i18n.localize("PF2E.CritSuccess") }),
+                    createHTMLElement("dd", { children: [game.i18n.localize(flavor.criticalSuccess)] }),
+                    createHTMLElement("dt", { innerHTML: game.i18n.localize("PF2E.Success") }),
+                    createHTMLElement("dd", { children: [game.i18n.localize(flavor.success)] }),
+                ],
+            }).outerHTML,
+        ].join("");
+        return { description };
     }
 
     consumeAmmo(weapon: WeaponPF2e<CharacterPF2e>, params: RollParameters): boolean {

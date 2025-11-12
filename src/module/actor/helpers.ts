@@ -704,6 +704,10 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
         item,
         statistic,
         additionalEffects,
+        traits: [
+            ["attack"].map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
+            item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits)),
+        ].flat(),
         variants: [
             {
                 label: game.i18n.format("PF2E.ActionWithDC", {
