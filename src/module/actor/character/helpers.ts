@@ -330,6 +330,7 @@ function getAttackAmmo(
                 ...R.pick(ammo, ["id", "name", "img"]),
                 quantity: isMagazine ? ammo.system.uses.value : ammo.quantity,
                 max: isMagazine ? ammo.system.uses.max : remaining + ammo.quantity,
+                isTemporary: ammo.isTemporary,
             };
         }),
         // A repeating weapon may have reload 0, and still requires reloading

@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { applyActorGroupUpdate } from "@actor/helpers.ts";
+import { applyActorGroupUpdate, iterateAllItems } from "@actor/helpers.ts";
 import type { DatabaseDeleteOperation } from "@common/abstract/_module.d.mts";
 import { ContainerPF2e, ItemPF2e, ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e, KitSource, PhysicalItemSource } from "@item/base/data/index.ts";
@@ -8,6 +8,7 @@ import { RawCoins } from "@item/physical/data.ts";
 import { Coins, coinCompendiumIds } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
 import { DelegatedCollection, ErrorPF2e, groupBy } from "@util";
+import * as R from "remeda";
 import { InventoryBulk } from "./bulk.ts";
 
 class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<PhysicalItemPF2e<TActor>> {
@@ -224,15 +225,55 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         const specialResourceItems = Object.values(actor.synthetics.resources)
             .map((r) => r.itemUUID)
             .filter((i) => !!i);
-        const itemsToDelete = this.actor.inventory
-            .filter((i) => i.system.temporary && (!i.sourceId || !specialResourceItems.includes(i.sourceId)))
-            .map((i) => i.id);
+        return this.#massDelete(
+            [...iterateAllItems(actor)].filter(
+                (i): i is PhysicalItemPF2e<TActor> =>
+                    i.isOfType("physical") &&
+                    i.system.temporary &&
+                    (!!i.parentItem || !i.sourceId || !specialResourceItems.includes(i.sourceId)),
+            ),
+            operation,
+        );
+    }
+
+    /** A internal only helper to delete items and subitems with reduced re-rendering */
+    async #massDelete(
+        items: PhysicalItemPF2e<TActor>[],
+        operation: Partial<DatabaseDeleteOperation<TActor>> | undefined = {},
+    ): Promise<PhysicalItemPF2e<TActor>[]> {
+        const actor = this.actor;
+        const itemsToDelete = items.filter((i) => !i.parentItem).map((i) => i.id);
+        const subItemsToDelete = items.filter((i) => i.parentItem);
+        const render = operation?.render ?? true;
+        if (!itemsToDelete.length && !subItemsToDelete.length) return [];
+
+        const subItemDeleteGroups = Object.values(R.groupBy(subItemsToDelete, (s) => s.parentItem?._id ?? ""));
+        const deletedItems: PhysicalItemPF2e<TActor>[] = [];
         if (itemsToDelete.length) {
-            const deletedItems = await actor.deleteEmbeddedDocuments("Item", itemsToDelete, operation);
-            return deletedItems as PhysicalItemPF2e<TActor>[];
+            const deleted = await actor.deleteEmbeddedDocuments("Item", itemsToDelete, {
+                ...operation,
+                render: render && !subItemsToDelete.length,
+            });
+            deletedItems.push(...(deleted as PhysicalItemPF2e<TActor>[]));
         }
 
-        return [];
+        // Due to nested sub items, it is more difficult (but not impossible) to include them in the batch.
+        // Consider making a may to merge update calls more trivially somehow
+        for (const [idx, group] of subItemDeleteGroups.entries()) {
+            const parentItem = group[0].parentItem!;
+            const isLast = idx === subItemDeleteGroups.length - 1;
+            await parentItem.update(
+                {
+                    "system.subitems": parentItem._source.system.subitems?.filter(
+                        (s) => !group.some((d) => d.id === s._id),
+                    ),
+                },
+                { render: render && isLast },
+            );
+        }
+        deletedItems.push(...subItemsToDelete);
+
+        return deletedItems;
     }
 
     /** Adds one or more items to this inventory without removing from its original location. */

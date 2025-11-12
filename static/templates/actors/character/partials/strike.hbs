@@ -40,10 +40,17 @@
                 <div class="ammo">
                     {{#each action.ammunition.loaded as |ammo|}}
                         <div class="loaded {{#if (eq ammo.id ../action.ammunition.selected.id)}}selected{{/if}}" data-item-id="{{ammo.id}}">
-                            <button type="button" class="inline-control" data-action="select-ammo">
+                            <button type="button" class="inline-control" data-action="select-ammo" {{#if (eq ammo.id ../action.ammunition.selected.id)}}inert{{/if}}>
                                 <img src="{{ammo.img}}" />
                                 <span class="name">{{ammo.name}}</span>
                             </button>
+                            {{#if ammo.isTemporary}}
+                                <i
+                                    class="fa-solid fa-circle-info"
+                                    data-tooltip="PF2E.TemporaryItemToolTip"
+                                    data-tooltip-direction="RIGHT"
+                                ></i>
+                            {{/if}}
                             <span class="magazine" >
                                 <i class="icon"></i>
                                 <input
