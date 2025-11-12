@@ -482,7 +482,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             .deepClone(this._source.system.subitems)
             .filter((i) => i._id && !purgedItems.includes(i._id));
 
-        // Add to subitems, matching with a stackable item if stack is true
+        // Create attachment source data.
+        // If it is unattributed special ammo, lock in the time so removal doesn't re-prompt
         const validCarryTypes = ["attached", "installed"] as const;
         const attachmentSource = item.toObject();
         attachmentSource.system.quantity = quantity;
@@ -490,6 +491,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             carryType: validCarryTypes.find((c) => c === item.system.usage.type) ?? "attached",
             handsHeld: 0,
         };
+        if (item.isOfType("ammo") && this.isOfType("weapon") && !item.system.baseItem && item.system.craftableAs) {
+            attachmentSource.system.baseItem = this.system.ammo?.baseType ?? "arrows";
+        }
+
+        // Add to subitems, matching with a stackable item if stack is true
         const matchingId = stack ? this.subitems.contents.find((s) => s.isStackableWith(item))?.id : null;
         const matching = matchingId ? subitems.find((s) => s._id === matchingId) : null;
         if (matching) {

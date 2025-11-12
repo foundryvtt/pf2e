@@ -52,9 +52,7 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
         const weaponData = weapon.system.ammo;
 
         // If this is not ammo or the weapon doesn't take ammo, return
-        if (!this.system.baseItem || !weaponData || weaponData.builtIn) {
-            return false;
-        }
+        if (!weaponData || weaponData.builtIn) return false;
 
         const thisAmmoTypeData = this.system.baseItem ? CONFIG.PF2E.ammoTypes[this.system.baseItem] : null;
         const weaponAmmoTypeData = objectHasKey(CONFIG.PF2E.ammoTypes, weaponData.baseType)
@@ -65,6 +63,14 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
         const isMagazine = thisAmmoTypeData?.magazine || this.system.uses.max > 1;
 
         return (
+            // Unselected special ammo. The attach() function should lock in the ammo type after
+            (!this.system.baseItem &&
+                this.system.craftableAs &&
+                !isMagazine &&
+                !!weaponAmmoTypeData &&
+                (this.system.craftableAs.length === 0 ||
+                    !basicWeaponAmmoType ||
+                    tupleHasValue(this.system.craftableAs, basicWeaponAmmoType))) ||
             // Return true if it is an exact match
             this.system.baseItem === weaponData.baseType ||
             // Return true if this is a non-magazine and the weapon accepts anything
