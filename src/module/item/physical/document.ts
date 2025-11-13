@@ -535,8 +535,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
      * Detach a subitem from another physical item, either creating it as a new, independent item or incrementing the
      * quantity of an existing stack.
      */
-    async detach({ skipConfirm }: { skipConfirm?: boolean } = {}): Promise<void> {
+    async detach({
+        skipConfirm,
+        quantity = this.quantity,
+    }: { skipConfirm?: boolean; quantity?: number } = {}): Promise<void> {
         const parentItem = this.parentItem;
+        quantity = Math.clamp(quantity, 0, this.quantity);
         if (!parentItem) throw ErrorPF2e("Subitem has no parent item");
 
         const localize = localizer("PF2E.Item.Physical.Attach.Detach");
@@ -550,7 +554,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             }));
 
         if (confirmed) {
-            const deletePromise = this.delete();
+            const updateDeletePromise =
+                quantity === this.quantity
+                    ? this.delete()
+                    : this.update({ "system.quantity": this.quantity - quantity });
             const createPromise = (async (): Promise<unknown> => {
                 // Find a stack match, cloning the subitem as worn so the search won't fail due to it being equipped
                 const subitemData: PhysicalItemSource = this.toObject();
@@ -563,7 +570,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                         : null;
                 const keepId = !!parentItem.actor && !parentItem.actor.items.has(this.id);
                 return (
-                    stack?.update({ "system.quantity": stack.quantity + this.quantity }) ??
+                    stack?.update({ "system.quantity": stack.quantity + quantity }) ??
                     Item.implementation.create(
                         fu.mergeObject(subitemData, { "system.containerId": parentItem.system.containerId }),
                         { parent: parentItem.actor, keepId },
@@ -571,7 +578,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                 );
             })();
 
-            await Promise.all([deletePromise, createPromise]);
+            await Promise.all([updateDeletePromise, createPromise]);
         }
     }
 

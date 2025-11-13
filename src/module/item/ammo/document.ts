@@ -120,6 +120,9 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
                     "system.uses.value": uses.max,
                 });
             }
+        } else if (!this.system.uses.autoDestroy && this.parentItem && uses.value <= thisMany) {
+            await this.update({ "system.uses.value": this.system.uses.max }, { render: false });
+            await this.detach({ quantity: thisMany, skipConfirm: true });
         } else {
             await this.update({
                 "system.uses.value": Math.max(uses.value - thisMany, 0),
@@ -194,7 +197,8 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
         const baseItem = "baseItem" in changed.system ? changed.system.baseItem : this._source.system.baseItem;
         const data = baseItem ? CONFIG.PF2E.ammoTypes[baseItem] : null;
         if (!data?.magazine || craftableAs?.length) {
-            changed.system.uses = { value: 1, max: 1 };
+            const autoDestroy = changed.system.uses?.autoDestroy ?? this._source.system.uses.autoDestroy;
+            changed.system.uses = { value: 1, max: 1, autoDestroy };
         }
 
         if (changed.system.uses) {
