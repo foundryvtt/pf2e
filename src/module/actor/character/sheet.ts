@@ -914,11 +914,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             return item.system.traits.toggles?.update({ trait, selected: !toggle.selected });
         };
 
-        handlers["unload"] = async (_, button) => {
+        handlers["unload"] = async (event, button) => {
             const weapon = this.getAttackActionFromDOM(button)?.item;
             if (weapon) {
                 const itemId = htmlClosest(button, "[data-item-id]")?.dataset.itemId;
-                weapon.subitems.get(itemId, { strict: true }).detach();
+                weapon.subitems.get(itemId, { strict: true }).detach({ skipConfirm: event.shiftKey });
             }
         };
 

@@ -937,7 +937,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     }
 
     protected deleteItem<TItem extends ItemPF2e>(item: TItem, event?: PointerEvent): Promise<TItem | undefined> {
-        return event?.ctrlKey ? item.delete() : item.deleteDialog();
+        return event?.ctrlKey || event?.shiftKey ? item.delete() : item.deleteDialog();
     }
 
     #onClickBrowseAbilities(anchor: HTMLElement): void {
