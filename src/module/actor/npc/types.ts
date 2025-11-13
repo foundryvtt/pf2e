@@ -120,7 +120,6 @@ type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = Omit<TItem["_source"], 
             ritual: boolean;
             focus: boolean;
         };
-        weaponType?: string;
     };
     hasAura: boolean;
 };
