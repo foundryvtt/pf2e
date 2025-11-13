@@ -470,6 +470,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         { quantity = 1, stack = false }: { quantity?: number; stack?: boolean } = {},
     ): Promise<boolean> {
         if (!this._source.system.subitems) throw ErrorPF2e("This item does not accept attachments");
+        const actor = this.actor;
 
         // Get subitems, excluding those that will need to be purged this update
         // Empty ammo removal is deferred for reloading, since the ammo may still needed for rule elements to function
@@ -507,24 +508,26 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             subitems.push(attachmentSource);
         }
 
-        // Calculate new quantity for the existing item, and apply updates
+        // Calculate new quantity for the existing item, and create the update data (unused if deleted)
         const newQuantity = item.quantity - quantity;
-        const actor = this.actor;
+        const existingItemUpdate: Record<string, unknown> = { "system.quantity": newQuantity };
+        if (item.isOfType("ammo")) existingItemUpdate["system.uses.value"] = item.system.uses.max;
+
+        // Calculate new quantity for the existing item, and apply updates
         if (actor && actor.uuid === item.actor?.uuid && this.id && !this.parentItem) {
             // Do an update that minimizes updates and rerendering if its all the same actor and top level
             const updates = createActorGroupUpdate({
                 itemUpdates: [{ _id: this.id, "system.subitems": subitems }],
+                itemDeletes: newQuantity <= 0 ? [item.id] : [],
             });
-            if (newQuantity <= 0) {
-                updates.itemDeletes.push(item.id);
-            } else {
-                updates.itemUpdates.push({ _id: item.id, "system.quantity": newQuantity });
+            if (newQuantity > 0) {
+                updates.itemUpdates.push({ _id: item.id, ...existingItemUpdate });
             }
             await applyActorGroupUpdate(actor, updates);
             return true;
         } else {
             const updated = await Promise.all([
-                newQuantity <= 0 ? item.delete() : item.update({ "system.quantity": newQuantity }),
+                newQuantity <= 0 ? item.delete() : item.update(existingItemUpdate),
                 this.update({ "system.subitems": subitems }),
             ]);
             return updated.every((u) => !!u);
@@ -594,6 +597,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             this.name === item.name &&
             this.isIdentified === item.isIdentified;
         if (!preCheck) return false;
+
+        // Items with uses are intended to spill over to the next depleted.
+        // 2x quantity 3/6 magazines are actually one 6/6 magazine and one 3/6 magazine.
+        // Avoid stacking partially depleted items to avoid incorrect results
+        if (item.isOfType("ammo", "consumable") && item.system.uses.value < item.system.uses.max) {
+            return false;
+        }
 
         // Additional checks to make sure the worn state is what we want
         // These checks are skipped for sub-items or items that are in a container
