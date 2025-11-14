@@ -1,3 +1,56 @@
+## 7.7.2
+
+### System Improvements
+
+- (Supe) Add usage icons for auto fire and ranged alt usages
+- (Supe) Skip confirmation for eject ammo if shift is held
+
+### Bugfixes
+
+- (Abrault) Fix party attempting to roll inline checks meant for player characters
+- (stwlam) Add more data-type precautions for old treasure and npc attacks
+- (Supe) Add the infused trait to alchemical ammo
+- (Supe) Allow loading special ammo without a specific type
+- (Supe) Fix disabling auto destroy for non-magazine ammo
+- (Supe) Fix draw/sheathe of area weapons
+- (Supe) Fix localization of range tag in player strike
+- (Supe) Fix selectors and modifier adjustments for area and auto fire dcs
+- (Supe) Fix weapons embedded into shields
+- (Supe) Roll over magazine uses when loading partially used ammo in a stack
+- (Supe) Show area fire description instead of item description
+- (Supe) Show message when reloading during combat
+- (Supe) When deleting temporary items, also delete loaded ammo
+
+### Data Updates
+
+- (Ambrose) Add initiative note to Reflexive Stance
+- (Ambrose) Add missing action cost to Mythic Refocus and Crusader's Masquerade
+- (Ambrose) Add missing traits and descriptions to Perception Mastery
+- (Ambrose) Add scaling damage to Rouse the Forest's Fury
+- (Ambrose) Clean text on Uvuko's deity entry and Tern flock abilities
+- (Ambrose) Link Innovations article from Inventor Class Journals to Inventor Dedication and restrict Weapon Innovation Advanced Martial Profiency
+- (Ambrose) Remove self reference from Sudden Charge
+- (Ambrose) Update Push to use Shove Action Macro
+- (Dire Weasel) Add invested trait to Moonsilver Necklace
+- (Dire Weasel) Fix some `compendiumSource`s for RoE NPCs
+- (Dire Weasel) Fix Strategic Stance's success aura size
+- (Dire Weasel) Remove duplicate data in Tanagaar's description
+- (Dire Weasel) Update Control Water area description
+- (Dire Weasel) Update some NPC senses to structured data
+- (kromko) Fix some feat prerequisites
+- (kromko) Remove a link to Heroic Recovery effect from Martyr RE
+- (kromko) Remove Gecko's Grip prerequisites
+- (Rigo) Add description alterations to Fortunate Blow, Targeting Strike, Shield of Faith, and Unrivaled Analysis
+- (Rigo) Add effect for Defiant Banner, Pennant of Victory, ShieldedRecovery, Unsteadying Strike, Fortunate Blow, Spike Skin, and Targeting strike
+- (Rigo) Add frequency data to Pennant of Victory
+- (Rigo) Add modifier upgrade to Observational Analysis
+- (Rigo) Correct typo on Adamant Sentinel's Destructive Strike ability
+- (Rigo) Replace Energy Shot Choice Set with Roll Option dropdown
+- (SpartanCPA) Correct Note trigger on Rogue and Swashbuckler evasion features
+- (Supe) Migrate several incorrect uses of strike-damage selectors
+- (Tikael) Add item bonus to Greater Inflammation Flask
+- (Tikael) Fix Overwatch Field effect
+
 ## 7.7.1
 
 ### Bugfixes
