@@ -28,7 +28,7 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
 
         static override PARTS = (() => {
             const parts = super.PARTS;
-            parts["appearance"].template = "systems/pf2e/templates/scene/token/appearance.hbs";
+            parts["appearance"].template = `${SYSTEM_ROOT}/templates/scene/token/appearance.hbs`;
             return parts;
         })();
 

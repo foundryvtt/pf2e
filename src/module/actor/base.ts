@@ -148,7 +148,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         img: ImageFilePath;
         texture: { src: ImageFilePath | VideoFilePath };
     } {
-        const img: ImageFilePath = `systems/pf2e/icons/default-icons/${actorData.type}.svg`;
+        const img: ImageFilePath = `${SYSTEM_ROOT}/icons/default-icons/${actorData.type}.svg`;
         return { img, texture: { src: img } };
     }
 
@@ -1374,7 +1374,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         ) as ConditionPF2e<this>[];
 
         const canUndoDamage = !!(damageResult.totalApplied || shieldDamage || persistentCreated.length);
-        const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
+        const content = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/damage/damage-taken.hbs`, {
             breakdown,
             statements,
             persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isTruthy),
@@ -1386,7 +1386,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
         const flavor = await (async (): Promise<string | undefined> => {
             if (breakdown.length || notes.length) {
-                return fa.handlebars.renderTemplate("systems/pf2e/templates/chat/damage/damage-taken-flavor.hbs", {
+                return fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/damage/damage-taken-flavor.hbs`, {
                     breakdown,
                     notes: RollNotePF2e.notesToHTML(notes)?.outerHTML,
                 });

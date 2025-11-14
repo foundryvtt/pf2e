@@ -6,11 +6,11 @@
     <div class="outer-container">
         <div class="settings-container">
             <div class="tab active" data-group="settings" data-tab="packs">
-                {{> "systems/pf2e/templates/compendium-browser/settings/pack-settings.hbs"}}
+                {{> (resolvePath "templates/compendium-browser/settings/pack-settings.hbs")}}
             </div>
 
             <div class="tab" data-group="settings" data-tab="source">
-                {{> "systems/pf2e/templates/compendium-browser/settings/source-settings.hbs"}}
+                {{> (resolvePath "templates/compendium-browser/settings/source-settings.hbs")}}
             </div>
         </div>
         <button type="submit" class="save-settings" data-action="save-settings">{{localize "SETTINGS.Save"}}</button>

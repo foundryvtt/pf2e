@@ -1,5 +1,5 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function treatDisease(options: SkillActionOptions): void {
     const slug = options?.skill ?? "medicine";
@@ -27,7 +27,7 @@ function treatDisease(options: SkillActionOptions): void {
 
 const action = new SingleCheckAction({
     description: "PF2E.Actions.TreatDisease.Description",
-    img: "systems/pf2e/icons/effects/treat-disease.webp",
+    img: `${SYSTEM_ROOT}/icons/effects/treat-disease.webp`,
     name: "PF2E.Actions.TreatDisease.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.TreatDisease.Notes.criticalSuccess" },
@@ -40,4 +40,4 @@ const action = new SingleCheckAction({
     traits: ["downtime", "manipulate"],
 });
 
-export { treatDisease as legacy, action };
+export { action, treatDisease as legacy };

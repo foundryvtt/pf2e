@@ -13,7 +13,7 @@ export class PCSheetTabManager {
     }
 
     async initialize(): Promise<void> {
-        const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/actors/character/manage-tabs.hbs");
+        const content = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/actors/character/manage-tabs.hbs`);
         createTooltipster(this.link, {
             content,
             contentAsHTML: true,

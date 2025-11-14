@@ -7,8 +7,8 @@ import { ErrorPF2e, localizer } from "@util";
 const ITEM_UUID = "Compendium.pf2e.equipment-effects.Item.2YgXoHvJfrDHucMr";
 
 const TEMPLATES = {
-    flavor: "./systems/pf2e/templates/chat/action/flavor.hbs",
-    content: "./systems/pf2e/templates/chat/action/content.hbs",
+    flavor: `./${SYSTEM_ROOT}/templates/chat/action/flavor.hbs`,
+    content: `./${SYSTEM_ROOT}/templates/chat/action/content.hbs`,
 };
 
 /** A macro for the Raise a Shield action */

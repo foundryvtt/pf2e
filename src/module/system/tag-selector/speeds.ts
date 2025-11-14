@@ -11,7 +11,7 @@ class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
         return {
             ...super.defaultOptions,
             id: "speed-selector",
-            template: "systems/pf2e/templates/system/tag-selector/speeds.hbs",
+            template: `${SYSTEM_ROOT}/templates/system/tag-selector/speeds.hbs`,
             title: "PF2E.Actor.Speed.Plural",
         };
     }

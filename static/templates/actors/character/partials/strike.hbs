@@ -28,13 +28,13 @@
             {{#each action.altUsages as |usage index|}}
                 <div class="alt-usage" data-tooltip-direction="LEFT">
                     {{#if usage.item.isThrown}}
-                        <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/thrown.svg" data-tooltip="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
+                        <img class="alt-usage-icon" src="{{resolvePath "icons/mdi/thrown.svg"}}" data-tooltip="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
                     {{else if (eq usage.type "auto-fire")}}
-                        <img class="alt-usage-icon" src="systems/pf2e/assets/icons/striking-balls.svg" data-tooltip="{{localize "PF2E.Actions.AutoFire.Title"}}" />
+                        <img class="alt-usage-icon" src="{{resolvePath "assets/icons/striking-balls.svg"}}" data-tooltip="{{localize "PF2E.Actions.AutoFire.Title"}}" />
                     {{else if usage.item.isRanged}}
                         <i class="alt-usage-icon fa-regular fa-bullseye-arrow" inert data-tooltip="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}"></i>
                     {{else}}
-                        <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/sword.svg" data-tooltip="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
+                        <img class="alt-usage-icon" src="{{resolvePath "icons/mdi/sword.svg"}}" data-tooltip="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
                     {{/if}}
                     {{#> attackDamage usage altUsageIndex=index}}{{/attackDamage}}
                 </div>

@@ -78,7 +78,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
-            sidebarTemplate: "systems/pf2e/templates/items/physical-sidebar.hbs",
+            sidebarTemplate: `${SYSTEM_ROOT}/templates/items/physical-sidebar.hbs`,
             bulkAdjustment,
             adjustedLevelHint,
             price: {

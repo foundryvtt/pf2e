@@ -146,7 +146,7 @@
     {{#if subitems.length}}
         <ul class="items subitems">
             {{#each subitems as |subitem|}}
-                {{> "systems/pf2e/templates/actors/partials/item-line.hbs" item=subitem isSubitem=true}}
+                {{> (resolvePath "templates/actors/partials/item-line.hbs") item=subitem isSubitem=true}}
             {{/each}}
         </ul>
     {{/if}}
@@ -154,7 +154,7 @@
     {{#if (and isContainer (not item.isCollapsed))}}
         <ul class="items container-contents" data-item-list data-container-id="{{item.id}}">
             {{#each heldItems as |containedItem|}}
-                {{> "systems/pf2e/templates/actors/partials/item-line.hbs" this=containedItem}}
+                {{> (resolvePath "templates/actors/partials/item-line.hbs") this=containedItem}}
             {{/each}}
         </ul>
     {{/if}}

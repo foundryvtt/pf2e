@@ -65,7 +65,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     declare grantedBy: ItemPF2e<ActorPF2e> | null;
 
     static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
-        return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
+        return { img: `${SYSTEM_ROOT}/icons/default-icons/${itemData.type}.svg` as const };
     }
 
     /** Traits an item of this type can have */
@@ -215,7 +215,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         // Basic template rendering data
         const sluggifiedType = sluggify(this.type);
         const templateBase = ["weapon", "armor", "backpack"].includes(sluggifiedType) ? "equipment" : sluggifiedType;
-        const template = `systems/pf2e/templates/chat/${templateBase}-card.hbs`;
+        const template = `${SYSTEM_ROOT}/templates/chat/${templateBase}-card.hbs`;
         const token = this.actor.token;
         const nearestItem = htmlClosest(event?.target, ".item");
         const rollOptions = options.data ?? { ...(nearestItem?.dataset ?? {}) };
@@ -495,7 +495,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const addenda = await (async (): Promise<string[]> => {
             if (!includeAddendum || this.system.description.addenda.length === 0) return [];
 
-            const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
+            const templatePath = `${SYSTEM_ROOT}/templates/items/partials/addendum.hbs`;
             return Promise.all(
                 description.addenda.flatMap((unfiltered) => {
                     const addendum = {

@@ -1,5 +1,5 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.Perform";
 
@@ -52,7 +52,7 @@ function perform(options: { variant: PerformVariant } & SkillActionOptions): voi
 const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
-    img: "systems/pf2e/icons/conditions/dazzled.webp",
+    img: `${SYSTEM_ROOT}/icons/conditions/dazzled.webp`,
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },
@@ -120,4 +120,4 @@ const action = new SingleCheckAction({
     ],
 });
 
-export { perform as legacy, action };
+export { action, perform as legacy };

@@ -57,7 +57,7 @@ async function createDescriptionPrepend(
         return { label, baseLabel };
     })();
 
-    const templatePath = "systems/pf2e/templates/items/partials/spell-description-prepend.hbs";
+    const templatePath = `${SYSTEM_ROOT}/templates/items/partials/spell-description-prepend.hbs`;
     const formatArgs = {
         traditions,
         cast: spell.actionGlyph ? null : spell.system.time.value || null,

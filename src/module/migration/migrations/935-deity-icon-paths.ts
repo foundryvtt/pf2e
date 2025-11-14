@@ -16,13 +16,13 @@ export class Migration935DeityIconPaths extends MigrationBase {
         path: string,
         { type = null, slug = null }: { type?: string | null; slug?: string | null } = {},
     ): string {
-        if (typeof path !== "string" || !path.startsWith("systems/pf2e/icons/deity/")) return path;
+        if (typeof path !== "string" || !path.startsWith(`${SYSTEM_ROOT}/icons/deity/`)) return path;
         if (["effect", "feat"].includes(type ?? "") && slug?.match(/-(?:minor|moderate|major)-(?:boon|curse)$/)) {
             const deitySlug = slug.replace(/-(?:minor|moderate|major)-(?:boon|curse)$/, "");
-            return `systems/pf2e/icons/deities/${deitySlug}.webp`;
+            return `${SYSTEM_ROOT}/icons/deities/${deitySlug}.webp`;
         }
-        if (type === "deity" && slug) return `systems/pf2e/icons/deities/${slug}.webp`;
-        return "systems/pf2e/icons/default-icons/deity.svg";
+        if (type === "deity" && slug) return `${SYSTEM_ROOT}/icons/deities/${slug}.webp`;
+        return `${SYSTEM_ROOT}/icons/default-icons/deity.svg`;
     }
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {

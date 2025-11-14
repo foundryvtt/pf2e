@@ -23,7 +23,7 @@ class RuleElementForm<
     TSource extends RuleElementSource = RuleElementSource,
     TObject extends RuleElement | null = RuleElement | null,
 > {
-    template = "systems/pf2e/templates/items/rules/default.hbs";
+    template = `${SYSTEM_ROOT}/templates/items/rules/default.hbs`;
 
     declare sheet: ItemSheetPF2e<ItemPF2e>;
     declare index: number;
@@ -147,7 +147,7 @@ class RuleElementForm<
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     async #getFormHelpers(rule: TSource): Promise<Record<string, Function>> {
-        const partialsPath = "systems/pf2e/templates/items/rules/partials";
+        const partialsPath = `${SYSTEM_ROOT}/templates/items/rules/partials`;
         const valueTemplate = await fa.handlebars.getTemplate(`${partialsPath}/resolvable-value.hbs`);
         const dropZoneTemplate = await fa.handlebars.getTemplate(`${partialsPath}/drop-zone.hbs`);
         const getResolvableData = (property: string) => {
@@ -175,7 +175,7 @@ class RuleElementForm<
 
     async render(): Promise<string> {
         const data = await this.getData();
-        return fa.handlebars.renderTemplate("systems/pf2e/templates/items/rules/partials/outer.hbs", {
+        return fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/items/rules/partials/outer.hbs`, {
             ...data,
             template: await fa.handlebars.renderTemplate(this.template, data),
         });

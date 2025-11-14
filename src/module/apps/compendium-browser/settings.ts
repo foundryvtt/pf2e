@@ -47,7 +47,7 @@ class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.
 
     static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
         mainWindow: {
-            template: "systems/pf2e/templates/compendium-browser/settings/settings.hbs",
+            template: `${SYSTEM_ROOT}/templates/compendium-browser/settings/settings.hbs`,
             scrollable: [".settings-container"],
         },
     };

@@ -21,8 +21,8 @@ class SelectItemDialog extends appv1.api.Application {
 
     override get template(): string {
         return this.#action === "craft"
-            ? "systems/pf2e/templates/system/actions/craft-target-item.hbs"
-            : "systems/pf2e/templates/system/actions/repair/select-item-dialog.hbs";
+            ? `${SYSTEM_ROOT}/templates/system/actions/craft-target-item.hbs`
+            : `${SYSTEM_ROOT}/templates/system/actions/repair/select-item-dialog.hbs`;
     }
 
     override get title(): string {

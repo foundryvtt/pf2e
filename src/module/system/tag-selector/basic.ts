@@ -23,7 +23,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
     static override get defaultOptions(): TagSelectorOptions {
         return {
             ...super.defaultOptions,
-            template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
+            template: `${SYSTEM_ROOT}/templates/system/tag-selector/basic.hbs`,
             filters: [{ inputSelector: "input[type=search]", contentSelector: "ul", delay: 150 }],
             scrollY: ["ul"],
         };

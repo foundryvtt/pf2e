@@ -302,7 +302,7 @@ export class InlineRollLinks {
                         : statistic.check.type === "attack-roll"
                           ? "PF2E.ActionsCheck.x-attack-roll"
                           : "PF2E.ActionsCheck.x";
-                args.label = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+                args.label = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/header.hbs`, {
                     glyph: getActionGlyph(item.actionCost),
                     subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
                     title: item.name,

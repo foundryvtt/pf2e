@@ -25,7 +25,7 @@
             </header>
             <ol class="feats-list" data-foundry-list>
                 {{#each section.feats as |featSlot|}}
-                    {{> "systems/pf2e/templates/actors/character/partials/feat-slot.hbs" featSlot=featSlot featFilter=section.featFilter}}
+                    {{> (resolvePath "templates/actors/character/partials/feat-slot.hbs") featSlot=featSlot featFilter=section.featFilter}}
                 {{/each}}
             </ol>
         </section>

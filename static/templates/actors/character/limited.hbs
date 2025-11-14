@@ -1,11 +1,11 @@
 <form class="{{cssClass}} crb-style limited" autocomplete="off" data-tooltip-class="pf2e">
     <aside>
-        <img class="logo" src="systems/pf2e/assets/pathfinder_logo.webp" alt="Pathfinder Second Edition" />
+        <img class="logo" src="{{resolvePath "assets/pathfinder_logo.webp"}}" alt="Pathfinder Second Edition" />
         <div class="sidebar">
             <img class="profile-img" src="{{actor.img}}" alt="{{actor.name}}" />
             <div class="orn">
-                <img src="systems/pf2e/assets/icons/pathfinder-orn.svg" />
-                <img src="systems/pf2e/assets/icons/pathfinder-orn.svg" />
+                <img src="{{resolvePath "assets/icons/pathfinder-orn.svg"}}" />
+                <img src="{{resolvePath "assets/icons/pathfinder-orn.svg"}}" />
             </div>
         </div>
     </aside>
@@ -36,8 +36,8 @@
 
     <section class="sheet-body">
         <section class="sheet-content">
-            {{> "systems/pf2e/templates/actors/character/tabs/biography.hbs"}}
-            {{> "systems/pf2e/templates/actors/character/tabs/effects.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/biography.hbs")}}
+            {{> (resolvePath "templates/actors/character/tabs/effects.hbs")}}
         </section>
     </section>
 </form>

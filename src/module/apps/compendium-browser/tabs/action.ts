@@ -1,4 +1,5 @@
-import { getActionIcon, sluggify } from "@util";
+import { getActionIcon } from "@module/sheet/helpers.ts";
+import { sluggify } from "@util";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";

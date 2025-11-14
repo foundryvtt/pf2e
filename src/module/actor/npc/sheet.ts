@@ -158,11 +158,11 @@ class NPCSheetPF2e extends AbstractNPCSheet {
     /** Show either the actual NPC sheet or a briefened lootable version if the NPC is dead */
     override get template(): string {
         if (this.isLootSheet) {
-            return "systems/pf2e/templates/actors/npc/loot-sheet.hbs";
+            return `${SYSTEM_ROOT}/templates/actors/npc/loot-sheet.hbs`;
         } else if (this.actor.limited) {
-            return "systems/pf2e/templates/actors/limited/npc-sheet.hbs";
+            return `${SYSTEM_ROOT}/templates/actors/limited/npc-sheet.hbs`;
         }
-        return "systems/pf2e/templates/actors/npc/sheet.hbs";
+        return `${SYSTEM_ROOT}/templates/actors/npc/sheet.hbs`;
     }
 
     /** Use the token name as the title if showing a lootable NPC sheet */
@@ -482,7 +482,7 @@ class SimpleNPCSheet extends AbstractNPCSheet {
             width: 650,
             height: 420,
             scrollY: [".sheet-body"],
-            template: "systems/pf2e/templates/actors/npc/simple-sheet.hbs",
+            template: `${SYSTEM_ROOT}/templates/actors/npc/simple-sheet.hbs`,
         };
     }
 }

@@ -58,7 +58,7 @@
                     </div>
                     <div class="section-body">
                         <ol class="effects-list item-list">
-                            {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=document.conditions.active}}
+                            {{> (resolvePath "templates/actors/partials/effects.hbs") effects=document.conditions.active}}
                         </ol>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="section-body">
                         <ol class="effects-list item-list">
-                            {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=document.itemTypes.effect}}
+                            {{> (resolvePath "templates/actors/partials/effects.hbs") effects=document.itemTypes.effect}}
                         </ol>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                 data-action="adjust-condition-value"
                 data-condition="dying"
                 data-tooltip="PF2E.condition.dying.summary"
-            >{{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}</a>
+            >{{> (resolvePath "templates/actors/partials/dying-pips.hbs")}}</a>
         </div>
     </div>
     <div class="defenses-section">
@@ -234,7 +234,7 @@
     {{!-- ABILITIES --}}
     {{#if toggles.actions}}
         <div class="toggles section-container headerless">
-            {{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}
+            {{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.actions}}
         </div>
     {{/if}}
     <div class="section-container">
@@ -249,7 +249,7 @@
         <div class="section-body">
             <ol class="actions-list item-list">
                 {{#each familiarAbilities.items as |action|}}
-                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action}}
+                    {{> (resolvePath "templates/actors/npc/partials/action.hbs") action=action}}
                 {{/each}}
             </ol>
         </div>

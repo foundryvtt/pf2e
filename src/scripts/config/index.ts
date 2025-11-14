@@ -519,7 +519,7 @@ export const PF2ECONFIG = {
 
     statusEffects: {
         lastIconTheme: "default" as StatusEffectIconTheme,
-        iconDir: "systems/pf2e/icons/conditions/",
+        iconDir: `${SYSTEM_ROOT}/icons/conditions/`,
         conditions: tokenHUDConditions,
     },
 

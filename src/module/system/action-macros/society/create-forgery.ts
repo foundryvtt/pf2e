@@ -60,7 +60,7 @@ async function createForgeryCallback(
     // create forged document item
     await Item.create(
         {
-            img: "systems/pf2e/icons/equipment/adventuring-gear/scroll-case.webp",
+            img: `${SYSTEM_ROOT}/icons/equipment/adventuring-gear/scroll-case.webp`,
             name: game.i18n.localize("PF2E.Actions.CreateForgery.ForgedDocument.Name"),
             type: "equipment",
             system: {

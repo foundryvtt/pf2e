@@ -109,15 +109,22 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         })();
 
         const price = item.isOfType("physical", "kit") ? item.system.price : null;
-        const summary = await fa.handlebars.renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
-            item,
-            description: chatData.description,
-            identified: game.user.isGM || !(item.isOfType("physical") || isEffect) || item.isIdentified,
-            isCreature: item.actor?.isOfType("creature"),
-            chatData,
-            selfEffect: selfEffectLink && (await TextEditorPF2e.enrichHTML(selfEffectLink)),
-            price: !price ? null : price.per > 1 ? `${price.value.toString()} / ${price.per}` : price.value.toString(),
-        });
+        const summary = await fa.handlebars.renderTemplate(
+            `${SYSTEM_ROOT}/templates/actors/partials/item-summary.hbs`,
+            {
+                item,
+                description: chatData.description,
+                identified: game.user.isGM || !(item.isOfType("physical") || isEffect) || item.isIdentified,
+                isCreature: item.actor?.isOfType("creature"),
+                chatData,
+                selfEffect: selfEffectLink && (await TextEditorPF2e.enrichHTML(selfEffectLink)),
+                price: !price
+                    ? null
+                    : price.per > 1
+                      ? `${price.value.toString()} / ${price.per}`
+                      : price.value.toString(),
+            },
+        );
 
         container.innerHTML = summary;
 

@@ -16,7 +16,7 @@ class SpellcastingCreateAndEditDialog extends appv1.api.FormApplication<Spellcas
         return {
             ...super.defaultOptions,
             id: "spellcasting-dialog",
-            template: "systems/pf2e/templates/actors/spellcasting-dialog.hbs",
+            template: `${SYSTEM_ROOT}/templates/actors/spellcasting-dialog.hbs`,
             title: "PF2E.SpellcastingSettings.Title",
             width: 350,
             height: "auto",

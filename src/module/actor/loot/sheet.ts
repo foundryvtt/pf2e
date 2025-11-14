@@ -28,7 +28,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
     }
 
     override get template(): string {
-        return "systems/pf2e/templates/actors/loot/sheet.hbs";
+        return `${SYSTEM_ROOT}/templates/actors/loot/sheet.hbs`;
     }
 
     override async getData(): Promise<LootSheetDataPF2e<TActor>> {

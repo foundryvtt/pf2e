@@ -1,5 +1,5 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function disableDevice(options: SkillActionOptions): void {
     const slug = options?.skill ?? "thievery";
@@ -28,7 +28,7 @@ function disableDevice(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 2,
     description: "PF2E.Actions.DisableDevice.Description",
-    img: "systems/pf2e/icons/features/classes/thief.webp",
+    img: `${SYSTEM_ROOT}/icons/features/classes/thief.webp`,
     name: "PF2E.Actions.DisableDevice.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.DisableDevice.Notes.criticalSuccess" },
@@ -42,4 +42,4 @@ const action = new SingleCheckAction({
     traits: ["manipulate"],
 });
 
-export { disableDevice as legacy, action };
+export { action, disableDevice as legacy };

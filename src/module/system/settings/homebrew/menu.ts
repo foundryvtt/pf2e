@@ -54,7 +54,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     static override get defaultOptions(): appv1.api.FormApplicationOptions {
         return {
             ...super.defaultOptions,
-            template: "systems/pf2e/templates/system/settings/homebrew.hbs",
+            template: `${SYSTEM_ROOT}/templates/system/settings/homebrew.hbs`,
             width: 625,
         };
     }

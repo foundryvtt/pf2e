@@ -6,7 +6,7 @@ import { ItemAttacher } from "../item-attacher.ts";
 
 /** Extend ItemDirectory to show more information */
 export class ItemDirectoryPF2e extends fa.sidebar.tabs.ItemDirectory<ItemPF2e<null>> {
-    protected static override _entryPartial = "systems/pf2e/templates/sidebar/item-document-partial.hbs";
+    protected static override _entryPartial = `${SYSTEM_ROOT}/templates/sidebar/item-document-partial.hbs`;
 
     static override DEFAULT_OPTIONS: DeepPartial<fa.sidebar.DocumentDirectoryConfiguration> = {
         renderUpdateKeys: ["system.level.value"],

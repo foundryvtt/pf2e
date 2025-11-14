@@ -28,7 +28,7 @@ class UpdateCurrencyDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
     };
 
     static override PARTS = {
-        base: { template: "systems/pf2e/templates/actors/update-currency-dialog.hbs", root: true },
+        base: { template: `${SYSTEM_ROOT}/templates/actors/update-currency-dialog.hbs`, root: true },
     };
 
     actor: ActorPF2e;

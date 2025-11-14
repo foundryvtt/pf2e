@@ -19,7 +19,7 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
         return {
             ...super.defaultOptions,
             height: "auto",
-            template: "systems/pf2e/templates/system/tag-selector/senses.hbs",
+            template: `${SYSTEM_ROOT}/templates/system/tag-selector/senses.hbs`,
             id: "sense-selector",
             title: "PF2E.Actor.Creature.Sense.Plural",
         };

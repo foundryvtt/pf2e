@@ -150,6 +150,13 @@ export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("raw", function (this: unknown, options: Handlebars.HelperOptions): string {
         return options.fn(this);
     });
+
+    /** Resolves either a systems/pf2e or a systems/sf2e path based on system variables */
+    Handlebars.registerHelper("resolvePath", function (path: unknown): string {
+        const stringPath = String(path);
+        const pathNormalized = stringPath[0] === "/" || stringPath[0] === "\\" ? stringPath.substring(1) : stringPath;
+        return `${SYSTEM_ROOT}/${pathNormalized}`;
+    });
 }
 
 /** Used by the "pick" and "omit" helpers */

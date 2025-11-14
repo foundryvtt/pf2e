@@ -172,8 +172,8 @@ class WeaponAuxiliaryAction {
         if (!game.combat) return; // Only send out messages if in encounter mode
 
         const templates = {
-            flavor: "./systems/pf2e/templates/chat/action/flavor.hbs",
-            content: "./systems/pf2e/templates/chat/action/content.hbs",
+            flavor: `./${SYSTEM_ROOT}/templates/chat/action/flavor.hbs`,
+            content: `./${SYSTEM_ROOT}/templates/chat/action/content.hbs`,
         };
 
         const actionKey = sluggify(this.action, { camel: "bactrian" });

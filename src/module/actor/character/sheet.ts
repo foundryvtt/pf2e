@@ -32,7 +32,7 @@ import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import type { LabeledValueAndMax, ZeroToFour } from "@module/data.ts";
-import { eventToRollMode, eventToRollParams } from "@module/sheet/helpers.ts";
+import { eventToRollMode, eventToRollParams, getActionIcon } from "@module/sheet/helpers.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import type { CheckDC } from "@system/degree-of-success.ts";
@@ -40,7 +40,6 @@ import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
-    getActionIcon,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
@@ -109,7 +108,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     override get template(): string {
         const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
-        return `systems/pf2e/templates/actors/character/${template}.hbs`;
+        return `${SYSTEM_ROOT}/templates/actors/character/${template}.hbs`;
     }
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData<TActor>> {

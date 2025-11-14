@@ -209,7 +209,7 @@
                 <div class="notes-section section-container effects">
                     <h4>{{localize "PF2E.ConditionsLabel"}}</h4>
                     <ol class="effects-list">
-                        {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=document.conditions.active}}
+                        {{> (resolvePath "templates/actors/partials/effects.hbs") effects=document.conditions.active}}
                     </ol>
                 </div>
             {{/if}}
@@ -218,7 +218,7 @@
                 <div class="notes-section section-container effects">
                     <h4>{{localize "PF2E.EffectsLabel"}}</h4>
                     <ol class="effects-list">
-                        {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=document.itemTypes.effect}}
+                        {{> (resolvePath "templates/actors/partials/effects.hbs") effects=document.itemTypes.effect}}
                     </ol>
                 </div>
             {{/if}}
@@ -228,7 +228,7 @@
                 <div class="notes-section publication">
                     <h4>Publication</h4>
                     <div class="notes-text">
-                        {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.details.publication" data=data.details.publication}}
+                        {{> (resolvePath "templates/partials/publication-data.hbs") path="system.details.publication" data=data.details.publication}}
                     </div>
                 </div>
             {{/if}}

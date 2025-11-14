@@ -31,7 +31,7 @@ class IWREditor<TActor extends ActorPF2e> extends appv1.api.DocumentSheet<TActor
             ...super.defaultOptions,
             closeOnSubmit: false,
             classes: ["iwr-editor"],
-            template: "systems/pf2e/templates/actors/iwr-editor.hbs",
+            template: `${SYSTEM_ROOT}/templates/actors/iwr-editor.hbs`,
             sheetConfig: false,
             width: 500,
             height: "auto",

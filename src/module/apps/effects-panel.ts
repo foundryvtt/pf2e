@@ -38,7 +38,7 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
 
     static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
         main: {
-            template: "systems/pf2e/templates/system/effects/panel.hbs",
+            template: `${SYSTEM_ROOT}/templates/system/effects/panel.hbs`,
             scrollable: [""],
             root: true,
         },
@@ -193,7 +193,7 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
 
                 const content = createHTMLElement("div", {
                     innerHTML: await fa.handlebars.renderTemplate(
-                        "systems/pf2e/templates/system/effects/tooltip.hbs",
+                        `${SYSTEM_ROOT}/templates/system/effects/tooltip.hbs`,
                         viewData,
                     ),
                 }).firstElementChild;

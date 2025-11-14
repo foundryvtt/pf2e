@@ -44,7 +44,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     };
 
     static override PARTS: Record<string, HandlebarsTemplatePart> = {
-        base: { template: "systems/pf2e/templates/system/world-clock.hbs", root: true },
+        base: { template: `${SYSTEM_ROOT}/templates/system/world-clock.hbs`, root: true },
     };
 
     /** Is the ctrl key currently held down? */

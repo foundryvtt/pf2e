@@ -18,7 +18,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             scrollY: ["section.content"],
             width: 710,
             height: 680,
-            template: "systems/pf2e/templates/actors/hazard/sheet.hbs",
+            template: `${SYSTEM_ROOT}/templates/actors/hazard/sheet.hbs`,
         };
     }
 

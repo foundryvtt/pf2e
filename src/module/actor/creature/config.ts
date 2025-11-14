@@ -13,7 +13,7 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends appv1.api.Doc
     }
 
     override get template(): string {
-        return `systems/pf2e/templates/actors/${this.actor.type}/config.hbs`;
+        return `${SYSTEM_ROOT}/templates/actors/${this.actor.type}/config.hbs`;
     }
 
     get actor(): TActor {

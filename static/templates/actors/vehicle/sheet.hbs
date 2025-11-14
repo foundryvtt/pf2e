@@ -1,10 +1,10 @@
 <form class="{{cssClass}} crb-style" autocomplete="off" spellcheck="off" data-tooltip-class="">
     <aside>
         <div class="sidebar" data-group="dashboard" data-tab="sidebar">
-            {{> "systems/pf2e/templates/actors/vehicle/sidebar.hbs"}}
+            {{> (resolvePath "templates/actors/vehicle/sidebar.hbs")}}
         </div>
     </aside>
-    {{> "systems/pf2e/templates/actors/vehicle/vehicle-header.hbs"}}
+    {{> (resolvePath "templates/actors/vehicle/vehicle-header.hbs")}}
     <nav class="sheet-navigation" data-group="primary" data-tooltip-direction="UP">
         <span class="panel-title">{{localize "PF2E.Details"}}</span>
         <a class="item" data-tab="details" data-tooltip="PF2E.Details"><i class="fa-solid fa-dharmachakra"></i></a>
@@ -15,11 +15,11 @@
     </nav>
     <section class="sheet-body">
         <section class="sheet-content">
-            {{> "systems/pf2e/templates/actors/vehicle/tabs/details.hbs"}}
-            {{> "systems/pf2e/templates/actors/vehicle/tabs/actions.hbs"}}
-            {{> "systems/pf2e/templates/actors/vehicle/tabs/inventory.hbs"}}
-            {{> "systems/pf2e/templates/actors/vehicle/tabs/description.hbs"}}
-            {{> "systems/pf2e/templates/actors/vehicle/tabs/effects.hbs"}}
+            {{> (resolvePath "templates/actors/vehicle/tabs/details.hbs")}}
+            {{> (resolvePath "templates/actors/vehicle/tabs/actions.hbs")}}
+            {{> (resolvePath "templates/actors/vehicle/tabs/inventory.hbs")}}
+            {{> (resolvePath "templates/actors/vehicle/tabs/description.hbs")}}
+            {{> (resolvePath "templates/actors/vehicle/tabs/effects.hbs")}}
         </section>
     </section>
 </form>

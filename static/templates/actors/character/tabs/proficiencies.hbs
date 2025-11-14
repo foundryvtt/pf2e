@@ -6,7 +6,7 @@
             {{#unless skill.lore}}
                 <li data-statistic="{{skill.slug}}">
                     <a class="d20" data-action="roll-check">
-                        {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+                        {{> (resolvePath "templates/actors/character/icons/d20.hbs")}}
                     </a>
                     <a class="modifier hover" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers" data-tooltip="{{skill.breakdown}}">
                         {{numberFormat skill.value decimals=0 sign=true}}
@@ -18,10 +18,10 @@
                         data-rank="{{skill.rank}}"
                         data-dtype="Number"
                     >
-                        {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
+                        {{> (resolvePath "templates/actors/character/partials/proficiencylevels-dropdown.hbs") proflevel=skill.rank}}
                     </select>
                     {{#with skill}}
-                        {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" abpEnabled=@root.abpEnabled title=label}}
+                        {{> (resolvePath "templates/actors/partials/modifiers-tooltip.hbs") abpEnabled=@root.abpEnabled title=label}}
                     {{/with}}
                 </li>
             {{/unless}}
@@ -44,12 +44,12 @@
             {{#if skill.lore}}
                 <li class="item" data-item-id="{{skill.itemId}}" data-item-type="lore" data-statistic="{{skill.slug}}">
                     <a class="d20" data-action="roll-check" data-tooltip="{{skill.breakdown}}">
-                        {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+                        {{> (resolvePath "templates/actors/character/icons/d20.hbs")}}
                     </a>
                     <a class="modifier" data-action="roll-check">{{numberFormat skill.value decimals=0 sign=true}}</a>
                     <input class="name" data-item-id="{{skill.itemId}}" data-item-property="name" type="text" value="{{skill.label}}" />
                     <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" data-tooltip="{{skill.breakdown}}" data-rank="{{skill.rank}}">
-                        {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
+                        {{> (resolvePath "templates/actors/character/partials/proficiencylevels-dropdown.hbs") proflevel=skill.rank}}
                     </select>
                     {{#if ../editable}}
                         <div class="item-controls">
@@ -85,7 +85,7 @@
                     data-rank="{{proficiency.rank}}"
                     data-dtype="Number"
                 >
-                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=proficiency.rank}}
+                    {{> (resolvePath "templates/actors/character/partials/proficiencylevels-dropdown.hbs") proflevel=proficiency.rank}}
                 </select>
             </li>
         {{/each}}
@@ -129,7 +129,7 @@
                     <span class="name">{{classDC.label}}</span>
                     <span class="pf-rank" data-rank="{{classDC.rank}}">{{lookup @root.numberToRank classDC.rank}}</span>
                     {{#with classDC}}
-                        {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.Actor.Character.ClassDC.Label"}}
+                        {{> (resolvePath "templates/actors/partials/modifiers-tooltip.hbs") title="PF2E.Actor.Character.ClassDC.Label"}}
                     {{/with}}
                 </li>
             {{/each}}

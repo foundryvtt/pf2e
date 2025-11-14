@@ -1,9 +1,9 @@
 <form spellcheck="false" autocomplete="off" data-tooltip-class="pf2e">
     <section class="sidebar">
-        {{> "systems/pf2e/templates/actors/npc/partials/sidebar.hbs"}}
+        {{> (resolvePath "templates/actors/npc/partials/sidebar.hbs")}}
     </section>
     <div class="npc-body">
-        {{> "systems/pf2e/templates/actors/npc/partials/header.hbs"}}
+        {{> (resolvePath "templates/actors/npc/partials/header.hbs")}}
         <nav class="sheet-tabs tabs" data-group="primary">
             <a class="item" data-tab="main">{{localize "PF2E.NPC.MainTab"}}</a>
             <a class="item{{#if (not document.inventory.size)}} empty{{/if}}" data-tab="inventory">{{localize "PF2E.NPC.InventoryTab"}}</a>
@@ -12,11 +12,11 @@
             <a class="item {{#if (nor data.details.publicNotes data.details.privateNotes)}} empty{{/if}}" data-tab="notes">{{localize "PF2E.NPC.NotesTab"}}</a>
         </nav>
         <section class="sheet-body">
-            {{> "systems/pf2e/templates/actors/npc/tabs/main.hbs"}}
-            {{> "systems/pf2e/templates/actors/npc/tabs/inventory.hbs"}}
-            {{> "systems/pf2e/templates/actors/npc/tabs/spells.hbs"}}
-            {{> "systems/pf2e/templates/actors/npc/tabs/effects.hbs"}}
-            {{> "systems/pf2e/templates/actors/npc/tabs/notes.hbs"}}
+            {{> (resolvePath "templates/actors/npc/tabs/main.hbs")}}
+            {{> (resolvePath "templates/actors/npc/tabs/inventory.hbs")}}
+            {{> (resolvePath "templates/actors/npc/tabs/spells.hbs")}}
+            {{> (resolvePath "templates/actors/npc/tabs/effects.hbs")}}
+            {{> (resolvePath "templates/actors/npc/tabs/notes.hbs")}}
         </section>
     </div>
 </form>

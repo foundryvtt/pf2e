@@ -42,7 +42,7 @@ class CheckPromptDialog extends appv1.api.Application<CheckPromptDialogOptions> 
                 { navSelector: ".skill-save-navigation", contentSelector: ".check-prompt-content", initial: "skills" },
                 { navSelector: ".dc-navigation", contentSelector: ".dc-content", initial: "set-dc" },
             ],
-            template: "systems/pf2e/templates/gm/check-prompt.hbs",
+            template: `${SYSTEM_ROOT}/templates/gm/check-prompt.hbs`,
             title: game.i18n.localize("PF2E.Actor.Party.CheckPrompt.Title"),
             width: 400,
             height: "auto",

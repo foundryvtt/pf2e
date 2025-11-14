@@ -361,6 +361,7 @@ declare global {
     }
 
     const SYSTEM_ID: "pf2e" | "sf2e";
+    const SYSTEM_ROOT: `systems/${typeof SYSTEM_ID}`;
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;

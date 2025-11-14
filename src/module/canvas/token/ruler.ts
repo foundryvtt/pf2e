@@ -10,9 +10,9 @@ import * as R from "remeda";
 import type { TokenPF2e } from "./index.ts";
 
 export class TokenRulerPF2e extends foundry.canvas.placeables.tokens.TokenRuler<TokenPF2e> {
-    static override WAYPOINT_LABEL_TEMPLATE = "systems/pf2e/templates/scene/token/ruler/waypoint-label.hbs";
+    static override WAYPOINT_LABEL_TEMPLATE = `${SYSTEM_ROOT}/templates/scene/token/ruler/waypoint-label.hbs`;
 
-    static ACTION_MARKER_TEMPLATE = "systems/pf2e/templates/scene/token/ruler/action-marker.hbs";
+    static ACTION_MARKER_TEMPLATE = `${SYSTEM_ROOT}/templates/scene/token/ruler/action-marker.hbs`;
 
     static #hudContainerObserver = new MutationObserver(() => {
         TokenRulerPF2e.#counterAlign();

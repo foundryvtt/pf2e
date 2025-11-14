@@ -13,7 +13,7 @@ import * as R from "remeda";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
 
 class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
-    override template = "systems/pf2e/templates/items/rules/aura.hbs";
+    override template = `${SYSTEM_ROOT}/templates/items/rules/aura.hbs`;
 
     protected override tabs: RuleElementFormTabData = {
         names: ["basics", "effects", "appearance"],

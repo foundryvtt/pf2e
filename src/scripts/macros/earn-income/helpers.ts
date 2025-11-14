@@ -45,7 +45,7 @@ function chatTemplate(skillName: string, earnIncomeResult: EarnIncomeResult): st
     return `
     <div class="pf2e chat-card">
         <header class="card-header flexrow">
-            <img src="systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp" title="Income" width="36" height="36">
+            <img src="${SYSTEM_ROOT}/icons/equipment/treasure/currency/gold-pieces.webp" title="Income" width="36" height="36">
             <h3>Earn Income Level ${level}</h3>
         </header>
         <div class="card-content">

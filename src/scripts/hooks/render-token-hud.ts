@@ -26,7 +26,7 @@ export class RenderTokenHUD {
         if (!token?.actor?.isOfType("party")) return;
         const willRetrieve = token.actor.members.some((m) => m.getActiveTokens(true, true).length > 0);
         const img = document.createElement("img");
-        img.src = "systems/pf2e/icons/other/enter-exit.svg";
+        img.src = `${SYSTEM_ROOT}/icons/other/enter-exit.svg`;
         img.className = willRetrieve ? "retrieve" : "deposit";
         const button = createHTMLElement("button", {
             classes: ["control-icon", "clown-car"],

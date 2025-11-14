@@ -1,5 +1,5 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.ConcealAnObject";
 
@@ -30,7 +30,7 @@ const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
     difficultyClass: "perception",
-    img: "systems/pf2e/icons/conditions/hidden.webp",
+    img: `${SYSTEM_ROOT}/icons/conditions/hidden.webp`,
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
@@ -42,4 +42,4 @@ const action = new SingleCheckAction({
     traits: ["manipulate", "secret"],
 });
 
-export { concealAnObject as legacy, action };
+export { action, concealAnObject as legacy };

@@ -28,7 +28,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
         const parts = super._configureRenderParts(options);
         const footer = parts.footer;
         delete parts.footer;
-        parts.pf2e = { template: "systems/pf2e/templates/scene/pf2e-panel.hbs" };
+        parts.pf2e = { template: `${SYSTEM_ROOT}/templates/scene/pf2e-panel.hbs` };
         parts.footer = footer;
         return parts;
     }

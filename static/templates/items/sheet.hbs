@@ -108,21 +108,21 @@
                 <fieldset class="publication">
                     <legend>{{localize "PF2E.Publication.Label"}}</legend>
                     <div class="data">
-                        {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.publication" data=data.publication}}
+                        {{> (resolvePath "templates/partials/publication-data.hbs") path="system.publication" data=data.publication}}
                     </div>
                 </fieldset>
             </section>
 
             {{#if (and isPhysical user.isGM)}}
                 <!-- Mystification Details -->
-                {{> "systems/pf2e/templates/items/mystify-panel.hbs"}}
+                {{> (resolvePath "templates/items/mystify-panel.hbs")}}
             {{/if}}
 
             <!-- Rules Elements -->
             {{#if (not isVariant)}}
                 <section class="tab rules" data-tab="rules" data-tooltip-direction="UP">
                     {{!-- Use ~ so that text areas don't add further indentation --}}
-                    {{~> systems/pf2e/templates/items/rules-panel.hbs item=item}}
+                    {{~> (resolvePath "templates/items/rules-panel.hbs") item=item}}
                 </section>
             {{/if}}
         </div>

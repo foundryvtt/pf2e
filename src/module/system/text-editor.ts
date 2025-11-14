@@ -174,7 +174,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                 })();
                 const name =
                     subtitle && item?.isOfType("action", "feat") && item.actionCost
-                        ? await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+                        ? await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/header.hbs`, {
                               glyph: getActionGlyph(item.actionCost),
                               subtitle,
                               title: item.name,

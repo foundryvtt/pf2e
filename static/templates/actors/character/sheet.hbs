@@ -2,12 +2,12 @@
     <aside>
         <div class="logo"></div>
         <div class="sidebar" data-tab="sidebar">
-            {{> "systems/pf2e/templates/actors/character/partials/sidebar.hbs"}}
+            {{> (resolvePath "templates/actors/character/partials/sidebar.hbs")}}
         </div>
     </aside>
 
     {{!-- HEADER --}}
-    {{> "systems/pf2e/templates/actors/character/partials/header.hbs"}}
+    {{> (resolvePath "templates/actors/character/partials/header.hbs")}}
 
     {{!-- SHEET NAVIGATION --}}
     <nav class="sheet-navigation" data-group="primary" data-tooltip-direction="UP" role="tablist">
@@ -60,7 +60,7 @@
 
         {{!-- Pathfinder Society --}}
         <a class="item{{#unless tabVisibility.pfs}} hidden{{/unless}}" data-tab="pfs" data-tooltip="PF2E.TabPathfinderSociety" role="tab" aria-label="{{localize "PF2E.TabPathfinderSociety"}}">
-            {{> "systems/pf2e/templates/actors/character/icons/pfs.hbs"}}
+            {{> (resolvePath "templates/actors/character/icons/pfs.hbs")}}
         </a>
 
         <a class="manage-tabs" data-action="manage-tabs" data-tooltip="PF2E.TabManageTabsLabel" aria-label="{{localize "PF2E.TabManageTabsLabel"}}">
@@ -72,34 +72,34 @@
     <section class="sheet-body">
         <section class="sheet-content">
             {{!-- Character --}}
-            {{> "systems/pf2e/templates/actors/character/tabs/character.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/character.hbs")}}
 
             {{!-- Actions --}}
-            {{> "systems/pf2e/templates/actors/character/tabs/actions.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/actions.hbs")}}
 
             {{!-- Inventory --}}
-            {{> "systems/pf2e/templates/actors/character/tabs/inventory.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/inventory.hbs")}}
 
             {{!-- Spells --}}
-            {{> "systems/pf2e/templates/actors/character/tabs/spellcasting.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/spellcasting.hbs")}}
 
             {{!-- Crafting --}}
-            {{> "systems/pf2e/templates/actors/character/tabs/crafting.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/crafting.hbs")}}
 
             {{!-- Skills and Proficiencies --}}
-            {{> "systems/pf2e/templates/actors/character/tabs/proficiencies.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/proficiencies.hbs")}}
 
             {{!-- Feats and Features --}}
-            {{> "systems/pf2e/templates/actors/character/tabs/feats.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/feats.hbs")}}
 
             {{!-- Effects --}}
-            {{> "systems/pf2e/templates/actors/character/tabs/effects.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/effects.hbs")}}
 
             {{!-- Biography --}}
-            {{> "systems/pf2e/templates/actors/character/tabs/biography.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/biography.hbs")}}
 
             {{!-- Pathfinder Society --}}
-            {{> "systems/pf2e/templates/actors/character/tabs/pfs.hbs"}}
+            {{> (resolvePath "templates/actors/character/tabs/pfs.hbs")}}
         </section>
     </section>
 </form>

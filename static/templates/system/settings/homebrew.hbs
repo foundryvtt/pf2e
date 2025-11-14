@@ -74,7 +74,7 @@
     <section class="tab" data-tab="campaign">
         {{#each settings as |setting|}}
             {{#if (eq setting.tab "campaign")}}
-                {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=setting}}
+                {{> (resolvePath "templates/system/settings/basic-setting.hbs") setting=setting}}
             {{/if}}
         {{/each}}
     </section>

@@ -47,7 +47,7 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
     };
 
     static override PARTS = {
-        settings: { template: "systems/pf2e/templates/system/settings/world-clock/settings.hbs", root: true },
+        settings: { template: `${SYSTEM_ROOT}/templates/system/settings/world-clock/settings.hbs`, root: true },
         footer: { template: "templates/generic/form-footer.hbs" },
     };
 
@@ -115,7 +115,7 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
     }
 
     static async #onClickResetWorldTime(this: WorldClockSettings): Promise<void> {
-        const templatePath = "systems/pf2e/templates/system/settings/world-clock/confirm-reset.hbs";
+        const templatePath = `${SYSTEM_ROOT}/templates/system/settings/world-clock/confirm-reset.hbs`;
         const content = await fa.handlebars.renderTemplate(templatePath);
         fa.api.DialogV2.confirm({
             window: { title: "PF2E.SETTINGS.WorldClock.ResetWorldTime.Label" },

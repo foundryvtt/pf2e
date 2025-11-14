@@ -273,7 +273,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             const item = actor.items.get(itemId, { strict: true });
             const content = await fa.handlebars.renderTemplate(
-                "systems/pf2e/templates/actors/delete-spellcasting-dialog.hbs",
+                `${SYSTEM_ROOT}/templates/actors/delete-spellcasting-dialog.hbs`,
             );
 
             // Render confirmation modal dialog
@@ -299,7 +299,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
         const item = this.actor.inventory.get(itemId, { strict: true });
         const hasStowingContainers = this.actor.itemTypes.backpack.some((i) => i.system.stowing && !i.isInContainer);
-        const templatePath = "systems/pf2e/templates/actors/partials/carry-type.hbs";
+        const templatePath = `${SYSTEM_ROOT}/templates/actors/partials/carry-type.hbs`;
         const templateArgs = { item, hasStowingContainers };
         const template = await fa.handlebars.renderTemplate(templatePath, templateArgs);
         const html = createHTMLElement("ul", { innerHTML: template });

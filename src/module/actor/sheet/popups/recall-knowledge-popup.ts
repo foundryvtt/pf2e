@@ -16,7 +16,7 @@ export class RecallKnowledgePopup extends appv1.api.Application {
             id: "recall-knowledge-breakdown",
             classes: [],
             title: game.i18n.localize("PF2E.RecallKnowledge.BreakdownTitle"),
-            template: "systems/pf2e/templates/actors/recall-knowledge.hbs",
+            template: `${SYSTEM_ROOT}/templates/actors/recall-knowledge.hbs`,
             width: 600,
         };
     }

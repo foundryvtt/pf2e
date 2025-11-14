@@ -10,7 +10,7 @@ import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 /** Form handler for the flat modifier rule element */
 class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierRuleElement> {
-    override template = "systems/pf2e/templates/items/rules/flat-modifier.hbs";
+    override template = `${SYSTEM_ROOT}/templates/items/rules/flat-modifier.hbs`;
 
     get isDamage(): boolean {
         const selectors = [this.rule.selector ?? []].flat();

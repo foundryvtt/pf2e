@@ -45,7 +45,7 @@ const BATTLE_FORM_DEFAULT_ICONS: Record<string, ImageFilePath | undefined> = R.m
             case "pincer":
                 return [slug, "icons/commodities/claws/claw-pincer-pink.webp"];
             default:
-                return [slug, `systems/pf2e/icons/unarmed-attacks/${slug}.webp`];
+                return [slug, `${SYSTEM_ROOT}/icons/unarmed-attacks/${slug}.webp`];
         }
     },
 );

@@ -364,7 +364,7 @@ abstract class CreaturePF2e<
                 raised: false,
                 broken: false,
                 destroyed: false,
-                icon: "systems/pf2e/icons/actions/raise-a-shield.webp",
+                icon: `${SYSTEM_ROOT}/icons/actions/raise-a-shield.webp`,
             };
         }
 

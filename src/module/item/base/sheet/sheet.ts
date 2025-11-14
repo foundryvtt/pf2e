@@ -57,7 +57,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             ...options,
             width: 700,
             height: 460,
-            template: "systems/pf2e/templates/items/sheet.hbs",
+            template: `${SYSTEM_ROOT}/templates/items/sheet.hbs`,
             scrollY: [".tab.active", ".inventory-details", "div[data-rule-tab]"],
             tabs: [
                 {
@@ -129,9 +129,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                 type: game.i18n.localize(`TYPES.Item.${item.type}`),
             }),
             sidebarTemplate: options.hasSidebar
-                ? `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`
+                ? `${SYSTEM_ROOT}/templates/items/${sluggify(item.type)}-sidebar.hbs`
                 : null,
-            detailsTemplate: `systems/pf2e/templates/items/${sluggify(item.type)}-details.hbs`,
+            detailsTemplate: `${SYSTEM_ROOT}/templates/items/${sluggify(item.type)}-details.hbs`,
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
             document: item,
@@ -365,7 +365,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                 case "view-roll-options":
                     button.disabled = false;
                     button.addEventListener("click", async () => {
-                        const path = "systems/pf2e/templates/system/roll-options-tooltip.hbs";
+                        const path = `${SYSTEM_ROOT}/templates/system/roll-options-tooltip.hbs`;
                         const content = await fa.handlebars.renderTemplate(path, {
                             description: game.i18n.localize("PF2E.Item.Rules.Hint.RollOptions"),
                             rollOptions: R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":")),
