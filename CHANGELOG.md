@@ -41,7 +41,7 @@
 - (kromko) Remove a link to Heroic Recovery effect from Martyr RE
 - (kromko) Remove Gecko's Grip prerequisites
 - (Rigo) Add description alterations to Fortunate Blow, Targeting Strike, Shield of Faith, and Unrivaled Analysis
-- (Rigo) Add effect for Defiant Banner, Pennant of Victory, ShieldedRecovery, Unsteadying Strike, Fortunate Blow, Spike Skin, and Targeting strike
+- (Rigo) Add effect for Defiant Banner, Pennant of Victory, Shielded Recovery, Unsteadying Strike, Fortunate Blow, Spike Skin, and Targeting strike
 - (Rigo) Add frequency data to Pennant of Victory
 - (Rigo) Add modifier upgrade to Observational Analysis
 - (Rigo) Correct typo on Adamant Sentinel's Destructive Strike ability
