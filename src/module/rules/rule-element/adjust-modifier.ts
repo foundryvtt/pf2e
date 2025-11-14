@@ -148,3 +148,4 @@ interface AdjustModifierSource extends RuleElementSource {
 }
 
 export { AdjustModifierRuleElement };
+export type { AdjustModifierSource };

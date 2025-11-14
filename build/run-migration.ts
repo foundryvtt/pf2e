@@ -28,6 +28,7 @@ import { Migration949NPCRangeData } from "@module/migration/migrations/949-npc-r
 import { Migration950AmmoConsumableToAmmoAmmo } from "@module/migration/migrations/950-ammo-consumable-to-ammo-ammo.ts";
 import { Migration951TreasureCategories } from "@module/migration/migrations/951-treasure-categories.ts";
 import { Migration952AmmoTraitsAndOptions } from "@module/migration/migrations/952-ammo-traits-options.ts";
+import { Migration953NotStrikeDamage } from "@module/migration/migrations/953-not-strike-damage.ts";
 
 const { window } = new JSDOM();
 globalThis.document = window.document;
@@ -49,6 +50,7 @@ const migrations: MigrationBase[] = [
     new Migration950AmmoConsumableToAmmoAmmo(),
     new Migration951TreasureCategories(),
     new Migration952AmmoTraitsAndOptions(),
+    new Migration953NotStrikeDamage(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

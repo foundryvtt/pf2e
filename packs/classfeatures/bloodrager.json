@@ -86,36 +86,24 @@
                 "damageType": "bleed",
                 "key": "FlatModifier",
                 "predicate": [
-                    "self:effect:rage"
+                    "self:effect:rage",
+                    "item:damage:category:physical"
                 ],
-                "selector": "strike-damage",
-                "value": "ternary(gte(@actor.level,13),4,ternary(gte(@actor.level,7),2,1))"
+                "selector": [
+                    "attack-damage"
+                ],
+                "value": "ternary(gte(@actor.level,15),4,ternary(gte(@actor.level,7),2,1))"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "self:effect:rage",
-                    "item:trait:attack"
+                    "self:effect:rage"
                 ],
                 "selector": [
                     "attack-spell-damage"
                 ],
                 "slug": "blood-rage-spell",
-                "value": "ternary(gte(@actor.level,13),8,ternary(gte(@actor.level,7),4,2))"
-            },
-            {
-                "damageType": "bleed",
-                "key": "FlatModifier",
-                "predicate": [
-                    "self:effect:rage",
-                    "item:trait:attack",
-                    "item:damage:category:physical"
-                ],
-                "selector": [
-                    "attack-spell-damage"
-                ],
-                "slug": "blood-rage-spell-bleed",
-                "value": "ternary(gte(@actor.level,13),4,ternary(gte(@actor.level,7),2,1))"
+                "value": "ternary(gte(@actor.level,15),8,ternary(gte(@actor.level,7),4,2))"
             },
             {
                 "key": "Note",
