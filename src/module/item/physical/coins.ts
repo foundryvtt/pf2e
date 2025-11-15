@@ -131,10 +131,15 @@ class Coins implements RawCoins {
     }
 
     /** Creates a new price string such as "5 gp" from this object */
-    toString({ short = false, defaultDenomination = "gp", normalize = true }: CoinStringParams = {}): string {
+    toString({ short = false, denomination, normalize = true }: CoinStringParams = {}): string {
         if (SYSTEM_ID === "sf2e") {
             const value = Math.ceil(this.copperValue / 10);
             return short ? String(value) : `${value} ${game.i18n.localize("PF2E.CurrencyAbbreviations.credits")}`;
+        } else if (denomination) {
+            const divider = denomination === "cp" ? 1 : denomination === "sp" ? 10 : denomination === "gp" ? 100 : 1000;
+            const value = this.copperValue / divider;
+            const unit = game.i18n.localize(`PF2E.CurrencyAbbreviations.${denomination}`);
+            return `${value} ${unit}`;
         }
 
         // Simplify to GP if normalization is enabled
@@ -148,14 +153,14 @@ class Coins implements RawCoins {
 
         // Return 0 in the default denomination if there's nothing
         if (DENOMINATIONS.every((denomination) => !coins[denomination])) {
-            return `0 ${game.i18n.localize(`PF2E.CurrencyAbbreviations.${defaultDenomination}`)}`;
+            return `0 ${game.i18n.localize(`PF2E.CurrencyAbbreviations.gp`)}`;
         }
 
         // Display all denomations from biggest to smallest (see Adventurer's Pack)
         const parts: string[] = [];
-        for (const denomination of DENOMINATIONS) {
-            const value = coins[denomination];
-            const unit = game.i18n.localize(`PF2E.CurrencyAbbreviations.${denomination}`);
+        for (const partialDenom of DENOMINATIONS) {
+            const value = coins[partialDenom];
+            const unit = game.i18n.localize(`PF2E.CurrencyAbbreviations.${partialDenom}`);
             if (value) parts.push(`${value} ${unit}`);
         }
 
@@ -173,8 +178,8 @@ const coinCompendiumIds = {
 interface CoinStringParams {
     /** If true, indicates that space is limited. This omits displaying "credits" in sf2e */
     short?: boolean;
-    /** Sets the default denomination to display if the value is 0. No effect if SF2e. Defaults to gp */
-    defaultDenomination?: CoinDenomination;
+    /** Sets the denomination to a specific type instead of normalizing. */
+    denomination?: CoinDenomination | null;
     /** If set, normalizes currency denominations to the system's default currency. No effect if SF2e. Defaults to true */
     normalize?: boolean;
 }

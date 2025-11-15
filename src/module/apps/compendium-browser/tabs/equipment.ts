@@ -208,7 +208,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             return {
                 min: minCoins.copperValue,
                 max: maxCoins.copperValue,
-                inputMin: minCoins.toString({ short: true, defaultDenomination: "cp", normalize: false }),
+                inputMin: minCoins.toString({
+                    short: true,
+                    denomination: minCoins.copperValue === 0 ? "cp" : null, // override 0 gp with 0 cp
+                    normalize: false,
+                }),
                 inputMax: maxCoins.toString({ short: true, normalize: false }),
             };
         }
@@ -219,7 +223,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     protected override prepareFilterData(): EquipmentFilters {
         const defaultMinPrice = new Coins({ cp: 0 });
         const defaultMaxPrice = new Coins({ gp: 200000 });
-        const minPriceString = defaultMinPrice.toString({ short: true, defaultDenomination: "cp", normalize: false });
+        const minPriceString = defaultMinPrice.toString({
+            short: true,
+            denomination: defaultMinPrice.copperValue === 0 ? "cp" : null, // override 0 gp with 0 cp
+            normalize: false,
+        });
         const maxPriceString = defaultMaxPrice.toString({ short: true, normalize: false });
 
         return {
