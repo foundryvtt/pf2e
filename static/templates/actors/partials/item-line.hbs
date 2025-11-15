@@ -41,7 +41,7 @@
             </span>
         {{/if}}
         <span class="quantity">
-            {{#if (and @root.editable (not isSubitem))}}
+            {{#if (and canEditQuantity @root.editable (not isSubitem))}}
                 <a
                     class="decrease"
                     data-action="decrease-quantity"
@@ -49,7 +49,7 @@
                 >&ndash;</a>
             {{/if}}
             <span>{{item.quantity}}</span>
-            {{#if (and @root.editable (not isSubitem))}}
+            {{#if (and canEditQuantity @root.editable (not isSubitem))}}
                 <a
                     class="increase"
                     data-action="increase-quantity"

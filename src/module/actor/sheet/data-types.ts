@@ -19,6 +19,8 @@ interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
     itemSize?: ActorSizePF2e | null;
     isContainer: boolean;
     canBeEquipped: boolean;
+    /** If true, the quantity cannot be edited, and the controls should be hidden. Used for containers and cred sticks */
+    canEditQuantity: boolean;
     /** Bulk for each item is shown on an individual basis from merchant sheets */
     unitBulk: string | null;
     isInvestable: boolean;

@@ -259,6 +259,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 return isAmmo ? 3 : i.isOfType("weapon") ? 0 : isEquipment ? 1 : 2;
             }),
             canBeEquipped: !item.isStowed,
+            canEditQuantity: !(item.isOfType("backpack") && item.contents.size > 0),
             hasCharges:
                 (item.isOfType("consumable") && item.system.uses.max > 0) ||
                 (item.isOfType("ammo") && item.system.uses.max > 1),
