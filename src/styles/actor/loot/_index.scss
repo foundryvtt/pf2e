@@ -83,8 +83,11 @@
 
         .description {
             overflow: hidden;
-            :not(:has(prose-mirror[open])) {
+            .editor-content {
                 padding: var(--space-4);
+            }
+            prose-mirror.active .editor-content {
+                padding-top: 0;
             }
         }
     }
