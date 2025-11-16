@@ -151,12 +151,6 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
         for (const attackDamage of Object.values(this.damageRolls)) {
             if (attackDamage.damageType === "bleed") attackDamage.category = "persistent";
         }
-
-        // If thrown, set range data to the thrown value
-        if (this.traits.config?.thrown) {
-            const increment = this.traits.config.thrown;
-            this.range = { increment, max: null };
-        }
     }
 
     static override migrateData(source: Record<string, unknown>): Record<string, unknown> {

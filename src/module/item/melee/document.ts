@@ -116,6 +116,16 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         super._initialize(options);
     }
 
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        // If thrown, set range data to the thrown value
+        if (this.system.traits.config?.thrown) {
+            const increment = this.system.traits.config.thrown;
+            this.system.range = { increment, max: null };
+        }
+    }
+
     /** Set weapon category, group, and base if that information is available */
     override prepareSiblingData(): void {
         const linkedWeapon = this.linkedWeapon;
