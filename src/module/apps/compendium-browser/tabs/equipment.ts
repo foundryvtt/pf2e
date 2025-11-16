@@ -147,6 +147,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         });
 
         this.filterData.checkboxes.itemTypes.options = this.generateCheckboxOptions({
+            ammo: "TYPES.Item.ammo",
             weapon: "TYPES.Item.weapon",
             shield: "TYPES.Item.shield",
             armor: "TYPES.Item.armor",
