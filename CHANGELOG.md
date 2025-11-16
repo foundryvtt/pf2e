@@ -1,3 +1,21 @@
+## 7.7.3
+
+### Bugfixes
+
+- (Supe) Add ammo to compendium browser item type filters
+- (Supe) Fix display of coinage value in the inventory
+- (Supe) Fix soldier weapon specialization
+- (Supe) Fix styling of description in loot sheet
+- (Supe) Fix thrown npc attacks being detected as melee instead of ranged
+
+### Data Updates
+
+- (Ambrose) Add Shobhad Longrifle rounds
+- (Ambrose) Correct instances of mis localized apostrophe/r-squo in en.json
+- (Ambrose) Detach effect from Soaring Flight feat
+- (Ambrose) Remove Spirit Damage Dice Rule Elements from Cacodaemon
+- (kromko) Fix some feat prerequisites
+
 ## 7.7.2
 
 ### System Improvements
