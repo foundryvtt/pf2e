@@ -69,7 +69,7 @@ import type {
 } from "./data-types.ts";
 import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
-import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
+import { AddCurrencyDialog } from "./popups/add-currency-dialog.ts";
 import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
@@ -707,7 +707,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             },
             // INVENTORY
             "add-coins": () => {
-                return new AddCoinsPopup(this.actor).render(true);
+                return new AddCurrencyDialog({ actor: this.actor }).render({ force: true });
             },
             "decrease-quantity": async (event) => {
                 const item = await inventoryItemFromDOM(event);

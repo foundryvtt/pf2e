@@ -1,0 +1,12 @@
+{{#each denominations as |denomination|}}
+    {{formGroup denomination.field name=denomination.name rootId=@root.id}}
+{{/each}}
+<div class="form-group slim">
+    <label for="{{actor.uuid}}-add-coins-combine-stacks">{{localize "PF2E.AddCoinsCombineStacksLabel"}}</label>
+    <div class="form-fields">
+        <input id="{{actor.uuid}}-add-coins-combine-stacks" type="checkbox" name="combineStacks" checked />
+    </div>
+</div>
+<div class="form-footer">
+    <button type="submit"><i class="fa-regular fa-floppy-disk"></i>{{localize "PF2E.AddCoinsTitle"}}</button>
+</div>
