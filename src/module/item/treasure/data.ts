@@ -19,7 +19,7 @@ import type { CarriedUsage } from "@item/physical/usage.ts";
 import { PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import { ItemSize } from "@item/types.ts";
 import { RarityField } from "@module/model.ts";
-import { SlugField } from "@system/schema-data-fields.ts";
+import { LaxArrayField, SlugField } from "@system/schema-data-fields.ts";
 import type { TreasurePF2e } from "./document.ts";
 import { TreasureCategory } from "./types.ts";
 import { TREASURE_CATEGORIES } from "./values.ts";
@@ -119,9 +119,7 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
             }),
             temporary: new fields.BooleanField({ required: false }),
             traits: new fields.SchemaField({
-                value: new fields.ArrayField(
-                    new fields.StringField({ required: true, choices: ["precious"] } as const),
-                ),
+                value: new LaxArrayField(new fields.StringField({ required: true, choices: ["precious"] } as const)),
                 rarity: new RarityField(),
                 otherTags: new fields.ArrayField(new SlugField({ required: true, initial: undefined })),
             }),
