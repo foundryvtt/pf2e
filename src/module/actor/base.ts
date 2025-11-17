@@ -1916,7 +1916,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         userId: string,
     ): void {
         super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
-        if (this !== parent || collection !== "items") return;
+        if (this !== parent || collection !== "items" || game.user.id !== userId) return;
 
         // Ensure the items being updated are all permanent character building options.
         // These updates should not occur due to temporary changes from something like drained
