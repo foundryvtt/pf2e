@@ -1,3 +1,27 @@
+## 7.7.4
+
+### System Improvements
+
+- (Supe) Allow reloading while there is a depleted battery without having to eject first
+- (Supe) When reloading ammo, grey out and sort to bottom depleted batteries
+
+### Bugfixes
+
+- (stwlam) Fix treasure errors when using custom traits that no longer exist in the world
+- (Supe) Avoid deleting non-consumable magazines such as batteries when depleted
+- (Supe) Fix other players getting permission error notifications when updating certain items
+- (Supe) Set ammo quantity to 0 instead of deleting when multiple different types are loaded in the same weapon to prevent incorrect damage
+
+### Data Updates
+
+- (Ambrose) Correct Morlock Tinkerer's Club ranged attack traits to match Monster Core 2 update
+- (Dire Weasel) Fix some actor and item sources
+- (Dire Weasel) Remove Dismemberment Table's immunity to vitality damage
+- (Dire Weasel) Update automation for Vermlek and Animated Dragonstorm
+- (kromko) Fix Ancient Rune Dragon inline
+- (Tikael) Fix data errors from Return of the Runelords 2
+- (Tikael) Fix name of PFS actor to match source
+
 ## 7.7.3
 
 ### Bugfixes
