@@ -1,26 +1,21 @@
-<form class="loot-actor-popup" autocomplete="off" onsubmit="event.preventDefault();">
-    <div class="checkboxes">
-        <h1>{{localize "PF2E.loot.SplitCoinsPopupHeader"}}</h1>
-        {{#each actorInfo as |info|}}
-            <p>
-                <label>
-                    <input type="checkbox" name="actorIds" value="{{info.id}}" {{checked info.checked}} />
-                    <span>{{info.name}}</span>
-                </label>
-            </p>
-        {{/each}}
-        <hr />
-        <p>
-            <label class="break-coins" for="breakCoins">
-                <input type="checkbox" name="breakCoins" />
-                <span>Allow coin type conversion</span>
-            </label>
-        </p>
+<fieldset>
+    <legend>{{localize "PF2E.loot.SplitCoinsPopupHeader"}}</legend>
+    {{#each actorInfo as |info|}}
+        <label>
+            <input type="checkbox" name="actorIds" value="{{info.id}}" {{checked info.checked}} />
+            <span>{{info.name}}</span>
+        </label>
+    {{/each}}
+</fieldset>
+<div class="form-group slim">
+    <label for="{{rootId}}-breakCoins">{{localize "PF2E.loot.AllowConversion"}}</label>
+    <div class="form-fields">
+        <input type="checkbox" name="breakCoins" id="{{rootId}}-breakCoins"/>
     </div>
-    <p>
-        <button class="confirm-button" type="submit">
-            <i class="fa-regular fa-floppy-disk"></i>
-            {{localize "PF2E.loot.SplitCoinsLabel"}}
-        </button>
-    </p>
-</form>
+</div>
+<div class="form-footer">
+    <button type="submit">
+        <i class="fa-regular fa-floppy-disk"></i>
+        {{localize "PF2E.loot.SplitCoinsLabel"}}
+    </button>
+</div>

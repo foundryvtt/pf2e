@@ -5,7 +5,7 @@ import { isReallyPC } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import type { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 import { condenseSenses } from "@actor/sheet/helpers.ts";
-import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
+import { DistributeCoinsDialog } from "@actor/sheet/popups/distribute-coins-dialog.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
@@ -408,7 +408,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         htmlQuery(html, "button[data-action=distribute-coins]")?.addEventListener("click", () => {
-            new DistributeCoinsPopup(this.actor, { recipients: this.actor.members }).render(true);
+            new DistributeCoinsDialog({ actor: this.actor, recipients: this.actor.members }).render(true);
         });
 
         htmlQuery(html, "[data-action=clear-exploration]")?.addEventListener("click", async () => {
