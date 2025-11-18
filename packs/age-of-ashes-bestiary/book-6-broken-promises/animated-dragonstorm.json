@@ -14,7 +14,9 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": []
+                    "value": [
+                        "dragonstorm-strike"
+                    ]
                 },
                 "bonus": {
                     "value": 35
@@ -62,14 +64,44 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The animated dragonstorm can be targeted by disjunction and dispel magic. If targeted by such a spell of 9th rank or higher, the construct loses its resistance to acid, cold, electricity, fire, and physical damage and is slowed 1 for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The animated dragonstorm can be targeted by @UUID[Compendium.pf2e.spells-srd.Item.Disjunction] and @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]. If targeted by such a spell of 9th rank or higher, the construct loses its resistance to acid, cold, electricity, fire, and physical damage and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "vulnerable-to-dispelling",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "vulnerable-to-dispelling"
+                            }
+                        ],
+                        "type": [
+                            "acid",
+                            "cold",
+                            "electricity",
+                            "fire",
+                            "physical"
+                        ],
+                        "value": 15
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "vulnerable-to-dispelling"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -154,7 +186,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>On a critical hit, the animated dragonstorm's fist bursts with dragonstorm energy. The target takes @Damage[1d6[acid],1d6[cold],1d6[electricity],1d6[fire],1d6[poison]]{1d6 acid, 1d6 cold, 1d6 electricity, 1d6 fire, and 1d6 poison damage}.</p>"
+                    "value": "<p>On a critical hit, the animated dragonstorm's fist bursts with dragonstorm energy. The target takes 1d6 acid, 1d6 cold, 1d6 electricity, 1d6 fire, and 1d6 poison damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -249,28 +281,7 @@
                 "value": 255
             },
             "immunities": [],
-            "resistances": [
-                {
-                    "type": "acid",
-                    "value": 15
-                },
-                {
-                    "type": "cold",
-                    "value": 15
-                },
-                {
-                    "type": "electricity",
-                    "value": 15
-                },
-                {
-                    "type": "fire",
-                    "value": 15
-                },
-                {
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
+            "resistances": [],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
