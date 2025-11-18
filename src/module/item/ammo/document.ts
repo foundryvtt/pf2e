@@ -16,17 +16,24 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
         return CONFIG.PF2E.consumableTraits;
     }
 
+    get isMagazine(): boolean {
+        return this.system.uses.max > 1 || !!CONFIG.PF2E.ammoTypes[this.system.baseItem ?? "arrows"]?.magazine;
+    }
+
     get uses(): ValueAndMax {
         return R.pick(this.system.uses, ["value", "max"]);
     }
 
     override prepareBaseData(): void {
-        // Determine stack group from ammo type. This must happen first for bulk calculation to work
+        // Determine stack group from ammo type. This must happen before super for bulk calculation to work
         const ammoTypeData = this.system.baseItem ? CONFIG.PF2E.ammoTypes[this.system.baseItem] : null;
         this.system.stackGroup = ammoTypeData?.stackGroup ?? null;
 
         super.prepareBaseData();
         this.system.uses.max ||= 1;
+        if (!this.system.traits.value.includes("consumable")) {
+            this.system.uses.autoDestroy = false;
+        }
 
         // Refuse to serve rule elements if this item is ammunition and has types that perform writes
         for (const rule of this.system.rules) {

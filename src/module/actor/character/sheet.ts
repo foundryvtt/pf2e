@@ -667,10 +667,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 const item = weapon.subitems.get(itemId, { strict: true });
                 if (!item.isOfType("ammo", "weapon")) return;
 
-                const value = Number(ammoQuantity.value);
-                if (value === 0) {
+                const value = Math.max(0, Number(ammoQuantity.value));
+                if (value === 0 && !(item.isOfType("ammo") && item.isMagazine && !item.system.uses.autoDestroy)) {
                     item.delete();
-                } else if (item.isOfType("ammo") && item.system.uses.max > 1) {
+                } else if (item.isOfType("ammo") && item.isMagazine) {
                     item.update({ "system.uses.value": value });
                 } else {
                     item.update({ "system.quantity": value });
