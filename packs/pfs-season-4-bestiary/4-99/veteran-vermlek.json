@@ -353,6 +353,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "unarmed",
                         "unholy"
                     ]
                 }
@@ -556,7 +557,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The worm demon crawls into the body of an adjacent dead Medium humanoid, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity. As long as it Inhabits a Body, the worm demon loses its bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to [[/act impersonate]]{Deception} checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] the creature it is inhabiting. It cannot use this ability if it is already Inhabiting a Body.</p>"
+                    "value": "<p>The worm demon crawls into the body of an adjacent dead Medium humanoid, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity. As long as it Inhabits a Body, the worm demon loses its bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to Deception checks to [[/act impersonate options=impersonate-inhabited-creature]] the creature it is inhabiting. It cannot use this ability if it is already Inhabiting a Body.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -575,6 +576,17 @@
                             "inhabit-body"
                         ],
                         "selector": "ac",
+                        "type": "circumstance",
+                        "value": 3
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:impersonate",
+                            "impersonate-inhabited-creature",
+                            "inhabit-body"
+                        ],
+                        "selector": "deception",
                         "type": "circumstance",
                         "value": 3
                     }
@@ -603,7 +615,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[will|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
+                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[will|dc:20|options:inflicts:frightened,inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -750,11 +762,7 @@
                 "special": [
                     {
                         "base": 12,
-                        "label": "to impersonate while inhabiting a body",
-                        "predicate": [
-                            "action:impersonate",
-                            "inhabit-body"
-                        ]
+                        "label": "to Impersonate while Inhabiting a Body"
                     }
                 ]
             },

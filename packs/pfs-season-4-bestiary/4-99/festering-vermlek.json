@@ -439,6 +439,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "unarmed",
                         "unholy"
                     ]
                 }
@@ -584,7 +585,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Vermleks can't stand the sight of a good meal presented and then swiftly taken away. Whenever a dying creature within sight of the vermlek has its @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition removed, the vermlek takes @Damage[1d6[mental]] damage.</p>"
+                    "value": "<p>Vermleks can't stand the sight of a good meal presented and then swiftly taken away. Whenever a @UUID[Compendium.pf2e.conditionitems.Item.Dying] creature within sight of the vermlek has its dying condition removed, the vermlek takes @Damage[1d6[mental]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -648,7 +649,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The worm demon crawls into the body of an adjacent dead Medium humanoid, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity.</p>\n<p>As long as it Inhabits a Body, the worm demon loses its bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to [[/act impersonate]]{Deception} checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] the creature it is inhabiting. It cannot use this ability if it is already Inhabiting a Body.</p>"
+                    "value": "<p>The worm demon crawls into the body of an adjacent dead Medium humanoid, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity.</p>\n<p>As long as it Inhabits a Body, the worm demon loses its bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to Deception checks to [[/act impersonate options=impersonate-inhabited-creature]] the creature it is inhabiting. It cannot use this ability if it is already Inhabiting a Body.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -667,6 +668,17 @@
                             "inhabit-body"
                         ],
                         "selector": "ac",
+                        "type": "circumstance",
+                        "value": 3
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:impersonate",
+                            "impersonate-inhabited-creature",
+                            "inhabit-body"
+                        ],
+                        "selector": "deception",
                         "type": "circumstance",
                         "value": 3
                     }
@@ -695,7 +707,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[will|dc:16] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
+                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[will|dc:16|options:inflicts:frightened,inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -845,11 +857,7 @@
                 "special": [
                     {
                         "base": 8,
-                        "label": "to impersonate while inhabiting a body",
-                        "predicate": [
-                            "action:impersonate",
-                            "inhabit-body"
-                        ]
+                        "label": "to Impersonate while Inhabiting a Body"
                     }
                 ]
             },

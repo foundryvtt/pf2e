@@ -574,6 +574,7 @@
                     "rarity": "common",
                     "value": [
                         "agile",
+                        "unarmed",
                         "unholy"
                     ]
                 }
@@ -774,7 +775,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Vermleks cannot stand the sight of a good meal presented and then swiftly taken away. Whenever a dying creature within sight of the vermlek has its dying condition removed, the vermlek takes @Damage[1d6[mental]] damage.</p>"
+                    "value": "<p>Vermleks cannot stand the sight of a good meal presented and then swiftly taken away. Whenever a @UUID[Compendium.pf2e.conditionitems.Item.Dying] creature within sight of the vermlek has its dying condition removed, the vermlek takes @Damage[1d6[mental]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -804,7 +805,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The vermlek is Inhabiting a Centaur Body</p>\n<hr />\n<p><strong>Effect</strong> The vermlek crawls out of the body it is inhabiting, devouring much of the body's remaining flesh and regaining 15 Hit Points in the process. The corpse it leaves behind is little more than a husk.</p>"
+                    "value": "<p><strong>Requirements</strong> The vermlek is Inhabiting a Centaur Body</p>\n<hr />\n<p><strong>Effect</strong> The vermlek crawls out of the body it is inhabiting, devouring much of the body's remaining flesh and regaining @Damage[15[healing]] Hit Points in the process. The corpse it leaves behind is little more than a husk.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -846,7 +847,6 @@
                 "rules": [
                     {
                         "key": "RollOption",
-                        "label": "Inhabiting a Centaur",
                         "option": "inhabit-centaur",
                         "toggleable": true,
                         "value": true
@@ -858,6 +858,24 @@
                         ],
                         "selector": "ac",
                         "value": 3
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "inhabit-centaur"
+                        ],
+                        "selector": "land",
+                        "value": 40
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            {
+                                "not": "inhabit-centaur"
+                            }
+                        ],
+                        "selector": "burrow",
+                        "value": 15
                     }
                 ],
                 "slug": null,
@@ -871,43 +889,13 @@
             "type": "action"
         },
         {
-            "_id": "eZzf0HOBTpp6YDJa",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Speed: 40, Burrow: 0 if Inhabiting a Centaur body",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "ckd4fb3RYku1LQLz",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Trample",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -937,7 +925,7 @@
             "_id": "E8b36JtwL8igCYrm",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unsettling Movement",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -947,7 +935,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[will|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p>Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
+                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[will|dc:20|options:inflicts:frightened,inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p>Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1009,12 +997,8 @@
                 "value": 65
             },
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "burrow",
-                        "value": 15
-                    }
-                ],
+                "details": "40 feet (while Inhabiting a Centaur Body), 25 feet, burrow 15 feet (while not Inhabiting a Centaur Body)",
+                "otherSpeeds": [],
                 "value": 25
             },
             "weaknesses": [
