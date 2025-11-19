@@ -9,7 +9,7 @@ import type {
     DatabaseUpdateCallbackOptions,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
-import { AmmoPF2e, ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e, type AmmoPF2e, type ContainerPF2e } from "@item";
 import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
@@ -564,7 +564,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     async detach({
         skipConfirm,
         quantity = this.quantity,
-    }: { skipConfirm?: boolean; quantity?: number } = {}): Promise<void> {
+        keepZero = false,
+    }: { skipConfirm?: boolean; quantity?: number; keepZero?: boolean } = {}): Promise<void> {
         const parentItem = this.parentItem;
         quantity = Math.clamp(quantity, 0, this.quantity);
         if (!parentItem) throw ErrorPF2e("Subitem has no parent item");
@@ -581,9 +582,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         if (confirmed) {
             const updateDeletePromise =
-                quantity === this.quantity
+                quantity >= this.quantity && !keepZero
                     ? this.delete()
-                    : this.update({ "system.quantity": this.quantity - quantity });
+                    : this.update({ "system.quantity": Math.max(0, this.quantity - quantity) });
             const createPromise = (async (): Promise<unknown> => {
                 // Find a stack match, cloning the subitem as worn so the search won't fail due to it being equipped
                 const subitemData: PhysicalItemSource = this.toObject();
